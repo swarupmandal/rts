@@ -49,7 +49,7 @@ public class HomePageViewModel {
 		if(session!=null){
 			session.removeAttribute("userId");
 			session=null;
-			Executions.sendRedirect("/welcome.zul");
+			Executions.sendRedirect("/welcome1.zul");
 			System.out.println("--- -- - >>> >> >");
 		}
 	}

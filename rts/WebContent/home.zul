@@ -6,10 +6,8 @@
  
 
 <div sclass="container" >
-  <div sclass="outBorder" style="width: 20%; float:left; height:80vh; overflow:hidden; float:left; border:2px solid #FFF; color:#FFFFFF; margin-right:10px;" >
-    <div>
-    <label style="padding-left: 25px; font-weight: bold; font-size:20px">Menu</label>
-    </div>
+  <div sclass="outBorder" style="width: 20%; float:left; height:90vh; overflow:hidden; float:left; border:2px solid #FFF; color:#FFFFFF;" >
+    
     <tree vflex="1">
       <treechildren>
        <treeitem open="false">
@@ -177,15 +175,10 @@
       </treechildren>
      </tree>
   </div>
-  <div sclass="outBorder" style="width: 74%; float:right; height:80vh; overflow:hidden; float:left; border:2px solid #FFF; padding: 2vh 2vh;">
-    
-    <!-- <include id="inclResults" mode="instant" style="overflow: auto; "> -->
-	<!-- <div style="margin:4vh auto; width: 80%; border:2px solid #000000; padding: 2vh; min-height: 10vh;"> -->
-	<!-- Inner Page Content -->
+  
+  <div sclass="outBorder" style="width: 78%; float:right; height:90vh; overflow:hidden; float:left; border:2px solid #FFF; color:#FFFFFF; margin-right:10px;">
 	<include id="inclResults" mode="instant" style="overflow: auto; ">
-	<!-- Inner Page Content End -->
 	</include>
-	<!-- </div> -->
   </div>
 </div>
 
