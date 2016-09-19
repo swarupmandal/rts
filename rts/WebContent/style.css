@@ -112,7 +112,7 @@ a:hover {
 	margin: 1vh 2vw;
 	width: 416px;
 	height: 80px;
-	background: url('images/bb_logo.png') no-repeat; 
+	/* background: url('images/bb_logo.png') no-repeat; */ 
 }
 .headText {
 	font-family: 'Zurich LtCn BT' !important;
@@ -169,7 +169,7 @@ a:hover {
 	width: 300px;
 	height: 205px;
 	display: block;
-	background: url('images/logo_login.png') no-repeat center; 
+	/*background: url('images/logo_login.png') no-repeat center;*/ 
 }
 .bxLogin {
 	margin: 0 auto;
