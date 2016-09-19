@@ -129,40 +129,42 @@
          <treeitem>
          <treerow>
          	<treecell label="Individual client Detail" 
-         	onClick='inclResults.setSrc("/WEB-INF/view/indiviualClientDet.zul");'>
+         	onClick='inclResults.setSrc("/WEB-INF/view/individualClientDet.zul");'>
          	</treecell>
          </treerow>
          </treeitem>
          <treeitem>
          <treerow>
          	<treecell label="Individual client Summary" 
-         	onClick='inclResults.setSrc("/WEB-INF/view/indiviualClientSummary.zul");'>
+         	onClick='inclResults.setSrc("/WEB-INF/view/individualClientSummary.zul");'>
          	</treecell>
          </treerow>
          </treeitem>
          <treeitem>
          <treerow>
          	<treecell label="Individual requirement (RID) – Detail" 
-         	onClick='inclResults.setSrc("/WEB-INF/view/ptReport.zul");'>
+         	onClick='inclResults.setSrc("/WEB-INF/view/individualRequirementDetails.zul");'>
          	</treecell>
          </treerow>
          </treeitem>
          <treeitem>
          <treerow>
          	<treecell label="Individual requirement (RID) – Summary" 
-         	onClick='inclResults.setSrc("/WEB-INF/view/indiviualClientSummary.zul");'>
+         	onClick='inclResults.setSrc("/WEB-INF/view/indiviualRequirementSummary.zul");'>
          	</treecell>
          </treerow>
          </treeitem>
          <treeitem>
          <treerow>
-         	<treecell label="Resource detail per requirement download" onClick='inclResults.setSrc("/WEB-INF/view/ptReport.zul");'>
+         	<treecell label="Resource detail per requirement download" 
+         	onClick='inclResults.setSrc("/WEB-INF/view/resourceDetDownload.zul");'>
          	</treecell>
          </treerow>
          </treeitem>
          <treeitem>
          <treerow>
-         	<treecell label="Skill set wise requirement list" onClick='inclResults.setSrc("/WEB-INF/view/ptReport.zul");'>
+         	<treecell label="Skill set wise requirement list" 
+         	onClick='inclResults.setSrc("/WEB-INF/view/skillSetWizeReqList.zul");'>
          	</treecell>
          </treerow>
          </treeitem>
