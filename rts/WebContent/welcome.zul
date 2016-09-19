@@ -1,6 +1,27 @@
-<?page title="WELCOME"?>
-<window title="Hello World!!" border="normal" width="200px">
+<?page title="WELCOME" contentType="text/html;charset=UTF-8"?>
+<?link rel="stylesheet" type="text/css"	href="/style.css" ?>
+<zk>
+<style src="style.css"></style>
+<window title="" border="none" apply="org.zkoss.bind.BindComposer"
+viewModel="@id('vm') @init('org.appsquad.viewmodel.LogingViewModel')">
 
-<label value="You are using: ${desktop.webApp.version}"/>
 
+<div sclass="bgLogin">
+	<div sclass="outBorder">
+	<div sclass="bxLogin">
+		<div sclass="bb_logo2" />
+      	<html><![CDATA[
+        <h1 >L O G I N </h1>
+    ]]></html>
+        <textbox placeholder="User Name" value="@bind(vm.loginBean.userId)" height="36px" width="300px"></textbox>
+        <div height="10px" ></div>
+        <textbox placeholder="Password" value="@bind(vm.loginBean.password)" height="36px" width="300px" type="password" onOK="@command('onClickLogin')"></textbox>
+        <div height="20px" ></div>
+        <button label="Login" height="35px" width="150px" sclass="bb_button" onClick="@command('onClickLogin')"></button>
+      <div height="20px" ></div>
+      <a href="" visible="false">forgot password?</a>
+    </div>
+    </div>
+</div>
 </window>
+</zk>
