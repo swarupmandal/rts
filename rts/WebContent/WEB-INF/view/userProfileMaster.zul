@@ -1,6 +1,7 @@
-<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<?page title="User Info" contentType="text/html;charset=UTF-8"?>
 <zk>
-   <div apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('org.appsquad.viewmodel.UserprofileViewModel')">
+  <window apply="org.zkoss.bind.BindComposer" title="USER PROFILE INFORMATION" viewModel="@id('vm') @init('org.appsquad.viewmodel.UserprofileViewModel')">
+   <div>
        <tabbox>
              <tabs>
                  <tab label="New User"/>
@@ -13,7 +14,6 @@
                                <columns>
                                     <column></column>
                                     <column></column>
-                                    
                                </columns>
                                <rows>
                                     <row>
@@ -50,40 +50,40 @@
                    
                    <tabpanel>
                    	<div>
-                        <grid model="@bind(vm.userbeanlList)"  mold="paging" pageSize="10">
+                        <grid model="@bind(vm.userList)"  mold="paging" pageSize="10">
                    			<auxhead>
                               <auxheader colspan="2">
                                 <textbox placeholder=" Search by Employee Name" width="160px" onChange="@command('onChangeEmpName')"></textbox>
-                              
                    			  </auxheader>	
                    			</auxhead>
-                   			
-                   			<columns>
-                   			
-                   			
-                   			</columns>
+                   			<columns sizable="true">
+								<column label="User-Id" align="center" style="font-weight:bold;" width="120px"/>
+								<column label="User-Name" align="center" style="font-weight:bold;" width="100px"/>
+								<column label="Email" align="center" style="font-weight:bold;" width="120px"/>
+								<column label="Address" align="center" style="font-weight:bold;" width="120px"/>
+								<column label="Contact Number" align="center" style="font-weight:bold;" width="150px"/>
+								<column label="" align="center" style="font-weight:bold;" width="100px"/>
+								<column label="" align="center" style="font-weight:bold;" width="100px"/>
+						   </columns>	
                    			
                    			<rows>
                    			  <template name="model" var = "v">	
                    				<row>
-                   				 <textbox placeholder="User Name"></textbox>
-                   				 <textbox placeholder="User Id"></textbox>
-                   				 <textbox placeholder="Email"></textbox>
-                   				 <textbox placeholder="address"></textbox>
-                   				 <textbox placeholder="Contact no"></textbox>
-                   				 <button label="Edit"></button>
-                   				 <button label="Update"></button>
+                   				 <textbox placeholder="User Name" value="@bind(v.userid)" readonly="true" width="90%"></textbox>
+                   				 <textbox placeholder="User Id" value="@bind(v.username)" readonly="true" width="90%"></textbox>
+                   				 <textbox placeholder="Email" value="@bind(v.email)" readonly="true" width="90%"></textbox>
+                   				 <textbox placeholder="address" value="@bind(v.address)" readonly="true" width="90%"></textbox>
+                   				 <textbox placeholder="Contact no" value="@bind(v.contactno)" readonly="true" width="90%"></textbox>
+                   				 <button label="Update" onClick="@command('onClickUpdateButton', bean = v)"></button>
                    				 <button label="Delete"></button>
                    				</row>
                    			  </template>
                    			</rows>
-                   			
                    		</grid>	
                    	</div>
                    </tabpanel>
-                   
-                   
             </tabpanels>
        </tabbox>
    </div>
+    </window>	
 </zk>
