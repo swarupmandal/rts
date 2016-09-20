@@ -163,5 +163,59 @@ public class ClientInformationDao {
 		}
 	}
    
+	public static ArrayList<ClientInformationBean> onLoadClientDeatils(){
+		ArrayList<ClientInformationBean> clientList = new ArrayList<ClientInformationBean>();
+		Connection connection = null;
+		try {
+			connection = DbConnection.createConnection();
+			sql_connection:{
+				try {
+					
+					//1st SQL block
+					sql_fetch:{
+					   PreparedStatement preparedStatement = null;
+					   try {
+						   preparedStatement = Pstm.createQuery(connection, ClientInformationsql.fetchClientDeatils, null);
+							
+							ResultSet resultSet = preparedStatement.executeQuery();
+							while (resultSet.next()) {
+								ClientInformationBean bean = new ClientInformationBean();
+								bean.setFullName(resultSet.getString("name")+" "+resultSet.getString("surname"));
+								bean.setSurName(resultSet.getString("surname"));
+								bean.setCompanyName(resultSet.getString("companyname"));
+								bean.setAddress(resultSet.getString("officeaddress"));
+								bean.getStateBean().setStateName(resultSet.getString("state"));
+								bean.getCountryBean().setCountryName(resultSet.getString("country"));
+								bean.setPinZipCode(resultSet.getString("zipcode"));
+								bean.setContactNo(resultSet.getString("contactno"));
+								bean.setEmailId(resultSet.getString("emailid"));
+								bean.getStateBean().setStateId(resultSet.getInt("state_id"));
+								bean.getCountryBean().setCountryId(resultSet.getInt("country_id"));
+								
+								clientList.add(bean);
+							}  
+						} finally{
+							if(preparedStatement!=null){
+								preparedStatement.close();
+							}
+						}
+				    }
+				} catch (Exception e) {
+					e.printStackTrace();
+					logger.error(e);
+					logger.error(e);
+				}finally{
+					if(connection!=null){
+						connection.close();
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(e);
+			logger.error(e);
+		}
+		return clientList;
+	}
 	
 }

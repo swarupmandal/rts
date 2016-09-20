@@ -23,6 +23,7 @@ public class ClientInformationViewModel {
 	
 	private ArrayList<StateBean> stateList = new ArrayList<StateBean>();
 	private ArrayList<CountryBean> countryList = new ArrayList<CountryBean>();
+	private ArrayList<ClientInformationBean> clientDetailsList = new ArrayList<ClientInformationBean>();
 	
 	private Connection connection = null;
 	private Session sessions = null;
@@ -37,6 +38,7 @@ public class ClientInformationViewModel {
 		clientInformationBean.setUserId(userId);
 		stateList = ClientInformationDao.onLoadState();
 		countryList = ClientInformationDao.onLoadCountry();
+		clientDetailsList = ClientInformationDao.onLoadClientDeatils();
 	}
 	
 	@Command
@@ -112,5 +114,14 @@ public class ClientInformationViewModel {
 
 	public void setCountryList(ArrayList<CountryBean> countryList) {
 		this.countryList = countryList;
+	}
+
+	public ArrayList<ClientInformationBean> getClientDetailsList() {
+		return clientDetailsList;
+	}
+
+	public void setClientDetailsList(
+			ArrayList<ClientInformationBean> clientDetailsList) {
+		this.clientDetailsList = clientDetailsList;
 	}
 }

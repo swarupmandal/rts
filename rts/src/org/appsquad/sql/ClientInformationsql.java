@@ -9,5 +9,7 @@ public class ClientInformationsql {
 	public static String insertClientInfo = " INSERT INTO rts_clients_master(name,surname, companyname, officeaddress, state, "
                                            +" country, zipcode, contactno, emailid, created_by,state_id, country_id) "
                                            +" VALUES (?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?) ";
+	
+	public static String fetchClientDeatils = "select * from rts_clients_master ";
 
 }
