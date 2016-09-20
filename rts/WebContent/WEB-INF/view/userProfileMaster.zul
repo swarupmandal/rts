@@ -4,44 +4,85 @@
        <tabbox>
              <tabs>
                  <tab label="New User"/>
-                 <tab label="Existing User" onClick="@command('onClickroleExisting')"/>
+                 <tab label="Existing User"/>
              </tabs>
-            <tabpanels>
+             <tabpanels>
                    <tabpanel>
                         <div>
                            <grid>
                                <columns>
                                     <column></column>
                                     <column></column>
-                                    <column></column>
+                                    
                                </columns>
                                <rows>
-                                   <row>
-                                       <label value="Username"/>
-                                       <combobox width="" model="@bind(vm.userbeanlList)" onSelect="@command('onSelectusername')" value="@bind(vm.userprofileBean.username)" selectedItem="@bind(vm.userprofileBean)" autocomplete="true" readonly="true" >
-                                              
-                                              <template name="model" var="v">
-                                                    <comboitem label="@bind(v.username)" value="@bind(v.userid)"/>
-                                                    
-                                              </template>
-                                       </combobox>
-                                   </row>
-                                   <row>
-                                       <label value="User Role"></label>
-                                       <combobox width="" model="@bind(vm.userbeanlList)" onSelect="@command('onSelectuserrole')" value="@bind(vm.userprofileBean.role)" selectedItem="@bind(vm.userprofileBean)" autocomplete="true" readonly="true">
-                                       
-                                          <template name="model" var="v">
-                                                 <comboitem label="@bind(v.role)" value="@bind(v.rollid)"/>
-                                          </template>
-                                       </combobox>
-                                   </row>
-                               </rows>
-                           </grid>
-                        </div>
-                        <div align="center">
-                            <button label="Submit" onClick="@command('onClickuserSubmit')"/>
+                                    <row>
+                                        <label value="UserName"/>
+                                        <textbox value="@bind(vm.userprofileBean.username)"/>
+                                    </row> 
+                                    <row>
+                                       <label value="UserId"/>
+                                       <textbox value="@bind(vm.userprofileBean.userid)"/>
+                                    </row>   
+                                    <row>
+                                        <label value="Password"/>
+                                        <textbox value="@bind(vm.userprofileBean.password)" type="password"/>
+                                    </row> 
+                                    <row>
+                                        <label value="EmailId"/>
+                                        <textbox value="@bind(vm.userprofileBean.email)"/>
+                                    </row>               
+                                    <row>
+                                        <label value="Address"/>
+                                        <textbox value="@bind(vm.userprofileBean.address)"/>
+                                    </row>
+                                    <row>
+                                        <label value="ContactNo"/>
+                                        <textbox value="@bind(vm.userprofileBean.contactno)"/>
+                                    </row>
+                                    </rows>
+                                    </grid>
+                                    </div>
+                                    <div align="center">
+                            <button label="Submit" width="80px" height="30px" style="font-weight:bold" onClick="@command('onClickuserSubmit')"/>
                         </div>
                    </tabpanel>
+                   
+                   <tabpanel>
+                   	<div>
+                        <grid model="@bind(vm.userbeanlList)"  mold="paging" pageSize="10">
+                   			<auxhead>
+                              <auxheader colspan="2">
+                                <textbox placeholder=" Search by Employee Name" width="160px" onChange="@command('onChangeEmpName')"></textbox>
+                              
+                   			  </auxheader>	
+                   			</auxhead>
+                   			
+                   			<columns>
+                   			
+                   			
+                   			</columns>
+                   			
+                   			<rows>
+                   			  <template name="model" var = "v">	
+                   				<row>
+                   				 <textbox placeholder="User Name"></textbox>
+                   				 <textbox placeholder="User Id"></textbox>
+                   				 <textbox placeholder="Email"></textbox>
+                   				 <textbox placeholder="address"></textbox>
+                   				 <textbox placeholder="Contact no"></textbox>
+                   				 <button label="Edit"></button>
+                   				 <button label="Update"></button>
+                   				 <button label="Delete"></button>
+                   				</row>
+                   			  </template>
+                   			</rows>
+                   			
+                   		</grid>	
+                   	</div>
+                   </tabpanel>
+                   
+                   
             </tabpanels>
        </tabbox>
    </div>
