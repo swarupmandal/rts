@@ -7,6 +7,9 @@ public class UserprofileBean {
 	private String username;
 	private String role;
 	private Integer userid;
+	
+	
+	
 	public Integer getUserid() {
 		return userid;
 	}
@@ -49,15 +52,5 @@ public class UserprofileBean {
 
 	public void setRole(String role) {
 		this.role = role;
-	}
-
-
-	public ArrayList<UserprofileBean> getUserList() {
-		return userList;
-	}
-
-
-	public void setUserList(ArrayList<UserprofileBean> userList) {
-		this.userList = userList;
 	}
 }
