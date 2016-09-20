@@ -1,6 +1,38 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="new page title" border="normal">
-New Content Here!
-</window>
+   <div apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('org.appsquad.viewmodel.SkillsetmasterViewModel')">
+       <tabbox>
+            <tabs>
+                <tab label="New Skill"/>
+                <tab label="Existing Skills" onClick="@command('onClickexistingskillSet')"/>
+            </tabs>
+            <tabpanels>
+                 <tabpanel>
+                       <grid>
+                           <columns>
+                                <column></column>
+                                <column></column>
+                           </columns>
+                           <rows>
+                               <row>
+                                   <label value="Skill Set"></label>
+                                   <textbox value="@bind(vm.skillsetMasterbean.skillset)"></textbox>
+                               </row>
+                               <row>
+                                  <label value="Skill Set Details"/>
+                                  <textbox rows="5" value="@bind(vm.skillsetMasterbean.skillsetdetails)"></textbox>
+                               </row>
+                          </rows>
+                          
+                       </grid>
+                       <div align="center">
+                          
+                                  <button  label="Submit" onClick="@command('onClickSetskillsubmit')" style="font-weight: bold;" width="70px" height="40px"></button>
+                               
+                          
+                       </div>
+                 </tabpanel>
+            </tabpanels>
+       </tabbox>
+   </div>
 </zk>

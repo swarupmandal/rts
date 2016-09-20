@@ -11,6 +11,7 @@ public class ClientInformationBean {
 	private String pinZipCode;
 	private String contactNo;
 	private String userId;
+	private String fullName;
 	CountryBean countryBean = new CountryBean();
 	StateBean stateBean = new StateBean();
 	
@@ -87,5 +88,11 @@ public class ClientInformationBean {
 	}
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+	public String getFullName() {
+		return fullName;
+	}
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
 	}
 }
