@@ -1,6 +1,48 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="new page title" border="normal">
-New Content Here!
-</window>
+   <div apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('org.appsquad.viewmodel.UserprofileViewModel')">
+       <tabbox>
+             <tabs>
+                 <tab label="New User"/>
+                 <tab label="Existing User" onClick="@command('onClickroleExisting')"/>
+             </tabs>
+            <tabpanels>
+                   <tabpanel>
+                        <div>
+                           <grid>
+                               <columns>
+                                    <column></column>
+                                    <column></column>
+                                    <column></column>
+                               </columns>
+                               <rows>
+                                   <row>
+                                       <label value="Username"/>
+                                       <combobox width="" model="@bind(vm.userbeanlList)" onSelect="@command('onSelectusername')" value="@bind(vm.userprofileBean.username)" selectedItem="@bind(vm.userprofileBean)" autocomplete="true" readonly="true" >
+                                              
+                                              <template name="model" var="v">
+                                                    <comboitem label="@bind(v.username)" value="@bind(v.userid)"/>
+                                                    
+                                              </template>
+                                       </combobox>
+                                   </row>
+                                   <row>
+                                       <label value="User Role"></label>
+                                       <combobox width="" model="@bind(vm.userbeanlList)" onSelect="@command('onSelectuserrole')" value="@bind(vm.userprofileBean.role)" selectedItem="@bind(vm.userprofileBean)" autocomplete="true" readonly="true">
+                                       
+                                          <template name="model" var="v">
+                                                 <comboitem label="@bind(v.role)" value="@bind(v.rollid)"/>
+                                          </template>
+                                       </combobox>
+                                   </row>
+                               </rows>
+                           </grid>
+                        </div>
+                        <div align="center">
+                            <button label="Submit" onClick="@command('onClickuserSubmit')"/>
+                        </div>
+                   </tabpanel>
+            </tabpanels>
+       </tabbox>
+   </div>
 </zk>
