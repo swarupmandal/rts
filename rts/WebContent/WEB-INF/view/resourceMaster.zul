@@ -1,6 +1,6 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="RESOURCE INFORMATION" border="">
+<window title="RESOURCE INFORMATION" border="none" style="font-weight:bold">
 
   <tabbox>
 	<tabs>
@@ -69,10 +69,13 @@
 						
 						<row>
 						<label value="Upload Cv"></label>
-						<dropupload></dropupload>
-						
+						<textbox></textbox>
 						</row>
 						
+						<row>
+						<label value="Status"></label>
+						<textbox></textbox>
+						</row>
 						
 					</rows>
 				</grid>
