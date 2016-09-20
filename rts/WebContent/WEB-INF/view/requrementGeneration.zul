@@ -19,7 +19,7 @@
 					<rows>
 						<row>
 						  <label value="Client Name:" style="font-weight:bold"></label>		
-						  <combobox width="95%"></combobox>	
+						  <combobox width="50%"></combobox>	
 						</row>
 						
 						<row>
@@ -68,13 +68,13 @@
 						</row>
 						
 						<row>
-						<label value="Upload Cv"></label>
-						<textbox></textbox>
+						<label value="Requirement Status:" style="font-weight:bold"></label>
+						<combobox width="15%"></combobox>
 						</row>
 						
 						<row>
-						<label value="Status"></label>
-						<textbox></textbox>
+						<label value="Closure Reason:" style="font-weight:bold"></label>
+						<textbox rows="2"></textbox>
 						</row>
 						
 					</rows>
