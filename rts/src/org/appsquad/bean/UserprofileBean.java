@@ -5,11 +5,54 @@ import java.util.ArrayList;
 public class UserprofileBean {
 
 	private String username;
-	private String role;
+	private String password;
 	private Integer userid;
+	private String email;
+	private String address;
+	private String Contactno;
 	
 	
 	
+	public String getPassword() {
+		return password;
+	}
+
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+
+	public String getEmail() {
+		return email;
+	}
+
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+
+	public String getAddress() {
+		return address;
+	}
+
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+
+	public String getContactno() {
+		return Contactno;
+	}
+
+
+	public void setContactno(String contactno) {
+		Contactno = contactno;
+	}
+
+
 	public Integer getUserid() {
 		return userid;
 	}
@@ -20,18 +63,7 @@ public class UserprofileBean {
 	}
 
 
-	public Integer getRollid() {
-		return rollid;
-	}
-
-
-	public void setRollid(Integer rollid) {
-		this.rollid = rollid;
-	}
-
-
-	private Integer rollid;
-	
+		
 	
 
 
@@ -45,12 +77,4 @@ public class UserprofileBean {
 	}
 
 
-	public String getRole() {
-		return role;
 	}
-
-
-	public void setRole(String role) {
-		this.role = role;
-	}
-}

@@ -1,6 +1,39 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="new page title" border="normal">
-New Content Here!
-</window>
+  <window title="User Role">
+   <div apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('org.appsquad.viewmodel.RolemasterViewModel')">
+        
+        <div>
+        <grid>
+        <columns>
+            <column></column>
+            <column></column>
+            <column></column>
+            
+        </columns>
+        <rows>
+        <row>
+           <label value="Role"/>
+           <combobox model="@bind(vm.rolebeanlist)" onSelect="@command('onSelectrole')"
+            value="@bind(vm.roleMasterBean.roll)" selectedItem="@bind(vm.roleMasterBean)" autocomplete="true" readonly="true">
+                <template name="model" var="v">
+                <comboitem label="@bind(v.roll)" value="@bind(v.rollid)"/>
+                </template>
+           </combobox>
+           
+                <button label="Submit" onClick="@command('onClickroleSubmit')" width="80px" style="font-weight:bold"/>
+           </row>
+           </rows>
+           </grid>
+        </div>
+        <div>
+            <grid></grid>
+        </div>
+        <div>
+            <grid>
+                 
+            </grid>
+        </div>
+   </div>
+   </window>
 </zk>
