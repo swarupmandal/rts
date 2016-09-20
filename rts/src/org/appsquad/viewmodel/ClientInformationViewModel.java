@@ -2,6 +2,7 @@ package org.appsquad.viewmodel;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.appsquad.bean.ClientInformationBean;
 import org.appsquad.bean.CountryBean;
@@ -9,14 +10,18 @@ import org.appsquad.bean.StateBean;
 import org.appsquad.dao.ClientInformationDao;
 import org.appsquad.service.ClientInformationService;
 import org.zkoss.bind.annotation.AfterCompose;
+import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
+import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.select.Selectors;
+import org.zkoss.zul.Window;
 
 public class ClientInformationViewModel {
 	ClientInformationBean clientInformationBean = new ClientInformationBean();
@@ -41,6 +46,13 @@ public class ClientInformationViewModel {
 		clientDetailsList = ClientInformationDao.onLoadClientDeatils();
 	}
 	
+	
+	@GlobalCommand
+	@NotifyChange("*")
+	public void globalClientDetailsUpdate(){
+		clientDetailsList = ClientInformationDao.onLoadClientDeatils();
+	}
+	
 	@Command
 	@NotifyChange("*")
 	public void onClickSubmitButton(){
@@ -62,6 +74,15 @@ public class ClientInformationViewModel {
 		System.out.println("COUNTRY NAME IS :"+clientInformationBean.getCountryBean().getCountryName());
 	}
 	
+	@Command
+	@NotifyChange("*")
+	public void onClickUpdate(@BindingParam("bean") ClientInformationBean bean){
+		System.out.println("CLIENT ID IS :"+bean.getClientId());
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("clientIdDetails", bean);
+		Window window = (Window) Executions.createComponents("/WEB-INF/view/clientInformationUpdate.zul", null, map);
+		window.doModal();
+	}
 	
 	/*********************************************Getter and Setter Method ****************************************************/
 	

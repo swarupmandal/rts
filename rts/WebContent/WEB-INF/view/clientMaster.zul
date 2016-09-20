@@ -1,8 +1,7 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>    
     <window title="Client Information" border="none" height="100%" apply="org.zkoss.bind.BindComposer"
-		    viewModel="@id('vm') @init('org.appsquad.viewmodel.ClientInformationViewModel')">
-		    
+		    viewModel="@id('vm') @init('org.appsquad.viewmodel.ClientInformationViewModel')"> 
 	<tabbox>
 	    <tabs>
 		<tab>New Entry</tab>
@@ -93,7 +92,7 @@
 								<column label="Pincode" align="center" style="font-weight:bold;" width="120px"/>
 								<column label="Conatact-Number" align="center" style="font-weight:bold;" width="120px"/>
 								<column label="Eail-Id" align="center" style="font-weight:bold;" width="120px"/>
-								<column label="" align="center" style="font-weight:bold;" width="120px"/>
+								<column label="" align="center" style="font-weight:bold;" width="100px"/>
 						</columns>	
 						
 						<template name="model" var="v">
@@ -106,7 +105,7 @@
 									<textbox value="@bind(v.pinZipCode)" readonly="true" width="90%" tooltiptext="@bind(v.pinZipCode)"/>
 									<textbox value="@bind(v.contactNo)" readonly="true" width="90%" tooltiptext="@bind(v.contactNo)"/>
 									<textbox value="@bind(v.emailId)" readonly="true" width="90%" tooltiptext="@bind(v.emailId)"/>
-								    <button label="Update" width="90%" onClick="@command('onClickDelete', bean = v)"></button>
+								    <button label="Update" width="90%" onClick="@command('onClickUpdate', bean = v)"></button>
 								</row>
 							</template>
 				</grid>			
