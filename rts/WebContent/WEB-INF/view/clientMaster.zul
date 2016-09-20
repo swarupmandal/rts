@@ -1,8 +1,11 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<<<<<<< HEAD
 <zk>    
     <window title="Client Information" border="none" height="100%"
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('org.appsquad.viewmodel.ClientInformationViewModel')">
+<zk>
+<window title="CLIENT INFORMATION" border="none" height="100%" style="font-weight:bold">
 	<div>
 		<grid>
 			<columns>
