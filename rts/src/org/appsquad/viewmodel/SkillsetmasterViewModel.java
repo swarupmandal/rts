@@ -16,6 +16,7 @@ public class SkillsetmasterViewModel {
 		this.skillsetMasterbean = skillsetMasterbean;
 	}  
 	
+	
 	@Command
 	@NotifyChange("*")
 	public void onClickexistingskillSet()
