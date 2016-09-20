@@ -12,6 +12,7 @@ public class ClientInformationBean {
 	private String contactNo;
 	private String userId;
 	private String fullName;
+	private int clientId;
 	CountryBean countryBean = new CountryBean();
 	StateBean stateBean = new StateBean();
 	
@@ -91,6 +92,12 @@ public class ClientInformationBean {
 	}
 	public String getFullName() {
 		return fullName;
+	}
+	public int getClientId() {
+		return clientId;
+	}
+	public void setClientId(int clientId) {
+		this.clientId = clientId;
 	}
 	public void setFullName(String fullName) {
 		this.fullName = fullName;
