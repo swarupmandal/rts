@@ -1,11 +1,13 @@
 package org.appsquad.bean;
 
 public class SkillsetMasterbean {
-    
-	
 	private Integer id;
 	private String skillset;
 	private String skillsetdetails;
+	private String userId;
+	
+	/*******************************getter ans setter method **************************************************/
+	
 	public Integer getId() {
 		return id;
 	}
@@ -23,6 +25,12 @@ public class SkillsetMasterbean {
 	}
 	public void setSkillsetdetails(String skillsetdetails) {
 		this.skillsetdetails = skillsetdetails;
+	}
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 	
 	
