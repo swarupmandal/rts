@@ -85,30 +85,19 @@ public class LogingViewModel {
 	@Command
 	@NotifyChange("*")
 	public void onClickLogin(){
-		
-		
-		
 		if(isFieldValidate()){
-			
 			connection = DbConnection.createConnection();
 			try {
-				 
-				sql:{
-				     
-				     
-				     
+				sql:{    
 				     PreparedStatement preparedStatement = null;
 				     ResultSet resultSet = null;
-				     
 				     try {
 						preparedStatement = Pstm.createQuery(connection, LoginSql.loginQuery, 
 								Arrays.asList(loginBean.getUserId(),loginBean.getPassword()));
 						resultSet = preparedStatement.executeQuery();
-						
 						if(resultSet.next()){
 							String userId = resultSet.getString("user_id");
 							session.setAttribute("userId", userId);
-							//Executions.sendRedirect("/test.zul");
 							Executions.sendRedirect("/home.zul");
 						}else {
 							Messagebox.show("Illigal entry");
@@ -118,8 +107,7 @@ public class LogingViewModel {
 							preparedStatement.close();
 						}
 					}
-			}
-				
+			    }
 			} catch (Exception e) {
 				e.printStackTrace();
 			}finally{
@@ -127,14 +115,11 @@ public class LogingViewModel {
 					try {
 						connection.close();
 					} catch (SQLException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
-			}
-			
+			}	
 		}
-		
 	}
 
 	

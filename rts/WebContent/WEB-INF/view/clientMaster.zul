@@ -1,7 +1,8 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
-<zk>
-<window title="Client Information" border="none" height="100%">
-
+<zk>    
+    <window title="Client Information" border="none" height="100%"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('org.appsquad.viewmodel.ClientInformationViewModel')">
 	<div>
 		<grid>
 			<columns>
@@ -11,55 +12,64 @@
 			<rows>
 				<row>
 				  <label value="Name:" style="font-weight:bold"></label>		
-				  <textbox width="95%"></textbox>	
+				  <textbox width="95%" value="@bind(vm.clientInformationBean.name)"></textbox>	
 				</row>
 				
 				<row>
 				  <label value="Surname:" style="font-weight:bold"></label>		
-				  <textbox width="95%"></textbox>	
+				  <textbox width="95%" value="@bind(vm.clientInformationBean.surName)"></textbox>	
 				</row>
 				
 				<row>
 				  <label value="Company Name:" style="font-weight:bold"></label>		
-				  <textbox width="95%"></textbox>	
+				  <textbox width="95%" value="@bind(vm.clientInformationBean.companyName)"></textbox>	
 				</row>
 				
 				<row>
 				  <label value="Office Address:" style="font-weight:bold"></label>		
-				  <textbox width="95%"></textbox>	
+				  <textbox width="95%" value="@bind(vm.clientInformationBean.address)"></textbox>	
 				</row>
 				
 				<row>
 				  <label value="State:" style="font-weight:bold"></label>		
-				  <combobox width="20%"></combobox>	
+				  <combobox model="@bind(vm.stateList)" selectedItem="@bind(vm.clientInformationBean.stateBean)" readonly="true"
+	             		value="@bind(vm.clientInformationBean.stateBean.stateName)" width="20%" onSelect="@command('onSelectStateName')">
+	             		<template name="model" var="s">
+	             			<comboitem value="@bind(s.stateName)" label="@bind(s.stateName)"/>
+	             		</template>
+	             	</combobox>	
 				</row>
 				
 				<row>
 				  <label value="Country:" style="font-weight:bold"></label>		
-				  <combobox width="20%"></combobox>	
+				  <combobox model="@bind(vm.countryList)" selectedItem="@bind(vm.clientInformationBean.countryBean)" readonly="true"
+	             		value="@bind(vm.clientInformationBean.countryBean.countryName)" width="20%" onSelect="@command('onSelectCountryName')">
+	             		<template name="model" var="p">
+	             			<comboitem value="@bind(p.countryName)" label="@bind(p.countryName)"/>
+	             		</template>
+	             	</combobox>	
 				</row>
 				
 				<row>
 				  <label value="Pin/Zip code:" style="font-weight:bold"></label>		
-				  <textbox width="20%"></textbox>	
+				  <textbox width="20%" value="@bind(vm.clientInformationBean.pinZipCode)"></textbox>	
 				</row>
 				
 				<row>
 				  <label value="Contact no:" style="font-weight:bold"></label>		
-				  <textbox width="20%"></textbox>	
+				  <textbox width="20%" value="@bind(vm.clientInformationBean.contactNo)"></textbox>	
 				</row>
 				
 				<row>
 				  <label value="Email Id:" style="font-weight:bold"></label>		
-				  <textbox width="95%"></textbox>	
+				  <textbox width="95%" value="@bind(vm.clientInformationBean.emailId)"></textbox>	
 				</row>
-				
 			</rows>
 		</grid>
 	</div>
 	<space></space>
 	<div align="center">
-		<button width="80px" height="30px" label="Submit" style="font-weight: bold"></button>
+		<button width="80px" height="30px" label="Submit" style="font-weight: bold" onClick="@command('onClickSubmitButton')"></button>
 	
 	</div>
 
