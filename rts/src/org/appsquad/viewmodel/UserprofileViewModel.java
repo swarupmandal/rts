@@ -17,7 +17,20 @@ public class UserprofileViewModel {
 	Session session = null;
 
 	UserprofileBean userprofileBean=new UserprofileBean();
+	
 	ArrayList<UserprofileBean> userbeanlList= new ArrayList<UserprofileBean>();
+	
+	
+	public Session getSession() {
+		return session;
+	}
+
+
+	public void setSession(Session session) {
+		this.session = session;
+	}
+
+
 	@AfterCompose
 	public void initSetUp(@ContextParam(ContextType.VIEW) Component view)
 			throws Exception {

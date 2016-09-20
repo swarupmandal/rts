@@ -4,9 +4,9 @@
        <tabbox>
              <tabs>
                  <tab label="New User"/>
-                 <tab label="Existing User" onClick="@command('onClickroleExisting')"/>
+                 <tab label="Existing User"/>
              </tabs>
-            <tabpanels>
+             <tabpanels>
                    <tabpanel>
                         <div>
                            <grid>
@@ -47,6 +47,42 @@
                             <button label="Submit" width="80px" height="30px" style="font-weight:bold" onClick="@command('onClickuserSubmit')"/>
                         </div>
                    </tabpanel>
+                   
+                   <tabpanel>
+                   	<div>
+                        <grid model="@bind(vm.userbeanlList)"  mold="paging" pageSize="10">
+                   			<auxhead>
+                              <auxheader colspan="2">
+                                <textbox placeholder=" Search by Employee Name" width="160px" onChange="@command('onChangeEmpName')"></textbox>
+                              
+                   			  </auxheader>	
+                   			</auxhead>
+                   			
+                   			<columns>
+                   			
+                   			
+                   			</columns>
+                   			
+                   			<rows>
+                   			  <template name="model" var = "v">	
+                   				<row>
+                   				 <textbox placeholder="User Name"></textbox>
+                   				 <textbox placeholder="User Id"></textbox>
+                   				 <textbox placeholder="Email"></textbox>
+                   				 <textbox placeholder="address"></textbox>
+                   				 <textbox placeholder="Contact no"></textbox>
+                   				 <button label="Edit"></button>
+                   				 <button label="Update"></button>
+                   				 <button label="Delete"></button>
+                   				</row>
+                   			  </template>
+                   			</rows>
+                   			
+                   		</grid>	
+                   	</div>
+                   </tabpanel>
+                   
+                   
             </tabpanels>
        </tabbox>
    </div>
