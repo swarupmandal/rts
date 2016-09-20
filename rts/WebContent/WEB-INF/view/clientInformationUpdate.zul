@@ -1,0 +1,70 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="Client Information" border="none" height="100%" apply="org.zkoss.bind.BindComposer"
+		    viewModel="@id('vm') @init('org.appsquad.viewmodel.ClientInformationUpdateViewModel')" closable="true"
+		     id="winClientDeatilsUpdate">
+    <div>
+			<grid>
+				<columns>
+					<column width="20%"></column>
+					<column width="70%"></column>
+				</columns>
+				<rows>
+					<row>
+					  <label value="Name:" style="font-weight:bold"></label>		
+					  <textbox width="95%" value="@bind(vm.informationBean.fullName)"></textbox>	
+					</row>
+					
+					<row>
+					  <label value="Company Name:" style="font-weight:bold"></label>		
+					  <textbox width="95%" value="@bind(vm.informationBean.companyName)"></textbox>	
+					</row>
+					
+					<row>
+					  <label value="Office Address:" style="font-weight:bold"></label>		
+					  <textbox width="95%" value="@bind(vm.informationBean.address)"></textbox>	
+					</row>
+					
+					<row>
+					  <label value="State:" style="font-weight:bold"></label>		
+					  <combobox model="@bind(vm.stateList)" selectedItem="@bind(vm.informationBean.stateBean)" readonly="true"
+		             		value="@bind(vm.informationBean.stateBean.stateName)" width="20%" onSelect="@command('onSelectStateName')">
+		             		<template name="model" var="s">
+		             			<comboitem value="@bind(s.stateName)" label="@bind(s.stateName)"/>
+		             		</template>
+		             	</combobox>	
+					</row>
+					
+					<row>
+					  <label value="Country:" style="font-weight:bold"></label>		
+					  <combobox model="@bind(vm.countryList)" selectedItem="@bind(vm.informationBean.countryBean)" readonly="true"
+		             		value="@bind(vm.informationBean.countryBean.countryName)" width="20%" onSelect="@command('onSelectCountryName')">
+		             		<template name="model" var="p">
+		             			<comboitem value="@bind(p.countryName)" label="@bind(p.countryName)"/>
+		             		</template>
+		             	</combobox>	
+					</row>
+					
+					<row>
+					  <label value="Pin/Zip code:" style="font-weight:bold"></label>		
+					  <textbox width="20%" value="@bind(vm.informationBean.pinZipCode)"></textbox>	
+					</row>
+					
+					<row>
+					  <label value="Contact no:" style="font-weight:bold"></label>		
+					  <textbox width="20%" value="@bind(vm.informationBean.contactNo)"></textbox>	
+					</row>
+					
+					<row>
+					  <label value="Email Id:" style="font-weight:bold"></label>		
+					  <textbox width="95%" value="@bind(vm.informationBean.emailId)"></textbox>	
+					</row>
+				</rows>
+			    </grid>
+			</div>
+			<space></space>
+			<div align="center">
+				<button width="80px" height="30px" label="Update" style="font-weight: bold" onClick="@command('onClickUpdateButton')"></button>
+			</div>
+</window>
+</zk>
