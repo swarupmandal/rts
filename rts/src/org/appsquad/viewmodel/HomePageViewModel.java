@@ -35,7 +35,7 @@ public class HomePageViewModel {
 		userId = (String) session.getAttribute("userId");
 		
 		if(userId==null){
-			Executions.sendRedirect("/welcome.zul");
+			Executions.sendRedirect("/welcome1.zul");
 		}else{
 			userId = "welcome "+userId;
 			

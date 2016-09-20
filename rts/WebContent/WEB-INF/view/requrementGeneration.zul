@@ -1,6 +1,7 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="REQUIREMENT GENERATION" border="none">
+<window title="REQUIREMENT GENERATION" border="none" apply="org.zkoss.bind.BindComposer"
+            viewModel="@id('vm') @init('org.appsquad.viewmodel.RequirementGenerationViewModel')">
 
 	<tabbox>
 		<tabs>
@@ -19,7 +20,12 @@
 					<rows>
 						<row>
 						  <label value="Client Name:" style="font-weight:bold"></label>		
-						  <combobox width="95%"></combobox>	
+						  <combobox width="50%" model="@bind(vm.clientNameBeanList)" autocomplete="true" autodrop="true" value="@bind(vm.reqGenBean.clientName)"
+						    selectedItem="@bind(vm.clientInfoBean)" >
+						  	<template name="model" var = "v">
+						  		<comboitem label="@bind()"></comboitem>
+						  	</template>
+						  </combobox>	
 						</row>
 						
 						<row>
@@ -68,13 +74,13 @@
 						</row>
 						
 						<row>
-						<label value="Upload Cv"></label>
-						<textbox></textbox>
+						<label value="Requirement Status:" style="font-weight:bold"></label>
+						<combobox width="15%"></combobox>
 						</row>
 						
 						<row>
-						<label value="Status"></label>
-						<textbox></textbox>
+						<label value="Closure Reason:" style="font-weight:bold"></label>
+						<textbox rows="2"></textbox>
 						</row>
 						
 					</rows>
