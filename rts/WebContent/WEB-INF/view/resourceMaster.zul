@@ -1,6 +1,98 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="new page title" border="normal">
-New Content Here!
+<window title="RESOURCE INFORMATION" border="">
+
+  <tabbox>
+	<tabs>
+		<tab>New Entry</tab>
+		<tab>Existing Data</tab>
+	</tabs>
+
+	<tabpanels>
+		<tabpanel>
+				<div>
+					<grid>
+					<columns>
+						<column width="20%"></column>
+						<column width="70%"></column>
+					</columns>
+					<rows>
+						<row>
+						  <label value="Name:" style="font-weight:bold"></label>		
+						  <textbox width="95%"></textbox>	
+						</row>
+						
+						<row>
+						  <label value="Surname:" style="font-weight:bold"></label>		
+						  <textbox width="95%"></textbox>	
+						</row>
+						
+						<row>
+						  <label value="Years of Experience:" style="font-weight:bold"></label>		
+						  <doublebox></doublebox>	
+						</row>
+						
+						<row>
+						  <label value="Skill Set:" style="font-weight:bold"></label>		
+						  <combobox></combobox>	
+						</row>
+						
+						<row>
+						  <label value="Address:" style="font-weight:bold"></label>		
+						  <textbox rows="6"></textbox>	
+						</row>
+						
+						<row>
+						  <label value="Country:" style="font-weight:bold"></label>		
+						  <combobox width="20%"></combobox>	
+						</row>
+						<row>
+						  <label value="State:" style="font-weight:bold"></label>		
+						  <combobox width="20%"></combobox>	
+						</row>
+						
+						
+						<row>
+						  <label value="Pin/Zip code:" style="font-weight:bold"></label>		
+						  <textbox width="20%"></textbox>	
+						</row>
+						
+						<row>
+						  <label value="Contact no:" style="font-weight:bold"></label>		
+						  <textbox width="20%"></textbox>	
+						</row>
+						
+						<row>
+						  <label value="Email Id:" style="font-weight:bold"></label>		
+						  <textbox width="95%"></textbox>	
+						</row>
+						
+						<row>
+						<label value="Upload Cv"></label>
+						<dropupload></dropupload>
+						
+						</row>
+						
+					</rows>
+				</grid>
+			</div>
+			<space></space>
+			<div align="center">
+				<button width="80px" height="30px" label="Submit" style="font-weight: bold"></button>
+	
+			</div>
+		
+		</tabpanel>
+		
+		<tabpanel>
+		
+		
+		
+		
+		</tabpanel>
+		
+	</tabpanels>
+  </tabbox>
+
 </window>
 </zk>
