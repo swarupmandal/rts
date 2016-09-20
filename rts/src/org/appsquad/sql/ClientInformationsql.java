@@ -11,5 +11,10 @@ public class ClientInformationsql {
                                            +" VALUES (?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?) ";
 	
 	public static String fetchClientDeatils = "select * from rts_clients_master ";
+	
+	public static String clientDetailsUpdate = "UPDATE rts_clients_master set name = ?,companyname = ?,"
+			                                 + "officeaddress = ?,state = ?,country = ?,zipcode = ?,contactno = ?,emailid = ?,state_id= ?,"
+			                                 + "country_id = ? where id = ? ";
 
 }
+ 

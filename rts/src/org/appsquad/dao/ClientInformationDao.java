@@ -13,6 +13,7 @@ import org.appsquad.bean.StateBean;
 import org.appsquad.database.DbConnection;
 import org.appsquad.sql.ClientInformationsql;
 import org.appsquad.utility.Pstm;
+import org.zkoss.bind.BindUtils;
 import org.zkoss.zul.Messagebox;
 
 public class ClientInformationDao {
@@ -162,6 +163,62 @@ public class ClientInformationDao {
 			logger.error(e);
 		}
 	}
+	
+	public static boolean updateClientData(ClientInformationBean clientInformationBean){
+		boolean isUpdated = false;
+		Connection connection = null;
+		try {
+			connection = DbConnection.createConnection();
+			sql_connection:{
+				try {
+					
+					//1st SQL block
+					sql_insert:{
+					    PreparedStatement preparedStatementInsert = null;
+					    try {
+					    	preparedStatementInsert = Pstm.createQuery(connection, 
+									ClientInformationsql.clientDetailsUpdate, Arrays.asList(clientInformationBean.getFullName().toUpperCase(),
+											clientInformationBean.getCompanyName().toUpperCase(),clientInformationBean.getAddress().toUpperCase(),
+											clientInformationBean.getStateBean().getStateName(),clientInformationBean.getCountryBean().getCountryName(),
+											clientInformationBean.getPinZipCode(),clientInformationBean.getContactNo().toUpperCase(),
+											clientInformationBean.getEmailId().toUpperCase(),
+											clientInformationBean.getStateBean().getStateId(),clientInformationBean.getCountryBean().getCountryId(),clientInformationBean.getClientId()));
+					    	
+					    	System.out.println(preparedStatementInsert);
+					    	logger.info("Inserting Client Data Into Table: "+preparedStatementInsert.unwrap(PreparedStatement.class));
+							int i = preparedStatementInsert.executeUpdate();
+							if(i>0){
+								isUpdated = true;	
+							}
+						} finally{
+							if(preparedStatementInsert!=null){
+								preparedStatementInsert.close();
+							}
+						}
+				    }
+				
+					if( isUpdated){
+						Messagebox.show(" Client Details Updated successfully!","Information",Messagebox.OK,Messagebox.INFORMATION);
+					}else{
+						Messagebox.show(" Client Details failed due to internal error!","ERROR",Messagebox.OK,Messagebox.ERROR);
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+					logger.error(e);
+					logger.error(e);
+				}finally{
+					if(connection!=null){
+						connection.close();
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(e);
+			logger.error(e);
+		}
+		return isUpdated;
+	}
    
 	public static ArrayList<ClientInformationBean> onLoadClientDeatils(){
 		ArrayList<ClientInformationBean> clientList = new ArrayList<ClientInformationBean>();
@@ -191,6 +248,7 @@ public class ClientInformationDao {
 								bean.setEmailId(resultSet.getString("emailid"));
 								bean.getStateBean().setStateId(resultSet.getInt("state_id"));
 								bean.getCountryBean().setCountryId(resultSet.getInt("country_id"));
+								bean.setClientId(resultSet.getInt("id"));
 								
 								clientList.add(bean);
 							}  
