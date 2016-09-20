@@ -1,0 +1,26 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+ <window title="Client Information" border="none" height="100%" apply="org.zkoss.bind.BindComposer"
+		    viewModel="@id('vm') @init('org.appsquad.viewmodel.SkillSetUpdateViewModel')" id="winSkillSetUpdateScreen"> 
+     <grid>
+                           <columns>
+                                <column></column>
+                                <column></column>
+                           </columns>
+                           <rows>
+                               <row>
+                                   <label value="Skill Set"></label>
+                                   <textbox value="@bind(vm.bean.skillset)"></textbox>
+                               </row>
+                               <row>
+                                  <label value="Skill Set Details"/>
+                                  <textbox rows="5" value="@bind(vm.bean.skillsetdetails)"></textbox>
+                               </row>
+                          </rows>
+                          
+     </grid>
+                       <div align="center">
+                            <button  label="Update" onClick="@command('onClickUpdateButton')" style="font-weight: bold;" width="70px" height="40px"></button>
+                       </div>
+</window>
+</zk>
