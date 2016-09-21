@@ -41,6 +41,8 @@ public class RequirementGenerationViewModel {
 		
 		session = Sessions.getCurrent();
 		userName =  (String) session.getAttribute("userId");
+		reqGenBean.setUserName(userName);
+		
 		System.out.println("user name " + userName);
 		
 		clientNameBeanList = RequirementGenerationService.fetchClientNameList();
@@ -69,6 +71,7 @@ public class RequirementGenerationViewModel {
 	@Command
 	@NotifyChange("*")
 	public void onSelectOcStatus(){
+		
 		if(statusBean.getOcstatusId()>0){
 			reqGenBean.setOcStatusId(statusBean.getOcstatusId());
 		}
@@ -85,6 +88,7 @@ public class RequirementGenerationViewModel {
 			
 			if(i>0){
 				Messagebox.show("Saved Successfully ", "Information", Messagebox.OK, Messagebox.INFORMATION);
+				clear();
 			}
 		}
 		
@@ -92,6 +96,35 @@ public class RequirementGenerationViewModel {
 
 
 
+	
+	
+	public void clear(){
+		
+		
+		reqGenBean.setClientId(0);
+		clientInfoBean.setFullName(null);
+		clientNameBeanList = RequirementGenerationService.fetchClientNameList();
+		
+		reqGenBean.setReqSkillId(0);
+		skillsetMasterbean.setSkillset(null);
+		skillSetBeanList = RequirementGenerationService.fetchSkillSetList();
+		
+		reqGenBean.setJobType(null);
+		reqGenBean.setDetailedJob(null);
+		reqGenBean.setNofPerResource(null);
+		reqGenBean.setNofConResource(null);
+		reqGenBean.setRaiseDatesql(null);
+		reqGenBean.setCloseDatesql(null);
+		reqGenBean.setContactNo(null);
+		reqGenBean.setEmail(null);
+		
+		reqGenBean.setOcStatusId(0);
+		statusBean.setOcstatus(null);
+		statusBeanList = RequirementGenerationService.fetchStatusList();
+		
+		reqGenBean.setClosureReason(null);
+	}
+	
 	public RequirementGenerationBean getReqGenBean() {
 		return reqGenBean;
 	}

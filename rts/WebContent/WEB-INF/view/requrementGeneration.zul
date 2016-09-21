@@ -20,8 +20,8 @@
 					<rows>
 						<row>
 						  <label value="Client Name:" style="font-weight:bold"></label>		
-						  <combobox width="40%" model="@bind(vm.clientNameBeanList)" autocomplete="true" autodrop="true"
-						    selectedItem="@bind(vm.clientInfoBean)" onSelect="@command('onSelectName')" >
+						  <combobox width="40%" model="@bind(vm.clientNameBeanList)" autocomplete="true" autodrop="true" readonly="true"
+						    selectedItem="@bind(vm.clientInfoBean)" onSelect="@command('onSelectName')" value="@bind(vm.clientInfoBean.fullName)">
 						  	<template name="model" var = "v">
 						  		<comboitem label="@bind(v.fullName)" value="@bind(v.clientId)"></comboitem>
 						  	</template>
@@ -30,8 +30,8 @@
 						
 						<row>
 						  <label value="Required Skill:" style="font-weight:bold"></label>		
-						  <combobox width="30%" model="@bind(vm.skillSetBeanList)" autocomplete="true" autodrop="true"
-						      selectedItem="@bind(vm.skillsetMasterbean)" onSelect="@command('onSelectSkill')">
+						  <combobox width="30%" model="@bind(vm.skillSetBeanList)" autocomplete="true" autodrop="true" value="@bind(vm.skillsetMasterbean.skillset)"
+						      selectedItem="@bind(vm.skillsetMasterbean)" onSelect="@command('onSelectSkill')" readonly="true">
 						  		<template name="model" var = "v">
 						  		 <comboitem label="@bind(v.skillset)" value="@bind(v.id)"></comboitem>	
 						  		</template>
@@ -60,12 +60,12 @@
 						
 						<row>
 						  <label value="Requirement Raise Date:" style="font-weight:bold"></label>		
-						  <datebox width="20%" value="@bind(vm.reqGenBean.raiseDate)"></datebox>
+						  <datebox width="20%" value="@bind(vm.reqGenBean.raiseDatesql)"></datebox>
 						</row>
 						
 						<row>
 						  <label value="Requirement Close Date:" style="font-weight:bold"></label>		
-						  <datebox width="20%" value="@bind(vm.reqGenBean.closeDate)"></datebox>	
+						  <datebox width="20%" value="@bind(vm.reqGenBean.closeDatesql)"></datebox>	
 						</row>
 						
 						<row>
@@ -81,9 +81,9 @@
 						<row>
 						<label value="Requirement Status:" style="font-weight:bold"></label>
 						<combobox width="15%" model="@bind(vm.statusBeanList)" selectedItem="@bind(vm.statusBean)" onSelect="@command('onSelectOcStatus')"
-							autocomplete="true" autodrop="true">
+							autocomplete="true" autodrop="true" value="@bind(vm.statusBean.ocstatus)" readonly="true">
 							 <template name="model" var ="v">
-							   <comboitem value="@bind(v.statusId)" label="@bind(v.status)"></comboitem>
+							   <comboitem value="@bind(v.ocstatusId)" label="@bind(v.ocstatus)"></comboitem>
 							 </template>
 						</combobox>
 						</row>

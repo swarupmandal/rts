@@ -21,9 +21,11 @@ public class RequirementGenerationBean {
   private Integer nofConResource;
   
   private Date raiseDate;
+  private java.sql.Date	raiseDatesql;
   private String raiseDateStr;
   
   private Date closeDate;
+  private java.sql.Date closeDatesql;
   private String closeDateStr;
   
   private String reqStatus;
@@ -215,5 +217,21 @@ public int getOcStatusId() {
 
 public void setOcStatusId(int ocStatusId) {
 	this.ocStatusId = ocStatusId;
+}
+
+public java.sql.Date getRaiseDatesql() {
+	return raiseDatesql;
+}
+
+public void setRaiseDatesql(java.sql.Date raiseDatesql) {
+	this.raiseDatesql = raiseDatesql;
+}
+
+public java.sql.Date getCloseDatesql() {
+	return closeDatesql;
+}
+
+public void setCloseDatesql(java.sql.Date closeDatesql) {
+	this.closeDatesql = closeDatesql;
 }	
 }

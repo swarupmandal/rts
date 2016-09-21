@@ -44,7 +44,7 @@ public class LogingViewModel {
 										+ "-moz-box-shadow: 0px 0px 8px #7bc1f7; "
 										+ "-webkit-box-shadow: 0px 0px 8px #7bc1f7;";
 		
-		System.out.println("Login Page loading with session::"+session);
+		//System.out.println("Login Page loading with session::"+session);
 		System.out.println("INIT LOAD");
 		
 	}
@@ -100,7 +100,7 @@ public class LogingViewModel {
 							session.setAttribute("userId", userId);
 							Executions.sendRedirect("/home.zul");
 						}else {
-							Messagebox.show("Illigal entry");
+							Messagebox.show("ILLIGAL ENTRY","SORRY", Messagebox.OK, Messagebox.ERROR);
 						}
 					} finally{
 						if(preparedStatement!=null){

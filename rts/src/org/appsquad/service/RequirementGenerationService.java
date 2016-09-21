@@ -50,18 +50,18 @@ public class RequirementGenerationService {
 								
 								if(bean.getNofConResource() != null){
 									
-									if(bean.getRaiseDate() != null){
+									if(bean.getRaiseDatesql() != null){
 										
 										if(bean.getContactNo() != null){
 											
 											if(bean.getEmail() != null){
 												
-												if(bean.getReqStatusId()>0){
+												if(bean.getOcStatusId()>0){
 												
 													return true;
 													
 												}else {
-													Messagebox.show("Select status ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+													Messagebox.show("Select statu ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
 													return false;
 												}
 												
@@ -114,9 +114,6 @@ public class RequirementGenerationService {
 		}
 			
 	}
-	
-	public static void clear(){
-		
-	}
+
 	
 }
