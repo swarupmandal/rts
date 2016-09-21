@@ -19,42 +19,42 @@
             
             <treeitem open="false">
              <treerow>
-              <treecell label="User Role"
+              <treecell label="- User Role"
                onClick='inclResults.setSrc("/WEB-INF/view/userRoleMaster.zul");' />
              </treerow>
             </treeitem>
 
             <treeitem open="false">
              <treerow>
-              <treecell label="Client"
+              <treecell label="- Client"
                onClick='inclResults.setSrc("/WEB-INF/view/clientMaster.zul");' />
              </treerow>
             </treeitem>
             
             <treeitem open="false">
             	<treerow>
-            	 <treecell label="Skill Set"
+            	 <treecell label="- Skill Set"
             	  onClick='inclResults.setSrc("/WEB-INF/view/skillSetMaster.zul");'>
             	</treecell>
             	</treerow>
             </treeitem>
               <treeitem open="false">
             	<treerow>
-            	 <treecell label="Status"
+            	 <treecell label="- Status"
             	  onClick='inclResults.setSrc("/WEB-INF/view/statusMaster.zul");'>
             	</treecell>
             	</treerow>
             </treeitem>
              <treeitem open="false">
             	<treerow>
-            	 <treecell label="Resource"
+            	 <treecell label="- Resource"
             	  onClick='inclResults.setSrc("/WEB-INF/view/resourceMaster.zul");'>
             	</treecell>
             	</treerow>
             </treeitem>
             <treeitem open="false">
             	<treerow>
-            	 <treecell label="User Profile"
+            	 <treecell label="- User Profile"
             	  onClick='inclResults.setSrc("/WEB-INF/view/userProfileMaster.zul");'>
             	</treecell>
             	</treerow>
@@ -71,28 +71,28 @@
          <treechildren>
          <treeitem>
          <treerow>
-         	<treecell label="Requirement Generation"
+         	<treecell label="- Requirement Generation"
          	onClick='inclResults.setSrc("/WEB-INF/view/requrementGeneration.zul");'>
          	</treecell>
          </treerow>
          </treeitem>
          <treeitem open="false">
             	<treerow>
-            	 <treecell label="Resource allocation"
+            	 <treecell label="- Resource allocation"
             	  onClick='inclResults.setSrc("/WEB-INF/view/resourceAllocation.zul");'>
             	</treecell>
             	</treerow>
          </treeitem>
          <treeitem open="false">
             	<treerow>
-            	 <treecell label="Resource allocation Update"
+            	 <treecell label="- Resource allocation Update"
             	  onClick='inclResults.setSrc("/WEB-INF/view/resourceAllocationUpdate.zul");'>
             	</treecell>
             	</treerow>
             </treeitem>
             <treeitem open="false">
             	<treerow>
-            	 <treecell label="Resource allocation Tracking"
+            	 <treecell label="- Resource allocation Tracking"
             	  onClick='inclResults.setSrc("/WEB-INF/view/resourceAllocationTracking.zul");'>
             	</treecell>
             	</treerow>
@@ -110,7 +110,7 @@
          
          <treeitem>
          <treerow>
-         	<treecell label="Requirement wise status detail" 
+         	<treecell label="- Requirement wise status detail" 
          	onClick='inclResults.setSrc("/WEB-INF/view/requirementWiseStatusDet.zul");'>
          	</treecell>
          </treerow>
@@ -118,7 +118,7 @@
          
          <treeitem>
          <treerow>
-         	<treecell label="Requirement wise status Summary"	
+         	<treecell label="- Requirement wise status Summary"	
          	onClick='inclResults.setSrc("/WEB-INF/view/requirementWiseStatusSummary.zul");'>
          	</treecell>
          </treerow>
@@ -126,42 +126,42 @@
          
          <treeitem>
          <treerow>
-         	<treecell label="Individual client Detail" 
+         	<treecell label="- Individual client Detail" 
          	onClick='inclResults.setSrc("/WEB-INF/view/individualClientDet.zul");'>
          	</treecell>
          </treerow>
          </treeitem>
          <treeitem>
          <treerow>
-         	<treecell label="Individual client Summary" 
+         	<treecell label="- Individual client Summary" 
          	onClick='inclResults.setSrc("/WEB-INF/view/individualClientSummary.zul");'>
          	</treecell>
          </treerow>
          </treeitem>
          <treeitem>
          <treerow>
-         	<treecell label="Individual requirement (RID) – Detail" 
+         	<treecell label="- Individual requirement (RID) – Detail" 
          	onClick='inclResults.setSrc("/WEB-INF/view/individualRequirementDetails.zul");'>
          	</treecell>
          </treerow>
          </treeitem>
          <treeitem>
          <treerow>
-         	<treecell label="Individual requirement (RID) – Summary" 
+         	<treecell label="- Individual requirement (RID) – Summary" 
          	onClick='inclResults.setSrc("/WEB-INF/view/indiviualRequirementSummary.zul");'>
          	</treecell>
          </treerow>
          </treeitem>
          <treeitem>
          <treerow>
-         	<treecell label="Resource detail per requirement download" 
+         	<treecell label="- Resource detail per requirement download" 
          	onClick='inclResults.setSrc("/WEB-INF/view/resourceDetDownload.zul");'>
          	</treecell>
          </treerow>
          </treeitem>
          <treeitem>
          <treerow>
-         	<treecell label="Skill set wise requirement list" 
+         	<treecell label="- Skill set wise requirement list" 
          	onClick='inclResults.setSrc("/WEB-INF/view/skillSetWizeReqList.zul");'>
          	</treecell>
          </treerow>
