@@ -1,46 +1,49 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="Status Master" height="300px" border="normal" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('org.appsquad.viewmodel.StatusMasterViewModel')">
-   <hlayout>
-     <div>
-         <grid>
-              <columns>
-                     <column></column>
-                     <column></column>
-                     <column></column>
-              </columns>
-              <rows>
-                 <row>
-                    <label value="Status"/>
-                    <textbox value="@bind(vm.statusMasterBean.status)" width="150px" height="30px"/>
-                    <button label="Submit" onClick="@command('onClickStatussave')"/>
-                 </row>
-              </rows>
-         </grid>
-     </div>
-     </hlayout>
-      <div>
-          <grid model="@bind(vm.statuslist)">
-              <columns>
-                    <column label="Status"/>
-                    <column label="Edit"/>
-                    <column label="Save"/>
-                    <column label="Delete"/>
-               </columns>
-               <rows>
-                  <template name="model" var=v>
-                   <row>
-                       <textbox value="@bind(v.status)"/>
-                   
-                       <button label="Edit" onClick="@command('onClickedit')"></button>
-                   
-                       <button label="Save" onClick="@command('onClickSave')"/>
-                   
-                       <button label="Delete" onClick="@command('onClickDelete')"/>
-                   </row>
-                   </template>
-               </rows>
-          </grid>
-      </div>
-</window>
+   <div apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('org.appsquad.viewmodel.StatusMasterViewModel')">
+       <tabbox>
+            <tabs>
+                <tab label="New Status"/>
+                <tab label="Existing Status"/>
+            </tabs>
+            <tabpanels>
+                 <tabpanel>
+                       <grid>
+                           <columns>
+                                <column></column>
+                                <column></column>
+                           </columns>
+                           <rows>
+                               <row>
+                    				<label value="Status"/>
+                    				<textbox value="@bind(vm.statusMasterBean.status)" width="150px" height="30px"/>
+                   					 <button label="Submit" onClick="@command('onClickStatusSave')"/>
+                			  </row>
+                          </rows>
+                          
+                       </grid>
+                 </tabpanel>
+                 
+                  <tabpanel>
+                
+                      <grid sclass="fgrid" height="300px" width="1400px" 
+							style="border:#DADADA 1px solid;" model="@bind(vm.statuslist)" mold="paging" 
+							vflex="true" autopaging="true" pageSize="10">
+						<columns sizable="true">
+								<column label="Status-Name" align="center" style="font-weight:bold;" width="300px"/>
+								<column label="" align="center" style="font-weight:bold;" width="100px"/>
+						</columns>	
+						
+						<template name="model" var="v">
+								<row style="border: 0.01px solid #C0C0C0;">
+									<textbox value="@bind(v.status)" readonly="true" width="90%" tooltiptext="@bind(vm.statusMasterBean.status)"/>
+								    <button label="Delete" width="90%" onClick="@command('onClickDelete', bean = v)"></button>
+								</row>
+							</template>
+				     </grid>
+                 </tabpanel> 
+                 
+            </tabpanels>
+       </tabbox>
+   </div>
 </zk>

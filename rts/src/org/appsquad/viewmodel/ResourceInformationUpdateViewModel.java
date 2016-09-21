@@ -88,7 +88,7 @@ public class ResourceInformationUpdateViewModel {
 		flag = ResourceMasterService.updateResourceMasterData(masterBean);
 		if(flag){
 			winResourceUpdate.detach();
-			BindUtils.postGlobalCommand(null, null, "globalUserDetailsUpdate", null);
+			BindUtils.postGlobalCommand(null, null, "globalResourceDetailsUpdate", null);
 		}
 	}
 	

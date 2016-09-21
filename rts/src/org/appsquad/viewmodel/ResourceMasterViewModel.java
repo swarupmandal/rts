@@ -10,6 +10,7 @@ import org.appsquad.bean.ResourceMasterBean;
 import org.appsquad.bean.SkillsetMasterbean;
 import org.appsquad.bean.StateBean;
 import org.appsquad.bean.StatusMasterBean;
+import org.appsquad.dao.ClientInformationDao;
 import org.appsquad.dao.ResourceMasterDao;
 import org.appsquad.service.ResourceMasterService;
 import org.zkoss.bind.annotation.AfterCompose;
@@ -17,6 +18,7 @@ import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
+import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
@@ -50,6 +52,12 @@ public class ResourceMasterViewModel {
 		skillList = ResourceMasterDao.onLoadSkill();
 		statusList = ResourceMasterDao.onLoadStatus();
 		resourceList = ResourceMasterDao.onLoadResourceDeatils();
+	}
+   
+   @GlobalCommand
+   @NotifyChange("*")
+   public void globalResourceDetailsUpdate(){
+	   resourceList = ResourceMasterDao.onLoadResourceDeatils();
 	}
    
    @Command

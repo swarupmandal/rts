@@ -96,13 +96,10 @@ public class SkillsetmasterViewModel {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-
 	public ArrayList<SkillsetMasterbean> getSkillList() {
 		return skillList;
 	}
-
 	public void setSkillList(ArrayList<SkillsetMasterbean> skillList) {
 		this.skillList = skillList;
 	}  
-	
 }
