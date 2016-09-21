@@ -2,13 +2,12 @@ package org.appsquad.bean;
 
 public class StatusMasterBean {
 
+
 	private int ocstatusId;
 	private String ocstatus;
 	
 	private int statusId;
 	private String status;
-	
-	
 	public int getOcstatusId() {
 		return ocstatusId;
 	}

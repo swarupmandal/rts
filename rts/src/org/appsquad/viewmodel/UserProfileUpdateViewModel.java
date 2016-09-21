@@ -1,73 +1,69 @@
 package org.appsquad.viewmodel;
 
 import java.sql.Connection;
-import java.util.ArrayList;
-import java.util.HashMap;
 
+import org.appsquad.bean.ClientInformationBean;
 import org.appsquad.bean.UserprofileBean;
-import org.appsquad.dao.UserProfileDao;
+import org.appsquad.dao.ClientInformationDao;
+import org.appsquad.service.ClientInformationService;
 import org.appsquad.service.UserProfileService;
+import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.AfterCompose;
-import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
-import org.zkoss.bind.annotation.GlobalCommand;
+import org.zkoss.bind.annotation.ExecutionArgParam;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
-import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.select.Selectors;
+import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Window;
 
-public class UserprofileViewModel {
-	UserprofileBean userprofileBean=new UserprofileBean();
+public class UserProfileUpdateViewModel {
+	UserprofileBean userprofileBean = new UserprofileBean();
+	private UserprofileBean bean;
 	
 	private Connection connection = null;
 	private Session sessions = null;
 	private String userName ;
 	private String userId;
+	@Wire("#winUserProfile")
+	private Window winUserProfile;
+	private boolean flag = false;
 	
-	private ArrayList<UserprofileBean> userList = new ArrayList<UserprofileBean>();
-
 	@AfterCompose
-	public void initSetUp(@ContextParam(ContextType.VIEW) Component view)
+	public void initSetup(@ContextParam(ContextType.VIEW) Component view,@ExecutionArgParam("userIdDetails") UserprofileBean userprofileBean)
 			throws Exception {
 		Selectors.wireComponents(view, this, false);
+		bean = userprofileBean;
 		sessions = Sessions.getCurrent();
-		userList = UserProfileDao.onLoadUserDeatils();
-	}
-	
-	@GlobalCommand
-	@NotifyChange("*")
-	public void globalUserDetailsUpdate(){
-		userList = UserProfileDao.onLoadUserDeatils();
 	}
 	
 	@Command
 	@NotifyChange("*")
-	public void onClickuserSubmit(){
-		UserProfileService.insertUserMasterData(userprofileBean);
-		UserProfileService.clearAllField(userprofileBean);
+	public void onClickUpdateButton(){
+		flag = UserProfileService.updateUserMasterData(bean);
+		if(flag){
+			winUserProfile.detach();
+			BindUtils.postGlobalCommand(null, null, "globalUserDetailsUpdate", null);
+		}
 	}
 	
-	@Command
-	@NotifyChange("*")
-	public void onClickUpdateButton(@BindingParam("bean") UserprofileBean userprofileBean){
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("userIdDetails", userprofileBean);
-		Window window = (Window) Executions.createComponents("/WEB-INF/view/userInformationUpdate.zul", null, map);
-		window.doModal();
-	}
-
-	/***************************************************Getter And Setter Method ****************************************************************/
-    
+	/**************************************************************************************************************************************/
+	
 	public UserprofileBean getUserprofileBean() {
 		return userprofileBean;
 	}
 	public void setUserprofileBean(UserprofileBean userprofileBean) {
 		this.userprofileBean = userprofileBean;
+	}
+	public UserprofileBean getBean() {
+		return bean;
+	}
+	public void setBean(UserprofileBean bean) {
+		this.bean = bean;
 	}
 	public Connection getConnection() {
 		return connection;
@@ -93,10 +89,16 @@ public class UserprofileViewModel {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	public ArrayList<UserprofileBean> getUserList() {
-		return userList;
+	public Window getWinUserProfile() {
+		return winUserProfile;
 	}
-	public void setUserList(ArrayList<UserprofileBean> userList) {
-		this.userList = userList;
+	public void setWinUserProfile(Window winUserProfile) {
+		this.winUserProfile = winUserProfile;
+	}
+	public boolean isFlag() {
+		return flag;
+	}
+	public void setFlag(boolean flag) {
+		this.flag = flag;
 	}
 }

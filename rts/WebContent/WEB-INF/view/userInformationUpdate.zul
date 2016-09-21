@@ -1,0 +1,46 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+ <window apply="org.zkoss.bind.BindComposer" title="USER PROFILE INFORMATION" 
+        viewModel="@id('vm') @init('org.appsquad.viewmodel.UserProfileUpdateViewModel')" id="winUserProfile">
+ 
+      <div>
+                           <grid>
+                               <columns>
+                                    <column></column>
+                                    <column></column>
+                                    
+                               </columns>
+                               <rows>
+                                    <row>
+                                        <label value="UserName"/>
+                                        <textbox value="@bind(vm.bean.username)"/>
+                                    </row> 
+                                    <row>
+                                       <label value="UserId"/>
+                                       <textbox value="@bind(vm.bean.userid)"/>
+                                    </row>   
+                                    <row>
+                                        <label value="Password"/>
+                                        <textbox value="@bind(vm.bean.password)" type="password"/>
+                                    </row> 
+                                    <row>
+                                        <label value="EmailId"/>
+                                        <textbox value="@bind(vm.bean.email)"/>
+                                    </row>               
+                                    <row>
+                                        <label value="Address"/>
+                                        <textbox value="@bind(vm.bean.address)"/>
+                                    </row>
+                                    
+                                    <row>
+                                        <label value="ContactNo"/>
+                                        <textbox value="@bind(vm.bean.contactno)"/>
+                                    </row>
+                                    </rows>
+                                    </grid>
+                                    </div>
+                                    <div align="center">
+                            <button label="Update" width="80px" height="30px" style="font-weight:bold" onClick="@command('onClickUpdateButton')"/>
+                        </div>
+</window>
+</zk>
