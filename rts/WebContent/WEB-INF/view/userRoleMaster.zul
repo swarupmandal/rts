@@ -37,11 +37,38 @@
                                    <template name="model" var="v">
                                    <row>
                                        <textbox value="@bind(v.roll)"/>
+                                       <button label="Edit" onClick="@command('onclickedit')"/>
+                                       <button label="Save" onClick="@command('onClickSave')"/>
+                                       <button label="Delete" onClick="@command('onClickDelete')"/>
                                    </row>
+                                   
                                    </template>
+                                   
                                </rows>
                            </grid>
                        </div>
+                  </tabpanel>
+                  <tabpanel>
+                        <div>
+                          <hlayout>
+                            <grid>
+                                <columns>
+                                      <column></column>
+                                      <column></column>
+                                </columns>
+                                <rows>
+                                    <row>
+                                    	<label value="User"/>
+                                       <!-- <combobox width="90px" model="@bind(vm.rolebeanlist)" onSelect="@command('onSelectUser')" value="@bind(vm.roleMasterBean.roll)" selectedItem="@bind(vm.roleMasterBean)" autocomplete="true" readonly="true">
+                                             <template name="model" var="v">
+                                                   <co --> 
+                                             </template>
+                                        </combobox>
+                                    </row>
+                                </rows>
+                            </grid>
+                            </hlayout>
+                        </div>
                   </tabpanel>
             </tabpanels>
        </tabbox>

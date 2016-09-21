@@ -5,6 +5,10 @@ public class StatusMasterBean {
 	private String status;
 	private int ocstatusId;
 	private String ocstatus;
+	private String userId;
+	
+	
+	/**************************************************************************************************************************************/
 	
 	public int getStatusId() {
 		return statusId;
@@ -29,5 +33,11 @@ public class StatusMasterBean {
 	}
 	public void setOcstatus(String ocstatus) {
 		this.ocstatus = ocstatus;
+	}
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 }

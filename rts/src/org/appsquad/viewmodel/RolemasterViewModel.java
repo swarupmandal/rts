@@ -17,6 +17,24 @@ public class RolemasterViewModel {
 		public void onClickroleSave(){
 			
 		}
+		
+		@Command
+		@NotifyChange("*")
+		public void onclickedit(){
+			
+		}
+		
+		@Command
+		@NotifyChange("*")
+		public void onClickSave(){
+			
+		}
+		
+		@Command
+		@NotifyChange("*")
+		public void onClickDelete(){
+			
+		}
 	
 	public RoleMasterBean getRoleMasterBean() {
 		return roleMasterBean;

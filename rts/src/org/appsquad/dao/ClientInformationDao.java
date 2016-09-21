@@ -13,7 +13,6 @@ import org.appsquad.bean.StateBean;
 import org.appsquad.database.DbConnection;
 import org.appsquad.sql.ClientInformationsql;
 import org.appsquad.utility.Pstm;
-import org.zkoss.bind.BindUtils;
 import org.zkoss.zul.Messagebox;
 
 public class ClientInformationDao {
