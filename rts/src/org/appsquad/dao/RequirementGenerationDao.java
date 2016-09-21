@@ -35,8 +35,11 @@ public class RequirementGenerationDao {
 				bean.setClientId(resultSet.getInt("id"));
 				bean.setName(resultSet.getString("name"));
 				bean.setSurName(resultSet.getString("surname"));
+				if(bean.getSurName() !=null){
 				bean.setFullName(bean.getName()+" " +bean.getSurName());
-				
+				}else {
+					bean.setFullName(bean.getName());
+				}
 				nameBeanList.add(bean);
 				
 			}
@@ -169,8 +172,8 @@ public class RequirementGenerationDao {
 		try {
 			connection = DbConnection.createConnection();
 			preparedStatement = Pstm.createQuery(connection, RequirementGenerationSql.insertReqGen, Arrays.asList(bean.getClientId(), bean.getReqSkillId(),bean.getJobType(),bean.getDetailedJob(),
-																												bean.getNofPerResource(), bean.getNofPerResource(), bean.getRaiseDate(), bean.getCloseDate(),
-																												bean.getContactNo(), bean.getEmail(),bean.getReqStatusId(),bean.getClosureReason()));
+																												bean.getNofPerResource(), bean.getNofConResource(), bean.getRaiseDatesql(), bean.getCloseDatesql(),
+																												bean.getContactNo(), bean.getEmail(),bean.getOcStatusId(),bean.getClosureReason(), bean.getUserName(), bean.getUserName()));
 			
 			i = preparedStatement.executeUpdate();
 			
