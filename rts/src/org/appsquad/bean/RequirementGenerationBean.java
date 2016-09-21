@@ -16,9 +16,9 @@ public class RequirementGenerationBean {
   
   private String detailedJob;
   
-  private int nofPerResource;
+  private Integer nofPerResource;
   
-  private int nofConResource;
+  private Integer nofConResource;
   
   private Date raiseDate;
   private String raiseDateStr;
@@ -29,9 +29,15 @@ public class RequirementGenerationBean {
   private String reqStatus;
   private int reqStatusId;
   
+  private String ocStatus;
+  private int ocStatusId;
+  
   private String closureReason;
   
   private String userName;
+  
+  private String contactNo;
+  private String email;
 
 public String getClientName() {
 	return clientName;
@@ -97,21 +103,7 @@ public void setDetailedJob(String detailedJob) {
 	this.detailedJob = detailedJob;
 }
 
-public int getNofPerResource() {
-	return nofPerResource;
-}
 
-public void setNofPerResource(int nofPerResource) {
-	this.nofPerResource = nofPerResource;
-}
-
-public int getNofConResource() {
-	return nofConResource;
-}
-
-public void setNofConResource(int nofConResource) {
-	this.nofConResource = nofConResource;
-}
 
 public Date getRaiseDate() {
 	return raiseDate;
@@ -175,5 +167,53 @@ public String getUserName() {
 
 public void setUserName(String userName) {
 	this.userName = userName;
+}
+
+public String getContactNo() {
+	return contactNo;
+}
+
+public void setContactNo(String contactNo) {
+	this.contactNo = contactNo;
+}
+
+public String getEmail() {
+	return email;
+}
+
+public void setEmail(String email) {
+	this.email = email;
+}
+
+public Integer getNofPerResource() {
+	return nofPerResource;
+}
+
+public void setNofPerResource(Integer nofPerResource) {
+	this.nofPerResource = nofPerResource;
+}
+
+public Integer getNofConResource() {
+	return nofConResource;
+}
+
+public void setNofConResource(Integer nofConResource) {
+	this.nofConResource = nofConResource;
+}
+
+public String getOcStatus() {
+	return ocStatus;
+}
+
+public void setOcStatus(String ocStatus) {
+	this.ocStatus = ocStatus;
+}
+
+public int getOcStatusId() {
+	return ocStatusId;
+}
+
+public void setOcStatusId(int ocStatusId) {
+	this.ocStatusId = ocStatusId;
 }	
 }
