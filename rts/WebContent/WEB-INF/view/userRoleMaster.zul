@@ -1,6 +1,11 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
   <window title="User Role" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('org.appsquad.viewmodel.RolemasterViewModel')">
+    <style>
+			.z-textbox{
+			   	text-transform:uppercase;
+			   }
+	</style>
    <div>
        <tabbox>
             <tabs>
@@ -20,26 +25,27 @@
                                   <row>
                                      <label value="Role"/>
                                      <textbox value="@bind(vm.roleMasterBean.roll)"/>
-                                     <button label="Save" onClick="@command('onClickroleSave')"/>
+                                     <button label="Save" onClick="@command('onClickRoleSave')"/>
                                   </row>
                               </rows>
                           </grid>
                        </div>
+                       <space></space>
                        <div>
                            <grid model="@bind(vm.rolebeanlist)">
                                <columns>
-                                    <column label="Role"/>
-                                    <column label="Update"/>
-                                    <column label="Save"/>
-                                    <column label="Delete"/>
+                                    <column label="Role" align="center"/>
+                                    <column label="Update" align="center"/>
+                                    <column label="Save" align="center"/>
+                                    <column label="Delete" align="center"/>
                                </columns>
                                <rows>
                                    <template name="model" var="v">
                                    <row>
-                                       <textbox value="@bind(v.roll)"/>
-                                       <button label="Edit" onClick="@command('onclickedit')"/>
-                                       <button label="Save" onClick="@command('onClickSave')"/>
-                                       <button label="Delete" onClick="@command('onClickDelete')"/>
+                                       <textbox value="@bind(v.roll)" readonly="@bind(v.visibilityRoleTextBox)" width="200px"/>
+                                       <button label="Edit" onClick="@command('onclickedit', bean = v)" disabled="@bind(v.visibilityEditButton)"/>
+                                       <button label="Save" onClick="@command('onClickSave', bean = v)" disabled="@bind(v.visibilitySaveButton)"/>
+                                       <button label="Delete" onClick="@command('onClickDelete', bean = v)" disabled="@bind(v.visibilityDeleteButton)"/>
                                    </row>
                                    
                                    </template>
@@ -48,7 +54,7 @@
                            </grid>
                        </div>
                   </tabpanel>
-                  <tabpanel>
+                  <!-- <tabpanel>
                         <div>
                           <hlayout>
                             <grid>
@@ -59,9 +65,9 @@
                                 <rows>
                                     <row>
                                     	<label value="User"/>
-                                       <!-- <combobox width="90px" model="@bind(vm.rolebeanlist)" onSelect="@command('onSelectUser')" value="@bind(vm.roleMasterBean.roll)" selectedItem="@bind(vm.roleMasterBean)" autocomplete="true" readonly="true">
+                                       <combobox width="90px" model="@bind(vm.rolebeanlist)" onSelect="@command('onSelectUser')" value="@bind(vm.roleMasterBean.roll)" selectedItem="@bind(vm.roleMasterBean)" autocomplete="true" readonly="true">
                                              <template name="model" var="v">
-                                                   <co --> 
+                                                   <co 
                                              </template>
                                         </combobox>
                                     </row>
@@ -69,7 +75,7 @@
                             </grid>
                             </hlayout>
                         </div>
-                  </tabpanel>
+                  </tabpanel> -->
             </tabpanels>
        </tabbox>
    </div>

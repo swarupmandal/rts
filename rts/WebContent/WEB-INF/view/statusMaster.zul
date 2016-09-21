@@ -1,10 +1,15 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
+ <style>
+	.z-textbox{
+	    text-transform:uppercase;
+	  }
+	</style>
    <div apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('org.appsquad.viewmodel.StatusMasterViewModel')">
        <tabbox>
             <tabs>
                 <tab label="New Status"/>
-                <tab label="Existing Status"/>
+                <tab label="Existing Status" onClick="@command('onClickExistingStatus')"/>
             </tabs>
             <tabpanels>
                  <tabpanel>

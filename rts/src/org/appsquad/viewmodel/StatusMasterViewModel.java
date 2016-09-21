@@ -61,6 +61,12 @@ public class StatusMasterViewModel {
 		}
 	}
 	
+	@Command
+	@NotifyChange("*")
+	public void onClickExistingStatus(){
+		statuslist = StatusMasterDao.onLoadStatusDeatils();
+	}
+	
 	/**************************************************************************************************************************************/
 	
 	public StatusMasterBean getStatusMasterBean() {
