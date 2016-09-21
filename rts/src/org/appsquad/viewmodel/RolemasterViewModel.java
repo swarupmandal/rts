@@ -14,7 +14,7 @@ public class RolemasterViewModel {
 	
 		@Command
 		@NotifyChange("*")
-		public void onClickroleSubmit(){
+		public void onClickroleSave(){
 			
 		}
 	
