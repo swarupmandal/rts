@@ -1,39 +1,52 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
-  <window title="User Role">
-   <div apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('org.appsquad.viewmodel.RolemasterViewModel')">
-        
-        <div>
-        <grid>
-        <columns>
-            <column></column>
-            <column></column>
-            <column></column>
-            
-        </columns>
-        <rows>
-        <row>
-           <label value="Role"/>
-           <combobox model="@bind(vm.rolebeanlist)" onSelect="@command('onSelectrole')"
-            value="@bind(vm.roleMasterBean.roll)" selectedItem="@bind(vm.roleMasterBean)" autocomplete="true" readonly="true">
-                <template name="model" var="v">
-                <comboitem label="@bind(v.roll)" value="@bind(v.rollid)"/>
-                </template>
-           </combobox>
-           
-                <button label="Submit" onClick="@command('onClickroleSubmit')" width="80px" style="font-weight:bold"/>
-           </row>
-           </rows>
-           </grid>
-        </div>
-        <div>
-            <grid></grid>
-        </div>
-        <div>
-            <grid>
-                 
-            </grid>
-        </div>
+  <window title="User Role" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('org.appsquad.viewmodel.RolemasterViewModel')">
+   <div>
+       <tabbox>
+            <tabs>
+                <tab label="Role Master" style="font-weight:bold"/>
+                <tab label="Assign Role" style="font-weight:bold"/>
+            </tabs>
+            <tabpanels>
+                  <tabpanel>
+                       <div>
+                          <grid>
+                              <columns>
+                                    <column></column>
+                                    <column></column>
+                                    <column></column>
+                              </columns>
+                              <rows>
+                                  <row>
+                                     <label value="Role"/>
+                                     <textbox value="@bind(vm.roleMasterBean.roll)"/>
+                                     <button label="Save" onClick="@command('onClickroleSave')"/>
+                                  </row>
+                              </rows>
+                          </grid>
+                       </div>
+                       <div>
+                           <grid model="@bind(vm.rolebeanlist)">
+                               <columns>
+                                    <column label="Role"/>
+                                    <column label="Update"/>
+                                    <column label="Save"/>
+                                    <column label="Delete"/>
+                               </columns>
+                               <rows>
+                                   <template name="model" var="v">
+                                   <row>
+                                       <textbox value="@bind(v.roll)"/>
+                                   </row>
+                                   </template>
+                               </rows>
+                           </grid>
+                       </div>
+                  </tabpanel>
+            </tabpanels>
+       </tabbox>
    </div>
+        
+       
    </window>
 </zk>
