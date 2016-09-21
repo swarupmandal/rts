@@ -1,13 +1,17 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="RESOURCE INFORMATION" border="none" style="font-weight:bold">
-
+<window title="RESOURCE INFORMATION" border="none" height="100%" apply="org.zkoss.bind.BindComposer"
+		    viewModel="@id('vm') @init('org.appsquad.viewmodel.ResourceMasterViewModel')">
+		    <style>
+			.z-textbox{
+			   	text-transform:uppercase;
+			   }
+		</style>
   <tabbox>
 	<tabs>
 		<tab>New Entry</tab>
 		<tab>Existing Data</tab>
 	</tabs>
-
 	<tabpanels>
 		<tabpanel>
 				<div>
@@ -19,52 +23,68 @@
 					<rows>
 						<row>
 						  <label value="Name:" style="font-weight:bold"></label>		
-						  <textbox width="95%"></textbox>	
+						  <textbox width="95%" value="@bind(vm.resourceMasterBean.name)"></textbox>	
 						</row>
 						
 						<row>
 						  <label value="Surname:" style="font-weight:bold"></label>		
-						  <textbox width="95%"></textbox>	
+						  <textbox width="95%" value="@bind(vm.resourceMasterBean.surName)"></textbox>	
 						</row>
 						
 						<row>
 						  <label value="Years of Experience:" style="font-weight:bold"></label>		
-						  <doublebox></doublebox>	
+						  <doublebox width="20%" value="@bind(vm.resourceMasterBean.yearOfExperience)"></doublebox>	
 						</row>
 						
 						<row>
-						  <label value="Skill Set:" style="font-weight:bold"></label>		
-						  <combobox></combobox>	
-						</row>
+					  <label value="Skill-Set:" style="font-weight:bold"></label>		
+					  <combobox model="@bind(vm.skillList)" selectedItem="@bind(vm.resourceMasterBean.skillsetMasterbean)" readonly="true"
+		             		value="@bind(vm.resourceMasterBean.skillsetMasterbean.skillset)" width="20%" onSelect="@command('onSelectSkillName')">
+		             		<template name="model" var="p">
+		             			<comboitem value="@bind(p.skillset)" label="@bind(p.skillset)"/>
+		             		</template>
+		             	</combobox>	
+					</row>
 						
 						<row>
 						  <label value="Address:" style="font-weight:bold"></label>		
-						  <textbox rows="6"></textbox>	
+						  <textbox rows="6" value="@bind(vm.resourceMasterBean.address)"></textbox>	
 						</row>
 						
 						<row>
-						  <label value="Country:" style="font-weight:bold"></label>		
-						  <combobox width="20%"></combobox>	
-						</row>
-						<row>
-						  <label value="State:" style="font-weight:bold"></label>		
-						  <combobox width="20%"></combobox>	
-						</row>
+					  <label value="State:" style="font-weight:bold"></label>		
+					  <combobox model="@bind(vm.stateList)" selectedItem="@bind(vm.resourceMasterBean.stateBean)" readonly="true"
+		             		value="@bind(vm.resourceMasterBean.stateBean.stateName)" width="20%" onSelect="@command('onSelectStateName')">
+		             		<template name="model" var="s">
+		             			<comboitem value="@bind(s.stateName)" label="@bind(s.stateName)"/>
+		             		</template>
+		             	</combobox>	
+					</row>
+					
+					<row>
+					  <label value="Country:" style="font-weight:bold"></label>		
+					  <combobox model="@bind(vm.countryList)" selectedItem="@bind(vm.resourceMasterBean.countryBean)" readonly="true"
+		             		value="@bind(vm.resourceMasterBean.countryBean.countryName)" width="20%" onSelect="@command('onSelectCountryName')">
+		             		<template name="model" var="p">
+		             			<comboitem value="@bind(p.countryName)" label="@bind(p.countryName)"/>
+		             		</template>
+		             	</combobox>	
+					</row>
 						
 						
 						<row>
 						  <label value="Pin/Zip code:" style="font-weight:bold"></label>		
-						  <textbox width="20%"></textbox>	
+						  <textbox width="20%" value="@bind(vm.resourceMasterBean.picCode)"></textbox>	
 						</row>
 						
 						<row>
 						  <label value="Contact no:" style="font-weight:bold"></label>		
-						  <textbox width="20%"></textbox>	
+						  <textbox width="20%" value="@bind(vm.resourceMasterBean.contactNumber)"></textbox>	
 						</row>
 						
 						<row>
 						  <label value="Email Id:" style="font-weight:bold"></label>		
-						  <textbox width="95%"></textbox>	
+						  <textbox width="95%" value="@bind(vm.resourceMasterBean.emailId)"></textbox>	
 						</row>
 						
 						<row>
@@ -73,30 +93,72 @@
 						</row>
 						
 						<row>
-						<label value="Status"></label>
-						<textbox></textbox>
-						</row>
-						
+					  <label value="Status:" style="font-weight:bold"></label>		
+					  <combobox model="@bind(vm.statusList)" selectedItem="@bind(vm.resourceMasterBean.statusMasterBean)" readonly="true"
+		             		value="@bind(vm.resourceMasterBean.statusMasterBean.status)" width="20%" onSelect="@command('onSelectStatusName')">
+		             		<template name="model" var="p">
+		             			<comboitem value="@bind(p.status)" label="@bind(p.status)"/>
+		             		</template>
+		             	</combobox>	
+					 </row>	
+					 
+					   <row>
+						  <label value="CTC(annual)" style="font-weight:bold"></label>		
+						  <doublebox width="20%" value="@bind(vm.resourceMasterBean.ctc)"></doublebox>	
+					   </row>
+					 
 					</rows>
 				</grid>
 			</div>
 			<space></space>
 			<div align="center">
-				<button width="80px" height="30px" label="Submit" style="font-weight: bold"></button>
+				<button width="80px" height="30px" label="Submit" style="font-weight: bold" onClick="@command('onClickSubmitButton')"></button>
 	
 			</div>
 		
 		</tabpanel>
 		
-		<tabpanel>
-		
-		
-		
-		
-		</tabpanel>
+		 <tabpanel>
+	             <grid sclass="fgrid" height="300px" width="1400px" 
+							style="border:#DADADA 1px solid;" model="@bind(vm.resourceList)" mold="paging" 
+							vflex="true" autopaging="true" pageSize="10">
+						<columns sizable="true">
+								<column label="Name" align="center" style="font-weight:bold;" width="120px"/>
+								<column label="SurName" align="center" style="font-weight:bold;" width="100px"/>
+								<column label="Year Of Experience" align="center" style="font-weight:bold;" width="120px"/>
+								<column label="Skill-Set" align="center" style="font-weight:bold;" width="120px"/>
+								<column label="Address" align="center" style="font-weight:bold;" width="120px"/>
+								<column label="State" align="center" style="font-weight:bold;" width="120px"/>
+								<column label="Country" align="center" style="font-weight:bold;" width="120px"/>
+								<!-- <column label="Pincode" align="center" style="font-weight:bold;" width="120px"/>
+								<column label="ContactNo" align="center" style="font-weight:bold;" width="120px"/>
+								<column label="EmailId" align="center" style="font-weight:bold;" width="120px"/>
+								<column label="Status" align="center" style="font-weight:bold;" width="120px"/> -->
+								<column label="Ctc" align="center" style="font-weight:bold;" width="120px"/>
+								<column label="" align="center" style="font-weight:bold;" width="100px"/>
+						</columns>	
+						
+						<template name="model" var="v">
+								<row style="border: 0.01px solid #C0C0C0;">
+									<textbox value="@bind(v.name)" readonly="true" width="90%" tooltiptext="@bind(v.name)"/>
+									<textbox value="@bind(v.surName)" readonly="true" width="90%" tooltiptext="@bind(v.surName)"/>
+									<textbox value="@bind(v.yearOfExperience)" readonly="true" width="90%" tooltiptext="@bind(v.yearOfExperience)"/>
+									<textbox value="@bind(v.skillsetMasterbean.skillset)" readonly="true" width="90%" tooltiptext="@bind(v.skillsetMasterbean.skillset)"/>
+									<textbox value="@bind(v.address)" readonly="true" width="90%" tooltiptext="@bind(v.address)"/>
+									<textbox value="@bind(v.stateBean.stateName)" readonly="true" width="90%" tooltiptext="@bind(v.stateBean.stateName)"/>
+									<textbox value="@bind(v.countryBean.countryName)" readonly="true" width="90%" tooltiptext="@bind(v.countryBean.countryName)"/>
+									<!-- <textbox value="@bind(v.picCode)" readonly="true" width="90%" tooltiptext="@bind(v.picCode)"/>
+									<textbox value="@bind(v.contactNumber)" readonly="true" width="90%" tooltiptext="@bind(v.contactNumber)"/>
+									<textbox value="@bind(v.emailId)" readonly="true" width="90%" tooltiptext="@bind(v.emailId)"/>
+									<textbox value="@bind(v.statusMasterBean.status)" readonly="true" width="90%" tooltiptext="@bind(v.statusMasterBean.status)"/> -->
+									<textbox value="@bind(v.ctc)" readonly="true" width="90%" tooltiptext="@bind(v.ctc)"/>
+								    <button label="Update" width="90%" onClick="@command('onClickUpdate', bean = v)"></button>
+								</row>
+							</template>
+				</grid>			
+	       </tabpanel>
 		
 	</tabpanels>
   </tabbox>
-
 </window>
 </zk>

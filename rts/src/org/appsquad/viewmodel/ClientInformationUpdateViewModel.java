@@ -1,6 +1,5 @@
 package org.appsquad.viewmodel;
 
-import java.security.AllPermission;
 import java.sql.Connection;
 import java.util.ArrayList;
 
