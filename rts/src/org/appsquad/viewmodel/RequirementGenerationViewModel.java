@@ -4,13 +4,19 @@ import java.util.ArrayList;
 
 import org.appsquad.bean.ClientInformationBean;
 import org.appsquad.bean.RequirementGenerationBean;
+import org.appsquad.bean.SkillsetMasterbean;
+import org.appsquad.bean.StatusMasterBean;
+import org.appsquad.service.RequirementGenerationService;
 import org.zkoss.bind.annotation.AfterCompose;
+import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
+import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.select.Selectors;
+import org.zkoss.zul.Messagebox;
 
 public class RequirementGenerationViewModel {
 	
@@ -19,10 +25,13 @@ public class RequirementGenerationViewModel {
 	
 	RequirementGenerationBean reqGenBean = new RequirementGenerationBean();
 	ClientInformationBean clientInfoBean = new ClientInformationBean();
+	SkillsetMasterbean skillsetMasterbean = new SkillsetMasterbean();
+	StatusMasterBean statusBean = new StatusMasterBean(); 	
+	
 	
 	private ArrayList<ClientInformationBean> clientNameBeanList = new ArrayList<ClientInformationBean>();
-	
-	
+	private ArrayList<SkillsetMasterbean> skillSetBeanList = new ArrayList<SkillsetMasterbean>(); 
+	private ArrayList<StatusMasterBean> statusBeanList = new ArrayList<StatusMasterBean>();
 	
 	
 	
@@ -34,12 +43,52 @@ public class RequirementGenerationViewModel {
 		userName =  (String) session.getAttribute("userId");
 		System.out.println("user name " + userName);
 		
-		
-		
+		clientNameBeanList = RequirementGenerationService.fetchClientNameList();
+		skillSetBeanList = RequirementGenerationService.fetchSkillSetList();
+		statusBeanList = RequirementGenerationService.fetchStatusList();
 	}
 
 
-
+	@Command
+	@NotifyChange("*")
+	public void onSelectName(){
+		
+		if(clientInfoBean.getClientId()>0){
+			reqGenBean.setClientId(clientInfoBean.getClientId());
+		}
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void onSelectSkill(){
+		if(skillsetMasterbean.getId()>0){
+			reqGenBean.setReqSkillId(skillsetMasterbean.getId());
+		}
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void onSelectOcStatus(){
+		if(statusBean.getOcstatusId()>0){
+			reqGenBean.setOcStatusId(statusBean.getOcstatusId());
+		}
+	}
+	
+	
+	@Command
+	@NotifyChange("*")
+	public void onclickSubmit(){
+		
+		if(RequirementGenerationService.isValid(reqGenBean)){
+			
+			int i = RequirementGenerationService.isertDet(reqGenBean);
+			
+			if(i>0){
+				Messagebox.show("Saved Successfully ", "Information", Messagebox.OK, Messagebox.INFORMATION);
+			}
+		}
+		
+	}
 
 
 
@@ -47,46 +96,21 @@ public class RequirementGenerationViewModel {
 		return reqGenBean;
 	}
 
-
-
-
-
-
 	public void setReqGenBean(RequirementGenerationBean reqGenBean) {
 		this.reqGenBean = reqGenBean;
 	}
-
-
-
-
-
 
 	public Session getSession() {
 		return session;
 	}
 
-
-
-
-
-
 	public void setSession(Session session) {
 		this.session = session;
 	}
 
-
-
-
-
-
 	public String getUserName() {
 		return userName;
 	}
-
-
-
-
-
 
 	public void setUserName(String userName) {
 		this.userName = userName;
@@ -127,6 +151,78 @@ public class RequirementGenerationViewModel {
 	public void setClientNameBeanList(
 			ArrayList<ClientInformationBean> clientNameBeanList) {
 		this.clientNameBeanList = clientNameBeanList;
+	}
+
+
+
+
+
+
+	public SkillsetMasterbean getSkillsetMasterbean() {
+		return skillsetMasterbean;
+	}
+
+
+
+
+
+
+	public void setSkillsetMasterbean(SkillsetMasterbean skillsetMasterbean) {
+		this.skillsetMasterbean = skillsetMasterbean;
+	}
+
+
+
+
+
+
+	public ArrayList<SkillsetMasterbean> getSkillSetBeanList() {
+		return skillSetBeanList;
+	}
+
+
+
+
+
+
+	public void setSkillSetBeanList(ArrayList<SkillsetMasterbean> skillSetBeanList) {
+		this.skillSetBeanList = skillSetBeanList;
+	}
+
+
+
+
+
+
+	public StatusMasterBean getStatusBean() {
+		return statusBean;
+	}
+
+
+
+
+
+
+	public void setStatusBean(StatusMasterBean statusBean) {
+		this.statusBean = statusBean;
+	}
+
+
+
+
+
+
+	public ArrayList<StatusMasterBean> getStatusBeanList() {
+		return statusBeanList;
+	}
+
+
+
+
+
+
+	public void setStatusBeanList(ArrayList<StatusMasterBean> statusBeanList) {
+		this.statusBeanList = statusBeanList;
 	}
 
 
