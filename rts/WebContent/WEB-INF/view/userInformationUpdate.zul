@@ -1,7 +1,8 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
  <window apply="org.zkoss.bind.BindComposer" title="USER PROFILE INFORMATION" 
-        viewModel="@id('vm') @init('org.appsquad.viewmodel.UserProfileUpdateViewModel')" id="winUserProfile">
+        viewModel="@id('vm') @init('org.appsquad.viewmodel.UserProfileUpdateViewModel')" id="winUserProfile" closable="true"
+          height="350px" width="600px">
  
       <div>
                            <grid>
@@ -12,11 +13,11 @@
                                </columns>
                                <rows>
                                     <row>
-                                        <label value="UserName"/>
+                                        <label value="User Name"/>
                                         <textbox value="@bind(vm.bean.username)"/>
                                     </row> 
                                     <row>
-                                       <label value="UserId"/>
+                                       <label value="User Id"/>
                                        <textbox value="@bind(vm.bean.userid)"/>
                                     </row>   
                                     <row>
@@ -24,7 +25,7 @@
                                         <textbox value="@bind(vm.bean.password)" type="password"/>
                                     </row> 
                                     <row>
-                                        <label value="EmailId"/>
+                                        <label value="Email Id"/>
                                         <textbox value="@bind(vm.bean.email)"/>
                                     </row>               
                                     <row>
@@ -33,14 +34,15 @@
                                     </row>
                                     
                                     <row>
-                                        <label value="ContactNo"/>
+                                        <label value="Contact No"/>
                                         <textbox value="@bind(vm.bean.contactno)"/>
                                     </row>
                                     </rows>
                                     </grid>
                                     </div>
+                                    <space></space>
                                     <div align="center">
-                            <button label="Update" width="80px" height="30px" style="font-weight:bold" onClick="@command('onClickUpdateButton')"/>
-                        </div>
+                                       <button label="Update" width="80px" height="30px" style="font-weight:bold" onClick="@command('onClickUpdateButton')"/>
+                                    </div>
 </window>
 </zk>

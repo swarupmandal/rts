@@ -2,8 +2,11 @@ package org.appsquad.viewmodel;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.appsquad.bean.RoleMasterBean;
+import org.appsquad.bean.RollDropDownBean;
+import org.appsquad.bean.UserprofileBean;
 import org.appsquad.dao.RoleMasterDao;
 import org.appsquad.service.RoleMasterService;
 import org.zkoss.bind.annotation.AfterCompose;
@@ -11,22 +14,30 @@ import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
+import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.select.Selectors;
+import org.zkoss.zul.Messagebox;
+import org.zkoss.zul.Window;
 
 public class RolemasterViewModel {
 	RoleMasterBean roleMasterBean= new RoleMasterBean();
 	private ArrayList<RoleMasterBean> rolebeanlist= new ArrayList<RoleMasterBean>();
+	private ArrayList<UserprofileBean> userList = new ArrayList<UserprofileBean>();
+	private ArrayList<RollDropDownBean> roleList = new ArrayList<RollDropDownBean>();
+	private ArrayList<RoleMasterBean> mappingList = new ArrayList<RoleMasterBean>();
 	
 	private Connection connection = null;
 	private Session sessions = null;
 	private String userName ;
 	private String userId;
 	private static boolean flag = false;
-	
+	private static Integer count ;
+	private static Integer countRole ;
 	
 	@AfterCompose
 	public void initSetUp(@ContextParam(ContextType.VIEW) Component view) throws Exception{
@@ -40,9 +51,14 @@ public class RolemasterViewModel {
 	@Command
 	@NotifyChange("*")
 	public void onClickRoleSave(){
-		RoleMasterService.insertClientMasterData(roleMasterBean);
-		RoleMasterService.clearAllField(roleMasterBean);
-		rolebeanlist = RoleMasterDao.onLoadRoleDeatils();
+		countRole = RoleMasterDao.onLoadRoleNameCountDeatils(roleMasterBean);
+		if(countRole>0){
+			Messagebox.show(" Enter New Role Name!","Exclamation",Messagebox.OK,Messagebox.EXCLAMATION);
+		}else{
+			RoleMasterService.insertClientMasterData(roleMasterBean);
+			RoleMasterService.clearAllField(roleMasterBean);
+			rolebeanlist = RoleMasterDao.onLoadRoleDeatils();	
+		}
 	}
 	
 	@Command
@@ -67,6 +83,58 @@ public class RolemasterViewModel {
 	public void onClickDelete(@BindingParam("bean") RoleMasterBean masterBean){
 		RoleMasterDao.deleteRoleData(masterBean);
 		rolebeanlist = RoleMasterDao.onLoadRoleDeatils();
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void onClickAssignRole(){
+		userList = RoleMasterDao.onLoadUserDeatils();
+		roleList = RoleMasterDao.onLoadRoleDropDownDeatils();
+		mappingList = RoleMasterDao.onLoadMappingDeatils();
+	}
+	
+	@GlobalCommand
+	@NotifyChange("*")
+	public void globalRoleDetailsUpdate(){
+		userList = RoleMasterDao.onLoadUserDeatils();
+		roleList = RoleMasterDao.onLoadRoleDropDownDeatils();
+		mappingList = RoleMasterDao.onLoadMappingDeatils();
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void onSelectUserName(){
+		System.out.println("user id is :"+roleMasterBean.getUserprofileBean().getId());
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void onSelectRollName(){
+		System.out.println("role id is :"+roleMasterBean.getDownBean().getRollId());
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void onClickAssign(){
+		count = RoleMasterDao.onLoadCountDeatils(roleMasterBean);
+		if(count>0){
+			Messagebox.show(" This User Name And Role Name Mapping Already Done!","Exclamation",Messagebox.OK,Messagebox.EXCLAMATION);
+		}else {
+			RoleMasterService.insertAssignData(roleMasterBean);
+			RoleMasterService.clearAllFieldAssign(roleMasterBean);
+			userList = RoleMasterDao.onLoadUserDeatils();
+			roleList = RoleMasterDao.onLoadRoleDropDownDeatils();
+			mappingList = RoleMasterDao.onLoadMappingDeatils();	
+		}
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void onClickUpdate(@BindingParam("bean") RoleMasterBean roleMasterBean){
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("roleDetails", roleMasterBean);
+		Window window = (Window) Executions.createComponents("/WEB-INF/view/roleInformationUpdate.zul", null, map);
+		window.doModal();
 	}
 	
 	/*************************************************************************************************************************************************/
@@ -112,5 +180,40 @@ public class RolemasterViewModel {
 	}
 	public static void setFlag(boolean flag) {
 		RolemasterViewModel.flag = flag;
+	}
+	public ArrayList<UserprofileBean> getUserList() {
+		return userList;
+	}
+	public ArrayList<RoleMasterBean> getMappingList() {
+		return mappingList;
+	}
+	public void setMappingList(ArrayList<RoleMasterBean> mappingList) {
+		this.mappingList = mappingList;
+	}
+
+	public void setUserList(ArrayList<UserprofileBean> userList) {
+		this.userList = userList;
+	}
+	public static Integer getCountRole() {
+		return countRole;
+	}
+
+	public static void setCountRole(Integer countRole) {
+		RolemasterViewModel.countRole = countRole;
+	}
+
+	public static Integer getCount() {
+		return count;
+	}
+
+	public static void setCount(Integer count) {
+		RolemasterViewModel.count = count;
+	}
+
+	public ArrayList<RollDropDownBean> getRoleList() {
+		return roleList;
+	}
+	public void setRoleList(ArrayList<RollDropDownBean> roleList) {
+		this.roleList = roleList;
 	}	
 }

@@ -65,6 +65,12 @@ public class SkillsetmasterViewModel {
 		window.doModal();
 	}
 	
+	@Command
+	@NotifyChange("*")
+	public void onClickExistingSkill(){
+		skillList = SkillSetMasterDao.onLoadSetDeatils();
+	}
+	
 	/************************** Getter And Setter Method ************************************/
 	public SkillsetMasterbean getSkillsetMasterbean() {
 		return skillsetMasterbean;

@@ -2,10 +2,15 @@
 <zk>    
     <window title="Client Information" border="none" height="100%" apply="org.zkoss.bind.BindComposer"
 		    viewModel="@id('vm') @init('org.appsquad.viewmodel.ClientInformationViewModel')"> 
+		     <style>
+			.z-textbox{
+			   	text-transform:uppercase;
+			   }
+	</style>
 	<tabbox>
 	    <tabs>
 		<tab>New Entry</tab>
-		<tab>Existing Data</tab>
+		<tab onClick="@command('onClickExistingData')">Existing Data</tab>
 	    </tabs>
 	    <tabpanels>
 	       <tabpanel>
@@ -37,16 +42,6 @@
 					</row>
 					
 					<row>
-					  <label value="State:" style="font-weight:bold"></label>		
-					  <combobox model="@bind(vm.stateList)" selectedItem="@bind(vm.clientInformationBean.stateBean)" readonly="true"
-		             		value="@bind(vm.clientInformationBean.stateBean.stateName)" width="20%" onSelect="@command('onSelectStateName')">
-		             		<template name="model" var="s">
-		             			<comboitem value="@bind(s.stateName)" label="@bind(s.stateName)"/>
-		             		</template>
-		             	</combobox>	
-					</row>
-					
-					<row>
 					  <label value="Country:" style="font-weight:bold"></label>		
 					  <combobox model="@bind(vm.countryList)" selectedItem="@bind(vm.clientInformationBean.countryBean)" readonly="true"
 		             		value="@bind(vm.clientInformationBean.countryBean.countryName)" width="20%" onSelect="@command('onSelectCountryName')">
@@ -57,18 +52,29 @@
 					</row>
 					
 					<row>
-					  <label value="Pin/Zip code:" style="font-weight:bold"></label>		
-					  <textbox width="20%" value="@bind(vm.clientInformationBean.pinZipCode)"></textbox>	
+					  <label value="State:" style="font-weight:bold"></label>		
+					  <combobox model="@bind(vm.stateList)" selectedItem="@bind(vm.clientInformationBean.stateBean)" readonly="true"
+		             		value="@bind(vm.clientInformationBean.stateBean.stateName)" width="20%" onSelect="@command('onSelectStateName')">
+		             		<template name="model" var="s">
+		             			<comboitem value="@bind(s.stateName)" label="@bind(s.stateName)"/>
+		             		</template>
+		             	</combobox>	
 					</row>
 					
 					<row>
-					  <label value="Contact no:" style="font-weight:bold"></label>		
-					  <textbox width="20%" value="@bind(vm.clientInformationBean.contactNo)"></textbox>	
+					  <label value="Pin/Zip code:" style="font-weight:bold"></label>
+					   <intbox constraint="no negative,no zero" maxlength="6" value="@bind(vm.clientInformationBean.pinZipCode)"/>	
+					</row>
+					
+					<row>
+					  <label value="Contact no:" style="font-weight:bold"></label>
+					 <textbox value="@bind(vm.clientInformationBean.contactNo)" constraint="no negative,no zero" maxlength="15"></textbox>	
 					</row>
 					
 					<row>
 					  <label value="Email Id:" style="font-weight:bold"></label>		
-					  <textbox width="95%" value="@bind(vm.clientInformationBean.emailId)"></textbox>	
+					  <textbox width="95%" value="@bind(vm.clientInformationBean.emailId)"
+					      constraint="/.+@.+\.[a-z]+/: Please enter an e-mail address"></textbox>	
 					</row>
 				</rows>
 			    </grid>
@@ -82,7 +88,7 @@
 	       <tabpanel>
 	             <grid sclass="fgrid" height="300px" width="1400px" 
 							style="border:#DADADA 1px solid;" model="@bind(vm.clientDetailsList)" mold="paging" 
-							vflex="true" autopaging="true" pageSize="10">
+							vflex="true" autopaging="true" pageSize="7">
 						<columns sizable="true">
 								<column label="Name" align="center" style="font-weight:bold;" width="120px"/>
 								<column label="Company-Name" align="center" style="font-weight:bold;" width="100px"/>

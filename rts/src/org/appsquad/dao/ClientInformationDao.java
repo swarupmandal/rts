@@ -109,7 +109,7 @@ public class ClientInformationDao {
 		return countryList;
 	}
 	
-	public static void insertClientData(ClientInformationBean clientInformationBean){
+	public static boolean insertClientData(ClientInformationBean clientInformationBean){
 		boolean isSaved = false;
 		Connection connection = null;
 		try {
@@ -161,6 +161,7 @@ public class ClientInformationDao {
 			logger.error(e);
 			logger.error(e);
 		}
+		return isSaved;
 	}
 	
 	public static boolean updateClientData(ClientInformationBean clientInformationBean){

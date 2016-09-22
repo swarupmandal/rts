@@ -47,6 +47,12 @@ public class UserprofileViewModel {
 	
 	@Command
 	@NotifyChange("*")
+	public void onClickExisting(){
+		userList = UserProfileDao.onLoadUserDeatils();
+	}
+	
+	@Command
+	@NotifyChange("*")
 	public void onClickuserSubmit(){
 		UserProfileService.insertUserMasterData(userprofileBean);
 		UserProfileService.clearAllField(userprofileBean);

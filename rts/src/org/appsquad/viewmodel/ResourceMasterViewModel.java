@@ -61,6 +61,12 @@ public class ResourceMasterViewModel {
 	}
    
    @Command
+   @NotifyChange("*")
+   public void onClickExistingData(){
+	   resourceList = ResourceMasterDao.onLoadResourceDeatils();
+   }
+   
+   @Command
 	@NotifyChange("*")
 	public void onSelectStateName(){
 		System.out.println("STATE ID IS :"+resourceMasterBean.getStateBean().getStateId());
