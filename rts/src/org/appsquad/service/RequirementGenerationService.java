@@ -40,6 +40,11 @@ public class RequirementGenerationService {
 		return list;
 	}
 	
+	public static int updateReqGenMaster(RequirementGenerationBean bean){
+		int i = RequirementGenerationDao.onClikUpdate(bean);
+		return i;
+	}
+	
 	
 	
 	public static boolean isValid(RequirementGenerationBean bean){
