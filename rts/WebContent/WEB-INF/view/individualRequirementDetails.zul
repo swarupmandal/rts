@@ -1,6 +1,51 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="Individual Requirement Details" border="normal">
-New Content Here!
+<window title="Sort criteria:RID/Status" border="none" apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('org.appsquad.viewmodel.IndividualRequirementViewModel')">
+    <div>
+                          <hlayout>
+                            <grid>
+                                <columns>
+                                      <column></column>
+                                      <column></column>
+                                     
+                                </columns>
+                                
+                                <rows>
+                                
+								   <row>
+					  					 <label value="Requirement Id" style="font-weight:bold"></label>
+								     		<combobox model="@bind(vm.reqIdList)" selectedItem="@bind(vm.individualRequirementBean.requirementGenerationBean)" readonly="true"
+		             							value="@bind(vm.individualRequirementBean.requirementGenerationBean.req_id)" width="50%" onSelect="@command('onSelectReqId')">
+		             							<template name="model" var="p">
+		             							<comboitem value="@bind(p.req_id)" label="@bind(p.req_id)"/>
+		             							</template>
+		             						</combobox>	
+								   	</row>
+								   
+								   <row>
+								    <label value="Resourcing Status"></label>
+								       <combobox model="@bind(vm.statusList)" selectedItem="@bind(vm.individualRequirementBean.statusMasterBean)" readonly="true"
+		             						value="@bind(vm.individualRequirementBean.statusMasterBean.status)" width="50%" onSelect="@command('onSelectStatusName')">
+		             					<template name="model" var="p">
+		             					<comboitem value="@bind(p.status)" label="@bind(p.status)"/>
+		             					</template>
+		             					</combobox>	
+								   </row>
+								  
+								   <row>
+								   
+								       <radiogroup onCheck="@command('onCheckRepairRedo')" selectedItem="@bind(vm.individualRequirementBean.selectedRadioButton)">
+											<radio label="Deatil" value="detail"/>
+											<space></space>
+											<radio label="Summary" value="summary"/>
+										</radiogroup>
+								   
+								   </row>
+								   
+								 </rows>
+                            </grid>
+                            </hlayout>
+                        </div>
 </window>
 </zk>

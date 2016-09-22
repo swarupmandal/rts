@@ -111,7 +111,7 @@
          <treeitem>
          <treerow>
          	<treecell label="- Requirement wise status detail" 
-         	onClick='inclResults.setSrc("/WEB-INF/view/requirementWiseStatusDet.zul");'>
+         	onClick='inclResults.setSrc("/WEB-INF/view/sortCriteriaRidOrStatus.zul");'>
          	</treecell>
          </treerow>
          </treeitem>
