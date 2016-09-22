@@ -201,7 +201,67 @@ public class RequirementGenerationDao {
 		return i;
 	}
 	
-	
+public static ArrayList<RequirementGenerationBean> fetchReqGenMasterData(){
+		
+		ArrayList<RequirementGenerationBean> list = new ArrayList<RequirementGenerationBean>();
+		if(list.size()>0){
+			list.clear();
+		}
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		
+		try {
+			connection = DbConnection.createConnection();
+			preparedStatement = Pstm.createQuery(connection, RequirementGenerationSql.loadReqGenMasterData, null);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				RequirementGenerationBean bean = new RequirementGenerationBean();
+				bean.setReq_id(resultSet.getInt("r_id"));
+				bean.setClientName(resultSet.getString("full_name"));
+				bean.setClientId(resultSet.getInt("req_client_id"));
+				bean.setReqSkillId(resultSet.getInt("req_skill_id"));
+				bean.setReqSkill(resultSet.getString("master_skill_set_name"));
+				bean.setClientfName(resultSet.getString("name"));
+				bean.setClientsName(resultSet.getString("surname"));
+				bean.setOcStatusId(resultSet.getInt("req_status_id"));
+				bean.setOcStatus(resultSet.getString("status"));
+				bean.setJobType(resultSet.getString("req_jobtype"));
+				bean.setJobType(resultSet.getString("req_jobtype"));
+				bean.setDetailedJob(resultSet.getString("req_job_details"));
+				bean.setNofPerResource(resultSet.getInt("req_no_of_per_res"));
+				bean.setNofConResource(resultSet.getInt("req_no_of_con_res"));
+				bean.setRaiseDate(resultSet.getDate("req_raise_date"));
+				bean.setCloseDate(resultSet.getDate("req_close_date"));
+				bean.setContactNo(resultSet.getString("cont_no"));
+				bean.setEmail(resultSet.getString("email_id"));
+				
+				list.add(bean);
+				
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally{
+			if(preparedStatement != null){
+				try {
+					preparedStatement.close();
+				} catch (SQLException e) {
+					
+					e.printStackTrace();
+				}
+			}
+			if(connection != null){
+				try {
+					connection.close();
+				} catch (SQLException e) {
+				
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		return list;
+	}
 	
 
 }

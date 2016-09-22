@@ -20,7 +20,7 @@
 					<rows>
 						<row>
 						  <label value="Client Name:" style="font-weight:bold"></label>		
-						  <combobox width="40%" model="@bind(vm.clientNameBeanList)" autocomplete="true" autodrop="true" readonly="true"
+						  <combobox width="40%" model="@bind(vm.clientNameBeanList)" autocomplete="true" autodrop="true" readonly="true" 
 						    selectedItem="@bind(vm.clientInfoBean)" onSelect="@command('onSelectName')" value="@bind(vm.clientInfoBean.fullName)">
 						  	<template name="model" var = "v">
 						  		<comboitem label="@bind(v.fullName)" value="@bind(v.clientId)"></comboitem>
@@ -106,10 +106,38 @@
 			</tabpanel>
 			
 			<tabpanel>
+				
+			  <div>	
+				<grid mold="paging" pageSize="8" model="@bind(vm.reqGenBeanList)">
+					<auxhead>
+						<auxheader colspan="4">
+							<textbox placeholder="Search By Name" width="230px"></textbox>	
+						</auxheader>
+					</auxhead>
 			
-			
-			
-			
+					<columns>
+						<column label="Client Name" align="center" width="220px"></column>
+						<column label="Raise Date" align="center"></column>
+						<column label="Close Date" align="center"></column>
+						<column label="Requirement Status" align="center"></column>
+						<column label="Update" align="center"></column>
+						<column label="Delete" align="center"></column>
+					</columns>
+					<rows>
+					  <template name="model" var = "v">
+						<row>
+							<textbox width="95%" value="@bind(v.clientfName)" readonly="true"></textbox>
+							<textbox readonly="true" value="@bind(v.raiseDateStr)" width="98%"></textbox>
+							<textbox readonly="true" width="98%"></textbox>
+							<textbox readonly="true" width="98%"></textbox>
+							<button label="Update" width="98%"></button>
+							<button label="Delete" width="98%"></button>	
+						</row>
+					  </template>	
+					</rows>
+				</grid>
+				
+			  </div>	
 			</tabpanel>
 		</tabpanels>
 

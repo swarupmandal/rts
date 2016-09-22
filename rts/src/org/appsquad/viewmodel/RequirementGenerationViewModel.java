@@ -32,7 +32,7 @@ public class RequirementGenerationViewModel {
 	private ArrayList<ClientInformationBean> clientNameBeanList = new ArrayList<ClientInformationBean>();
 	private ArrayList<SkillsetMasterbean> skillSetBeanList = new ArrayList<SkillsetMasterbean>(); 
 	private ArrayList<StatusMasterBean> statusBeanList = new ArrayList<StatusMasterBean>();
-	
+	private ArrayList<RequirementGenerationBean> reqGenBeanList = new ArrayList<RequirementGenerationBean>();
 	
 	
 	@AfterCompose
@@ -43,11 +43,12 @@ public class RequirementGenerationViewModel {
 		userName =  (String) session.getAttribute("userId");
 		reqGenBean.setUserName(userName);
 		
-		System.out.println("user name " + userName);
+		//System.out.println("user name " + userName);
 		
 		clientNameBeanList = RequirementGenerationService.fetchClientNameList();
 		skillSetBeanList = RequirementGenerationService.fetchSkillSetList();
 		statusBeanList = RequirementGenerationService.fetchStatusList();
+		reqGenBeanList = RequirementGenerationService.loadReqGenMasterData();
 	}
 
 
@@ -256,6 +257,17 @@ public class RequirementGenerationViewModel {
 
 	public void setStatusBeanList(ArrayList<StatusMasterBean> statusBeanList) {
 		this.statusBeanList = statusBeanList;
+	}
+
+
+	public ArrayList<RequirementGenerationBean> getReqGenBeanList() {
+		return reqGenBeanList;
+	}
+
+
+	public void setReqGenBeanList(
+			ArrayList<RequirementGenerationBean> reqGenBeanList) {
+		this.reqGenBeanList = reqGenBeanList;
 	}
 
 
