@@ -34,6 +34,7 @@ public class ClientInformationViewModel {
 	private Session sessions = null;
 	private String userName ;
 	private String userId;
+	private boolean flag = false;
 	
 	@AfterCompose
 	public void initSetUp(@ContextParam(ContextType.VIEW) Component view) throws Exception{
@@ -55,9 +56,18 @@ public class ClientInformationViewModel {
 	
 	@Command
 	@NotifyChange("*")
+	public void onClickExistingData(){
+		clientDetailsList = ClientInformationDao.onLoadClientDeatils();
+	}
+	
+	@Command
+	@NotifyChange("*")
 	public void onClickSubmitButton(){
-		ClientInformationService.insertClientMasterData(clientInformationBean);
-		ClientInformationService.clearAllField(clientInformationBean);
+		flag = ClientInformationService.insertClientMasterData(clientInformationBean);
+		System.out.println(flag);
+		if(flag){
+			ClientInformationService.clearAllField(clientInformationBean);	
+		}
 	}
 	
 	@Command
@@ -144,5 +154,15 @@ public class ClientInformationViewModel {
 	public void setClientDetailsList(
 			ArrayList<ClientInformationBean> clientDetailsList) {
 		this.clientDetailsList = clientDetailsList;
+	}
+
+
+	public boolean isFlag() {
+		return flag;
+	}
+
+
+	public void setFlag(boolean flag) {
+		this.flag = flag;
 	}
 }

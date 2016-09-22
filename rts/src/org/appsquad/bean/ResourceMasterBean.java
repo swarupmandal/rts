@@ -3,7 +3,6 @@ package org.appsquad.bean;
 public class ResourceMasterBean {
 	private String name;
 	private String surName;
-	private int yearOfExperience;
 	private String address;
 	private String picCode;
 	private String contactNumber;
@@ -11,6 +10,7 @@ public class ResourceMasterBean {
 	private int resourceId;
 	private String userId;
 	private Double ctc;
+	private Integer yearOfExperience;
 	
 	CountryBean countryBean = new CountryBean();
 	StateBean stateBean = new StateBean();	
@@ -30,12 +30,6 @@ public class ResourceMasterBean {
 	}
 	public void setSurName(String surName) {
 		this.surName = surName;
-	}
-	public int getYearOfExperience() {
-		return yearOfExperience;
-	}
-	public void setYearOfExperience(int yearOfExperience) {
-		this.yearOfExperience = yearOfExperience;
 	}
 	public String getAddress() {
 		return address;
@@ -99,6 +93,12 @@ public class ResourceMasterBean {
 	}
 	public void setCtc(Double ctc) {
 		this.ctc = ctc;
+	}
+	public Integer getYearOfExperience() {
+		return yearOfExperience;
+	}
+	public void setYearOfExperience(Integer yearOfExperience) {
+		this.yearOfExperience = yearOfExperience;
 	}
 	public void setSkillsetMasterbean(SkillsetMasterbean skillsetMasterbean) {
 		this.skillsetMasterbean = skillsetMasterbean;

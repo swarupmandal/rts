@@ -1,6 +1,6 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="Client Information" border="none" height="100%" apply="org.zkoss.bind.BindComposer"
+<window title="Client Information" border="none" height="550px" width="900px" apply="org.zkoss.bind.BindComposer"
 		    viewModel="@id('vm') @init('org.appsquad.viewmodel.ResourceInformationUpdateViewModel')" id="winResourceUpdate" closable="true"> 
 		    <style>
 				.z-textbox{

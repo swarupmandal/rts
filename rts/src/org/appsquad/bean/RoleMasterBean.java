@@ -1,7 +1,6 @@
 package org.appsquad.bean;
 
 public class RoleMasterBean {
-	
 	private String rollid;
 	private String roll;
 	private String user;
@@ -11,7 +10,12 @@ public class RoleMasterBean {
 	private boolean visibilityEditButton = false;
 	private boolean visibilitySaveButton = false;
 	private boolean visibilityDeleteButton = false;
+	private boolean visibilityUpdateButton = true;
+	private int mapperId;
+	private Integer uId;
 	
+	private UserprofileBean userprofileBean = new UserprofileBean(); 
+	private RollDropDownBean downBean = new RollDropDownBean();
 	
 	/*********************************************************************************************************************************************/
 	
@@ -68,5 +72,35 @@ public class RoleMasterBean {
 	}
 	public void setVisibilityDeleteButton(boolean visibilityDeleteButton) {
 		this.visibilityDeleteButton = visibilityDeleteButton;
+	}
+	public UserprofileBean getUserprofileBean() {
+		return userprofileBean;
+	}
+	public void setUserprofileBean(UserprofileBean userprofileBean) {
+		this.userprofileBean = userprofileBean;
+	}
+	public RollDropDownBean getDownBean() {
+		return downBean;
+	}
+	public void setDownBean(RollDropDownBean downBean) {
+		this.downBean = downBean;
+	}
+	public int getMapperId() {
+		return mapperId;
+	}
+	public void setMapperId(int mapperId) {
+		this.mapperId = mapperId;
+	}
+	public boolean isVisibilityUpdateButton() {
+		return visibilityUpdateButton;
+	}
+	public void setVisibilityUpdateButton(boolean visibilityUpdateButton) {
+		this.visibilityUpdateButton = visibilityUpdateButton;
+	}
+	public Integer getuId() {
+		return uId;
+	}
+	public void setuId(Integer uId) {
+		this.uId = uId;
 	}
 }

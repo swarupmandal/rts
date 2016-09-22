@@ -14,8 +14,8 @@ public class ClientInformationService {
 					if(clientInformationBean.getAddress()!=null && clientInformationBean.getAddress().trim().length()>0){
 						if(clientInformationBean.getStateBean().getStateName()!=null && clientInformationBean.getStateBean().getStateName().trim().length()>0){
 							if(clientInformationBean.getCountryBean().getCountryName()!=null && clientInformationBean.getCountryBean().getCountryName().trim().length()>0){
-								if(clientInformationBean.getPinZipCode()!=null && clientInformationBean.getPinZipCode().trim().length()>0){
-									if(clientInformationBean.getContactNo()!=null && clientInformationBean.getContactNo().trim().length()>0){
+								if(clientInformationBean.getPinZipCode()!=null && clientInformationBean.getPinZipCode().trim().length()==6){
+									if(clientInformationBean.getContactNo()!=null && clientInformationBean.getContactNo().trim().length()==10){
 										if(clientInformationBean.getEmailId()!=null && clientInformationBean.getEmailId().trim().length()>0){
 											return true;
 										}else {
@@ -23,11 +23,11 @@ public class ClientInformationService {
 											return false;
 										}
 									}else {
-										Messagebox.show("Enter Employee Conatct Number","Informtion", Messagebox.OK, Messagebox.EXCLAMATION);
+										Messagebox.show("Enter Proper Conatct Number","Informtion", Messagebox.OK, Messagebox.EXCLAMATION);
 										return false;
 									}
 								}else {
-									Messagebox.show("Enter Pin Code","Informtion", Messagebox.OK, Messagebox.EXCLAMATION);
+									Messagebox.show("Enter Proper Pin Code","Informtion", Messagebox.OK, Messagebox.EXCLAMATION);
 									return false;
 								}
 							}else {
@@ -63,8 +63,8 @@ public class ClientInformationService {
 					if(clientInformationBean.getAddress()!=null && clientInformationBean.getAddress().trim().length()>0){
 						if(clientInformationBean.getStateBean().getStateName()!=null && clientInformationBean.getStateBean().getStateName().trim().length()>0){
 							if(clientInformationBean.getCountryBean().getCountryName()!=null && clientInformationBean.getCountryBean().getCountryName().trim().length()>0){
-								if(clientInformationBean.getPinZipCode()!=null && clientInformationBean.getPinZipCode().trim().length()>0){
-									if(clientInformationBean.getContactNo()!=null && clientInformationBean.getContactNo().trim().length()>0){
+								if(clientInformationBean.getPinZipCode()!=null && clientInformationBean.getPinZipCode().trim().length()==6){
+									if(clientInformationBean.getContactNo()!=null && clientInformationBean.getContactNo().trim().length()==10){
 										if(clientInformationBean.getEmailId()!=null && clientInformationBean.getEmailId().trim().length()>0){
 											return true;
 										}else {
@@ -72,11 +72,11 @@ public class ClientInformationService {
 											return false;
 										}
 									}else {
-										Messagebox.show("Enter Employee Conatct Number","Informtion", Messagebox.OK, Messagebox.EXCLAMATION);
+										Messagebox.show("Enter Proper Conatct Number","Informtion", Messagebox.OK, Messagebox.EXCLAMATION);
 										return false;
 									}
 								}else {
-									Messagebox.show("Enter Pin Code","Informtion", Messagebox.OK, Messagebox.EXCLAMATION);
+									Messagebox.show("Enter Proper Pin Code","Informtion", Messagebox.OK, Messagebox.EXCLAMATION);
 									return false;
 								}
 							}else {
@@ -105,10 +105,11 @@ public class ClientInformationService {
 		}
 	}
 	
-	public static void insertClientMasterData(ClientInformationBean clientInformationBean){
+	public static boolean insertClientMasterData(ClientInformationBean clientInformationBean){
 		if(isValid(clientInformationBean)){
-			ClientInformationDao.insertClientData(clientInformationBean);
+			flag = ClientInformationDao.insertClientData(clientInformationBean);
 		}
+		return flag;
 	}
 	
 	public static boolean updateClientMasterData(ClientInformationBean clientInformationBean){
