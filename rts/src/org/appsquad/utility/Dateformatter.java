@@ -13,7 +13,8 @@ public class Dateformatter {
 		
 		if (date != null) {
 			
-			return new SimpleDateFormat("dd-MMM-yyyy").format(date);
+			/*return new SimpleDateFormat("dd-MMM-yyyy").format(date);*/
+			return new SimpleDateFormat("yyyy-MM-dd").format(date);
 		
 		} else {
 		
@@ -42,6 +43,14 @@ public class Dateformatter {
 		System.out.println(dateFormat.format(date));
 		
 		return date;
+	}
+	
+	/************** util to sql date ****************/
+	
+	public static java.sql.Date sqlDate(Date date){
+		java.sql.Date dateSql = new java.sql.Date(date.getTime());
+		return dateSql;
+		
 	}
 	
 	

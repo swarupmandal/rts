@@ -8,13 +8,13 @@ public class ClientInformationsql {
 	
 	public static final String skillSetQuery = "select * from rts_skill_master ";
 	
-	public static final String statusSetQuery = "select * from rts_status_master ";
+	public static final String statusSetQuery = "select * from rts_status_master where is_delete = 'N' ";
 	
 	public static final String insertClientInfo = " INSERT INTO rts_clients_master(name,surname, companyname, officeaddress, state, "
                                            +" country, zipcode, contactno, emailid, created_by,state_id, country_id) "
                                            +" VALUES (?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?) ";
 	
-	public static final String fetchClientDeatils = "select * from rts_clients_master ";
+	public static final String fetchClientDeatils = "select * from rts_clients_master where is_delete = 'N' ";
 	
 	public static final String clientDetailsUpdate = "UPDATE rts_clients_master set name = ?,companyname = ?,"
 			                                 + "officeaddress = ?,state = ?,country = ?,zipcode = ?,contactno = ?,emailid = ?,state_id= ?,"

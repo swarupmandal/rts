@@ -1,8 +1,8 @@
-package org.appsquad.bean;	
+package org.appsquad.bean;
 
 import java.util.Date;
 
-public class SortCriteriaRidorStatusBean {
+public class IndividualRequirementBean {
 	private Date fromDate;
 	private Date toDate;
 	private String userId;
@@ -13,8 +13,9 @@ public class SortCriteriaRidorStatusBean {
 	private UserprofileBean userprofileBean = new UserprofileBean();
 	private SkillsetMasterbean skillsetMasterbean = new SkillsetMasterbean();
 	private ClientInformationBean clientInformationBean = new ClientInformationBean();
+	private RequirementGenerationBean requirementGenerationBean = new RequirementGenerationBean();
 	
-	/************************************************************************************************************************************************/
+	
 	
 	public Date getFromDate() {
 		return fromDate;
@@ -27,6 +28,18 @@ public class SortCriteriaRidorStatusBean {
 	}
 	public void setToDate(Date toDate) {
 		this.toDate = toDate;
+	}
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	public String getSelectedRadioButton() {
+		return selectedRadioButton;
+	}
+	public void setSelectedRadioButton(String selectedRadioButton) {
+		this.selectedRadioButton = selectedRadioButton;
 	}
 	public SkillsetMasterbean getMasterbean() {
 		return masterbean;
@@ -46,12 +59,6 @@ public class SortCriteriaRidorStatusBean {
 	public void setUserprofileBean(UserprofileBean userprofileBean) {
 		this.userprofileBean = userprofileBean;
 	}
-	public String getUserId() {
-		return userId;
-	}
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
 	public SkillsetMasterbean getSkillsetMasterbean() {
 		return skillsetMasterbean;
 	}
@@ -64,11 +71,12 @@ public class SortCriteriaRidorStatusBean {
 	public void setClientInformationBean(ClientInformationBean clientInformationBean) {
 		this.clientInformationBean = clientInformationBean;
 	}
-	public String getSelectedRadioButton() {
-		return selectedRadioButton;
+	public RequirementGenerationBean getRequirementGenerationBean() {
+		return requirementGenerationBean;
 	}
-	public void setSelectedRadioButton(String selectedRadioButton) {
-		this.selectedRadioButton = selectedRadioButton;
+	public void setRequirementGenerationBean(
+			RequirementGenerationBean requirementGenerationBean) {
+		this.requirementGenerationBean = requirementGenerationBean;
 	}
 
 }

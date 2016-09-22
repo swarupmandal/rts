@@ -1,8 +1,8 @@
-package org.appsquad.bean;	
+package org.appsquad.bean;
 
 import java.util.Date;
 
-public class SortCriteriaRidorStatusBean {
+public class IndividualClientBean {
 	private Date fromDate;
 	private Date toDate;
 	private String userId;
@@ -14,7 +14,8 @@ public class SortCriteriaRidorStatusBean {
 	private SkillsetMasterbean skillsetMasterbean = new SkillsetMasterbean();
 	private ClientInformationBean clientInformationBean = new ClientInformationBean();
 	
-	/************************************************************************************************************************************************/
+	
+	/**************************************************************************************************************************************************/
 	
 	public Date getFromDate() {
 		return fromDate;
@@ -27,6 +28,18 @@ public class SortCriteriaRidorStatusBean {
 	}
 	public void setToDate(Date toDate) {
 		this.toDate = toDate;
+	}
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	public String getSelectedRadioButton() {
+		return selectedRadioButton;
+	}
+	public void setSelectedRadioButton(String selectedRadioButton) {
+		this.selectedRadioButton = selectedRadioButton;
 	}
 	public SkillsetMasterbean getMasterbean() {
 		return masterbean;
@@ -46,12 +59,6 @@ public class SortCriteriaRidorStatusBean {
 	public void setUserprofileBean(UserprofileBean userprofileBean) {
 		this.userprofileBean = userprofileBean;
 	}
-	public String getUserId() {
-		return userId;
-	}
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
 	public SkillsetMasterbean getSkillsetMasterbean() {
 		return skillsetMasterbean;
 	}
@@ -64,11 +71,4 @@ public class SortCriteriaRidorStatusBean {
 	public void setClientInformationBean(ClientInformationBean clientInformationBean) {
 		this.clientInformationBean = clientInformationBean;
 	}
-	public String getSelectedRadioButton() {
-		return selectedRadioButton;
-	}
-	public void setSelectedRadioButton(String selectedRadioButton) {
-		this.selectedRadioButton = selectedRadioButton;
-	}
-
 }

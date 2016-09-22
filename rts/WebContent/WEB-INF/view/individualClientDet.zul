@@ -1,6 +1,69 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="Individual Client Details" border="normal">
-New Content Here!
+<window title="Sort criteria:RID/Status" border="none" apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('org.appsquad.viewmodel.IndividualClientViewModel')">
+    <div>
+                          <hlayout>
+                            <grid>
+                                <columns>
+                                      <column></column>
+                                      <column></column>
+                                </columns>
+                                <rows>
+                                
+                                   <row>
+                                        <label value="Client-Name"></label>
+								       <combobox model="@bind(vm.clientList)" selectedItem="@bind(vm.individualClientBean.clientInformationBean)" readonly="true"
+		             						value="@bind(vm.individualClientBean.clientInformationBean.fullName)" width="50%" onSelect="@command('onSelectClientName')">
+		             					<template name="model" var="p">
+		             					<comboitem value="@bind(p.fullName)" label="@bind(p.fullName)"/>
+		             					</template>
+		             					</combobox>
+                                   
+                                   </row>
+                                   
+								   <row>
+					  					<label value="From-date" style="font-weight:bold"></label>		
+					  					 <datebox format="dd-MMM-yyyy"
+										value="@bind(vm.individualClientBean.fromDate)" onChange="@command('onChangeFromDate')"></datebox>
+								  
+					  					<label value="To-Date" style="font-weight:bold"></label>		
+					  						<datebox format="dd-MMM-yyyy"
+										       value="@bind(vm.individualClientBean.toDate)" onChange="@command('onChangeToDate')"></datebox>
+								   </row>
+								   
+								   <row>
+								     <label value="Skill-Set" style="font-weight:bold"></label>
+								     <combobox model="@bind(vm.skillList)" selectedItem="@bind(vm.individualClientBean.skillsetMasterbean)" readonly="true"
+		             					value="@bind(vm.individualClientBean.skillsetMasterbean.skillset)" width="50%" onSelect="@command('onSelectSkillName')">
+		             					<template name="model" var="p">
+		             						<comboitem value="@bind(p.skillset)" label="@bind(p.skillset)"/>
+		             					</template>
+		             				</combobox>	
+		             				
+		             				<label value="Resourcing Status"></label>
+								       <combobox model="@bind(vm.statusList)" selectedItem="@bind(vm.individualClientBean.statusMasterBean)" readonly="true"
+		             						value="@bind(vm.individualClientBean.statusMasterBean.status)" width="50%" onSelect="@command('onSelectStatusName')">
+		             					<template name="model" var="p">
+		             					<comboitem value="@bind(p.status)" label="@bind(p.status)"/>
+		             					</template>
+		             					</combobox>	
+		             				
+								   </row>
+								   
+								   <row>
+								   
+								       <radiogroup onCheck="@command('onCheckRepairRedo')" selectedItem="@bind(vm.individualClientBean.selectedRadioButton)">
+											<radio label="Deatil" value="detail"/>
+											<space></space>
+											<radio label="Summary" value="summary"/>
+										</radiogroup>
+								   
+								   </row>
+								   
+								 </rows>
+                            </grid>
+                            </hlayout>
+                        </div>
 </window>
 </zk>
