@@ -23,10 +23,12 @@ public class RequirementGenerationBean {
   private Date raiseDate;
   private java.sql.Date	raiseDatesql;
   private String raiseDateStr;
+  private String raiseDateValue;
   
   private Date closeDate;
   private java.sql.Date closeDatesql;
   private String closeDateStr;
+  private String closeDateValue;
   
   private String reqStatus;
   private int reqStatusId;
@@ -243,5 +245,21 @@ public int getReq_id() {
 
 public void setReq_id(int req_id) {
 	this.req_id = req_id;
+}
+
+public String getRaiseDateValue() {
+	return raiseDateValue;
+}
+
+public void setRaiseDateValue(String raiseDateValue) {
+	this.raiseDateValue = raiseDateValue;
+}
+
+public String getCloseDateValue() {
+	return closeDateValue;
+}
+
+public void setCloseDateValue(String closeDateValue) {
+	this.closeDateValue = closeDateValue;
 }	
 }

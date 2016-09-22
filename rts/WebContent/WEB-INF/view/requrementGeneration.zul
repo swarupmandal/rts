@@ -54,7 +54,7 @@
 						</row>
 						
 						<row>
-						  <label value="Number of Contact Resource:" style="font-weight:bold"></label>		
+						  <label value="Number of Contract Resource:" style="font-weight:bold"></label>		
 						  <intbox width="15%" value="@bind(vm.reqGenBean.nofConResource)"></intbox>	
 						</row>
 						
@@ -88,7 +88,7 @@
 						</combobox>
 						</row>
 						
-						<row>
+						<row visible="false">
 						<label value="Closure Reason:" style="font-weight:bold"></label>
 						<textbox rows="2" value="@bind(vm.reqGenBean.closureReason)"></textbox>
 						</row>
@@ -121,16 +121,16 @@
 						<column label="Close Date" align="center"></column>
 						<column label="Requirement Status" align="center"></column>
 						<column label="Update" align="center"></column>
-						<column label="Delete" align="center"></column>
+						<column label="Delete" align="center" visible="false"></column>
 					</columns>
 					<rows>
 					  <template name="model" var = "v">
 						<row>
-							<textbox width="95%" value="@bind(v.clientfName)" readonly="true"></textbox>
+							<textbox width="95%" value="@bind(v.clientName)" readonly="true"></textbox>
 							<textbox readonly="true" value="@bind(v.raiseDateStr)" width="98%"></textbox>
-							<textbox readonly="true" width="98%"></textbox>
-							<textbox readonly="true" width="98%"></textbox>
-							<button label="Update" width="98%"></button>
+							<textbox readonly="true" value="@bind(v.closeDateStr)" width="98%"></textbox>
+							<textbox readonly="true" width="98%" value="@bind(v.ocStatus)"></textbox>
+							<button label="Edit" width="98%"></button>
 							<button label="Delete" width="98%"></button>	
 						</row>
 					  </template>	

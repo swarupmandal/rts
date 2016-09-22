@@ -52,9 +52,9 @@ public class RequirementGenerationService {
 						
 						if(bean.getDetailedJob() !=null){
 							
-							if(bean.getNofPerResource() !=null){
+							if(bean.getNofPerResource() !=null && bean.getNofConResource() != null){
 								
-								if(bean.getNofConResource() != null){
+								//if(bean.getNofConResource() != null){
 									
 									if(bean.getRaiseDatesql() != null){
 										
@@ -88,13 +88,13 @@ public class RequirementGenerationService {
 										return false;
 									}
 									
-								}else {
-									Messagebox.show("Enter Number of Contract Resource ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
-									return false;
-								}
+								//}else {
+									//Messagebox.show("Enter Number of Contract Resource ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+									//return false;
+								//}
 								
 							}else {
-								Messagebox.show("Enter Number of Permanent Resource ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+								Messagebox.show("Enter Number of Permanent or Contract Resource ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
 								return false;
 							}
 							

@@ -90,6 +90,7 @@ public class RequirementGenerationViewModel {
 			if(i>0){
 				Messagebox.show("Saved Successfully ", "Information", Messagebox.OK, Messagebox.INFORMATION);
 				clear();
+				reqGenBeanList = RequirementGenerationService.loadReqGenMasterData();
 			}
 		}
 		

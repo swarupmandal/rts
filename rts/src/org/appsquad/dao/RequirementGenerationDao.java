@@ -13,6 +13,7 @@ import org.appsquad.bean.SkillsetMasterbean;
 import org.appsquad.bean.StatusMasterBean;
 import org.appsquad.database.DbConnection;
 import org.appsquad.sql.RequirementGenerationSql;
+import org.appsquad.utility.Dateformatter;
 import org.appsquad.utility.Pstm;
 
 public class RequirementGenerationDao {
@@ -230,8 +231,19 @@ public static ArrayList<RequirementGenerationBean> fetchReqGenMasterData(){
 				bean.setDetailedJob(resultSet.getString("req_job_details"));
 				bean.setNofPerResource(resultSet.getInt("req_no_of_per_res"));
 				bean.setNofConResource(resultSet.getInt("req_no_of_con_res"));
+				
 				bean.setRaiseDate(resultSet.getDate("req_raise_date"));
+				bean.setRaiseDateValue(resultSet.getString("req_raise_date"));
+				if(bean.getRaiseDateValue() !=null){
+				bean.setRaiseDateStr(Dateformatter.toStringDate(bean.getRaiseDateValue()));
+				}
+				
 				bean.setCloseDate(resultSet.getDate("req_close_date"));
+				bean.setCloseDateValue(resultSet.getString("req_close_date"));
+				if(bean.getCloseDateValue() != null){
+				bean.setCloseDateStr(Dateformatter.toStringDate(bean.getCloseDateValue()));
+				}
+				
 				bean.setContactNo(resultSet.getString("cont_no"));
 				bean.setEmail(resultSet.getString("email_id"));
 				
