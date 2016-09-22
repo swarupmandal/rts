@@ -17,5 +17,7 @@ public class RequirementGenerationSql {
 									           " ?, ?, ?, ?, " + 
 									           " ?, ?, ?, ?, ?, ?) " ;
 	
+	public static final String loadReqGenMasterData = "select * from vw_req_generation_details where req_status_id = 1";
+	
 	
 }

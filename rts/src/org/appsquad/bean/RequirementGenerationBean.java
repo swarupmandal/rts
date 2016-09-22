@@ -40,6 +40,8 @@ public class RequirementGenerationBean {
   
   private String contactNo;
   private String email;
+  
+  private int req_id;
 
 public String getClientName() {
 	return clientName;
@@ -233,5 +235,13 @@ public java.sql.Date getCloseDatesql() {
 
 public void setCloseDatesql(java.sql.Date closeDatesql) {
 	this.closeDatesql = closeDatesql;
+}
+
+public int getReq_id() {
+	return req_id;
+}
+
+public void setReq_id(int req_id) {
+	this.req_id = req_id;
 }	
 }

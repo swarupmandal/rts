@@ -48,6 +48,7 @@ public class RequirementGenerationViewModel {
 		clientNameBeanList = RequirementGenerationService.fetchClientNameList();
 		skillSetBeanList = RequirementGenerationService.fetchSkillSetList();
 		statusBeanList = RequirementGenerationService.fetchStatusList();
+		reqGenBeanList = RequirementGenerationService.loadReqGenMasterData();
 	}
 
 

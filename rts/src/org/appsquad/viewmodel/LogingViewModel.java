@@ -45,7 +45,8 @@ public class LogingViewModel {
 										+ "-webkit-box-shadow: 0px 0px 8px #7bc1f7;";
 		
 		//System.out.println("Login Page loading with session::"+session);
-		System.out.println("INIT LOAD");
+		
+		System.out.println("INIT LOAD ------ >>> >> >");
 		
 	}
 	

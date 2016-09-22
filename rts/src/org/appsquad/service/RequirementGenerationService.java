@@ -34,6 +34,12 @@ public class RequirementGenerationService {
 		return i;
 	}
 	
+	public static ArrayList<RequirementGenerationBean> loadReqGenMasterData(){
+		ArrayList<RequirementGenerationBean> list = new ArrayList<RequirementGenerationBean>();
+		list = RequirementGenerationDao.fetchReqGenMasterData();
+		return list;
+	}
+	
 	
 	
 	public static boolean isValid(RequirementGenerationBean bean){
