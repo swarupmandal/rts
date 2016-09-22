@@ -1,0 +1,38 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="Role Update Screen" border="none" height="250px" width="700px" apply="org.zkoss.bind.BindComposer"
+		    viewModel="@id('vm') @init('org.appsquad.viewmodel.RoleMasterUpdateViewModel')" closable="true"
+		     id="winRoleUpdate">
+   					<div>
+                          <hlayout>
+                            <grid>
+                                <columns>
+                                      <column></column>
+                                      <column></column>
+                                     
+                                </columns>
+                                
+                                <rows>
+                                
+								   <row>
+					  					<label value="User Name" style="font-weight:bold"></label>		
+					  					<textbox value="@bind(vm.masterBean.userprofileBean.username)" readonly="true"></textbox>
+								  
+					  					<label value="Role Name" style="font-weight:bold"></label>		
+					  					<combobox model="@bind(vm.roleList)" selectedItem="@bind(vm.masterBean.downBean)" readonly="true"
+		             						value="@bind(vm.masterBean.downBean.roll)" width="120px" onSelect="@command('onSelectRollName')">
+		             					<template name="model" var="p">
+		             					<comboitem value="@bind(p.roll)" label="@bind(p.roll)"/>
+		             					</template>
+		             					</combobox>	
+								   </row>
+								 </rows>
+                            </grid>
+                            </hlayout>
+                        </div>
+                        <space></space>
+                        <div align="center">
+							<button label="Update" onClick="@command('onClickUpdateButton')" disabled="@bind(vm.masterBean.visibilityUpdateButton)"></button>
+                        </div>
+</window>
+</zk>
