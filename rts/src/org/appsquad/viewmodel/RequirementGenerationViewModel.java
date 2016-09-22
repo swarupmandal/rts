@@ -1,6 +1,8 @@
 package org.appsquad.viewmodel;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.appsquad.bean.ClientInformationBean;
 import org.appsquad.bean.RequirementGenerationBean;
@@ -8,15 +10,20 @@ import org.appsquad.bean.SkillsetMasterbean;
 import org.appsquad.bean.StatusMasterBean;
 import org.appsquad.service.RequirementGenerationService;
 import org.zkoss.bind.annotation.AfterCompose;
+import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
+import org.zkoss.bind.annotation.ExecutionArgParam;
+import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zul.Messagebox;
+import org.zkoss.zul.Window;
 
 public class RequirementGenerationViewModel {
 	
@@ -43,7 +50,7 @@ public class RequirementGenerationViewModel {
 		userName =  (String) session.getAttribute("userId");
 		reqGenBean.setUserName(userName);
 		
-		//System.out.println("user name " + userName);
+		System.out.println("user name " + reqGenBean.getUserName());
 		
 		clientNameBeanList = RequirementGenerationService.fetchClientNameList();
 		skillSetBeanList = RequirementGenerationService.fetchSkillSetList();
@@ -58,6 +65,7 @@ public class RequirementGenerationViewModel {
 		
 		if(clientInfoBean.getClientId()>0){
 			reqGenBean.setClientId(clientInfoBean.getClientId());
+			reqGenBean.setClientName(clientInfoBean.getName());
 		}
 	}
 	
@@ -96,10 +104,27 @@ public class RequirementGenerationViewModel {
 		
 	}
 
-
-
+    @Command
+    @NotifyChange("*")
+	public void onClickUpdate(@BindingParam("bean") RequirementGenerationBean bean){
+    	bean.setUserName(userName);
+    	Map<String, Object> parentMap = new HashMap<String, Object>();
+    	parentMap.put("parentBean", bean);
+    	
+    	Window window = (Window) Executions.createComponents("/WEB-INF/view/requrementGenerationEdit.zul", null, parentMap);
+    	window.doModal();
+    	
+    }
 	
 	
+    @GlobalCommand
+    @NotifyChange("*")
+	public void editReqGen(){
+    	reqGenBeanList = RequirementGenerationService.loadReqGenMasterData();
+    }
+    
+    
+    
 	public void clear(){
 		
 		

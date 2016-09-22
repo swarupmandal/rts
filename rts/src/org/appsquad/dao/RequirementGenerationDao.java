@@ -275,6 +275,45 @@ public static ArrayList<RequirementGenerationBean> fetchReqGenMasterData(){
 		return list;
 	}
 	
+	
+		public static int onClikUpdate(RequirementGenerationBean bean){
+			int i =0;
+			Connection connection = null;
+			PreparedStatement preparedStatement= null;
+			
+			try {
+				connection = DbConnection.createConnection();
+				preparedStatement = Pstm.createQuery(connection, RequirementGenerationSql.updateReqGen, Arrays.asList(bean.getNofPerResource(), bean.getNofConResource(), Dateformatter.sqlDate(bean.getRaiseDate()), Dateformatter.sqlDate(bean.getCloseDate()),
+																													bean.getContactNo(), bean.getEmail(),bean.getOcStatusId(),bean.getClosureReason(), bean.getUserName(), bean.getReq_id()));
+				
+				i = preparedStatement.executeUpdate();
+				
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}finally{
+				if(preparedStatement != null){
+					try {
+						preparedStatement.close();
+					} catch (SQLException e) {
+						
+						e.printStackTrace();
+					}
+				}if(connection != null){
+					try {
+						connection.close();
+					} catch (SQLException e) {
+						
+						e.printStackTrace();
+					}
+				}
+			}
+			
+			return i;
+		}
+
+	
+
 
 }
 

@@ -45,7 +45,7 @@
 						
 						<row>
 						  <label value="Detailed Job:" style="font-weight:bold"></label>		
-						  <textbox rows="2" value="@bind(vm.reqGenBean.detailedJob)"></textbox>	
+						  <textbox multiline="true" value="@bind(vm.reqGenBean.detailedJob)"></textbox>	
 						</row>
 						
 						<row>
@@ -90,7 +90,7 @@
 						
 						<row visible="false">
 						<label value="Closure Reason:" style="font-weight:bold"></label>
-						<textbox rows="2" value="@bind(vm.reqGenBean.closureReason)"></textbox>
+						<textbox multiline="true" value="@bind(vm.reqGenBean.closureReason)"></textbox>
 						</row>
 						
 					</rows>
@@ -130,7 +130,7 @@
 							<textbox readonly="true" value="@bind(v.raiseDateStr)" width="98%"></textbox>
 							<textbox readonly="true" value="@bind(v.closeDateStr)" width="98%"></textbox>
 							<textbox readonly="true" width="98%" value="@bind(v.ocStatus)"></textbox>
-							<button label="Edit" width="98%"></button>
+							<button label="Edit" width="98%" onClick="@command('onClickUpdate', bean = v)"    ></button>
 							<button label="Delete" width="98%"></button>	
 						</row>
 					  </template>	

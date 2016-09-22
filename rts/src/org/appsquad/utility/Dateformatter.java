@@ -45,6 +45,14 @@ public class Dateformatter {
 		return date;
 	}
 	
+	/************** util to sql date ****************/
+	
+	public static java.sql.Date sqlDate(Date date){
+		java.sql.Date dateSql = new java.sql.Date(date.getTime());
+		return dateSql;
+		
+	}
+	
 	
 	
 	public static Dateformatter getInstance() {
