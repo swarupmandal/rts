@@ -1,6 +1,23 @@
-<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<?page title="Resource Allocation Update" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="new page title" border="normal">
-New Content Here!
+<window title="RESOURCE ALLOCATION UPDATE" border="none" apply="org.zkoss.bind.BindComposer"
+	viewModel="@id('vm') @init('org.appsquad.viewmodel.RecourceAllocationUpdateViewModel')">
+	
+	<div>	
+	   <hlayout spacing="30px">
+			   <label value="Search Requirement Id " style="font-weight: bold; font-size: 14px; color: black" ></label>
+			   <intbox></intbox>
+			   <button label="Search"></button>
+	   </hlayout>
+	</div>
+	<div>
+		
+	
+	
+	
+	
+	
+	
+	</div>
 </window>
 </zk>
