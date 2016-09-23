@@ -11,6 +11,7 @@ import org.appsquad.bean.StatusMasterBean;
 import org.appsquad.database.DbConnection;
 import org.appsquad.sql.ClientInformationsql;
 import org.appsquad.sql.SkillSetMasterSql;
+import org.appsquad.sql.SortCriteriaSql;
 import org.appsquad.utility.Pstm;
 
 public class SortCriteriaDao {
@@ -70,7 +71,7 @@ public class SortCriteriaDao {
 					sql_fetch:{
 					   PreparedStatement preparedStatement = null;
 					   try {
-						   preparedStatement = Pstm.createQuery(connection, ClientInformationsql.statusSetQuery, null);
+						   preparedStatement = Pstm.createQuery(connection, SortCriteriaSql.statusQuery, null);
 							
 							ResultSet resultSet = preparedStatement.executeQuery();
 							while (resultSet.next()) {
