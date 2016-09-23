@@ -44,6 +44,7 @@ public class RequirementGenerationBean {
   private String email;
   
   private int req_id;
+  private Integer requirementId;
 
 public String getClientName() {
 	return clientName;
@@ -161,6 +162,14 @@ public void setReqStatusId(int reqStatusId) {
 
 public String getClosureReason() {
 	return closureReason;
+}
+
+public Integer getRequirementId() {
+	return requirementId;
+}
+
+public void setRequirementId(Integer requirementId) {
+	this.requirementId = requirementId;
 }
 
 public void setClosureReason(String closureReason) {

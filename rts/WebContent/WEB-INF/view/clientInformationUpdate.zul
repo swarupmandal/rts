@@ -52,7 +52,7 @@
 					
 					<row>
 					  <label value="Contact no:" style="font-weight:bold"></label>
-					 <intbox width="20%" value="@bind(vm.informationBean.contactNo)" maxlength="10" constraint="no negative,no zero"></intbox>	
+					  <textbox value="@bind(vm.informationBean.contactNo)"></textbox>
 					</row>
 					
 					<row>

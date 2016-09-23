@@ -11,6 +11,8 @@ public class ResourceMasterBean {
 	private String userId;
 	private Double ctc;
 	private Integer yearOfExperience;
+	private String fullName;
+	private boolean chkSelect = false;
 	
 	CountryBean countryBean = new CountryBean();
 	StateBean stateBean = new StateBean();	
@@ -93,6 +95,18 @@ public class ResourceMasterBean {
 	}
 	public void setCtc(Double ctc) {
 		this.ctc = ctc;
+	}
+	public boolean isChkSelect() {
+		return chkSelect;
+	}
+	public void setChkSelect(boolean chkSelect) {
+		this.chkSelect = chkSelect;
+	}
+	public String getFullName() {
+		return fullName;
+	}
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
 	}
 	public Integer getYearOfExperience() {
 		return yearOfExperience;
