@@ -7,7 +7,6 @@ import org.appsquad.bean.ClientInformationBean;
 import org.appsquad.bean.SkillsetMasterbean;
 import org.appsquad.bean.SortCriteriaRidorStatusBean;
 import org.appsquad.bean.StatusMasterBean;
-import org.appsquad.dao.RoleMasterDao;
 import org.appsquad.dao.SortCriteriaDao;
 import org.appsquad.utility.Dateformatter;
 import org.zkoss.bind.annotation.AfterCompose;
@@ -84,72 +83,49 @@ public class SortcriteriaRidorStatusviewModel {
 	public SortCriteriaRidorStatusBean getCriteriaRidorStatusBean() {
 		return criteriaRidorStatusBean;
 	}
-	
 	public void setCriteriaRidorStatusBean(
 			SortCriteriaRidorStatusBean criteriaRidorStatusBean) {
 		this.criteriaRidorStatusBean = criteriaRidorStatusBean;
 	}
-
 	public ArrayList<SkillsetMasterbean> getSkillList() {
 		return skillList;
 	}
-
 	public void setSkillList(ArrayList<SkillsetMasterbean> skillList) {
 		this.skillList = skillList;
 	}
-
 	public ArrayList<StatusMasterBean> getStatusList() {
 		return statusList;
 	}
-
 	public void setStatusList(ArrayList<StatusMasterBean> statusList) {
 		this.statusList = statusList;
 	}
-
 	public ArrayList<ClientInformationBean> getClientList() {
 		return clientList;
 	}
-
 	public void setClientList(ArrayList<ClientInformationBean> clientList) {
 		this.clientList = clientList;
 	}
-
-
 	public Connection getConnection() {
 		return connection;
 	}
-
-
 	public void setConnection(Connection connection) {
 		this.connection = connection;
 	}
-
-
 	public Session getSessions() {
 		return sessions;
 	}
-
-
 	public void setSessions(Session sessions) {
 		this.sessions = sessions;
 	}
-
-
 	public String getUserName() {
 		return userName;
 	}
-
-
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-
-
 	public String getUserId() {
 		return userId;
 	}
-
-
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
