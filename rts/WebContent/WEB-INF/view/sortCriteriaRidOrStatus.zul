@@ -54,7 +54,7 @@
 								   <row>
 								   
 								       <radiogroup onCheck="@command('onCheckRepairRedo')" selectedItem="@bind(vm.criteriaRidorStatusBean.selectedRadioButton)">
-											<radio label="Deatil" value="detail"/>
+											<radio label="Detail" value="detail" />
 											<space></space>
 											<radio label="Summary" value="summary"/>
 										</radiogroup>
