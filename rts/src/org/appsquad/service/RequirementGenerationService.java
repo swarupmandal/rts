@@ -49,6 +49,9 @@ public class RequirementGenerationService {
 	
 	public static boolean isValid(RequirementGenerationBean bean){
 		
+		System.out.println("P rec " + bean.getNofPerResource());
+		System.out.println("C rec " + bean.getNofConResource());
+		
 		if(bean.getClientId()>0){
 			
 				if(bean.getReqSkillId()>0){
@@ -57,7 +60,7 @@ public class RequirementGenerationService {
 						
 						if(bean.getDetailedJob() !=null){
 							
-							if(bean.getNofPerResource() !=null && bean.getNofConResource() != null){
+							if(bean.getNofPerResource() !=null || bean.getNofConResource() != null){
 								
 								//if(bean.getNofConResource() != null){
 									
@@ -93,10 +96,10 @@ public class RequirementGenerationService {
 										return false;
 									}
 									
-								//}else {
-									//Messagebox.show("Enter Number of Contract Resource ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
-									//return false;
-								//}
+								/*}else {
+									Messagebox.show("Enter Number of Contract Resource ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+									return false;
+								}*/
 								
 							}else {
 								Messagebox.show("Enter Number of Permanent or Contract Resource ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);

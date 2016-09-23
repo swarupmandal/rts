@@ -50,8 +50,6 @@ public class RequirementGenerationViewModel {
 		userName =  (String) session.getAttribute("userId");
 		reqGenBean.setUserName(userName);
 		
-		System.out.println("user name " + reqGenBean.getUserName());
-		
 		clientNameBeanList = RequirementGenerationService.fetchClientNameList();
 		skillSetBeanList = RequirementGenerationService.fetchSkillSetList();
 		statusBeanList = RequirementGenerationService.fetchStatusList();

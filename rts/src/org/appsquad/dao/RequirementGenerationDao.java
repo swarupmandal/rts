@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -283,10 +284,37 @@ public static ArrayList<RequirementGenerationBean> fetchReqGenMasterData(){
 			
 			try {
 				connection = DbConnection.createConnection();
-				preparedStatement = Pstm.createQuery(connection, RequirementGenerationSql.updateReqGen, Arrays.asList(bean.getNofPerResource(), bean.getNofConResource(), Dateformatter.sqlDate(bean.getRaiseDate()), Dateformatter.sqlDate(bean.getCloseDate()),
-																													bean.getContactNo(), bean.getEmail(),bean.getOcStatusId(),bean.getClosureReason(), bean.getUserName(), bean.getReq_id()));
+				/*preparedStatement = Pstm.createQuery(connection, RequirementGenerationSql.updateReqGen, Arrays.asList(bean.getNofPerResource(), bean.getNofConResource(), 
+																													  Dateformatter.sqlDate(bean.getRaiseDate()), 
+																													  Dateformatter.sqlDate(bean.getCloseDate()),
+																													  bean.getContactNo(), bean.getEmail(),bean.getOcStatusId(),
+																													  bean.getClosureReason(), bean.getUserName(), bean.getReq_id()));*/
 				
-				i = preparedStatement.executeUpdate();
+				preparedStatement = connection.prepareStatement(RequirementGenerationSql.updateReqGen);
+				
+				  preparedStatement.setInt(1, bean.getNofPerResource());	
+				  preparedStatement.setInt(2, bean.getNofConResource());
+				  
+				  if(bean.getRaiseDate() != null){
+					 preparedStatement.setDate(3, Dateformatter.sqlDate(bean.getRaiseDate()));
+				  }else {
+					preparedStatement.setNull(3, Types.NULL);
+				  }
+				  
+				  if(bean.getCloseDate() != null){
+					 preparedStatement.setDate(4, Dateformatter.sqlDate(bean.getCloseDate()));
+				  }else {
+					preparedStatement.setNull(4, Types.NULL);
+				  }
+				  
+				  preparedStatement.setString(5,bean.getContactNo()); 
+				  preparedStatement.setString(6,bean.getEmail());
+				  preparedStatement.setInt(7,bean.getOcStatusId());
+				  preparedStatement.setString(8, bean.getClosureReason());
+				  preparedStatement.setString(9, bean.getUserName());
+				  preparedStatement.setInt(10, bean.getReq_id());
+				  
+				  i = preparedStatement.executeUpdate();
 				
 				
 			} catch (Exception e) {

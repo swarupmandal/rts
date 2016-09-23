@@ -1,4 +1,4 @@
-package org.appsquad.bean;
+package org.appsquad.bean;	
 
 import java.util.Date;
 
@@ -70,4 +70,5 @@ public class SortCriteriaRidorStatusBean {
 	public void setSelectedRadioButton(String selectedRadioButton) {
 		this.selectedRadioButton = selectedRadioButton;
 	}
+
 }
