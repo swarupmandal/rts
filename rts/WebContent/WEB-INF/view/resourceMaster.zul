@@ -2,11 +2,7 @@
 <zk>
 <window title="RESOURCE INFORMATION" border="none" height="100%" apply="org.zkoss.bind.BindComposer" width="99%"
 		    viewModel="@id('vm') @init('org.appsquad.viewmodel.ResourceMasterViewModel')" contentStyle="overflow:scroll">
-		    <style>
-			.z-textbox{
-			   	text-transform:uppercase;
-			   }
-		</style>
+		   
   <tabbox>
 	<tabs>
 		<tab>New Entry</tab>
@@ -90,7 +86,7 @@
 						
 						<row>
 						<label value="Upload Cv"></label>
-						<textbox></textbox>
+						<button label="upload file"></button>
 						</row>
 						
 						<row>
