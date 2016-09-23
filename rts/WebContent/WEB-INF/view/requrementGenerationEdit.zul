@@ -24,7 +24,7 @@
 						
 						<row>
 						  <label value="Job Type:" style="font-weight:bold"></label>		
-						  <textbox value="@bind(vm.reqEditGenBean.jobType)"></textbox>	
+						  <textbox value="@bind(vm.reqEditGenBean.jobType)" readonly="true"></textbox>	
 						</row>
 						
 						<row>

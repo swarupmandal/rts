@@ -45,7 +45,7 @@
             	</treecell>
             	</treerow>
             </treeitem>
-             <treeitem open="false">
+             <treeitem open="false" visible="false">
             	<treerow>
             	 <treecell label="- Resource"
             	  onClick='inclResults.setSrc("/WEB-INF/view/resourceMaster.zul");'>
@@ -75,6 +75,13 @@
          	onClick='inclResults.setSrc("/WEB-INF/view/requrementGeneration.zul");'>
          	</treecell>
          </treerow>
+         </treeitem>
+         <treeitem open="false">
+            	<treerow>
+            	 <treecell label="- Resource"
+            	  onClick='inclResults.setSrc("/WEB-INF/view/resourceMaster.zul");'>
+            	</treecell>
+            	</treerow>
          </treeitem>
          <treeitem open="false">
             	<treerow>
