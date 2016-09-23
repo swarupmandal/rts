@@ -5,7 +5,7 @@
 
       <div>
 	      <label style="color : black; font-weight: bold" value="Client Name"></label>
-	        <combobox></combobox>
+	        <combobox readonly="true"></combobox>
 	      
 	      <space></space>
 	      <label style="color : black; font-weight: bold" value="Requirement Id"></label>
@@ -13,7 +13,7 @@
 	      
 	      <space></space>
 	      <label style="color : black; font-weight: bold" value="Resource Type" ></label>
-	       <combobox></combobox>
+	       <combobox readonly="true"></combobox>
 	      
 	      <space></space>
 	      <button label="Search"></button>
@@ -21,7 +21,8 @@
       
       <space></space> 
       <div>
-      	  <label style="color : black; font-weight: bold" value="Skill Set" ></label>
+      	  <space></space>	
+      	  <label style="color : black; font-weight: bold" value="Skill Set"></label>
       	  <textbox readonly="true"></textbox>
       
       	  <space></space>
