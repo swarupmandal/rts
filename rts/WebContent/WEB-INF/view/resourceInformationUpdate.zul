@@ -6,7 +6,7 @@
 				.z-textbox{
 				   	text-transform:uppercase;
 				   }
-		</style>
+			</style>
      <div>
 					<grid>
 					<columns>
