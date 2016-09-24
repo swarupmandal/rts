@@ -70,14 +70,15 @@ public class RequirementGenerationService {
 											
 											if(bean.getEmail() != null){
 												
-												if(bean.getOcStatusId()>0){
+												return true;
+												/*if(bean.getOcStatusId()>0){
 												
 													return true;
 													
 												}else {
 													Messagebox.show("Select statu ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
 													return false;
-												}
+												}*/
 												
 											}else {
 												

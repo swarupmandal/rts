@@ -78,7 +78,7 @@
 						  <textbox width="30%" value="@bind(vm.reqGenBean.email)"></textbox>	
 						</row>
 						
-						<row>
+						<row visible="false">
 						<label value="Requirement Status:" style="font-weight:bold"></label>
 						<combobox width="15%" model="@bind(vm.statusBeanList)" selectedItem="@bind(vm.statusBean)" onSelect="@command('onSelectOcStatus')"
 							autocomplete="true" autodrop="true" value="@bind(vm.statusBean.ocstatus)" readonly="true">

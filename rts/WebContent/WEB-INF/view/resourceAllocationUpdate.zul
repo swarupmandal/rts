@@ -1,23 +1,40 @@
-<?page title="Resource Allocation Update" contentType="text/html;charset=UTF-8"?>
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="RESOURCE ALLOCATION UPDATE" border="none" apply="org.zkoss.bind.BindComposer"
-	viewModel="@id('vm') @init('org.appsquad.viewmodel.RecourceAllocationUpdateViewModel')">
-	
-	<div>	
-	   <hlayout spacing="30px">
-			   <label value="Search Requirement Id " style="font-weight: bold; font-size: 14px; color: black" ></label>
-			   <intbox></intbox>
-			   <button label="Search"></button>
-	   </hlayout>
-	</div>
-	<div>
+<window title="RESOURCE ALLOCATION UPDATE" border="none"
+		apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('org.appsquad.viewmodel.RecourceAllocationUpdateViewModel')">
+
+      <div>
+	      <label style="color : black; font-weight: bold" value="Client Name"></label>
+	        <combobox readonly="true"></combobox>
+	      
+	      <space></space>
+	      <label style="color : black; font-weight: bold" value="Requirement Id"></label>
+	       <combobox></combobox>
+	      
+	      <space></space>
+	      <label style="color : black; font-weight: bold" value="Resource Type" ></label>
+	       <combobox readonly="true"></combobox>
+	      
+	      <space></space>
+	      <button label="Search"></button>
+      </div>
+      
+      <space></space> 
+      <div>
+      	  <space></space>	
+      	  <label style="color : black; font-weight: bold" value="Skill Set"></label>
+      	  <textbox readonly="true"></textbox>
+      
+      	  <space></space>
+      	  <label style="color : black; font-weight: bold" value="Required Resource" ></label>	
+          <intbox readonly="true"></intbox>
+      		
+      	  <space></space>	
+      	  <label style="color : black; font-weight: bold" value="Allocated Resource" ></label>	
+      	  <intbox readonly="true"></intbox>	
+      		
 		
-	
-	
-	
-	
-	
-	
-	</div>
+	  </div>	
+
 </window>
 </zk>

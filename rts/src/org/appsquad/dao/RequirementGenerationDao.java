@@ -175,7 +175,7 @@ public class RequirementGenerationDao {
 			connection = DbConnection.createConnection();
 			preparedStatement = Pstm.createQuery(connection, RequirementGenerationSql.insertReqGen, Arrays.asList(bean.getClientId(), bean.getReqSkillId(),bean.getJobType(),bean.getDetailedJob(),
 																												bean.getNofPerResource(), bean.getNofConResource(), bean.getRaiseDatesql(), bean.getCloseDatesql(),
-																												bean.getContactNo(), bean.getEmail(),bean.getOcStatusId(),bean.getClosureReason(), bean.getUserName(), bean.getUserName()));
+																												bean.getContactNo(), bean.getEmail(),1,bean.getClosureReason(), bean.getUserName(), bean.getUserName()));
 			
 			i = preparedStatement.executeUpdate();
 			
