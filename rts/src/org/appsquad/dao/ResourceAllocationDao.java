@@ -6,12 +6,16 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import org.appsquad.bean.ClientInformationBean;
 import org.appsquad.bean.RequirementGenerationBean;
+import org.appsquad.bean.ResourceAllocationBean;
 import org.appsquad.bean.ResourceMasterBean;
 import org.appsquad.bean.ResourceTypeBean;
 import org.appsquad.database.DbConnection;
+import org.appsquad.sql.ClientInformationsql;
 import org.appsquad.sql.ResourceAllocationSql;
 import org.appsquad.utility.Pstm;
+import org.zkoss.zul.Messagebox;
 
 public class ResourceAllocationDao {
 	
@@ -169,6 +173,79 @@ public class ResourceAllocationDao {
 		return countNumber;	
 	}
 	
+	public static Integer fetchRequiredResourceNumberAllocated(Integer clientId,Integer reqId,String type){
+		int countNumberAllocated = 0;
+		Connection connection = null;
+		if(type.startsWith("CONTRACT")){
+			try {
+				connection = DbConnection.createConnection();
+				sql_connection:{
+					try {
+						
+						//1st SQL block
+						sql_fetch:{
+						   PreparedStatement preparedStatement = null;
+						   try {
+							    preparedStatement = Pstm.createQuery(connection, ResourceAllocationSql.fetchRequiredResourceNumberConAllocated, Arrays.asList(clientId,reqId));
+							    System.out.println(preparedStatement);
+								ResultSet resultSet = preparedStatement.executeQuery();
+								while (resultSet.next()) {
+									countNumberAllocated = resultSet.getInt("num_of_con_res_allocated");
+								}  
+							} finally{
+								if(preparedStatement!=null){
+									preparedStatement.close();
+								}
+							}
+					    }
+					} catch (Exception e) {
+						e.printStackTrace();
+					}finally{
+						if(connection!=null){
+							connection.close();
+						}
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if (type.startsWith("PERMANANT")){
+			try {
+				connection = DbConnection.createConnection();
+				sql_connection:{
+					try {
+						
+						//1st SQL block
+						sql_fetch:{
+						   PreparedStatement preparedStatement = null;
+						   try {
+							    preparedStatement = Pstm.createQuery(connection, ResourceAllocationSql.fetchRequiredResourceNumberPerAllocated, Arrays.asList(clientId,reqId));
+							    System.out.println(preparedStatement);
+								ResultSet resultSet = preparedStatement.executeQuery();
+								while (resultSet.next()) {
+									countNumberAllocated = resultSet.getInt("num_of_per_res_allocated");
+								}  
+							} finally{
+								if(preparedStatement!=null){
+									preparedStatement.close();
+								}
+							}
+					    }
+					} catch (Exception e) {
+						e.printStackTrace();
+					}finally{
+						if(connection!=null){
+							connection.close();
+						}
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return countNumberAllocated;	
+	}
+	
 	public static ArrayList<ResourceTypeBean> onLoadResourceTypeDetails(){
 		ArrayList<ResourceTypeBean> typeList = new ArrayList<ResourceTypeBean>();
 		Connection connection = null;
@@ -254,6 +331,255 @@ public class ResourceAllocationDao {
 			e.printStackTrace();
 		}
 		return resourceList;	
+	}
+	
+	public static boolean updateResourceTable(ArrayList<ResourceMasterBean> list){
+		boolean isUpdated = false;
+		Connection connection = null;
+		try {
+			connection = DbConnection.createConnection();
+			sql_connection:{
+				try {
+					
+					for(ResourceMasterBean bean: list){
+						if(bean.isChkSelect()){
+							//1st SQL block
+							sql_insert:{
+							    PreparedStatement preparedStatementInsert = null;
+							    try {
+							    	preparedStatementInsert = Pstm.createQuery(connection, 
+											ResourceAllocationSql.updateResourceTableSql, Arrays.asList(bean.getResourceId()));
+							    	
+							    	System.out.println(preparedStatementInsert);
+									int i = preparedStatementInsert.executeUpdate();
+									if(i>0){
+										isUpdated = true;	
+									}
+								} finally{
+									if(preparedStatementInsert!=null){
+										preparedStatementInsert.close();
+									}
+								}
+						    }	
+						}
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}finally{
+					if(connection!=null){
+						connection.close();
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return isUpdated;
+	}
+	
+	
+	public static boolean insertIntoMapper(ArrayList<ResourceMasterBean> list,ResourceAllocationBean allocationBean){
+		boolean isInsertedMapper = false;
+		Connection connection = null;
+		try {
+			connection = DbConnection.createConnection();
+			sql_connection:{
+				try {
+					
+					for(ResourceMasterBean bean: list){
+						if(bean.isChkSelect()){
+							//1st SQL block
+							sql_insert:{
+							    PreparedStatement preparedStatementInsert = null;
+							    try {
+							    	preparedStatementInsert = Pstm.createQuery(connection, 
+											ResourceAllocationSql.insertIntoMapperSql, Arrays.asList(allocationBean.getRequirementGenerationBean().getRequirementId(),
+													                                 bean.getResourceId(),allocationBean.getClientInformationBean().getClientId(),
+													                                 allocationBean.getUserId()));
+							    	
+							    	System.out.println(preparedStatementInsert);
+									int i = preparedStatementInsert.executeUpdate();
+									if(i>0){
+										isInsertedMapper = true;	
+									}
+								} finally{
+									if(preparedStatementInsert!=null){
+										preparedStatementInsert.close();
+									}
+								}
+						    }	
+						}
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}finally{
+					if(connection!=null){
+						connection.close();
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return isInsertedMapper;
+	}
+	
+	public static boolean insertIntoStatus(ArrayList<ResourceMasterBean> list,ResourceAllocationBean allocationBean){
+		boolean isInsertedStatus = false;
+		Connection connection = null;
+		try {
+			connection = DbConnection.createConnection();
+			sql_connection:{
+				try {
+					
+					for(ResourceMasterBean bean: list){
+						if(bean.isChkSelect()){
+							//1st SQL block
+							sql_insert:{
+							    PreparedStatement preparedStatementInsert = null;
+							    try {
+							    	preparedStatementInsert = Pstm.createQuery(connection, 
+											ResourceAllocationSql.insertIntoTrackingHistoryTableSql, Arrays.asList(allocationBean.getRequirementGenerationBean().getRequirementId(),
+													                                 bean.getResourceId(),allocationBean.getStatusId(),
+													                                 allocationBean.getUserId()));
+							    	
+							    	System.out.println(preparedStatementInsert);
+									int i = preparedStatementInsert.executeUpdate();
+									if(i>0){
+										isInsertedStatus = true;	
+									}
+								} finally{
+									if(preparedStatementInsert!=null){
+										preparedStatementInsert.close();
+									}
+								}
+						    }	
+						}
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}finally{
+					if(connection!=null){
+						connection.close();
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return isInsertedStatus;
+	}
+	
+	public static Integer fetchStatusId(){
+		int statusId = 0;
+		Connection connection = null;
+		try {
+			connection = DbConnection.createConnection();
+			sql_connection:{
+				try {
+					
+					//1st SQL block
+					sql_fetch:{
+					   PreparedStatement preparedStatement = null;
+					   try {
+						    preparedStatement = Pstm.createQuery(connection, ResourceAllocationSql.fetchStatusIdSql, null);
+						    System.out.println(preparedStatement);
+							ResultSet resultSet = preparedStatement.executeQuery();
+							while (resultSet.next()) {
+								statusId = resultSet.getInt("id");
+							}  
+						} finally{
+							if(preparedStatement!=null){
+								preparedStatement.close();
+							}
+						}
+				    }
+				} catch (Exception e) {
+					e.printStackTrace();
+				}finally{
+					if(connection!=null){
+						connection.close();
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return statusId;	
+	}
+	
+	
+	public static boolean updateResourceTableNumber(Integer clientId,Integer reqId,String type,Integer number){
+		boolean isUpdatedResource = false;
+		Connection connection = null;
+		if(type.startsWith("CONTRACT")){
+			try {
+				connection = DbConnection.createConnection();
+				sql_connection:{
+					try {
+						
+						//1st SQL block
+						sql_fetch:{
+						   PreparedStatement preparedStatement = null;
+						   try {
+							    preparedStatement = Pstm.createQuery(connection, ResourceAllocationSql.updateResourceTableConSql, Arrays.asList(number,clientId,reqId));
+							    System.out.println(preparedStatement);
+								int i = preparedStatement.executeUpdate();
+								if(i>0){
+									isUpdatedResource = true;	
+								}  
+							} finally{
+								if(preparedStatement!=null){
+									preparedStatement.close();
+								}
+							}
+					    }
+					} catch (Exception e) {
+						e.printStackTrace();
+					}finally{
+						if(connection!=null){
+							connection.close();
+						}
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if (type.startsWith("PERMANANT")){
+			try {
+				connection = DbConnection.createConnection();
+				sql_connection:{
+					try {
+						
+						//1st SQL block
+						sql_fetch:{
+						   PreparedStatement preparedStatement = null;
+						   try {
+							    preparedStatement = Pstm.createQuery(connection, ResourceAllocationSql.updateResourceTablePerSql, Arrays.asList(number,clientId,reqId));
+							    System.out.println(preparedStatement);
+								int i = preparedStatement.executeUpdate();
+								if(i>0){
+									isUpdatedResource = true;	
+								}  
+							} finally{
+								if(preparedStatement!=null){
+									preparedStatement.close();
+								}
+							}
+					    }
+					} catch (Exception e) {
+						e.printStackTrace();
+					}finally{
+						if(connection!=null){
+							connection.close();
+						}
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return isUpdatedResource;	
 	}
 	
 }
