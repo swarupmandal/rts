@@ -33,33 +33,24 @@ public class ResourceAllocationService {
 	public static boolean isUpdateResource() {
 		return isUpdateResource;
 	}
-
 	public static void setUpdateResource(boolean isUpdateResource) {
 		ResourceAllocationService.isUpdateResource = isUpdateResource;
 	}
-
 	public static boolean isInsertMapper() {
 		return isInsertMapper;
 	}
-
 	public static void setInsertMapper(boolean isInsertMapper) {
 		ResourceAllocationService.isInsertMapper = isInsertMapper;
 	}
-
 	public static boolean isInsertTracking() {
 		return isInsertTracking;
 	}
-
 	public static void setInsertTracking(boolean isInsertTracking) {
 		ResourceAllocationService.isInsertTracking = isInsertTracking;
 	}
-
-
 	public static boolean isUpdate() {
 		return isUpdate;
 	}
-
-
 	public static void setUpdate(boolean isUpdate) {
 		ResourceAllocationService.isUpdate = isUpdate;
 	}
