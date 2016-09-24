@@ -86,6 +86,7 @@ public class ResourceMasterService {
 		bean.setPicCode(null);
 		bean.setContactNumber(null);
 		bean.setEmailId(null);
+		bean.setCtc(null);
 	}
 	
 	/*******************************************************************************************************************************************/
