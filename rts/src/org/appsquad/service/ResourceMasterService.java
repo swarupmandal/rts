@@ -1,8 +1,6 @@
 package org.appsquad.service;
 
-import org.appsquad.bean.ClientInformationBean;
 import org.appsquad.bean.ResourceMasterBean;
-import org.appsquad.dao.ClientInformationDao;
 import org.appsquad.dao.ResourceMasterDao;
 import org.zkoss.zul.Messagebox;
 
@@ -16,8 +14,7 @@ public class ResourceMasterService {
 				if(resourceMasterBean.getYearOfExperience()>0){
 					if(resourceMasterBean.getSkillsetMasterbean().getSkillset()!=null && resourceMasterBean.getSkillsetMasterbean().getSkillset().trim().length()>0){
 						if(resourceMasterBean.getAddress()!=null && resourceMasterBean.getAddress().trim().length()>0){
-							if(resourceMasterBean.getStateBean().getStateName()!=null && resourceMasterBean.getStateBean().getStateName().trim().length()>0){
-								if(resourceMasterBean.getCountryBean().getCountryName()!=null){
+							if(resourceMasterBean.getCountryBean().getCountryName()!=null){
 									if(resourceMasterBean.getPicCode()!=null && resourceMasterBean.getPicCode().trim().length()>0){
 										if(resourceMasterBean.getContactNumber()!=null && resourceMasterBean.getContactNumber().trim().length()>0){
 											if(resourceMasterBean.getEmailId()!=null && resourceMasterBean.getEmailId().trim().length()>0){
@@ -43,10 +40,6 @@ public class ResourceMasterService {
 									Messagebox.show("Enter Country","Informtion", Messagebox.OK, Messagebox.EXCLAMATION);
 									return false;
 								}
-							}else {
-								Messagebox.show("Enter State","Informtion", Messagebox.OK, Messagebox.EXCLAMATION);
-								return false;
-							}
 						}else {
 							Messagebox.show("Enter Address","Informtion", Messagebox.OK, Messagebox.EXCLAMATION);
 							return false;
@@ -93,7 +86,6 @@ public class ResourceMasterService {
 		bean.setPicCode(null);
 		bean.setContactNumber(null);
 		bean.setEmailId(null);
-		bean.getStatusMasterBean().setStatus(null);
 	}
 	
 	/*******************************************************************************************************************************************/

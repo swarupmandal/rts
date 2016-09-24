@@ -220,10 +220,10 @@ public class ResourceMasterDao {
 					    	preparedStatementInsert = Pstm.createQuery(connection, 
 									ResourceMasterSql.insertResourceQuery, Arrays.asList(resourceMasterBean.getName().toUpperCase(),resourceMasterBean.getSurName().toUpperCase(),
 											                                              resourceMasterBean.getYearOfExperience(),resourceMasterBean.getAddress().toUpperCase(),resourceMasterBean.getEmailId().toUpperCase(),
-											                                              resourceMasterBean.getUserId(),resourceMasterBean.getSkillsetMasterbean().getId(),resourceMasterBean.getStateBean().getStateId(),resourceMasterBean.getCountryBean().getCountryId(),
+											                                              resourceMasterBean.getUserId(),resourceMasterBean.getSkillsetMasterbean().getId(),resourceMasterBean.getCountryBean().getCountryId(),
 											                                              resourceMasterBean.getPicCode().toUpperCase(),resourceMasterBean.getContactNumber().toUpperCase(),resourceMasterBean.getStatusMasterBean().getStatusId(),
 											                                              resourceMasterBean.getCtc(),resourceMasterBean.getSkillsetMasterbean().getSkillset().toUpperCase(),
-											                                              resourceMasterBean.getStatusMasterBean().getStatus().toUpperCase(),resourceMasterBean.getCountryBean().getCountryName().toUpperCase(),
+											                                              resourceMasterBean.getCountryBean().getCountryName().toUpperCase(),
 											                                              resourceMasterBean.getStateBean().getStateName().toUpperCase()));
 					    	
 					    	logger.info("Inserting Resource Data Into Table: "+preparedStatementInsert.unwrap(PreparedStatement.class));
@@ -335,10 +335,10 @@ public class ResourceMasterDao {
 					    	preparedStatementInsert = Pstm.createQuery(connection, 
 									ResourceMasterSql.updateResourceQuery, Arrays.asList(resourceMasterBean.getName().toUpperCase(),resourceMasterBean.getSurName().toUpperCase(),
 											                                              resourceMasterBean.getYearOfExperience(),resourceMasterBean.getAddress().toUpperCase(),resourceMasterBean.getEmailId().toUpperCase(),
-											                                              resourceMasterBean.getSkillsetMasterbean().getId(),resourceMasterBean.getStateBean().getStateId(),resourceMasterBean.getCountryBean().getCountryId(),
+											                                              resourceMasterBean.getSkillsetMasterbean().getId(),resourceMasterBean.getCountryBean().getCountryId(),
 											                                              resourceMasterBean.getPicCode().toUpperCase(),resourceMasterBean.getContactNumber().toUpperCase(),resourceMasterBean.getStatusMasterBean().getStatusId(),
 											                                              resourceMasterBean.getCtc(),resourceMasterBean.getSkillsetMasterbean().getSkillset().toUpperCase(),
-											                                              resourceMasterBean.getStatusMasterBean().getStatus().toUpperCase(),resourceMasterBean.getCountryBean().getCountryName().toUpperCase(),
+											                                              resourceMasterBean.getCountryBean().getCountryName().toUpperCase(),
 											                                              resourceMasterBean.getStateBean().getStateName().toUpperCase(),resourceMasterBean.getResourceId()));
 					    	
 					    	

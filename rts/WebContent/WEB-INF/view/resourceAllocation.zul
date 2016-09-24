@@ -75,7 +75,7 @@
                                     <column width="45px"></column>
                                     <column label="Resource Name" align="center"/>
                                     <column label="Year Of Experience" align="center"/>
-                                    <column label="Address" align="center"/>
+                                    <column label="Skill" align="center"/>
                                     <column label="Email Id" align="center"/>
                                </columns>
                                <rows>
@@ -84,7 +84,7 @@
                                        <checkbox checked="@bind(v.chkSelect)" onCheck="@command('onCheck', bean = v)"></checkbox>
                                        <textbox value="@bind(v.fullName)" readonly="true" tooltiptext="@bind(v.fullName)"></textbox>
                                        <textbox value="@bind(v.yearOfExperience)" readonly="true" tooltiptext="@bind(v.yearOfExperience)"></textbox>
-                                       <textbox value="@bind(v.address)" readonly="true" tooltiptext="@bind(v.address)"></textbox>
+                                       <textbox value="@bind(v.skillsetMasterbean.skillset)" readonly="true" tooltiptext="@bind(v.address)"></textbox>
                                        <textbox value="@bind(v.emailId)" readonly="true" tooltiptext="@bind(v.emailId)"></textbox>
                                    </row>
                                    </template>

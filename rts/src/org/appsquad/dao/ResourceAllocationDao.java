@@ -307,6 +307,7 @@ public class ResourceAllocationDao {
 								bean.setYearOfExperience(resultSet.getInt("res_experience"));
 								bean.setAddress(resultSet.getString("res_address"));
 								bean.setEmailId(resultSet.getString("res_emailid"));
+								bean.getSkillsetMasterbean().setSkillset(resultSet.getString("rts_skill_name"));
 								
 								resourceList.add(bean);
 							}  
