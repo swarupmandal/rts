@@ -7,6 +7,7 @@ public class ResourceAllocationBean {
 	private String userId;
 	private boolean chkSelect = false;
 	private boolean divVisibility = false;
+	private boolean assignButtonVisibility = false;
 	
 	private RequirementGenerationBean requirementGenerationBean = new RequirementGenerationBean();
 	private ClientInformationBean clientInformationBean = new ClientInformationBean();
@@ -81,5 +82,11 @@ public class ResourceAllocationBean {
 	}
 	public void setDivVisibility(boolean divVisibility) {
 		this.divVisibility = divVisibility;
+	}
+	public boolean isAssignButtonVisibility() {
+		return assignButtonVisibility;
+	}
+	public void setAssignButtonVisibility(boolean assignButtonVisibility) {
+		this.assignButtonVisibility = assignButtonVisibility;
 	}
 }

@@ -63,14 +63,7 @@
 								      <label value="Allocated Resource"></label>
 								      <textbox value="@bind(vm.resourceAllocationBean.allocatedResourceNumber)" readonly="true" width="60%"></textbox>
 								   </row> 
-								   
-								   <!-- <row>
-								   
-								     <label value="Reamining Resource"></label>
-								      <textbox value="@bind(vm.resourceAllocationBean.remainingResourceNumber)" readonly="true" width="60%"></textbox>
-								   
-								   </row> -->
-								   
+						
 								 </rows>
                             </grid>
                             </hlayout>
@@ -98,5 +91,9 @@
                                </rows>
                            </grid>
                        </div>
+                        <space></space>
+                        <div align="center" visible="false">
+                           <button label="Assign"></button>
+                        </div>
 </window>
 </zk>
