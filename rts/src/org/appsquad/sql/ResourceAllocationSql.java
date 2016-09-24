@@ -6,5 +6,8 @@ public class ResourceAllocationSql {
     public static final String fetchSkillName = "select master_skill_set_name from vw_req_skill_details where req_client_id = ? and r_id = ? ";
     public static final String fetchRequiredResourceNumberPer = "select req_no_of_per_res from vw_req_skill_details where req_client_id = ? and r_id = ? ";
     public static final String fetchRequiredResourceNumberCon = "select req_no_of_con_res from vw_req_skill_details where req_client_id = ? and r_id = ? ";
-    public static final String fetchResourceDetails = "select id,res_name,res_surname,res_experience,res_address,res_emailid from rts_resource_master ";
+    public static final String fetchResourceDetails = "select id,res_name,res_surname,res_experience,res_address,res_emailid from rts_resource_master where non_allocable_or_not = 'N' ";
+    public static final String fetchRequiredResourceNumberPerAllocated = "select num_of_per_res_allocated from vw_req_skill_details where req_client_id = ? and r_id = ? ";
+    public static final String fetchRequiredResourceNumberConAllocated = "select num_of_con_res_allocated from vw_req_skill_details where req_client_id = ? and r_id = ? ";
+    
 }

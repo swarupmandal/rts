@@ -1,20 +1,16 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
 <window title="Resource Allocation Screen" border="none" apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('org.appsquad.viewmodel.ResourceAllocationViewModel')">
-    <div>
+                        viewModel="@id('vm') @init('org.appsquad.viewmodel.ResourceAllocationViewModel')">
+    			<div>
                           <hlayout>
                             <grid>
                                 <columns>
                                       <column></column>
                                       <column></column>
-                                     
                                 </columns>
-                                
                                 <rows>
-                                
                                    <row>
-                                   
                                        <label value="Client-Name"></label>
 								       <combobox model="@bind(vm.clientList)" selectedItem="@bind(vm.resourceAllocationBean.clientInformationBean)" readonly="true"
 		             						value="@bind(vm.resourceAllocationBean.clientInformationBean.fullName)" width="60%" onSelect="@command('onSelectClientName')">
@@ -23,7 +19,7 @@
 		             					</template>
 		             					</combobox>
 		             					
-		             					<label value="Requirement"></label>
+		             					<label value="Requirement Id"></label>
 		             					<bandbox value="@bind(vm.resourceAllocationBean.requirementGenerationBean.requirementId)" id="bd" readonly="true" width="60%">
 											<bandpopup >
 												<vbox>
@@ -58,23 +54,22 @@
 		             					<comboitem value="@bind(p.resourceTypeName)" label="@bind(p.resourceTypeName)"/>
 		             					</template>
 		             					</combobox>
-                                   
                                    </row>
                                 
-								   <row>
+								  <row>
 								      <label value="Required Resource"></label>
 								      <textbox value="@bind(vm.resourceAllocationBean.requiredResourcenumber)" readonly="true" width="60%"></textbox>
 								      
 								      <label value="Allocated Resource"></label>
 								      <textbox value="@bind(vm.resourceAllocationBean.allocatedResourceNumber)" readonly="true" width="60%"></textbox>
-								   </row>
+								   </row> 
 								   
-								   <row>
+								   <!-- <row>
 								   
 								     <label value="Reamining Resource"></label>
 								      <textbox value="@bind(vm.resourceAllocationBean.remainingResourceNumber)" readonly="true" width="60%"></textbox>
 								   
-								   </row>
+								   </row> -->
 								   
 								 </rows>
                             </grid>

@@ -34,7 +34,8 @@ public class ResourceAllocationViewModel {
 	    @Wire("#bd")
 		private Bandbox bandBox;
 	    private int countAllocatedNumber = 0;
-	  
+	    private int remainingNumber = 0;
+	    
 	    private ArrayList<ClientInformationBean> clientList = new ArrayList<ClientInformationBean>();
 	    private ArrayList<RequirementGenerationBean> requirementDetailsList = new ArrayList<RequirementGenerationBean>();
 	    private ArrayList<ResourceTypeBean> resourceTypeList = new ArrayList<ResourceTypeBean>();
@@ -81,6 +82,9 @@ public class ResourceAllocationViewModel {
 	    	System.out.println(resourceAllocationBean.getResourceTypeBean().getResourceTypeId());
 	    	resourceTypeList = ResourceAllocationDao.onLoadResourceTypeDetails();
 	    	resourceAllocationBean.setRequiredResourcenumber(ResourceAllocationDao.fetchRequiredResourceNumber(resourceAllocationBean.getClientInformationBean().getClientId(), resourceAllocationBean.getRequirementGenerationBean().getRequirementId(),resourceAllocationBean.getResourceTypeBean().getResourceTypeName()));
+	        resourceAllocationBean.setAllocatedResourceNumber(ResourceAllocationDao.fetchRequiredResourceNumberAllocated(resourceAllocationBean.getClientInformationBean().getClientId(), resourceAllocationBean.getRequirementGenerationBean().getRequirementId(),resourceAllocationBean.getResourceTypeBean().getResourceTypeName()));
+	    	System.out.println(resourceAllocationBean.getRequiredResourcenumber());
+	    	System.out.println(resourceAllocationBean.getAllocatedResourceNumber());
 	        resourceAllocationBean.setDivVisibility(true);
 	    	resourceList = ResourceAllocationDao.onLoadResourceDetails();
 	    }
@@ -88,22 +92,24 @@ public class ResourceAllocationViewModel {
 	    @Command
 	    @NotifyChange("*")
 	    public void onCheck(@BindingParam("bean") ResourceMasterBean masterBean){
-	    	System.out.println(masterBean.getResourceId());
 	    	if(masterBean.isChkSelect()){
-	    		countAllocatedNumber++;
+                resourceAllocationBean.setAllocatedResourceNumber(resourceAllocationBean.getAllocatedResourceNumber()+1);
 	    	}else{
-	    		countAllocatedNumber-=1;
+	    		resourceAllocationBean.setAllocatedResourceNumber(resourceAllocationBean.getAllocatedResourceNumber()-1);
 	    	}
-	    	
-	    	resourceAllocationBean.setAllocatedResourceNumber(countAllocatedNumber);
-	    	if(countAllocatedNumber>resourceAllocationBean.getRequiredResourcenumber()){
+	    	remainingNumber = (resourceAllocationBean.getRequiredResourcenumber()-resourceAllocationBean.getAllocatedResourceNumber());
+	    	System.out.println("COUNT ALLOCATED NUMBER IS :"+countAllocatedNumber);
+	    	System.out.println("Remaining Number is :"+remainingNumber);
+	    	System.out.println("--------------------------------------");
+	    	System.out.println("getAllocated Number is :"+resourceAllocationBean.getRequiredResourcenumber());
+	    	if(resourceAllocationBean.getAllocatedResourceNumber()>resourceAllocationBean.getRequiredResourcenumber()){
 	    		Messagebox.show("Can't");
 	    		masterBean.setChkSelect(false);
-	    		countAllocatedNumber-=1;
-	    		resourceAllocationBean.setAllocatedResourceNumber(countAllocatedNumber);
+	    		resourceAllocationBean.setAllocatedResourceNumber(resourceAllocationBean.getAllocatedResourceNumber()-1);
 	    	}
 	    	System.out.println(countAllocatedNumber);
 	    }
+	    
 	    
 	    /**************************************************************************************************************************************/
 	    
@@ -157,27 +163,27 @@ public class ResourceAllocationViewModel {
 		public void setResourceTypeList(ArrayList<ResourceTypeBean> resourceTypeList) {
 			this.resourceTypeList = resourceTypeList;
 		}
-
 		public Bandbox getBandBox() {
 			return bandBox;
 		}
-
 		public void setBandBox(Bandbox bandBox) {
 			this.bandBox = bandBox;
 		}
-
 		public ArrayList<ResourceMasterBean> getResourceList() {
 			return resourceList;
 		}
-
 		public void setResourceList(ArrayList<ResourceMasterBean> resourceList) {
 			this.resourceList = resourceList;
 		}
-
+		public int getRemainingNumber() {
+			return remainingNumber;
+		}
+		public void setRemainingNumber(int remainingNumber) {
+			this.remainingNumber = remainingNumber;
+		}
 		public int getCountAllocatedNumber() {
 			return countAllocatedNumber;
 		}
-
 		public void setCountAllocatedNumber(int countAllocatedNumber) {
 			this.countAllocatedNumber = countAllocatedNumber;
 		}	  

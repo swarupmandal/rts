@@ -169,6 +169,79 @@ public class ResourceAllocationDao {
 		return countNumber;	
 	}
 	
+	public static Integer fetchRequiredResourceNumberAllocated(Integer clientId,Integer reqId,String type){
+		int countNumberAllocated = 0;
+		Connection connection = null;
+		if(type.startsWith("CONTRACT")){
+			try {
+				connection = DbConnection.createConnection();
+				sql_connection:{
+					try {
+						
+						//1st SQL block
+						sql_fetch:{
+						   PreparedStatement preparedStatement = null;
+						   try {
+							    preparedStatement = Pstm.createQuery(connection, ResourceAllocationSql.fetchRequiredResourceNumberConAllocated, Arrays.asList(clientId,reqId));
+							    System.out.println(preparedStatement);
+								ResultSet resultSet = preparedStatement.executeQuery();
+								while (resultSet.next()) {
+									countNumberAllocated = resultSet.getInt("num_of_con_res_allocated");
+								}  
+							} finally{
+								if(preparedStatement!=null){
+									preparedStatement.close();
+								}
+							}
+					    }
+					} catch (Exception e) {
+						e.printStackTrace();
+					}finally{
+						if(connection!=null){
+							connection.close();
+						}
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if (type.startsWith("PERMANANT")){
+			try {
+				connection = DbConnection.createConnection();
+				sql_connection:{
+					try {
+						
+						//1st SQL block
+						sql_fetch:{
+						   PreparedStatement preparedStatement = null;
+						   try {
+							    preparedStatement = Pstm.createQuery(connection, ResourceAllocationSql.fetchRequiredResourceNumberPerAllocated, Arrays.asList(clientId,reqId));
+							    System.out.println(preparedStatement);
+								ResultSet resultSet = preparedStatement.executeQuery();
+								while (resultSet.next()) {
+									countNumberAllocated = resultSet.getInt("num_of_per_res_allocated");
+								}  
+							} finally{
+								if(preparedStatement!=null){
+									preparedStatement.close();
+								}
+							}
+					    }
+					} catch (Exception e) {
+						e.printStackTrace();
+					}finally{
+						if(connection!=null){
+							connection.close();
+						}
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return countNumberAllocated;	
+	}
+	
 	public static ArrayList<ResourceTypeBean> onLoadResourceTypeDetails(){
 		ArrayList<ResourceTypeBean> typeList = new ArrayList<ResourceTypeBean>();
 		Connection connection = null;
