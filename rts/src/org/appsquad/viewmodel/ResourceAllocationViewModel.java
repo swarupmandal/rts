@@ -54,10 +54,9 @@ public class ResourceAllocationViewModel {
 	    @Command
 	    @NotifyChange("*")
 	    public void onSelectReqSkill(){
-	    	System.out.println("SELECTED REQ-SKILL ID IS :"+resourceAllocationBean.getRequirementGenerationBean().getRequirementId());
-	    	bandBox.close();
 	    	resourceTypeList = ResourceAllocationDao.onLoadResourceTypeDetails();
 	    	resourceAllocationBean.getMasterbean().setSkillset(ResourceAllocationDao.fetchSkillDetails(resourceAllocationBean.getClientInformationBean().getClientId(), resourceAllocationBean.getRequirementGenerationBean().getRequirementId()));
+	    	bandBox.close();
 	    }
 	    
 	    @Command
@@ -71,7 +70,6 @@ public class ResourceAllocationViewModel {
 	    	resourceAllocationBean.getResourceTypeBean().setResourceTypeName(null);
 	    	resourceAllocationBean.setRequiredResourcenumber(null);
 	    	resourceAllocationBean.setAllocatedResourceNumber(null);
-	    	System.out.println(resourceAllocationBean.getClientInformationBean().getClientId());
 	    	resourceTypeList = ResourceAllocationDao.onLoadResourceTypeDetails();
 	    	requirementDetailsList = ResourceAllocationDao.onLoadRequirementSkillDetails(resourceAllocationBean.getClientInformationBean().getClientId());
 	    }
@@ -83,8 +81,6 @@ public class ResourceAllocationViewModel {
 	    	resourceTypeList = ResourceAllocationDao.onLoadResourceTypeDetails();
 	    	resourceAllocationBean.setRequiredResourcenumber(ResourceAllocationDao.fetchRequiredResourceNumber(resourceAllocationBean.getClientInformationBean().getClientId(), resourceAllocationBean.getRequirementGenerationBean().getRequirementId(),resourceAllocationBean.getResourceTypeBean().getResourceTypeName()));
 	        resourceAllocationBean.setAllocatedResourceNumber(ResourceAllocationDao.fetchRequiredResourceNumberAllocated(resourceAllocationBean.getClientInformationBean().getClientId(), resourceAllocationBean.getRequirementGenerationBean().getRequirementId(),resourceAllocationBean.getResourceTypeBean().getResourceTypeName()));
-	    	System.out.println(resourceAllocationBean.getRequiredResourcenumber());
-	    	System.out.println(resourceAllocationBean.getAllocatedResourceNumber());
 	        resourceAllocationBean.setDivVisibility(true);
 	    	resourceList = ResourceAllocationDao.onLoadResourceDetails();
 	    }
@@ -98,17 +94,13 @@ public class ResourceAllocationViewModel {
 	    		resourceAllocationBean.setAllocatedResourceNumber(resourceAllocationBean.getAllocatedResourceNumber()-1);
 	    	}
 	    	remainingNumber = (resourceAllocationBean.getRequiredResourcenumber()-resourceAllocationBean.getAllocatedResourceNumber());
-	    	System.out.println("COUNT ALLOCATED NUMBER IS :"+countAllocatedNumber);
-	    	System.out.println("Remaining Number is :"+remainingNumber);
-	    	System.out.println("--------------------------------------");
-	    	System.out.println("getAllocated Number is :"+resourceAllocationBean.getRequiredResourcenumber());
 	    	if(resourceAllocationBean.getAllocatedResourceNumber()>resourceAllocationBean.getRequiredResourcenumber()){
 	    		Messagebox.show("Can't");
 	    		masterBean.setChkSelect(false);
 	    		resourceAllocationBean.setAllocatedResourceNumber(resourceAllocationBean.getAllocatedResourceNumber()-1);
 	    	}
-	    	System.out.println(countAllocatedNumber);
 	    }
+	    
 	    
 	    
 	    /**************************************************************************************************************************************/
