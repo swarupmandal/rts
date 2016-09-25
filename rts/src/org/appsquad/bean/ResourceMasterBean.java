@@ -13,6 +13,8 @@ public class ResourceMasterBean {
 	private Integer yearOfExperience;
 	private String fullName;
 	private boolean chkSelect = false;
+	private String cvPath;
+	private String isAllocable;
 	
 	CountryBean countryBean = new CountryBean();
 	StateBean stateBean = new StateBean();	
@@ -116,5 +118,17 @@ public class ResourceMasterBean {
 	}
 	public void setSkillsetMasterbean(SkillsetMasterbean skillsetMasterbean) {
 		this.skillsetMasterbean = skillsetMasterbean;
+	}
+	public String getCvPath() {
+		return cvPath;
+	}
+	public void setCvPath(String cvPath) {
+		this.cvPath = cvPath;
+	}
+	public String getIsAllocable() {
+		return isAllocable;
+	}
+	public void setIsAllocable(String isAllocable) {
+		this.isAllocable = isAllocable;
 	}
 }

@@ -1,0 +1,70 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="RESOURCE  ALLOCATION  STATUS  TRACKING" border="none" apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('org.appsquad.viewmodel.ResAllocTrackingUpdateViewModel')" closable="true" height="500px" width="700px">
+		
+		<div>
+		   <hlayout spacing="44px">
+			  <label value="Resource Name" style="font-weight: bold"></label>
+			  <textbox value="@bind(vm.trackingUpdateBean.resourceMasterBean.fullName)" width="250px" readonly="true"></textbox>
+		   </hlayout>
+		</div>
+		
+		<space></space>
+		<div>
+		   <hlayout spacing="51px">	
+		   	<label value="Resource Type" style="Font-weight: bold"></label>
+		   	<textbox value="@bind(vm.trackingUpdateBean.resourceType)" readonly="true"></textbox>	
+		   </hlayout>	 
+		</div>
+		
+		<space></space>
+		<div>
+		   <hlayout spacing="53px">	
+		   <label value="Current Status" style="Font-weight: bold"></label>
+		   	
+		   	<combobox value="@bind(vm.trackingUpdateBean.status)" selectedItem="@bind(vm.statusBean)" model="@bind(vm.statusBeanList)" readonly="true" width="200px">
+		   	  <template name="model" var="v">
+		   		<comboitem label="@bind(v.status)" value="@bind(v.statusId)"></comboitem>
+		   	  </template>
+		   	</combobox>
+		   
+		   </hlayout>	 
+		</div>
+		
+		<space></space>
+		<div>
+		   <hlayout spacing="9px">	
+		    <label value="Internal Interview Date" style="Font-weight: bold"></label>
+		    <datebox></datebox>	
+		   </hlayout>	 
+		</div>
+		
+		<space></space>
+		<div>
+		   <hlayout spacing="18px">	
+		    <label value="Client Interview Date" style="Font-weight: bold"></label>
+		    <datebox></datebox>	
+		   </hlayout>	 
+		</div>
+		
+		<space></space>
+		<div>
+		   <hlayout spacing="55px">	
+		    <label value="Onboard Date" style="Font-weight: bold"></label>
+		    <datebox></datebox>	
+		   </hlayout>	 
+		</div>
+		
+		<space></space>
+		<div>
+		<space></space> 	
+			<hlayout spacing="135px">
+			<label></label>
+			<button label="Update" width="120px" style="font-weight: bold"></button>
+			</hlayout>
+		</div>
+		
+		
+</window>
+</zk>

@@ -1,6 +1,8 @@
 package org.appsquad.viewmodel;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.appsquad.bean.ClientInformationBean;
 import org.appsquad.bean.RequirementGenerationBean;
@@ -8,16 +10,19 @@ import org.appsquad.bean.ResourceAllocationTrackingBean;
 import org.appsquad.service.RequirementGenerationService;
 import org.appsquad.service.ResourceAllocationTrackingService;
 import org.zkoss.bind.annotation.AfterCompose;
+import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Bandbox;
+import org.zkoss.zul.Window;
 
 public class ResourceAllocationTrackingViewModel {
 
@@ -57,12 +62,14 @@ public class ResourceAllocationTrackingViewModel {
 		if(trackingBean.getClientNameSearch() != null){
 			clientInformationBeanList = ResourceAllocationTrackingService.fetchClientDetailsSearch(trackingBean.getClientNameSearch());
 		}
+		trackingBeanList.clear();
 	}
 	
 	@Command
 	@NotifyChange("*")
 	public void onSelctClientName(){
 		clNameBandBox.close();
+		trackingBeanList.clear();
 		requirementGenerationBean.setReq_id(null);
 		trackingBean.setSkillSet(null);
 		requirementGenerationBeanList = ResourceAllocationTrackingService.fetchReq(clientInformationBean.getClientId());
@@ -86,6 +93,7 @@ public class ResourceAllocationTrackingViewModel {
 	@NotifyChange("*")
 	public void onSelctReqId(){
 		reqBandBox.close();
+		trackingBeanList.clear();
 		if(requirementGenerationBean.getReqSkill() != null){
 			trackingBean.setSkillSet(requirementGenerationBean.getReqSkill());
 		}
@@ -93,8 +101,38 @@ public class ResourceAllocationTrackingViewModel {
 		
 	}
 	
+	@Command
+	@NotifyChange("*")
+	public void onClickSearch(){
+		
+		if(ResourceAllocationTrackingService.isValidate(clientInformationBean.getClientId(), requirementGenerationBean.getReq_id())){
+			trackingBeanList = ResourceAllocationTrackingService.loadTrackingBeanList(clientInformationBean.getClientId(), requirementGenerationBean.getReq_id());
+			
+		}
+		
+	}
 	
+	@Command
+	@NotifyChange("*")
+	public void onChangeSearch(){
+		if(ResourceAllocationTrackingService.isValidate(clientInformationBean.getClientId(), requirementGenerationBean.getReq_id())){
+			trackingBeanList = ResourceAllocationTrackingService.loadTrackingBeanSearch(clientInformationBean.getClientId(), requirementGenerationBean.getReq_id(), trackingBean.getResNameSeach());
+			
+		}
+	}
 	
+	@Command
+	@NotifyChange("*")
+	public void onClickUpdate(@BindingParam("bean") ResourceAllocationTrackingBean bean){
+		Map<String, Object> trackingMap = new HashMap<String, Object>();
+		trackingMap.put("trackingMap", bean);
+		trackingMap.put("userId", userName);
+		
+		Window window = (Window) Executions.createComponents("/WEB-INF/view/resAllocTrckingUpdate.zul", null, trackingMap);
+		window.doModal();
+		
+		
+	}
 	
 	public ResourceAllocationTrackingBean getTrackingBean() {
 		return trackingBean;
