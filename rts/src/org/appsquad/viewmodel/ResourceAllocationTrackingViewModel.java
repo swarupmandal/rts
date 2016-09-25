@@ -93,7 +93,21 @@ public class ResourceAllocationTrackingViewModel {
 		
 	}
 	
+	@Command
+	@NotifyChange("*")
+	public void onClickSearch(){
+		System.out.println("Upssssss");
+		if(ResourceAllocationTrackingService.isValidate(clientInformationBean.getClientId(), requirementGenerationBean.getReq_id())){
+			trackingBeanList = ResourceAllocationTrackingService.loadTrackingBeanList(clientInformationBean.getClientId(), requirementGenerationBean.getReq_id());
+		}
+		
+	}
 	
+	@Command
+	@NotifyChange("*")
+	public void onChangeSearch(){
+		System.out.println("Downnnnnnnn");
+	}
 	
 	
 	public ResourceAllocationTrackingBean getTrackingBean() {

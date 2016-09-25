@@ -8,6 +8,7 @@ import java.util.Arrays;
 
 import org.appsquad.bean.ClientInformationBean;
 import org.appsquad.bean.RequirementGenerationBean;
+import org.appsquad.bean.ResourceAllocationTrackingBean;
 import org.appsquad.database.DbConnection;
 import org.appsquad.sql.ResourceAllocationTrackingSql;
 import org.appsquad.utility.Pstm;
@@ -180,6 +181,56 @@ public static ArrayList<ClientInformationBean> fetchClientDetailsSearch(String n
 		}
 		return list;
 	}
+	
+	
+	public static ArrayList<ResourceAllocationTrackingBean> fetchResAllTrackingDetails(int clId,Integer r_id){
+		
+		ArrayList<ResourceAllocationTrackingBean> list = new ArrayList<ResourceAllocationTrackingBean>();
+		if(list.size()>0){
+			list.clear();
+			
+		}
+		
+		try {
+			Connection connection = null;
+			PreparedStatement preparedStatement = null;
+			ResultSet resultSet = null;
+			try {
+				connection = DbConnection.createConnection();
+				preparedStatement = Pstm.createQuery(connection, ResourceAllocationTrackingSql.loadTrackingBean, Arrays.asList(r_id,clId));
+				
+				resultSet = preparedStatement.executeQuery();
+				while (resultSet.next()) {
+					ResourceAllocationTrackingBean bean = new ResourceAllocationTrackingBean();
+					bean.resourceMasterBean.setFullName(resultSet.getString("full_name"));
+					bean.resourceMasterBean.setYearOfExperience(resultSet.getInt("res_experience"));
+					bean.resourceMasterBean.setAddress(resultSet.getString("res_address"));
+					bean.resourceMasterBean.setEmailId(resultSet.getString("res_emailid"));
+					bean.resourceMasterBean.setCvPath(resultSet.getString("res_upcv"));
+					
+					
+					
+					list.add(bean);
+				}
+				
+			} finally {
+				if(preparedStatement != null){
+					preparedStatement.close();
+				}if(resultSet != null){
+					resultSet.close();
+				}if(connection != null){
+					connection.close();
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	
+	
+	
 	
 
 }
