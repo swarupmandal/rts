@@ -3,12 +3,9 @@ package org.appsquad.viewmodel;
 import java.sql.Connection;
 import java.util.ArrayList;
 
-import org.appsquad.bean.ClientInformationBean;
 import org.appsquad.bean.RoleMasterBean;
 import org.appsquad.bean.RollDropDownBean;
-import org.appsquad.dao.ClientInformationDao;
 import org.appsquad.dao.RoleMasterDao;
-import org.appsquad.service.ClientInformationService;
 import org.appsquad.service.RoleMasterService;
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.AfterCompose;
@@ -20,6 +17,7 @@ import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.Sessions;
+import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Messagebox;
@@ -77,6 +75,13 @@ public class RoleMasterUpdateViewModel {
 				BindUtils.postGlobalCommand(null, null, "globalRoleDetailsUpdate", null);
 			}	
 		}
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void onCloseOperation(@ContextParam(ContextType.TRIGGER_EVENT)Event e){
+		winRoleUpdate.detach();
+		BindUtils.postGlobalCommand(null, null, "globalMapingData", null);
 	}
 	
 	/**************************************************************************************************************************************/

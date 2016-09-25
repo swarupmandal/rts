@@ -1,8 +1,8 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
 <window title="Role Update Screen" border="none" height="250px" width="700px" apply="org.zkoss.bind.BindComposer"
-		    viewModel="@id('vm') @init('org.appsquad.viewmodel.RoleMasterUpdateViewModel')" closable="true"
-		     id="winRoleUpdate">
+		    viewModel="@id('vm') @init('org.appsquad.viewmodel.RoleMasterUpdateViewModel')" closable="true" id="winRoleUpdate"
+		      onClose="@command('onCloseOperation')">
    					<div>
                           <hlayout>
                             <grid>
