@@ -31,7 +31,7 @@
                        </div>
                        <space></space>
                        <div>
-                           <grid model="@bind(vm.statuslist)" mold="paging" pageSize="11" sclass="fgrid">
+                           <grid model="@bind(vm.statuslist)" mold="paging" pageSize="11" sclass="fgrid" height="430PX">
                                <columns sizable="true">
 								<column label="Status-Name" align="center" style="font-weight:bold;" width="800px"/>
 								<column label="Action" align="center" style="font-weight:bold;" width="200px"/>
