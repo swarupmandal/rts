@@ -30,7 +30,8 @@ public class ResourceAllocationTrackingBean {
 	private String onboardDateStr;
 	private String onboardDateValue;
 	
-	
+	private int resourceTypeId;
+	private String resourceType;
 	
 	
 	public String getClientName() {
@@ -220,6 +221,26 @@ public class ResourceAllocationTrackingBean {
 
 	public void setOnboardDateValue(String onboardDateValue) {
 		this.onboardDateValue = onboardDateValue;
+	}
+
+
+	public int getResourceTypeId() {
+		return resourceTypeId;
+	}
+
+
+	public void setResourceTypeId(int resourceTypeId) {
+		this.resourceTypeId = resourceTypeId;
+	}
+
+
+	public String getResourceType() {
+		return resourceType;
+	}
+
+
+	public void setResourceType(String resourceType) {
+		this.resourceType = resourceType;
 	}
 
 	

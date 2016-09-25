@@ -287,7 +287,7 @@ public class ResourceMasterDao {
 								bean.setPicCode(resultSet.getString("rts_pincode"));
 								bean.setContactNumber(resultSet.getString("rts_contact_no"));
 								bean.setEmailId(resultSet.getString("res_emailid"));
-								bean.getStatusMasterBean().setStatus(resultSet.getString("rts_state_name"));
+								bean.getStatusMasterBean().setStatus(resultSet.getString("rts_status_name"));
 								bean.setCtc(resultSet.getDouble("rts_ctc"));
 								bean.getSkillsetMasterbean().setId(resultSet.getInt("rts_skill_id"));
 								bean.getStateBean().setStateId(resultSet.getInt("rts_state_id"));

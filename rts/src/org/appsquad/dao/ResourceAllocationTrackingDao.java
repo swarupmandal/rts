@@ -207,6 +207,10 @@ public static ArrayList<ClientInformationBean> fetchClientDetailsSearch(String n
 					bean.resourceMasterBean.setAddress(resultSet.getString("res_address"));
 					bean.resourceMasterBean.setEmailId(resultSet.getString("res_emailid"));
 					bean.resourceMasterBean.setCvPath(resultSet.getString("res_upcv"));
+					bean.setResourceType(resultSet.getString("type_name"));
+					bean.setResourceTypeId(resultSet.getInt("res_type_id"));
+					//bean.resourceMasterBean.set
+					
 					
 					
 					
