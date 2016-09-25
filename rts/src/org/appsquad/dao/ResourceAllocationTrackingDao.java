@@ -11,6 +11,7 @@ import org.appsquad.bean.RequirementGenerationBean;
 import org.appsquad.bean.ResourceAllocationTrackingBean;
 import org.appsquad.database.DbConnection;
 import org.appsquad.sql.ResourceAllocationTrackingSql;
+import org.appsquad.utility.Dateformatter;
 import org.appsquad.utility.Pstm;
 
 
@@ -205,13 +206,32 @@ public static ArrayList<ClientInformationBean> fetchClientDetailsSearch(String n
 					bean.resourceMasterBean.setFullName(resultSet.getString("full_name"));
 					bean.resourceMasterBean.setYearOfExperience(resultSet.getInt("res_experience"));
 					bean.resourceMasterBean.setAddress(resultSet.getString("res_address"));
+					bean.resourceMasterBean.setContactNumber(resultSet.getString("rts_contact_no"));
 					bean.resourceMasterBean.setEmailId(resultSet.getString("res_emailid"));
 					bean.resourceMasterBean.setCvPath(resultSet.getString("res_upcv"));
 					bean.setResourceType(resultSet.getString("type_name"));
 					bean.setResourceTypeId(resultSet.getInt("res_type_id"));
-					//bean.resourceMasterBean.set
+					bean.setStatus(resultSet.getString("master_status_name"));
+					bean.setStatusId(resultSet.getInt("rts_status_id"));
+					bean.resourceMasterBean.setIsAllocable(resultSet.getString("non_allocable_or_not"));
 					
+					bean.setInternalInterviewDate(resultSet.getDate("internal_interview_date"));
+					bean.setInternalInterviewDateValue(resultSet.getString("internal_interview_date"));
+					if(bean.getInternalInterviewDate() != null){
+						bean.setInternalInterviewDateStr(Dateformatter.toStringDate(bean.getInternalInterviewDateValue()));
+					}
 					
+					bean.setClientInterviewDate(resultSet.getDate("client_interview_date"));
+					bean.setClientInterviewDateValue(resultSet.getString("client_interview_date"));
+					if(bean.getClientInterviewDateValue() != null){
+						bean.setClientInterviewDateStr(Dateformatter.toStringDate(bean.getClientInterviewDateValue()));
+					}
+					
+					bean.setOnboardDate(resultSet.getDate("onboard_date"));
+					bean.setOnboardDateValue(resultSet.getString("onboard_date"));
+					if(bean.getOnboardDateValue() != null){
+						bean.setOnboardDateStr(Dateformatter.toStringDate(bean.getOnboardDateValue()));
+					}
 					
 					
 					list.add(bean);
@@ -232,7 +252,73 @@ public static ArrayList<ClientInformationBean> fetchClientDetailsSearch(String n
 		return list;
 	}
 	
-	
+	public static ArrayList<ResourceAllocationTrackingBean> fetchResAllTrackingSearch(int clId,Integer r_id, String fullname){
+		
+		ArrayList<ResourceAllocationTrackingBean> list = new ArrayList<ResourceAllocationTrackingBean>();
+		if(list.size()>0){
+			list.clear();
+			
+		}
+		
+		try {
+			Connection connection = null;
+			PreparedStatement preparedStatement = null;
+			ResultSet resultSet = null;
+			try {
+				connection = DbConnection.createConnection();
+				preparedStatement = Pstm.createQuery(connection, ResourceAllocationTrackingSql.loadTrackingBeanSearch, Arrays.asList(r_id,clId, "%"+fullname.trim().toUpperCase()+"%"));
+				
+				resultSet = preparedStatement.executeQuery();
+				while (resultSet.next()) {
+					ResourceAllocationTrackingBean bean = new ResourceAllocationTrackingBean();
+					bean.resourceMasterBean.setFullName(resultSet.getString("full_name"));
+					bean.resourceMasterBean.setYearOfExperience(resultSet.getInt("res_experience"));
+					bean.resourceMasterBean.setAddress(resultSet.getString("res_address"));
+					bean.resourceMasterBean.setContactNumber(resultSet.getString("rts_contact_no"));
+					bean.resourceMasterBean.setEmailId(resultSet.getString("res_emailid"));
+					bean.resourceMasterBean.setCvPath(resultSet.getString("res_upcv"));
+					bean.setResourceType(resultSet.getString("type_name"));
+					bean.setResourceTypeId(resultSet.getInt("res_type_id"));
+					bean.setStatus(resultSet.getString("master_status_name"));
+					bean.setStatusId(resultSet.getInt("rts_status_id"));
+					bean.resourceMasterBean.setIsAllocable(resultSet.getString("non_allocable_or_not"));
+					
+					bean.setInternalInterviewDate(resultSet.getDate("internal_interview_date"));
+					bean.setInternalInterviewDateValue(resultSet.getString("internal_interview_date"));
+					if(bean.getInternalInterviewDate() != null){
+						bean.setInternalInterviewDateStr(Dateformatter.toStringDate(bean.getInternalInterviewDateValue()));
+					}
+					
+					bean.setClientInterviewDate(resultSet.getDate("client_interview_date"));
+					bean.setClientInterviewDateValue(resultSet.getString("client_interview_date"));
+					if(bean.getClientInterviewDateValue() != null){
+						bean.setClientInterviewDateStr(Dateformatter.toStringDate(bean.getClientInterviewDateValue()));
+					}
+					
+					bean.setOnboardDate(resultSet.getDate("onboard_date"));
+					bean.setOnboardDateValue(resultSet.getString("onboard_date"));
+					if(bean.getOnboardDateValue() != null){
+						bean.setOnboardDateStr(Dateformatter.toStringDate(bean.getOnboardDateValue()));
+					}
+					
+					
+					list.add(bean);
+				}
+				
+			} finally {
+				if(preparedStatement != null){
+					preparedStatement.close();
+				}if(resultSet != null){
+					resultSet.close();
+				}if(connection != null){
+					connection.close();
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
 	
 	
 	

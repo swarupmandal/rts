@@ -12,4 +12,6 @@ public class ResourceAllocationTrackingSql {
 
 	public static final String loadTrackingBean = "select * from vw_resource_tracking_details where req_id = ? and client_id = ? ";
 	
+	public static final String loadTrackingBeanSearch = "select * from vw_resource_tracking_details where req_id = ? and client_id = ? and full_name like ? ";
+	
 }

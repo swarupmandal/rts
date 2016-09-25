@@ -57,12 +57,14 @@ public class ResourceAllocationTrackingViewModel {
 		if(trackingBean.getClientNameSearch() != null){
 			clientInformationBeanList = ResourceAllocationTrackingService.fetchClientDetailsSearch(trackingBean.getClientNameSearch());
 		}
+		trackingBeanList.clear();
 	}
 	
 	@Command
 	@NotifyChange("*")
 	public void onSelctClientName(){
 		clNameBandBox.close();
+		trackingBeanList.clear();
 		requirementGenerationBean.setReq_id(null);
 		trackingBean.setSkillSet(null);
 		requirementGenerationBeanList = ResourceAllocationTrackingService.fetchReq(clientInformationBean.getClientId());
@@ -86,6 +88,7 @@ public class ResourceAllocationTrackingViewModel {
 	@NotifyChange("*")
 	public void onSelctReqId(){
 		reqBandBox.close();
+		trackingBeanList.clear();
 		if(requirementGenerationBean.getReqSkill() != null){
 			trackingBean.setSkillSet(requirementGenerationBean.getReqSkill());
 		}
@@ -96,9 +99,10 @@ public class ResourceAllocationTrackingViewModel {
 	@Command
 	@NotifyChange("*")
 	public void onClickSearch(){
-		System.out.println("Upssssss");
+		
 		if(ResourceAllocationTrackingService.isValidate(clientInformationBean.getClientId(), requirementGenerationBean.getReq_id())){
 			trackingBeanList = ResourceAllocationTrackingService.loadTrackingBeanList(clientInformationBean.getClientId(), requirementGenerationBean.getReq_id());
+			
 		}
 		
 	}
@@ -106,7 +110,10 @@ public class ResourceAllocationTrackingViewModel {
 	@Command
 	@NotifyChange("*")
 	public void onChangeSearch(){
-		System.out.println("Downnnnnnnn");
+		if(ResourceAllocationTrackingService.isValidate(clientInformationBean.getClientId(), requirementGenerationBean.getReq_id())){
+			trackingBeanList = ResourceAllocationTrackingService.loadTrackingBeanSearch(clientInformationBean.getClientId(), requirementGenerationBean.getReq_id(), trackingBean.getResNameSeach());
+			
+		}
 	}
 	
 	

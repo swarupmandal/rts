@@ -6,6 +6,8 @@ public class ResourceAllocationTrackingBean {
 
 	public ResourceMasterBean resourceMasterBean = new ResourceMasterBean();
 	
+	private boolean isCheck = false;
+	
 	private String clientName;
 	private Integer clientId;
 	private String clientNameSearch;
@@ -32,6 +34,11 @@ public class ResourceAllocationTrackingBean {
 	
 	private int resourceTypeId;
 	private String resourceType;
+	
+	private String status;
+	private int statusId;
+	
+	private String resNameSeach;
 	
 	
 	public String getClientName() {
@@ -241,6 +248,46 @@ public class ResourceAllocationTrackingBean {
 
 	public void setResourceType(String resourceType) {
 		this.resourceType = resourceType;
+	}
+
+
+	public String getStatus() {
+		return status;
+	}
+
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+
+	public int getStatusId() {
+		return statusId;
+	}
+
+
+	public void setStatusId(int statusId) {
+		this.statusId = statusId;
+	}
+
+
+	public boolean isCheck() {
+		return isCheck;
+	}
+
+
+	public void setCheck(boolean isCheck) {
+		this.isCheck = isCheck;
+	}
+
+
+	public String getResNameSeach() {
+		return resNameSeach;
+	}
+
+
+	public void setResNameSeach(String resNameSeach) {
+		this.resNameSeach = resNameSeach;
 	}
 
 	

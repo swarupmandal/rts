@@ -40,7 +40,11 @@ public class ResourceAllocationTrackingService {
 		return list;
 	}
 	
-	
+	public static ArrayList<ResourceAllocationTrackingBean> loadTrackingBeanSearch(int clId, Integer r_id, String name){
+		ArrayList<ResourceAllocationTrackingBean> list = new ArrayList<ResourceAllocationTrackingBean>();
+		list = ResourceAllocationTrackingDao.fetchResAllTrackingSearch(clId, r_id, name);
+		return list;
+	}
 	
 	
 	public static boolean isValidate(int clid, Integer r_id){
