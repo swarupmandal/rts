@@ -6,16 +6,13 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import org.appsquad.bean.ClientInformationBean;
 import org.appsquad.bean.RequirementGenerationBean;
 import org.appsquad.bean.ResourceAllocationBean;
 import org.appsquad.bean.ResourceMasterBean;
 import org.appsquad.bean.ResourceTypeBean;
 import org.appsquad.database.DbConnection;
-import org.appsquad.sql.ClientInformationsql;
 import org.appsquad.sql.ResourceAllocationSql;
 import org.appsquad.utility.Pstm;
-import org.zkoss.zul.Messagebox;
 
 public class ResourceAllocationDao {
 	
@@ -310,6 +307,7 @@ public class ResourceAllocationDao {
 								bean.setYearOfExperience(resultSet.getInt("res_experience"));
 								bean.setAddress(resultSet.getString("res_address"));
 								bean.setEmailId(resultSet.getString("res_emailid"));
+								bean.getSkillsetMasterbean().setSkillset(resultSet.getString("rts_skill_name"));
 								
 								resourceList.add(bean);
 							}  
