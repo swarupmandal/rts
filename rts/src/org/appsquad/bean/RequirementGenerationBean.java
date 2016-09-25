@@ -43,7 +43,7 @@ public class RequirementGenerationBean {
   private String contactNo;
   private String email;
   
-  private int req_id;
+  private Integer req_id;
   private Integer requirementId;
 
 public String getClientName() {
@@ -248,13 +248,6 @@ public void setCloseDatesql(java.sql.Date closeDatesql) {
 	this.closeDatesql = closeDatesql;
 }
 
-public int getReq_id() {
-	return req_id;
-}
-
-public void setReq_id(int req_id) {
-	this.req_id = req_id;
-}
 
 public String getRaiseDateValue() {
 	return raiseDateValue;
@@ -270,5 +263,13 @@ public String getCloseDateValue() {
 
 public void setCloseDateValue(String closeDateValue) {
 	this.closeDateValue = closeDateValue;
+}
+
+public Integer getReq_id() {
+	return req_id;
+}
+
+public void setReq_id(Integer req_id) {
+	this.req_id = req_id;
 }	
 }

@@ -7,10 +7,12 @@ public class ResourceAllocationTrackingBean {
 	private String clientNameSearch;
 	
 	private Integer reqId;
-
+	private Integer r_idSearch;
+	
+	private String skillSet;
+   
 	
 	
-
 	public String getClientName() {
 		return clientName;
 	}
@@ -51,9 +53,24 @@ public class ResourceAllocationTrackingBean {
 	}
 
 
-	
-	
-	
-	
+	public Integer getR_idSearch() {
+		return r_idSearch;
+	}
+
+
+	public void setR_idSearch(Integer r_idSearch) {
+		this.r_idSearch = r_idSearch;
+	}
+
+
+	public String getSkillSet() {
+		return skillSet;
+	}
+
+
+	public void setSkillSet(String skillSet) {
+		this.skillSet = skillSet;
+	}
+
 	
 }
