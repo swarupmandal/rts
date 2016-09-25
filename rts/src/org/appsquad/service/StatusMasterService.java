@@ -6,6 +6,7 @@ import org.zkoss.zul.Messagebox;
 
 public class StatusMasterService {
 	private static boolean flag = false;
+	private static boolean flagInsert = false;
 
 	public static boolean isValid(StatusMasterBean bean){
 		if(bean.getStatus()!=null && bean.getStatus().trim().length()>0){
@@ -16,11 +17,11 @@ public class StatusMasterService {
 		}
 	}
 	
-	
-	public static void insertClientMasterData(StatusMasterBean statusMasterBean){
+	public static boolean insertClientMasterData(StatusMasterBean statusMasterBean){
 		if(isValid(statusMasterBean)){
-			StatusMasterDao.insertSkillData(statusMasterBean);
+			flagInsert = StatusMasterDao.insertStatusData(statusMasterBean);
 		}
+		return flagInsert;
 	}
 	
 	public static boolean deleteStatusMasterData(StatusMasterBean statusMasterBean){
@@ -39,5 +40,11 @@ public class StatusMasterService {
 	}
 	public static void setFlag(boolean flag) {
 		StatusMasterService.flag = flag;
+	}
+	public static boolean isFlagInsert() {
+		return flagInsert;
+	}
+	public static void setFlagInsert(boolean flagInsert) {
+		StatusMasterService.flagInsert = flagInsert;
 	}   
 }

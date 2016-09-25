@@ -6,17 +6,15 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import org.appsquad.bean.ClientInformationBean;
 import org.appsquad.bean.SkillsetMasterbean;
 import org.appsquad.database.DbConnection;
-import org.appsquad.sql.ClientInformationsql;
 import org.appsquad.sql.SkillSetMasterSql;
 import org.appsquad.utility.Pstm;
 import org.zkoss.zul.Messagebox;
 
 public class SkillSetMasterDao {
 	
-	public static void insertSkillData(SkillsetMasterbean skillsetMasterbean){
+	public static boolean insertSkillData(SkillsetMasterbean skillsetMasterbean){
 		boolean isSaved = false;
 		Connection connection = null;
 		try {
@@ -58,6 +56,7 @@ public class SkillSetMasterDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return isSaved;
 	}
 	
 	
@@ -104,7 +103,7 @@ public class SkillSetMasterDao {
 		return skillList;
 	}
 	
-	public static boolean updateClientData(SkillsetMasterbean masterbean){
+	public static boolean updateSkillData(SkillsetMasterbean masterbean){
 		boolean isUpdated = false;
 		Connection connection = null;
 		try {
@@ -148,6 +147,92 @@ public class SkillSetMasterDao {
 			e.printStackTrace();
 		}
 		return isUpdated;
+	}
+	
+	public static boolean deleteSkillDetails(SkillsetMasterbean masterbean){
+		boolean isDeleted = false;
+		Connection connection = null;
+		try {
+			connection = DbConnection.createConnection();
+			sql_connection:{
+				try {
+					
+					//1st SQL block
+					sql_insert:{
+					    PreparedStatement preparedStatementInsert = null;
+					    try {
+					    	preparedStatementInsert = Pstm.createQuery(connection, 
+									SkillSetMasterSql.deleteSkillSql, Arrays.asList(masterbean.getId()));
+					    	
+					    	System.out.println(preparedStatementInsert);
+							int i = preparedStatementInsert.executeUpdate();
+							if(i>0){
+								isDeleted = true;	
+							}
+						} finally{
+							if(preparedStatementInsert!=null){
+								preparedStatementInsert.close();
+							}
+						}
+				    }
+				
+					if(isDeleted){
+						Messagebox.show(" Skill Details Deleted Successfully!","Information",Messagebox.OK,Messagebox.INFORMATION);
+					}else{
+						Messagebox.show(" Client Details failed due to internal error!","ERROR",Messagebox.OK,Messagebox.ERROR);
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}finally{
+					if(connection!=null){
+						connection.close();
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return isDeleted;
+	}
+	
+	public static int countSkillName(SkillsetMasterbean masterbean){
+		int count = 0;
+		Connection connection = null;
+		try {
+			connection = DbConnection.createConnection();
+			sql_connection:{
+				try {
+					
+					//1st SQL block
+					sql_insert:{
+					    PreparedStatement preparedStatementCount = null;
+					    try {
+					    	preparedStatementCount = Pstm.createQuery(connection,SkillSetMasterSql.countSkillNameSql, 
+					    			                                                                       Arrays.asList(masterbean.getSkillset().toUpperCase()));
+					    	
+					    	System.out.println(preparedStatementCount);
+					    	ResultSet resultSet = preparedStatementCount.executeQuery();
+							while (resultSet.next()) {
+								count = resultSet.getInt(1);
+							}
+						} finally{
+							if(preparedStatementCount!=null){
+								preparedStatementCount.close();
+							}
+						}
+				    }
+				} catch (Exception e) {
+					e.printStackTrace();
+				}finally{
+					if(connection!=null){
+						connection.close();
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return count;
 	}
 
 }

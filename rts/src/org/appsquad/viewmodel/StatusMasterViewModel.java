@@ -19,6 +19,7 @@ import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.select.Selectors;
+import org.zkoss.zul.Messagebox;
 
 public class StatusMasterViewModel {
 	StatusMasterBean statusMasterBean=new StatusMasterBean();
@@ -48,8 +49,17 @@ public class StatusMasterViewModel {
 	@Command
 	@NotifyChange("*")
 	public void onClickStatusSave(){
-		StatusMasterService.insertClientMasterData(statusMasterBean);
-		StatusMasterService.clearAllField(statusMasterBean);
+		boolean flagInsert = false;
+		int count = 0;
+		count = StatusMasterDao.countStatusNumber(statusMasterBean);
+		if(count>0){
+			Messagebox.show("Please Enter New Status Name!", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
+		}else{
+			flagInsert = StatusMasterService.insertClientMasterData(statusMasterBean);
+			if(flagInsert){
+				StatusMasterService.clearAllField(statusMasterBean);	
+			}	
+		}
 	}
 	
 	@Command

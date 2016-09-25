@@ -23,7 +23,7 @@
                               </columns>
                               <rows>
                                   <row>
-                                     <label value="Role"/>
+                                     <label value="Role" style="font-weight:bold"/>
                                      <textbox value="@bind(vm.roleMasterBean.roll)"/>
                                      <button label="Save" onClick="@command('onClickRoleSave')"/>
                                   </row>

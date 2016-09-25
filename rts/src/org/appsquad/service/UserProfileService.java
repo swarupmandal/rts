@@ -1,14 +1,14 @@
 package org.appsquad.service;
 
-import org.appsquad.bean.ClientInformationBean;
 import org.appsquad.bean.UserprofileBean;
-import org.appsquad.dao.ClientInformationDao;
 import org.appsquad.dao.UserProfileDao;
 import org.zkoss.zul.Messagebox;
 
 public class UserProfileService {
 	
 	private static boolean flag = false;
+	private static boolean flagInsert = false;
+	private static boolean flagCount = false;
 	
 	public static boolean isValid(UserprofileBean userprofileBean){
 		if(userprofileBean.getUsername()!=null && userprofileBean.getUsername().trim().length()>0){
@@ -44,10 +44,11 @@ public class UserProfileService {
 		}
 	}
 	
-	public static void insertUserMasterData(UserprofileBean userprofileBean){
+	public static boolean insertUserMasterData(UserprofileBean userprofileBean){
 		if(isValid(userprofileBean)){
-			UserProfileDao.insertUserData(userprofileBean);
+			flagInsert = UserProfileDao.insertUserData(userprofileBean);
 		}
+		return flagInsert;
 	}
 	
 	public static void clearAllField(UserprofileBean bean){
@@ -74,5 +75,19 @@ public class UserProfileService {
 	}
 	public static void setFlag(boolean flag) {
 		UserProfileService.flag = flag;
+	}
+	public static boolean isFlagInsert() {
+		return flagInsert;
+	}
+	public static void setFlagInsert(boolean flagInsert) {
+		UserProfileService.flagInsert = flagInsert;
+	}
+
+	public static boolean isFlagCount() {
+		return flagCount;
+	}
+
+	public static void setFlagCount(boolean flagCount) {
+		UserProfileService.flagCount = flagCount;
 	}
 }

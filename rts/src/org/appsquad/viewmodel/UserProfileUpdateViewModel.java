@@ -2,10 +2,7 @@ package org.appsquad.viewmodel;
 
 import java.sql.Connection;
 
-import org.appsquad.bean.ClientInformationBean;
 import org.appsquad.bean.UserprofileBean;
-import org.appsquad.dao.ClientInformationDao;
-import org.appsquad.service.ClientInformationService;
 import org.appsquad.service.UserProfileService;
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.AfterCompose;
@@ -17,6 +14,7 @@ import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.Sessions;
+import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Window;
@@ -49,6 +47,13 @@ public class UserProfileUpdateViewModel {
 			winUserProfile.detach();
 			BindUtils.postGlobalCommand(null, null, "globalUserDetailsUpdate", null);
 		}
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void onCloseOperation(@ContextParam(ContextType.TRIGGER_EVENT)Event e){
+		winUserProfile.detach();
+		BindUtils.postGlobalCommand(null, null, "globalUserDetailsUpdate", null);
 	}
 	
 	/**************************************************************************************************************************************/

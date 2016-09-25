@@ -6,6 +6,7 @@ import org.zkoss.zul.Messagebox;
 
 public class ClientInformationService {
 	private static boolean flag = false;
+	private static boolean flagDelete = false;
 	
 	public static boolean isValid(ClientInformationBean clientInformationBean){
 		if(clientInformationBean.getName()!=null){
@@ -119,6 +120,10 @@ public class ClientInformationService {
 		return flag;
 	}
 	
+	public static boolean deleteClientMasterData(ClientInformationBean clientInformationBean){
+		return flagDelete = ClientInformationDao.deleteClientData(clientInformationBean);
+	}
+	
 	public static void clearAllField(ClientInformationBean bean){
 		bean.setName(null);
 		bean.setSurName(null);
@@ -137,5 +142,13 @@ public class ClientInformationService {
 
 	public void setFlag(boolean flag) {
 		this.flag = flag;
+	}
+
+	public static boolean isFlagDelete() {
+		return flagDelete;
+	}
+
+	public static void setFlagDelete(boolean flagDelete) {
+		ClientInformationService.flagDelete = flagDelete;
 	}
 }

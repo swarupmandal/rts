@@ -4,17 +4,15 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.appsquad.bean.ClientInformationBean;
 import org.appsquad.bean.SkillsetMasterbean;
-import org.appsquad.dao.ClientInformationDao;
 import org.appsquad.dao.SkillSetMasterDao;
 import org.appsquad.service.SkillSetMasterService;
+import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
-import org.zkoss.bind.annotation.ExecutionArgParam;
 import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
@@ -22,6 +20,7 @@ import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.select.Selectors;
+import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
 public class SkillsetmasterViewModel {
@@ -52,8 +51,18 @@ public class SkillsetmasterViewModel {
 	@Command
 	@NotifyChange("*")
 	public void onClickSetskillsubmit(){
-		SkillSetMasterService.insertClientMasterData(skillsetMasterbean);
-		SkillSetMasterService.clearAllField(skillsetMasterbean);
+		int countNumber = 0;
+		boolean flagInsert = false;
+		countNumber = SkillSetMasterService.countNumberPresentSkillName(skillsetMasterbean);
+		System.out.println(countNumber);
+		if(countNumber>0){
+			 Messagebox.show("Please Enter New Skill Name!", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
+		}else{
+			flagInsert = SkillSetMasterService.insertClientMasterData(skillsetMasterbean);
+			if(flagInsert){
+			   SkillSetMasterService.clearAllField(skillsetMasterbean);  
+			}	
+		}
 	}
 	
 	@Command
@@ -69,6 +78,16 @@ public class SkillsetmasterViewModel {
 	@NotifyChange("*")
 	public void onClickExistingSkill(){
 		skillList = SkillSetMasterDao.onLoadSetDeatils();
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void onClickDeleteButton(@BindingParam("bean") SkillsetMasterbean masterbean){
+		boolean flagDelete = false;
+		flagDelete = SkillSetMasterService.deleteSkillDetails(masterbean);
+		if(flagDelete){
+			BindUtils.postGlobalCommand(null, null, "globalSkillSetDetailsUpdate", null);
+		}
 	}
 	
 	/************************** Getter And Setter Method ************************************/

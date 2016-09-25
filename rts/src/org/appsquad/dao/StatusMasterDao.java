@@ -5,20 +5,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Arrays;
-
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane.RestoreAction;
-
-import org.appsquad.bean.SkillsetMasterbean;
 import org.appsquad.bean.StatusMasterBean;
 import org.appsquad.database.DbConnection;
-import org.appsquad.sql.SkillSetMasterSql;
 import org.appsquad.sql.StatusMasterSql;
 import org.appsquad.utility.Pstm;
 import org.zkoss.zul.Messagebox;
 
 public class StatusMasterDao {
     
-	public static void insertSkillData(StatusMasterBean statusMasterBean){
+	public static boolean insertStatusData(StatusMasterBean statusMasterBean){
 		boolean isSaved = false;
 		Connection connection = null;
 		try {
@@ -60,6 +55,7 @@ public class StatusMasterDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return isSaved;
 	}
 	
 	public static ArrayList<StatusMasterBean> onLoadStatusDeatils(){
@@ -103,6 +99,44 @@ public class StatusMasterDao {
 		}
 		return statusList;
 	}
+
+	public static int countStatusNumber(StatusMasterBean statusMasterBean){
+		int count = 0;
+		Connection connection = null;
+		try {
+			connection = DbConnection.createConnection();
+			sql_connection:{
+				try {
+					
+					//1st SQL block
+					sql_fetch:{
+					   PreparedStatement preparedStatement = null;
+					   try {
+						    preparedStatement = Pstm.createQuery(connection, StatusMasterSql.countStatusSql, Arrays.asList(statusMasterBean.getStatus().toUpperCase()));
+							System.out.println(preparedStatement);
+							ResultSet resultSet = preparedStatement.executeQuery();
+							while (resultSet.next()) {
+								count = resultSet.getInt(1);
+							}  
+						} finally{
+							if(preparedStatement!=null){
+								preparedStatement.close();
+							}
+						}
+				    }
+				} catch (Exception e) {
+					e.printStackTrace();
+				}finally{
+					if(connection!=null){
+						connection.close();
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return count;
+	}
 	
 	public static boolean deleteStatus(StatusMasterBean statusMasterBean){
 		boolean isSaved = false;
@@ -131,7 +165,7 @@ public class StatusMasterDao {
 				    }
 				
 					if( isSaved){
-						Messagebox.show(" Status Details Deleted successfully!","Information",Messagebox.OK,Messagebox.INFORMATION);
+						Messagebox.show(" Status Details Deleted Successfully!","Information",Messagebox.OK,Messagebox.INFORMATION);
 					}else{
 						Messagebox.show(" Status Details failed due to internal error!","ERROR",Messagebox.OK,Messagebox.ERROR);
 					}

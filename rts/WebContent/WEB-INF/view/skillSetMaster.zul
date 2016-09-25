@@ -15,36 +15,34 @@
                  <tabpanel>
                        <grid>
                            <columns>
-                                <column></column>
-                                <column></column>
+                                <column width="20%"></column>
+                                <column width="70%"></column>
                            </columns>
                            <rows>
                                <row>
-                                   <label value="Skill Set"></label>
-                                   <textbox value="@bind(vm.skillsetMasterbean.skillset)"></textbox>
+                                   <label value="Skill Set:" style="font-weight:bold"></label>
+                                   <textbox value="@bind(vm.skillsetMasterbean.skillset)" width="45%"></textbox>
                                </row>
                                <row>
-                                  <label value="Skill Set Details"/>
-                                  <textbox rows="5" value="@bind(vm.skillsetMasterbean.skillsetdetails)"></textbox>
+                                  <label value="Skill Set Details:" style="font-weight:bold"/>
+                                  <textbox rows="5" value="@bind(vm.skillsetMasterbean.skillsetdetails)" width="45%"></textbox>
+                               </row>
+                               <row>
+                                  <label></label>
+                                  <button  label="Submit" onClick="@command('onClickSetskillsubmit')" style="font-weight: bold;" width="70px" height="40px"></button>
                                </row>
                           </rows>
-                          
                        </grid>
-                       <div align="center">
-                            <button  label="Submit" onClick="@command('onClickSetskillsubmit')" style="font-weight: bold;" width="70px" height="40px"></button>
-                       </div>
                  </tabpanel>
-                 
-                 <tabpanel>
-                 
-                      <grid sclass="fgrid" height="300px" width="1400px" 
+            <tabpanel>     
+                      <grid height="500px" width="1039px" 
 							style="border:#DADADA 1px solid;" model="@bind(vm.skillList)" mold="paging" 
 							vflex="true" autopaging="true" pageSize="10">
 						<columns sizable="true">
-								<column label="Skill-Name" align="center" style="font-weight:bold;" width="120px"/>
-								<column label="Skill-Details" align="center" style="font-weight:bold;" width="200px"/>
-								<column label="" align="center" style="font-weight:bold;" width="100px"/>
-								<column label="" align="center" style="font-weight:bold;" width="100px"/>
+								<column label="Skill-Name" align="center" style="font-weight:bold;" width="300px"/>
+								<column label="Skill-Details" align="center" style="font-weight:bold;" width="500px"/>
+								<column label="Update" align="center" style="font-weight:bold;" width="120px"/>
+								<column label="Delete" align="center" style="font-weight:bold;" width="120px"/>
 						</columns>	
 						
 						<template name="model" var="v">
@@ -52,12 +50,11 @@
 									<textbox value="@bind(v.skillset)" readonly="true" width="90%" tooltiptext="@bind(v.skillset)"/>
 									<textbox value="@bind(v.skillsetdetails)" readonly="true" width="90%" tooltiptext="@bind(v.skillsetdetails)"/>
 								    <button label="Update" width="90%" onClick="@command('onClickUpdateButton', bean = v)"></button>
-								    <button label="Delete" width="90%"></button>
+								    <button label="Delete" width="90%" onClick="@command('onClickDeleteButton', bean = v)"></button>
 								</row>
 							</template>
 				     </grid>
                  </tabpanel>
-                 
             </tabpanels>
        </tabbox>
    </div>

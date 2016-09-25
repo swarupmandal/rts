@@ -23,45 +23,26 @@ import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zul.Messagebox;
 
 public class LogingViewModel {
-	
 	LoginBean loginBean = new LoginBean();
-	
 	private Connection connection = null;
-	
 	Session session = null;
-	
 	@AfterCompose
 	public void initSetUp(@ContextParam(ContextType.VIEW) Component view) throws Exception{
-
 		Selectors.wireComponents(view, this, false);
-		
 		session = Sessions.getCurrent();
-		
 		loginBean.setUserNameFocus(true);
-		
 		loginBean.userNameStyle = "outline: none; border: 1px solid #7bc1f7; "
 										+ "box-shadow: 0px 0px 8px #7bc1f7; "
 										+ "-moz-box-shadow: 0px 0px 8px #7bc1f7; "
 										+ "-webkit-box-shadow: 0px 0px 8px #7bc1f7;";
-		
-		//System.out.println("Login Page loading with session::"+session);
-		
-		System.out.println("INIT LOAD ------ >>> >> >");
-		
 	}
 	
 	@Command
 	@NotifyChange("*")
 	public void onChangeUserName(){
-		
-		//loginMasterBean.userNameFocus = false;
-		//loginMasterBean.passwordFocus = true;
-		
 		loginBean.setUserNameFocus(false);
 		loginBean.userNameStyle =  "";
 		loginBean.setPasswordFocus(true);
-		
-		
 		loginBean.passwordStyle = "outline: none; border: 1px solid #7bc1f7; "
 										+ "box-shadow: 0px 0px 8px #7bc1f7; "
 										+ "-moz-box-shadow: 0px 0px 8px #7bc1f7; "
@@ -72,8 +53,6 @@ public class LogingViewModel {
 	@Command
 	@NotifyChange("*")
 	public void onChangePassword(){
-		
-		
 		loginBean.passwordStyle = "outline: none; border: 1px solid #7bc1f7; "
 										+ "box-shadow: 0px 0px 8px #7bc1f7; "
 										+ "-moz-box-shadow: 0px 0px 8px #7bc1f7; "
@@ -101,7 +80,7 @@ public class LogingViewModel {
 							session.setAttribute("userId", userId);
 							Executions.sendRedirect("/home.zul");
 						}else {
-							Messagebox.show("ILLIGAL ENTRY","SORRY", Messagebox.OK, Messagebox.ERROR);
+							 Messagebox.show("ILLIGAL ENTRY", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
 						}
 					} finally{
 						if(preparedStatement!=null){
@@ -123,7 +102,6 @@ public class LogingViewModel {
 		}
 	}
 
-	
 	public boolean isFieldValidate(){
 		if(loginBean.getUserId()!=null){
 			if(loginBean.getPassword()!=null){
@@ -138,29 +116,24 @@ public class LogingViewModel {
 		}
 	}
 	
-
+    /*************************************************************************************************************************************************/
+	
 	public LoginBean getLoginBean() {
 		return loginBean;
 	}
-
 	public void setLoginBean(LoginBean loginBean) {
 		this.loginBean = loginBean;
 	}
-
 	public Connection getConnection() {
 		return connection;
 	}
-
 	public void setConnection(Connection connection) {
 		this.connection = connection;
 	}
-
 	public Session getSession() {
 		return session;
 	}
-
 	public void setSession(Session session) {
 		this.session = session;
 	}
-
 }

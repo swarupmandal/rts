@@ -1,7 +1,8 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
- <window title="Client Information" border="none" height="280px" width="400px" apply="org.zkoss.bind.BindComposer"
-		    viewModel="@id('vm') @init('org.appsquad.viewmodel.SkillSetUpdateViewModel')" id="winSkillSetUpdateScreen" closable="true"> 
+ <window title="Skill Set Update Screen" border="none" height="280px" width="400px" apply="org.zkoss.bind.BindComposer"
+		    viewModel="@id('vm') @init('org.appsquad.viewmodel.SkillSetUpdateViewModel')" id="winSkillSetUpdateScreen" closable="true"
+		       onClose="@command('onCloseOperation')"> 
      				<grid>
                            <columns>
                                 <column></column>
@@ -17,11 +18,10 @@
                                   <textbox rows="5" value="@bind(vm.bean.skillsetdetails)"></textbox>
                                </row>
                           </rows>
-                          
                     </grid>
                     <space></space>
-                       <div align="center">
-                            <button  label="Update" onClick="@command('onClickUpdateButton')" style="font-weight: bold;" width="70px" height="40px"></button>
-                       </div>
+                    <div align="center">
+                       <button  label="Update" onClick="@command('onClickUpdateButton')" style="font-weight: bold;" width="70px" height="40px"></button>
+                    </div>
 </window>
 </zk>
