@@ -131,7 +131,7 @@ public class StatusMasterDao {
 				    }
 				
 					if( isSaved){
-						Messagebox.show(" Status Details Deleted successfully!","Information",Messagebox.OK,Messagebox.INFORMATION);
+						Messagebox.show(" Status Details Deleted Successfully!","Information",Messagebox.OK,Messagebox.INFORMATION);
 					}else{
 						Messagebox.show(" Status Details failed due to internal error!","ERROR",Messagebox.OK,Messagebox.ERROR);
 					}

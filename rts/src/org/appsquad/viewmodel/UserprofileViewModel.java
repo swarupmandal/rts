@@ -7,6 +7,7 @@ import java.util.HashMap;
 import org.appsquad.bean.UserprofileBean;
 import org.appsquad.dao.UserProfileDao;
 import org.appsquad.service.UserProfileService;
+import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
@@ -19,6 +20,7 @@ import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.select.Selectors;
+import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
 public class UserprofileViewModel {
@@ -54,8 +56,18 @@ public class UserprofileViewModel {
 	@Command
 	@NotifyChange("*")
 	public void onClickuserSubmit(){
-		UserProfileService.insertUserMasterData(userprofileBean);
-		UserProfileService.clearAllField(userprofileBean);
+		boolean flagInsert = false;
+		int countNumber = 0;
+		countNumber = UserProfileDao.countPresentUserDetails(userprofileBean);
+		System.out.println(countNumber);
+		if(countNumber>0){
+			Messagebox.show("Please Enter New User Name And Password!", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
+		}else{
+			flagInsert = UserProfileService.insertUserMasterData(userprofileBean);
+			if(flagInsert){
+				UserProfileService.clearAllField(userprofileBean);	
+			}	
+		}
 	}
 	
 	@Command
@@ -65,6 +77,16 @@ public class UserprofileViewModel {
 		map.put("userIdDetails", userprofileBean);
 		Window window = (Window) Executions.createComponents("/WEB-INF/view/userInformationUpdate.zul", null, map);
 		window.doModal();
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void onClickDeleteButton(@BindingParam("bean") UserprofileBean userprofileBean){
+		boolean flagDelete = false;
+		flagDelete = UserProfileDao.deleteUserData(userprofileBean);
+		if(flagDelete){
+			BindUtils.postGlobalCommand(null, null, "globalUserDetailsUpdate", null);
+		}
 	}
 
 	/***************************************************Getter And Setter Method ****************************************************************/

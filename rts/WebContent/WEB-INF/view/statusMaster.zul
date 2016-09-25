@@ -1,54 +1,54 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
- <style>
-	.z-textbox{
-	    text-transform:uppercase;
-	  }
+  <window title="Status Master" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('org.appsquad.viewmodel.StatusMasterViewModel')">
+    <style>
+		.z-textbox{
+			text-transform:uppercase;
+		}
 	</style>
-   <div apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('org.appsquad.viewmodel.StatusMasterViewModel')">
+   <div>
        <tabbox>
             <tabs>
-                <tab label="New Status"/>
-                <tab label="Existing Status" onClick="@command('onClickExistingStatus')"/>
+                <tab label="Status Creation" style="font-weight:bold"/>
             </tabs>
             <tabpanels>
-                 <tabpanel>
-                       <grid>
-                           <columns>
-                                <column></column>
-                                <column></column>
-                           </columns>
-                           <rows>
-                               <row>
-                    				<label value="Status"/>
+                  <tabpanel>
+                       <div>
+                          <grid >
+                              <columns>
+                                    <column></column>
+                                    <column></column>
+                                    <column></column>
+                              </columns>
+                              <rows>
+                                     <row>
+                    				<label value="Status:" style="font-weight:bold"/>
                     				<textbox value="@bind(vm.statusMasterBean.status)" width="150px" height="30px"/>
                    					 <button label="Submit" onClick="@command('onClickStatusSave')"/>
-                			  </row>
-                          </rows>
-                          
-                       </grid>
-                 </tabpanel>
-                 
-                  <tabpanel>
-                
-                      <grid sclass="fgrid" height="300px" width="1400px" 
-							style="border:#DADADA 1px solid;" model="@bind(vm.statuslist)" mold="paging" 
-							vflex="true" autopaging="true" pageSize="10">
-						<columns sizable="true">
-								<column label="Status-Name" align="center" style="font-weight:bold;" width="300px"/>
-								<column label="" align="center" style="font-weight:bold;" width="100px"/>
-						</columns>	
-						
-						<template name="model" var="v">
-								<row style="border: 0.01px solid #C0C0C0;">
-									<textbox value="@bind(v.status)" readonly="true" width="90%" tooltiptext="@bind(vm.statusMasterBean.status)"/>
-								    <button label="Delete" width="90%" onClick="@command('onClickDelete', bean = v)"></button>
-								</row>
-							</template>
-				     </grid>
-                 </tabpanel> 
-                 
+                			        </row>
+                              </rows>
+                          </grid>
+                       </div>
+                       <space></space>
+                       <div>
+                           <grid model="@bind(vm.statuslist)" mold="paging" pageSize="11" sclass="fgrid">
+                               <columns sizable="true">
+								<column label="Status-Name" align="center" style="font-weight:bold;" width="800px"/>
+								<column label="Action" align="center" style="font-weight:bold;" width="200px"/>
+						       </columns>
+                               <rows>
+                                  <template name="model" var="v">
+										<row style="border: 0.01px solid #C0C0C0;">
+											<textbox value="@bind(v.status)" readonly="true" width="90%" tooltiptext="@bind(vm.statusMasterBean.status)"/>
+								    		<button label="Delete" width="90%" onClick="@command('onClickDelete', bean = v)"></button>
+										</row>
+								</template> 
+                               </rows>
+                           </grid>
+                       </div>
+                  </tabpanel>
             </tabpanels>
        </tabbox>
    </div>
+   </window>
 </zk>

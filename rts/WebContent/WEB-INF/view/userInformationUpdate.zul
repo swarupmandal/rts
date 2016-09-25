@@ -2,7 +2,7 @@
 <zk>
  <window apply="org.zkoss.bind.BindComposer" title="USER PROFILE INFORMATION" 
         viewModel="@id('vm') @init('org.appsquad.viewmodel.UserProfileUpdateViewModel')" id="winUserProfile" closable="true"
-          height="350px" width="600px">
+          height="350px" width="600px" onClose="@command('onCloseOperation')">
  
       <div>
                            <grid>
@@ -35,11 +35,17 @@
                                     
                                     <row>
                                         <label value="Contact No"/>
-                                        <textbox value="@bind(vm.bean.contactno)"/>
+                                        <textbox value="@bind(vm.bean.contactno)" maxlength="15" xmlns:w="client">
+	                                        <attribute w:name="doKeyPress_">
+	                                          <![CDATA[ function(evt) { if ( (evt.which >
+													31) && (evt.which < 48 ||
+														evt.which > 57)) evt.stop(); } ]]>
+											</attribute>
+                                        </textbox>  
                                     </row>
-                                    </rows>
-                                    </grid>
-                                    </div>
+                                 </rows>
+                              </grid>
+                           </div>
                                     <space></space>
                                     <div align="center">
                                        <button label="Update" width="80px" height="30px" style="font-weight:bold" onClick="@command('onClickUpdateButton')"/>
