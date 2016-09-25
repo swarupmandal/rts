@@ -104,7 +104,7 @@
 				  <textbox width="98%" readonly="true" value="@bind(v.internalInterviewDateStr)"></textbox>
 				  <textbox width="98%" readonly="true" value="@bind(v.clientInterviewDateStr)"></textbox>
 				  <textbox width="98%" readonly="true" value="@bind(v.onboardDateStr)"></textbox>
-				  <button width="90%" label="Update"></button>	
+				  <button width="90%" label="Update" onClick="@command('onClickUpdate', bean =v)"></button>	
 	
 	
 				</row>

@@ -9,6 +9,8 @@ public class ResourceMasterSql {
 
     public static final String fetchResourceQyery = "select * from rts_resource_master ";
     
+    public static final String fetchResourceView = "select * from rts_resource_master ";
+    
     public static final String updateResourceQuery = "update rts_resource_master set res_name = ?,res_surname = ?, res_experience =? ,res_address = ?, "
     		                                        +"res_emailid = ?,rts_skill_id = ?,rts_country_id = ?,rts_pincode = ?,rts_contact_no = ?, "
     		                                        +"rts_status_id = ?,rts_ctc = ?,rts_skill_name= ?,rts_country_name= ?,rts_state_name= ?"

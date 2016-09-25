@@ -203,6 +203,8 @@ public static ArrayList<ClientInformationBean> fetchClientDetailsSearch(String n
 				resultSet = preparedStatement.executeQuery();
 				while (resultSet.next()) {
 					ResourceAllocationTrackingBean bean = new ResourceAllocationTrackingBean();
+					
+					bean.resourceMasterBean.setResourceId(resultSet.getInt("resource_id"));
 					bean.resourceMasterBean.setFullName(resultSet.getString("full_name"));
 					bean.resourceMasterBean.setYearOfExperience(resultSet.getInt("res_experience"));
 					bean.resourceMasterBean.setAddress(resultSet.getString("res_address"));
@@ -271,6 +273,8 @@ public static ArrayList<ClientInformationBean> fetchClientDetailsSearch(String n
 				resultSet = preparedStatement.executeQuery();
 				while (resultSet.next()) {
 					ResourceAllocationTrackingBean bean = new ResourceAllocationTrackingBean();
+					
+					bean.resourceMasterBean.setResourceId(resultSet.getInt("resource_id"));
 					bean.resourceMasterBean.setFullName(resultSet.getString("full_name"));
 					bean.resourceMasterBean.setYearOfExperience(resultSet.getInt("res_experience"));
 					bean.resourceMasterBean.setAddress(resultSet.getString("res_address"));
