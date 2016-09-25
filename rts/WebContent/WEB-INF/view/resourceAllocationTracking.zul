@@ -21,22 +21,44 @@
 					
 					<template name="model" var = "v">
 					<listitem>
-					  
-						<listcell label="@load(v.fullName)"></listcell>
-					  	
+					  <listcell label="@load(v.fullName)"></listcell>
 					</listitem>
-					</template>
+				   </template>
 				</listbox>
 			</bandpopup>
 		</bandbox>
 		<space></space>
 		
 		<label value="Requirement Id" style="font-weight: bold; color: black"></label>
-		<bandbox></bandbox>
+		<bandbox autodrop="true" readonly="true" id="reqId" value="@bind(vm.requirementGenerationBean.req_id)">
+			<bandpopup>	
+				<hbox>
+					<intbox value="@bind(vm.trackingBean.r_idSearch)" onChange="@command('onChangeReqId')"></intbox>
+					<button label="Serach" onClick="@command('onChangeReqId')"></button>
+				</hbox>
+				<space></space>
+				<listbox width="280px" model="@bind(vm.requirementGenerationBeanList)" 
+				     selectedItem="@bind(vm.requirementGenerationBean)" onSelect="@command('onSelctReqId')" mold="paging" pageSize="5">
+					<listhead sizable="true">
+						<listheader label="Req Id"></listheader>
+						<listheader label="Skill"></listheader>
+					</listhead>
+					
+					<template name="model" var = "v">
+					<listitem>
+					  
+						<listcell label="@load(v.req_id)"></listcell>
+						<listcell label="@load(v.reqSkill)"></listcell>
+					  	
+					</listitem>
+					</template>
+				</listbox>
+			</bandpopup>
+		</bandbox>
 		<space></space> 
 		
 		<label value="Skill set" style="font-weight: bold; color: black"></label>
-		<textbox readonly="true"></textbox>
+		<textbox readonly="true" value="@bind(vm.trackingBean.skillSet)"></textbox>
 	</div>
 	<space></space>
 	

@@ -16,6 +16,8 @@ import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.select.Selectors;
+import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zul.Bandbox;
 
 public class ResourceAllocationTrackingViewModel {
 
@@ -32,6 +34,12 @@ public class ResourceAllocationTrackingViewModel {
 	Session session = null;
 	private String userName;
 	
+	@Wire("#reqId")
+	private Bandbox reqBandBox;
+	
+	@Wire("#clname")
+	private Bandbox clNameBandBox;
+	
 	@AfterCompose
 	public void initSetup(@ContextParam(ContextType.VIEW) Component view)throws Exception {
 
@@ -46,14 +54,47 @@ public class ResourceAllocationTrackingViewModel {
 	@Command
 	@NotifyChange("*")
 	public void onChangeClientName(){
-		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+		if(trackingBean.getClientNameSearch() != null){
+			clientInformationBeanList = ResourceAllocationTrackingService.fetchClientDetailsSearch(trackingBean.getClientNameSearch());
+		}
 	}
 	
 	@Command
 	@NotifyChange("*")
 	public void onSelctClientName(){
-		System.out.println("Client name >>> >> > " + clientInformationBean.getClientId() + " - " + clientInformationBean.getFullName());
+		clNameBandBox.close();
+		requirementGenerationBean.setReq_id(null);
+		trackingBean.setSkillSet(null);
+		requirementGenerationBeanList = ResourceAllocationTrackingService.fetchReq(clientInformationBean.getClientId());
+		
+		
 	}
+	
+	
+	
+	@Command
+	@NotifyChange("*")
+	public void onChangeReqId(){
+		if(trackingBean.getR_idSearch() != null){
+			requirementGenerationBeanList = ResourceAllocationTrackingService.fetchReqSearch(clientInformationBean.getClientId(), trackingBean.getR_idSearch());
+		}else {
+			requirementGenerationBeanList = ResourceAllocationTrackingService.fetchReq(clientInformationBean.getClientId());
+		}
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void onSelctReqId(){
+		reqBandBox.close();
+		if(requirementGenerationBean.getReqSkill() != null){
+			trackingBean.setSkillSet(requirementGenerationBean.getReqSkill());
+		}
+		
+		
+	}
+	
+	
+	
 	
 	public ResourceAllocationTrackingBean getTrackingBean() {
 		return trackingBean;
