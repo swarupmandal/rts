@@ -32,7 +32,7 @@
                        </div>
                        <space></space>
                        <div>
-                           <grid model="@bind(vm.rolebeanlist)" mold="paging" pageSize="4" sclass="fgrid">
+                           <grid model="@bind(vm.rolebeanlist)" mold="paging" pageSize="11" sclass="fgrid">
                                <columns>
                                     <column label="Role" align="center"/>
                                     <column label="Update" align="center"/>
@@ -87,8 +87,8 @@
 								   </row>
 								   
 								   <row>
-								   
-								       <button label="Save" onClick="@command('onClickAssign')"></button>
+								    
+								          <button label="Save" onClick="@command('onClickAssign')"></button>
 								   
 								   </row>
 								   
@@ -98,7 +98,7 @@
                         </div>
                         <space></space>
                         <div>
-                           <grid model="@bind(vm.mappingList)" mold="paging" pageSize="4" sclass="fgrid">
+                           <grid model="@bind(vm.mappingList)" mold="paging" pageSize="10" sclass="fgrid">
                                <columns>
                                     <column label="User-Name" align="center"/>
                                     <column label="Role-Name" align="center"/>
@@ -111,18 +111,13 @@
                                        <textbox value="@bind(v.downBean.roll)" readonly="true" width="220px"></textbox>
                                        <button label="Update" onClick="@command('onClickUpdate', bean = v)"/>
                                    </row>
-                                   
                                    </template>
-                                   
                                </rows>
                            </grid>
                        </div>
-                        
                   </tabpanel>
             </tabpanels>
        </tabbox>
    </div>
-        
-       
    </window>
 </zk>

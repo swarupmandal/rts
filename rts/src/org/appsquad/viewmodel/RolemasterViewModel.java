@@ -53,6 +53,7 @@ public class RolemasterViewModel {
 	public void onClickRoleSave(){
 		countRole = RoleMasterDao.onLoadRoleNameCountDeatils(roleMasterBean);
 		if(countRole>0){
+			roleMasterBean.setRoll(null);
 			Messagebox.show(" Enter New Role Name!","Exclamation",Messagebox.OK,Messagebox.EXCLAMATION);
 		}else{
 			RoleMasterService.insertClientMasterData(roleMasterBean);
@@ -98,6 +99,12 @@ public class RolemasterViewModel {
 	public void globalRoleDetailsUpdate(){
 		userList = RoleMasterDao.onLoadUserDeatils();
 		roleList = RoleMasterDao.onLoadRoleDropDownDeatils();
+		mappingList = RoleMasterDao.onLoadMappingDeatils();
+	}
+	
+	@GlobalCommand
+	@NotifyChange("*")
+	public void globalMapingData(){
 		mappingList = RoleMasterDao.onLoadMappingDeatils();
 	}
 	
