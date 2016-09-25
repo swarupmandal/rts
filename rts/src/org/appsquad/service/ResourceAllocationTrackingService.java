@@ -1,6 +1,7 @@
 package org.appsquad.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.appsquad.bean.ClientInformationBean;
 import org.appsquad.bean.RequirementGenerationBean;
@@ -44,6 +45,30 @@ public class ResourceAllocationTrackingService {
 		ArrayList<ResourceAllocationTrackingBean> list = new ArrayList<ResourceAllocationTrackingBean>();
 		list = ResourceAllocationTrackingDao.fetchResAllTrackingSearch(clId, r_id, name);
 		return list;
+	}
+	
+	public static int insertFinalStatus(Integer rId, int resId, int statusId, String userId){
+		int i =0;
+		i = ResourceAllocationTrackingDao.inSertFinalStatus(rId, resId, statusId,userId);
+		return i;
+	}
+	
+	public static int insertInternalIntDate(Integer rId, int resId,int clientId, Date date, String userId){
+		int i = 0;
+		i = ResourceAllocationTrackingDao.intInterviewDate(rId, resId, clientId, date, userId);
+		return i;
+	}
+	
+	public static int insertClientIntDate(Integer rId, int resId,int clientId, Date date, String userId){
+		int i = 0;
+		i = ResourceAllocationTrackingDao.clientInterviewDate(rId, resId, clientId, date, userId);
+		return i;
+	}
+	
+	public static int insertOnboardDate(Integer rId, int resId,int clientId, Date date, String userId){
+		int i = 0;
+		i = ResourceAllocationTrackingDao.onboardDate(rId, resId, clientId, date, userId);
+		return i;
 	}
 	
 	

@@ -14,6 +14,7 @@ import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
+import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
@@ -124,15 +125,25 @@ public class ResourceAllocationTrackingViewModel {
 	@Command
 	@NotifyChange("*")
 	public void onClickUpdate(@BindingParam("bean") ResourceAllocationTrackingBean bean){
+		
 		Map<String, Object> trackingMap = new HashMap<String, Object>();
 		trackingMap.put("trackingMap", bean);
 		trackingMap.put("userId", userName);
+		trackingMap.put("req_id", requirementGenerationBean.getReq_id());
+		trackingMap.put("clId", clientInformationBean.getClientId());
 		
 		Window window = (Window) Executions.createComponents("/WEB-INF/view/resAllocTrckingUpdate.zul", null, trackingMap);
 		window.doModal();
-		
-		
+	
 	}
+	
+	@GlobalCommand
+	@NotifyChange("*")
+	public void reLoadTrack(){
+		trackingBeanList = ResourceAllocationTrackingService.loadTrackingBeanList(clientInformationBean.getClientId(), requirementGenerationBean.getReq_id());
+
+	}
+	
 	
 	public ResourceAllocationTrackingBean getTrackingBean() {
 		return trackingBean;

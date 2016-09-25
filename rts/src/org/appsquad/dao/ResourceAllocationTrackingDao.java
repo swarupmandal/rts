@@ -3,8 +3,10 @@ package org.appsquad.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 
 import org.appsquad.bean.ClientInformationBean;
 import org.appsquad.bean.RequirementGenerationBean;
@@ -213,8 +215,8 @@ public static ArrayList<ClientInformationBean> fetchClientDetailsSearch(String n
 					bean.resourceMasterBean.setCvPath(resultSet.getString("res_upcv"));
 					bean.setResourceType(resultSet.getString("type_name"));
 					bean.setResourceTypeId(resultSet.getInt("res_type_id"));
-					bean.setStatus(resultSet.getString("master_status_name"));
-					bean.setStatusId(resultSet.getInt("rts_status_id"));
+					bean.setStatus(resultSet.getString("final_status"));
+					bean.setStatusId(resultSet.getInt("final_status_id"));
 					bean.resourceMasterBean.setIsAllocable(resultSet.getString("non_allocable_or_not"));
 					
 					bean.setInternalInterviewDate(resultSet.getDate("internal_interview_date"));
@@ -283,8 +285,8 @@ public static ArrayList<ClientInformationBean> fetchClientDetailsSearch(String n
 					bean.resourceMasterBean.setCvPath(resultSet.getString("res_upcv"));
 					bean.setResourceType(resultSet.getString("type_name"));
 					bean.setResourceTypeId(resultSet.getInt("res_type_id"));
-					bean.setStatus(resultSet.getString("master_status_name"));
-					bean.setStatusId(resultSet.getInt("rts_status_id"));
+					bean.setStatus(resultSet.getString("final_status"));
+					bean.setStatusId(resultSet.getInt("final_status_id"));
 					bean.resourceMasterBean.setIsAllocable(resultSet.getString("non_allocable_or_not"));
 					
 					bean.setInternalInterviewDate(resultSet.getDate("internal_interview_date"));
@@ -325,6 +327,176 @@ public static ArrayList<ClientInformationBean> fetchClientDetailsSearch(String n
 	}
 	
 	
+	public static int inSertFinalStatus(Integer rId, int resId, int statusId, String userId){
+		int i = 0;
+		
+		try {
+			Connection connection = null;
+			PreparedStatement preparedStatement = null;
+			
+			try {
+				connection = DbConnection.createConnection();
+				preparedStatement = Pstm.createQuery(connection, ResourceAllocationTrackingSql.inSertLastStatus, Arrays.asList(rId, resId, statusId,userId, userId));
+				i = preparedStatement.executeUpdate();
+			
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+			
+			finally{
+				if(preparedStatement != null){
+					preparedStatement.close();
+				}if(connection != null){
+					connection.close();
+					
+				}
+			}
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return i;
+	}
 	
+	public static int intInterviewDate(Integer rId, int resId,int clientId, Date date, String userId){
+		int i = 0;
+		
+		try {
+			Connection connection = null;
+			PreparedStatement preparedStatement = null;
+			
+			try {
+				connection = DbConnection.createConnection();
+				
+				preparedStatement = connection.prepareStatement(ResourceAllocationTrackingSql.insertIntInterviewDate);
+				
+				preparedStatement.setInt(1, rId);
+				preparedStatement.setInt(2, resId);
+				preparedStatement.setInt(3, clientId);
+				
+				if(date != null){
+					preparedStatement.setDate(4, Dateformatter.sqlDate(date));
+				}else {
+					preparedStatement.setNull(4, Types.NULL);
+				}
+				
+				preparedStatement.setString(5, userId);
+				preparedStatement.setString(6, userId);
+				
+				
+				i = preparedStatement.executeUpdate();
+			
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+			
+			finally{
+				if(preparedStatement != null){
+					preparedStatement.close();
+				}if(connection != null){
+					connection.close();
+					
+				}
+			}
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return i;
+	}
+	
+	public static int clientInterviewDate(Integer rId, int resId,int clientId, Date date, String userId){
+		int i = 0;
+		
+		try {
+			Connection connection = null;
+			PreparedStatement preparedStatement = null;
+			
+			try {
+				connection = DbConnection.createConnection();
+				preparedStatement = connection.prepareStatement(ResourceAllocationTrackingSql.insertClientInterviewDate);
+				
+				preparedStatement.setInt(1, rId);
+				preparedStatement.setInt(2, resId);
+				preparedStatement.setInt(3, clientId);
+				
+				if(date != null){
+					preparedStatement.setDate(4, Dateformatter.sqlDate(date));
+				}else {
+					preparedStatement.setNull(4, Types.NULL);
+				}
+				
+				preparedStatement.setString(5, userId);
+				preparedStatement.setString(6, userId);
+				
+				i = preparedStatement.executeUpdate();
+			
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+			
+			finally{
+				if(preparedStatement != null){
+					preparedStatement.close();
+				}if(connection != null){
+					connection.close();
+					
+				}
+			}
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return i;
+	}
+	
+	public static int onboardDate(Integer rId, int resId,int clientId, Date date, String userId){
+		int i = 0;
+		
+		try {
+			Connection connection = null;
+			PreparedStatement preparedStatement = null;
+			
+			try {
+				connection = DbConnection.createConnection();
+				preparedStatement = connection.prepareStatement(ResourceAllocationTrackingSql.insertOnboardDate);
+				
+				preparedStatement.setInt(1, rId);
+				preparedStatement.setInt(2, resId);
+				preparedStatement.setInt(3, clientId);
+				
+				if(date != null){
+					preparedStatement.setDate(4, Dateformatter.sqlDate(date));
+				}else {
+					preparedStatement.setNull(4, Types.NULL);
+				}
+				
+				preparedStatement.setString(5, userId);
+				preparedStatement.setString(6, userId);
+				
+				i = preparedStatement.executeUpdate();
+			
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+			
+			finally{
+				if(preparedStatement != null){
+					preparedStatement.close();
+				}if(connection != null){
+					connection.close();
+					
+				}
+			}
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return i;
+	}
 
 }
