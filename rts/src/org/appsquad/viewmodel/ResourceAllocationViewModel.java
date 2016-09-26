@@ -87,7 +87,7 @@ public class ResourceAllocationViewModel {
 	    	resourceAllocationBean.setRequiredResourcenumber(ResourceAllocationDao.fetchRequiredResourceNumber(resourceAllocationBean.getClientInformationBean().getClientId(), resourceAllocationBean.getRequirementGenerationBean().getRequirementId(),resourceAllocationBean.getResourceTypeBean().getResourceTypeName()));
 	        resourceAllocationBean.setAllocatedResourceNumber(ResourceAllocationDao.fetchRequiredResourceNumberAllocated(resourceAllocationBean.getClientInformationBean().getClientId(), resourceAllocationBean.getRequirementGenerationBean().getRequirementId(),resourceAllocationBean.getResourceTypeBean().getResourceTypeName()));
 	        resourceAllocationBean.setDivVisibility(true);
-	    	resourceList = ResourceAllocationDao.onLoadResourceDetails();
+	    	resourceList = ResourceAllocationDao.onLoadResourceDetails(resourceAllocationBean);
 	    	resourceAllocationBean.setAssignButtonVisibility(true);
 	    }
 	    
@@ -166,7 +166,7 @@ public class ResourceAllocationViewModel {
 							  if(isUpdateResource && isUpdate && isInsertMapper && isInsertTracking){
 								  connection.commit();
 								  resourceAllocationBean.setDivVisibility(true);
-							      resourceList = ResourceAllocationDao.onLoadResourceDetails();
+							      resourceList = ResourceAllocationDao.onLoadResourceDetails(resourceAllocationBean);
 							      resourceAllocationBean.setAssignButtonVisibility(true);
 							  }
 							

@@ -74,7 +74,6 @@
 				</auxheader>
 			</auxhead>
 		
-		
 			<columns sizable="true">
 				<column width="50px" style="font-weight:bold; color: black;" align="center" visible="false">Check</column>
 				<column width="220px" style="font-weight:bold; color: black;" align="center">Resource</column>
@@ -111,8 +110,6 @@
 			  </template>	
 			</rows>
 		</grid>
-		
 	</div>
-
 </window>
 </zk>
