@@ -18,7 +18,6 @@ import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zul.Messagebox;
-import org.zkoss.zul.Window;
 
 public class ResAllocTrackingUpdateViewModel {
 	
@@ -30,12 +29,11 @@ public class ResAllocTrackingUpdateViewModel {
 	   ResourceAllocationTrackingBean trackingUpdateBean = new ResourceAllocationTrackingBean();
 	   StatusMasterBean statusBean = new StatusMasterBean();
 	   
-	   
 	   ArrayList<StatusMasterBean> statusBeanList = new ArrayList<StatusMasterBean>();
 	   
 	   
-	@AfterCompose
-	public void initSetUp(@ContextParam(ContextType.VIEW) Component view,
+	   @AfterCompose
+	   public void initSetUp(@ContextParam(ContextType.VIEW) Component view,
 						  @ExecutionArgParam("trackingMap") ResourceAllocationTrackingBean bean,
 						  @ExecutionArgParam("userId")String user,
 						  @ExecutionArgParam("req_id") Integer r_id,
@@ -49,8 +47,6 @@ public class ResAllocTrackingUpdateViewModel {
 		clientId = clId;
 		trackingUpdateBean = bean;
 		statusBeanList = ResourceMasterDao.onLoadStatus();
-		
-		
 	}
 	
 	@Command
@@ -63,91 +59,64 @@ public class ResAllocTrackingUpdateViewModel {
 	@Command
 	@NotifyChange("*")
 	public void onClickUpdate(){
-		
 		int i = 0, j= 0, k= 0, l=0;
-		 
 		i = ResourceAllocationTrackingService.insertFinalStatus(req_id, trackingUpdateBean.resourceMasterBean.getResourceId(), trackingUpdateBean.getStatusId(), userId);
 		
 		j = ResourceAllocationTrackingService.insertInternalIntDate(req_id, trackingUpdateBean.resourceMasterBean.getResourceId(), clientId, trackingUpdateBean.getInternalInterviewDate(), userId);
+		
 		k = ResourceAllocationTrackingService.insertClientIntDate(req_id, trackingUpdateBean.resourceMasterBean.getResourceId(), clientId, trackingUpdateBean.getClientInterviewDate(), userId);
+		
 		l = ResourceAllocationTrackingService.insertOnboardDate(req_id, trackingUpdateBean.resourceMasterBean.getResourceId(), clientId, trackingUpdateBean.getOnboardDate(), userId);
 		
 	    if(i>0 || j>0 || k>0 || l>0){
 	    	Messagebox.show("Saved Successfully", "Information", Messagebox.OK, Messagebox.INFORMATION);
-	    	BindUtils.postGlobalCommand(null, null, "reLoadTrack", null);
-	    	
+	    	BindUtils.postGlobalCommand(null, null, "reLoadTrack", null);	
 	    }
-	
 	}
 	
+	/**********************************************************************************************************************************************/
 	
 	public Session getSessions() {
 		return sessions;
 	}
-
 	public void setSessions(Session sessions) {
 		this.sessions = sessions;
 	}
-
 	public String getUserId() {
 		return userId;
 	}
-
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-
 	public ResourceAllocationTrackingBean getTrackingUpdateBean() {
 		return trackingUpdateBean;
 	}
-
 	public void setTrackingUpdateBean(
 			ResourceAllocationTrackingBean trackingUpdateBean) {
 		this.trackingUpdateBean = trackingUpdateBean;
 	}
-
-
-
-
 	public StatusMasterBean getStatusBean() {
 		return statusBean;
 	}
-
-
-
-
 	public void setStatusBean(StatusMasterBean statusBean) {
 		this.statusBean = statusBean;
 	}
-
-
-
-
 	public ArrayList<StatusMasterBean> getStatusBeanList() {
 		return statusBeanList;
 	}
-
-
-
-
 	public void setStatusBeanList(ArrayList<StatusMasterBean> statusBeanList) {
 		this.statusBeanList = statusBeanList;
 	}
-
 	public Integer getReq_id() {
 		return req_id;
 	}
-
 	public void setReq_id(Integer req_id) {
 		this.req_id = req_id;
 	}
-
 	public int getClientId() {
 		return clientId;
 	}
-
 	public void setClientId(int clientId) {
 		this.clientId = clientId;
 	}
-
 }
