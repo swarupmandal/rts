@@ -110,7 +110,9 @@ public class ResourceMasterViewModel {
 		boolean isInsert = false;
 		isInsert = ResourceMasterService.insertClientMasterData(resourceMasterBean);
 		if(isInsert){
-			ResourceMasterService.clearAllField(resourceMasterBean);	
+			ResourceMasterService.clearAllField(resourceMasterBean);
+			fileName = null;
+			fileContent =null;
 		}
 	}
 	

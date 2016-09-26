@@ -79,7 +79,7 @@ public class ResourceMasterService {
 	public static void clearAllField(ResourceMasterBean bean){
 		bean.setName(null);
 		bean.setSurName(null);
-		bean.setYearOfExperience(0);
+		bean.setYearOfExperience(null);
 		bean.getSkillsetMasterbean().setSkillset(null);
 		bean.setAddress(null);
 		bean.getStateBean().setStateName(null);
@@ -88,6 +88,8 @@ public class ResourceMasterService {
 		bean.setContactNumber(null);
 		bean.setEmailId(null);
 		bean.setCtc(null);
+		bean.setFilePath(null);
+		
 	}
 	
 	/*******************************************************************************************************************************************/
