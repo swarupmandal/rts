@@ -1,7 +1,6 @@
 package org.appsquad.viewmodel;
 
 import java.util.ArrayList;
-
 import org.appsquad.bean.RequirementGenerationBean;
 import org.appsquad.bean.StatusMasterBean;
 import org.appsquad.service.RequirementGenerationService;
@@ -20,13 +19,10 @@ import org.zkoss.zul.Window;
 
 
 public class RequirementGenerationEditViewModel {
-	
 	RequirementGenerationBean reqEditGenBean = new RequirementGenerationBean();
 	StatusMasterBean statusBeanEdit = new StatusMasterBean();
 	
 	private ArrayList<StatusMasterBean> statusBeanEditList = new ArrayList<StatusMasterBean>();
-	
-	
 	
 	@Wire("#winReqGenEdit")
 	private Window winReqGenEdit;
@@ -34,25 +30,17 @@ public class RequirementGenerationEditViewModel {
 	@AfterCompose
 	public void initSetUp(@ContextParam(ContextType.VIEW) Component view,
 						  @ExecutionArgParam("parentBean") RequirementGenerationBean bean) throws Exception{
-		 Selectors.wireComponents(view, this, false);
-		        
+		 Selectors.wireComponents(view, this, false); 
 		 reqEditGenBean = bean;
-		 
 		 statusBeanEditList = RequirementGenerationService.fetchStatusList();
-		 
 	}
 
-
-	
 	@Command
 	@NotifyChange("*")
 	public void onSelectOcStatusEdit(){
 		if(statusBeanEdit.getOcstatusId()>0){
-			reqEditGenBean.setOcStatusId(statusBeanEdit.getOcstatusId());
-			
+			reqEditGenBean.setOcStatusId(statusBeanEdit.getOcstatusId());	
 		}
-		
-		
 	}
 	
 	@Command
@@ -67,41 +55,24 @@ public class RequirementGenerationEditViewModel {
 		}
 	}
 	
-
+	/******************************************************************************************************************************************/
+	
 	public RequirementGenerationBean getReqEditGenBean() {
 		return reqEditGenBean;
 	}
-
-
-
 	public void setReqEditGenBean(RequirementGenerationBean reqEditGenBean) {
 		this.reqEditGenBean = reqEditGenBean;
 	}
-
-
-
 	public StatusMasterBean getStatusBeanEdit() {
 		return statusBeanEdit;
 	}
-
-
-
 	public void setStatusBeanEdit(StatusMasterBean statusBeanEdit) {
 		this.statusBeanEdit = statusBeanEdit;
 	}
-
-
-
 	public ArrayList<StatusMasterBean> getStatusBeanEditList() {
 		return statusBeanEditList;
 	}
-
-
-
 	public void setStatusBeanEditList(ArrayList<StatusMasterBean> statusBeanEditList) {
 		this.statusBeanEditList = statusBeanEditList;
 	}
-	
-	
-
 }

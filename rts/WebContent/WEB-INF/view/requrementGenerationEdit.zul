@@ -1,8 +1,8 @@
 <?page title="EDIT" contentType="text/html;charset=UTF-8"?>
 <zk>
 <window title="REQUIREMENT GENERATION EDIT" border="none" height="550px" width="900px" 
-		apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('org.appsquad.viewmodel.RequirementGenerationEditViewModel')" 
-		 closable="true" id="winReqGenEdit">
+		        apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('org.appsquad.viewmodel.RequirementGenerationEditViewModel')" 
+		                 closable="true" id="winReqGenEdit">
 		
 		<div>
 					<grid>
@@ -54,17 +54,25 @@
 						
 						<row>
 						  <label value="Contact no:" style="font-weight:bold"></label>		
-						  <textbox width="20%" value="@bind(vm.reqEditGenBean.contactNo)"></textbox>	
+						  <textbox width="20%" value="@bind(vm.reqEditGenBean.contactNo)"
+						    xmlns:w="client">
+						      <attribute w:name="doKeyPress_">
+									<![CDATA[ function(evt) { if ( (evt.which >
+											31) && (evt.which < 48 ||
+												evt.which > 57)) evt.stop(); } ]]>
+							   </attribute>
+						  </textbox>	
 						</row>
 						
 						<row>
 						  <label value="Email Id:" style="font-weight:bold"></label>		
-						  <textbox width="30%" value="@bind(vm.reqEditGenBean.email)"></textbox>	
+						  <textbox width="30%" value="@bind(vm.reqEditGenBean.email)"
+						     constraint="/.+@.+\.[a-z]+/: Please enter an e-mail address">
+						  </textbox>	
 						</row>
 						
 						<row>
 						<label value="Requirement Status:" style="font-weight:bold"></label>
-						
 						<combobox width="15%" model="@bind(vm.statusBeanEditList)" selectedItem="@bind(vm.statusBeanEdit)" onSelect="@command('onSelectOcStatusEdit')"
 							autocomplete="true" autodrop="true" value="@bind(vm.reqEditGenBean.ocStatus)" readonly="true">
 							 <template name="model" var ="v">

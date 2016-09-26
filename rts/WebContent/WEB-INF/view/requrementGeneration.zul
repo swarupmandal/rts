@@ -2,13 +2,11 @@
 <zk>
 <window title="REQUIREMENT GENERATION" border="none" apply="org.zkoss.bind.BindComposer"
             viewModel="@id('vm') @init('org.appsquad.viewmodel.RequirementGenerationViewModel')">
-
 	<tabbox>
 		<tabs>
 			<tab>New Entry</tab>
 			<tab>Existing Data</tab>
 		</tabs>
-
 		<tabpanels>
 			<tabpanel>
 				<div>
@@ -20,7 +18,7 @@
 					<rows>
 						<row>
 						  <label value="Client Name:" style="font-weight:bold"></label>		
-						  <combobox width="40%" model="@bind(vm.clientNameBeanList)" autocomplete="true" autodrop="true" readonly="true" 
+						  <combobox width="25%" model="@bind(vm.clientNameBeanList)" autocomplete="true" autodrop="true" readonly="true" 
 						    selectedItem="@bind(vm.clientInfoBean)" onSelect="@command('onSelectName')" value="@bind(vm.clientInfoBean.fullName)">
 						  	<template name="model" var = "v">
 						  		<comboitem label="@bind(v.fullName)" value="@bind(v.clientId)"></comboitem>
@@ -30,7 +28,7 @@
 						
 						<row>
 						  <label value="Required Skill:" style="font-weight:bold"></label>		
-						  <combobox width="30%" model="@bind(vm.skillSetBeanList)" autocomplete="true" autodrop="true" value="@bind(vm.skillsetMasterbean.skillset)"
+						  <combobox width="25%" model="@bind(vm.skillSetBeanList)" autocomplete="true" autodrop="true" value="@bind(vm.skillsetMasterbean.skillset)"
 						      selectedItem="@bind(vm.skillsetMasterbean)" onSelect="@command('onSelectSkill')" readonly="true">
 						  		<template name="model" var = "v">
 						  		 <comboitem label="@bind(v.skillset)" value="@bind(v.id)"></comboitem>	
@@ -39,48 +37,56 @@
 						</row>
 						
 						<row>
-						  <label value="Job Type:" style="font-weight:bold"></label>		
-						  <textbox value="@bind(vm.reqGenBean.jobType)"></textbox>	
+						  <label value="Job Description:" style="font-weight:bold"></label>		
+						  <textbox value="@bind(vm.reqGenBean.jobType)" width="25%"></textbox>	
 						</row>
 						
 						<row>
 						  <label value="Detailed Job:" style="font-weight:bold"></label>		
-						  <textbox multiline="true" value="@bind(vm.reqGenBean.detailedJob)"></textbox>	
+						  <textbox multiline="true" value="@bind(vm.reqGenBean.detailedJob)" width="25%"></textbox>	
 						</row>
 						
 						<row>
 						  <label value="Number of Permanent Resource:" style="font-weight:bold"></label>		
-						  <intbox width="15%" value="@bind(vm.reqGenBean.nofPerResource)"></intbox>	
+						  <intbox value="@bind(vm.reqGenBean.nofPerResource)" width="25%"></intbox>	
 						</row>
 						
 						<row>
 						  <label value="Number of Contract Resource:" style="font-weight:bold"></label>		
-						  <intbox width="15%" value="@bind(vm.reqGenBean.nofConResource)"></intbox>	
+						  <intbox value="@bind(vm.reqGenBean.nofConResource)" width="25%"></intbox>	
 						</row>
 						
 						<row>
 						  <label value="Requirement Raise Date:" style="font-weight:bold"></label>		
-						  <datebox width="20%" value="@bind(vm.reqGenBean.raiseDatesql)"></datebox>
+						  <datebox value="@bind(vm.reqGenBean.raiseDatesql)" width="25%"></datebox>
 						</row>
 						
 						<row>
 						  <label value="Requirement Close Date:" style="font-weight:bold"></label>		
-						  <datebox width="20%" value="@bind(vm.reqGenBean.closeDatesql)"></datebox>	
+						  <datebox value="@bind(vm.reqGenBean.closeDatesql)" width="25%"></datebox>	
 						</row>
 						
 						<row>
 						  <label value="Contact no:" style="font-weight:bold"></label>		
-						  <textbox width="20%" value="@bind(vm.reqGenBean.contactNo)"></textbox>	
+						  <textbox width="25%" value="@bind(vm.reqGenBean.contactNo)" maxlength="15"
+						    xmlns:w="client">
+						       <attribute w:name="doKeyPress_">
+									<![CDATA[ function(evt) { if ( (evt.which >
+											31) && (evt.which < 48 ||
+												evt.which > 57)) evt.stop(); } ]]>
+							   </attribute>
+						  </textbox>	
 						</row>
 						
 						<row>
 						  <label value="Email Id:" style="font-weight:bold"></label>		
-						  <textbox width="30%" value="@bind(vm.reqGenBean.email)"></textbox>	
+						  <textbox width="25%" value="@bind(vm.reqGenBean.email)"
+						     constraint="/.+@.+\.[a-z]+/: Please enter an e-mail address"></textbox>	
 						</row>
 						
 						<row visible="false">
 						<label value="Requirement Status:" style="font-weight:bold"></label>
-						<combobox width="15%" model="@bind(vm.statusBeanList)" selectedItem="@bind(vm.statusBean)" onSelect="@command('onSelectOcStatus')"
+						<combobox width="25%" model="@bind(vm.statusBeanList)" selectedItem="@bind(vm.statusBean)" onSelect="@command('onSelectOcStatus')"
 							autocomplete="true" autodrop="true" value="@bind(vm.statusBean.ocstatus)" readonly="true">
 							 <template name="model" var ="v">
 							   <comboitem value="@bind(v.ocstatusId)" label="@bind(v.ocstatus)"></comboitem>
@@ -93,20 +99,16 @@
 						<textbox multiline="true" value="@bind(vm.reqGenBean.closureReason)"></textbox>
 						</row>
 						
+						<row>
+						  <label></label>
+						  <button width="80px" height="30px" label="Submit" style="font-weight: bold" onClick="@command('onclickSubmit')"></button>
+						</row>
+						
 					</rows>
 				</grid>
 			</div>
-			<space></space>
-			<div align="center">
-				<button width="80px" height="30px" label="Submit" style="font-weight: bold" onClick="@command('onclickSubmit')"></button>
-	
-			</div>
-				
-			
 			</tabpanel>
-			
-			<tabpanel>
-				
+		<tabpanel>		
 			  <div>	
 				<grid mold="paging" pageSize="8" model="@bind(vm.reqGenBeanList)">
 					<auxhead>
@@ -114,7 +116,6 @@
 							<textbox placeholder="Search By Name" width="230px"></textbox>	
 						</auxheader>
 					</auxhead>
-			
 					<columns>
 						<column label="R_ID(req_id)" width="100px"></column>
 						<column label="Client Name" align="center" width="220px"></column>
@@ -138,12 +139,9 @@
 					  </template>	
 					</rows>
 				</grid>
-				
 			  </div>	
 			</tabpanel>
 		</tabpanels>
-
 	</tabbox>
-
 </window>
 </zk>

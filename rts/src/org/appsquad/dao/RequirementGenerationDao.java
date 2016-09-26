@@ -70,7 +70,38 @@ public class RequirementGenerationDao {
 		return nameBeanList;
 	}
 
-
+     
+	public static int fetchOverallStatusId(){
+		int statusId = 0;
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		try {
+			connection = DbConnection.createConnection();
+			preparedStatement = Pstm.createQuery(connection, RequirementGenerationSql.fetchStatusId, null);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				statusId = resultSet.getInt("id");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally{
+			if(preparedStatement != null){
+				try {
+					preparedStatement.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(connection != null){
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return statusId;
+	}
 
 	public static ArrayList<SkillsetMasterbean> fetchSkillSetList(){
 		
@@ -119,15 +150,13 @@ public class RequirementGenerationDao {
 		return list;
 	}
 	
-	public static ArrayList<StatusMasterBean> fetchStatusList(){
-		
+	public static ArrayList<StatusMasterBean> fetchStatusList(){	
 		ArrayList<StatusMasterBean> list = new ArrayList<StatusMasterBean>();
 		if(list.size()>0){
 			list.clear();
 		}
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-		
 		try {
 			connection = DbConnection.createConnection();
 			preparedStatement = Pstm.createQuery(connection, RequirementGenerationSql.loadocStatus, null);
@@ -138,17 +167,14 @@ public class RequirementGenerationDao {
 				bean.setOcstatus(resultSet.getString("status"));
 				
 				list.add(bean);
-				
 			}
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally{
 			if(preparedStatement != null){
 				try {
 					preparedStatement.close();
-				} catch (SQLException e) {
-					
+				} catch (SQLException e) {		
 					e.printStackTrace();
 				}
 			}
@@ -156,12 +182,10 @@ public class RequirementGenerationDao {
 				try {
 					connection.close();
 				} catch (SQLException e) {
-				
 					e.printStackTrace();
 				}
 			}
 		}
-		
 		return list;
 	}
 	
@@ -175,11 +199,10 @@ public class RequirementGenerationDao {
 			connection = DbConnection.createConnection();
 			preparedStatement = Pstm.createQuery(connection, RequirementGenerationSql.insertReqGen, Arrays.asList(bean.getClientId(), bean.getReqSkillId(),bean.getJobType(),bean.getDetailedJob(),
 																												bean.getNofPerResource(), bean.getNofConResource(), bean.getRaiseDatesql(), bean.getCloseDatesql(),
-																												bean.getContactNo(), bean.getEmail(),1,bean.getClosureReason(), bean.getUserName(), bean.getUserName()));
+																												bean.getContactNo(), bean.getEmail(),1,bean.getClosureReason(), bean.getUserName(), bean.getUserName(),
+																												bean.getReqStatusId()));
 			
 			i = preparedStatement.executeUpdate();
-			
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally{
@@ -187,19 +210,16 @@ public class RequirementGenerationDao {
 				try {
 					preparedStatement.close();
 				} catch (SQLException e) {
-					
 					e.printStackTrace();
 				}
 			}if(connection != null){
 				try {
 					connection.close();
 				} catch (SQLException e) {
-					
 					e.printStackTrace();
 				}
 			}
 		}
-		
 		return i;
 	}
 	
@@ -281,29 +301,21 @@ public static ArrayList<RequirementGenerationBean> fetchReqGenMasterData(){
 			int i =0;
 			Connection connection = null;
 			PreparedStatement preparedStatement= null;
-			
 			try {
 				connection = DbConnection.createConnection();
-				/*preparedStatement = Pstm.createQuery(connection, RequirementGenerationSql.updateReqGen, Arrays.asList(bean.getNofPerResource(), bean.getNofConResource(), 
-																													  Dateformatter.sqlDate(bean.getRaiseDate()), 
-																													  Dateformatter.sqlDate(bean.getCloseDate()),
-																													  bean.getContactNo(), bean.getEmail(),bean.getOcStatusId(),
-																													  bean.getClosureReason(), bean.getUserName(), bean.getReq_id()));*/
-				
 				preparedStatement = connection.prepareStatement(RequirementGenerationSql.updateReqGen);
-				
-				  preparedStatement.setInt(1, bean.getNofPerResource());	
-				  preparedStatement.setInt(2, bean.getNofConResource());
+				preparedStatement.setInt(1, bean.getNofPerResource());	
+				preparedStatement.setInt(2, bean.getNofConResource());
 				  
-				  if(bean.getRaiseDate() != null){
+				if(bean.getRaiseDate() != null){
 					 preparedStatement.setDate(3, Dateformatter.sqlDate(bean.getRaiseDate()));
-				  }else {
+				}else {
 					preparedStatement.setNull(3, Types.NULL);
-				  }
+				}
 				  
-				  if(bean.getCloseDate() != null){
+				if(bean.getCloseDate() != null){
 					 preparedStatement.setDate(4, Dateformatter.sqlDate(bean.getCloseDate()));
-				  }else {
+				}else {
 					preparedStatement.setNull(4, Types.NULL);
 				  }
 				  
