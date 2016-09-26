@@ -101,7 +101,7 @@ public class ResourceAllocationViewModel {
 	    	}
 	    	remainingNumber = (resourceAllocationBean.getRequiredResourcenumber()-resourceAllocationBean.getAllocatedResourceNumber());
 	    	if(resourceAllocationBean.getAllocatedResourceNumber()>resourceAllocationBean.getRequiredResourcenumber()){
-	    		Messagebox.show("Can't");
+	    		Messagebox.show("You Have Allocated All Required Resources!", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
 	    		masterBean.setChkSelect(false);
 	    		resourceAllocationBean.setAllocatedResourceNumber(resourceAllocationBean.getAllocatedResourceNumber()-1);
 	    	}
