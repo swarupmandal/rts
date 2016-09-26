@@ -342,7 +342,7 @@ public class ResourceMasterDao {
 											                                              resourceMasterBean.getStateBean().getStateName().toUpperCase(),resourceMasterBean.getFilePath(),resourceMasterBean.getResourceId()));
 					    	
 					    	
-					    	System.out.println(preparedStatementInsert);
+					    	//System.out.println(preparedStatementInsert);
 					    	logger.info("Inserting Client Data Into Table: "+preparedStatementInsert.unwrap(PreparedStatement.class));
 							int i = preparedStatementInsert.executeUpdate();
 							if(i>0){

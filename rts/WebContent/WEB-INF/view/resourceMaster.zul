@@ -100,7 +100,7 @@
 						<row>
 						<label value="Upload CV"></label>
 							<hlayout spacing="5px">
-							<button label="upLoad" upload="true" onUpload="@command('onUploadFile', upEvent=event)"></button>
+							<button label="Upload" upload="true" onUpload="@command('onUploadFile', upEvent=event)"></button>
  							<label value="@bind(vm.fileName)"></label>
  							</hlayout>
 						</row>
