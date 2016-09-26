@@ -99,7 +99,10 @@
 						</row>
 						<row>
 						<label value="Upload CV"></label>
-						<button label="upload file" onClick="@command('onClickFileUpload')" width="35%"></button>
+							<hlayout spacing="5px">
+							<button label="upLoad" upload="true" onUpload="@command('onUploadFile', upEvent=event)"></button>
+ 							<label value="@bind(vm.fileName)"></label>
+ 							</hlayout>
 						</row>
 					   <row>
 						  <label value="CTC(annual)" style="font-weight:bold"></label>		

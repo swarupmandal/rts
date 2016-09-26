@@ -15,6 +15,7 @@ public class ResourceMasterBean {
 	private boolean chkSelect = false;
 	private String cvPath;
 	private String isAllocable;
+	private String filePath;
 	
 	CountryBean countryBean = new CountryBean();
 	StateBean stateBean = new StateBean();	
@@ -130,5 +131,11 @@ public class ResourceMasterBean {
 	}
 	public void setIsAllocable(String isAllocable) {
 		this.isAllocable = isAllocable;
+	}
+	public String getFilePath() {
+		return filePath;
+	}
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
 	}
 }

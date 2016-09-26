@@ -45,6 +45,7 @@ public class ResourceMasterViewModel {
    private ArrayList<StatusMasterBean> statusList = new ArrayList<StatusMasterBean>();
    private ArrayList<ResourceMasterBean> resourceList = new ArrayList<ResourceMasterBean>();
    
+   private String fileName;
    private Connection connection = null;
    private Session sessions = null;
    private String userName ;
@@ -124,7 +125,7 @@ public class ResourceMasterViewModel {
 	
 	@Command
 	@NotifyChange("*")
-	public void onClickFileUpload(@ContextParam(ContextType.BIND_CONTEXT) BindContext bindContext) throws Exception{
+	public void onUploadFile(@ContextParam(ContextType.BIND_CONTEXT) BindContext bindContext) throws Exception{
 		UploadEvent uploadEvent = null;
 		Object objUpEvent = bindContext.getTriggerEvent();
 		if (objUpEvent != null && (objUpEvent instanceof UploadEvent)) {
@@ -146,7 +147,13 @@ public class ResourceMasterViewModel {
         Files.copy(new File(filePath + media.getName()), media.getStreamData());
         Messagebox.show("Uploaded Successfully", "Information", Messagebox.OK, Messagebox.INFORMATION);
         fileuploaded = true;
+        fileName = media.getName();
         filePath = filePath + media.getName();
+        
+        if(filePath != null){
+        	resourceMasterBean.setFilePath(filePath);
+        }
+        
 		}
 	}
 	
@@ -242,5 +249,13 @@ public class ResourceMasterViewModel {
 	}
 	public void setFileContent(AMedia fileContent) {
 		this.fileContent = fileContent;
+	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
 	}
 }

@@ -223,7 +223,7 @@ public class ResourceMasterDao {
 											                                              resourceMasterBean.getPicCode().toUpperCase(),resourceMasterBean.getContactNumber().toUpperCase(),resourceMasterBean.getStatusMasterBean().getStatusId(),
 											                                              resourceMasterBean.getCtc(),resourceMasterBean.getSkillsetMasterbean().getSkillset().toUpperCase(),
 											                                              resourceMasterBean.getCountryBean().getCountryName().toUpperCase(),
-											                                              resourceMasterBean.getStateBean().getStateName().toUpperCase()));
+											                                              resourceMasterBean.getStateBean().getStateName().toUpperCase(), resourceMasterBean.getFilePath()));
 					    	
 					    	logger.info("Inserting Resource Data Into Table: "+preparedStatementInsert.unwrap(PreparedStatement.class));
 							int i = preparedStatementInsert.executeUpdate();
@@ -339,7 +339,7 @@ public class ResourceMasterDao {
 											                                              resourceMasterBean.getPicCode().toUpperCase(),resourceMasterBean.getContactNumber().toUpperCase(),resourceMasterBean.getStatusMasterBean().getStatusId(),
 											                                              resourceMasterBean.getCtc(),resourceMasterBean.getSkillsetMasterbean().getSkillset().toUpperCase(),
 											                                              resourceMasterBean.getCountryBean().getCountryName().toUpperCase(),
-											                                              resourceMasterBean.getStateBean().getStateName().toUpperCase(),resourceMasterBean.getResourceId()));
+											                                              resourceMasterBean.getStateBean().getStateName().toUpperCase(),resourceMasterBean.getFilePath(),resourceMasterBean.getResourceId()));
 					    	
 					    	
 					    	System.out.println(preparedStatementInsert);
