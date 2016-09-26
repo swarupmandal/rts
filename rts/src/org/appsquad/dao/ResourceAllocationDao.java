@@ -285,7 +285,7 @@ public class ResourceAllocationDao {
 		return typeList;	
 	}
 	
-	public static ArrayList<ResourceMasterBean> onLoadResourceDetails(){
+	public static ArrayList<ResourceMasterBean> onLoadResourceDetails(ResourceAllocationBean resourceAllocationBean){
 		ArrayList<ResourceMasterBean> resourceList = new ArrayList<ResourceMasterBean>();
 		Connection connection = null;
 		try {
@@ -297,7 +297,7 @@ public class ResourceAllocationDao {
 					sql_fetch:{
 					   PreparedStatement preparedStatement = null;
 					   try {
-						    preparedStatement = Pstm.createQuery(connection, ResourceAllocationSql.fetchResourceDetails, null);
+						    preparedStatement = Pstm.createQuery(connection, ResourceAllocationSql.fetchResourceDetails, Arrays.asList(resourceAllocationBean.getMasterbean().getSkillset().toUpperCase()));
 						    System.out.println(preparedStatement);
 							ResultSet resultSet = preparedStatement.executeQuery();
 							while (resultSet.next()) {
@@ -393,9 +393,9 @@ public class ResourceAllocationDao {
 							    	preparedStatementInsert = Pstm.createQuery(connection, 
 											ResourceAllocationSql.insertIntoMapperSql, Arrays.asList(allocationBean.getRequirementGenerationBean().getRequirementId(),
 													                                 bean.getResourceId(),allocationBean.getClientInformationBean().getClientId(),
-													                                 allocationBean.getUserId()));
+													                                 allocationBean.getUserId(),allocationBean.getResourceTypeBean().getResourceTypeId()));
 							    	
-							    	System.out.println(preparedStatementInsert);
+							    	System.out.println("ALLOCATION MAPPING TABLE QUERY:"+preparedStatementInsert);
 									int i = preparedStatementInsert.executeUpdate();
 									if(i>0){
 										isInsertedMapper = true;	
