@@ -8,8 +8,8 @@ import org.appsquad.bean.ResourceMasterBean;
 import org.appsquad.bean.SkillsetMasterbean;
 import org.appsquad.bean.StateBean;
 import org.appsquad.bean.StatusMasterBean;
+import org.appsquad.dao.ClientInformationDao;
 import org.appsquad.dao.ResourceMasterDao;
-import org.appsquad.service.ClientInformationService;
 import org.appsquad.service.ResourceMasterService;
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.AfterCompose;
@@ -21,8 +21,10 @@ import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.Sessions;
+import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zul.Bandbox;
 import org.zkoss.zul.Window;
 
 public class ResourceInformationUpdateViewModel {
@@ -36,6 +38,10 @@ public class ResourceInformationUpdateViewModel {
 	@Wire("#winResourceUpdate")
 	private Window winResourceUpdate;
 	private boolean flag = false;
+	@Wire("#ad")
+	private Bandbox bandBox;
+	@Wire("#cd")
+	private Bandbox bandBox1;
 	
 	private ArrayList<StateBean> stateList = new ArrayList<StateBean>();
 	private ArrayList<CountryBean> countryList = new ArrayList<CountryBean>();
@@ -44,11 +50,10 @@ public class ResourceInformationUpdateViewModel {
 	
 	@AfterCompose
 	public void initSetup(@ContextParam(ContextType.VIEW) Component view,@ExecutionArgParam("resourceIdDetails") ResourceMasterBean bean)
-			throws Exception {
+									throws Exception {
 		Selectors.wireComponents(view, this, false);
 		masterBean = bean;
 		sessions = Sessions.getCurrent();
-		stateList = ResourceMasterDao.onLoadState();
 		countryList = ResourceMasterDao.onLoadCountry();
 		statusList = ResourceMasterDao.onLoadStatus();
 		skillList = ResourceMasterDao.onLoadSkill();
@@ -57,29 +62,24 @@ public class ResourceInformationUpdateViewModel {
 	@Command
 	@NotifyChange("*")
 	public void onSelectStateName(){
-		System.out.println("STATE ID IS :"+masterBean.getStateBean().getStateId());
-		System.out.println("STATE NAME IS :"+masterBean.getStateBean().getStateName());
+		bandBox1.close();
 	}
 	
 	@Command
 	@NotifyChange("*")
 	public void onSelectCountryName(){
-		System.out.println("COUNTRY ID IS :"+masterBean.getCountryBean().getCountryId());
-		System.out.println("COUNTRY NAME IS :"+masterBean.getCountryBean().getCountryName());
+		stateList = ClientInformationDao.onLoadStateForResource(masterBean);
+		bandBox.close();
 	}
 	
 	@Command
 	@NotifyChange("*")
 	public void onSelectSkillName(){
-		System.out.println("COUNTRY ID IS :"+masterBean.getSkillsetMasterbean().getId());
-		System.out.println("COUNTRY NAME IS :"+masterBean.getSkillsetMasterbean().getSkillset());
 	}
 	
 	@Command
 	@NotifyChange("*")
 	public void onSelectStatusName(){
-		System.out.println("COUNTRY ID IS :"+masterBean.getStatusMasterBean().getStatusId());
-		System.out.println("COUNTRY NAME IS :"+masterBean.getStatusMasterBean().getStatus());
 	}
 	
 	@Command
@@ -90,6 +90,13 @@ public class ResourceInformationUpdateViewModel {
 			winResourceUpdate.detach();
 			BindUtils.postGlobalCommand(null, null, "globalResourceDetailsUpdate", null);
 		}
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void onCloseOperation(@ContextParam(ContextType.TRIGGER_EVENT)Event e){
+		winResourceUpdate.detach();
+		BindUtils.postGlobalCommand(null, null, "globalResourceDetailsUpdate", null);
 	}
 	
 	/*************************************************************************************************************************************************/
@@ -150,6 +157,18 @@ public class ResourceInformationUpdateViewModel {
 	}
 	public ArrayList<CountryBean> getCountryList() {
 		return countryList;
+	}
+	public Bandbox getBandBox() {
+		return bandBox;
+	}
+	public void setBandBox(Bandbox bandBox) {
+		this.bandBox = bandBox;
+	}
+	public Bandbox getBandBox1() {
+		return bandBox1;
+	}
+	public void setBandBox1(Bandbox bandBox1) {
+		this.bandBox1 = bandBox1;
 	}
 	public void setCountryList(ArrayList<CountryBean> countryList) {
 		this.countryList = countryList;

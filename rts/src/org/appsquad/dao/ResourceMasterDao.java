@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.apache.log4j.Logger;
-import org.appsquad.bean.ClientInformationBean;
 import org.appsquad.bean.CountryBean;
 import org.appsquad.bean.ResourceMasterBean;
 import org.appsquad.bean.SkillsetMasterbean;
@@ -205,7 +204,7 @@ public class ResourceMasterDao {
 		return statusList;	
 	}
 	
-	public static void insertClientData(ResourceMasterBean resourceMasterBean){
+	public static boolean insertClientData(ResourceMasterBean resourceMasterBean){
 		boolean isSaved = false;
 		Connection connection = null;
 		try {
@@ -257,6 +256,7 @@ public class ResourceMasterDao {
 			logger.error(e);
 			logger.error(e);
 		}
+		return isSaved;
 	}
 	
 	public static ArrayList<ResourceMasterBean> onLoadResourceDeatils(){

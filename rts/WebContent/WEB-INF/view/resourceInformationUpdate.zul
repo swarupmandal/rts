@@ -1,7 +1,8 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="Resource Information Update" border="none" height="530px" width="770px" apply="org.zkoss.bind.BindComposer"
-		    viewModel="@id('vm') @init('org.appsquad.viewmodel.ResourceInformationUpdateViewModel')" id="winResourceUpdate" closable="true"> 
+<window title="Resource Information Update" border="none" height="510px" width="600px" apply="org.zkoss.bind.BindComposer"
+		    viewModel="@id('vm') @init('org.appsquad.viewmodel.ResourceInformationUpdateViewModel')" id="winResourceUpdate" closable="true"
+		      onClose="@command('onCloseOperation')"> 
 		    <style>
 				.z-textbox{
 				   	text-transform:uppercase;
@@ -16,95 +17,95 @@
 					<rows>
 						<row>
 						  <label value="Name:" style="font-weight:bold"></label>		
-						  <textbox width="60%" value="@bind(vm.masterBean.name)"></textbox>	
+						  <textbox width="75%" value="@bind(vm.masterBean.name)"></textbox>	
 						</row>
 						
 						<row>
 						  <label value="Surname:" style="font-weight:bold"></label>		
-						  <textbox width="60%" value="@bind(vm.masterBean.surName)"></textbox>	
+						  <textbox width="75%" value="@bind(vm.masterBean.surName)"></textbox>	
 						</row>
 						
 						<row>
 						  <label value="Years of Experience:" style="font-weight:bold"></label>		
-						  <doublebox width="20%" value="@bind(vm.masterBean.yearOfExperience)"></doublebox>	
-						</row>
-						
-						<!-- <row>
-					  <label value="Skill-Set:" style="font-weight:bold"></label>		
-					  <combobox model="@bind(vm.skillList)" selectedItem="@bind(vm.masterBean.skillsetMasterbean)" readonly="true"
-		             		value="@bind(vm.masterBean.skillsetMasterbean.skillset)" width="20%" onSelect="@command('onSelectSkillName')">
-		             		<template name="model" var="p">
-		             			<comboitem value="@bind(p.skillset)" label="@bind(p.skillset)"/>
-		             		</template>
-		             	</combobox>	
-					</row> -->
-						
+						  <doublebox width="75%" value="@bind(vm.masterBean.yearOfExperience)"></doublebox>	
+						</row>		
 						<row>
 						  <label value="Address:" style="font-weight:bold"></label>		
-						  <textbox rows="2" value="@bind(vm.masterBean.address)"></textbox>	
+						  <textbox rows="2" value="@bind(vm.masterBean.address)" width="75%"></textbox>	
 						</row>
 						
 						<row>
-					  		<label value="Country:" style="font-weight:bold"></label>		
-					  		<combobox model="@bind(vm.countryList)" selectedItem="@bind(vm.masterBean.countryBean)" readonly="true"
-		             		value="@bind(vm.masterBean.countryBean.countryName)" width="20%" onSelect="@command('onSelectCountryName')">
-		             		<template name="model" var="p">
-		             			<comboitem value="@bind(p.countryName)" label="@bind(p.countryName)"/>
-		             		</template>
-		             		</combobox>	
-					  </row>
-						
-						<row>
-					  <label value="State:" style="font-weight:bold"></label>		
-					  <combobox model="@bind(vm.stateList)" selectedItem="@bind(vm.masterBean.stateBean)" readonly="true"
-		             		value="@bind(vm.masterBean.stateBean.stateName)" width="20%" onSelect="@command('onSelectStateName')">
-		             		<template name="model" var="s">
-		             			<comboitem value="@bind(s.stateName)" label="@bind(s.stateName)"/>
-		             		</template>
-		             	</combobox>	
-					</row>
-						
+		             	<label value="Country:" style="font-weight:bold"></label>
+		             					<bandbox value="@bind(vm.masterBean.countryBean.countryName)" id="ad" readonly="true" width="75%">
+											<bandpopup >
+												<vbox>
+													<listbox model="@load(vm.countryList)" selectedItem="@bind(vm.masterBean.countryBean)" 
+														onSelect="@command('onSelectCountryName')" height="200px" width="280px"
+															mold="paging"  pageSize="4" >
+														<listhead sizable="true">
+															<listheader label="Country Name" />
+														</listhead>
+														<template name="model" var="p1">
+															<listitem>
+																<listcell label="@load(p1.countryName)" />
+															</listitem>
+														</template>
+													</listbox>
+												</vbox>
+											</bandpopup>
+							           </bandbox>
+					              </row>
+					<row>
+		             	<label value="State:" style="font-weight:bold"></label>
+		             					<bandbox value="@bind(vm.masterBean.stateBean.stateName)" id="cd" readonly="true" width="75%">
+											<bandpopup >
+												<vbox>
+													<listbox model="@load(vm.stateList)" selectedItem="@bind(vm.masterBean.stateBean)" 
+														onSelect="@command('onSelectStateName')" height="200px" width="280px"
+															mold="paging"  pageSize="4" >
+														<listhead sizable="true">
+															<listheader label="State Name" />
+														</listhead>
+														<template name="model" var="p1">
+															<listitem>
+																<listcell label="@load(p1.stateName)" />
+															</listitem>
+														</template>
+													</listbox>
+												</vbox>
+											</bandpopup>
+							           </bandbox>
+								</row>
 						<row>
 						  <label value="Pin/Zip code:" style="font-weight:bold"></label>		
-						  <textbox width="20%" value="@bind(vm.masterBean.picCode)"></textbox>	
+						  <textbox width="75%" value="@bind(vm.masterBean.picCode)"></textbox>	
 						</row>
 						
 						<row>
 						  <label value="Contact no:" style="font-weight:bold"></label>		
-						  <textbox width="20%" value="@bind(vm.masterBean.contactNumber)"></textbox>	
+						  <textbox width="75%" value="@bind(vm.masterBean.contactNumber)"></textbox>	
 						</row>
 						
 						<row>
 						  <label value="Email Id:" style="font-weight:bold"></label>		
-						  <textbox width="60%" value="@bind(vm.masterBean.emailId)"></textbox>	
+						  <textbox width="75%" value="@bind(vm.masterBean.emailId)"></textbox>	
 						</row>
 						
 						<row>
 						<label value="Upload Cv"></label>
-						<button label="upload file"></button>
+						<button label="upload file" width="75%"></button>
 						</row>
-						
-						<row>
-					  <label value="Status:" style="font-weight:bold"></label>		
-					  <combobox model="@bind(vm.statusList)" selectedItem="@bind(vm.masterBean.statusMasterBean)" readonly="true"
-		             		value="@bind(vm.masterBean.statusMasterBean.status)" width="20%" onSelect="@command('onSelectStatusName')">
-		             		<template name="model" var="p">
-		             			<comboitem value="@bind(p.status)" label="@bind(p.status)"/>
-		             		</template>
-		             	</combobox>	
-					 </row>	
-					 
 					   <row>
 						  <label value="CTC(annual)" style="font-weight:bold"></label>		
-						  <doublebox width="20%" value="@bind(vm.masterBean.ctc)"></doublebox>	
+						  <doublebox width="75%" value="@bind(vm.masterBean.ctc)"></doublebox>	
+					   </row>
+					   <row>
+					     <label></label>
+					     <button width="80px" height="30px" label="Update" style="font-weight: bold" onClick="@command('onClickUpdateButton')"></button>
 					   </row>
 					 
 					</rows>
 				</grid>
-			</div>
-			<space></space>
-			<div align="center">
-				<button width="80px" height="30px" label="Update" style="font-weight: bold" onClick="@command('onClickUpdateButton')"></button>
 			</div>
 </window>
 </zk>

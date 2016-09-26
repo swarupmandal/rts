@@ -9,6 +9,7 @@ import java.util.Arrays;
 import org.apache.log4j.Logger;
 import org.appsquad.bean.ClientInformationBean;
 import org.appsquad.bean.CountryBean;
+import org.appsquad.bean.ResourceMasterBean;
 import org.appsquad.bean.StateBean;
 import org.appsquad.database.DbConnection;
 import org.appsquad.sql.ClientInformationsql;
@@ -32,6 +33,50 @@ public class ClientInformationDao {
 					   PreparedStatement preparedStatement = null;
 					   try {
 						   preparedStatement = Pstm.createQuery(connection, ClientInformationsql.stateQuery, Arrays.asList(clientInformationBean.getCountryBean().getCountryId()));
+							ResultSet resultSet = preparedStatement.executeQuery();
+							while (resultSet.next()) {
+								StateBean bean = new StateBean();
+								bean.setStateId(resultSet.getInt("state_id"));
+								bean.setStateName(resultSet.getString("state_name").toUpperCase());
+								stateList.add(bean);
+							}  
+						} finally{
+							if(preparedStatement!=null){
+								preparedStatement.close();
+							}
+						}
+				    }
+				} catch (Exception e) {
+					e.printStackTrace();
+					logger.error(e);
+					logger.error(e);
+				}finally{
+					if(connection!=null){
+						connection.close();
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(e);
+			logger.error(e);
+		}
+		return stateList;	
+	}
+	
+	public static ArrayList<StateBean> onLoadStateForResource(ResourceMasterBean resourceMasterBean){
+		ArrayList<StateBean> stateList = new ArrayList<StateBean>();
+		Connection connection = null;
+		try {
+			connection = DbConnection.createConnection();
+			sql_connection:{
+				try {
+					
+					//1st SQL block
+					sql_fetch:{
+					   PreparedStatement preparedStatement = null;
+					   try {
+						   preparedStatement = Pstm.createQuery(connection, ClientInformationsql.stateQuery, Arrays.asList(resourceMasterBean.getCountryBean().getCountryId()));
 							ResultSet resultSet = preparedStatement.executeQuery();
 							while (resultSet.next()) {
 								StateBean bean = new StateBean();

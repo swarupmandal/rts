@@ -5,8 +5,8 @@ import org.appsquad.dao.ResourceMasterDao;
 import org.zkoss.zul.Messagebox;
 
 public class ResourceMasterService {
-	
 	private static boolean flag = false;
+	private static boolean flagInsert = false;
 	
 	public static boolean isValid(ResourceMasterBean resourceMasterBean){
 		if(resourceMasterBean.getName()!=null && resourceMasterBean.getName().trim().length()>0){
@@ -62,10 +62,11 @@ public class ResourceMasterService {
 		}
 	}
 
-	public static void insertClientMasterData(ResourceMasterBean resourceMasterBean){
+	public static boolean insertClientMasterData(ResourceMasterBean resourceMasterBean){
 		if(isValid(resourceMasterBean)){
-			ResourceMasterDao.insertClientData(resourceMasterBean);
+			flagInsert = ResourceMasterDao.insertClientData(resourceMasterBean);
 		}
+		return flagInsert;
 	}
 	
 	public static boolean updateResourceMasterData(ResourceMasterBean resourceMasterBean){
@@ -96,5 +97,13 @@ public class ResourceMasterService {
 	}
 	public static void setFlag(boolean flag) {
 		ResourceMasterService.flag = flag;
+	}
+
+	public static boolean isFlagInsert() {
+		return flagInsert;
+	}
+
+	public static void setFlagInsert(boolean flagInsert) {
+		ResourceMasterService.flagInsert = flagInsert;
 	}
 }

@@ -1,6 +1,7 @@
 package org.appsquad.viewmodel;
 
 import java.util.ArrayList;
+
 import org.appsquad.bean.RequirementGenerationBean;
 import org.appsquad.bean.StatusMasterBean;
 import org.appsquad.service.RequirementGenerationService;
@@ -12,6 +13,7 @@ import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.ExecutionArgParam;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Messagebox;
@@ -49,10 +51,16 @@ public class RequirementGenerationEditViewModel {
 		int i = RequirementGenerationService.updateReqGenMaster(reqEditGenBean);
 		if(i>0){
 			Messagebox.show("Updated Successfully", "Information", Messagebox.OK, Messagebox.INFORMATION);
-			
 			winReqGenEdit.detach();
 			BindUtils.postGlobalCommand(null, null, "editReqGen", null);
 		}
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void onCloseOperation(@ContextParam(ContextType.TRIGGER_EVENT)Event e){
+		winReqGenEdit.detach();
+		BindUtils.postGlobalCommand(null, null, "editReqGen", null);
 	}
 	
 	/******************************************************************************************************************************************/

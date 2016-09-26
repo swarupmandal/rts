@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 
-import org.appsquad.bean.ClientInformationBean;
 import org.appsquad.bean.CountryBean;
 import org.appsquad.bean.ResourceMasterBean;
 import org.appsquad.bean.SkillsetMasterbean;
@@ -14,7 +13,6 @@ import org.appsquad.bean.StateBean;
 import org.appsquad.bean.StatusMasterBean;
 import org.appsquad.dao.ClientInformationDao;
 import org.appsquad.dao.ResourceMasterDao;
-import org.appsquad.research.FileUploadDownload;
 import org.appsquad.service.ResourceMasterService;
 import org.zkoss.bind.BindContext;
 import org.zkoss.bind.annotation.AfterCompose;
@@ -27,13 +25,14 @@ import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.io.Files;
 import org.zkoss.util.media.AMedia;
 import org.zkoss.util.media.Media;
-import org.zkoss.zhtml.Fileupload;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.event.UploadEvent;
 import org.zkoss.zk.ui.select.Selectors;
+import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zul.Bandbox;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
@@ -50,6 +49,13 @@ public class ResourceMasterViewModel {
    private Session sessions = null;
    private String userName ;
    private String userId;
+   @Wire("#ad")
+   private Bandbox bandBox;
+   @Wire("#cd")
+   private Bandbox bandBox1;
+   private String filePath;
+   private boolean fileuploaded = false;
+   AMedia fileContent;
    
    @AfterCompose
 	public void initSetUp(@ContextParam(ContextType.VIEW) Component view) throws Exception{
@@ -57,10 +63,8 @@ public class ResourceMasterViewModel {
 		sessions = Sessions.getCurrent();
 		userId = (String) sessions.getAttribute("userId");
 		resourceMasterBean.setUserId(userId);
-		stateList = ResourceMasterDao.onLoadState();
 		countryList = ResourceMasterDao.onLoadCountry();
 		skillList = ResourceMasterDao.onLoadSkill();
-		statusList = ResourceMasterDao.onLoadStatus();
 		resourceList = ResourceMasterDao.onLoadResourceDeatils();
 	}
    
@@ -79,36 +83,34 @@ public class ResourceMasterViewModel {
    @Command
 	@NotifyChange("*")
 	public void onSelectStateName(){
-		//System.out.println("STATE ID IS :"+resourceMasterBean.getStateBean().getStateId());
-		//System.out.println("STATE NAME IS :"+resourceMasterBean.getStateBean().getStateName());
+	   bandBox1.close();
 	}
 	
 	@Command
 	@NotifyChange("*")
 	public void onSelectCountryName(){
-		//System.out.println("COUNTRY ID IS :"+resourceMasterBean.getCountryBean().getCountryId());
-		//System.out.println("COUNTRY NAME IS :"+resourceMasterBean.getCountryBean().getCountryName());
+		stateList = ClientInformationDao.onLoadStateForResource(resourceMasterBean);
+		bandBox.close();
 	}
 	
 	@Command
 	@NotifyChange("*")
 	public void onSelectSkillName(){
-		//System.out.println("COUNTRY ID IS :"+resourceMasterBean.getSkillsetMasterbean().getId());
-		//System.out.println("COUNTRY NAME IS :"+resourceMasterBean.getSkillsetMasterbean().getSkillset());
 	}
 	
 	@Command
 	@NotifyChange("*")
 	public void onSelectStatusName(){
-		//System.out.println("COUNTRY ID IS :"+resourceMasterBean.getStatusMasterBean().getStatusId());
-		//System.out.println("COUNTRY NAME IS :"+resourceMasterBean.getStatusMasterBean().getStatus());
 	}
 	
 	@Command
 	@NotifyChange("*")
 	public void onClickSubmitButton(){
-		ResourceMasterService.insertClientMasterData(resourceMasterBean);
-		ResourceMasterService.clearAllField(resourceMasterBean);
+		boolean isInsert = false;
+		isInsert = ResourceMasterService.insertClientMasterData(resourceMasterBean);
+		if(isInsert){
+			ResourceMasterService.clearAllField(resourceMasterBean);	
+		}
 	}
 	
 	@Command
@@ -120,86 +122,37 @@ public class ResourceMasterViewModel {
 		window.doModal();
 	}
 	
-
-	
-	private String filePath;
-    private boolean fileuploaded = false;
-    AMedia fileContent;
 	@Command
 	@NotifyChange("*")
 	public void onClickFileUpload(@ContextParam(ContextType.BIND_CONTEXT) BindContext bindContext) throws Exception{
-		
 		UploadEvent uploadEvent = null;
 		Object objUpEvent = bindContext.getTriggerEvent();
-		
 		if (objUpEvent != null && (objUpEvent instanceof UploadEvent)) {
 			 uploadEvent = (UploadEvent) objUpEvent;
-			 
 		 }
 		if(uploadEvent != null){
 			Media media = uploadEvent.getMedia();
-		
-		
 		Calendar now = Calendar.getInstance();
 		int year = now.get(Calendar.YEAR);
         int month = now.get(Calendar.MONTH); // Note: zero based!
         int day = now.get(Calendar.DAY_OF_MONTH);
-		
         filePath = Executions.getCurrent().getDesktop().getWebApp().getRealPath("/");
-        
         String yearPath = "\\" + "PDFs" + "\\" + year + "\\" + month + "\\" + day + "\\";
         filePath = filePath + yearPath;
-        
         File baseDir = new File(filePath);
-        
         if (!baseDir.exists()) {
                baseDir.mkdirs();
           }
-        
         Files.copy(new File(filePath + media.getName()), media.getStreamData());
         Messagebox.show("Uploaded Successfully", "Information", Messagebox.OK, Messagebox.INFORMATION);
         fileuploaded = true;
         filePath = filePath + media.getName();
 		}
-		
-	
 	}
 	
 	
-
-	public String getFilePath() {
-		return filePath;
-	}
-
-	public void setFilePath(String filePath) {
-		this.filePath = filePath;
-	}
-
-	public boolean isFileuploaded() {
-		return fileuploaded;
-	}
-
-	public void setFileuploaded(boolean fileuploaded) {
-		this.fileuploaded = fileuploaded;
-	}
-
-	public AMedia getFileContent() {
-		return fileContent;
-	}
-
-	public void setFileContent(AMedia fileContent) {
-		this.fileContent = fileContent;
-	}
+	/*******************************************************************************************************************************************/
 	
-	class Test extends Fileupload{
-		
-	}
-
-	
-	
-	
-   /************************************************************************************************************************************************/
-   
 	public ResourceMasterBean getResourceMasterBean() {
 		return resourceMasterBean;
 	}
@@ -218,11 +171,23 @@ public class ResourceMasterViewModel {
 	public void setCountryList(ArrayList<CountryBean> countryList) {
 		this.countryList = countryList;
 	}
+	public ArrayList<SkillsetMasterbean> getSkillList() {
+		return skillList;
+	}
+	public void setSkillList(ArrayList<SkillsetMasterbean> skillList) {
+		this.skillList = skillList;
+	}
 	public ArrayList<StatusMasterBean> getStatusList() {
 		return statusList;
 	}
 	public void setStatusList(ArrayList<StatusMasterBean> statusList) {
 		this.statusList = statusList;
+	}
+	public ArrayList<ResourceMasterBean> getResourceList() {
+		return resourceList;
+	}
+	public void setResourceList(ArrayList<ResourceMasterBean> resourceList) {
+		this.resourceList = resourceList;
 	}
 	public Connection getConnection() {
 		return connection;
@@ -248,20 +213,34 @@ public class ResourceMasterViewModel {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-
-	public ArrayList<SkillsetMasterbean> getSkillList() {
-		return skillList;
+	public Bandbox getBandBox() {
+		return bandBox;
 	}
-
-	public void setSkillList(ArrayList<SkillsetMasterbean> skillList) {
-		this.skillList = skillList;
+	public void setBandBox(Bandbox bandBox) {
+		this.bandBox = bandBox;
 	}
-
-	public ArrayList<ResourceMasterBean> getResourceList() {
-		return resourceList;
+	public Bandbox getBandBox1() {
+		return bandBox1;
 	}
-
-	public void setResourceList(ArrayList<ResourceMasterBean> resourceList) {
-		this.resourceList = resourceList;
+	public void setBandBox1(Bandbox bandBox1) {
+		this.bandBox1 = bandBox1;
+	}
+	public String getFilePath() {
+		return filePath;
+	}
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
+	public boolean isFileuploaded() {
+		return fileuploaded;
+	}
+	public void setFileuploaded(boolean fileuploaded) {
+		this.fileuploaded = fileuploaded;
+	}
+	public AMedia getFileContent() {
+		return fileContent;
+	}
+	public void setFileContent(AMedia fileContent) {
+		this.fileContent = fileContent;
 	}
 }
