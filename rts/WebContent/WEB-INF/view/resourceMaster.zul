@@ -85,8 +85,8 @@
 						</row>
 						
 						<row>
-						<label value="Upload Cv"></label>
-						<button label="upload file"></button>
+						<label value="Upload CV"></label>
+						<button label="upload file" onClick="@command('onClickFileUpload')"></button>
 						</row>
 						
 					<!-- <row>
@@ -109,7 +109,7 @@
 			</div>
 			<space></space>
 			<div align="center">
-				<button width="80px" height="30px" label="Submit" style="font-weight: bold" onClick="@command('onClickSubmitButton')"></button>
+				<button width="80px" height="30px" label="Submit" style="font-weight: bold" onClick="@command('onClickSubmitButton', upEvent=event)"></button>
 	
 			</div>
 		

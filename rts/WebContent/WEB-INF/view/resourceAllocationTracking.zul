@@ -76,9 +76,9 @@
 		
 		
 			<columns sizable="true">
-				<column width="50px" style="font-weight:bold; color: black;" align="center">Check</column>
+				<column width="50px" style="font-weight:bold; color: black;" align="center" visible="false">Check</column>
 				<column width="220px" style="font-weight:bold; color: black;" align="center">Resource</column>
-				<column width="130px" style="font-weight:bold; color: black;" align="center">Status</column>
+				<column width="180px" style="font-weight:bold; color: black;" align="center">Status</column>
 				<column width="100px" style="font-weight:bold; color: black;" align="center">Year of Exp</column>
 				<column width="120px" style="font-weight:bold; color: black;" align="center">Resource Type</column>
 				<column width="140px" style="font-weight:bold; color: black;" align="center">Ph number</column>
