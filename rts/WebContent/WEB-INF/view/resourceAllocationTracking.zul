@@ -70,10 +70,8 @@
 			<auxhead>
 				<auxheader colspan="2">
 					<textbox placeholder="Search By Reasouce" onChange="@command('onChangeSearch')" value="@bind(vm.trackingBean.resNameSeach)"></textbox>
-				
 				</auxheader>
 			</auxhead>
-		
 			<columns sizable="true">
 				<column width="50px" style="font-weight:bold; color: black;" align="center" visible="false">Check</column>
 				<column width="220px" style="font-weight:bold; color: black;" align="center">Resource</column>
@@ -104,8 +102,6 @@
 				  <textbox width="98%" readonly="true" value="@bind(v.clientInterviewDateStr)"></textbox>
 				  <textbox width="98%" readonly="true" value="@bind(v.onboardDateStr)"></textbox>
 				  <button width="90%" label="Update" onClick="@command('onClickUpdate', bean =v)"></button>	
-	
-	
 				</row>
 			  </template>	
 			</rows>
