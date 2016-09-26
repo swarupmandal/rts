@@ -276,6 +276,7 @@ public class ResourceMasterDao {
 							ResultSet resultSet = preparedStatement.executeQuery();
 							while (resultSet.next()) {
 								ResourceMasterBean bean = new ResourceMasterBean();
+								
 								bean.setResourceId(resultSet.getInt("id"));
 								bean.setName(resultSet.getString("res_name"));
 								bean.setSurName(resultSet.getString("res_surname"));
@@ -293,6 +294,7 @@ public class ResourceMasterDao {
 								bean.getStateBean().setStateId(resultSet.getInt("rts_state_id"));
 								bean.getCountryBean().setCountryId(resultSet.getInt("rts_country_id"));
 								bean.getStatusMasterBean().setStatusId(resultSet.getInt("rts_status_id"));
+								bean.setFilePath(resultSet.getString("res_upcv"));
 								
 								resourceList.add(bean);
 							}  
