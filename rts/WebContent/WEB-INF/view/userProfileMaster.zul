@@ -17,57 +17,57 @@
                                </columns>
                                <rows>
                                     <row>
-                                        <label value="UserName"/>
+                                        <label value="UserName:" style="font-weight:bold"/>
                                         <textbox value="@bind(vm.userprofileBean.username)"/>
                                     </row> 
                                     <row>
-                                       <label value="UserId"/>
+                                       <label value="UserId:" style="font-weight:bold"/>
                                        <textbox value="@bind(vm.userprofileBean.userid)"/>
                                     </row>   
                                     <row>
-                                        <label value="Password"/>
+                                        <label value="Password:" style="font-weight:bold"/>
                                         <textbox value="@bind(vm.userprofileBean.password)" type="password"/>
                                     </row> 
                                     <row>
-                                        <label value="EmailId"/>
+                                        <label value="EmailId:" style="font-weight:bold"/>
                                         <textbox value="@bind(vm.userprofileBean.email)"
                                             constraint="/.+@.+\.[a-z]+/: Please enter an e-mail address"/>
                                     </row>               
                                     <row>
-                                        <label value="Address"/>
+                                        <label value="Address:" style="font-weight:bold"/>
                                         <textbox value="@bind(vm.userprofileBean.address)"/>
                                     </row>
                                     <row>
-                                        <label value="ContactNo"/>
-                                        <textbox value="@bind(vm.userprofileBean.contactno)"
-                                          constraint="no negative,no zero"/>
+                                        <label value="ContactNo:" style="font-weight:bold"/>
+                                        <textbox value="@bind(vm.userprofileBean.contactno)" maxlength="15"
+                                           xmlns:w="client">
+                                            <attribute w:name="doKeyPress_">
+												<![CDATA[ function(evt) { if ( (evt.which >
+													31) && (evt.which < 48 ||
+														evt.which > 57)) evt.stop(); } ]]>
+											</attribute>
+                                        </textbox>   
                                     </row>
-                                    </rows>
-                                    </grid>
-                                    </div>
-                                    <div align="center">
-                            <button label="Submit" width="80px" height="30px" style="font-weight:bold" onClick="@command('onClickuserSubmit')"/>
-                        </div>
+                                    <row>
+                                      <label></label>
+                                      <button label="Submit" width="80px" height="30px" style="font-weight:bold" onClick="@command('onClickuserSubmit')"/>
+                                    </row>
+                                 </rows>
+                               </grid>
+                            </div>
                    </tabpanel>
-                   
                    <tabpanel>
                    	<div>
-                        <grid model="@bind(vm.userList)"  mold="paging" pageSize="7">
-                   			<auxhead>
-                              <auxheader colspan="2">
-                                <!-- <textbox placeholder=" Search by Employee Name" width="160px" onChange="@command('onChangeEmpName')"></textbox> -->
-                   			  </auxheader>	
-                   			</auxhead>
+                        <grid model="@bind(vm.userList)"  mold="paging" pageSize="13" height="500px" width="1028px">
                    			<columns sizable="true">
-								<column label="User-Id" align="center" style="font-weight:bold;" width="120px"/>
-								<column label="User-Name" align="center" style="font-weight:bold;" width="100px"/>
-								<column label="Email" align="center" style="font-weight:bold;" width="160px"/>
-								<column label="Address" align="center" style="font-weight:bold;" width="120px"/>
+								<column label="User-Id" align="center" style="font-weight:bold;" width="150px"/>
+								<column label="User-Name" align="center" style="font-weight:bold;" width="150px"/>
+								<column label="Email" align="center" style="font-weight:bold;" width="180px"/>
+								<column label="Address" align="center" style="font-weight:bold;" width="180px"/>
 								<column label="Contact Number" align="center" style="font-weight:bold;" width="150px"/>
 								<column label="Action" align="center" style="font-weight:bold;" width="100px"/>
-								<!-- <column label="" align="center" style="font-weight:bold;" width="100px"/> -->
-						   </columns>	
-                   			
+								<column label="Action" align="center" style="font-weight:bold;" width="100px"/>
+						   </columns>
                    			<rows>
                    			  <template name="model" var = "v">	
                    				<row>
@@ -77,7 +77,7 @@
                    				 <textbox placeholder="address" value="@bind(v.address)" readonly="true" width="90%"></textbox>
                    				 <textbox placeholder="Contact no" value="@bind(v.contactno)" readonly="true" width="90%"></textbox>
                    				 <button label="Update" onClick="@command('onClickUpdateButton', bean = v)"></button>
-                   				<!--  <button label="Delete"></button> -->
+                   				 <button label="Delete" onClick="@command('onClickDeleteButton', bean = v)"></button>
                    				</row>
                    			  </template>
                    			</rows>

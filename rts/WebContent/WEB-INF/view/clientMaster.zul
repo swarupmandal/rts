@@ -2,11 +2,6 @@
 <zk>    
     <window title="Client Information" border="none" height="100%" apply="org.zkoss.bind.BindComposer"
 		    viewModel="@id('vm') @init('org.appsquad.viewmodel.ClientInformationViewModel')"> 
-		     <style>
-			.z-textbox{
-			   	text-transform:uppercase;
-			   }
-	</style>
 	<tabbox>
 	    <tabs>
 		<tab>New Entry</tab>
@@ -23,57 +18,88 @@
 				<rows>
 					<row>
 					  <label value="Name:" style="font-weight:bold"></label>		
-					  <textbox width="95%" value="@bind(vm.clientInformationBean.name)"></textbox>	
+					  <textbox width="36%" value="@bind(vm.clientInformationBean.name)"></textbox>	
 					</row>
 					
 					<row>
 					  <label value="Surname:" style="font-weight:bold"></label>		
-					  <textbox width="95%" value="@bind(vm.clientInformationBean.surName)"></textbox>	
+					  <textbox width="36%" value="@bind(vm.clientInformationBean.surName)"></textbox>	
 					</row>
 					
 					<row>
 					  <label value="Company Name:" style="font-weight:bold"></label>		
-					  <textbox width="95%" value="@bind(vm.clientInformationBean.companyName)"></textbox>	
+					  <textbox width="36%" value="@bind(vm.clientInformationBean.companyName)"></textbox>	
 					</row>
 					
 					<row>
 					  <label value="Office Address:" style="font-weight:bold"></label>		
-					  <textbox width="95%" value="@bind(vm.clientInformationBean.address)"></textbox>	
+					  <textbox width="36%" value="@bind(vm.clientInformationBean.address)"></textbox>	
 					</row>
 					
 					<row>
-					  <label value="Country:" style="font-weight:bold"></label>		
-					  <combobox model="@bind(vm.countryList)" selectedItem="@bind(vm.clientInformationBean.countryBean)" readonly="true"
-		             		value="@bind(vm.clientInformationBean.countryBean.countryName)" width="20%" onSelect="@command('onSelectCountryName')">
-		             		<template name="model" var="p">
-		             			<comboitem value="@bind(p.countryName)" label="@bind(p.countryName)"/>
-		             		</template>
-		             	</combobox>	
+		             	<label value="Country:" style="font-weight:bold"></label>
+		             					<bandbox value="@bind(vm.clientInformationBean.countryBean.countryName)" id="ad" readonly="true" width="36%">
+											<bandpopup >
+												<vbox>
+													<listbox model="@load(vm.countryList)" selectedItem="@bind(vm.clientInformationBean.countryBean)" 
+														onSelect="@command('onSelectCountryName')" height="200px" width="280px"
+															mold="paging"  pageSize="4" >
+														<listhead sizable="true">
+															<listheader label="Country Name" />
+														</listhead>
+														<template name="model" var="p1">
+															<listitem>
+																<listcell label="@load(p1.countryName)" />
+															</listitem>
+														</template>
+													</listbox>
+												</vbox>
+											</bandpopup>
+							           </bandbox>
 					</row>
 					
 					<row>
-					  <label value="State:" style="font-weight:bold"></label>		
-					  <combobox model="@bind(vm.stateList)" selectedItem="@bind(vm.clientInformationBean.stateBean)" readonly="true"
-		             		value="@bind(vm.clientInformationBean.stateBean.stateName)" width="20%" onSelect="@command('onSelectStateName')">
-		             		<template name="model" var="s">
-		             			<comboitem value="@bind(s.stateName)" label="@bind(s.stateName)"/>
-		             		</template>
-		             	</combobox>	
+		             	<label value="State:" style="font-weight:bold"></label>
+		             					<bandbox value="@bind(vm.clientInformationBean.stateBean.stateName)" id="cd" readonly="true" width="36%">
+											<bandpopup >
+												<vbox>
+													<listbox model="@load(vm.stateList)" selectedItem="@bind(vm.clientInformationBean.stateBean)" 
+														onSelect="@command('onSelectStateName')" height="200px" width="280px"
+															mold="paging"  pageSize="4" >
+														<listhead sizable="true">
+															<listheader label="State Name" />
+														</listhead>
+														<template name="model" var="p1">
+															<listitem>
+																<listcell label="@load(p1.stateName)" />
+															</listitem>
+														</template>
+													</listbox>
+												</vbox>
+											</bandpopup>
+							           </bandbox>
 					</row>
 					
 					<row>
 					  <label value="Pin/Zip code:" style="font-weight:bold"></label>
-					   <intbox constraint="no negative,no zero" maxlength="6" value="@bind(vm.clientInformationBean.pinZipCode)"/>	
+					   <intbox constraint="no negative,no zero" maxlength="6" value="@bind(vm.clientInformationBean.pinZipCode)" width="36%"/>	
 					</row>
 					
 					<row>
 					  <label value="Contact no:" style="font-weight:bold"></label>
-					 <textbox value="@bind(vm.clientInformationBean.contactNo)" constraint="no negative,no zero" maxlength="15"></textbox>	
+					 <textbox value="@bind(vm.clientInformationBean.contactNo)" maxlength="15" width="36%"
+					     xmlns:w="client">
+					     <attribute w:name="doKeyPress_">
+								<![CDATA[ function(evt) { if ( (evt.which >
+								31) && (evt.which < 48 ||
+								evt.which > 57)) evt.stop(); } ]]>
+							</attribute>
+					     </textbox>	
 					</row>
 					
 					<row>
 					  <label value="Email Id:" style="font-weight:bold"></label>		
-					  <textbox width="95%" value="@bind(vm.clientInformationBean.emailId)"
+					  <textbox width="36%" value="@bind(vm.clientInformationBean.emailId)"
 					      constraint="/.+@.+\.[a-z]+/: Please enter an e-mail address"></textbox>	
 					</row>
 				</rows>
@@ -86,19 +112,19 @@
 	       </tabpanel>
 	       
 	       <tabpanel>
-	             <grid sclass="fgrid" height="300px" width="1400px" 
-							style="border:#DADADA 1px solid;" model="@bind(vm.clientDetailsList)" mold="paging" 
-							vflex="true" autopaging="true" pageSize="7">
+	             <grid sclass="fgrid" height="500px" width="1400px" 
+							 model="@bind(vm.clientDetailsList)" mold="paging" 
+							vflex="true" autopaging="true" pageSize="10">
 						<columns sizable="true">
-								<column label="Name" align="center" style="font-weight:bold;" width="120px"/>
+								<column label="Name" align="center" style="font-weight:bold;" width="125px"/>
 								<column label="Company-Name" align="center" style="font-weight:bold;" width="100px"/>
 								<column label="Comapny-Address" align="center" style="font-weight:bold;" width="120px"/>
 								<column label="Country" align="center" style="font-weight:bold;" width="120px"/>
-								<column label="State" align="center" style="font-weight:bold;" width="120px"/>
 								<column label="Pincode" align="center" style="font-weight:bold;" width="120px"/>
 								<column label="Conatact-Number" align="center" style="font-weight:bold;" width="120px"/>
-								<column label="Eail-Id" align="center" style="font-weight:bold;" width="120px"/>
-								<column label="" align="center" style="font-weight:bold;" width="100px"/>
+								<column label="Eail-Id" align="center" style="font-weight:bold;" width="130px"/>
+								<column label="" align="center" style="font-weight:bold;" width="100px" />
+								<column label="" align="center" style="font-weight:bold;" width="100px" />
 						</columns>	
 						
 						<template name="model" var="v">
@@ -107,11 +133,11 @@
 									<textbox value="@bind(v.companyName)" readonly="true" width="90%" tooltiptext="@bind(v.companyName)"/>
 									<textbox value="@bind(v.address)" readonly="true" width="90%" tooltiptext="@bind(v.address)"/>
 									<textbox value="@bind(v.countryBean.countryName)" readonly="true" width="90%" tooltiptext="@bind(v.countryBean.countryName)"/>
-									<textbox value="@bind(v.stateBean.stateName)" readonly="true" width="90%" tooltiptext="@bind(v.stateBean.stateName)"/>
 									<textbox value="@bind(v.pinZipCode)" readonly="true" width="90%" tooltiptext="@bind(v.pinZipCode)"/>
 									<textbox value="@bind(v.contactNo)" readonly="true" width="90%" tooltiptext="@bind(v.contactNo)"/>
 									<textbox value="@bind(v.emailId)" readonly="true" width="90%" tooltiptext="@bind(v.emailId)"/>
 								    <button label="Update" width="90%" onClick="@command('onClickUpdate', bean = v)"></button>
+								    <button label="Delete" width="90%" onClick="@command('onClickDelete', bean = v)"></button>
 								</row>
 							</template>
 				</grid>			

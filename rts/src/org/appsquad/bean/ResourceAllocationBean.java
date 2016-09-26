@@ -5,6 +5,7 @@ public class ResourceAllocationBean {
 	private Integer allocatedResourceNumber;
 	private Integer remainingResourceNumber;
 	private String userId;
+	private int statusId;
 	private boolean chkSelect = false;
 	private boolean divVisibility = false;
 	private boolean assignButtonVisibility = false;
@@ -88,5 +89,11 @@ public class ResourceAllocationBean {
 	}
 	public void setAssignButtonVisibility(boolean assignButtonVisibility) {
 		this.assignButtonVisibility = assignButtonVisibility;
+	}
+	public int getStatusId() {
+		return statusId;
+	}
+	public void setStatusId(int statusId) {
+		this.statusId = statusId;
 	}
 }

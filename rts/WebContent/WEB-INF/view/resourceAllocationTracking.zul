@@ -1,9 +1,117 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="RESOURCE ALLOCATION TRACKING" border="normal">
+<window title="RESOURCE ALLOCATION TRACKING" border="none" apply="org.zkoss.bind.BindComposer"
+        viewModel="@id('vm') @init('org.appsquad.viewmodel.ResourceAllocationTrackingViewModel')">
 
 	<div>
-		TEST
+		
+		<label value="Client Name" style="font-weight: bold; color: black"></label>
+		<bandbox autodrop="true" readonly="true" id="clname" value="@bind(vm.clientInformationBean.fullName)">
+			<bandpopup>	
+				<hbox>
+					<textbox value="@bind(vm.trackingBean.clientNameSearch)" onChange="@command('onChangeClientName')"></textbox>
+					<button label="Serach" onClick="@command('onChangeClientName')"></button>
+				</hbox>
+				<space></space>
+				<listbox width="280px" model="@bind(vm.clientInformationBeanList)" 
+				     selectedItem="@bind(vm.clientInformationBean)" onSelect="@command('onSelctClientName')" mold="paging" pageSize="5">
+					<listhead sizable="true">
+						<listheader label="Client Name"></listheader>
+					</listhead>
+					
+					<template name="model" var = "v">
+					<listitem>
+					  <listcell label="@load(v.fullName)"></listcell>
+					</listitem>
+				   </template>
+				</listbox>
+			</bandpopup>
+		</bandbox>
+		<space></space>
+		
+		<label value="Requirement Id" style="font-weight: bold; color: black"></label>
+		<bandbox autodrop="true" readonly="true" id="reqId" value="@bind(vm.requirementGenerationBean.req_id)">
+			<bandpopup>	
+				<hbox>
+					<intbox value="@bind(vm.trackingBean.r_idSearch)" onChange="@command('onChangeReqId')"></intbox>
+					<button label="Serach" onClick="@command('onChangeReqId')"></button>
+				</hbox>
+				<space></space>
+				<listbox width="280px" model="@bind(vm.requirementGenerationBeanList)" 
+				     selectedItem="@bind(vm.requirementGenerationBean)" onSelect="@command('onSelctReqId')" mold="paging" pageSize="5">
+					<listhead sizable="true">
+						<listheader label="Req Id"></listheader>
+						<listheader label="Skill"></listheader>
+					</listhead>
+					
+					<template name="model" var = "v">
+					<listitem>
+					  
+						<listcell label="@load(v.req_id)"></listcell>
+						<listcell label="@load(v.reqSkill)"></listcell>
+					  	
+					</listitem>
+					</template>
+				</listbox>
+			</bandpopup>
+		</bandbox>
+		<space></space> 
+		
+		<label value="Skill set" style="font-weight: bold; color: black"></label>
+		<textbox readonly="true" value="@bind(vm.trackingBean.skillSet)"></textbox>
+		
+		<space></space>
+		<button label="Search" style="font-weight: bold; color: black" onClick="@command('onClickSearch')"></button>
+	</div>
+	<space></space>
+	
+	<div>
+		<grid mold="paging" pageSize="10" model="@bind(vm.trackingBeanList)">
+			<auxhead>
+				<auxheader colspan="2">
+					<textbox placeholder="Search By Reasouce" onChange="@command('onChangeSearch')" value="@bind(vm.trackingBean.resNameSeach)"></textbox>
+				
+				</auxheader>
+			</auxhead>
+		
+		
+			<columns sizable="true">
+				<column width="50px" style="font-weight:bold; color: black;" align="center" visible="false">Check</column>
+				<column width="220px" style="font-weight:bold; color: black;" align="center">Resource</column>
+				<column width="180px" style="font-weight:bold; color: black;" align="center">Status</column>
+				<column width="100px" style="font-weight:bold; color: black;" align="center">Year of Exp</column>
+				<column width="120px" style="font-weight:bold; color: black;" align="center">Resource Type</column>
+				<column width="140px" style="font-weight:bold; color: black;" align="center">Ph number</column>
+				<column width="200px" style="font-weight:bold; color: black;" align="center">E-mail</column>
+				<column width="200px" style="font-weight:bold; color: black;" align="center">Addreass</column>
+				<column width="130px" style="font-weight:bold; color: black;" align="center">Iternal Interview Date</column>
+				<column width="130px" style="font-weight:bold; color: black;" align="center">Client Interview Date</column>
+				<column width="130px" style="font-weight:bold; color: black;" align="center">On-board Date</column>
+				<column width="130px" style="font-weight:bold; color: black;" align="center">Update</column>
+			</columns>
+	
+			<rows>
+			   <template name="model" var = "v">	
+				<row>
+				  <checkbox value="@bind(v.check)"></checkbox>
+				  <textbox width="98%" readonly="true" value="@bind(v.resourceMasterBean.fullName)"></textbox>
+				  <textbox width="98%" readonly="true" value="@bind(v.status)"></textbox>
+				  <doublebox width="98%" readonly="true" value="@bind(v.resourceMasterBean.yearOfExperience)"></doublebox>
+				  <textbox width="98%" readonly="true" value="@bind(v.resourceType)"></textbox>
+				  <textbox width="98%" readonly="true" value="@bind(v.resourceMasterBean.contactNumber)"></textbox>
+				  <textbox width="98%" readonly="true" value="@bind(v.resourceMasterBean.emailId)"></textbox>
+				  <textbox width="98%" readonly="true" value="@bind(v.resourceMasterBean.address)"></textbox>
+				  <textbox width="98%" readonly="true" value="@bind(v.internalInterviewDateStr)"></textbox>
+				  <textbox width="98%" readonly="true" value="@bind(v.clientInterviewDateStr)"></textbox>
+				  <textbox width="98%" readonly="true" value="@bind(v.onboardDateStr)"></textbox>
+				  <button width="90%" label="Update" onClick="@command('onClickUpdate', bean =v)"></button>	
+	
+	
+				</row>
+			  </template>	
+			</rows>
+		</grid>
+		
 	</div>
 
 </window>

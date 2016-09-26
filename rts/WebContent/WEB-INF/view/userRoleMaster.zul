@@ -1,6 +1,6 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
-  <window title="User Role" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('org.appsquad.viewmodel.RolemasterViewModel')">
+  <window title="USER ROLE" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('org.appsquad.viewmodel.RolemasterViewModel')">
     <style>
 			.z-textbox{
 			   	text-transform:uppercase;
@@ -23,7 +23,7 @@
                               </columns>
                               <rows>
                                   <row>
-                                     <label value="Role"/>
+                                     <label value="Role" style="font-weight:bold"/>
                                      <textbox value="@bind(vm.roleMasterBean.roll)"/>
                                      <button label="Save" onClick="@command('onClickRoleSave')"/>
                                   </row>
@@ -32,7 +32,7 @@
                        </div>
                        <space></space>
                        <div>
-                           <grid model="@bind(vm.rolebeanlist)" mold="paging" pageSize="4" sclass="fgrid">
+                           <grid model="@bind(vm.rolebeanlist)" mold="paging" pageSize="11" sclass="fgrid">
                                <columns>
                                     <column label="Role" align="center"/>
                                     <column label="Update" align="center"/>
@@ -87,8 +87,8 @@
 								   </row>
 								   
 								   <row>
-								   
-								       <button label="Save" onClick="@command('onClickAssign')"></button>
+								    
+								          <button label="Save" onClick="@command('onClickAssign')"></button>
 								   
 								   </row>
 								   
@@ -98,7 +98,7 @@
                         </div>
                         <space></space>
                         <div>
-                           <grid model="@bind(vm.mappingList)" mold="paging" pageSize="4" sclass="fgrid">
+                           <grid model="@bind(vm.mappingList)" mold="paging" pageSize="10" sclass="fgrid">
                                <columns>
                                     <column label="User-Name" align="center"/>
                                     <column label="Role-Name" align="center"/>
@@ -111,18 +111,13 @@
                                        <textbox value="@bind(v.downBean.roll)" readonly="true" width="220px"></textbox>
                                        <button label="Update" onClick="@command('onClickUpdate', bean = v)"/>
                                    </row>
-                                   
                                    </template>
-                                   
                                </rows>
                            </grid>
                        </div>
-                        
                   </tabpanel>
             </tabpanels>
        </tabbox>
    </div>
-        
-       
    </window>
 </zk>

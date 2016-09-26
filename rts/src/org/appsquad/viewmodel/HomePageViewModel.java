@@ -15,30 +15,19 @@ import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zul.Window;
 
 public class HomePageViewModel {
-	
-
 	Session session = null;
-
 	private String userId;
-
-
 	private Connection connection = null;
-	
 	@AfterCompose
 	public void initSetUp(@ContextParam(ContextType.VIEW) Component view)
 			throws Exception {
-
 		Selectors.wireComponents(view, this, false);
-	
 		session = Sessions.getCurrent();
-		
 		userId = (String) session.getAttribute("userId");
-		
 		if(userId==null){
 			Executions.sendRedirect("/welcome1.zul");
 		}else{
 			userId = userId;
-			
 		}
 	}
 	
@@ -61,16 +50,12 @@ public class HomePageViewModel {
 		window.doModal();
 	}
 	
+	/**********************************************************************************************************************************/
 	
 	public String getUserId() {
 		return userId;
 	}
-
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	
-
-
-
 }

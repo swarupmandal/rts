@@ -19,7 +19,7 @@ public class ClientInformationDao {
 	
 	final static Logger logger=Logger.getLogger(ClientInformationDao.class);
 	
-	public static ArrayList<StateBean> onLoadState(){
+	public static ArrayList<StateBean> onLoadState(ClientInformationBean clientInformationBean){
 		ArrayList<StateBean> stateList = new ArrayList<StateBean>();
 		Connection connection = null;
 		try {
@@ -31,8 +31,7 @@ public class ClientInformationDao {
 					sql_fetch:{
 					   PreparedStatement preparedStatement = null;
 					   try {
-						   preparedStatement = Pstm.createQuery(connection, ClientInformationsql.stateQuery, null);
-							
+						   preparedStatement = Pstm.createQuery(connection, ClientInformationsql.stateQuery, Arrays.asList(clientInformationBean.getCountryBean().getCountryId()));
 							ResultSet resultSet = preparedStatement.executeQuery();
 							while (resultSet.next()) {
 								StateBean bean = new StateBean();
@@ -142,7 +141,7 @@ public class ClientInformationDao {
 				    }
 				
 					if( isSaved){
-						Messagebox.show(" Client Details Saved successfully!","Information",Messagebox.OK,Messagebox.INFORMATION);
+						Messagebox.show(" Client Details Saved Successfully!","Information",Messagebox.OK,Messagebox.INFORMATION);
 					}else{
 						Messagebox.show(" Client Details failed due to internal error!","ERROR",Messagebox.OK,Messagebox.ERROR);
 					}
@@ -177,7 +176,7 @@ public class ClientInformationDao {
 					    PreparedStatement preparedStatementInsert = null;
 					    try {
 					    	preparedStatementInsert = Pstm.createQuery(connection, 
-									ClientInformationsql.clientDetailsUpdate, Arrays.asList(clientInformationBean.getFullName().toUpperCase(),
+									ClientInformationsql.clientDetailsUpdate, Arrays.asList(clientInformationBean.getName().toUpperCase(),clientInformationBean.getSurName().toUpperCase(),
 											clientInformationBean.getCompanyName().toUpperCase(),clientInformationBean.getAddress().toUpperCase(),
 											clientInformationBean.getStateBean().getStateName(),clientInformationBean.getCountryBean().getCountryName(),
 											clientInformationBean.getPinZipCode(),clientInformationBean.getContactNo().toUpperCase(),
@@ -198,7 +197,7 @@ public class ClientInformationDao {
 				    }
 				
 					if( isUpdated){
-						Messagebox.show(" Client Details Updated successfully!","Information",Messagebox.OK,Messagebox.INFORMATION);
+						Messagebox.show(" Client Details Updated Successfully!","Information",Messagebox.OK,Messagebox.INFORMATION);
 					}else{
 						Messagebox.show(" Client Details failed due to internal error!","ERROR",Messagebox.OK,Messagebox.ERROR);
 					}
@@ -219,6 +218,58 @@ public class ClientInformationDao {
 		}
 		return isUpdated;
 	}
+	
+	
+	public static boolean deleteClientData(ClientInformationBean clientInformationBean){
+		boolean isDeleted = false;
+		Connection connection = null;
+		try {
+			connection = DbConnection.createConnection();
+			sql_connection:{
+				try {
+					
+					//1st SQL block
+					sql_insert:{
+					    PreparedStatement preparedStatementDelete = null;
+					    try {
+					    	preparedStatementDelete = Pstm.createQuery(connection, 
+									ClientInformationsql.deleteClientDetailsSql, Arrays.asList(clientInformationBean.getClientId()));
+					    	
+					    	System.out.println(preparedStatementDelete);
+					    	logger.info("Inserting Client Data Into Table: "+preparedStatementDelete.unwrap(PreparedStatement.class));
+							int i = preparedStatementDelete.executeUpdate();
+							if(i>0){
+								isDeleted = true;	
+							}
+						} finally{
+							if(preparedStatementDelete!=null){
+								preparedStatementDelete.close();
+							}
+						}
+				    }
+				
+					if( isDeleted){
+						Messagebox.show(" Client Details Deleted Successfully!","Information",Messagebox.OK,Messagebox.INFORMATION);
+					}else{
+						Messagebox.show(" Client Details failed due to internal error!","ERROR",Messagebox.OK,Messagebox.ERROR);
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+					logger.error(e);
+					logger.error(e);
+				}finally{
+					if(connection!=null){
+						connection.close();
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(e);
+			logger.error(e);
+		}
+		return isDeleted;
+	}
    
 	public static ArrayList<ClientInformationBean> onLoadClientDeatils(){
 		ArrayList<ClientInformationBean> clientList = new ArrayList<ClientInformationBean>();
@@ -238,6 +289,7 @@ public class ClientInformationDao {
 							while (resultSet.next()) {
 								ClientInformationBean bean = new ClientInformationBean();
 								bean.setFullName(resultSet.getString("name")+" "+resultSet.getString("surname"));
+								bean.setName(resultSet.getString("name"));
 								bean.setSurName(resultSet.getString("surname"));
 								bean.setCompanyName(resultSet.getString("companyname"));
 								bean.setAddress(resultSet.getString("officeaddress"));

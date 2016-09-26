@@ -7,10 +7,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.apache.log4j.Logger;
-import org.appsquad.bean.ClientInformationBean;
 import org.appsquad.bean.UserprofileBean;
 import org.appsquad.database.DbConnection;
-import org.appsquad.sql.ClientInformationsql;
 import org.appsquad.sql.UserProfileSql;
 import org.appsquad.utility.Pstm;
 import org.zkoss.zul.Messagebox;
@@ -19,7 +17,7 @@ public class UserProfileDao {
 	
 	final static Logger logger=Logger.getLogger(UserProfileDao.class);
 	
-	public static void insertUserData(UserprofileBean userprofileBean){
+	public static boolean insertUserData(UserprofileBean userprofileBean){
 		boolean isSaved = false;
 		Connection connection = null;
 		try {
@@ -32,7 +30,7 @@ public class UserProfileDao {
 					    PreparedStatement preparedStatementInsert = null;
 					    try {
 					    	preparedStatementInsert = Pstm.createQuery(connection, 
-									UserProfileSql.insertUserData, Arrays.asList(userprofileBean.getUserid(),userprofileBean.getUsername().toUpperCase(),
+									UserProfileSql.insertUserData, Arrays.asList(userprofileBean.getUserid().toUpperCase(),userprofileBean.getUsername().toUpperCase(),
 																userprofileBean.getPassword().toUpperCase(),userprofileBean.getAddress().toUpperCase(),
 																userprofileBean.getContactno().toUpperCase(),userprofileBean.getEmail().toUpperCase()));
 					    
@@ -67,6 +65,7 @@ public class UserProfileDao {
 			logger.error(e);
 			logger.error(e);
 		}
+		return isSaved;
 	}
 	
 	public static ArrayList<UserprofileBean> onLoadUserDeatils(){
@@ -118,6 +117,49 @@ public class UserProfileDao {
 			logger.error(e);
 		}
 		return userList;
+	}
+	
+	public static int countPresentUserDetails(UserprofileBean userprofileBean){
+		int count = 0;
+		Connection connection = null;
+		try {
+			connection = DbConnection.createConnection();
+			sql_connection:{
+				try {
+					
+					//1st SQL block
+					sql_fetch:{
+					   PreparedStatement preparedStatementCount = null;
+					   try {
+						   preparedStatementCount = Pstm.createQuery(connection, UserProfileSql.countNumberSql, Arrays.asList(userprofileBean.getUserid().toUpperCase(),
+								                                                                             userprofileBean.getPassword().toUpperCase()));
+							System.out.println(preparedStatementCount);
+							ResultSet resultSet = preparedStatementCount.executeQuery();
+							while (resultSet.next()) {
+								count = resultSet.getInt(1);
+							}  
+						} finally{
+							if(preparedStatementCount!=null){
+								preparedStatementCount.close();
+							}
+						}
+				    }
+				} catch (Exception e) {
+					e.printStackTrace();
+					logger.error(e);
+					logger.error(e);
+				}finally{
+					if(connection!=null){
+						connection.close();
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(e);
+			logger.error(e);
+		}
+		return count;
 	}
 	
 	public static boolean updateUserData(UserprofileBean userprofileBean){
@@ -172,7 +214,59 @@ public class UserProfileDao {
 		}
 		return isUpdated;
 	}
+	
+	public static boolean deleteUserData(UserprofileBean userprofileBean){
+		boolean isDeleted = false;
+		Connection connection = null;
+		try {
+			connection = DbConnection.createConnection();
+			sql_connection:{
+				try {
+					
+					//1st SQL block
+					sql_insert:{
+					    PreparedStatement preparedStatementInsert = null;
+					    try {
+					    	preparedStatementInsert = Pstm.createQuery(connection, 
+									UserProfileSql.deleteUserSql, Arrays.asList(userprofileBean.getId()));
+					    	
+					    	System.out.println(preparedStatementInsert);
+					    	
+							int i = preparedStatementInsert.executeUpdate();
+							if(i>0){
+								isDeleted = true;	
+							}
+						} finally{
+							if(preparedStatementInsert!=null){
+								preparedStatementInsert.close();
+							}
+						}
+				    }
+				
+					if(isDeleted){
+						Messagebox.show(" User Profile Details Deleted Successfully!","Information",Messagebox.OK,Messagebox.INFORMATION);
+					}else{
+						Messagebox.show(" User Profile failed due to internal error!","ERROR",Messagebox.OK,Messagebox.ERROR);
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+					logger.error(e);
+					logger.error(e);
+				}finally{
+					if(connection!=null){
+						connection.close();
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(e);
+			logger.error(e);
+		}
+		return isDeleted;
+	}
 
+	
 	/*********************************************************************************************************************************/
 	
 	public static Logger getLogger() {

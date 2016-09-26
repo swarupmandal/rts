@@ -14,6 +14,7 @@ import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.Sessions;
+import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Window;
@@ -46,6 +47,13 @@ public class SkillSetUpdateViewModel {
 			winSkillSetUpdateScreen.detach();
 			BindUtils.postGlobalCommand(null, null, "globalSkillSetDetailsUpdate", null);
 		}
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void onCloseOperation(@ContextParam(ContextType.TRIGGER_EVENT)Event e){
+		winSkillSetUpdateScreen.detach();
+		BindUtils.postGlobalCommand(null, null, "globalSkillSetDetailsUpdate", null);
 	}
 	
 	/******************************************Getter and setter method ***************************************************************/
@@ -92,11 +100,9 @@ public class SkillSetUpdateViewModel {
 	public void setFlag(boolean flag) {
 		this.flag = flag;
 	}
-
 	public Window getWinSkillSetUpdateScreen() {
 		return winSkillSetUpdateScreen;
 	}
-
 	public void setWinSkillSetUpdateScreen(Window winSkillSetUpdateScreen) {
 		this.winSkillSetUpdateScreen = winSkillSetUpdateScreen;
 	}

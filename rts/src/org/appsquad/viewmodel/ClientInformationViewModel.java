@@ -9,6 +9,7 @@ import org.appsquad.bean.CountryBean;
 import org.appsquad.bean.StateBean;
 import org.appsquad.dao.ClientInformationDao;
 import org.appsquad.service.ClientInformationService;
+import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
@@ -21,6 +22,8 @@ import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.select.Selectors;
+import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zul.Bandbox;
 import org.zkoss.zul.Window;
 
 public class ClientInformationViewModel {
@@ -35,6 +38,12 @@ public class ClientInformationViewModel {
 	private String userName ;
 	private String userId;
 	private boolean flag = false;
+	private boolean flagDelete = false;
+	@Wire("#ad")
+	private Bandbox bandBox;
+	@Wire("#cd")
+	private Bandbox bandBox1;
+	
 	
 	@AfterCompose
 	public void initSetUp(@ContextParam(ContextType.VIEW) Component view) throws Exception{
@@ -42,11 +51,9 @@ public class ClientInformationViewModel {
 		sessions = Sessions.getCurrent();
 		userId = (String) sessions.getAttribute("userId");
 		clientInformationBean.setUserId(userId);
-		stateList = ClientInformationDao.onLoadState();
 		countryList = ClientInformationDao.onLoadCountry();
 		clientDetailsList = ClientInformationDao.onLoadClientDeatils();
 	}
-	
 	
 	@GlobalCommand
 	@NotifyChange("*")
@@ -75,6 +82,7 @@ public class ClientInformationViewModel {
 	public void onSelectStateName(){
 		System.out.println("STATE ID IS :"+clientInformationBean.getStateBean().getStateId());
 		System.out.println("STATE NAME IS :"+clientInformationBean.getStateBean().getStateName());
+		bandBox1.close();
 	}
 	
 	@Command
@@ -82,6 +90,8 @@ public class ClientInformationViewModel {
 	public void onSelectCountryName(){
 		System.out.println("COUNTRY ID IS :"+clientInformationBean.getCountryBean().getCountryId());
 		System.out.println("COUNTRY NAME IS :"+clientInformationBean.getCountryBean().getCountryName());
+		stateList = ClientInformationDao.onLoadState(clientInformationBean);
+		bandBox.close();
 	}
 	
 	@Command
@@ -92,6 +102,15 @@ public class ClientInformationViewModel {
 		map.put("clientIdDetails", bean);
 		Window window = (Window) Executions.createComponents("/WEB-INF/view/clientInformationUpdate.zul", null, map);
 		window.doModal();
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void onClickDelete(@BindingParam("bean") ClientInformationBean clientInformationBean){
+		flagDelete = ClientInformationService.deleteClientMasterData(clientInformationBean);
+		if(flagDelete){
+			BindUtils.postGlobalCommand(null, null, "globalClientDetailsUpdate", null);
+		}
 	}
 	
 	/*********************************************Getter and Setter Method ****************************************************/
@@ -120,49 +139,59 @@ public class ClientInformationViewModel {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-
-
 	public String getUserId() {
 		return userId;
 	}
-
-
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-
 	public ArrayList<StateBean> getStateList() {
 		return stateList;
 	}
-
 	public void setStateList(ArrayList<StateBean> stateList) {
 		this.stateList = stateList;
 	}
-
 	public ArrayList<CountryBean> getCountryList() {
 		return countryList;
 	}
-
 	public void setCountryList(ArrayList<CountryBean> countryList) {
 		this.countryList = countryList;
 	}
-
 	public ArrayList<ClientInformationBean> getClientDetailsList() {
 		return clientDetailsList;
 	}
-
 	public void setClientDetailsList(
 			ArrayList<ClientInformationBean> clientDetailsList) {
 		this.clientDetailsList = clientDetailsList;
 	}
-
-
 	public boolean isFlag() {
 		return flag;
+	}
+	public Bandbox getBandBox() {
+		return bandBox;
+	}
+
+
+	public void setBandBox(Bandbox bandBox) {
+		this.bandBox = bandBox;
 	}
 
 
 	public void setFlag(boolean flag) {
 		this.flag = flag;
+	}
+	public boolean isFlagDelete() {
+		return flagDelete;
+	}
+	public void setFlagDelete(boolean flagDelete) {
+		this.flagDelete = flagDelete;
+	}
+
+	public Bandbox getBandBox1() {
+		return bandBox1;
+	}
+
+	public void setBandBox1(Bandbox bandBox1) {
+		this.bandBox1 = bandBox1;
 	}
 }

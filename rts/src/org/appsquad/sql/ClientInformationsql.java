@@ -2,7 +2,7 @@ package org.appsquad.sql;
 
 public class ClientInformationsql {
 	
-	public static final String stateQuery = "select state_id,state_name from rts_state_master ";
+	public static final String stateQuery = "select state_id,state_name from rts_state_master where country_id = ? ";
 	
 	public static final String countryQuery = "select country_id,country_name from rts_country_master ";
 	
@@ -16,9 +16,11 @@ public class ClientInformationsql {
 	
 	public static final String fetchClientDeatils = "select * from rts_clients_master where is_delete = 'N' ";
 	
-	public static final String clientDetailsUpdate = "UPDATE rts_clients_master set name = ?,companyname = ?,"
+	public static final String clientDetailsUpdate = "UPDATE rts_clients_master set name = ?,surname = ?,companyname = ?,"
 			                                 + "officeaddress = ?,state = ?,country = ?,zipcode = ?,contactno = ?,emailid = ?,state_id= ?,"
 			                                 + "country_id = ? where id = ? ";
+	
+	public static final String deleteClientDetailsSql = "update rts_clients_master set is_delete = 'D' where id = ? ";
 
 }
  

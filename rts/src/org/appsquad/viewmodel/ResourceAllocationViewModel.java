@@ -1,8 +1,10 @@
 package org.appsquad.viewmodel;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 
+import org.apache.log4j.Logger;
 import org.appsquad.bean.ClientInformationBean;
 import org.appsquad.bean.RequirementGenerationBean;
 import org.appsquad.bean.ResourceAllocationBean;
@@ -10,6 +12,8 @@ import org.appsquad.bean.ResourceMasterBean;
 import org.appsquad.bean.ResourceTypeBean;
 import org.appsquad.dao.ResourceAllocationDao;
 import org.appsquad.dao.SortCriteriaDao;
+import org.appsquad.database.DbConnection;
+import org.appsquad.service.ResourceAllocationService;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
@@ -35,6 +39,7 @@ public class ResourceAllocationViewModel {
 		private Bandbox bandBox;
 	    private int countAllocatedNumber = 0;
 	    private int remainingNumber = 0;
+	    final static Logger logger=Logger.getLogger(ResourceAllocationViewModel.class);
 	    
 	    private ArrayList<ClientInformationBean> clientList = new ArrayList<ClientInformationBean>();
 	    private ArrayList<RequirementGenerationBean> requirementDetailsList = new ArrayList<RequirementGenerationBean>();
@@ -83,6 +88,7 @@ public class ResourceAllocationViewModel {
 	        resourceAllocationBean.setAllocatedResourceNumber(ResourceAllocationDao.fetchRequiredResourceNumberAllocated(resourceAllocationBean.getClientInformationBean().getClientId(), resourceAllocationBean.getRequirementGenerationBean().getRequirementId(),resourceAllocationBean.getResourceTypeBean().getResourceTypeName()));
 	        resourceAllocationBean.setDivVisibility(true);
 	    	resourceList = ResourceAllocationDao.onLoadResourceDetails();
+	    	resourceAllocationBean.setAssignButtonVisibility(true);
 	    }
 	    
 	    @Command
@@ -101,7 +107,89 @@ public class ResourceAllocationViewModel {
 	    	}
 	    }
 	    
-	    
+	    @Command
+	    @NotifyChange("*")
+	    public void onClickAssignButton(){
+	    	boolean isUpdateResource = false;
+	    	boolean isUpdate = false;
+	    	boolean isInsertMapper = false;
+	    	boolean isInsertTracking = false;
+	    	int statusId = 0;
+	    	for(ResourceMasterBean bean : resourceList){
+	    		if(bean.isChkSelect()){
+	    			System.out.println("REQUIREMENTS ID IS :"+resourceAllocationBean.getRequirementGenerationBean().getRequirementId());
+	    	    	System.out.println("RESOURCE ID IS :"+bean.getResourceId());
+	    	    	try {
+						connection = DbConnection.createConnection();
+						connection.setAutoCommit(false);
+						sql_connection:{
+							try {
+								//1st SQL block
+								sql_update_resource:{
+								     PreparedStatement preparedStatementUpdateResource = null;
+								     try {
+										 isUpdateResource = ResourceAllocationService.isUpdateResourceTable(resourceList);
+									} finally{
+										if(preparedStatementUpdateResource!=null){
+											preparedStatementUpdateResource.close();
+										}
+									}
+							    }
+							
+							  System.out.println(isUpdateResource);
+							  
+							  //2nd SQL block
+							  sql_update_number:{
+								  	isUpdate = ResourceAllocationService.isUpdateNumberInResourceTable(resourceAllocationBean.getClientInformationBean().getClientId(),resourceAllocationBean.getRequirementGenerationBean().getRequirementId(), 
+								  			                                                resourceAllocationBean.getResourceTypeBean().getResourceTypeName(),resourceAllocationBean.getAllocatedResourceNumber());
+							  }
+							  
+							  System.out.println(isUpdate);
+							  
+							  //3rd SQL block
+							  sql_insert_mapper:{
+								  isInsertMapper = ResourceAllocationService.isInsertMapperTable(resourceList, resourceAllocationBean);
+							  }
+							  
+							  System.out.println(isInsertMapper);
+							  
+							  statusId = ResourceAllocationDao.fetchStatusId();
+							  resourceAllocationBean.setStatusId(statusId);
+							  
+							  //4th SQL block
+							  sql_insert_status_tracking:{
+								  isInsertTracking = ResourceAllocationService.isInsertStatusTrackingTable(resourceList, resourceAllocationBean);
+						      }
+							  
+							  System.out.println(isInsertTracking);
+							  
+							  if(isUpdateResource && isUpdate && isInsertMapper && isInsertTracking){
+								  connection.commit();
+								  resourceAllocationBean.setDivVisibility(true);
+							      resourceList = ResourceAllocationDao.onLoadResourceDetails();
+							      resourceAllocationBean.setAssignButtonVisibility(true);
+							  }
+							
+							} catch (Exception e) {
+								connection.rollback();
+								e.printStackTrace();
+								logger.error(e);
+								logger.fatal(e);
+							}finally{
+								if(connection!=null){
+									connection.setAutoCommit(true);
+									connection.close();
+								}
+							}
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+						logger.error(e);
+						logger.fatal(e);
+					}
+	    		}
+	    	}
+	    }
 	    
 	    /**************************************************************************************************************************************/
 	    
