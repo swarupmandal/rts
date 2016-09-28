@@ -18,16 +18,19 @@ public class ResourceAllocationTrackingBean {
 	private String skillSet;
    
 	private Date internalInterviewDate;
+	private Date previousInternalInterviewDate;
 	private java.sql.Date internalInterviewDateSql;
 	private String internalInterviewDateStr;
 	private String internalInterviewDateValue;
 	
 	private Date clientInterviewDate;
+	private Date previousClientInterviewDate;
 	private java.sql.Date clientInterviewDateSql;
 	private String clientInterviewDateStr;
 	private String clientInterviewDateValue;
 	
 	private Date onboardDate;
+	private Date previousOnboardDate;
 	private java.sql.Date onboardDateSql;
 	private String onboardDateStr;
 	private String onboardDateValue;
@@ -37,6 +40,7 @@ public class ResourceAllocationTrackingBean {
 	
 	private String status;
 	private int statusId;
+	private int previousStatusId;
 	
 	private String resNameSeach;
 	
@@ -288,6 +292,46 @@ public class ResourceAllocationTrackingBean {
 
 	public void setResNameSeach(String resNameSeach) {
 		this.resNameSeach = resNameSeach;
+	}
+
+
+	public Date getPreviousInternalInterviewDate() {
+		return previousInternalInterviewDate;
+	}
+
+
+	public void setPreviousInternalInterviewDate(Date previousInternalInterviewDate) {
+		this.previousInternalInterviewDate = previousInternalInterviewDate;
+	}
+
+
+	public Date getPreviousClientInterviewDate() {
+		return previousClientInterviewDate;
+	}
+
+
+	public void setPreviousClientInterviewDate(Date previousClientInterviewDate) {
+		this.previousClientInterviewDate = previousClientInterviewDate;
+	}
+
+
+	public Date getPreviousOnboardDate() {
+		return previousOnboardDate;
+	}
+
+
+	public void setPreviousOnboardDate(Date previousOnboardDate) {
+		this.previousOnboardDate = previousOnboardDate;
+	}
+
+
+	public int getPreviousStatusId() {
+		return previousStatusId;
+	}
+
+
+	public void setPreviousStatusId(int previousStatusId) {
+		this.previousStatusId = previousStatusId;
 	}
 
 	

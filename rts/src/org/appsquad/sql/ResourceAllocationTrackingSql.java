@@ -18,12 +18,17 @@ public class ResourceAllocationTrackingSql {
 	
 	public static final String insertIntInterviewDate = "insert into rts_res_internal_interview_dates (r_id, resource_id, client_id, internal_interview_date, created_by, updated_by ) values (?, ?, ?, ?, ?, ?)";
 	
+	public static final String UpdateIntInterviewDate = "update rts_res_internal_interview_dates set internal_interview_date = ?,created_by = ?,updated_by= ? "
+													  + "where r_id = ? and resource_id = ? and client_id = ? ";
+	
 	public static final String insertClientInterviewDate = "insert into rts_res_client_interview_dates (r_id, resource_id, client_id, client_interview_date, created_by, updated_by ) values (?, ?, ?, ?, ?, ?)";
+	
+	public static final String updateClientInterviewDate = "update rts_res_client_interview_dates set client_interview_date = ?,created_by = ?,updated_by = ? where r_id = ?, resource_id = ?, client_id = ? ";
 	
 	public static final String insertOnboardDate = "insert into rts_res_onboard_dates (r_id, resource_id, client_id, onboard_date, created_by, updated_by ) values (?, ?, ?, ?, ?, ?)";
 	
+	public static final String updateOnboardDate = "update rts_res_onboard_dates set onboard_date = ?,created_by = ?,updated_by = ? where r_id = ?, resource_id = ?, client_id = ? ";
 	
-	
-	
+	public static final String countStatusTrackingTable = "select count(*) from rts_req_res_status_tracking where r_id = ? and resource_id = ? and status_id = ? ";
 	
 }

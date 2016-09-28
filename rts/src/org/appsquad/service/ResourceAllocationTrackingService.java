@@ -59,10 +59,22 @@ public class ResourceAllocationTrackingService {
 		return i;
 	}
 	
+	public static int updateInternalIntDate(Integer rId, int resId,int clientId, Date date, String userId){
+		int j = 0;
+		j = ResourceAllocationTrackingDao.updateInterviewDate(rId, resId, clientId, date, userId);
+		return j;
+	}
+	
 	public static int insertClientIntDate(Integer rId, int resId,int clientId, Date date, String userId){
 		int i = 0;
 		i = ResourceAllocationTrackingDao.clientInterviewDate(rId, resId, clientId, date, userId);
 		return i;
+	}
+	
+	public static int updateClientIntDate(Integer rId, int resId,int clientId, Date date, String userId){
+		int q = 0;
+		q = ResourceAllocationTrackingDao.updateClientInterviewDate(rId, resId, clientId, date, userId);
+		return q;
 	}
 	
 	public static int insertOnboardDate(Integer rId, int resId,int clientId, Date date, String userId){
@@ -71,6 +83,11 @@ public class ResourceAllocationTrackingService {
 		return i;
 	}
 	
+	public static int updateOnboardDate(Integer rId, int resId,int clientId, Date date, String userId){
+		int s = 0;
+		s = ResourceAllocationTrackingDao.updateOnboardDate(rId, resId, clientId, date, userId);
+		return s;
+	}
 	
 	public static boolean isValidate(int clid, Integer r_id){
 		if(clid>0){

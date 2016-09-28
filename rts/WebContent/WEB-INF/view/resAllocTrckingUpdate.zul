@@ -1,7 +1,8 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
 <window title="RESOURCE  ALLOCATION  STATUS  TRACKING" border="none" apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('org.appsquad.viewmodel.ResAllocTrackingUpdateViewModel')" closable="true" height="500px" width="700px">
+		viewModel="@id('vm') @init('org.appsquad.viewmodel.ResAllocTrackingUpdateViewModel')" closable="true" height="500px" width="700px"
+		  id="winResAllocTracking">
 		
 		<div>
 		   <hlayout spacing="44px">
@@ -65,7 +66,5 @@
 			<button label="Update" width="120px" style="font-weight: bold" onClick="@command('onClickUpdate')"></button>
 			</hlayout>
 		</div>
-		
-		
 </window>
 </zk>
