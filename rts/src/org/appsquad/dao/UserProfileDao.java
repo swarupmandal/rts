@@ -34,6 +34,9 @@ public class UserProfileDao {
 																userprofileBean.getPassword().toUpperCase(),userprofileBean.getAddress().toUpperCase(),
 																userprofileBean.getContactno().toUpperCase(),userprofileBean.getEmail().toUpperCase()));
 					    
+					    	
+					    	logger.info(" insertUserData- " + preparedStatementInsert.unwrap(PreparedStatement.class));
+					    	
 							int i = preparedStatementInsert.executeUpdate();
 							if(i>0){
 								isSaved = true;	
@@ -52,8 +55,7 @@ public class UserProfileDao {
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
-					logger.error(e);
-					logger.error(e);
+					
 				}finally{
 					if(connection!=null){
 						connection.close();
@@ -62,8 +64,7 @@ public class UserProfileDao {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.error(e);
-			logger.error(e);
+			logger.fatal(e);
 		}
 		return isSaved;
 	}
@@ -82,6 +83,9 @@ public class UserProfileDao {
 					   try {
 						   preparedStatement = Pstm.createQuery(connection, UserProfileSql.fetchUserDeatils, null);
 							
+						   
+						   logger.info(" onLoadUserDeatils- " + preparedStatement.unwrap(PreparedStatement.class));
+						   
 							ResultSet resultSet = preparedStatement.executeQuery();
 							while (resultSet.next()) {
 								UserprofileBean bean = new UserprofileBean();
@@ -103,8 +107,7 @@ public class UserProfileDao {
 				    }
 				} catch (Exception e) {
 					e.printStackTrace();
-					logger.error(e);
-					logger.error(e);
+					
 				}finally{
 					if(connection!=null){
 						connection.close();
@@ -113,8 +116,7 @@ public class UserProfileDao {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.error(e);
-			logger.error(e);
+			logger.fatal(e);
 		}
 		return userList;
 	}
@@ -134,6 +136,9 @@ public class UserProfileDao {
 						   preparedStatementCount = Pstm.createQuery(connection, UserProfileSql.countNumberSql, Arrays.asList(userprofileBean.getUserid().toUpperCase(),
 								                                                                             userprofileBean.getPassword().toUpperCase()));
 							System.out.println(preparedStatementCount);
+							
+							logger.info(" countPresentUserDetails- " + preparedStatementCount.unwrap(PreparedStatement.class));
+							
 							ResultSet resultSet = preparedStatementCount.executeQuery();
 							while (resultSet.next()) {
 								count = resultSet.getInt(1);
@@ -146,8 +151,7 @@ public class UserProfileDao {
 				    }
 				} catch (Exception e) {
 					e.printStackTrace();
-					logger.error(e);
-					logger.error(e);
+					
 				}finally{
 					if(connection!=null){
 						connection.close();
@@ -156,8 +160,7 @@ public class UserProfileDao {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.error(e);
-			logger.error(e);
+			logger.fatal(e);
 		}
 		return count;
 	}
@@ -181,6 +184,9 @@ public class UserProfileDao {
 					    	
 					    	System.out.println(preparedStatementInsert);
 					    	
+					    	
+					    	logger.info(" updateUserData- " + preparedStatementInsert.unwrap(PreparedStatement.class));
+					    	
 							int i = preparedStatementInsert.executeUpdate();
 							if(i>0){
 								isUpdated = true;	
@@ -199,8 +205,7 @@ public class UserProfileDao {
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
-					logger.error(e);
-					logger.error(e);
+					
 				}finally{
 					if(connection!=null){
 						connection.close();
@@ -209,8 +214,7 @@ public class UserProfileDao {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.error(e);
-			logger.error(e);
+			logger.fatal(e);
 		}
 		return isUpdated;
 	}
@@ -232,6 +236,9 @@ public class UserProfileDao {
 					    	
 					    	System.out.println(preparedStatementInsert);
 					    	
+					    	
+					    	logger.info(" deleteUserData- " + preparedStatementInsert.unwrap(PreparedStatement.class));
+					    	
 							int i = preparedStatementInsert.executeUpdate();
 							if(i>0){
 								isDeleted = true;	
@@ -250,8 +257,7 @@ public class UserProfileDao {
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
-					logger.error(e);
-					logger.error(e);
+					
 				}finally{
 					if(connection!=null){
 						connection.close();
@@ -260,8 +266,7 @@ public class UserProfileDao {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.error(e);
-			logger.error(e);
+			logger.fatal(e);;
 		}
 		return isDeleted;
 	}

@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import org.apache.log4j.Logger;
 import org.appsquad.bean.ClientInformationBean;
 import org.appsquad.bean.SkillsetMasterbean;
 import org.appsquad.bean.StatusMasterBean;
@@ -15,6 +16,8 @@ import org.appsquad.sql.SortCriteriaSql;
 import org.appsquad.utility.Pstm;
 
 public class SortCriteriaDao {
+	
+	final static Logger logger = Logger.getLogger(SortCriteriaDao.class);
     
 	public static ArrayList<SkillsetMasterbean> onLoadSetDeatils(){
 		ArrayList<SkillsetMasterbean> skillList = new ArrayList<SkillsetMasterbean>();
@@ -30,6 +33,9 @@ public class SortCriteriaDao {
 					   try {
 						   preparedStatement = Pstm.createQuery(connection, SkillSetMasterSql.fetchSkillSetDetails, null);
 							
+						   
+						   logger.info(" onLoadSetDeatils- " + preparedStatement.unwrap(PreparedStatement.class));
+						   
 							ResultSet resultSet = preparedStatement.executeQuery();
 							while (resultSet.next()) {
 								SkillsetMasterbean masterbean = new SkillsetMasterbean();
@@ -54,6 +60,9 @@ public class SortCriteriaDao {
 				}
 			}
 		} catch (Exception e) {
+			
+			logger.fatal(e);
+			
 			e.printStackTrace();
 		}
 		return skillList;
@@ -73,6 +82,9 @@ public class SortCriteriaDao {
 					   try {
 						   preparedStatement = Pstm.createQuery(connection, SortCriteriaSql.statusQuery, null);
 							
+						   logger.info(" onLoadStatus- " + preparedStatement.unwrap(PreparedStatement.class));
+						   
+						   
 							ResultSet resultSet = preparedStatement.executeQuery();
 							while (resultSet.next()) {
 								StatusMasterBean bean = new StatusMasterBean();
@@ -96,6 +108,9 @@ public class SortCriteriaDao {
 				}
 			}
 		} catch (Exception e) {
+			
+			logger.fatal(e);
+			
 			e.printStackTrace();
 		}
 		return statusList;	
@@ -115,6 +130,9 @@ public class SortCriteriaDao {
 					   try {
 						   preparedStatement = Pstm.createQuery(connection, ClientInformationsql.fetchClientDeatils, null);
 							
+						   logger.info(" onLoadClientDeatils- " + preparedStatement.unwrap(PreparedStatement.class));
+						   
+						   
 							ResultSet resultSet = preparedStatement.executeQuery();
 							while (resultSet.next()) {
 								ClientInformationBean bean = new ClientInformationBean();
@@ -148,6 +166,10 @@ public class SortCriteriaDao {
 				}
 			}
 		} catch (Exception e) {
+			
+			
+			logger.fatal(e);
+			
 			e.printStackTrace();
 		}
 		return clientList;
