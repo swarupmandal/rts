@@ -79,7 +79,9 @@ public class LogingViewModel {
 						preparedStatement = Pstm.createQuery(connection, LoginSql.loginQuery, 
 								Arrays.asList(loginBean.getUserId(),loginBean.getPassword()));
 						
+						
 						logger.info("Login Function - " + preparedStatement.unwrap(PreparedStatement.class));
+						
 						resultSet = preparedStatement.executeQuery();
 						if(resultSet.next()){
 							String userId = resultSet.getString("user_id");

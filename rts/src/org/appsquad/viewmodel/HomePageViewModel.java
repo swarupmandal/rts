@@ -2,6 +2,7 @@ package org.appsquad.viewmodel;
 
 import java.sql.Connection;
 
+import org.apache.log4j.Logger;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
@@ -15,6 +16,9 @@ import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zul.Window;
 
 public class HomePageViewModel {
+	
+	final static Logger logger = Logger.getLogger(HomePageViewModel.class);
+	
 	Session session = null;
 	private String userId;
 	private Connection connection = null;
