@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import org.appsquad.bean.ClientInformationBean;
-import org.appsquad.bean.IndividualClientBean;
+import org.appsquad.bean.IndividualClientReportBean;
 import org.appsquad.bean.SkillsetMasterbean;
 import org.appsquad.bean.StatusMasterBean;
 import org.appsquad.dao.SortCriteriaDao;
@@ -20,7 +20,7 @@ import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.select.Selectors;
 
 public class IndividualClientReportViewModel {
-	IndividualClientBean individualClientBean = new IndividualClientBean();
+	IndividualClientReportBean individualClientReportBean = new IndividualClientReportBean();
 	
 	  private ArrayList<SkillsetMasterbean> skillList = new ArrayList<SkillsetMasterbean>();
 	  private ArrayList<StatusMasterBean> statusList = new ArrayList<StatusMasterBean>();
@@ -36,7 +36,7 @@ public class IndividualClientReportViewModel {
 			Selectors.wireComponents(view, this, false);
 			sessions = Sessions.getCurrent();
 			userId = (String) sessions.getAttribute("userId");
-			individualClientBean.setUserId(userId);
+			individualClientReportBean.setUserId(userId);
 			skillList = SortCriteriaDao.onLoadSetDeatils();
 			statusList = SortCriteriaDao.onLoadStatus();
 			clientList = SortCriteriaDao.onLoadClientDeatils();
@@ -45,46 +45,46 @@ public class IndividualClientReportViewModel {
 	    @Command
 	    @NotifyChange("*")
 	    public void onChangeFromDate(){
-	    	System.out.println("FROM DATE IS :"+Dateformatter.formatdate(individualClientBean.getFromDate()));
+	    	System.out.println("FROM DATE IS :"+Dateformatter.formatdate(individualClientReportBean.getFromDate()));
 	    }
 	    
 	    @Command
 	    @NotifyChange("*")
 	    public void onChangeToDate(){
-	    	System.out.println("TO DATE IS :"+Dateformatter.formatdate(individualClientBean.getToDate()));
+	    	System.out.println("TO DATE IS :"+Dateformatter.formatdate(individualClientReportBean.getToDate()));
 	    }
 	  
 	    @Command
 	    @NotifyChange("*")
 	    public void onSelectSkillName(){
-	    	System.out.println("SKILL ID IS :"+individualClientBean.getSkillsetMasterbean().getId());
+	    	System.out.println("SKILL ID IS :"+individualClientReportBean.getSkillsetMasterbean().getId());
 	    }
 	    
 	    @Command
 	    @NotifyChange("*")
 	    public void onSelectStatusName(){
-	    	System.out.println("Status ID IS :"+individualClientBean.getStatusMasterBean().getStatusId());
+	    	System.out.println("Status ID IS :"+individualClientReportBean.getStatusMasterBean().getStatusId());
 	    }
 	    
 	    @Command
 	    @NotifyChange("*")
 	    public void onSelectClientName(){
-	    	System.out.println("Client ID IS :"+individualClientBean.getClientInformationBean().getClientId());
+	    	System.out.println("Client ID IS :"+individualClientReportBean.getClientInformationBean().getClientId());
 	    }
 	    
 	    @Command
 	    @NotifyChange("*")
 	    public void onCheckRepairRedo(){
-	    	System.out.println("SELECTEDRADIOBUTTON DATA IS :"+individualClientBean.getSelectedRadioButton());
+	    	System.out.println("SELECTEDRADIOBUTTON DATA IS :"+individualClientReportBean.getSelectedRadioButton());
 	    }
 	  
 	/***************************************************************************************************************************************************/
 	  
-	public IndividualClientBean getIndividualClientBean() {
-		return individualClientBean;
+	public IndividualClientReportBean getIndividualClientBean() {
+		return individualClientReportBean;
 	}
-	public void setIndividualClientBean(IndividualClientBean individualClientBean) {
-		this.individualClientBean = individualClientBean;
+	public void setIndividualClientBean(IndividualClientReportBean individualClientReportBean) {
+		this.individualClientReportBean = individualClientReportBean;
 	}
 	public ArrayList<SkillsetMasterbean> getSkillList() {
 		return skillList;

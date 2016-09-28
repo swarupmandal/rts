@@ -2,7 +2,7 @@ package org.appsquad.bean;
 
 import java.util.Date;
 
-public class IndividualClientBean {
+public class IndividualClientReportBean {
 	private Date fromDate;
 	private Date toDate;
 	private String userId;
