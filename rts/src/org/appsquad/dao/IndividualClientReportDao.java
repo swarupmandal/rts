@@ -10,7 +10,7 @@ import org.appsquad.database.DbConnection;
 import org.appsquad.sql.IndividualRequirementSql;
 import org.appsquad.utility.Pstm;
 
-public class IndividualRequirementDao {
+public class IndividualClientReportDao {
 
 	public static ArrayList<RequirementGenerationBean> onLoadReqList(){
 		ArrayList<RequirementGenerationBean> reqIdList = new ArrayList<RequirementGenerationBean>();

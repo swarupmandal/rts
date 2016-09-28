@@ -19,10 +19,10 @@ import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.select.Selectors;
 
-public class IndividualClientViewModel {
+public class IndividualClientReportViewModel {
 	IndividualClientBean individualClientBean = new IndividualClientBean();
 	
-	private ArrayList<SkillsetMasterbean> skillList = new ArrayList<SkillsetMasterbean>();
+	  private ArrayList<SkillsetMasterbean> skillList = new ArrayList<SkillsetMasterbean>();
 	  private ArrayList<StatusMasterBean> statusList = new ArrayList<StatusMasterBean>();
 	  private ArrayList<ClientInformationBean> clientList = new ArrayList<ClientInformationBean>();
 	  
@@ -42,7 +42,7 @@ public class IndividualClientViewModel {
 			clientList = SortCriteriaDao.onLoadClientDeatils();
 		}  
 	  
-	  @Command
+	    @Command
 	    @NotifyChange("*")
 	    public void onChangeFromDate(){
 	    	System.out.println("FROM DATE IS :"+Dateformatter.formatdate(individualClientBean.getFromDate()));

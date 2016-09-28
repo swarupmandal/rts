@@ -1,7 +1,7 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
 <window title="Sort criteria:RID/Status" border="none" apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('org.appsquad.viewmodel.IndividualClientViewModel')">
+		viewModel="@id('vm') @init('org.appsquad.viewmodel.IndividualClientReportViewModel')">
     <div>
                           <hlayout>
                             <grid>

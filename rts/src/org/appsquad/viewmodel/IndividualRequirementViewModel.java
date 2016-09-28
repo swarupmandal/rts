@@ -8,7 +8,7 @@ import org.appsquad.bean.IndividualRequirementBean;
 import org.appsquad.bean.RequirementGenerationBean;
 import org.appsquad.bean.SkillsetMasterbean;
 import org.appsquad.bean.StatusMasterBean;
-import org.appsquad.dao.IndividualRequirementDao;
+import org.appsquad.dao.IndividualClientReportDao;
 import org.appsquad.dao.SortCriteriaDao;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.Command;
@@ -40,7 +40,7 @@ public class IndividualRequirementViewModel {
  		userId = (String) sessions.getAttribute("userId");
  		individualRequirementBean.setUserId(userId);
  		statusList = SortCriteriaDao.onLoadStatus();
- 		reqIdList = IndividualRequirementDao.onLoadReqList();
+ 		reqIdList = IndividualClientReportDao.onLoadReqList();
  	}
    
    @Command
