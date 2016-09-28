@@ -83,6 +83,7 @@ public class ResourceInformationUpdateViewModel {
 	@NotifyChange("*")
 	public void onSelectCountryName(){
 		stateList = ClientInformationDao.onLoadStateForResource(masterBean);
+		masterBean.getStateBean().setStateName(null);
 		bandBox.close();
 	}
 	
@@ -99,8 +100,6 @@ public class ResourceInformationUpdateViewModel {
 	@Command
 	@NotifyChange("*")
 	public void onUploadFileUpload(@ContextParam(ContextType.BIND_CONTEXT) BindContext bindContext) throws Exception{
-		
-
 		UploadEvent uploadEvent = null;
 		Object objUpEvent = bindContext.getTriggerEvent();
 		if (objUpEvent != null && (objUpEvent instanceof UploadEvent)) {
@@ -127,12 +126,8 @@ public class ResourceInformationUpdateViewModel {
         
         if(filePath != null){
         	masterBean.setFilePath(filePath);
-        }
-        
+          }
 		}
-	
-		
-		
 	}
 	
 	
@@ -140,6 +135,7 @@ public class ResourceInformationUpdateViewModel {
 	@NotifyChange("*")
 	public void onClickUpdateButton(){
 		flag = ResourceMasterService.updateResourceMasterData(masterBean);
+		System.out.println(flag);
 		if(flag){
 			winResourceUpdate.detach();
 			BindUtils.postGlobalCommand(null, null, "globalResourceDetailsUpdate", null);
@@ -239,35 +235,27 @@ public class ResourceInformationUpdateViewModel {
 	public void setSkillList(ArrayList<SkillsetMasterbean> skillList) {
 		this.skillList = skillList;
 	}
-
 	public String getFilePath() {
 		return filePath;
 	}
-
 	public void setFilePath(String filePath) {
 		this.filePath = filePath;
 	}
-
 	public boolean isFileuploaded() {
 		return fileuploaded;
 	}
-
 	public void setFileuploaded(boolean fileuploaded) {
 		this.fileuploaded = fileuploaded;
 	}
-
 	public AMedia getFileContent() {
 		return fileContent;
 	}
-
 	public void setFileContent(AMedia fileContent) {
 		this.fileContent = fileContent;
 	}
-
 	public String getFileName() {
 		return fileName;
 	}
-
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
 	}	

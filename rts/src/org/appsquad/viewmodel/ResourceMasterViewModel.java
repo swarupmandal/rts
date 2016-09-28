@@ -90,6 +90,7 @@ public class ResourceMasterViewModel {
 	@Command
 	@NotifyChange("*")
 	public void onSelectCountryName(){
+		resourceMasterBean.getStateBean().setStateName(null);
 		stateList = ClientInformationDao.onLoadStateForResource(resourceMasterBean);
 		bandBox.close();
 	}
@@ -109,6 +110,7 @@ public class ResourceMasterViewModel {
 	public void onClickSubmitButton(){
 		boolean isInsert = false;
 		isInsert = ResourceMasterService.insertClientMasterData(resourceMasterBean);
+		System.out.println("*******"+isInsert);
 		if(isInsert){
 			ResourceMasterService.clearAllField(resourceMasterBean);
 			fileName = null;
@@ -155,9 +157,8 @@ public class ResourceMasterViewModel {
         
         if(filePath != null){
         	resourceMasterBean.setFilePath(filePath);
-        }
-        
-		}
+          }
+	   }
 	}
 	
 	
@@ -253,11 +254,9 @@ public class ResourceMasterViewModel {
 	public void setFileContent(AMedia fileContent) {
 		this.fileContent = fileContent;
 	}
-
 	public String getFileName() {
 		return fileName;
 	}
-
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
 	}

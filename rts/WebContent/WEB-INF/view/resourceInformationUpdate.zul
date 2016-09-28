@@ -78,17 +78,25 @@
 								</row>
 						<row>
 						  <label value="Pin/Zip code:" style="font-weight:bold"></label>		
-						  <textbox width="75%" value="@bind(vm.masterBean.picCode)"></textbox>	
+						  <textbox width="75%" value="@bind(vm.masterBean.picCode)" maxlength="6" constraint="no negative,no zero"></textbox>	
 						</row>
 						
 						<row>
 						  <label value="Contact no:" style="font-weight:bold"></label>		
-						  <textbox width="75%" value="@bind(vm.masterBean.contactNumber)"></textbox>	
+						  <textbox width="75%" value="@bind(vm.masterBean.contactNumber)"
+						     xmlns:w="client">
+						     <attribute w:name="doKeyPress_">
+								<![CDATA[ function(evt) { if ( (evt.which >
+								31) && (evt.which < 48 ||
+								evt.which > 57)) evt.stop(); } ]]>
+							</attribute>
+						  </textbox>	
 						</row>
 						
 						<row>
 						  <label value="Email Id:" style="font-weight:bold"></label>		
-						  <textbox width="75%" value="@bind(vm.masterBean.emailId)"></textbox>	
+						  <textbox width="75%" value="@bind(vm.masterBean.emailId)">
+						  </textbox>	
 						</row>
 						
 						<row>

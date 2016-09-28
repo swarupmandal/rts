@@ -59,6 +59,13 @@ public class ResourceAllocationViewModel {
 	    @Command
 	    @NotifyChange("*")
 	    public void onSelectReqSkill(){
+	    	resourceAllocationBean.getResourceTypeBean().setResourceTypeName(null);
+	    	resourceAllocationBean.setRequiredResourcenumber(null);
+	    	resourceAllocationBean.setAllocatedResourceNumber(null);
+	    	resourceAllocationBean.setDivVisibility(false);
+	    	if(resourceTypeList.size()>0){
+	    		resourceTypeList.clear();
+	    	}
 	    	resourceTypeList = ResourceAllocationDao.onLoadResourceTypeDetails();
 	    	resourceAllocationBean.getMasterbean().setSkillset(ResourceAllocationDao.fetchSkillDetails(resourceAllocationBean.getClientInformationBean().getClientId(), resourceAllocationBean.getRequirementGenerationBean().getRequirementId()));
 	    	bandBox.close();
@@ -67,6 +74,12 @@ public class ResourceAllocationViewModel {
 	    @Command
 	    @NotifyChange("*")
 	    public void onSelectClientName(){
+	    	resourceAllocationBean.getRequirementGenerationBean().setRequirementId(null);
+	    	resourceAllocationBean.getMasterbean().setSkillset(null);
+	    	resourceAllocationBean.getResourceTypeBean().setResourceTypeName(null);
+	    	resourceAllocationBean.setRequiredResourcenumber(null);
+	    	resourceAllocationBean.setAllocatedResourceNumber(null);
+	    	resourceAllocationBean.setDivVisibility(false);
 	    	if(requirementDetailsList.size()>0){
 	    		requirementDetailsList.clear();
 	    	}
@@ -87,6 +100,9 @@ public class ResourceAllocationViewModel {
 	    	resourceAllocationBean.setRequiredResourcenumber(ResourceAllocationDao.fetchRequiredResourceNumber(resourceAllocationBean.getClientInformationBean().getClientId(), resourceAllocationBean.getRequirementGenerationBean().getRequirementId(),resourceAllocationBean.getResourceTypeBean().getResourceTypeName()));
 	        resourceAllocationBean.setAllocatedResourceNumber(ResourceAllocationDao.fetchRequiredResourceNumberAllocated(resourceAllocationBean.getClientInformationBean().getClientId(), resourceAllocationBean.getRequirementGenerationBean().getRequirementId(),resourceAllocationBean.getResourceTypeBean().getResourceTypeName()));
 	        resourceAllocationBean.setDivVisibility(true);
+	        if(resourceList.size()>0){
+	        	resourceList.clear();
+	        }
 	    	resourceList = ResourceAllocationDao.onLoadResourceDetails(resourceAllocationBean);
 	    	resourceAllocationBean.setAssignButtonVisibility(true);
 	    }

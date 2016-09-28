@@ -89,7 +89,7 @@
 					  <label value="Contact no:" style="font-weight:bold"></label>
 					 <textbox value="@bind(vm.clientInformationBean.contactNo)" maxlength="15" width="36%"
 					     xmlns:w="client">
-					     <attribute w:name="doKeyPress_">
+					     	<attribute w:name="doKeyPress_">
 								<![CDATA[ function(evt) { if ( (evt.which >
 								31) && (evt.which < 48 ||
 								evt.which > 57)) evt.stop(); } ]]>
