@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Arrays;
 
+import org.apache.log4j.Logger;
 import org.appsquad.bean.LoginBean;
 import org.appsquad.database.DbConnection;
 import org.appsquad.sql.LoginSql;
@@ -26,6 +27,9 @@ public class LogingViewModel {
 	LoginBean loginBean = new LoginBean();
 	private Connection connection = null;
 	Session session = null;
+	
+	final static Logger logger = Logger.getLogger(LogingViewModel.class);
+	
 	@AfterCompose
 	public void initSetUp(@ContextParam(ContextType.VIEW) Component view) throws Exception{
 		Selectors.wireComponents(view, this, false);
@@ -74,6 +78,8 @@ public class LogingViewModel {
 				     try {
 						preparedStatement = Pstm.createQuery(connection, LoginSql.loginQuery, 
 								Arrays.asList(loginBean.getUserId(),loginBean.getPassword()));
+						
+						logger.info("Login Function - " + preparedStatement.unwrap(PreparedStatement.class));
 						resultSet = preparedStatement.executeQuery();
 						if(resultSet.next()){
 							String userId = resultSet.getString("user_id");
@@ -89,12 +95,14 @@ public class LogingViewModel {
 					}
 			    }
 			} catch (Exception e) {
+				logger.fatal("--------------------- " + e);
 				e.printStackTrace();
 			}finally{
 				if(connection!=null){
 					try {
 						connection.close();
 					} catch (SQLException e) {
+						
 						e.printStackTrace();
 					}
 				}

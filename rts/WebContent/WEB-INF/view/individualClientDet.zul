@@ -1,8 +1,33 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="Sort criteria:RID/Status" border="none" apply="org.zkoss.bind.BindComposer"
+<window title="SORT CRITERIA : RID/STATUS" border="none" apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('org.appsquad.viewmodel.IndividualClientReportViewModel')">
-    <div>
+    		
+    		<div>
+    			<hlayout spacing="20px">
+    				<bandbox placeholder="Search by Client" width="250px"></bandbox>
+    				
+    				
+    				<datebox placeholder="From Date"></datebox>
+    				<datebox placeholder="To Date"></datebox>
+    				<bandbox placeholder="Skill Set" width="200px"></bandbox>
+    				<combobox placeholder="Resourceing Status"></combobox>
+    				
+    			</hlayout>
+    			<space></space>
+    			
+    			<hlayout spacing="20px">
+    				<radiogroup onCheck="@command('onCheckRepairRedo')" selectedItem="@bind(vm.individualClientBean.selectedRadioButton)">
+						<radio label="Deatil" value="detail" style="font-weight:bold; color: black"/>
+						<space></space>	
+						<radio label="Summary" value="summary" style="font-weight:bold; color: black"/>
+					</radiogroup>
+    			</hlayout>
+    		</div>
+    		
+    		
+    		
+    				<div visible="false">
                           <hlayout>
                             <grid>
                                 <columns>
