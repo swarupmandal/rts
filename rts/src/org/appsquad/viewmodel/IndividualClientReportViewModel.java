@@ -45,37 +45,37 @@ public class IndividualClientReportViewModel {
 	    @Command
 	    @NotifyChange("*")
 	    public void onChangeFromDate(){
-	    	System.out.println("FROM DATE IS :"+Dateformatter.formatdate(individualClientReportBean.getFromDate()));
+	    	
 	    }
 	    
 	    @Command
 	    @NotifyChange("*")
 	    public void onChangeToDate(){
-	    	System.out.println("TO DATE IS :"+Dateformatter.formatdate(individualClientReportBean.getToDate()));
+	    	
 	    }
 	  
 	    @Command
 	    @NotifyChange("*")
 	    public void onSelectSkillName(){
-	    	System.out.println("SKILL ID IS :"+individualClientReportBean.getSkillsetMasterbean().getId());
+	    	
 	    }
 	    
 	    @Command
 	    @NotifyChange("*")
 	    public void onSelectStatusName(){
-	    	System.out.println("Status ID IS :"+individualClientReportBean.getStatusMasterBean().getStatusId());
+	    	
 	    }
 	    
 	    @Command
 	    @NotifyChange("*")
 	    public void onSelectClientName(){
-	    	System.out.println("Client ID IS :"+individualClientReportBean.getClientInformationBean().getClientId());
+	    	
 	    }
 	    
 	    @Command
 	    @NotifyChange("*")
 	    public void onCheckRepairRedo(){
-	    	System.out.println("SELECTEDRADIOBUTTON DATA IS :"+individualClientReportBean.getSelectedRadioButton());
+	    	
 	    }
 	  
 	/***************************************************************************************************************************************************/

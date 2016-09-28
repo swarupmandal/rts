@@ -11,7 +11,7 @@ public class ResourceMasterService {
 	public static boolean isValid(ResourceMasterBean resourceMasterBean){
 		if(resourceMasterBean.getName()!=null && resourceMasterBean.getName().trim().length()>0){
 			if(resourceMasterBean.getSurName()!=null && resourceMasterBean.getSurName().trim().length()>0){
-				if(resourceMasterBean.getYearOfExperience()>0){
+				if(resourceMasterBean.getYearOfExperience() != null){
 					if(resourceMasterBean.getSkillsetMasterbean().getSkillset()!=null && resourceMasterBean.getSkillsetMasterbean().getSkillset().trim().length()>0){
 						if(resourceMasterBean.getAddress()!=null && resourceMasterBean.getAddress().trim().length()>0){
 							if(resourceMasterBean.getCountryBean().getCountryName()!=null){
