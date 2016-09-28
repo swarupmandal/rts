@@ -7,7 +7,10 @@ import org.appsquad.bean.ClientInformationBean;
 import org.appsquad.bean.IndividualClientReportBean;
 import org.appsquad.bean.SkillsetMasterbean;
 import org.appsquad.bean.StatusMasterBean;
+import org.appsquad.dao.ResourceMasterDao;
 import org.appsquad.dao.SortCriteriaDao;
+import org.appsquad.service.RequirementGenerationService;
+import org.appsquad.service.ResourceAllocationTrackingService;
 import org.appsquad.utility.Dateformatter;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.Command;
@@ -20,7 +23,8 @@ import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.select.Selectors;
 
 public class IndividualClientReportViewModel {
-	IndividualClientReportBean individualClientReportBean = new IndividualClientReportBean();
+	
+	  IndividualClientReportBean individualClientReportBean = new IndividualClientReportBean();
 	
 	  private ArrayList<SkillsetMasterbean> skillList = new ArrayList<SkillsetMasterbean>();
 	  private ArrayList<StatusMasterBean> statusList = new ArrayList<StatusMasterBean>();
@@ -37,55 +41,50 @@ public class IndividualClientReportViewModel {
 			sessions = Sessions.getCurrent();
 			userId = (String) sessions.getAttribute("userId");
 			individualClientReportBean.setUserId(userId);
-			skillList = SortCriteriaDao.onLoadSetDeatils();
-			statusList = SortCriteriaDao.onLoadStatus();
-			clientList = SortCriteriaDao.onLoadClientDeatils();
+			skillList = RequirementGenerationService.fetchSkillSetList();
+			statusList = ResourceMasterDao.onLoadStatus();
+			clientList = ResourceAllocationTrackingService.fetchClientDetails();
 		}  
 	  
-	    @Command
-	    @NotifyChange("*")
-	    public void onChangeFromDate(){
-	    	
-	    }
+	   @Command
+	   @NotifyChange("*")
+	   public void onChangeClientName(){
+		   System.out.println("--");
+	   }
 	    
-	    @Command
-	    @NotifyChange("*")
-	    public void onChangeToDate(){
-	    	
-	    }
-	  
-	    @Command
-	    @NotifyChange("*")
-	    public void onSelectSkillName(){
-	    	
-	    }
+	   
+	   @Command
+	   @NotifyChange("*")
+	   public void onSelctClientName(){
+		   System.out.println(">>> >> > ");
+	   }
 	    
-	    @Command
-	    @NotifyChange("*")
-	    public void onSelectStatusName(){
-	    	
-	    }
-	    
-	    @Command
-	    @NotifyChange("*")
-	    public void onSelectClientName(){
-	    	
-	    }
-	    
-	    @Command
-	    @NotifyChange("*")
-	    public void onCheckRepairRedo(){
-	    	
-	    }
-	  
-	/***************************************************************************************************************************************************/
-	  
-	public IndividualClientReportBean getIndividualClientBean() {
-		return individualClientReportBean;
-	}
-	public void setIndividualClientBean(IndividualClientReportBean individualClientReportBean) {
-		this.individualClientReportBean = individualClientReportBean;
-	}
+	   
+	   @Command
+	   @NotifyChange("*")
+	   public void onCheckRepairRedo(){
+		   
+	   }
+	   
+	   @Command
+	   @NotifyChange("*")
+	   public void onSelectStatusName(){
+		   
+	   }
+	
+	   @Command
+	   @NotifyChange("*")
+	   public void onChangeSkillName(){
+		   
+	   }
+	   
+	   @Command
+	   @NotifyChange("*")
+	   public void onSelctSkillName(){
+		   
+	   }
+	   
+	
 	public ArrayList<SkillsetMasterbean> getSkillList() {
 		return skillList;
 	}
@@ -127,5 +126,14 @@ public class IndividualClientReportViewModel {
 	}
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+
+	public IndividualClientReportBean getIndividualClientReportBean() {
+		return individualClientReportBean;
+	}
+
+	public void setIndividualClientReportBean(
+			IndividualClientReportBean individualClientReportBean) {
+		this.individualClientReportBean = individualClientReportBean;
 	}
 }

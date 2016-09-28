@@ -5,19 +5,70 @@
     		
     		<div>
     			<hlayout spacing="20px">
-    				<bandbox placeholder="Search by Client" width="250px"></bandbox>
+    				
+    				<bandbox autodrop="true" readonly="true" id="clname" value="@bind(vm.individualClientReportBean.clientInformationBean.fullName)" placeholder="Search By Client">
+						<bandpopup>	
+							<hbox>
+								<textbox value="@bind(vm.individualClientReportBean.clientNameSearch)" onChange="@command('onChangeClientName')"></textbox>
+								<button label="Serach" onClick="@command('onChangeClientName')"></button>
+							</hbox>
+							<space></space>
+							<listbox width="280px" model="@bind(vm.clientList)" 
+							     selectedItem="@bind(vm.individualClientReportBean.clientInformationBean)" onSelect="@command('onSelctClientName')" mold="paging" pageSize="5">
+								<listhead sizable="true">
+									<listheader label="Client Name"></listheader>
+								</listhead>
+								
+								<template name="model" var = "v">
+								<listitem>
+								  <listcell label="@load(v.fullName)"></listcell>
+								</listitem>
+							   </template>
+							</listbox>
+						</bandpopup>
+					</bandbox>
+    				
+    				<datebox placeholder="From Date" format="dd-MMM-yyyy" value="@bind(vm.individualClientReportBean.fromDate)" onChange="@command('onChangeFromDate')" ></datebox>
+    				
+    				<datebox placeholder="To Date" format="dd-MMM-yyyy" value="@bind(vm.individualClientReportBean.toDate)" onChange="@command('onChangeToDate')"></datebox>
+    				
+    				<bandbox autodrop="true" readonly="true" id="skSt" value="@bind(vm.individualClientReportBean.skillsetMasterbean.skillset)" placeholder="Search by Skill Set">
+						<bandpopup>	
+							<hbox>
+								<textbox value="@bind(vm.individualClientReportBean.skillSetSearch)" onChange="@command('onChangeSkillName')"></textbox>
+								<button label="Serach" onClick="@command('onChangeSkillName')"></button>
+							</hbox>
+							<space></space>
+							<listbox width="280px" model="@bind(vm.skillList)" 
+							     selectedItem="@bind(vm.individualClientReportBean.skillsetMasterbean)" onSelect="@command('onSelctSkillName')" mold="paging" pageSize="5">
+								<listhead sizable="true">
+									<listheader label="Skill Set"></listheader>
+								</listhead>
+								
+								<template name="model" var = "v">
+								<listitem>
+								  <listcell label="@load(v.skillset)"></listcell>
+								</listitem>
+							   </template>
+							</listbox>
+						</bandpopup>
+					</bandbox>
     				
     				
-    				<datebox placeholder="From Date"></datebox>
-    				<datebox placeholder="To Date"></datebox>
-    				<bandbox placeholder="Skill Set" width="200px"></bandbox>
-    				<combobox placeholder="Resourceing Status"></combobox>
+    				
+    				
+    				<combobox model="@bind(vm.statusList)" selectedItem="@bind(vm.individualClientReportBean.statusMasterBean)" readonly="true"
+		             	value="@bind(vm.individualClientReportBean.statusMasterBean.status)" placeholder="Resourcing Status" onSelect="@command('onSelectStatusName')">
+		                <template name="model" var="p">
+		                   <comboitem value="@bind(p.statusId)" label="@bind(p.status)"/>
+		                </template>
+		            </combobox>	
     				
     			</hlayout>
     			<space></space>
     			
     			<hlayout spacing="20px">
-    				<radiogroup onCheck="@command('onCheckRepairRedo')" selectedItem="@bind(vm.individualClientBean.selectedRadioButton)">
+    				<radiogroup onCheck="@command('onCheckRepairRedo')" selectedItem="@bind(vm.individualClientReportBean.selectedRadioButton)">
 						<radio label="Deatil" value="detail" style="font-weight:bold; color: black"/>
 						<space></space>	
 						<radio label="Summary" value="summary" style="font-weight:bold; color: black"/>
@@ -27,68 +78,7 @@
     		
     		
     		
-    				<div visible="false">
-                          <hlayout>
-                            <grid>
-                                <columns>
-                                      <column></column>
-                                      <column></column>
-                                </columns>
-                                <rows>
-                                
-                                   <row>
-                                        <label value="Client-Name"></label>
-								       <combobox model="@bind(vm.clientList)" selectedItem="@bind(vm.individualClientBean.clientInformationBean)" readonly="true"
-		             						value="@bind(vm.individualClientBean.clientInformationBean.fullName)" width="50%" onSelect="@command('onSelectClientName')">
-		             					<template name="model" var="p">
-		             					<comboitem value="@bind(p.fullName)" label="@bind(p.fullName)"/>
-		             					</template>
-		             					</combobox>
-                                   
-                                   </row>
-                                   
-								   <row>
-					  					<label value="From-date" style="font-weight:bold"></label>		
-					  					 <datebox format="dd-MMM-yyyy"
-										value="@bind(vm.individualClientBean.fromDate)" onChange="@command('onChangeFromDate')"></datebox>
-								  
-					  					<label value="To-Date" style="font-weight:bold"></label>		
-					  						<datebox format="dd-MMM-yyyy"
-										       value="@bind(vm.individualClientBean.toDate)" onChange="@command('onChangeToDate')"></datebox>
-								   </row>
-								   
-								   <row>
-								     <label value="Skill-Set" style="font-weight:bold"></label>
-								     <combobox model="@bind(vm.skillList)" selectedItem="@bind(vm.individualClientBean.skillsetMasterbean)" readonly="true"
-		             					value="@bind(vm.individualClientBean.skillsetMasterbean.skillset)" width="50%" onSelect="@command('onSelectSkillName')">
-		             					<template name="model" var="p">
-		             						<comboitem value="@bind(p.skillset)" label="@bind(p.skillset)"/>
-		             					</template>
-		             				</combobox>	
-		             				
-		             				<label value="Resourcing Status"></label>
-								       <combobox model="@bind(vm.statusList)" selectedItem="@bind(vm.individualClientBean.statusMasterBean)" readonly="true"
-		             						value="@bind(vm.individualClientBean.statusMasterBean.status)" width="50%" onSelect="@command('onSelectStatusName')">
-		             					<template name="model" var="p">
-		             					<comboitem value="@bind(p.status)" label="@bind(p.status)"/>
-		             					</template>
-		             					</combobox>	
-		             				
-								   </row>
-								   
-								   <row>
-								   
-								       <radiogroup onCheck="@command('onCheckRepairRedo')" selectedItem="@bind(vm.individualClientBean.selectedRadioButton)">
-											<radio label="Deatil" value="detail"/>
-											<space></space>
-											<radio label="Summary" value="summary"/>
-										</radiogroup>
-								   
-								   </row>
-								   
-								 </rows>
-                            </grid>
-                            </hlayout>
-                        </div>
+    		
+
 </window>
 </zk>

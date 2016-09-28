@@ -70,6 +70,11 @@ public class SortCriteriaDao {
 	
 	public static ArrayList<StatusMasterBean> onLoadStatus(){
 		ArrayList<StatusMasterBean> statusList = new ArrayList<StatusMasterBean>();
+		
+		if(statusList.size()>0){
+			statusList.clear();
+		}
+		
 		Connection connection = null;
 		try {
 			connection = DbConnection.createConnection();
