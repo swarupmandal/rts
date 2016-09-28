@@ -7,6 +7,8 @@ public class IndividualClientReportBean {
 	private Date toDate;
 	private String userId;
 	private String selectedRadioButton;
+	private String clientNameSearch;
+	private String skillSetSearch;
 	
 	private SkillsetMasterbean masterbean = new SkillsetMasterbean();
 	private StatusMasterBean statusMasterBean = new StatusMasterBean();
@@ -70,5 +72,17 @@ public class IndividualClientReportBean {
 	}
 	public void setClientInformationBean(ClientInformationBean clientInformationBean) {
 		this.clientInformationBean = clientInformationBean;
+	}
+	public String getClientNameSearch() {
+		return clientNameSearch;
+	}
+	public void setClientNameSearch(String clientNameSearch) {
+		this.clientNameSearch = clientNameSearch;
+	}
+	public String getSkillSetSearch() {
+		return skillSetSearch;
+	}
+	public void setSkillSetSearch(String skillSetSearch) {
+		this.skillSetSearch = skillSetSearch;
 	}
 }
