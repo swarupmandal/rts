@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 import org.appsquad.bean.RequirementGenerationBean;
 import org.appsquad.database.DbConnection;
-import org.appsquad.sql.IndividualRequirementSql;
+import org.appsquad.sql.IndividualClientRequirementSql;
 import org.appsquad.utility.Pstm;
 
 public class IndividualClientReportDao {
@@ -24,7 +24,7 @@ public class IndividualClientReportDao {
 					sql_fetch:{
 					   PreparedStatement preparedStatement = null;
 					   try {
-						   preparedStatement = Pstm.createQuery(connection, IndividualRequirementSql.fetchReqIdList, null);
+						   preparedStatement = Pstm.createQuery(connection, IndividualClientRequirementSql.fetchReqIdList, null);
 							
 							ResultSet resultSet = preparedStatement.executeQuery();
 							while (resultSet.next()) {
