@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 
+import org.apache.log4j.Logger;
 import org.appsquad.bean.ClientInformationBean;
 import org.appsquad.bean.RequirementGenerationBean;
 import org.appsquad.bean.ResourceAllocationTrackingBean;
@@ -18,6 +19,9 @@ import org.appsquad.utility.Pstm;
 
 
 public class ResourceAllocationTrackingDao {
+	
+	final static Logger logger = Logger.getLogger(ResourceAllocationTrackingDao.class);
+	
 	public static ArrayList<ClientInformationBean> fetchClientDetails(){
 		ArrayList<ClientInformationBean> list = new ArrayList<ClientInformationBean>();
 		if(list.size()>0){
@@ -30,6 +34,9 @@ public class ResourceAllocationTrackingDao {
 			try {
 				connection = DbConnection.createConnection();
 				preparedStatement = Pstm.createQuery(connection, ResourceAllocationTrackingSql.loadClientList, null);
+				
+				logger.info(" fetchClientDetails- " + preparedStatement.unwrap(PreparedStatement.class));
+				
 				resultSet = preparedStatement.executeQuery();
 				while (resultSet.next()) {
 					ClientInformationBean bean = new ClientInformationBean();
@@ -48,6 +55,10 @@ public class ResourceAllocationTrackingDao {
 				}
 			}
 		} catch (Exception e) {
+			
+			
+			logger.fatal(e);
+			
 			e.printStackTrace();
 		}
 		return list;
@@ -63,6 +74,9 @@ public class ResourceAllocationTrackingDao {
 			try {
 				connection = DbConnection.createConnection();
 				preparedStatement = Pstm.createQuery(connection, ResourceAllocationTrackingSql.countStatusTrackingTable, Arrays.asList(rId,resId,statusId));
+				
+				logger.info(" countStatusTrackingTable- " + preparedStatement.unwrap(PreparedStatement.class));
+				
 				resultSet = preparedStatement.executeQuery();
 				while (resultSet.next()) {
 					count = resultSet.getInt(1);
@@ -77,6 +91,9 @@ public class ResourceAllocationTrackingDao {
 				}
 			}
 		} catch (Exception e) {
+			
+			logger.fatal(e);
+			
 			e.printStackTrace();
 		}
 		return count;
@@ -95,6 +112,10 @@ public class ResourceAllocationTrackingDao {
 			try {
 				connection = DbConnection.createConnection();
 				preparedStatement = Pstm.createQuery(connection, ResourceAllocationTrackingSql.loadReqIdList, Arrays.asList(clId));
+				
+				logger.info(" fetchReqirmentDetails- " + preparedStatement.unwrap(PreparedStatement.class));
+				
+				
 				resultSet = preparedStatement.executeQuery();
 				while (resultSet.next()) {
 					RequirementGenerationBean bean = new RequirementGenerationBean();
@@ -114,6 +135,9 @@ public class ResourceAllocationTrackingDao {
 				}
 			}
 		} catch (Exception e) {
+			
+			logger.fatal(e);
+			
 			e.printStackTrace();
 		}
 		return list;
@@ -131,6 +155,9 @@ public class ResourceAllocationTrackingDao {
 			try {
 				connection = DbConnection.createConnection();
 				preparedStatement = Pstm.createQuery(connection, ResourceAllocationTrackingSql.loadClNameSearch, Arrays.asList("%"+name.trim().toUpperCase()+"%"));
+				
+				logger.info("fetchClientDetailsSearch - " + preparedStatement.unwrap(PreparedStatement.class));
+				
 				resultSet = preparedStatement.executeQuery();
 				while (resultSet.next()) {
 					ClientInformationBean bean = new ClientInformationBean();
@@ -149,6 +176,9 @@ public class ResourceAllocationTrackingDao {
 				}
 			}
 		} catch (Exception e) {
+			
+			logger.fatal(e);
+			
 			e.printStackTrace();
 		}
 		return list;
@@ -167,6 +197,10 @@ public class ResourceAllocationTrackingDao {
 			try {
 				connection = DbConnection.createConnection();
 				preparedStatement = Pstm.createQuery(connection, ResourceAllocationTrackingSql.loadReqIdSearch, Arrays.asList(clId,"%"+id+"%"));
+				
+				
+				logger.info("fetchReqirmentDetailsSearch - " + preparedStatement.unwrap(PreparedStatement.class));
+				
 				resultSet = preparedStatement.executeQuery();
 				while (resultSet.next()) {
 					RequirementGenerationBean bean = new RequirementGenerationBean();
@@ -186,6 +220,10 @@ public class ResourceAllocationTrackingDao {
 				}
 			}
 		} catch (Exception e) {
+			
+			
+			logger.fatal(e);
+			
 			e.printStackTrace();
 		}
 		return list;
@@ -204,6 +242,10 @@ public class ResourceAllocationTrackingDao {
 			try {
 				connection = DbConnection.createConnection();
 				preparedStatement = Pstm.createQuery(connection, ResourceAllocationTrackingSql.loadTrackingBean, Arrays.asList(r_id,clId));
+				
+				logger.info("fetchResAllTrackingDetails - " + preparedStatement.unwrap(PreparedStatement.class));
+				
+				
 				resultSet = preparedStatement.executeQuery();
 				while (resultSet.next()) {
 					ResourceAllocationTrackingBean bean = new ResourceAllocationTrackingBean();
@@ -250,6 +292,9 @@ public class ResourceAllocationTrackingDao {
 				}
 			}
 		} catch (Exception e) {
+			
+			logger.fatal(e);
+			
 			e.printStackTrace();
 		}
 		return list;
@@ -267,6 +312,10 @@ public class ResourceAllocationTrackingDao {
 			try {
 				connection = DbConnection.createConnection();
 				preparedStatement = Pstm.createQuery(connection, ResourceAllocationTrackingSql.loadTrackingBeanSearch, Arrays.asList(r_id,clId, "%"+fullname.trim().toUpperCase()+"%"));
+				
+				logger.info(" fetchResAllTrackingSearch- " + preparedStatement.unwrap(PreparedStatement.class));
+				
+				
 				resultSet = preparedStatement.executeQuery();
 				while (resultSet.next()) {
 					ResourceAllocationTrackingBean bean = new ResourceAllocationTrackingBean();
@@ -312,6 +361,9 @@ public class ResourceAllocationTrackingDao {
 				}
 			}
 		} catch (Exception e) {
+			
+			logger.fatal(e);
+			
 			e.printStackTrace();
 		}
 		return list;
@@ -326,6 +378,9 @@ public class ResourceAllocationTrackingDao {
 			try {
 				connection = DbConnection.createConnection();
 				preparedStatement = Pstm.createQuery(connection, ResourceAllocationTrackingSql.inSertLastStatus, Arrays.asList(rId, resId, statusId,userId, userId));
+				
+				logger.info(" inSertFinalStatus- " + preparedStatement.unwrap(PreparedStatement.class));
+				
 				i = preparedStatement.executeUpdate();
 			}catch(Exception e){
 				e.printStackTrace();
@@ -337,6 +392,9 @@ public class ResourceAllocationTrackingDao {
 				}
 			}
 		} catch (Exception e) {
+			
+			logger.fatal(e);
+			
 			e.printStackTrace();
 		}
 		return i;
@@ -360,6 +418,9 @@ public class ResourceAllocationTrackingDao {
 				}
 				preparedStatement.setString(5, userId);
 				preparedStatement.setString(6, userId);
+				
+				logger.info(" intInterviewDate- " + preparedStatement.unwrap(PreparedStatement.class));
+				
 				i = preparedStatement.executeUpdate();
 			}catch(Exception e){
 				e.printStackTrace();
@@ -371,6 +432,9 @@ public class ResourceAllocationTrackingDao {
 				}
 			}
 		} catch (Exception e) {
+			
+			logger.fatal(e);
+			
 			e.printStackTrace();
 		}
 		return i;
@@ -394,6 +458,10 @@ public class ResourceAllocationTrackingDao {
 				preparedStatement.setInt(4, rId);
 				preparedStatement.setInt(5, resId);
 				preparedStatement.setInt(6, clientId);
+				
+				
+				logger.info(" updateInterviewDate- " + preparedStatement.unwrap(PreparedStatement.class));
+				
 				j = preparedStatement.executeUpdate();
 			}catch(Exception e){
 				e.printStackTrace();
@@ -405,6 +473,9 @@ public class ResourceAllocationTrackingDao {
 				}
 			}
 		} catch (Exception e) {
+			
+			logger.fatal(e);
+			
 			e.printStackTrace();
 		}
 		return j;
@@ -428,6 +499,10 @@ public class ResourceAllocationTrackingDao {
 				}
 				preparedStatement.setString(5, userId);
 				preparedStatement.setString(6, userId);
+				
+				
+				logger.info(" clientInterviewDate- " + preparedStatement.unwrap(PreparedStatement.class));
+				
 				i = preparedStatement.executeUpdate();
 			}catch(Exception e){
 				e.printStackTrace();
@@ -439,6 +514,10 @@ public class ResourceAllocationTrackingDao {
 				}
 			}
 		} catch (Exception e) {
+			
+			
+			logger.fatal(e);
+			
 			e.printStackTrace();
 		}
 		return i;
@@ -462,6 +541,10 @@ public class ResourceAllocationTrackingDao {
 				preparedStatement.setInt(4, rId);
 				preparedStatement.setInt(5, resId);
 				preparedStatement.setInt(6, clientId);
+				
+				
+				logger.info("updateClientInterviewDate- " + preparedStatement.unwrap(PreparedStatement.class));
+				
 				i = preparedStatement.executeUpdate();
 			}catch(Exception e){
 				e.printStackTrace();
@@ -473,6 +556,9 @@ public class ResourceAllocationTrackingDao {
 				}
 			}
 		} catch (Exception e) {
+			
+			logger.fatal(e);
+			
 			e.printStackTrace();
 		}
 		return i;
@@ -496,6 +582,10 @@ public class ResourceAllocationTrackingDao {
 				}
 				preparedStatement.setString(5, userId);
 				preparedStatement.setString(6, userId);
+				
+				
+				logger.info("onboardDate- " + preparedStatement.unwrap(PreparedStatement.class));
+				
 				i = preparedStatement.executeUpdate();
 			}catch(Exception e){
 				e.printStackTrace();
@@ -507,6 +597,9 @@ public class ResourceAllocationTrackingDao {
 				}
 			}
 		} catch (Exception e) {
+			
+			logger.fatal(e);
+			
 			e.printStackTrace();
 		}
 		return i;
@@ -530,6 +623,10 @@ public class ResourceAllocationTrackingDao {
 				preparedStatement.setInt(4, rId);
 				preparedStatement.setInt(5, resId);
 				preparedStatement.setInt(6, clientId);
+				
+				
+				logger.info("updateOnboardDate- " + preparedStatement.unwrap(PreparedStatement.class));
+				
 				i = preparedStatement.executeUpdate();
 			}catch(Exception e){
 				e.printStackTrace();
@@ -541,6 +638,9 @@ public class ResourceAllocationTrackingDao {
 				}
 			}
 		} catch (Exception e) {
+			
+			logger.fatal(e);
+			
 			e.printStackTrace();
 		}
 		return i;

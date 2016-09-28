@@ -113,6 +113,7 @@ public class ResourceMasterViewModel {
 			ResourceMasterService.clearAllField(resourceMasterBean);
 			fileName = null;
 			fileContent =null;
+			countryList = ResourceMasterDao.onLoadCountry();
 		}
 	}
 	

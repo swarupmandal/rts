@@ -43,6 +43,7 @@ public class ClientInformationUpdateViewModel {
 	private ArrayList<StateBean> stateList = new ArrayList<StateBean>();
 	private ArrayList<CountryBean> countryList = new ArrayList<CountryBean>();
 	
+	
 	@AfterCompose
 	public void initSetup(@ContextParam(ContextType.VIEW) Component view,@ExecutionArgParam("clientIdDetails") ClientInformationBean bean)
 			throws Exception {

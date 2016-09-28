@@ -8,6 +8,7 @@ import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import org.apache.log4j.Logger;
 import org.appsquad.bean.ClientInformationBean;
 import org.appsquad.bean.RequirementGenerationBean;
 import org.appsquad.bean.SkillsetMasterbean;
@@ -18,6 +19,9 @@ import org.appsquad.utility.Dateformatter;
 import org.appsquad.utility.Pstm;
 
 public class RequirementGenerationDao {
+	
+	final static Logger logger=Logger.getLogger(RequirementGenerationDao.class);
+	
 	
 	public static ArrayList<ClientInformationBean> fetchClientNameList(){
 		
@@ -31,6 +35,9 @@ public class RequirementGenerationDao {
 		try {
 			connection = DbConnection.createConnection();
 			preparedStatement = Pstm.createQuery(connection, RequirementGenerationSql.loadClientName, null);
+			
+			 logger.info("fetchClientNameList - " + preparedStatement.unwrap(PreparedStatement.class));
+			
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				ClientInformationBean bean = new ClientInformationBean();
@@ -47,6 +54,9 @@ public class RequirementGenerationDao {
 			}
 			
 		} catch (Exception e) {
+			
+			logger.fatal("--------------------->>>>>>>>>"+e);
+			
 			e.printStackTrace();
 		} finally{
 			if(preparedStatement != null){
@@ -78,11 +88,17 @@ public class RequirementGenerationDao {
 		try {
 			connection = DbConnection.createConnection();
 			preparedStatement = Pstm.createQuery(connection, RequirementGenerationSql.fetchStatusId, null);
+			
+			logger.info("fetchOverallStatusId - " + preparedStatement.unwrap(PreparedStatement.class));
+			
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				statusId = resultSet.getInt("id");
 			}
 		} catch (Exception e) {
+			
+			logger.fatal("--------------------->>>>>>>>>"+e);
+			
 			e.printStackTrace();
 		} finally{
 			if(preparedStatement != null){
@@ -115,6 +131,9 @@ public class RequirementGenerationDao {
 		try {
 			connection = DbConnection.createConnection();
 			preparedStatement = Pstm.createQuery(connection, RequirementGenerationSql.loadSkillSetName, null);
+			
+			logger.info("fetchSkillSetList- " + preparedStatement.unwrap(PreparedStatement.class));
+			
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				SkillsetMasterbean bean = new SkillsetMasterbean();
@@ -127,6 +146,9 @@ public class RequirementGenerationDao {
 			}
 			
 		} catch (Exception e) {
+			
+			logger.fatal("------------------>>>>"+e);
+			
 			e.printStackTrace();
 		} finally{
 			if(preparedStatement != null){
@@ -160,6 +182,9 @@ public class RequirementGenerationDao {
 		try {
 			connection = DbConnection.createConnection();
 			preparedStatement = Pstm.createQuery(connection, RequirementGenerationSql.loadocStatus, null);
+			
+			logger.info("fetchStatusList- " + preparedStatement.unwrap(PreparedStatement.class));
+			
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				StatusMasterBean bean = new StatusMasterBean();
@@ -169,6 +194,9 @@ public class RequirementGenerationDao {
 				list.add(bean);
 			}
 		} catch (Exception e) {
+			
+			logger.fatal("-------------------->>>>>>>"+e);
+			
 			e.printStackTrace();
 		} finally{
 			if(preparedStatement != null){
@@ -199,11 +227,17 @@ public class RequirementGenerationDao {
 			connection = DbConnection.createConnection();
 			preparedStatement = Pstm.createQuery(connection, RequirementGenerationSql.insertReqGen, Arrays.asList(bean.getClientId(), bean.getReqSkillId(),bean.getJobType(),bean.getDetailedJob(),
 																												bean.getNofPerResource(), bean.getNofConResource(), bean.getRaiseDatesql(), bean.getCloseDatesql(),
-																												bean.getContactNo(), bean.getEmail(),1,bean.getClosureReason(), bean.getUserName(), bean.getUserName(),
+																										bean.getContactNo(), bean.getEmail(),1,bean.getClosureReason(), bean.getUserName(), bean.getUserName(),
 																												bean.getReqStatusId()));
+			
+			
+			logger.info("onClikSubmit - " + preparedStatement.unwrap(PreparedStatement.class));
 			
 			i = preparedStatement.executeUpdate();
 		} catch (Exception e) {
+			
+			logger.fatal("------------>>>>>>>>>>>>"+e);
+			
 			e.printStackTrace();
 		}finally{
 			if(preparedStatement != null){
@@ -235,6 +269,10 @@ public static ArrayList<RequirementGenerationBean> fetchReqGenMasterData(){
 		try {
 			connection = DbConnection.createConnection();
 			preparedStatement = Pstm.createQuery(connection, RequirementGenerationSql.loadReqGenMasterData, null);
+			
+			logger.info("fetchReqGenMasterData - " + preparedStatement.unwrap(PreparedStatement.class));
+			
+			
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				RequirementGenerationBean bean = new RequirementGenerationBean();
@@ -273,6 +311,9 @@ public static ArrayList<RequirementGenerationBean> fetchReqGenMasterData(){
 			}
 			
 		} catch (Exception e) {
+			
+			logger.fatal("----------------->>>>>"+e);
+			
 			e.printStackTrace();
 		} finally{
 			if(preparedStatement != null){
@@ -326,10 +367,17 @@ public static ArrayList<RequirementGenerationBean> fetchReqGenMasterData(){
 				  preparedStatement.setString(9, bean.getUserName());
 				  preparedStatement.setInt(10, bean.getReq_id());
 				  
+				  
+				  logger.info("onClikUpdate - " + preparedStatement.unwrap(PreparedStatement.class));
+
+				  
 				  i = preparedStatement.executeUpdate();
 				
 				
 			} catch (Exception e) {
+				
+				logger.fatal("------------>>>>>>"+e);
+				
 				e.printStackTrace();
 			}finally{
 				if(preparedStatement != null){

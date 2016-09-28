@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import org.apache.log4j.Logger;
 import org.appsquad.bean.RequirementGenerationBean;
 import org.appsquad.database.DbConnection;
 import org.appsquad.sql.IndividualClientRequirementSql;
@@ -12,6 +13,8 @@ import org.appsquad.utility.Pstm;
 
 public class IndividualClientReportDao {
 
+	final static Logger logger=Logger.getLogger(IndividualClientReportDao.class);
+	
 	public static ArrayList<RequirementGenerationBean> onLoadReqList(){
 		ArrayList<RequirementGenerationBean> reqIdList = new ArrayList<RequirementGenerationBean>();
 		Connection connection = null;
@@ -26,6 +29,8 @@ public class IndividualClientReportDao {
 					   try {
 						   preparedStatement = Pstm.createQuery(connection, IndividualClientRequirementSql.fetchReqIdList, null);
 							
+						   logger.info("onLoadReqList - " + preparedStatement.unwrap(PreparedStatement.class));
+						   
 							ResultSet resultSet = preparedStatement.executeQuery();
 							while (resultSet.next()) {
 								RequirementGenerationBean bean = new RequirementGenerationBean();
@@ -48,6 +53,7 @@ public class IndividualClientReportDao {
 				}
 			}
 		} catch (Exception e) {
+			logger.fatal("onLoadReqList" + e);
 			e.printStackTrace();
 		}
 		return reqIdList;	
