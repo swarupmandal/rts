@@ -75,6 +75,7 @@ public class ClientInformationViewModel {
 		if(flag){
 			ClientInformationService.clearAllField(clientInformationBean);
 			countryList = ClientInformationDao.onLoadCountry();
+			stateList.clear();
 		}
 	}
 	

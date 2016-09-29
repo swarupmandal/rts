@@ -54,10 +54,12 @@ public class StatusMasterViewModel {
 		count = StatusMasterDao.countStatusNumber(statusMasterBean);
 		if(count>0){
 			Messagebox.show("Please Enter New Status Name!", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
+			statusMasterBean.setStatus(null);
 		}else{
 			flagInsert = StatusMasterService.insertClientMasterData(statusMasterBean);
 			if(flagInsert){
-				StatusMasterService.clearAllField(statusMasterBean);	
+				StatusMasterService.clearAllField(statusMasterBean);
+				statuslist = StatusMasterDao.onLoadStatusDeatils();
 			}	
 		}
 	}
