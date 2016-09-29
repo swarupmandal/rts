@@ -22,11 +22,11 @@ public class ClientInformationService {
 										   if(clientInformationBean.getEmailId().matches(EMAIL_REGEX)){
 											return true;
 										   }else{
-											   Messagebox.show("Enter Email Id","Informtion", Messagebox.OK, Messagebox.EXCLAMATION);
+											   Messagebox.show("Enter Proper Email Id","Informtion", Messagebox.OK, Messagebox.EXCLAMATION);
 											   return false;
 											}
 										}else {
-											Messagebox.show("Enter Proper Email Id","Informtion", Messagebox.OK, Messagebox.EXCLAMATION);
+											Messagebox.show("Enter Email Id","Informtion", Messagebox.OK, Messagebox.EXCLAMATION);
 											return false;
 										}
 									}else {
