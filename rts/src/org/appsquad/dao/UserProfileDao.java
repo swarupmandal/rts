@@ -30,13 +30,11 @@ public class UserProfileDao {
 					    PreparedStatement preparedStatementInsert = null;
 					    try {
 					    	preparedStatementInsert = Pstm.createQuery(connection, 
-									UserProfileSql.insertUserData, Arrays.asList(userprofileBean.getUserid().toUpperCase(),userprofileBean.getUsername().toUpperCase(),
-																userprofileBean.getPassword().toUpperCase(),userprofileBean.getAddress().toUpperCase(),
+									UserProfileSql.insertUserData, Arrays.asList(userprofileBean.getUserid(),userprofileBean.getUsername(),
+																userprofileBean.getPassword(),userprofileBean.getAddress().toUpperCase(),
 																userprofileBean.getContactno().toUpperCase(),userprofileBean.getEmail()));
 					    
-					    	
 					    	logger.info(" insertUserData- " + preparedStatementInsert.unwrap(PreparedStatement.class));
-					    	
 							int i = preparedStatementInsert.executeUpdate();
 							if(i>0){
 								isSaved = true;	

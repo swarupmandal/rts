@@ -225,7 +225,7 @@ public class ResourceMasterDao {
 					    try {
 					    	preparedStatementInsert = Pstm.createQuery(connection, 
 									ResourceMasterSql.insertResourceQuery, Arrays.asList(resourceMasterBean.getName().toUpperCase(),resourceMasterBean.getSurName().toUpperCase(),
-											                                              resourceMasterBean.getYearOfExperience(),resourceMasterBean.getAddress().toUpperCase(),resourceMasterBean.getEmailId().toUpperCase(),
+											                                              resourceMasterBean.getYearOfExperience(),resourceMasterBean.getAddress().toUpperCase(),resourceMasterBean.getEmailId(),
 											                                              resourceMasterBean.getUserId(),resourceMasterBean.getSkillsetMasterbean().getId(),resourceMasterBean.getCountryBean().getCountryId(),
 											                                              resourceMasterBean.getPicCode().toUpperCase(),resourceMasterBean.getContactNumber().toUpperCase(),resourceMasterBean.getStatusMasterBean().getStatusId(),
 											                                              resourceMasterBean.getCtc(),resourceMasterBean.getSkillsetMasterbean().getSkillset().toUpperCase(),
@@ -345,7 +345,7 @@ public class ResourceMasterDao {
 					    try {
 					    	preparedStatementInsert = Pstm.createQuery(connection, 
 									ResourceMasterSql.updateResourceQuery, Arrays.asList(resourceMasterBean.getName().toUpperCase(),resourceMasterBean.getSurName().toUpperCase(),
-											                                              resourceMasterBean.getYearOfExperience(),resourceMasterBean.getAddress().toUpperCase(),resourceMasterBean.getEmailId().toUpperCase(),
+											                                              resourceMasterBean.getYearOfExperience(),resourceMasterBean.getAddress().toUpperCase(),resourceMasterBean.getEmailId(),
 											                                              resourceMasterBean.getSkillsetMasterbean().getId(),resourceMasterBean.getCountryBean().getCountryId(),
 											                                              resourceMasterBean.getPicCode().toUpperCase(),resourceMasterBean.getContactNumber().toUpperCase(),resourceMasterBean.getStatusMasterBean().getStatusId(),
 											                                              resourceMasterBean.getCtc(),resourceMasterBean.getSkillsetMasterbean().getSkillset().toUpperCase(),

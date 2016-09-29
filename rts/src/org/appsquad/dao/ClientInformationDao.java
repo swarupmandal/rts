@@ -172,7 +172,7 @@ public class ClientInformationDao {
 											clientInformationBean.getCompanyName().toUpperCase(),clientInformationBean.getAddress().toUpperCase(),
 											clientInformationBean.getStateBean().getStateName(),clientInformationBean.getCountryBean().getCountryName(),
 											clientInformationBean.getPinZipCode(),clientInformationBean.getContactNo().toUpperCase(),
-											clientInformationBean.getEmailId().toUpperCase(),clientInformationBean.getUserId(),
+											clientInformationBean.getEmailId(),clientInformationBean.getUserId(),
 											clientInformationBean.getStateBean().getStateId(),clientInformationBean.getCountryBean().getCountryId()));
 					    	
 					    	logger.info("Inserting Client Data Into Table: "+preparedStatementInsert.unwrap(PreparedStatement.class));
@@ -226,7 +226,7 @@ public class ClientInformationDao {
 									ClientInformationsql.clientDetailsUpdate, Arrays.asList(clientInformationBean.getAddress().toUpperCase(),
 											clientInformationBean.getStateBean().getStateName(),
 											clientInformationBean.getPinZipCode(),clientInformationBean.getContactNo().toUpperCase(),
-											clientInformationBean.getEmailId().toUpperCase(),
+											clientInformationBean.getEmailId(),
 											clientInformationBean.getStateBean().getStateId(),clientInformationBean.getUserId(),
 											clientInformationBean.getClientId()));
 					    	
