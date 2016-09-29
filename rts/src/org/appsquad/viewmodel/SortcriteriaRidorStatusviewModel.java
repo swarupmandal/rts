@@ -85,9 +85,15 @@ public class SortcriteriaRidorStatusviewModel {
     public void onCheckRepairRedo(){
     	System.out.println("SELECTEDRADIOBUTTON DATA IS :"+criteriaRidorStatusBean.getSelectedRadioButton());
     	if(criteriaRidorStatusBean.getSelectedRadioButton().equalsIgnoreCase("detail")){
-    		detailList = SortCriteriaDao.onLoadDeatilsList(frmDate, toDate, criteriaRidorStatusBean.getSkillsetMasterbean().getSkillset(), 
-    												criteriaRidorStatusBean.getStatusMasterBean().getStatus(), criteriaRidorStatusBean.getClientInformationBean().getFullName());
-    	    System.out.println(detailList.size());
+    		if(frmDate!=null && toDate!=null){
+    			criteriaRidorStatusBean.setDivVisibility(true);
+    			detailList = SortCriteriaDao.onLoadDeatilsList(frmDate, toDate, criteriaRidorStatusBean.getSkillsetMasterbean().getSkillset(), 
+						criteriaRidorStatusBean.getStatusMasterBean().getStatus(), criteriaRidorStatusBean.getClientInformationBean().getFullName());
+    					System.out.println(detailList.size());	
+    		}else{
+    			
+    			criteriaRidorStatusBean.setDivVisibility(false);
+    		}
     	}
     }
     

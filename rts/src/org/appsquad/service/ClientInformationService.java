@@ -7,20 +7,26 @@ import org.zkoss.zul.Messagebox;
 public class ClientInformationService {
 	private static boolean flag = false;
 	private static boolean flagDelete = false;
+	private static String EMAIL_REGEX = "^[\\w-_\\.+]*[\\w-_\\.]@([\\w]+\\.)+[\\w]+[\\w]$";
 	
 	public static boolean isValid(ClientInformationBean clientInformationBean){
 		if(clientInformationBean.getName()!=null){
 			if(clientInformationBean.getSurName()!=null && clientInformationBean.getSurName().trim().length()>0){
 				if(clientInformationBean.getCompanyName()!=null && clientInformationBean.getCompanyName().trim().length()>0){
 					if(clientInformationBean.getAddress()!=null && clientInformationBean.getAddress().trim().length()>0){
-						if(clientInformationBean.getStateBean().getStateName()!=null && clientInformationBean.getStateBean().getStateName().trim().length()>0){
 							if(clientInformationBean.getCountryBean().getCountryName()!=null && clientInformationBean.getCountryBean().getCountryName().trim().length()>0){
+								if(clientInformationBean.getStateBean().getStateName()!=null && clientInformationBean.getStateBean().getStateName().trim().length()>0){
 								if(clientInformationBean.getPinZipCode()!=null && clientInformationBean.getPinZipCode().trim().length()==6){
 									if(clientInformationBean.getContactNo()!=null && clientInformationBean.getContactNo().trim().length()==10){
 										if(clientInformationBean.getEmailId()!=null && clientInformationBean.getEmailId().trim().length()>0){
+										   if(clientInformationBean.getEmailId().matches(EMAIL_REGEX)){
 											return true;
+										   }else{
+											   Messagebox.show("Enter Proper Email Id","Informtion", Messagebox.OK, Messagebox.EXCLAMATION);
+											   return false;
+											}
 										}else {
-											Messagebox.show("Enter Employee Email Id","Informtion", Messagebox.OK, Messagebox.EXCLAMATION);
+											Messagebox.show("Enter Email Id","Informtion", Messagebox.OK, Messagebox.EXCLAMATION);
 											return false;
 										}
 									}else {
@@ -32,11 +38,11 @@ public class ClientInformationService {
 									return false;
 								}
 							}else {
-								Messagebox.show("Enter Country","Informtion", Messagebox.OK, Messagebox.EXCLAMATION);
+								Messagebox.show("Enter State","Informtion", Messagebox.OK, Messagebox.EXCLAMATION);
 								return false;
 							}
 						}else {
-							Messagebox.show("Enter State","Informtion", Messagebox.OK, Messagebox.EXCLAMATION);
+							Messagebox.show("Enter Country","Informtion", Messagebox.OK, Messagebox.EXCLAMATION);
 							return false;
 						}
 					}else {
@@ -67,11 +73,16 @@ public class ClientInformationService {
 								if(clientInformationBean.getPinZipCode()!=null && clientInformationBean.getPinZipCode().trim().length()==6){
 									if(clientInformationBean.getContactNo()!=null && clientInformationBean.getContactNo().trim().length()==10){
 										if(clientInformationBean.getEmailId()!=null && clientInformationBean.getEmailId().trim().length()>0){
-											return true;
-										}else {
-											Messagebox.show("Enter Employee Email Id","Informtion", Messagebox.OK, Messagebox.EXCLAMATION);
-											return false;
-										}
+											   if(clientInformationBean.getEmailId().matches(EMAIL_REGEX)){
+												return true;
+											   }else{
+												   Messagebox.show("Enter Proper Email Id","Informtion", Messagebox.OK, Messagebox.EXCLAMATION);
+												   return false;
+												}
+											}else {
+												Messagebox.show("Enter Email Id","Informtion", Messagebox.OK, Messagebox.EXCLAMATION);
+												return false;
+											}
 									}else {
 										Messagebox.show("Enter Proper Conatct Number","Informtion", Messagebox.OK, Messagebox.EXCLAMATION);
 										return false;
@@ -136,19 +147,24 @@ public class ClientInformationService {
 		bean.setEmailId(null);
 	}
 
+	/*************************************************************************************************************************************************/
+	
 	public boolean isFlag() {
 		return flag;
 	}
-
 	public void setFlag(boolean flag) {
 		this.flag = flag;
 	}
-
 	public static boolean isFlagDelete() {
 		return flagDelete;
 	}
-
 	public static void setFlagDelete(boolean flagDelete) {
 		ClientInformationService.flagDelete = flagDelete;
+	}
+	public static String getEMAIL_REGEX() {
+		return EMAIL_REGEX;
+	}
+	public static void setEMAIL_REGEX(String eMAIL_REGEX) {
+		EMAIL_REGEX = eMAIL_REGEX;
 	}
 }

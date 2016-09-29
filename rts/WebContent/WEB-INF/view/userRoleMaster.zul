@@ -87,9 +87,7 @@
 								   </row>
 								   
 								   <row>
-								    
 								          <button label="Save" onClick="@command('onClickAssign')"></button>
-								   
 								   </row>
 								   
 								 </rows>
