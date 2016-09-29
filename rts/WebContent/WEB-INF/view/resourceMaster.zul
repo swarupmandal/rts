@@ -113,6 +113,10 @@
 						  <label value="CTC(annual)" style="font-weight:bold"></label>		
 						  <doublebox width="35%" value="@bind(vm.resourceMasterBean.ctc)"></doublebox>	
 					   </row> 
+					   <row>
+						  <label value="Profit(%)" style="font-weight:bold"></label>		
+						  <doublebox width="35%" value="@bind(vm.resourceMasterBean.profit)"></doublebox>	
+					   </row> 
 					</rows>
 				</grid>
 			</div>

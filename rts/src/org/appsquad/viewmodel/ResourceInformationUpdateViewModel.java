@@ -71,6 +71,7 @@ public class ResourceInformationUpdateViewModel {
 		countryList = ResourceMasterDao.onLoadCountry();
 		statusList = ResourceMasterDao.onLoadStatus();
 		skillList = ResourceMasterDao.onLoadSkill();
+		stateList = ClientInformationDao.onLoadStateForResource(masterBean);
 	}
 	
 	@Command

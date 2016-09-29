@@ -17,12 +17,12 @@
 					<rows>
 						<row>
 						  <label value="Name:" style="font-weight:bold"></label>		
-						  <textbox width="75%" value="@bind(vm.masterBean.name)"></textbox>	
+						  <textbox width="75%" value="@bind(vm.masterBean.name)" readonly="true"></textbox>	
 						</row>
 						
 						<row>
 						  <label value="Surname:" style="font-weight:bold"></label>		
-						  <textbox width="75%" value="@bind(vm.masterBean.surName)"></textbox>	
+						  <textbox width="75%" value="@bind(vm.masterBean.surName)" readonly="true"></textbox>	
 						</row>
 						
 						<row>
@@ -36,7 +36,8 @@
 						
 						<row>
 		             	<label value="Country:" style="font-weight:bold"></label>
-		             					<bandbox value="@bind(vm.masterBean.countryBean.countryName)" id="ad" readonly="true" width="75%">
+		             					<bandbox value="@bind(vm.masterBean.countryBean.countryName)" id="ad" readonly="true" width="75%"
+		             					    disabled="@bind(vm.masterBean.countryVisibility)">
 											<bandpopup >
 												<vbox>
 													<listbox model="@load(vm.countryList)" selectedItem="@bind(vm.masterBean.countryBean)" 
@@ -110,6 +111,7 @@
 						  <label value="CTC(annual)" style="font-weight:bold"></label>		
 						  <doublebox width="75%" value="@bind(vm.masterBean.ctc)"></doublebox>	
 					   </row>
+					    
 					   <row>
 					     <label></label>
 					     <button width="80px" height="30px" label="Update" style="font-weight: bold" onClick="@command('onClickUpdateButton')"></button>

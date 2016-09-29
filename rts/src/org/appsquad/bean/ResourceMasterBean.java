@@ -16,6 +16,8 @@ public class ResourceMasterBean {
 	private String cvPath;
 	private String isAllocable;
 	private String filePath;
+	private boolean countryVisibility = true;
+	private Double profit;
 	
 	CountryBean countryBean = new CountryBean();
 	StateBean stateBean = new StateBean();	
@@ -137,5 +139,17 @@ public class ResourceMasterBean {
 	}
 	public void setFilePath(String filePath) {
 		this.filePath = filePath;
+	}
+	public boolean isCountryVisibility() {
+		return countryVisibility;
+	}
+	public Double getProfit() {
+		return profit;
+	}
+	public void setProfit(Double profit) {
+		this.profit = profit;
+	}
+	public void setCountryVisibility(boolean countryVisibility) {
+		this.countryVisibility = countryVisibility;
 	}
 }

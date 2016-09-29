@@ -18,11 +18,16 @@ public class ResourceMasterService {
 							if(resourceMasterBean.getCountryBean().getCountryName()!=null){
 									if(resourceMasterBean.getPicCode()!=null && resourceMasterBean.getPicCode().trim().length()>0){
 										if(resourceMasterBean.getContactNumber()!=null && resourceMasterBean.getContactNumber().trim().length()>0){
+											if(resourceMasterBean.getEmailId()!=null){
 											if(resourceMasterBean.getEmailId().matches(EMAIL_REGEX)){
 												if(resourceMasterBean.getStateBean().getStateName()!=null){
 													return true;
 												}else {
 													Messagebox.show("Enter State","Informtion", Messagebox.OK, Messagebox.EXCLAMATION);
+													return false;
+												}
+											  }else {
+													Messagebox.show("Enter Proper Email Id","Informtion", Messagebox.OK, Messagebox.EXCLAMATION);
 													return false;
 												}
 											}else {
@@ -90,7 +95,7 @@ public class ResourceMasterService {
 		bean.setEmailId(null);
 		bean.setCtc(null);
 		bean.setFilePath(null);
-		
+		bean.setProfit(null);
 	}
 	
 	/*******************************************************************************************************************************************/

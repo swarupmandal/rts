@@ -230,7 +230,8 @@ public class ResourceMasterDao {
 											                                              resourceMasterBean.getPicCode().toUpperCase(),resourceMasterBean.getContactNumber().toUpperCase(),resourceMasterBean.getStatusMasterBean().getStatusId(),
 											                                              resourceMasterBean.getCtc(),resourceMasterBean.getSkillsetMasterbean().getSkillset().toUpperCase(),
 											                                              resourceMasterBean.getCountryBean().getCountryName().toUpperCase(),
-											                                              resourceMasterBean.getStateBean().getStateName().toUpperCase(), resourceMasterBean.getFilePath()));
+											                                              resourceMasterBean.getStateBean().getStateName().toUpperCase(), resourceMasterBean.getFilePath(),
+											                                              resourceMasterBean.getProfit()));
 					    	
 					    	
 					    	logger.info("Inserting Resource Data Into Table: "+preparedStatementInsert.unwrap(PreparedStatement.class));
@@ -349,10 +350,8 @@ public class ResourceMasterDao {
 											                                              resourceMasterBean.getPicCode().toUpperCase(),resourceMasterBean.getContactNumber().toUpperCase(),resourceMasterBean.getStatusMasterBean().getStatusId(),
 											                                              resourceMasterBean.getCtc(),resourceMasterBean.getSkillsetMasterbean().getSkillset().toUpperCase(),
 											                                              resourceMasterBean.getCountryBean().getCountryName().toUpperCase(),
-											                                              resourceMasterBean.getStateBean().getStateName().toUpperCase(),resourceMasterBean.getFilePath(),resourceMasterBean.getResourceId()));
+											                                              resourceMasterBean.getStateBean().getStateName().toUpperCase(),resourceMasterBean.getFilePath(),resourceMasterBean.getProfit(),resourceMasterBean.getResourceId()));
 					    	
-					    	
-					    	//System.out.println(preparedStatementInsert);
 					    	logger.info("Inserting Client Data Into Table: "+preparedStatementInsert.unwrap(PreparedStatement.class));
 							int i = preparedStatementInsert.executeUpdate();
 							if(i>0){
