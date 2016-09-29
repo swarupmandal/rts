@@ -116,6 +116,7 @@ public class ResourceMasterViewModel {
 			fileName = null;
 			fileContent =null;
 			countryList = ResourceMasterDao.onLoadCountry();
+			stateList.clear();
 		}
 	}
 	
