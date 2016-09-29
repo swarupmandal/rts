@@ -111,6 +111,11 @@ public class SortCriteriaDao {
 							ResultSet resultSet = preparedStatement.executeQuery();
 							while (resultSet.next()) {
 								SortCriteriaRidorStatusBean bean = new SortCriteriaRidorStatusBean();
+								bean.getStatusMasterBean().setStatus(resultSet.getString("master_status_name"));
+								bean.getResourceMasterBean().setFullName("resource_name");
+								bean.getResourceMasterBean().setYearOfExperience(resultSet.getInt("resource_ecperience"));
+								bean.getResourceMasterBean().setContactNumber(resultSet.getString("resource_contact_no"));
+								bean.getResourceMasterBean().setEmailId(resultSet.getString("resource_email_id"));
 								bean.getMasterbean().setSkillset(resultSet.getString("skill_name"));
 								
 								detailsList.add(bean);

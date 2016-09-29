@@ -7,12 +7,14 @@ public class SortCriteriaRidorStatusBean {
 	private Date toDate;
 	private String userId;
 	private String selectedRadioButton;
+	private boolean divVisibility = false;
 	
 	private SkillsetMasterbean masterbean = new SkillsetMasterbean();
 	private StatusMasterBean statusMasterBean = new StatusMasterBean();
 	private UserprofileBean userprofileBean = new UserprofileBean();
 	private SkillsetMasterbean skillsetMasterbean = new SkillsetMasterbean();
 	private ClientInformationBean clientInformationBean = new ClientInformationBean();
+	private ResourceMasterBean resourceMasterBean = new ResourceMasterBean();
 	
 	/************************************************************************************************************************************************/
 	
@@ -69,6 +71,18 @@ public class SortCriteriaRidorStatusBean {
 	}
 	public void setSelectedRadioButton(String selectedRadioButton) {
 		this.selectedRadioButton = selectedRadioButton;
+	}
+	public ResourceMasterBean getResourceMasterBean() {
+		return resourceMasterBean;
+	}
+	public void setResourceMasterBean(ResourceMasterBean resourceMasterBean) {
+		this.resourceMasterBean = resourceMasterBean;
+	}
+	public boolean isDivVisibility() {
+		return divVisibility;
+	}
+	public void setDivVisibility(boolean divVisibility) {
+		this.divVisibility = divVisibility;
 	}
 
 }

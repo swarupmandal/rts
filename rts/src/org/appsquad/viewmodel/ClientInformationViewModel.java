@@ -73,7 +73,8 @@ public class ClientInformationViewModel {
 		flag = ClientInformationService.insertClientMasterData(clientInformationBean);
 		System.out.println(flag);
 		if(flag){
-			ClientInformationService.clearAllField(clientInformationBean);	
+			ClientInformationService.clearAllField(clientInformationBean);
+			countryList = ClientInformationDao.onLoadCountry();
 		}
 	}
 	
