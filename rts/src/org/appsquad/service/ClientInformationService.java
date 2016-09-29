@@ -147,26 +147,23 @@ public class ClientInformationService {
 		bean.setEmailId(null);
 	}
 
+	/*************************************************************************************************************************************************/
+	
 	public boolean isFlag() {
 		return flag;
 	}
-
 	public void setFlag(boolean flag) {
 		this.flag = flag;
 	}
-
 	public static boolean isFlagDelete() {
 		return flagDelete;
 	}
-
 	public static void setFlagDelete(boolean flagDelete) {
 		ClientInformationService.flagDelete = flagDelete;
 	}
-
 	public static String getEMAIL_REGEX() {
 		return EMAIL_REGEX;
 	}
-
 	public static void setEMAIL_REGEX(String eMAIL_REGEX) {
 		EMAIL_REGEX = eMAIL_REGEX;
 	}

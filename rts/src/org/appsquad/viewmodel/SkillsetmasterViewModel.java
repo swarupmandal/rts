@@ -90,7 +90,9 @@ public class SkillsetmasterViewModel {
 		}
 	}
 	
+	
 	/************************** Getter And Setter Method ************************************/
+	
 	public SkillsetMasterbean getSkillsetMasterbean() {
 		return skillsetMasterbean;
 	}
