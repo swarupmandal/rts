@@ -49,7 +49,8 @@
 						
 						<row>
 						  <label value="Requirement Close Date:" style="font-weight:bold"></label>		
-						  <datebox width="20%" value="@bind(vm.reqEditGenBean.closeDate)" readonly="true"></datebox>	
+						  <datebox width="20%" value="@bind(vm.reqEditGenBean.closeDate)" readonly="true"
+						    onChange="@command('onChangeCloseDate')"></datebox>	
 						</row>
 						
 						<row>

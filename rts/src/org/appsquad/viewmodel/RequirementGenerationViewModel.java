@@ -78,6 +78,17 @@ public class RequirementGenerationViewModel {
 		}
 	}
 	
+	@Command
+	@NotifyChange("*")
+	public void onChangeCloseDate(){
+		int comparision = 0;
+		comparision = reqGenBean.getCloseDatesql().compareTo(reqGenBean.getRaiseDatesql());
+		if(comparision<0){
+			Messagebox.show("Your Close Date Can't Be Less Than Raise Date!", "Information", Messagebox.OK, Messagebox.INFORMATION);
+			reqGenBean.setCloseDatesql(null);
+		}
+	}
+	
 	
 	@Command
 	@NotifyChange("*")

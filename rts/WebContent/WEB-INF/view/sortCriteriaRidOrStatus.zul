@@ -8,19 +8,22 @@
                                 <columns>
                                       <column></column>
                                       <column></column>
-                                     
+                                      <column></column>
                                 </columns>
                                 
                                 <rows>
                                 
 								   <row>
-					  					<label value="From-date" style="font-weight:bold"></label>		
+					  					<!-- <label value="From-date" style="font-weight:bold"></label>	 -->	
 					  					 <datebox format="dd-MMM-yyyy"
-										value="@bind(vm.criteriaRidorStatusBean.fromDate)" onChange="@command('onChangeFromDate')"></datebox>
+											value="@bind(vm.criteriaRidorStatusBean.fromDate)" onChange="@command('onChangeFromDate')"
+										       placeholder="From-Date"></datebox>
 								  
-					  					<label value="To-Date" style="font-weight:bold"></label>		
+					  					<!-- <label value="To-Date" style="font-weight:bold"></label> -->		
 					  						<datebox format="dd-MMM-yyyy"
-										       value="@bind(vm.criteriaRidorStatusBean.toDate)" onChange="@command('onChangeToDate')"></datebox>
+										        value="@bind(vm.criteriaRidorStatusBean.toDate)" onChange="@command('onChangeToDate')"
+										           placeholder="To-Date">
+										        </datebox>
 								   </row>
 								   
 								   <row>

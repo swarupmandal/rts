@@ -13,13 +13,9 @@ public class RequirementGenerationBean {
   private int reqSkillId;
   
   private String jobType;
-  
-  private String detailedJob;
-  
+  private String detailedJob;  
   private Integer nofPerResource;
-  
   private Integer nofConResource;
-  
   private Date raiseDate;
   private java.sql.Date	raiseDatesql;
   private String raiseDateStr;
@@ -32,14 +28,11 @@ public class RequirementGenerationBean {
   
   private String reqStatus;
   private int reqStatusId;
-  
   private String ocStatus;
   private int ocStatusId;
   
   private String closureReason;
-  
   private String userName;
-  
   private String contactNo;
   private String email;
   

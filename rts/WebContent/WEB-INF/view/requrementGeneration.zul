@@ -63,7 +63,8 @@
 						
 						<row>
 						  <label value="Requirement Close Date:" style="font-weight:bold"></label>		
-						  <datebox value="@bind(vm.reqGenBean.closeDatesql)" width="25%"></datebox>	
+						  <datebox value="@bind(vm.reqGenBean.closeDatesql)" width="25%"
+						     onChange="@command('onChangeCloseDate')"></datebox>	
 						</row>
 						
 						<row>

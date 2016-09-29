@@ -61,6 +61,17 @@ public class RequirementGenerationEditViewModel {
 	
 	@Command
 	@NotifyChange("*")
+	public void onChangeCloseDate(){
+		int comparision = 0;
+		comparision = reqEditGenBean.getCloseDate().compareTo(reqEditGenBean.getRaiseDate());
+		if(comparision<0){
+			Messagebox.show("Your Close Date Can't Be Less Than Raise Date!", "Information", Messagebox.OK, Messagebox.INFORMATION);
+			reqEditGenBean.setCloseDate(null);
+		}
+	}
+	
+	@Command
+	@NotifyChange("*")
 	public void onCloseOperation(@ContextParam(ContextType.TRIGGER_EVENT)Event e){
 		winReqGenEdit.detach();
 		BindUtils.postGlobalCommand(null, null, "editReqGen", null);
