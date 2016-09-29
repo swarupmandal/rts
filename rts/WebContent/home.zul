@@ -86,13 +86,6 @@
             	</treecell>
             	</treerow>
          </treeitem>
-         <!-- <treeitem open="false">
-            	<treerow>
-            	 <treecell label="- Resource allocation Update"
-            	  onClick='inclResults.setSrc("/WEB-INF/view/resourceAllocationUpdate.zul");'>
-            	</treecell>
-            	</treerow>
-            </treeitem> -->
             <treeitem open="false">
             	<treerow>
             	 <treecell label="- Resource allocation Tracking"
@@ -104,7 +97,7 @@
          </treechildren>
          </treeitem>
          
-          <treeitem open="false">
+         <!--  <treeitem open="false">
          <treerow>
          	<treecell label="Report">
          	</treecell>
@@ -150,7 +143,7 @@
          </treerow>
          </treeitem>
          </treechildren>
-         </treeitem>
+         </treeitem> -->
       </treechildren>
      </tree>
   </div>
