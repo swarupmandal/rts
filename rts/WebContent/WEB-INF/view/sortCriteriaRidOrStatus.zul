@@ -2,7 +2,7 @@
 <zk>
 <window title="Sort criteria:RID/Status" border="none" apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('org.appsquad.viewmodel.SortcriteriaRidorStatusviewModel')">
-    <div>
+   				 <div>
                           <hlayout>
                             <grid>
                                 <columns>
@@ -65,5 +65,22 @@
                             </grid>
                             </hlayout>
                         </div>
-</window>
+                        <space></space>
+                         <div>
+                           <grid model="@bind(vm.statuslist)" mold="paging" pageSize="11" sclass="fgrid" height="430PX">
+                               <columns sizable="true">
+								<column label="Status-Name" align="center" style="font-weight:bold;" width="800px"/>
+								<column label="Action" align="center" style="font-weight:bold;" width="200px"/>
+						       </columns>
+                               <rows>
+                                  <template name="model" var="v">
+										<row style="border: 0.01px solid #C0C0C0;">
+											<textbox value="@bind(v.status)" readonly="true" width="90%" tooltiptext="@bind(vm.statusMasterBean.status)"/>
+								    		<button label="Delete" width="90%" onClick="@command('onClickDelete', bean = v)"></button>
+										</row>
+								</template> 
+                               </rows>
+                           </grid>
+                       </div>
+                       </window>
 </zk>

@@ -4,10 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-
 import org.apache.log4j.Logger;
 import org.appsquad.bean.ClientInformationBean;
 import org.appsquad.bean.SkillsetMasterbean;
+import org.appsquad.bean.SortCriteriaRidorStatusBean;
 import org.appsquad.bean.StatusMasterBean;
 import org.appsquad.database.DbConnection;
 import org.appsquad.sql.ClientInformationsql;
@@ -60,17 +60,88 @@ public class SortCriteriaDao {
 				}
 			}
 		} catch (Exception e) {
-			
 			logger.fatal(e);
-			
 			e.printStackTrace();
 		}
 		return skillList;
 	}
 	
+	public static ArrayList<SortCriteriaRidorStatusBean> onLoadDeatilsList(String frmDate, String toDate, String skillName, String statusName, String clientName){
+		ArrayList<SortCriteriaRidorStatusBean> detailsList = new ArrayList<SortCriteriaRidorStatusBean>();
+		Connection connection = null;
+		try {
+			connection = DbConnection.createConnection();
+			sql_connection:{
+				try {
+					
+					//1st SQL block
+					sql_fetch:{
+					   PreparedStatement preparedStatement = null;
+					   try {
+						    preparedStatement = Pstm.createQuery(connection, SortCriteriaSql.detailsSqlQuery, null);
+						    logger.info(" onLoadSDeatlsReport- " + preparedStatement.unwrap(PreparedStatement.class));
+						    if(statusName!=null && statusName.trim().length()>0){
+						    	preparedStatement.setString(1, ("%"+statusName+"%").trim().toUpperCase());
+						    }else{
+						    	preparedStatement.setString(1, "%%");
+						    }
+						    
+						    if(clientName!=null && clientName.trim().length()>0){
+						    	preparedStatement.setString(2, ("%"+clientName+"%").trim().toUpperCase());
+						    }else{
+						    	preparedStatement.setString(2, "%%");
+						    }
+						    
+						    if(skillName!=null && skillName.trim().length()>0){
+						    	preparedStatement.setString(3, ("%"+skillName+"%").trim().toUpperCase());
+						    }else{
+						    	preparedStatement.setString(3, "%%");
+						    }
+						    
+						    if(frmDate!=null && frmDate.trim().length()>0){
+						    	preparedStatement.setString(4, frmDate);
+						    }else{
+						    }
+						    
+						    if(toDate!=null && toDate.trim().length()>0){
+						    	preparedStatement.setString(5, toDate);
+						    }else{
+						    }
+						    logger.info(" OnCheckRadioButton<Detail>:- " + preparedStatement.unwrap(PreparedStatement.class));
+							ResultSet resultSet = preparedStatement.executeQuery();
+							while (resultSet.next()) {
+								SortCriteriaRidorStatusBean bean = new SortCriteriaRidorStatusBean();
+								bean.getMasterbean().setSkillset(resultSet.getString("skill_name"));
+								
+								detailsList.add(bean);
+							}
+							System.out.println(detailsList.size());
+						} finally{
+							if(preparedStatement!=null){
+								preparedStatement.close();
+							}
+						}
+				    }
+				} catch (Exception e) {
+					e.printStackTrace();
+					logger.error(e);
+					logger.fatal(e);
+				}finally{
+					if(connection!=null){
+						connection.close();
+					}
+				}
+			}
+		} catch (Exception e) {	
+			e.printStackTrace();
+			logger.error(e);
+			logger.fatal(e);
+		}
+		return detailsList;
+	}
+	
 	public static ArrayList<StatusMasterBean> onLoadStatus(){
 		ArrayList<StatusMasterBean> statusList = new ArrayList<StatusMasterBean>();
-		
 		if(statusList.size()>0){
 			statusList.clear();
 		}
@@ -85,11 +156,9 @@ public class SortCriteriaDao {
 					sql_fetch:{
 					   PreparedStatement preparedStatement = null;
 					   try {
-						   preparedStatement = Pstm.createQuery(connection, SortCriteriaSql.statusQuery, null);
+						    preparedStatement = Pstm.createQuery(connection, SortCriteriaSql.statusQuery, null);
 							
-						   logger.info(" onLoadStatus- " + preparedStatement.unwrap(PreparedStatement.class));
-						   
-						   
+						    logger.info(" onLoadStatus- " + preparedStatement.unwrap(PreparedStatement.class));
 							ResultSet resultSet = preparedStatement.executeQuery();
 							while (resultSet.next()) {
 								StatusMasterBean bean = new StatusMasterBean();

@@ -25,11 +25,14 @@ public class SortcriteriaRidorStatusviewModel {
   private ArrayList<SkillsetMasterbean> skillList = new ArrayList<SkillsetMasterbean>();
   private ArrayList<StatusMasterBean> statusList = new ArrayList<StatusMasterBean>();
   private ArrayList<ClientInformationBean> clientList = new ArrayList<ClientInformationBean>();
+  private ArrayList<SortCriteriaRidorStatusBean> detailList = new ArrayList<SortCriteriaRidorStatusBean>();
   
   private Connection connection = null;
   private Session sessions = null;
   private String userName ;
   private String userId;
+  private String frmDate = "";
+  private String toDate = "";
 
   @AfterCompose
   public void initSetUp(@ContextParam(ContextType.VIEW) Component view) throws Exception{
@@ -45,12 +48,14 @@ public class SortcriteriaRidorStatusviewModel {
     @Command
     @NotifyChange("*")
     public void onChangeFromDate(){
+    	frmDate = Dateformatter.formatdate(criteriaRidorStatusBean.getFromDate());
     	System.out.println("FROM DATE IS :"+Dateformatter.formatdate(criteriaRidorStatusBean.getFromDate()));
     }
     
     @Command
     @NotifyChange("*")
     public void onChangeToDate(){
+    	toDate = Dateformatter.formatdate(criteriaRidorStatusBean.getToDate());
     	System.out.println("TO DATE IS :"+Dateformatter.formatdate(criteriaRidorStatusBean.getToDate()));
     }
   
@@ -58,24 +63,32 @@ public class SortcriteriaRidorStatusviewModel {
     @NotifyChange("*")
     public void onSelectSkillName(){
     	System.out.println("SKILL ID IS :"+criteriaRidorStatusBean.getSkillsetMasterbean().getId());
+    	System.out.println("SKILL Name IS :"+criteriaRidorStatusBean.getSkillsetMasterbean().getSkillset());
     }
     
     @Command
     @NotifyChange("*")
     public void onSelectStatusName(){
     	System.out.println("Status ID IS :"+criteriaRidorStatusBean.getStatusMasterBean().getStatusId());
+    	System.out.println("Status Name IS :"+criteriaRidorStatusBean.getStatusMasterBean().getStatus());
     }
     
     @Command
     @NotifyChange("*")
     public void onSelectClientName(){
     	System.out.println("Client ID IS :"+criteriaRidorStatusBean.getClientInformationBean().getClientId());
+    	System.out.println("Client Name IS :"+criteriaRidorStatusBean.getClientInformationBean().getFullName());
     }
     
     @Command
     @NotifyChange("*")
     public void onCheckRepairRedo(){
     	System.out.println("SELECTEDRADIOBUTTON DATA IS :"+criteriaRidorStatusBean.getSelectedRadioButton());
+    	if(criteriaRidorStatusBean.getSelectedRadioButton().equalsIgnoreCase("detail")){
+    		detailList = SortCriteriaDao.onLoadDeatilsList(frmDate, toDate, criteriaRidorStatusBean.getSkillsetMasterbean().getSkillset(), 
+    												criteriaRidorStatusBean.getStatusMasterBean().getStatus(), criteriaRidorStatusBean.getClientInformationBean().getFullName());
+    	    System.out.println(detailList.size());
+    	}
     }
     
     /************************************************************************************************************************************************/
@@ -128,5 +141,29 @@ public class SortcriteriaRidorStatusviewModel {
 	}
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+
+	public ArrayList<SortCriteriaRidorStatusBean> getDetailList() {
+		return detailList;
+	}
+
+	public void setDetailList(ArrayList<SortCriteriaRidorStatusBean> detailList) {
+		this.detailList = detailList;
+	}
+
+	public String getFrmDate() {
+		return frmDate;
+	}
+
+	public void setFrmDate(String frmDate) {
+		this.frmDate = frmDate;
+	}
+
+	public String getToDate() {
+		return toDate;
+	}
+
+	public void setToDate(String toDate) {
+		this.toDate = toDate;
 	}
 }
