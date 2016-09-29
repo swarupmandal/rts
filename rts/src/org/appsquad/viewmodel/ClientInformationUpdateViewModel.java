@@ -50,7 +50,13 @@ public class ClientInformationUpdateViewModel {
 		Selectors.wireComponents(view, this, false);
 		informationBean = bean;
 		sessions = Sessions.getCurrent();
+		userId = (String) sessions.getAttribute("userId");
+		informationBean.setUserId(userId);
 		countryList = ClientInformationDao.onLoadCountry();
+		informationBean.setCountryDropdownDisable(true);
+		informationBean.setStateDropdownDisable(false);
+		stateList = ClientInformationDao.onLoadState(informationBean);
+		System.out.println("USER ID IS ->"+informationBean.getUserId());
 	}
 	
 	@Command

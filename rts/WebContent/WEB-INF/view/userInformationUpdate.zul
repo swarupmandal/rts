@@ -14,15 +14,15 @@
                                <rows>
                                     <row>
                                         <label value="User Name"/>
-                                        <textbox value="@bind(vm.bean.username)"/>
+                                        <textbox value="@bind(vm.bean.username)" readonly="true"/>
                                     </row> 
                                     <row>
                                        <label value="User Id"/>
-                                       <textbox value="@bind(vm.bean.userid)"/>
+                                       <textbox value="@bind(vm.bean.userid)" readonly="true"/>
                                     </row>   
                                     <row>
                                         <label value="Password"/>
-                                        <textbox value="@bind(vm.bean.password)" type="password"/>
+                                        <textbox value="@bind(vm.bean.password)" type="password" readonly="true"/>
                                     </row> 
                                     <row>
                                         <label value="Email Id"/>
@@ -46,9 +46,9 @@
                                  </rows>
                               </grid>
                            </div>
-                                    <space></space>
-                                    <div align="center">
-                                       <button label="Update" width="80px" height="30px" style="font-weight:bold" onClick="@command('onClickUpdateButton')"/>
-                                    </div>
+                       <space></space>
+                             <div align="center">
+                                   <button label="Update" width="80px" height="30px" style="font-weight:bold" onClick="@command('onClickUpdateButton')"/>
+                            </div>
 </window>
 </zk>

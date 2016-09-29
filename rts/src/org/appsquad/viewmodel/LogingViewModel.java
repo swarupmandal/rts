@@ -88,7 +88,7 @@ public class LogingViewModel {
 							session.setAttribute("userId", userId);
 							Executions.sendRedirect("/home.zul");
 						}else {
-							 Messagebox.show("ILLIGAL ENTRY", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
+							 Messagebox.show("Wrong User Id And Password!", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
 						}
 					} finally{
 						if(preparedStatement!=null){

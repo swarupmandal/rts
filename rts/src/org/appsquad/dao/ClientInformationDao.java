@@ -223,16 +223,16 @@ public class ClientInformationDao {
 					    PreparedStatement preparedStatementInsert = null;
 					    try {
 					    	preparedStatementInsert = Pstm.createQuery(connection, 
-									ClientInformationsql.clientDetailsUpdate, Arrays.asList(clientInformationBean.getName().toUpperCase(),clientInformationBean.getSurName().toUpperCase(),
-											clientInformationBean.getCompanyName().toUpperCase(),clientInformationBean.getAddress().toUpperCase(),
-											clientInformationBean.getStateBean().getStateName(),clientInformationBean.getCountryBean().getCountryName(),
+									ClientInformationsql.clientDetailsUpdate, Arrays.asList(clientInformationBean.getAddress().toUpperCase(),
+											clientInformationBean.getStateBean().getStateName(),
 											clientInformationBean.getPinZipCode(),clientInformationBean.getContactNo().toUpperCase(),
 											clientInformationBean.getEmailId().toUpperCase(),
-											clientInformationBean.getStateBean().getStateId(),clientInformationBean.getCountryBean().getCountryId(),clientInformationBean.getClientId()));
+											clientInformationBean.getStateBean().getStateId(),clientInformationBean.getUserId(),
+											clientInformationBean.getClientId()));
 					    	
 					    	System.out.println(preparedStatementInsert);
 					    	
-					    	logger.info("Inserting Client Data Into Table: "+preparedStatementInsert.unwrap(PreparedStatement.class));
+					    	logger.info("Updating Client Data Into Table: "+preparedStatementInsert.unwrap(PreparedStatement.class));
 					    	
 							int i = preparedStatementInsert.executeUpdate();
 							if(i>0){

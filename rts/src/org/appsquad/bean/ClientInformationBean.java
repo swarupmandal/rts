@@ -13,6 +13,9 @@ public class ClientInformationBean {
 	private String userId;
 	private String fullName;
 	private int clientId;
+	private boolean countryDropdownDisable = false;
+	private boolean stateDropdownDisable = false;
+	
 	CountryBean countryBean = new CountryBean();
 	StateBean stateBean = new StateBean();
 	
@@ -98,6 +101,18 @@ public class ClientInformationBean {
 	}
 	public void setClientId(int clientId) {
 		this.clientId = clientId;
+	}
+	public boolean isStateDropdownDisable() {
+		return stateDropdownDisable;
+	}
+	public void setStateDropdownDisable(boolean stateDropdownDisable) {
+		this.stateDropdownDisable = stateDropdownDisable;
+	}
+	public boolean isCountryDropdownDisable() {
+		return countryDropdownDisable;
+	}
+	public void setCountryDropdownDisable(boolean countryDropdownDisable) {
+		this.countryDropdownDisable = countryDropdownDisable;
 	}
 	public void setFullName(String fullName) {
 		this.fullName = fullName;

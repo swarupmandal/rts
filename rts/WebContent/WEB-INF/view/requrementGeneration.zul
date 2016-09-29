@@ -80,23 +80,7 @@
 						
 						<row>
 						  <label value="Email Id:" style="font-weight:bold"></label>		
-						  <textbox width="25%" value="@bind(vm.reqGenBean.email)"
-						     constraint="/.+@.+\.[a-z]+/: Please enter an e-mail address"></textbox>	
-						</row>
-						
-						<row visible="false">
-						<label value="Requirement Status:" style="font-weight:bold"></label>
-						<combobox width="25%" model="@bind(vm.statusBeanList)" selectedItem="@bind(vm.statusBean)" onSelect="@command('onSelectOcStatus')"
-							autocomplete="true" autodrop="true" value="@bind(vm.statusBean.ocstatus)" readonly="true">
-							 <template name="model" var ="v">
-							   <comboitem value="@bind(v.ocstatusId)" label="@bind(v.ocstatus)"></comboitem>
-							 </template>
-						</combobox>
-						</row>
-						
-						<row visible="false">
-						<label value="Closure Reason:" style="font-weight:bold"></label>
-						<textbox multiline="true" value="@bind(vm.reqGenBean.closureReason)"></textbox>
+						  <textbox width="25%" value="@bind(vm.reqGenBean.email)"></textbox>	
 						</row>
 						
 						<row>

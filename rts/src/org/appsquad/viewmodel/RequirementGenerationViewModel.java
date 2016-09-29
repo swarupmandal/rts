@@ -28,6 +28,7 @@ import org.zkoss.zul.Window;
 public class RequirementGenerationViewModel {
 	private Session session = null;
 	private String userName;
+	private String EMAIL_REGEX = "^[\\w-_\\.+]*[\\w-_\\.]@([\\w]+\\.)+[\\w]+[\\w]$";
 	
 	RequirementGenerationBean reqGenBean = new RequirementGenerationBean();
 	ClientInformationBean clientInfoBean = new ClientInformationBean();
@@ -193,5 +194,13 @@ public class RequirementGenerationViewModel {
 	public void setReqGenBeanList(
 			ArrayList<RequirementGenerationBean> reqGenBeanList) {
 		this.reqGenBeanList = reqGenBeanList;
+	}
+
+	public String getEMAIL_REGEX() {
+		return EMAIL_REGEX;
+	}
+
+	public void setEMAIL_REGEX(String eMAIL_REGEX) {
+		EMAIL_REGEX = eMAIL_REGEX;
 	}
 }

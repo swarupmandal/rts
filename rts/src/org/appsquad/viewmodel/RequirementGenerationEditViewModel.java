@@ -34,6 +34,7 @@ public class RequirementGenerationEditViewModel {
 						  @ExecutionArgParam("parentBean") RequirementGenerationBean bean) throws Exception{
 		 Selectors.wireComponents(view, this, false); 
 		 reqEditGenBean = bean;
+		 reqEditGenBean.setReqOpenDate(true);
 		 statusBeanEditList = RequirementGenerationService.fetchStatusList();
 	}
 
@@ -48,11 +49,13 @@ public class RequirementGenerationEditViewModel {
 	@Command
 	@NotifyChange("*")
 	public void onClickUpdate(){
-		int i = RequirementGenerationService.updateReqGenMaster(reqEditGenBean);
-		if(i>0){
-			Messagebox.show("Updated Successfully", "Information", Messagebox.OK, Messagebox.INFORMATION);
-			winReqGenEdit.detach();
-			BindUtils.postGlobalCommand(null, null, "editReqGen", null);
+		if(RequirementGenerationService.isValidForUpdate(reqEditGenBean)){
+			int i = RequirementGenerationService.updateReqGenMaster(reqEditGenBean);
+			if(i>0){
+				Messagebox.show("Updated Successfully", "Information", Messagebox.OK, Messagebox.INFORMATION);
+				winReqGenEdit.detach();
+				BindUtils.postGlobalCommand(null, null, "editReqGen", null);
+			}	
 		}
 	}
 	

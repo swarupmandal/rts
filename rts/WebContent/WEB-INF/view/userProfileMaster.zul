@@ -30,8 +30,7 @@
                                     </row> 
                                     <row>
                                         <label value="EmailId:" style="font-weight:bold"/>
-                                        <textbox value="@bind(vm.userprofileBean.email)"
-                                            constraint="/.+@.+\.[a-z]+/: Please enter an e-mail address"/>
+                                        <textbox value="@bind(vm.userprofileBean.email)"/>
                                     </row>               
                                     <row>
                                         <label value="Address:" style="font-weight:bold"/>
@@ -39,7 +38,7 @@
                                     </row>
                                     <row>
                                         <label value="ContactNo:" style="font-weight:bold"/>
-                                        <textbox value="@bind(vm.userprofileBean.contactno)" maxlength="15"
+                                        <textbox value="@bind(vm.userprofileBean.contactno)" maxlength="10"
                                            xmlns:w="client">
                                             <attribute w:name="doKeyPress_">
 												<![CDATA[ function(evt) { if ( (evt.which >

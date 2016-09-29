@@ -17,7 +17,7 @@
 					
 					<row>
 					  <label value="Company Name:" style="font-weight:bold"></label>		
-					  <textbox width="45%" value="@bind(vm.informationBean.companyName)"></textbox>	
+					  <textbox width="45%" value="@bind(vm.informationBean.companyName)" readonly="true"></textbox>	
 					</row>
 					
 					<row>
@@ -27,7 +27,8 @@
 					
 					<row>
 		             	<label value="Country:" style="font-weight:bold"></label>
-		             					<bandbox value="@bind(vm.informationBean.countryBean.countryName)" id="ad" readonly="true" width="45%">
+		             					<bandbox value="@bind(vm.informationBean.countryBean.countryName)" id="ad" readonly="true" width="45%"
+		             					   disabled="@bind(vm.informationBean.countryDropdownDisable)">
 											<bandpopup >
 												<vbox>
 													<listbox model="@load(vm.countryList)" selectedItem="@bind(vm.informationBean.countryBean)" 
@@ -49,7 +50,8 @@
 					
 					<row>
 		             	<label value="State:" style="font-weight:bold"></label>
-		             					<bandbox value="@bind(vm.informationBean.stateBean.stateName)" id="cd" readonly="true" width="45%">
+		             					<bandbox value="@bind(vm.informationBean.stateBean.stateName)" id="cd" readonly="true" width="45%"
+		             					   disabled="@bind(vm.informationBean.stateDropdownDisable)">
 											<bandpopup >
 												<vbox>
 													<listbox model="@load(vm.stateList)" selectedItem="@bind(vm.informationBean.stateBean)" 

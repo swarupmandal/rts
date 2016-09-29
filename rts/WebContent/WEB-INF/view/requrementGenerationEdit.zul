@@ -44,12 +44,12 @@
 						
 						<row>
 						  <label value="Requirement Raise Date:" style="font-weight:bold"></label>		
-						  <datebox width="20%" value="@bind(vm.reqEditGenBean.raiseDate)"></datebox>
+						  <datebox width="20%" value="@bind(vm.reqEditGenBean.raiseDate)" disabled="@bind(vm.reqEditGenBean.reqOpenDate)"></datebox>
 						</row>
 						
 						<row>
 						  <label value="Requirement Close Date:" style="font-weight:bold"></label>		
-						  <datebox width="20%" value="@bind(vm.reqEditGenBean.closeDate)"></datebox>	
+						  <datebox width="20%" value="@bind(vm.reqEditGenBean.closeDate)" readonly="true"></datebox>	
 						</row>
 						
 						<row>
@@ -66,8 +66,7 @@
 						
 						<row>
 						  <label value="Email Id:" style="font-weight:bold"></label>		
-						  <textbox width="30%" value="@bind(vm.reqEditGenBean.email)"
-						     constraint="/.+@.+\.[a-z]+/: Please enter an e-mail address">
+						  <textbox width="30%" value="@bind(vm.reqEditGenBean.email)">
 						  </textbox>	
 						</row>
 						

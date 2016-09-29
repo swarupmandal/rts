@@ -11,7 +11,7 @@
                            <rows>
                                <row>
                                    <label value="Skill Set"></label>
-                                   <textbox value="@bind(vm.bean.skillset)"></textbox>
+                                   <textbox value="@bind(vm.bean.skillset)" readonly="true"></textbox>
                                </row>
                                <row>
                                   <label value="Skill Set Details"/>
@@ -23,5 +23,5 @@
                     <div align="center">
                        <button  label="Update" onClick="@command('onClickUpdateButton')" style="font-weight: bold;" width="70px" height="40px"></button>
                     </div>
-</window>
+	</window>
 </zk>

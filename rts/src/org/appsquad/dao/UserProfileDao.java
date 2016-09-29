@@ -32,7 +32,7 @@ public class UserProfileDao {
 					    	preparedStatementInsert = Pstm.createQuery(connection, 
 									UserProfileSql.insertUserData, Arrays.asList(userprofileBean.getUserid().toUpperCase(),userprofileBean.getUsername().toUpperCase(),
 																userprofileBean.getPassword().toUpperCase(),userprofileBean.getAddress().toUpperCase(),
-																userprofileBean.getContactno().toUpperCase(),userprofileBean.getEmail().toUpperCase()));
+																userprofileBean.getContactno().toUpperCase(),userprofileBean.getEmail()));
 					    
 					    	
 					    	logger.info(" insertUserData- " + preparedStatementInsert.unwrap(PreparedStatement.class));
@@ -180,12 +180,12 @@ public class UserProfileDao {
 					    	preparedStatementInsert = Pstm.createQuery(connection, 
 									UserProfileSql.updateUserDetails, Arrays.asList(userprofileBean.getUserid().toUpperCase(),userprofileBean.getUsername().toUpperCase(),
 											  userprofileBean.getPassword().toUpperCase(),userprofileBean.getAddress().toUpperCase(),userprofileBean.getContactno().toUpperCase(),
-											  userprofileBean.getEmail().toUpperCase(),userprofileBean.getId()));
+											  userprofileBean.getEmail(),userprofileBean.getId()));
 					    	
 					    	System.out.println(preparedStatementInsert);
 					    	
 					    	
-					    	logger.info(" updateUserData- " + preparedStatementInsert.unwrap(PreparedStatement.class));
+					    	logger.info(" Update User Data- " + preparedStatementInsert.unwrap(PreparedStatement.class));
 					    	
 							int i = preparedStatementInsert.executeUpdate();
 							if(i>0){

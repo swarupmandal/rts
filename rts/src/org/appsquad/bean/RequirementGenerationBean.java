@@ -45,6 +45,8 @@ public class RequirementGenerationBean {
   
   private Integer req_id;
   private Integer requirementId;
+  private boolean reqOpenDate = false;
+  
 
 public String getClientName() {
 	return clientName;
@@ -267,6 +269,14 @@ public void setCloseDateValue(String closeDateValue) {
 
 public Integer getReq_id() {
 	return req_id;
+}
+
+public boolean isReqOpenDate() {
+	return reqOpenDate;
+}
+
+public void setReqOpenDate(boolean reqOpenDate) {
+	this.reqOpenDate = reqOpenDate;
 }
 
 public void setReq_id(Integer req_id) {
