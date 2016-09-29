@@ -22,6 +22,7 @@ public class ChangePasswordViewModel {
 
 	Session session = null;
 	
+	
 	ChangePasswordbean changePasswordbean=new ChangePasswordbean();
 	ArrayList<String> alist= new ArrayList<String>();
 	
@@ -37,6 +38,9 @@ public class ChangePasswordViewModel {
 		Selectors.wireComponents(view, this, false);
 	
 		session = Sessions.getCurrent();
+		
+		changePasswordbean.setUserId((String)session.getAttribute("userId"));
+		
 	}
 	
 	
