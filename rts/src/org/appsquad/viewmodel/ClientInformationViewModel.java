@@ -171,13 +171,9 @@ public class ClientInformationViewModel {
 	public Bandbox getBandBox() {
 		return bandBox;
 	}
-
-
 	public void setBandBox(Bandbox bandBox) {
 		this.bandBox = bandBox;
 	}
-
-
 	public void setFlag(boolean flag) {
 		this.flag = flag;
 	}
@@ -187,11 +183,9 @@ public class ClientInformationViewModel {
 	public void setFlagDelete(boolean flagDelete) {
 		this.flagDelete = flagDelete;
 	}
-
 	public Bandbox getBandBox1() {
 		return bandBox1;
 	}
-
 	public void setBandBox1(Bandbox bandBox1) {
 		this.bandBox1 = bandBox1;
 	}
