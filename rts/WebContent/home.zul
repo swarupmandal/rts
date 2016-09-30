@@ -131,7 +131,7 @@
          <treeitem>
          <treerow>
          	<treecell label="- Resource detail per requirement " 
-         	onClick='inclResults.setSrc("/WEB-INF/view/resourceDetDownload.zul");'>
+         	onClick='inclResults.setSrc("/WEB-INF/view/skillSetWiseReport.zul");'>
          	</treecell>
          </treerow>
          </treeitem>
