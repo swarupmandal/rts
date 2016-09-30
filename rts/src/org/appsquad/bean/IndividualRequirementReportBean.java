@@ -2,7 +2,9 @@ package org.appsquad.bean;
 
 import java.util.Date;
 
-public class IndividualRequirementBean {
+public class IndividualRequirementReportBean {
+	
+	private Integer r_idSearch;
 	private Date fromDate;
 	private Date toDate;
 	private String userId;
@@ -78,5 +80,11 @@ public class IndividualRequirementBean {
 			RequirementGenerationBean requirementGenerationBean) {
 		this.requirementGenerationBean = requirementGenerationBean;
 	}
-
+	public Integer getR_idSearch() {
+		return r_idSearch;
+	}
+	public void setR_idSearch(Integer r_idSearch) {
+		this.r_idSearch = r_idSearch;
+	}
+	
 }

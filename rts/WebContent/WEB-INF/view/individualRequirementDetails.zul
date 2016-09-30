@@ -1,51 +1,140 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
 <window title="Sort criteria:RID/Status" border="none" apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('org.appsquad.viewmodel.IndividualRequirementViewModel')">
+		viewModel="@id('vm') @init('org.appsquad.viewmodel.IndividualRequirementReportViewModel')">
+    
     <div>
-                          <hlayout>
-                            <grid>
-                                <columns>
-                                      <column></column>
-                                      <column></column>
-                                     
-                                </columns>
-                                
-                                <rows>
-                                
-								   <row>
-					  					 <label value="Requirement Id" style="font-weight:bold"></label>
-								     		<combobox model="@bind(vm.reqIdList)" selectedItem="@bind(vm.individualRequirementBean.requirementGenerationBean)" readonly="true"
-		             							value="@bind(vm.individualRequirementBean.requirementGenerationBean.req_id)" width="50%" onSelect="@command('onSelectReqId')">
-		             							<template name="model" var="p">
-		             							<comboitem value="@bind(p.req_id)" label="@bind(p.req_id)"/>
-		             							</template>
-		             						</combobox>	
-								   	</row>
-								   
-								   <row>
-								    <label value="Resourcing Status"></label>
-								       <combobox model="@bind(vm.statusList)" selectedItem="@bind(vm.individualRequirementBean.statusMasterBean)" readonly="true"
-		             						value="@bind(vm.individualRequirementBean.statusMasterBean.status)" width="50%" onSelect="@command('onSelectStatusName')">
-		             					<template name="model" var="p">
-		             					<comboitem value="@bind(p.status)" label="@bind(p.status)"/>
-		             					</template>
-		             					</combobox>	
-								   </row>
-								  
-								   <row>
-								   
-								       <radiogroup onCheck="@command('onCheckRepairRedo')" selectedItem="@bind(vm.individualRequirementBean.selectedRadioButton)">
-											<radio label="Deatil" value="detail"/>
-											<space></space>
-											<radio label="Summary" value="summary"/>
-										</radiogroup>
-								   
-								   </row>
-								   
-								 </rows>
-                            </grid>
-                            </hlayout>
-                        </div>
+       <label value="Requirement Id" style="font-weight: bold; color: black"></label>
+		<bandbox autodrop="true" readonly="true" id="reqIdb" value="@bind(vm.requirementGenerationBean.req_id)">
+			<bandpopup>	
+				<hbox>
+					<intbox value="@bind(vm.individualRequirementReportBean.r_idSearch)" onChange="@command('onChangeReqId')" placeholder="Search By Req Id"></intbox>
+					<button label="Serach" onClick="@command('onChangeReqId')"></button>
+				</hbox>
+				<space></space>
+				<listbox width="280px" model="@bind(vm.requirementGenerationBeanList)" 
+				     selectedItem="@bind(vm.requirementGenerationBean)" onSelect="@command('onSelctReqId')" mold="paging" pageSize="5">
+					<listhead sizable="true">
+						<listheader label="Req Id"></listheader>
+						<listheader label="Skill"></listheader>
+					</listhead>
+					
+					<template name="model" var = "v">
+					<listitem>
+					  
+						<listcell label="@load(v.req_id)"></listcell>
+						<listcell label="@load(v.reqSkill)"></listcell>
+					  	
+					</listitem>
+					</template>
+				</listbox>
+			</bandpopup>
+		</bandbox>
+		
+		<space></space>
+		<label value="Resourcing Status" style="font-weight: bold; color: black"></label>    
+    	<combobox model="@bind(vm.statusBeanList)" selectedItem="@bind(vm.individualRequirementReportBean.statusMasterBean)" readonly="true"
+		  value="@bind(vm.individualRequirementReportBean.statusMasterBean.status)" onSelect="@command('onSelectStatusName')" width="200px">
+		   <template name="model" var="p">
+		      <comboitem value="@bind(p.statusId)" label="@bind(p.status)"/>
+		   </template>
+	    </combobox>
+    
+    	<div></div>
+    	<space></space>
+    	<hlayout spacing="20px">
+    	     <radiogroup onCheck="@command('onCheckRepairRedo')" selectedItem="@bind(vm.individualRequirementReportBean.selectedRadioButton)">
+				<radio label="Deatil" value="detail" style="font-weight:bold; color: black"/>
+				<space></space>	
+				<radio label="Summary" value="summary" style="font-weight:bold; color: black"/>
+			</radiogroup>
+    	</hlayout>
+    </div>
+    
+    <div>
+            <grid model="@bind(vm.individualRequirementReportBeanList)" mold="paging" pageSize="10">
+    		     <auxhead>
+    		  		<auxheader colspan="4" align="center">
+    		  			<label value="Status" style="font-weight:bold; color: black"></label>
+    		  		</auxheader>
+    		  		<auxheader colspan="4" align="center">
+    		  			<label value="Resource Name" style="font-weight:bold; color: black"></label>
+    		  		</auxheader>
+    		  		<auxheader colspan="4" align="center">
+    		  		    <label value="Year of Exp" style="font-weight:bold; color: black"></label>
+    		  		</auxheader>
+    		  		<auxheader align="center" colspan="4">
+    		  			<label value="Contact No" style="font-weight:bold; color: black"></label>
+    		  		</auxheader>
+    		  		<auxheader align="center" colspan="4">
+    		  			<label value="Email" style="font-weight:bold; color: black"></label>
+    		  		</auxheader>
+    		  		<auxheader align="center" colspan="4">
+    		  			<label value="Internal Interview Date" style="font-weight:bold; color: black"></label>
+    		  		</auxheader>
+    		  		<auxheader align="center" colspan="4">
+    		  			<label value="Client Interview Date" style="font-weight:bold; color: black"></label>
+    		  		</auxheader>	
+    		  	 </auxhead>
+    		  	 
+    		  	<columns sizable="true">
+    		  		<column></column>
+    		  		<column></column>
+    		  		<column></column>
+    		  		<column></column>
+    		  		<column></column>
+    		  		<column></column>
+    		  		<column></column>
+    		  		<column></column>
+    		  		<column></column>
+    		  		<column></column>
+    		  		<column></column>
+    		  		<column></column>
+    		  		<column></column>
+    		  		<column></column>
+    		  		<column></column>
+    		  		<column></column>
+    		  		
+    		 
+    		  	</columns>
+    		  	
+    		  	<rows>
+    		  	  <template name="model" var="v">
+    		  		<row>
+    		  		  
+    		  		    <label value="@bind(v.rIdLabel)" style="font-weight:bold; color: black" visible="@bind(v.ridLbFieldVis)"></label>
+    		  			<textbox value="@bind(v.status)" visible="@bind(v.statusFieldVis)"></textbox>
+    		  			
+    		  			<label value="@bind(v.reqId)" style="font-weight:bold; color: black" visible="@bind(v.ridFieldVis)"></label>
+    		  			<textbox value="@bind(v.resourceName)" visible="@bind(v.resNameFieldVis)"></textbox>
+    		  		  
+    		  			<label value="@bind(v.rIdDateLabel)" style="font-weight:bold; color: black" visible="@bind(v.ridDatelbFieldVis)"></label>
+    		  			<textbox value="@bind(v.yoExp)" visible="@bind(v.yoExpFieldVis)"></textbox>
+    		  			
+    		  			<label value="@bind(v.createdDateValue)" style="font-weight:bold; color: black" visible="@bind(v.ridDateFieldVis)"></label>
+    		  			<textbox value="@bind(v.contNo)" visible="@bind(v.contNoFieldVis)"></textbox>
+    		  			
+    		  			<label value="@bind(v.skillSetLabel)" style="font-weight:bold; color: black" visible="@bind(v.sklStLbFieldVis)"></label>
+    		  			<textbox value="@bind(v.emailId)" visible="@bind(v.emailFieldVis)"></textbox>
+    		  			
+    		  			<label value="@bind(v.skillSet)" style="font-weight:bold; color: black" visible="@bind(v.sklStFieldVis)"></label>
+    		  			<label></label>
+    		  			
+    		  			<label value="@bind(v.clientFullName)" style="font-weight:bold; color: black"></label>
+    		  			<textbox value="@bind(v.intIntvValue)" visible="@bind(v.intIntvDateFieldVis)"></textbox>
+    		  			
+    		  			<label value="@bind(v.companyName)" style="font-weight:bold; color: black"></label>
+    		  			<textbox value="@bind(v.clntIntvValue)" visible="@bind(v.clIntvDateFieldVis)"></textbox>
+    		  			
+    		  		</row>
+    		  	 </template>	
+    		  	</rows>
+    		  </grid>
+    		</div>
+    
+    
+    
+                          
+                        
 </window>
 </zk>

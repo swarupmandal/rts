@@ -9,6 +9,7 @@ import org.appsquad.bean.SkillsetMasterbean;
 import org.appsquad.bean.StatusMasterBean;
 import org.appsquad.dao.ResourceMasterDao;
 import org.appsquad.dao.SortCriteriaDao;
+import org.appsquad.service.IndividualClientReportService;
 import org.appsquad.service.RequirementGenerationService;
 import org.appsquad.service.ResourceAllocationTrackingService;
 import org.appsquad.utility.Dateformatter;
@@ -21,11 +22,15 @@ import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.select.Selectors;
+import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zul.Bandbox;
 
 public class IndividualClientReportViewModel {
 	
 	  IndividualClientReportBean individualClientReportBean = new IndividualClientReportBean();
 	
+	  
+	  private ArrayList<IndividualClientReportBean> reportBeanList = new ArrayList<IndividualClientReportBean>();
 	  private ArrayList<SkillsetMasterbean> skillList = new ArrayList<SkillsetMasterbean>();
 	  private ArrayList<StatusMasterBean> statusList = new ArrayList<StatusMasterBean>();
 	  private ArrayList<ClientInformationBean> clientList = new ArrayList<ClientInformationBean>();
@@ -34,6 +39,12 @@ public class IndividualClientReportViewModel {
 	  private Session sessions = null;
 	  private String userName ;
 	  private String userId;
+	  
+	  @Wire("#clname")
+	  private Bandbox clnBandBox;
+		
+	  @Wire("#skSt")
+	  private Bandbox skStBandBox;
 	  
 	  @AfterCompose
 	  public void initSetUp(@ContextParam(ContextType.VIEW) Component view) throws Exception{
@@ -56,7 +67,7 @@ public class IndividualClientReportViewModel {
 	   @Command
 	   @NotifyChange("*")
 	   public void onSelctClientName(){
-		   System.out.println(">>> >> > ");
+		   clnBandBox.close();
 	   }
 	    
 	   
@@ -81,8 +92,28 @@ public class IndividualClientReportViewModel {
 	   @Command
 	   @NotifyChange("*")
 	   public void onSelctSkillName(){
+		   skStBandBox.close();
+	   }
+	   
+	   @Command
+	   @NotifyChange("*")
+	   public void onClickSearch(){
+		   reportBeanList = IndividualClientReportService.loadRidList(individualClientReportBean.clientInformationBean.getClientId());
+		   
+		   System.out.println("List Size >>> >> > " +reportBeanList.size());
+		   for(IndividualClientReportBean rrb : reportBeanList){
+			   
+			   //System.out.print(">> " + rrb.getrIdDateLabel() +" - " + rrb.getReqId() + rrb.getrIdDateLabel() + " : " + rrb.getCreatedDateValue() + " - " + rrb.getSkillSetLabel() +" - " + rrb.getSkillSet() + " >> ");
+			   //System.out.println("Test 1 "+rrb.getTestId1() + " - Test 2 " + rrb.getTestId2());
+			   //System.out.println("________________________________________________________________________________________");
+			   
+		   }
+		   
+		   
+		   
 		   
 	   }
+	   
 	   
 	
 	public ArrayList<SkillsetMasterbean> getSkillList() {
@@ -135,5 +166,14 @@ public class IndividualClientReportViewModel {
 	public void setIndividualClientReportBean(
 			IndividualClientReportBean individualClientReportBean) {
 		this.individualClientReportBean = individualClientReportBean;
+	}
+
+	public ArrayList<IndividualClientReportBean> getReportBeanList() {
+		return reportBeanList;
+	}
+
+	public void setReportBeanList(
+			ArrayList<IndividualClientReportBean> reportBeanList) {
+		this.reportBeanList = reportBeanList;
 	}
 }

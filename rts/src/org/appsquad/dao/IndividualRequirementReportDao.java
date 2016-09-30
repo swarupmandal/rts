@@ -6,67 +6,64 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane.RestoreAction;
-
 import org.apache.log4j.Logger;
 import org.appsquad.bean.IndividualClientReportBean;
-import org.appsquad.bean.IndividualClientReportSubBean;
 import org.appsquad.bean.RequirementGenerationBean;
 import org.appsquad.database.DbConnection;
 import org.appsquad.sql.IndividualClientReportSql;
-import org.appsquad.sql.IndividualClientRequirementSql;
+import org.appsquad.sql.IndividualRequirementReportSql;
 import org.appsquad.utility.Dateformatter;
 import org.appsquad.utility.Pstm;
 
-public class IndividualClientReportDao {
+public class IndividualRequirementReportDao {
 
-	final static Logger logger=Logger.getLogger(IndividualClientReportDao.class);
+	public static final Logger logger = Logger.getLogger(IndividualRequirementReportDao.class);
 	
-	public static ArrayList<RequirementGenerationBean> onLoadReqList(){
-		ArrayList<RequirementGenerationBean> reqIdList = new ArrayList<RequirementGenerationBean>();
-		Connection connection = null;
+	
+	public static ArrayList<RequirementGenerationBean> fetchReqirmentDetails(){
+		ArrayList<RequirementGenerationBean> list = new ArrayList<RequirementGenerationBean>();
+		if(list.size()>0){
+			list.clear();	
+		}
 		try {
-			connection = DbConnection.createConnection();
-			sql_connection:{
-				try {
+			Connection connection = null;
+			PreparedStatement preparedStatement = null;
+			ResultSet resultSet = null;
+			try {
+				connection = DbConnection.createConnection();
+				preparedStatement = Pstm.createQuery(connection, IndividualRequirementReportSql.loadReqIdDetails, null);
+				
+				logger.info(" Individual client report fetchReqirmentDetails- " + preparedStatement.unwrap(PreparedStatement.class));
+				
+				
+				resultSet = preparedStatement.executeQuery();
+				while (resultSet.next()) {
+					RequirementGenerationBean bean = new RequirementGenerationBean();
+					bean.setReq_id(resultSet.getInt("r_id"));
+					bean.setReqSkill(resultSet.getString("master_skill_set_name"));
+					bean.setOcStatus(resultSet.getString("status"));
 					
-					//1st SQL block
-					sql_fetch:{
-					   PreparedStatement preparedStatement = null;
-					   try {
-						   preparedStatement = Pstm.createQuery(connection, IndividualClientRequirementSql.fetchReqIdList, null);
-							
-						   logger.info("onLoadReqList - " + preparedStatement.unwrap(PreparedStatement.class));
-						   
-							ResultSet resultSet = preparedStatement.executeQuery();
-							while (resultSet.next()) {
-								RequirementGenerationBean bean = new RequirementGenerationBean();
-								bean.setReq_id(resultSet.getInt("r_id"));
-								
-								reqIdList.add(bean);
-							}  
-						} finally{
-							if(preparedStatement!=null){
-								preparedStatement.close();
-							}
-						}
-				    }
-				} catch (Exception e) {
-					e.printStackTrace();
-				}finally{
-					if(connection!=null){
-						connection.close();
-					}
+					list.add(bean);
+				}
+			} finally {
+				if(preparedStatement != null){
+					preparedStatement.close();
+				}if(resultSet != null){
+					resultSet.close();
+				}if(connection != null){
+					connection.close();
 				}
 			}
 		} catch (Exception e) {
-			logger.fatal("onLoadReqList" + e);
+			
+			logger.fatal(e);
+			
 			e.printStackTrace();
 		}
-		return reqIdList;	
+		return list;
 	}
 	
-	public static ArrayList<IndividualClientReportBean> loadRidList(int clientId){
+	public static ArrayList<IndividualClientReportBean> loadRidList(int rid){
 		
 		ArrayList<IndividualClientReportBean> list = new ArrayList<IndividualClientReportBean>();
 		if(list.size()>0){
@@ -81,7 +78,7 @@ public class IndividualClientReportDao {
 			
 			try {
 				connection = DbConnection.createConnection();
-				preparedStatement = Pstm.createQuery(connection, IndividualClientReportSql.loadRidList, Arrays.asList(clientId));
+				preparedStatement = Pstm.createQuery(connection, IndividualRequirementReportSql.loadClientDetails, Arrays.asList(rid));
 				
 				logger.info("load Rid List - " + preparedStatement.unwrap(PreparedStatement.class));
 				resultSet = preparedStatement.executeQuery();
@@ -132,7 +129,7 @@ public class IndividualClientReportDao {
 						}
 						
 						PreparedStatement preparedStatement2 = null;
-						preparedStatement2 = Pstm.createQuery(connection, IndividualClientReportSql.loadRidDetailsList, Arrays.asList(bean.getReqId()));
+						preparedStatement2 = Pstm.createQuery(connection, IndividualRequirementReportSql.loadRidDetailsList, Arrays.asList(rid));
 						System.out.println("preparedStatement2 -- " + preparedStatement2);
 						
 						ResultSet resultSet2 = preparedStatement2.executeQuery();
@@ -179,8 +176,6 @@ public class IndividualClientReportDao {
 							
 							
 						}
-						System.out.println("Sub List Size >>> >> > " + subList.size());
-						
 						
 					} finally{
 						
@@ -211,36 +206,5 @@ public class IndividualClientReportDao {
 		return list;
 		
 	}
-	
-	public static ArrayList<IndividualClientReportSubBean> loadRidDetails(Connection connection ,int id){
-		ArrayList<IndividualClientReportSubBean> arrayList  = new ArrayList<IndividualClientReportSubBean>();
-		if(arrayList.size()>0){
-			arrayList.clear();
-		}
-		try {
-			PreparedStatement preparedStatement = null;
-			preparedStatement = Pstm.createQuery(connection, IndividualClientReportSql.loadRidDetailsList, Arrays.asList(id));
-			
-			ResultSet resultSet = preparedStatement.executeQuery();
-			
-			while (resultSet.next()) {
-				IndividualClientReportSubBean bean = new IndividualClientReportSubBean();
-				
-				bean.setTestId1(resultSet.getInt("resource_id"));
-				bean.setTestId2(resultSet.getInt("rts_req_resource_mapper"));
-			
-				arrayList.add(bean);
-			}
-			
-			
-			
-		} catch (Exception e) {
-			
-		}
-		return arrayList;
-	}
-	
-	
-	
 	
 }

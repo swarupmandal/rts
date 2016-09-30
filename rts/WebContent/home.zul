@@ -105,7 +105,7 @@
          </treechildren>
          </treeitem>
          
-         <!--  <treeitem open="false">
+          <treeitem open="false">
          <treerow>
          	<treecell label="Report">
          	</treecell>
@@ -135,23 +135,24 @@
          	</treecell>
          </treerow>
          </treeitem>
-         
-         <treeitem>
-         <treerow>
-         	<treecell label="- Resource detail per requirement " 
-         	onClick='inclResults.setSrc("/WEB-INF/view/resourceDetDownload.zul");'>
-         	</treecell>
-         </treerow>
-         </treeitem>
          <treeitem>
          <treerow>
          	<treecell label="- Skill set wise requirement list" 
-         	onClick='inclResults.setSrc("/WEB-INF/view/skillSetWizeReqList.zul");'>
+         	onClick='inclResults.setSrc("/WEB-INF/view/skillSetWiseReport.zul");'>
          	</treecell>
          </treerow>
          </treeitem>
+         <treeitem>
+         <treerow>
+         	<treecell label="- Resource detail per requirement " 
+         	onClick='inclResults.setSrc("/WEB-INF/view/recourceCvDownload.zul");'>
+         	</treecell>
+         </treerow>
+         </treeitem>
+         
+         
          </treechildren>
-         </treeitem> -->
+         </treeitem>
       </treechildren>
      </tree>
   </div>
