@@ -94,6 +94,14 @@
             	</treerow>
             </treeitem>
             
+             <treeitem open="false">
+            	<treerow>
+            	 <treecell label="- Resource Demo Screen"
+            	  onClick='inclResults.setSrc("/WEB-INF/view/demo.zul");'>
+            	</treecell>
+            	</treerow>
+            </treeitem>
+            
          </treechildren>
          </treeitem>
          
