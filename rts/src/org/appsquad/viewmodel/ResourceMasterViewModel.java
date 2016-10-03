@@ -111,6 +111,7 @@ public class ResourceMasterViewModel {
 	public void onClickSubmitButton(){
 		boolean isInsert = false;
 		isInsert = ResourceMasterService.insertClientMasterData(resourceMasterBean);
+		System.out.println("RESOURCE MASTER SCREEN IS INSERT -:"+isInsert);
 		if(isInsert){
 			ResourceMasterService.clearAllField(resourceMasterBean);
 			fileName = null;

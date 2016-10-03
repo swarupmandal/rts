@@ -97,7 +97,7 @@
          </treechildren>
          </treeitem>
          
-       <!--    <treeitem open="false">
+      <!--   <treeitem open="false">
          <treerow>
          	<treecell label="Report">
          	</treecell>
@@ -107,7 +107,7 @@
          <treeitem>
          <treerow>
          	<treecell label="- Requirement wise status report" 
-         	onClick='inclResults.setSrc("/WEB-INF/view/sortCriteriaRidOrStatus.zul");' visible="false">
+         	onClick='inclResults.setSrc("/WEB-INF/view/sortCriteriaRidOrStatus.zul");' >
          	</treecell>
          </treerow>
          </treeitem>
@@ -115,7 +115,7 @@
          <treeitem>
          <treerow>
          	<treecell label="- Individual client report" 
-         	onClick='inclResults.setSrc("/WEB-INF/view/individualClientDet.zul");' visible="false">
+         	onClick='inclResults.setSrc("/WEB-INF/view/individualClientDet.zul");' >
          	</treecell>
          </treerow>
          </treeitem>
@@ -123,14 +123,14 @@
          <treeitem>
          <treerow>
          	<treecell label="- Individual requirement (RID) report" 
-         	onClick='inclResults.setSrc("/WEB-INF/view/individualRequirementDetails.zul");' visible="false">
+         	onClick='inclResults.setSrc("/WEB-INF/view/individualRequirementDetails.zul");' >
          	</treecell>
          </treerow>
          </treeitem>
          <treeitem>
          <treerow>
          	<treecell label="- Skill set wise requirement list" 
-         	onClick='inclResults.setSrc("/WEB-INF/view/skillSetWiseReport.zul");' visible="false">
+         	onClick='inclResults.setSrc("/WEB-INF/view/skillSetWiseReport.zul");' >
          	</treecell>
          </treerow>
          </treeitem>

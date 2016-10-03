@@ -100,7 +100,7 @@ public class ResourceInformationUpdateViewModel {
 	
 	@Command
 	@NotifyChange("*")
-	public void onUploadFile(@ContextParam(ContextType.BIND_CONTEXT) BindContext bindContext) throws Exception{
+	public void onUploadFileUpload(@ContextParam(ContextType.BIND_CONTEXT) BindContext bindContext) throws Exception{
 		UploadEvent uploadEvent = null;
 		Object objUpEvent = bindContext.getTriggerEvent();
 		if (objUpEvent != null && (objUpEvent instanceof UploadEvent)) {
@@ -119,7 +119,8 @@ public class ResourceInformationUpdateViewModel {
          if (!baseDir.exists()) {
                baseDir.mkdirs();
           }
-         int number = ResourceMasterDao.countLastNumber();
+         //int number = ResourceMasterDao.countLastNumber();
+         int number = masterBean.getResourceId(); 
          String name = media.getName();
          String parts[] = name.split("\\.");
          for(int i=0;i<parts.length;i++){
