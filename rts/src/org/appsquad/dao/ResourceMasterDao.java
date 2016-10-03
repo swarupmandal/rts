@@ -68,6 +68,50 @@ public class ResourceMasterDao {
 		return stateList;	
 	}
 	
+	
+	public static int countLastNumber(){
+		int num = 0;
+		int returnNum = 0;
+		Connection connection = null;
+		try {
+			connection = DbConnection.createConnection();
+			sql_connection:{
+				try {
+					
+					//1st SQL block
+					sql_fetch:{
+					   PreparedStatement preparedStatement = null;
+					   try {
+						   preparedStatement = Pstm.createQuery(connection, ResourceMasterSql.countLastNumberSql, null);
+						   logger.info("Count Last Number- " + preparedStatement.unwrap(PreparedStatement.class));
+						    ResultSet resultSet = preparedStatement.executeQuery();
+							while (resultSet.next()) {
+								num = resultSet.getInt(1);
+								returnNum = num+1;
+							} 
+						} finally{
+							if(preparedStatement!=null){
+								preparedStatement.close();
+							}
+						}
+				    }
+				} catch (Exception e) {
+					e.printStackTrace();
+					
+				}finally{
+					if(connection!=null){
+						connection.close();
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+			logger.fatal(e);
+		}
+		return returnNum;	
+	}
+	
 	public static ArrayList<CountryBean> onLoadCountry(){
 		ArrayList<CountryBean> countryList = new ArrayList<CountryBean>();
 		Connection connection = null;
@@ -230,8 +274,7 @@ public class ResourceMasterDao {
 											                                              resourceMasterBean.getPicCode().toUpperCase(),resourceMasterBean.getContactNumber().toUpperCase(),resourceMasterBean.getStatusMasterBean().getStatusId(),
 											                                              resourceMasterBean.getCtc(),resourceMasterBean.getSkillsetMasterbean().getSkillset().toUpperCase(),
 											                                              resourceMasterBean.getCountryBean().getCountryName().toUpperCase(),
-											                                              resourceMasterBean.getStateBean().getStateName().toUpperCase(), resourceMasterBean.getFilePath(),
-											                                              resourceMasterBean.getProfit()));
+											                                              resourceMasterBean.getStateBean().getStateName().toUpperCase(),resourceMasterBean.getProfit(),resourceMasterBean.getFilePath()));
 					    	
 					    	
 					    	logger.info("Inserting Resource Data Into Table: "+preparedStatementInsert.unwrap(PreparedStatement.class));
@@ -279,13 +322,9 @@ public class ResourceMasterDao {
 					   PreparedStatement preparedStatement = null;
 					   try {
 						   preparedStatement = Pstm.createQuery(connection, ResourceMasterSql.fetchResourceQyery, null);
-							
-						   
-						   logger.info(" onLoadResourceDeatils- " + preparedStatement.unwrap(PreparedStatement.class));
-						   
-						   
-							ResultSet resultSet = preparedStatement.executeQuery();
-							while (resultSet.next()) {
+						   logger.info(" onLoadResourceDeatils- " + preparedStatement.unwrap(PreparedStatement.class));	   
+						   ResultSet resultSet = preparedStatement.executeQuery();
+						   while (resultSet.next()) {
 								ResourceMasterBean bean = new ResourceMasterBean();
 								
 								bean.setResourceId(resultSet.getInt("id"));
