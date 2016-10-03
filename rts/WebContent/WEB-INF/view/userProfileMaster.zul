@@ -17,27 +17,51 @@
                                </columns>
                                <rows>
                                     <row>
-                                        <label value="UserName:" style="font-weight:bold"/>
+                                    <hlayout>
+                                         <label value="* " style="font-weight:bold; color:red"/>
+                                         <label value="UserName:" style="font-weight:bold"/>
+                                    </hlayout>
+                                        
                                         <textbox value="@bind(vm.userprofileBean.username)"/>
                                     </row> 
                                     <row>
-                                       <label value="UserId:" style="font-weight:bold"/>
+                                    <hlayout>
+                                         <label value="* " style="font-weight:bold; color:red"/>
+                                         <label value="UserId:" style="font-weight:bold"/>
+                                    </hlayout>
+                                       
                                        <textbox value="@bind(vm.userprofileBean.userid)"/>
                                     </row>   
                                     <row>
-                                        <label value="Password:" style="font-weight:bold"/>
+                                    <hlayout>
+                                          <label value="* " style="font-weight:bold; color:red"/>
+                                          <label value="Password:" style="font-weight:bold"/>
+                                    </hlayout>
+                                        
                                         <textbox value="@bind(vm.userprofileBean.password)" type="password"/>
                                     </row> 
                                     <row>
-                                        <label value="EmailId:" style="font-weight:bold"/>
+                                    <hlayout>
+                                         <label value="* " style="font-weight:bold; color:red"/>
+                                         <label value="EmailId:" style="font-weight:bold"/>
+                                    </hlayout>
+                                        
                                         <textbox value="@bind(vm.userprofileBean.email)"/>
                                     </row>               
                                     <row>
-                                        <label value="Address:" style="font-weight:bold"/>
+                                    <hlayout>
+                                         <label value="* " style="font-weight:bold; color:red"/>
+                                         <label value="Address:" style="font-weight:bold"/>
+                                    </hlayout>
+                                        
                                         <textbox value="@bind(vm.userprofileBean.address)"/>
                                     </row>
                                     <row>
-                                        <label value="ContactNo:" style="font-weight:bold"/>
+                                    <hlayout>
+                                         <label value="* " style="font-weight:bold; color:red"/>
+                                         <label value="ContactNo:" style="font-weight:bold"/>
+                                    </hlayout>
+                                        
                                         <textbox value="@bind(vm.userprofileBean.contactno)" maxlength="10"
                                            xmlns:w="client">
                                             <attribute w:name="doKeyPress_">
