@@ -9,6 +9,7 @@ import org.appsquad.bean.RollDropDownBean;
 import org.appsquad.bean.UserprofileBean;
 import org.appsquad.dao.RoleMasterDao;
 import org.appsquad.service.RoleMasterService;
+import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
@@ -85,27 +86,16 @@ public class RolemasterViewModel {
 	@Command
 	@NotifyChange("*")
 	public void onClickDelete(@BindingParam("bean") RoleMasterBean masterBean){
-		
-		
 		Messagebox.show("Are you sure to delete ? ", "Confirm Dialog", Messagebox.OK |  Messagebox.CANCEL, 
 				Messagebox.QUESTION, new org.zkoss.zk.ui.event.EventListener(){
-
 					@Override
 					public void onEvent(Event evt) throws Exception {
 						if (evt.getName().equals("onOK")) {
 							RoleMasterDao.deleteRoleData(masterBean);
-							rolebeanlist = RoleMasterDao.onLoadRoleDeatils();
-							
-						}else if (evt.getName().equals("onIgnore")) {
-							
-						}else {
-							
+							BindUtils.postGlobalCommand(null, null, "refresh", null);
 						}
-						
-					}
-			
+				}
 		});
-		
 	}
 	
 	@Command
@@ -126,6 +116,12 @@ public class RolemasterViewModel {
 	
 	@GlobalCommand
 	@NotifyChange("*")
+	public void refresh(){
+		rolebeanlist = RoleMasterDao.onLoadRoleDeatils();	
+	}
+	
+	@GlobalCommand
+	@NotifyChange("*")
 	public void globalMapingData(){
 		mappingList = RoleMasterDao.onLoadMappingDeatils();
 	}
@@ -133,13 +129,11 @@ public class RolemasterViewModel {
 	@Command
 	@NotifyChange("*")
 	public void onSelectUserName(){
-		System.out.println("user id is :"+roleMasterBean.getUserprofileBean().getId());
 	}
 	
 	@Command
 	@NotifyChange("*")
 	public void onSelectRollName(){
-		System.out.println("role id is :"+roleMasterBean.getDownBean().getRollId());
 	}
 	
 	@Command
