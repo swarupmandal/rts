@@ -106,19 +106,15 @@ public class ResourceMasterService {
 	public static void setFlag(boolean flag) {
 		ResourceMasterService.flag = flag;
 	}
-
 	public static boolean isFlagInsert() {
 		return flagInsert;
 	}
-
 	public static void setFlagInsert(boolean flagInsert) {
 		ResourceMasterService.flagInsert = flagInsert;
 	}
-
 	public static String getEMAIL_REGEX() {
 		return EMAIL_REGEX;
 	}
-
 	public static void setEMAIL_REGEX(String eMAIL_REGEX) {
 		EMAIL_REGEX = eMAIL_REGEX;
 	}

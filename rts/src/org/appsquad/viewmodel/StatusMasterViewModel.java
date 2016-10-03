@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import org.appsquad.bean.StatusMasterBean;
 import org.appsquad.dao.ClientInformationDao;
 import org.appsquad.dao.StatusMasterDao;
+import org.appsquad.service.SkillSetMasterService;
 import org.appsquad.service.StatusMasterService;
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.AfterCompose;
@@ -18,6 +19,7 @@ import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.Sessions;
+import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zul.Messagebox;
 
@@ -67,10 +69,18 @@ public class StatusMasterViewModel {
 	@Command
 	@NotifyChange("*")
 	public void onClickDelete(@BindingParam("bean") StatusMasterBean masterBean){
-		flag = StatusMasterService.deleteStatusMasterData(masterBean);
-		if(flag){
-			BindUtils.postGlobalCommand(null, null, "globalStatusDetailsUpdate", null);
-		}
+		Messagebox.show("Are you sure to delete?", "Confirm Dialog", Messagebox.OK | Messagebox.CANCEL, Messagebox.QUESTION, new org.zkoss.zk.ui.event.EventListener() {
+		    public void onEvent(Event evt) throws InterruptedException {
+		        if (evt.getName().equals("onOK")) {
+		        	flag = StatusMasterService.deleteStatusMasterData(masterBean);
+		    		if(flag){
+		    			BindUtils.postGlobalCommand(null, null, "globalStatusDetailsUpdate", null);
+		    		}
+		        } else {
+		           
+		        }
+		    }
+		});
 	}
 	
 	@Command

@@ -69,7 +69,7 @@
 						
 						<row>
 						  <label value="Contact no:" style="font-weight:bold"></label>		
-						  <textbox width="25%" value="@bind(vm.reqGenBean.contactNo)" maxlength="15"
+						  <textbox width="25%" value="@bind(vm.reqGenBean.contactNo)" maxlength="15" readonly="true"
 						    xmlns:w="client">
 						       <attribute w:name="doKeyPress_">
 									<![CDATA[ function(evt) { if ( (evt.which >
@@ -81,7 +81,7 @@
 						
 						<row>
 						  <label value="Email Id:" style="font-weight:bold"></label>		
-						  <textbox width="25%" value="@bind(vm.reqGenBean.email)"></textbox>	
+						  <textbox width="25%" value="@bind(vm.reqGenBean.email)" readonly="true"></textbox>	
 						</row>
 						
 						<row>
@@ -96,11 +96,6 @@
 		<tabpanel>		
 			  <div>	
 				<grid mold="paging" pageSize="8" model="@bind(vm.reqGenBeanList)">
-					<auxhead>
-						<auxheader colspan="4">
-							<textbox placeholder="Search By Name" width="230px"></textbox>	
-						</auxheader>
-					</auxhead>
 					<columns>
 						<column label="R_ID(req_id)" width="100px"></column>
 						<column label="Client Name" align="center" width="220px"></column>

@@ -19,25 +19,18 @@ import org.appsquad.utility.Dateformatter;
 import org.appsquad.utility.Pstm;
 
 public class RequirementGenerationDao {
-	
 	final static Logger logger=Logger.getLogger(RequirementGenerationDao.class);
 	
-	
 	public static ArrayList<ClientInformationBean> fetchClientNameList(){
-		
 		ArrayList<ClientInformationBean> nameBeanList = new ArrayList<ClientInformationBean>();
 		if(nameBeanList.size()>0){
 			nameBeanList.clear();
 		}
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-		
 		try {
 			connection = DbConnection.createConnection();
 			preparedStatement = Pstm.createQuery(connection, RequirementGenerationSql.loadClientName, null);
-			
-			 logger.info("fetchClientNameList - " + preparedStatement.unwrap(PreparedStatement.class));
-			
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				ClientInformationBean bean = new ClientInformationBean();
@@ -49,21 +42,15 @@ public class RequirementGenerationDao {
 				}else {
 					bean.setFullName(bean.getName());
 				}
-				nameBeanList.add(bean);
-				
+				nameBeanList.add(bean);	
 			}
-			
 		} catch (Exception e) {
-			
-			logger.fatal("--------------------->>>>>>>>>"+e);
-			
 			e.printStackTrace();
 		} finally{
 			if(preparedStatement != null){
 				try {
 					preparedStatement.close();
 				} catch (SQLException e) {
-					
 					e.printStackTrace();
 				}
 			}
@@ -71,13 +58,44 @@ public class RequirementGenerationDao {
 				try {
 					connection.close();
 				} catch (SQLException e) {
-				
 					e.printStackTrace();
 				}
 			}
 		}
 		
 		return nameBeanList;
+	}
+	
+	
+	public static void fetchEmailIdAndContactNumber(RequirementGenerationBean generationBean){
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		try {
+			connection = DbConnection.createConnection();
+			preparedStatement = Pstm.createQuery(connection, RequirementGenerationSql.FETCHCLIENTEMAILANDCONTACTNO, Arrays.asList(generationBean.getClientId()));
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				generationBean.setEmail(resultSet.getString("emailid"));
+				generationBean.setContactNo(resultSet.getString("contactno"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally{
+			if(preparedStatement != null){
+				try {
+					preparedStatement.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(connection != null){
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 
      
@@ -89,16 +107,14 @@ public class RequirementGenerationDao {
 			connection = DbConnection.createConnection();
 			preparedStatement = Pstm.createQuery(connection, RequirementGenerationSql.fetchStatusId, null);
 			
-			logger.info("fetchOverallStatusId - " + preparedStatement.unwrap(PreparedStatement.class));
+			//logger.info("fetchOverallStatusId - " + preparedStatement.unwrap(PreparedStatement.class));
 			
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				statusId = resultSet.getInt("id");
 			}
 		} catch (Exception e) {
-			
-			logger.fatal("--------------------->>>>>>>>>"+e);
-			
+			//logger.fatal("--------------------->>>>>>>>>"+e);
 			e.printStackTrace();
 		} finally{
 			if(preparedStatement != null){
@@ -120,19 +136,17 @@ public class RequirementGenerationDao {
 	}
 
 	public static ArrayList<SkillsetMasterbean> fetchSkillSetList(){
-		
 		ArrayList<SkillsetMasterbean> list = new ArrayList<SkillsetMasterbean>();
 		if(list.size()>0){
 			list.clear();
 		}
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-		
 		try {
 			connection = DbConnection.createConnection();
 			preparedStatement = Pstm.createQuery(connection, RequirementGenerationSql.loadSkillSetName, null);
 			
-			logger.info("fetchSkillSetList- " + preparedStatement.unwrap(PreparedStatement.class));
+			//logger.info("fetchSkillSetList- " + preparedStatement.unwrap(PreparedStatement.class));
 			
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
@@ -141,21 +155,16 @@ public class RequirementGenerationDao {
 				bean.setSkillset(resultSet.getString("master_skill_set_name"));
 				bean.setSkillsetdetails(resultSet.getString("skill_set_details"));
 				
-				list.add(bean);
-				
+				list.add(bean);	
 			}
-			
 		} catch (Exception e) {
-			
-			logger.fatal("------------------>>>>"+e);
-			
+			//logger.fatal("------------------>>>>"+e);
 			e.printStackTrace();
 		} finally{
 			if(preparedStatement != null){
 				try {
 					preparedStatement.close();
 				} catch (SQLException e) {
-					
 					e.printStackTrace();
 				}
 			}
@@ -163,12 +172,10 @@ public class RequirementGenerationDao {
 				try {
 					connection.close();
 				} catch (SQLException e) {
-				
 					e.printStackTrace();
 				}
 			}
 		}
-		
 		return list;
 	}
 	
@@ -183,7 +190,7 @@ public class RequirementGenerationDao {
 			connection = DbConnection.createConnection();
 			preparedStatement = Pstm.createQuery(connection, RequirementGenerationSql.loadocStatus, null);
 			
-			logger.info("fetchStatusList- " + preparedStatement.unwrap(PreparedStatement.class));
+			//logger.info("fetchStatusList- " + preparedStatement.unwrap(PreparedStatement.class));
 			
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
@@ -194,9 +201,7 @@ public class RequirementGenerationDao {
 				list.add(bean);
 			}
 		} catch (Exception e) {
-			
 			logger.fatal("-------------------->>>>>>>"+e);
-			
 			e.printStackTrace();
 		} finally{
 			if(preparedStatement != null){
@@ -222,7 +227,6 @@ public class RequirementGenerationDao {
 		int i =0;
 		Connection connection = null;
 		PreparedStatement preparedStatement= null;
-		
 		try {
 			connection = DbConnection.createConnection();
 			preparedStatement = Pstm.createQuery(connection, RequirementGenerationSql.insertReqGen, Arrays.asList(bean.getClientId(), bean.getReqSkillId(),bean.getJobType(),bean.getDetailedJob(),
@@ -231,13 +235,11 @@ public class RequirementGenerationDao {
 																												bean.getReqStatusId()));
 			
 			
-			logger.info("onClikSubmit - " + preparedStatement.unwrap(PreparedStatement.class));
+			//logger.info("onClikSubmit - " + preparedStatement.unwrap(PreparedStatement.class));
 			
 			i = preparedStatement.executeUpdate();
 		} catch (Exception e) {
-			
-			logger.fatal("------------>>>>>>>>>>>>"+e);
-			
+			//logger.fatal("------------>>>>>>>>>>>>"+e);
 			e.printStackTrace();
 		}finally{
 			if(preparedStatement != null){
@@ -257,22 +259,17 @@ public class RequirementGenerationDao {
 		return i;
 	}
 	
-public static ArrayList<RequirementGenerationBean> fetchReqGenMasterData(){
-		
+	public static ArrayList<RequirementGenerationBean> fetchReqGenMasterData(){
 		ArrayList<RequirementGenerationBean> list = new ArrayList<RequirementGenerationBean>();
 		if(list.size()>0){
 			list.clear();
 		}
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-		
 		try {
 			connection = DbConnection.createConnection();
 			preparedStatement = Pstm.createQuery(connection, RequirementGenerationSql.loadReqGenMasterData, null);
-			
-			logger.info("fetchReqGenMasterData - " + preparedStatement.unwrap(PreparedStatement.class));
-			
-			
+			//logger.info("fetchReqGenMasterData - " + preparedStatement.unwrap(PreparedStatement.class));
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				RequirementGenerationBean bean = new RequirementGenerationBean();
@@ -306,14 +303,10 @@ public static ArrayList<RequirementGenerationBean> fetchReqGenMasterData(){
 				bean.setContactNo(resultSet.getString("cont_no"));
 				bean.setEmail(resultSet.getString("email_id"));
 				
-				list.add(bean);
-				
+				list.add(bean);	
 			}
-			
 		} catch (Exception e) {
-			
-			logger.fatal("----------------->>>>>"+e);
-			
+			//logger.fatal("----------------->>>>>"+e);
 			e.printStackTrace();
 		} finally{
 			if(preparedStatement != null){
@@ -333,12 +326,10 @@ public static ArrayList<RequirementGenerationBean> fetchReqGenMasterData(){
 				}
 			}
 		}
-		
 		return list;
 	}
 	
-	
-		public static int onClikUpdate(RequirementGenerationBean bean){
+	public static int onClikUpdate(RequirementGenerationBean bean){
 			int i =0;
 			Connection connection = null;
 			PreparedStatement preparedStatement= null;
@@ -366,43 +357,28 @@ public static ArrayList<RequirementGenerationBean> fetchReqGenMasterData(){
 				  preparedStatement.setString(8, bean.getClosureReason());
 				  preparedStatement.setString(9, bean.getUserName());
 				  preparedStatement.setInt(10, bean.getReq_id());
-				  
-				  
-				  logger.info("onClikUpdate - " + preparedStatement.unwrap(PreparedStatement.class));
-
-				  
+				  //logger.info("onClikUpdate - " + preparedStatement.unwrap(PreparedStatement.class));
 				  i = preparedStatement.executeUpdate();
-				
-				
 			} catch (Exception e) {
-				
-				logger.fatal("------------>>>>>>"+e);
-				
+				//logger.fatal("------------>>>>>>"+e);
 				e.printStackTrace();
 			}finally{
 				if(preparedStatement != null){
 					try {
 						preparedStatement.close();
 					} catch (SQLException e) {
-						
 						e.printStackTrace();
 					}
 				}if(connection != null){
 					try {
 						connection.close();
 					} catch (SQLException e) {
-						
 						e.printStackTrace();
 					}
 				}
 			}
-			
 			return i;
 		}
-
-	
-
-
 }
 
 

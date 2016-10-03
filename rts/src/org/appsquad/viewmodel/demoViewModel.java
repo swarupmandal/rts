@@ -18,6 +18,7 @@ import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.select.Selectors;
+import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
 public class demoViewModel {
@@ -49,16 +50,19 @@ public class demoViewModel {
 	    	}else{
 	    		idList.remove(demoBean);
 	    	}
-	    	System.out.println("checked->"+idList.size());
 	    }
 	  
 	    @Command
 	    @NotifyChange("*")
 	    public void onClickDownload(){
-	    	Map<String, Object> parentMap = new HashMap<String, Object>();
-	    	parentMap.put("fetchID", idList);
-	    	Window window = (Window) Executions.createComponents("/WEB-INF/view/testing.zul", null, parentMap);
-			window.doModal();
+	    	if(idList.size()>0){
+	    		Map<String, Object> parentMap = new HashMap<String, Object>();
+		    	parentMap.put("fetchID", idList);
+		    	Window window = (Window) Executions.createComponents("/WEB-INF/view/testing.zul", null, parentMap);
+				window.doModal();	
+	    	}else{
+	    		Messagebox.show(" You Didn't Check Any Check-Box!","Excalamation",Messagebox.OK,Messagebox.EXCLAMATION);
+	    	}
 	    }
 	    
 	/*****************************************************************************************************/

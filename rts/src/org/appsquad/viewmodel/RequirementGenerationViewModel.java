@@ -58,6 +58,7 @@ public class RequirementGenerationViewModel {
 		if(clientInfoBean.getClientId()>0){
 			reqGenBean.setClientId(clientInfoBean.getClientId());
 			reqGenBean.setClientName(clientInfoBean.getName());
+			RequirementGenerationDao.fetchEmailIdAndContactNumber(reqGenBean);
 		}
 	}
 	
