@@ -1,6 +1,7 @@
 package org.appsquad.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -21,6 +22,36 @@ import org.appsquad.utility.Pstm;
 public class IndividualClientReportDao {
 
 	final static Logger logger=Logger.getLogger(IndividualClientReportDao.class);
+	
+	public static ArrayList<IndividualClientReportSubBean> loadRidDetails(Connection connection ,int id){
+		ArrayList<IndividualClientReportSubBean> arrayList  = new ArrayList<IndividualClientReportSubBean>();
+		if(arrayList.size()>0){
+			arrayList.clear();
+		}
+		try {
+			PreparedStatement preparedStatement = null;
+			preparedStatement = Pstm.createQuery(connection, IndividualClientReportSql.loadRidDetailsList, Arrays.asList(id));
+			
+			ResultSet resultSet = preparedStatement.executeQuery();
+			
+			while (resultSet.next()) {
+				IndividualClientReportSubBean bean = new IndividualClientReportSubBean();
+				
+				bean.setTestId1(resultSet.getInt("resource_id"));
+				bean.setTestId2(resultSet.getInt("rts_req_resource_mapper"));
+			
+				arrayList.add(bean);
+			}
+			
+			
+			
+		} catch (Exception e) {
+			
+		}
+		return arrayList;
+	}
+	
+	
 	
 	public static ArrayList<RequirementGenerationBean> onLoadReqList(){
 		ArrayList<RequirementGenerationBean> reqIdList = new ArrayList<RequirementGenerationBean>();
@@ -133,7 +164,9 @@ public class IndividualClientReportDao {
 						
 						PreparedStatement preparedStatement2 = null;
 						preparedStatement2 = Pstm.createQuery(connection, IndividualClientReportSql.loadRidDetailsList, Arrays.asList(bean.getReqId()));
-						System.out.println("preparedStatement2 -- " + preparedStatement2);
+						//System.out.println("preparedStatement2 -- " + preparedStatement2);
+						
+						logger.info("R_ID DETAILS - " + preparedStatement2.unwrap(PreparedStatement.class));
 						
 						ResultSet resultSet2 = preparedStatement2.executeQuery();
 						
@@ -179,7 +212,7 @@ public class IndividualClientReportDao {
 							
 							
 						}
-						System.out.println("Sub List Size >>> >> > " + subList.size());
+						
 						
 						
 					} finally{
@@ -212,35 +245,1063 @@ public class IndividualClientReportDao {
 		
 	}
 	
-	public static ArrayList<IndividualClientReportSubBean> loadRidDetails(Connection connection ,int id){
-		ArrayList<IndividualClientReportSubBean> arrayList  = new ArrayList<IndividualClientReportSubBean>();
-		if(arrayList.size()>0){
-			arrayList.clear();
+public static ArrayList<IndividualClientReportBean> loadRidListWithDateRange(Date fromDate, Date toDate, int clientId){
+		
+		ArrayList<IndividualClientReportBean> list = new ArrayList<IndividualClientReportBean>();
+		if(list.size()>0){
+			list.clear();
 		}
+		ArrayList<IndividualClientReportBean> subList = new ArrayList<IndividualClientReportBean>();
+		
 		try {
+			Connection connection = null;
 			PreparedStatement preparedStatement = null;
-			preparedStatement = Pstm.createQuery(connection, IndividualClientReportSql.loadRidDetailsList, Arrays.asList(id));
+			ResultSet resultSet = null;
 			
-			ResultSet resultSet = preparedStatement.executeQuery();
-			
-			while (resultSet.next()) {
-				IndividualClientReportSubBean bean = new IndividualClientReportSubBean();
+			try {
+				connection = DbConnection.createConnection();
+				preparedStatement = Pstm.createQuery(connection, IndividualClientReportSql.loadRidListWithDateRange, Arrays.asList(fromDate, toDate, clientId));
 				
-				bean.setTestId1(resultSet.getInt("resource_id"));
-				bean.setTestId2(resultSet.getInt("rts_req_resource_mapper"));
-			
-				arrayList.add(bean);
+				logger.info("load Rid List with date range- " + preparedStatement.unwrap(PreparedStatement.class));
+				resultSet = preparedStatement.executeQuery();
+				while (resultSet.next()) {
+					IndividualClientReportBean bean = new IndividualClientReportBean();
+					
+					bean.getrIdLabel();
+					bean.setReqId(resultSet.getInt("req_id"));
+					
+					bean.getrIdDateLabel();
+					bean.setCreatedDateStr(resultSet.getString("created_date"));
+					if(bean.getCreatedDateStr() != null){
+						bean.setCreatedDateValue(Dateformatter.toStringDate(bean.getCreatedDateStr()));
+					}
+					
+					bean.getSkillSetLabel();
+					bean.setSkillId(resultSet.getInt("req_skill_id"));
+					bean.setSkillSet(resultSet.getString("master_skill_set_name"));
+					
+					bean.setClientFullName(resultSet.getString("client_name"));
+					bean.setCompanyName(resultSet.getString("companyname"));
+					
+					bean.setRidLbFieldVis(true);
+					bean.setRidFieldVis(true);
+					bean.setRidDatelbFieldVis(true);
+					bean.setRidDateFieldVis(true);
+					bean.setSklStFieldVis(true);
+					bean.setSklStFieldVis(true);
+					bean.setClNameFieldVis(true);
+					bean.setCompanyFieldVis(true);
+					
+					
+					bean.setStatusFieldVis(false);
+					bean.setResNameFieldVis(false);
+					bean.setYoExpFieldVis(false);
+					bean.setContNoFieldVis(false);
+					bean.setEmailFieldVis(false);
+					bean.setIntIntvDateFieldVis(false);
+					bean.setClIntvDateFieldVis(false);
+					
+					list.add(bean);
+					
+					sub_sql:{
+					
+					try {
+						if(subList.size()>0){
+							subList.clear();
+						}
+						
+						PreparedStatement preparedStatement2 = null;
+						preparedStatement2 = Pstm.createQuery(connection, IndividualClientReportSql.loadRidDetailsList, Arrays.asList(bean.getReqId()));
+						//System.out.println("preparedStatement2 -- " + preparedStatement2);
+						
+						logger.info("R_ID DETAILS WITH DATE RANGE - " + preparedStatement2.unwrap(PreparedStatement.class));
+						
+						ResultSet resultSet2 = preparedStatement2.executeQuery();
+						
+						while (resultSet2.next()) {
+							
+							IndividualClientReportBean subBean = new IndividualClientReportBean();
+							
+							subBean.setStatus(resultSet2.getString("final_status"));
+							subBean.setResourceName(resultSet2.getString("res_name"));
+							subBean.setYoExp(resultSet2.getInt("res_experience"));
+							subBean.setContNo(resultSet2.getString("rts_contact_no"));
+							subBean.setEmailId(resultSet2.getString("res_emailid"));
+							
+							subBean.setIntIntvStr(resultSet2.getString("internal_interview_date"));
+							if(subBean.getIntIntvStr() != null){
+								subBean.setIntIntvValue(Dateformatter.toStringDate(subBean.getIntIntvStr()));
+							}
+							
+							subBean.setClntIntvStr(resultSet2.getString("client_interview_date"));
+							if(subBean.getClntIntvStr() != null){
+								subBean.setClntIntvValue(Dateformatter.toStringDate(subBean.getClntIntvStr()));
+							}
+							
+							subBean.setStatusFieldVis(true);
+							subBean.setResNameFieldVis(true);
+							subBean.setYoExpFieldVis(true);
+							subBean.setContNoFieldVis(true);
+							subBean.setEmailFieldVis(true);
+							subBean.setIntIntvDateFieldVis(true);
+							subBean.setClIntvDateFieldVis(true);
+							
+							subBean.setRidLbFieldVis(false);
+							subBean.setRidFieldVis(false);
+							subBean.setRidDatelbFieldVis(false);
+							subBean.setRidDateFieldVis(false);
+							subBean.setSklStLbFieldVis(false);
+							subBean.setSklStFieldVis(false);
+							subBean.setClNameFieldVis(false);
+							subBean.setCompanyFieldVis(false);
+							
+							
+							list.add(subBean);
+							
+							
+						}
+						
+						
+						
+					} finally{
+						
+					}
+					
+				}
+					
+				}
+				
+				
+			} finally {
+				if(preparedStatement != null){
+					preparedStatement.close();
+				}
+				if(resultSet != null){
+					resultSet.close();
+				}
+				if(connection != null){
+					connection.close();
+				}
 			}
 			
-			
-			
 		} catch (Exception e) {
-			
+			logger.fatal("Load R_ID List - " + e);
+			e.printStackTrace();
 		}
-		return arrayList;
+		
+		return list;
+		
 	}
 	
+
+	public static ArrayList<IndividualClientReportBean> loadRidListWithDateRangeAndSkill(Date fromDate, Date toDate, int skillId, int clientId){
+			
+		ArrayList<IndividualClientReportBean> list = new ArrayList<IndividualClientReportBean>();
+			if(list.size()>0){
+				list.clear();
+			}
+			ArrayList<IndividualClientReportBean> subList = new ArrayList<IndividualClientReportBean>();
+			
+			try {
+				Connection connection = null;
+				PreparedStatement preparedStatement = null;
+				ResultSet resultSet = null;
+				
+				try {
+					connection = DbConnection.createConnection();
+					preparedStatement = Pstm.createQuery(connection, IndividualClientReportSql.loadRidListWithDateRangeAndSkill, Arrays.asList(fromDate, toDate, skillId, clientId));
+					
+					logger.info("load Rid List with date range and skill - " + preparedStatement.unwrap(PreparedStatement.class));
+					resultSet = preparedStatement.executeQuery();
+					while (resultSet.next()) {
+						IndividualClientReportBean bean = new IndividualClientReportBean();
+						
+						bean.getrIdLabel();
+						bean.setReqId(resultSet.getInt("req_id"));
+						
+						bean.getrIdDateLabel();
+						bean.setCreatedDateStr(resultSet.getString("created_date"));
+						if(bean.getCreatedDateStr() != null){
+							bean.setCreatedDateValue(Dateformatter.toStringDate(bean.getCreatedDateStr()));
+						}
+						
+						bean.getSkillSetLabel();
+						bean.setSkillId(resultSet.getInt("req_skill_id"));
+						bean.setSkillSet(resultSet.getString("master_skill_set_name"));
+						
+						bean.setClientFullName(resultSet.getString("client_name"));
+						bean.setCompanyName(resultSet.getString("companyname"));
+						
+						bean.setRidLbFieldVis(true);
+						bean.setRidFieldVis(true);
+						bean.setRidDatelbFieldVis(true);
+						bean.setRidDateFieldVis(true);
+						bean.setSklStFieldVis(true);
+						bean.setSklStFieldVis(true);
+						bean.setClNameFieldVis(true);
+						bean.setCompanyFieldVis(true);
+						
+						
+						bean.setStatusFieldVis(false);
+						bean.setResNameFieldVis(false);
+						bean.setYoExpFieldVis(false);
+						bean.setContNoFieldVis(false);
+						bean.setEmailFieldVis(false);
+						bean.setIntIntvDateFieldVis(false);
+						bean.setClIntvDateFieldVis(false);
+						
+						list.add(bean);
+						
+						sub_sql:{
+						
+						try {
+							if(subList.size()>0){
+								subList.clear();
+							}
+							
+							PreparedStatement preparedStatement2 = null;
+							preparedStatement2 = Pstm.createQuery(connection, IndividualClientReportSql.loadRidDetailsList, Arrays.asList(bean.getReqId()));
+							//System.out.println("preparedStatement2 -- " + preparedStatement2);
+							
+							logger.info("R_ID DETAILS WITH DATE RANGE AND SKILL - " + preparedStatement2.unwrap(PreparedStatement.class));
+							
+							ResultSet resultSet2 = preparedStatement2.executeQuery();
+							
+							while (resultSet2.next()) {
+								
+								IndividualClientReportBean subBean = new IndividualClientReportBean();
+								
+								subBean.setStatus(resultSet2.getString("final_status"));
+								subBean.setResourceName(resultSet2.getString("res_name"));
+								subBean.setYoExp(resultSet2.getInt("res_experience"));
+								subBean.setContNo(resultSet2.getString("rts_contact_no"));
+								subBean.setEmailId(resultSet2.getString("res_emailid"));
+								
+								subBean.setIntIntvStr(resultSet2.getString("internal_interview_date"));
+								if(subBean.getIntIntvStr() != null){
+									subBean.setIntIntvValue(Dateformatter.toStringDate(subBean.getIntIntvStr()));
+								}
+								
+								subBean.setClntIntvStr(resultSet2.getString("client_interview_date"));
+								if(subBean.getClntIntvStr() != null){
+									subBean.setClntIntvValue(Dateformatter.toStringDate(subBean.getClntIntvStr()));
+								}
+								
+								subBean.setStatusFieldVis(true);
+								subBean.setResNameFieldVis(true);
+								subBean.setYoExpFieldVis(true);
+								subBean.setContNoFieldVis(true);
+								subBean.setEmailFieldVis(true);
+								subBean.setIntIntvDateFieldVis(true);
+								subBean.setClIntvDateFieldVis(true);
+								
+								subBean.setRidLbFieldVis(false);
+								subBean.setRidFieldVis(false);
+								subBean.setRidDatelbFieldVis(false);
+								subBean.setRidDateFieldVis(false);
+								subBean.setSklStLbFieldVis(false);
+								subBean.setSklStFieldVis(false);
+								subBean.setClNameFieldVis(false);
+								subBean.setCompanyFieldVis(false);
+								
+								
+								list.add(subBean);
+								
+							}
+							
+						} finally{
+							
+						}
+						
+					}
+						
+					}
+					
+					
+				} finally {
+					if(preparedStatement != null){
+						preparedStatement.close();
+					}
+					if(resultSet != null){
+						resultSet.close();
+					}
+					if(connection != null){
+						connection.close();
+					}
+				}
+				
+			} catch (Exception e) {
+				logger.fatal("Load R_ID List - " + e);
+				e.printStackTrace();
+			}
+			
+			return list;
+	  }
 	
 	
+	public static ArrayList<IndividualClientReportBean> loadRidListWithSkill(int skillId, int clientId){
+		
+		ArrayList<IndividualClientReportBean> list = new ArrayList<IndividualClientReportBean>();
+			if(list.size()>0){
+				list.clear();
+			}
+			ArrayList<IndividualClientReportBean> subList = new ArrayList<IndividualClientReportBean>();
+			
+			try {
+				Connection connection = null;
+				PreparedStatement preparedStatement = null;
+				ResultSet resultSet = null;
+				
+				try {
+					connection = DbConnection.createConnection();
+					preparedStatement = Pstm.createQuery(connection, IndividualClientReportSql.loadRidListWithSkill, Arrays.asList(skillId, clientId));
+					
+					logger.info("load Rid List with skill - " + preparedStatement.unwrap(PreparedStatement.class));
+					resultSet = preparedStatement.executeQuery();
+					while (resultSet.next()) {
+						IndividualClientReportBean bean = new IndividualClientReportBean();
+						
+						bean.getrIdLabel();
+						bean.setReqId(resultSet.getInt("req_id"));
+						
+						bean.getrIdDateLabel();
+						bean.setCreatedDateStr(resultSet.getString("created_date"));
+						if(bean.getCreatedDateStr() != null){
+							bean.setCreatedDateValue(Dateformatter.toStringDate(bean.getCreatedDateStr()));
+						}
+						
+						bean.getSkillSetLabel();
+						bean.setSkillId(resultSet.getInt("req_skill_id"));
+						bean.setSkillSet(resultSet.getString("master_skill_set_name"));
+						
+						bean.setClientFullName(resultSet.getString("client_name"));
+						bean.setCompanyName(resultSet.getString("companyname"));
+						
+						bean.setRidLbFieldVis(true);
+						bean.setRidFieldVis(true);
+						bean.setRidDatelbFieldVis(true);
+						bean.setRidDateFieldVis(true);
+						bean.setSklStFieldVis(true);
+						bean.setSklStFieldVis(true);
+						bean.setClNameFieldVis(true);
+						bean.setCompanyFieldVis(true);
+						
+						
+						bean.setStatusFieldVis(false);
+						bean.setResNameFieldVis(false);
+						bean.setYoExpFieldVis(false);
+						bean.setContNoFieldVis(false);
+						bean.setEmailFieldVis(false);
+						bean.setIntIntvDateFieldVis(false);
+						bean.setClIntvDateFieldVis(false);
+						
+						list.add(bean);
+						
+						sub_sql:{
+						
+						try {
+							if(subList.size()>0){
+								subList.clear();
+							}
+							
+							PreparedStatement preparedStatement2 = null;
+							preparedStatement2 = Pstm.createQuery(connection, IndividualClientReportSql.loadRidDetailsList, Arrays.asList(bean.getReqId()));
+							//System.out.println("preparedStatement2 -- " + preparedStatement2);
+							
+							logger.info("R_ID DETAILS WITH SKILL - " + preparedStatement2.unwrap(PreparedStatement.class));
+							
+							ResultSet resultSet2 = preparedStatement2.executeQuery();
+							
+							while (resultSet2.next()) {
+								
+								IndividualClientReportBean subBean = new IndividualClientReportBean();
+								
+								subBean.setStatus(resultSet2.getString("final_status"));
+								subBean.setResourceName(resultSet2.getString("res_name"));
+								subBean.setYoExp(resultSet2.getInt("res_experience"));
+								subBean.setContNo(resultSet2.getString("rts_contact_no"));
+								subBean.setEmailId(resultSet2.getString("res_emailid"));
+								
+								subBean.setIntIntvStr(resultSet2.getString("internal_interview_date"));
+								if(subBean.getIntIntvStr() != null){
+									subBean.setIntIntvValue(Dateformatter.toStringDate(subBean.getIntIntvStr()));
+								}
+								
+								subBean.setClntIntvStr(resultSet2.getString("client_interview_date"));
+								if(subBean.getClntIntvStr() != null){
+									subBean.setClntIntvValue(Dateformatter.toStringDate(subBean.getClntIntvStr()));
+								}
+								
+								subBean.setStatusFieldVis(true);
+								subBean.setResNameFieldVis(true);
+								subBean.setYoExpFieldVis(true);
+								subBean.setContNoFieldVis(true);
+								subBean.setEmailFieldVis(true);
+								subBean.setIntIntvDateFieldVis(true);
+								subBean.setClIntvDateFieldVis(true);
+								
+								subBean.setRidLbFieldVis(false);
+								subBean.setRidFieldVis(false);
+								subBean.setRidDatelbFieldVis(false);
+								subBean.setRidDateFieldVis(false);
+								subBean.setSklStLbFieldVis(false);
+								subBean.setSklStFieldVis(false);
+								subBean.setClNameFieldVis(false);
+								subBean.setCompanyFieldVis(false);
+								
+								
+								list.add(subBean);
+								
+							}
+							
+						} finally{
+							
+						}
+						
+					}
+						
+					}
+					
+					
+				} finally {
+					if(preparedStatement != null){
+						preparedStatement.close();
+					}
+					if(resultSet != null){
+						resultSet.close();
+					}
+					if(connection != null){
+						connection.close();
+					}
+				}
+				
+			} catch (Exception e) {
+				logger.fatal("Load R_ID List - " + e);
+				e.printStackTrace();
+			}
+			
+			return list;
+		}
+	
+	
+	public static ArrayList<IndividualClientReportBean> loadRidListWithStatus(int statusId, int clientId){
+		
+		ArrayList<IndividualClientReportBean> list = new ArrayList<IndividualClientReportBean>();
+			if(list.size()>0){
+				list.clear();
+			}
+			ArrayList<IndividualClientReportBean> subList = new ArrayList<IndividualClientReportBean>();
+			
+			try {
+				Connection connection = null;
+				PreparedStatement preparedStatement = null;
+				ResultSet resultSet = null;
+				
+				try {
+					connection = DbConnection.createConnection();
+					preparedStatement = Pstm.createQuery(connection, IndividualClientReportSql.loadRidListWithStatus, Arrays.asList(clientId));
+					
+					logger.info("load Rid List with skill - " + preparedStatement.unwrap(PreparedStatement.class));
+					resultSet = preparedStatement.executeQuery();
+					while (resultSet.next()) {
+						IndividualClientReportBean bean = new IndividualClientReportBean();
+						
+						bean.getrIdLabel();
+						bean.setReqId(resultSet.getInt("req_id"));
+						
+						bean.getrIdDateLabel();
+						bean.setCreatedDateStr(resultSet.getString("created_date"));
+						if(bean.getCreatedDateStr() != null){
+							bean.setCreatedDateValue(Dateformatter.toStringDate(bean.getCreatedDateStr()));
+						}
+						
+						bean.getSkillSetLabel();
+						bean.setSkillId(resultSet.getInt("req_skill_id"));
+						bean.setSkillSet(resultSet.getString("master_skill_set_name"));
+						
+						bean.setClientFullName(resultSet.getString("client_name"));
+						bean.setCompanyName(resultSet.getString("companyname"));
+						
+						bean.setRidLbFieldVis(true);
+						bean.setRidFieldVis(true);
+						bean.setRidDatelbFieldVis(true);
+						bean.setRidDateFieldVis(true);
+						bean.setSklStFieldVis(true);
+						bean.setSklStFieldVis(true);
+						bean.setClNameFieldVis(true);
+						bean.setCompanyFieldVis(true);
+						
+						
+						bean.setStatusFieldVis(false);
+						bean.setResNameFieldVis(false);
+						bean.setYoExpFieldVis(false);
+						bean.setContNoFieldVis(false);
+						bean.setEmailFieldVis(false);
+						bean.setIntIntvDateFieldVis(false);
+						bean.setClIntvDateFieldVis(false);
+						
+						list.add(bean);
+						
+						sub_sql:{
+						
+						try {
+							if(subList.size()>0){
+								subList.clear();
+							}
+							
+							PreparedStatement preparedStatement2 = null;
+							preparedStatement2 = Pstm.createQuery(connection, IndividualClientReportSql.loadRidDetailsListWithStatus, Arrays.asList(bean.getReqId(),statusId));
+							
+							
+							logger.info("R_ID DETAILS WITH SKILL - " + preparedStatement2.unwrap(PreparedStatement.class));
+							
+							ResultSet resultSet2 = preparedStatement2.executeQuery();
+							
+							while (resultSet2.next()) {
+								
+								IndividualClientReportBean subBean = new IndividualClientReportBean();
+								
+								subBean.setStatus(resultSet2.getString("final_status"));
+								subBean.setResourceName(resultSet2.getString("res_name"));
+								subBean.setYoExp(resultSet2.getInt("res_experience"));
+								subBean.setContNo(resultSet2.getString("rts_contact_no"));
+								subBean.setEmailId(resultSet2.getString("res_emailid"));
+								
+								subBean.setIntIntvStr(resultSet2.getString("internal_interview_date"));
+								if(subBean.getIntIntvStr() != null){
+									subBean.setIntIntvValue(Dateformatter.toStringDate(subBean.getIntIntvStr()));
+								}
+								
+								subBean.setClntIntvStr(resultSet2.getString("client_interview_date"));
+								if(subBean.getClntIntvStr() != null){
+									subBean.setClntIntvValue(Dateformatter.toStringDate(subBean.getClntIntvStr()));
+								}
+								
+								subBean.setStatusFieldVis(true);
+								subBean.setResNameFieldVis(true);
+								subBean.setYoExpFieldVis(true);
+								subBean.setContNoFieldVis(true);
+								subBean.setEmailFieldVis(true);
+								subBean.setIntIntvDateFieldVis(true);
+								subBean.setClIntvDateFieldVis(true);
+								
+								subBean.setRidLbFieldVis(false);
+								subBean.setRidFieldVis(false);
+								subBean.setRidDatelbFieldVis(false);
+								subBean.setRidDateFieldVis(false);
+								subBean.setSklStLbFieldVis(false);
+								subBean.setSklStFieldVis(false);
+								subBean.setClNameFieldVis(false);
+								subBean.setCompanyFieldVis(false);
+								
+								
+								list.add(subBean);
+								
+							}
+							
+						} finally{
+							
+						}
+						
+					}
+						
+					}
+					
+					
+				} finally {
+					if(preparedStatement != null){
+						preparedStatement.close();
+					}
+					if(resultSet != null){
+						resultSet.close();
+					}
+					if(connection != null){
+						connection.close();
+					}
+				}
+				
+			} catch (Exception e) {
+				logger.fatal("Load R_ID List - " + e);
+				e.printStackTrace();
+			}
+			
+			return list;
+		}
+	    
+	
+	    public static ArrayList<IndividualClientReportBean> loadRidListWithStatusSkillDate(Date fromDate, Date toDate, int skillId,int statusId, int clientId){
+		
+		    ArrayList<IndividualClientReportBean> list = new ArrayList<IndividualClientReportBean>();
+			if(list.size()>0){
+				list.clear();
+			}
+			ArrayList<IndividualClientReportBean> subList = new ArrayList<IndividualClientReportBean>();
+			
+			try {
+				Connection connection = null;
+				PreparedStatement preparedStatement = null;
+				ResultSet resultSet = null;
+				
+				try {
+					connection = DbConnection.createConnection();
+					preparedStatement = Pstm.createQuery(connection, IndividualClientReportSql.loadRidListWithDateAndSkillAndStatus, Arrays.asList(fromDate, toDate, skillId, clientId));
+					
+					logger.info("load Rid List with skill - " + preparedStatement.unwrap(PreparedStatement.class));
+					resultSet = preparedStatement.executeQuery();
+					while (resultSet.next()) {
+						IndividualClientReportBean bean = new IndividualClientReportBean();
+						
+						bean.getrIdLabel();
+						bean.setReqId(resultSet.getInt("req_id"));
+						
+						bean.getrIdDateLabel();
+						bean.setCreatedDateStr(resultSet.getString("created_date"));
+						if(bean.getCreatedDateStr() != null){
+							bean.setCreatedDateValue(Dateformatter.toStringDate(bean.getCreatedDateStr()));
+						}
+						
+						bean.getSkillSetLabel();
+						bean.setSkillId(resultSet.getInt("req_skill_id"));
+						bean.setSkillSet(resultSet.getString("master_skill_set_name"));
+						
+						bean.setClientFullName(resultSet.getString("client_name"));
+						bean.setCompanyName(resultSet.getString("companyname"));
+						
+						bean.setRidLbFieldVis(true);
+						bean.setRidFieldVis(true);
+						bean.setRidDatelbFieldVis(true);
+						bean.setRidDateFieldVis(true);
+						bean.setSklStFieldVis(true);
+						bean.setSklStFieldVis(true);
+						bean.setClNameFieldVis(true);
+						bean.setCompanyFieldVis(true);
+						
+						
+						bean.setStatusFieldVis(false);
+						bean.setResNameFieldVis(false);
+						bean.setYoExpFieldVis(false);
+						bean.setContNoFieldVis(false);
+						bean.setEmailFieldVis(false);
+						bean.setIntIntvDateFieldVis(false);
+						bean.setClIntvDateFieldVis(false);
+						
+						list.add(bean);
+						
+						sub_sql:{
+						
+						try {
+							if(subList.size()>0){
+								subList.clear();
+							}
+							
+							PreparedStatement preparedStatement2 = null;
+							preparedStatement2 = Pstm.createQuery(connection, IndividualClientReportSql.loadRidDetailsListWithStatus, Arrays.asList(bean.getReqId(),statusId));
+							
+							
+							logger.info("R_ID DETAILS WITH SKILL - " + preparedStatement2.unwrap(PreparedStatement.class));
+							
+							ResultSet resultSet2 = preparedStatement2.executeQuery();
+							
+							while (resultSet2.next()) {
+								
+								IndividualClientReportBean subBean = new IndividualClientReportBean();
+								
+								subBean.setStatus(resultSet2.getString("final_status"));
+								subBean.setResourceName(resultSet2.getString("res_name"));
+								subBean.setYoExp(resultSet2.getInt("res_experience"));
+								subBean.setContNo(resultSet2.getString("rts_contact_no"));
+								subBean.setEmailId(resultSet2.getString("res_emailid"));
+								
+								subBean.setIntIntvStr(resultSet2.getString("internal_interview_date"));
+								if(subBean.getIntIntvStr() != null){
+									subBean.setIntIntvValue(Dateformatter.toStringDate(subBean.getIntIntvStr()));
+								}
+								
+								subBean.setClntIntvStr(resultSet2.getString("client_interview_date"));
+								if(subBean.getClntIntvStr() != null){
+									subBean.setClntIntvValue(Dateformatter.toStringDate(subBean.getClntIntvStr()));
+								}
+								
+								subBean.setStatusFieldVis(true);
+								subBean.setResNameFieldVis(true);
+								subBean.setYoExpFieldVis(true);
+								subBean.setContNoFieldVis(true);
+								subBean.setEmailFieldVis(true);
+								subBean.setIntIntvDateFieldVis(true);
+								subBean.setClIntvDateFieldVis(true);
+								
+								subBean.setRidLbFieldVis(false);
+								subBean.setRidFieldVis(false);
+								subBean.setRidDatelbFieldVis(false);
+								subBean.setRidDateFieldVis(false);
+								subBean.setSklStLbFieldVis(false);
+								subBean.setSklStFieldVis(false);
+								subBean.setClNameFieldVis(false);
+								subBean.setCompanyFieldVis(false);
+								
+								
+								list.add(subBean);
+								
+							}
+							
+						} finally{
+							
+						}
+						
+					}
+						
+					}
+					
+					
+				} finally {
+					if(preparedStatement != null){
+						preparedStatement.close();
+					}
+					if(resultSet != null){
+						resultSet.close();
+					}
+					if(connection != null){
+						connection.close();
+					}
+				}
+				
+			} catch (Exception e) {
+				logger.fatal("Load R_ID List - " + e);
+				e.printStackTrace();
+			}
+			
+			return list;
+		}
+	
+	    public static ArrayList<IndividualClientReportBean> loadRidListWithStatusSkill(int skillId,int statusId, int clientId){
+			
+		    ArrayList<IndividualClientReportBean> list = new ArrayList<IndividualClientReportBean>();
+			if(list.size()>0){
+				list.clear();
+			}
+			ArrayList<IndividualClientReportBean> subList = new ArrayList<IndividualClientReportBean>();
+			
+			try {
+				Connection connection = null;
+				PreparedStatement preparedStatement = null;
+				ResultSet resultSet = null;
+				
+				try {
+					connection = DbConnection.createConnection();
+					preparedStatement = Pstm.createQuery(connection, IndividualClientReportSql.loadRidListWithSkillAndStatus, Arrays.asList(skillId, clientId));
+					
+					logger.info("load Rid List with skill - " + preparedStatement.unwrap(PreparedStatement.class));
+					resultSet = preparedStatement.executeQuery();
+					while (resultSet.next()) {
+						IndividualClientReportBean bean = new IndividualClientReportBean();
+						
+						bean.getrIdLabel();
+						bean.setReqId(resultSet.getInt("req_id"));
+						
+						bean.getrIdDateLabel();
+						bean.setCreatedDateStr(resultSet.getString("created_date"));
+						if(bean.getCreatedDateStr() != null){
+							bean.setCreatedDateValue(Dateformatter.toStringDate(bean.getCreatedDateStr()));
+						}
+						
+						bean.getSkillSetLabel();
+						bean.setSkillId(resultSet.getInt("req_skill_id"));
+						bean.setSkillSet(resultSet.getString("master_skill_set_name"));
+						
+						bean.setClientFullName(resultSet.getString("client_name"));
+						bean.setCompanyName(resultSet.getString("companyname"));
+						
+						bean.setRidLbFieldVis(true);
+						bean.setRidFieldVis(true);
+						bean.setRidDatelbFieldVis(true);
+						bean.setRidDateFieldVis(true);
+						bean.setSklStFieldVis(true);
+						bean.setSklStFieldVis(true);
+						bean.setClNameFieldVis(true);
+						bean.setCompanyFieldVis(true);
+						
+						
+						bean.setStatusFieldVis(false);
+						bean.setResNameFieldVis(false);
+						bean.setYoExpFieldVis(false);
+						bean.setContNoFieldVis(false);
+						bean.setEmailFieldVis(false);
+						bean.setIntIntvDateFieldVis(false);
+						bean.setClIntvDateFieldVis(false);
+						
+						list.add(bean);
+						
+						sub_sql:{
+						
+						try {
+							if(subList.size()>0){
+								subList.clear();
+							}
+							
+							PreparedStatement preparedStatement2 = null;
+							preparedStatement2 = Pstm.createQuery(connection, IndividualClientReportSql.loadRidDetailsListWithStatus, Arrays.asList(bean.getReqId(),statusId));
+							
+							
+							logger.info("R_ID DETAILS WITH SKILL - " + preparedStatement2.unwrap(PreparedStatement.class));
+							
+							ResultSet resultSet2 = preparedStatement2.executeQuery();
+							
+							while (resultSet2.next()) {
+								
+								IndividualClientReportBean subBean = new IndividualClientReportBean();
+								
+								subBean.setStatus(resultSet2.getString("final_status"));
+								subBean.setResourceName(resultSet2.getString("res_name"));
+								subBean.setYoExp(resultSet2.getInt("res_experience"));
+								subBean.setContNo(resultSet2.getString("rts_contact_no"));
+								subBean.setEmailId(resultSet2.getString("res_emailid"));
+								
+								subBean.setIntIntvStr(resultSet2.getString("internal_interview_date"));
+								if(subBean.getIntIntvStr() != null){
+									subBean.setIntIntvValue(Dateformatter.toStringDate(subBean.getIntIntvStr()));
+								}
+								
+								subBean.setClntIntvStr(resultSet2.getString("client_interview_date"));
+								if(subBean.getClntIntvStr() != null){
+									subBean.setClntIntvValue(Dateformatter.toStringDate(subBean.getClntIntvStr()));
+								}
+								
+								subBean.setStatusFieldVis(true);
+								subBean.setResNameFieldVis(true);
+								subBean.setYoExpFieldVis(true);
+								subBean.setContNoFieldVis(true);
+								subBean.setEmailFieldVis(true);
+								subBean.setIntIntvDateFieldVis(true);
+								subBean.setClIntvDateFieldVis(true);
+								
+								subBean.setRidLbFieldVis(false);
+								subBean.setRidFieldVis(false);
+								subBean.setRidDatelbFieldVis(false);
+								subBean.setRidDateFieldVis(false);
+								subBean.setSklStLbFieldVis(false);
+								subBean.setSklStFieldVis(false);
+								subBean.setClNameFieldVis(false);
+								subBean.setCompanyFieldVis(false);
+								
+								
+								list.add(subBean);
+								
+							}
+							
+						} finally{
+							
+						}
+						
+					}
+						
+					}
+					
+					
+				} finally {
+					if(preparedStatement != null){
+						preparedStatement.close();
+					}
+					if(resultSet != null){
+						resultSet.close();
+					}
+					if(connection != null){
+						connection.close();
+					}
+				}
+				
+			} catch (Exception e) {
+				logger.fatal("Load R_ID List - " + e);
+				e.printStackTrace();
+			}
+			
+			return list;
+		}
+	    
+	   
+	    public static ArrayList<IndividualClientReportBean> loadRidListWithStatusDate(Date fromDate, Date toDate ,int statusId, int clientId){
+			
+		    ArrayList<IndividualClientReportBean> list = new ArrayList<IndividualClientReportBean>();
+			if(list.size()>0){
+				list.clear();
+			}
+			ArrayList<IndividualClientReportBean> subList = new ArrayList<IndividualClientReportBean>();
+			
+			try {
+				Connection connection = null;
+				PreparedStatement preparedStatement = null;
+				ResultSet resultSet = null;
+				
+				try {
+					connection = DbConnection.createConnection();
+					preparedStatement = Pstm.createQuery(connection, IndividualClientReportSql.loadRidListWithDateStatus, Arrays.asList(fromDate, toDate,  clientId));
+					
+					logger.info("load Rid List with skill - " + preparedStatement.unwrap(PreparedStatement.class));
+					resultSet = preparedStatement.executeQuery();
+					while (resultSet.next()) {
+						IndividualClientReportBean bean = new IndividualClientReportBean();
+						
+						bean.getrIdLabel();
+						bean.setReqId(resultSet.getInt("req_id"));
+						
+						bean.getrIdDateLabel();
+						bean.setCreatedDateStr(resultSet.getString("created_date"));
+						if(bean.getCreatedDateStr() != null){
+							bean.setCreatedDateValue(Dateformatter.toStringDate(bean.getCreatedDateStr()));
+						}
+						
+						bean.getSkillSetLabel();
+						bean.setSkillId(resultSet.getInt("req_skill_id"));
+						bean.setSkillSet(resultSet.getString("master_skill_set_name"));
+						
+						bean.setClientFullName(resultSet.getString("client_name"));
+						bean.setCompanyName(resultSet.getString("companyname"));
+						
+						bean.setRidLbFieldVis(true);
+						bean.setRidFieldVis(true);
+						bean.setRidDatelbFieldVis(true);
+						bean.setRidDateFieldVis(true);
+						bean.setSklStFieldVis(true);
+						bean.setSklStFieldVis(true);
+						bean.setClNameFieldVis(true);
+						bean.setCompanyFieldVis(true);
+						
+						
+						bean.setStatusFieldVis(false);
+						bean.setResNameFieldVis(false);
+						bean.setYoExpFieldVis(false);
+						bean.setContNoFieldVis(false);
+						bean.setEmailFieldVis(false);
+						bean.setIntIntvDateFieldVis(false);
+						bean.setClIntvDateFieldVis(false);
+						
+						list.add(bean);
+						
+						sub_sql:{
+						
+						try {
+							if(subList.size()>0){
+								subList.clear();
+							}
+							
+							PreparedStatement preparedStatement2 = null;
+							preparedStatement2 = Pstm.createQuery(connection, IndividualClientReportSql.loadRidDetailsListWithStatus, Arrays.asList(bean.getReqId(),statusId));
+							
+							
+							logger.info("R_ID DETAILS WITH SKILL - " + preparedStatement2.unwrap(PreparedStatement.class));
+							
+							ResultSet resultSet2 = preparedStatement2.executeQuery();
+							
+							while (resultSet2.next()) {
+								
+								IndividualClientReportBean subBean = new IndividualClientReportBean();
+								
+								subBean.setStatus(resultSet2.getString("final_status"));
+								subBean.setResourceName(resultSet2.getString("res_name"));
+								subBean.setYoExp(resultSet2.getInt("res_experience"));
+								subBean.setContNo(resultSet2.getString("rts_contact_no"));
+								subBean.setEmailId(resultSet2.getString("res_emailid"));
+								
+								subBean.setIntIntvStr(resultSet2.getString("internal_interview_date"));
+								if(subBean.getIntIntvStr() != null){
+									subBean.setIntIntvValue(Dateformatter.toStringDate(subBean.getIntIntvStr()));
+								}
+								
+								subBean.setClntIntvStr(resultSet2.getString("client_interview_date"));
+								if(subBean.getClntIntvStr() != null){
+									subBean.setClntIntvValue(Dateformatter.toStringDate(subBean.getClntIntvStr()));
+								}
+								
+								subBean.setStatusFieldVis(true);
+								subBean.setResNameFieldVis(true);
+								subBean.setYoExpFieldVis(true);
+								subBean.setContNoFieldVis(true);
+								subBean.setEmailFieldVis(true);
+								subBean.setIntIntvDateFieldVis(true);
+								subBean.setClIntvDateFieldVis(true);
+								
+								subBean.setRidLbFieldVis(false);
+								subBean.setRidFieldVis(false);
+								subBean.setRidDatelbFieldVis(false);
+								subBean.setRidDateFieldVis(false);
+								subBean.setSklStLbFieldVis(false);
+								subBean.setSklStFieldVis(false);
+								subBean.setClNameFieldVis(false);
+								subBean.setCompanyFieldVis(false);
+								
+								
+								list.add(subBean);
+								
+							}
+							
+						} finally{
+							
+						}
+						
+					}
+						
+					}
+					
+					
+				} finally {
+					if(preparedStatement != null){
+						preparedStatement.close();
+					}
+					if(resultSet != null){
+						resultSet.close();
+					}
+					if(connection != null){
+						connection.close();
+					}
+				}
+				
+			} catch (Exception e) {
+				logger.fatal("Load R_ID List - " + e);
+				e.printStackTrace();
+			}
+			
+			return list;
+		}
+	    
+	    public static ArrayList<IndividualClientReportBean> loadRidSummary(ArrayList<IndividualClientReportBean> parentList){
+	    	
+	    	ArrayList<IndividualClientReportBean> summarList = new ArrayList<IndividualClientReportBean>();
+	    	ArrayList<IndividualClientReportBean> sumStatusList = new ArrayList<IndividualClientReportBean>();
+	    	if(summarList.size()>0){
+	    		summarList.clear();
+	    	}
+	    	
+	    	ArrayList<Integer> list = new ArrayList<Integer>();
+	    	if(list.size()>0){
+	    		list.clear();
+	    	}
+	    	for(IndividualClientReportBean pb : parentList){
+	    		if(pb.getReqId() != null){
+	    			list.add(pb.getReqId());
+	    		}
+	    	}
+	    	System.out.println("R I D LI ST >>> >> > " + list);
+	    	
+	    	try {
+	    		Connection connection = null;
+				PreparedStatement preparedStatement = null;
+	    		
+				try {
+				    connection = DbConnection.createConnection();
+				    //preparedStatement = Pstm.createQuery(connection, indi, params)
+					
+					
+					
+				} finally {
+					
+				}
+	    		
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+	    	return parentList;
+	    	
+	    }
+	    
+	    
 	
 }

@@ -55,6 +55,9 @@ public class IndividualClientReportBean {
 	private String clntIntvValue;
 	private String clntIntvStr;
 	
+	private boolean detailsDivVis = false;
+	private boolean summaryDivVis = false;
+	
 	private boolean statusFieldVis = false;
 	private boolean resNameFieldVis = false;
 	private boolean yoExpFieldVis = false;
@@ -72,6 +75,14 @@ public class IndividualClientReportBean {
 	private boolean clNameLbFieldVis = false;
 	private boolean clNameFieldVis = false;
 	private boolean companyFieldVis = false;
+	
+	private String noOfReqLebel;
+	private int noOfReq;
+	private int NoOfResources;
+	private boolean noOfReqVis = false;
+	private boolean noOfResourcesVis = false;
+	
+	
 	
 	private Integer r_idSearch;
 	
@@ -456,6 +467,48 @@ public class IndividualClientReportBean {
 	}
 	public void setR_idSearch(Integer r_idSearch) {
 		this.r_idSearch = r_idSearch;
+	}
+	public boolean isDetailsDivVis() {
+		return detailsDivVis;
+	}
+	public void setDetailsDivVis(boolean detailsDivVis) {
+		this.detailsDivVis = detailsDivVis;
+	}
+	public boolean isSummaryDivVis() {
+		return summaryDivVis;
+	}
+	public void setSummaryDivVis(boolean summaryDivVis) {
+		this.summaryDivVis = summaryDivVis;
+	}
+	public int getNoOfReq() {
+		return noOfReq;
+	}
+	public void setNoOfReq(int noOfReq) {
+		this.noOfReq = noOfReq;
+	}
+	public int getNoOfResources() {
+		return NoOfResources;
+	}
+	public void setNoOfResources(int noOfResources) {
+		NoOfResources = noOfResources;
+	}
+	public boolean isNoOfReqVis() {
+		return noOfReqVis;
+	}
+	public void setNoOfReqVis(boolean noOfReqVis) {
+		this.noOfReqVis = noOfReqVis;
+	}
+	public boolean isNoOfResourcesVis() {
+		return noOfResourcesVis;
+	}
+	public void setNoOfResourcesVis(boolean noOfResourcesVis) {
+		this.noOfResourcesVis = noOfResourcesVis;
+	}
+	public String getNoOfReqLebel() {
+		return noOfReqLebel;
+	}
+	public void setNoOfReqLebel(String noOfReqLebel) {
+		this.noOfReqLebel = noOfReqLebel;
 	}
 	
 }

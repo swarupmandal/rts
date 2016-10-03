@@ -6,7 +6,7 @@
     		<div>
     			<hlayout spacing="20px">
     				
-    				<bandbox autodrop="true" readonly="true" id="clname" value="@bind(vm.individualClientReportBean.clientInformationBean.fullName)" placeholder="Search By Client">
+    				<bandbox autodrop="true" readonly="true" id="clname" value="@bind(vm.individualClientReportBean.clientInformationBean.fullName)" placeholder="Search By Client" width="220px">
 						<bandpopup>	
 							<hbox>
 								<textbox value="@bind(vm.individualClientReportBean.clientNameSearch)" onChange="@command('onChangeClientName')"></textbox>
@@ -61,14 +61,14 @@
 		                </template>
 		            </combobox>
 		            
-		            <button label="Search" onClick="@command('onClickSearch')" style="font-weight:bold; color: black"></button>
-		            <button label="Clear" onClick="@command('onClickClear')" style="font-weight:bold; color: black"></button>	
+		            <button label="Search" onClick="@command('onClickSearch')" style="font-weight:bold; color: black" visible="false"></button>
+		            <button label="Clear" onClick="@command('onClickClear')" style="font-weight:bold; color: black" width="90px"></button>	
     				
     			</hlayout>
     			<space></space>
     			
     			<hlayout spacing="20px">
-    				<radiogroup onCheck="@command('onCheckRepairRedo')" selectedItem="@bind(vm.individualClientReportBean.selectedRadioButton)">
+    				<radiogroup onCheck="@command('onCheckDetailSummary')" selectedItem="@bind(vm.individualClientReportBean.selectedRadioButton)">
 						<radio label="Deatil" value="detail" style="font-weight:bold; color: black"/>
 						<space></space>	
 						<radio label="Summary" value="summary" style="font-weight:bold; color: black"/>
@@ -78,7 +78,7 @@
     		
     		
     		
-    		<div>
+    		<div visible="@bind(vm.individualClientReportBean.detailsDivVis)">
     		  <grid model="@bind(vm.reportBeanList)" mold="paging" pageSize="10">
     		     <auxhead>
     		  		<auxheader colspan="4" align="center">
@@ -158,6 +158,50 @@
     		  	</rows>
     		  </grid>
     		</div>
+    		
+    		<div visible="@bind(vm.individualClientReportBean.summaryDivVis)">
+    		
+    			<grid model="@bind(vm.summaryBeanList)">
+    				<auxhead>
+    					<auxheader colspan="7" label="Status" align="left"></auxheader>
+    					<auxheader colspan="4" label="No. of resources" align="right"></auxheader>
+    				</auxhead>
+    				
+    				<columns>
+    				  <column></column>
+    				  <column></column>
+    				  <column></column>
+    				  <column></column>
+    				  <column></column>
+    				  	
+    				</columns>
+    				<rows>
+    				  <row>
+    				    
+    				     <label value="@bind(v.rIdLabel)" style="font-weight:bold; color: black" visible="@bind(v.ridLbFieldVis)"></label>
+    		  			 <label value="@bind(v.reqId)" style="font-weight:bold; color: black" visible="@bind(v.ridFieldVis)"></label>
+    		  			 
+    		  			 
+    		  			 <textbox value="@bind(v.status)" visible="@bind(v.statusFieldVis)"></textbox>
+    		  			 
+    		  			 
+    		  			 <label value="@bind(v.rIdDateLabel)" style="font-weight:bold; color: black" visible="@bind(v.ridDatelbFieldVis)"></label>
+    		  			 <label value="@bind(v.createdDateValue)" style="font-weight:bold; color: black" visible="@bind(v.ridDateFieldVis)"></label>
+    		  			 <label value="@bind(v.clientFullName)" style="font-weight:bold; color: black"></label>
+    		  			 <label value="@bind(v.skillSetLabel)" style="font-weight:bold; color: black" visible="@bind(v.sklStLbFieldVis)"></label>
+    		  			 <label value="@bind(v.skillSet)" style="font-weight:bold; color: black" visible="@bind(v.sklStFieldVis)"></label>
+    		  			 <label value="@bind(v.noOfReq)" style="font-weight:bold; color: black" visible="@bind(v.noOfReqVis)"></label>
+    		  			 <label value="@bind(v.NoOfResources)" style="font-weight:bold; color: black" visible="@bind(v.noOfResourcesVis)"></label>
+    		  			 
+    		  			
+    				
+    				  </row>	
+    				</rows>
+    				
+    			</grid>
+    		
+    		</div>
+    		
 
 </window>
 </zk>
