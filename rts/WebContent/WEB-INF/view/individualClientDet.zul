@@ -69,7 +69,7 @@
     			
     			<hlayout spacing="20px">
     				<radiogroup onCheck="@command('onCheckDetailSummary')" selectedItem="@bind(vm.individualClientReportBean.selectedRadioButton)">
-						<radio label="Deatil" value="detail" style="font-weight:bold; color: black"/>
+						<radio label="Detail" value="detail" style="font-weight:bold; color: black"/>
 						<space></space>	
 						<radio label="Summary" value="summary" style="font-weight:bold; color: black"/>
 					</radiogroup>
@@ -163,8 +163,8 @@
     		
     			<grid model="@bind(vm.summaryBeanList)">
     				<auxhead>
-    					<auxheader colspan="7" label="Status" align="left"></auxheader>
-    					<auxheader colspan="4" label="No. of resources" align="right"></auxheader>
+    					<auxheader colspan="6" label="Status" align="left"></auxheader>
+    					<auxheader colspan="1" label="No. of resources" align="right"></auxheader>
     				</auxhead>
     				
     				<columns>
@@ -173,29 +173,28 @@
     				  <column></column>
     				  <column></column>
     				  <column></column>
+    				  <column></column>
+    				  <column></column>
     				  	
     				</columns>
     				<rows>
-    				  <row>
+    				  <template name="model" var = "v">
+    				   <row>
     				    
-    				     <label value="@bind(v.rIdLabel)" style="font-weight:bold; color: black" visible="@bind(v.ridLbFieldVis)"></label>
-    		  			 <label value="@bind(v.reqId)" style="font-weight:bold; color: black" visible="@bind(v.ridFieldVis)"></label>
-    		  			 
-    		  			 
-    		  			 <textbox value="@bind(v.status)" visible="@bind(v.statusFieldVis)"></textbox>
-    		  			 
-    		  			 
-    		  			 <label value="@bind(v.rIdDateLabel)" style="font-weight:bold; color: black" visible="@bind(v.ridDatelbFieldVis)"></label>
-    		  			 <label value="@bind(v.createdDateValue)" style="font-weight:bold; color: black" visible="@bind(v.ridDateFieldVis)"></label>
-    		  			 <label value="@bind(v.clientFullName)" style="font-weight:bold; color: black"></label>
-    		  			 <label value="@bind(v.skillSetLabel)" style="font-weight:bold; color: black" visible="@bind(v.sklStLbFieldVis)"></label>
-    		  			 <label value="@bind(v.skillSet)" style="font-weight:bold; color: black" visible="@bind(v.sklStFieldVis)"></label>
-    		  			 <label value="@bind(v.noOfReq)" style="font-weight:bold; color: black" visible="@bind(v.noOfReqVis)"></label>
-    		  			 <label value="@bind(v.NoOfResources)" style="font-weight:bold; color: black" visible="@bind(v.noOfResourcesVis)"></label>
-    		  			 
-    		  			
-    				
-    				  </row>	
+    				    <label value="@bind(v.rIdLabel)" visible="@bind(v.ridLbFieldVis)"></label>
+    				    
+    				    <textbox value="@bind(v.status)" visible="@bind(v.statusFieldVis)" readonly="true"></textbox>
+    				    
+    				    <label value="@bind(v.rIdDateLabel)" visible="@bind(v.ridDatelbFieldVis)"></label>
+    				    <label value="@bind(v.clientFullName)" visible="@bind(v.clNameLbFieldVis)"></label>
+    				    <label value="@bind(v.skillSetLabel)" visible="@bind(v.sklStLbFieldVis)"></label>
+    				    <label value="@bind(v.noOfReqLebel)" visible="@bind(v.noOfReqVis)"></label>
+    				    
+    				    <textbox value="@bind(v.noOfResources)" visible="@bind(v.noOfResourcesVis)" readonly="true"></textbox>
+    				    
+    				   </row>
+    				  
+    				  </template>	
     				</rows>
     				
     			</grid>
