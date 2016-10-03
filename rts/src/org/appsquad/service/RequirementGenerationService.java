@@ -58,16 +58,16 @@ public class RequirementGenerationService {
 												   if(bean.getEmail().matches(EMAIL_REGEX)){
 												return true;
 											}else {
-												Messagebox.show("Enter Proper Email ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+												Messagebox.show("Enter Proper Email Id ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
 												return false;
 											   }
 											}else {
-												Messagebox.show("Enter Email ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+												Messagebox.show("Enter Email Id ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
 												return false;
 										       }
 												   
 											}else {
-												Messagebox.show("Enter Cont no. ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+												Messagebox.show("Enter Contact No. ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
 												return false;
 										}
 									}else {
@@ -108,16 +108,16 @@ public class RequirementGenerationService {
 												   if(bean.getEmail().matches(EMAIL_REGEX)){
 												return true;
 											}else {
-												Messagebox.show("Enter Proper Email ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+												Messagebox.show("Enter Proper Email Id ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
 												return false;
 											   }
 											}else {
-												Messagebox.show("Enter Email ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+												Messagebox.show("Enter Email Id ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
 												return false;
 										       }
 												   
 											}else {
-												Messagebox.show("Enter Cont no. ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+												Messagebox.show("Enter Contact No. ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
 												return false;
 										}
 									}else {
@@ -145,4 +145,5 @@ public class RequirementGenerationService {
 				return false;
 		}		
 	}
+	
 }

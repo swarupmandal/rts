@@ -79,6 +79,38 @@ public class RequirementGenerationDao {
 		
 		return nameBeanList;
 	}
+	
+	
+	public static void fetchEmailIdAndContactNumber(RequirementGenerationBean generationBean){
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		try {
+			connection = DbConnection.createConnection();
+			preparedStatement = Pstm.createQuery(connection, RequirementGenerationSql.FETCHCLIENTEMAILANDCONTACTNO, Arrays.asList(generationBean.getClientId()));
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				generationBean.setEmail(resultSet.getString("emailid"));
+				generationBean.setContactNo(resultSet.getString("contactno"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally{
+			if(preparedStatement != null){
+				try {
+					preparedStatement.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(connection != null){
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
 
      
 	public static int fetchOverallStatusId(){
