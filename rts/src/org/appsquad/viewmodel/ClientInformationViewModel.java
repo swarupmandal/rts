@@ -82,16 +82,12 @@ public class ClientInformationViewModel {
 	@Command
 	@NotifyChange("*")
 	public void onSelectStateName(){
-		System.out.println("STATE ID IS :"+clientInformationBean.getStateBean().getStateId());
-		System.out.println("STATE NAME IS :"+clientInformationBean.getStateBean().getStateName());
 		bandBox1.close();
 	}
 	
 	@Command
 	@NotifyChange("*")
 	public void onSelectCountryName(){
-		System.out.println("COUNTRY ID IS :"+clientInformationBean.getCountryBean().getCountryId());
-		System.out.println("COUNTRY NAME IS :"+clientInformationBean.getCountryBean().getCountryName());
 		stateList = ClientInformationDao.onLoadState(clientInformationBean);
 		bandBox.close();
 	}
@@ -99,7 +95,6 @@ public class ClientInformationViewModel {
 	@Command
 	@NotifyChange("*")
 	public void onClickUpdate(@BindingParam("bean") ClientInformationBean bean){
-		System.out.println("CLIENT ID IS :"+bean.getClientId());
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("clientIdDetails", bean);
 		Window window = (Window) Executions.createComponents("/WEB-INF/view/clientInformationUpdate.zul", null, map);

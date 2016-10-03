@@ -5,14 +5,12 @@ import org.appsquad.dao.UserProfileDao;
 import org.zkoss.zul.Messagebox;
 
 public class UserProfileService {
-	
 	private static boolean flag = false;
 	private static boolean flagInsert = false;
 	private static boolean flagCount = false;
 	private static String EMAIL_REGEX = "^[\\w-_\\.+]*[\\w-_\\.]@([\\w]+\\.)+[\\w]+[\\w]$";
 	
-		  	   
-			public static boolean isValid(UserprofileBean userprofileBean){
+	public static boolean isValid(UserprofileBean userprofileBean){
 				if(userprofileBean.getUsername()!=null && userprofileBean.getUsername().trim().length()>0){
 					if(userprofileBean.getUserid()!=null && userprofileBean.getUserid().trim().length()>0){
 						if(userprofileBean.getPassword()!=null && userprofileBean.getPassword().trim().length()>0){
@@ -90,19 +88,15 @@ public class UserProfileService {
 	public static void setFlagInsert(boolean flagInsert) {
 		UserProfileService.flagInsert = flagInsert;
 	}
-
 	public static boolean isFlagCount() {
 		return flagCount;
 	}
-
 	public static void setFlagCount(boolean flagCount) {
 		UserProfileService.flagCount = flagCount;
 	}
-
 	public static String getEMAIL_REGEX() {
 		return EMAIL_REGEX;
 	}
-
 	public static void setEMAIL_REGEX(String eMAIL_REGEX) {
 		EMAIL_REGEX = eMAIL_REGEX;
 	}

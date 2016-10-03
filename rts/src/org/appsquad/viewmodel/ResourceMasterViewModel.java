@@ -116,6 +116,7 @@ public class ResourceMasterViewModel {
 			ResourceMasterService.clearAllField(resourceMasterBean);
 			fileName = null;
 			fileContent =null;
+			skillList = ResourceMasterDao.onLoadSkill();
 			countryList = ResourceMasterDao.onLoadCountry();
 			stateList.clear();
 		}

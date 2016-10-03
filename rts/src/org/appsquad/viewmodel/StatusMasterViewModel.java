@@ -117,11 +117,9 @@ public class StatusMasterViewModel {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-
 	public static boolean isFlag() {
 		return flag;
 	}
-
 	public static void setFlag(boolean flag) {
 		StatusMasterViewModel.flag = flag;
 	}

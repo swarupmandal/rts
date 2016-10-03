@@ -14,7 +14,6 @@ import org.appsquad.utility.Pstm;
 import org.zkoss.zul.Messagebox;
 
 public class StatusMasterDao {
-    
 	final static Logger logger = Logger.getLogger(StatusMasterDao.class);
 	
 	public static boolean insertStatusData(StatusMasterBean statusMasterBean){
@@ -31,10 +30,7 @@ public class StatusMasterDao {
 					    try {
 					    	preparedStatementInsert = Pstm.createQuery(connection, 
 									StatusMasterSql.insertStatusQuery, Arrays.asList(statusMasterBean.getUserId(),statusMasterBean.getStatus().toUpperCase()));
-					   
-					    	
-					    	logger.info(" insertStatusData- " + preparedStatementInsert.unwrap(PreparedStatement.class));
-					    	
+					    	//logger.info(" insertStatusData- " + preparedStatementInsert.unwrap(PreparedStatement.class));
 							int i = preparedStatementInsert.executeUpdate();
 							if(i>0){
 								isSaved = true;	
@@ -60,9 +56,7 @@ public class StatusMasterDao {
 				}
 			}
 		} catch (Exception e) {
-			
-			logger.fatal(e);
-			
+			//logger.fatal(e);
 			e.printStackTrace();
 		}
 		return isSaved;
@@ -81,9 +75,7 @@ public class StatusMasterDao {
 					   PreparedStatement preparedStatement = null;
 					   try {
 						   preparedStatement = Pstm.createQuery(connection, StatusMasterSql.fetchStatusQuery, null);
-							
-						   logger.info(" onLoadStatusDeatils- " + preparedStatement.unwrap(PreparedStatement.class));
-						   
+						   /*logger.info(" onLoadStatusDeatils- " + preparedStatement.unwrap(PreparedStatement.class));*/
 						   
 							ResultSet resultSet = preparedStatement.executeQuery();
 							while (resultSet.next()) {
@@ -108,9 +100,7 @@ public class StatusMasterDao {
 				}
 			}
 		} catch (Exception e) {
-			
-			logger.fatal(e);
-			
+			//logger.fatal(e);
 			e.printStackTrace();
 		}
 		return statusList;
@@ -129,10 +119,8 @@ public class StatusMasterDao {
 					   PreparedStatement preparedStatement = null;
 					   try {
 						    preparedStatement = Pstm.createQuery(connection, StatusMasterSql.countStatusSql, Arrays.asList(statusMasterBean.getStatus().toUpperCase()));
-							System.out.println(preparedStatement);
 							
-							logger.info(" countStatusNumber- " + preparedStatement.unwrap(PreparedStatement.class));
-							
+							//logger.info(" countStatusNumber- " + preparedStatement.unwrap(PreparedStatement.class));
 							
 							ResultSet resultSet = preparedStatement.executeQuery();
 							while (resultSet.next()) {
@@ -153,9 +141,7 @@ public class StatusMasterDao {
 				}
 			}
 		} catch (Exception e) {
-			
-			logger.fatal(e);
-			
+			//logger.fatal(e);
 			e.printStackTrace();
 		}
 		return count;
@@ -175,10 +161,7 @@ public class StatusMasterDao {
 					    try {
 					    	preparedStatementInsert = Pstm.createQuery(connection, 
 									StatusMasterSql.deleteStatusQuery, Arrays.asList(statusMasterBean.getStatusId()));
-					   
-					    	
-					    	logger.info(" deleteStatus- " + preparedStatementInsert.unwrap(PreparedStatement.class));
-					    	
+					    	//logger.info(" deleteStatus- " + preparedStatementInsert.unwrap(PreparedStatement.class));
 							int i = preparedStatementInsert.executeUpdate();
 							if(i>0){
 								isSaved = true;	
@@ -204,9 +187,7 @@ public class StatusMasterDao {
 				}
 			}
 		} catch (Exception e) {
-			
-			logger.fatal(e);
-			
+			//logger.fatal(e);
 			e.printStackTrace();
 		}
 		return isSaved;

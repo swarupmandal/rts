@@ -204,19 +204,15 @@ public class RolemasterViewModel {
 	public static Integer getCountRole() {
 		return countRole;
 	}
-
 	public static void setCountRole(Integer countRole) {
 		RolemasterViewModel.countRole = countRole;
 	}
-
 	public static Integer getCount() {
 		return count;
 	}
-
 	public static void setCount(Integer count) {
 		RolemasterViewModel.count = count;
 	}
-
 	public ArrayList<RollDropDownBean> getRoleList() {
 		return roleList;
 	}

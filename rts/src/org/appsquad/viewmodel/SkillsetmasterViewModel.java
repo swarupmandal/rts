@@ -54,7 +54,6 @@ public class SkillsetmasterViewModel {
 		int countNumber = 0;
 		boolean flagInsert = false;
 		countNumber = SkillSetMasterService.countNumberPresentSkillName(skillsetMasterbean);
-		System.out.println(countNumber);
 		if(countNumber>0){
 			 Messagebox.show("Please Enter New Skill Name!", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
 		}else{

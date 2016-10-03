@@ -50,7 +50,6 @@ public class RequirementGenerationViewModel {
 		statusBeanList = RequirementGenerationService.fetchStatusList();
 		reqGenBeanList = RequirementGenerationService.loadReqGenMasterData();
 		reqGenBean.setReqStatusId(RequirementGenerationDao.fetchOverallStatusId());
-		System.out.println(reqGenBean.getReqStatusId());
 	}
 
 	@Command
