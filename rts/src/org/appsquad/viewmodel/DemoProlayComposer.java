@@ -4,12 +4,16 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import org.appsquad.bean.DemoBean;
+import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.ContextParam;
+import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.Sessions;
+import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.Iframe;
@@ -29,9 +33,7 @@ public class DemoProlayComposer extends GenericForwardComposer {
 		sessions = Sessions.getCurrent();
 		Map<String,Object> argument = (Map<String, Object>) Executions.getCurrent().getArg();
 		list = (ArrayList<DemoBean>) argument.get("fetchID");
-		System.out.println(list.size());
 		passData = getPdtCodeList(list);
-		System.out.println("PASS DATA:"+passData);
 		iFrameDemo.setSrc("/DemoServlet?key="+passData);
 		if(winDemoFlow==null){
 			iFrameDemo.setPage(null);
@@ -55,6 +57,11 @@ public class DemoProlayComposer extends GenericForwardComposer {
 		winDemoFlow.detach();
 	}
 	
+	@Command
+	@NotifyChange("*")
+	public void onCloseOperation(@ContextParam(ContextType.TRIGGER_EVENT)Event e){
+		BindUtils.postGlobalCommand(null, null, "refreshDownloadingScreen", null);
+	}
 	
 	/******************************************************************************************************************************************/
 	

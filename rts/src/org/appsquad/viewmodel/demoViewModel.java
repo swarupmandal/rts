@@ -12,6 +12,7 @@ import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
+import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
@@ -41,6 +42,15 @@ public class demoViewModel {
 			userId = (String) sessions.getAttribute("userId");
             list = DemoDao.getDetails();
 		}
+	    
+	    @GlobalCommand
+	    @NotifyChange("*")
+	    public void refreshDownloadingScreen(){
+	    	list = DemoDao.getDetails();
+	    	for(DemoBean bean: list){
+	    		bean.setChkSelect(false);
+	    	}
+	    }
 	    
 	    @Command
 	    @NotifyChange("*")
@@ -112,11 +122,9 @@ public class demoViewModel {
 	public void setBean(DemoBean bean) {
 		this.bean = bean;
 	}
-
 	public ArrayList<DemoBean> getIdList() {
 		return idList;
 	}
-
 	public void setIdList(ArrayList<DemoBean> idList) {
 		this.idList = idList;
 	}
