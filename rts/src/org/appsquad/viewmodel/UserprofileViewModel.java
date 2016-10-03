@@ -59,7 +59,6 @@ public class UserprofileViewModel {
 		boolean flagInsert = false;
 		int countNumber = 0;
 		countNumber = UserProfileDao.countPresentUserDetails(userprofileBean);
-		System.out.println(countNumber);
 		if(countNumber>0){
 			Messagebox.show("Please Enter New User Name And Password!", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
 		}else{

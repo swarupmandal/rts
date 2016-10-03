@@ -1,8 +1,6 @@
 package org.appsquad.service;
 
-import org.appsquad.bean.ClientInformationBean;
 import org.appsquad.bean.RoleMasterBean;
-import org.appsquad.dao.ClientInformationDao;
 import org.appsquad.dao.RoleMasterDao;
 import org.zkoss.zul.Messagebox;
 

@@ -22,11 +22,19 @@
                            </columns>
                            <rows>
                                <row>
-                                   <label value="Skill Set:" style="font-weight:bold"></label>
+                               <hlayout>
+                                    <label value="* " style="font-weight:bold; color:red"/>
+                                    <label value="Skill Set:" style="font-weight:bold"></label>
+                               </hlayout>
+                                   
                                    <textbox value="@bind(vm.skillsetMasterbean.skillset)" width="45%"></textbox>
                                </row>
                                <row>
-                                  <label value="Skill Set Details:" style="font-weight:bold"/>
+                               <hlayout>
+                                    <label value="* " style="font-weight:bold; color:red"/>
+                                    <label value="Skill Set Details:" style="font-weight:bold"/>
+                               </hlayout>
+                                  
                                   <textbox rows="5" value="@bind(vm.skillsetMasterbean.skillsetdetails)" width="45%"></textbox>
                                </row>
                                <row>

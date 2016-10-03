@@ -111,11 +111,11 @@ public class ResourceMasterViewModel {
 	public void onClickSubmitButton(){
 		boolean isInsert = false;
 		isInsert = ResourceMasterService.insertClientMasterData(resourceMasterBean);
-		System.out.println("*******"+isInsert);
 		if(isInsert){
 			ResourceMasterService.clearAllField(resourceMasterBean);
 			fileName = null;
 			fileContent =null;
+			skillList = ResourceMasterDao.onLoadSkill();
 			countryList = ResourceMasterDao.onLoadCountry();
 			stateList.clear();
 		}
@@ -154,17 +154,15 @@ public class ResourceMasterViewModel {
          
          int number = ResourceMasterDao.countLastNumber();
          String name = media.getName();
-         System.out.println("name is :"+name);
          String parts[] = name.split("\\.");
          for(int i=0;i<parts.length;i++){
-        	 System.out.println(parts[i]);
+        	 //System.out.println(parts[i]);
          }
-        
          String n1 = parts[0];
          String n2 = parts[1];
          String n3 = n1+"_"+number;
          String finalName = n3+"."+n2;
-         System.out.println("FINAL NAME:"+finalName);
+         //System.out.println("FINAL NAME:"+finalName);
          Files.copy(new File(filePath + finalName), media.getStreamData());
          Messagebox.show("Uploaded Successfully", "Information", Messagebox.OK, Messagebox.INFORMATION);
          fileuploaded = true;

@@ -25,7 +25,7 @@ import org.zkoss.zul.Messagebox;
 
 public class LogingViewModel {
 	LoginBean loginBean = new LoginBean();
-	private Connection connection = null;
+  Connection connection =null; 
 	Session session = null;
 	
 	final static Logger logger = Logger.getLogger(LogingViewModel.class);

@@ -5,21 +5,27 @@
       <grid height="400px" sclass="fgrid" model="@bind(vm.list)" mold="paging" autopaging="true" pageSize="12">
 						<columns sizable="true">
 						        <column width="40px"></column>
-								<column label="Name" align="center" style="font-weight:bold;" width="120px"/>
-							    <column label="SurName" align="center" style="font-weight:bold;" width="120px"/>
-								
+								<column label="Name" align="center" style="font-weight:bold;" width="220px"/>
+							    <column label="Address" align="center" style="font-weight:bold;" width="220px"/>
+								<column label="Email Id" align="center" style="font-weight:bold;" width="220px"/>
+								<column label="Contact Number" align="center" style="font-weight:bold;" width="200px"/>
+								<column label="Year Of Experience" align="center" style="font-weight:bold;" width="125px"/>
 						</columns>	
 						
 						<template name="model" var="v">
 								<row style="border: 0.01px solid #C0C0C0;">
 								    <checkbox checked="@bind(v.chkSelect)" onCheck="@command('onCheckBox', bean = v)"></checkbox>
-									<textbox value="@bind(v.name)" readonly="true"></textbox>
-									<textbox value="@bind(v.surName)" readonly="true"></textbox>
+									<textbox value="@bind(v.fullName)" readonly="true"></textbox>
+									<textbox value="@bind(v.address)" readonly="true"></textbox>
+									<textbox value="@bind(v.emailId)" readonly="true"></textbox>
+									<textbox value="@bind(v.contactNumber)" readonly="true"></textbox>
+									<textbox value="@bind(v.experience)" readonly="true"></textbox>
 								</row>
 					  </template>
 				</grid>			
  </div>
- <div>
+ <space></space>
+ <div align="center">
    <button label="DOWNLOAD" onClick="@command('onClickDownload')"></button>
  </div>
 </window>

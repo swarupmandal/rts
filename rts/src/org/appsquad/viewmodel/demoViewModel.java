@@ -12,12 +12,14 @@ import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
+import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.select.Selectors;
+import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
 public class demoViewModel {
@@ -41,6 +43,15 @@ public class demoViewModel {
             list = DemoDao.getDetails();
 		}
 	    
+	    @GlobalCommand
+	    @NotifyChange("*")
+	    public void refreshDownloadingScreen(){
+	    	list = DemoDao.getDetails();
+	    	for(DemoBean bean: list){
+	    		bean.setChkSelect(false);
+	    	}
+	    }
+	    
 	    @Command
 	    @NotifyChange("*")
 	    public void onCheckBox(@BindingParam("bean") DemoBean demoBean){
@@ -49,16 +60,19 @@ public class demoViewModel {
 	    	}else{
 	    		idList.remove(demoBean);
 	    	}
-	    	System.out.println("checked->"+idList.size());
 	    }
 	  
 	    @Command
 	    @NotifyChange("*")
 	    public void onClickDownload(){
-	    	Map<String, Object> parentMap = new HashMap<String, Object>();
-	    	parentMap.put("fetchID", idList);
-	    	Window window = (Window) Executions.createComponents("/WEB-INF/view/testing.zul", null, parentMap);
-			window.doModal();
+	    	if(idList.size()>0){
+	    		Map<String, Object> parentMap = new HashMap<String, Object>();
+		    	parentMap.put("fetchID", idList);
+		    	Window window = (Window) Executions.createComponents("/WEB-INF/view/testing.zul", null, parentMap);
+				window.doModal();	
+	    	}else{
+	    		Messagebox.show(" You Didn't Check Any Check-Box!","Excalamation",Messagebox.OK,Messagebox.EXCLAMATION);
+	    	}
 	    }
 	    
 	/*****************************************************************************************************/
@@ -108,11 +122,9 @@ public class demoViewModel {
 	public void setBean(DemoBean bean) {
 		this.bean = bean;
 	}
-
 	public ArrayList<DemoBean> getIdList() {
 		return idList;
 	}
-
 	public void setIdList(ArrayList<DemoBean> idList) {
 		this.idList = idList;
 	}

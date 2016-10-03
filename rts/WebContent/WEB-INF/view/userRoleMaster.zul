@@ -1,11 +1,6 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
   <window title="USER ROLE" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('org.appsquad.viewmodel.RolemasterViewModel')">
-    <style>
-			.z-textbox{
-			   	text-transform:uppercase;
-			   }
-	</style>
    <div>
        <tabbox>
             <tabs>
@@ -23,7 +18,11 @@
                               </columns>
                               <rows>
                                   <row>
-                                     <label value="Role" style="font-weight:bold"/>
+                                  <hlayout>
+                                  		<label value="* " style="font-weight:bold; color:red;"/>
+                                       <label value="Role" style="font-weight:bold"/>
+                                  </hlayout>
+                                     
                                      <textbox value="@bind(vm.roleMasterBean.roll)"/>
                                      <button label="Save" onClick="@command('onClickRoleSave')"/>
                                   </row>

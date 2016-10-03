@@ -1,7 +1,7 @@
 <?page title="Down-Loading Screen" contentType="text/html;charset=UTF-8"?>
 <zk>
 <window title="Down-Loading Screen" border="normal" closable="true" id="winDemoFlow" apply="org.appsquad.viewmodel.DemoProlayComposer"
-       width="280px" height="200px" >
+       width="280px" height="200px" onClose="@command('onCloseOperation')" >
    <div width="80px" height="80px">
 		     <hbox align="center">
                 <progressmeter id="curr_met" value="100" width="170px"/>

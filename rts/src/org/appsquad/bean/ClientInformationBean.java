@@ -12,7 +12,7 @@ public class ClientInformationBean {
 	private String contactNo;
 	private String userId;
 	private String fullName;
-	private int clientId;
+	private Integer clientId;
 	private boolean countryDropdownDisable = false;
 	private boolean stateDropdownDisable = false;
 	
@@ -96,12 +96,7 @@ public class ClientInformationBean {
 	public String getFullName() {
 		return fullName;
 	}
-	public int getClientId() {
-		return clientId;
-	}
-	public void setClientId(int clientId) {
-		this.clientId = clientId;
-	}
+	
 	public boolean isStateDropdownDisable() {
 		return stateDropdownDisable;
 	}
@@ -116,5 +111,11 @@ public class ClientInformationBean {
 	}
 	public void setFullName(String fullName) {
 		this.fullName = fullName;
+	}
+	public Integer getClientId() {
+		return clientId;
+	}
+	public void setClientId(Integer clientId) {
+		this.clientId = clientId;
 	}
 }

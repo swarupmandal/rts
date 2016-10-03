@@ -14,7 +14,6 @@ import org.appsquad.utility.Pstm;
 import org.zkoss.zul.Messagebox;
 
 public class UserProfileDao {
-	
 	final static Logger logger=Logger.getLogger(UserProfileDao.class);
 	
 	public static boolean insertUserData(UserprofileBean userprofileBean){
@@ -34,7 +33,7 @@ public class UserProfileDao {
 																userprofileBean.getPassword(),userprofileBean.getAddress().toUpperCase(),
 																userprofileBean.getContactno().toUpperCase(),userprofileBean.getEmail()));
 					    
-					    	logger.info(" insertUserData- " + preparedStatementInsert.unwrap(PreparedStatement.class));
+					    	/*logger.info(" insertUserData- " + preparedStatementInsert.unwrap(PreparedStatement.class));*/
 							int i = preparedStatementInsert.executeUpdate();
 							if(i>0){
 								isSaved = true;	
@@ -62,7 +61,7 @@ public class UserProfileDao {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.fatal(e);
+			//logger.fatal(e);
 		}
 		return isSaved;
 	}
@@ -80,9 +79,7 @@ public class UserProfileDao {
 					   PreparedStatement preparedStatement = null;
 					   try {
 						   preparedStatement = Pstm.createQuery(connection, UserProfileSql.fetchUserDeatils, null);
-							
-						   
-						   logger.info(" onLoadUserDeatils- " + preparedStatement.unwrap(PreparedStatement.class));
+						   //logger.info(" onLoadUserDeatils- " + preparedStatement.unwrap(PreparedStatement.class));
 						   
 							ResultSet resultSet = preparedStatement.executeQuery();
 							while (resultSet.next()) {
@@ -114,7 +111,7 @@ public class UserProfileDao {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.fatal(e);
+			//logger.fatal(e);
 		}
 		return userList;
 	}
@@ -131,11 +128,10 @@ public class UserProfileDao {
 					sql_fetch:{
 					   PreparedStatement preparedStatementCount = null;
 					   try {
-						   preparedStatementCount = Pstm.createQuery(connection, UserProfileSql.countNumberSql, Arrays.asList(userprofileBean.getUserid().toUpperCase(),
-								                                                                             userprofileBean.getPassword().toUpperCase()));
-							System.out.println(preparedStatementCount);
+						   preparedStatementCount = Pstm.createQuery(connection, UserProfileSql.countNumberSql, Arrays.asList(userprofileBean.getUserid(),
+								                                                                             userprofileBean.getPassword()));
 							
-							logger.info(" countPresentUserDetails- " + preparedStatementCount.unwrap(PreparedStatement.class));
+							//logger.info(" countPresentUserDetails- " + preparedStatementCount.unwrap(PreparedStatement.class));
 							
 							ResultSet resultSet = preparedStatementCount.executeQuery();
 							while (resultSet.next()) {
@@ -158,7 +154,7 @@ public class UserProfileDao {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.fatal(e);
+			//logger.fatal(e);
 		}
 		return count;
 	}
@@ -176,14 +172,11 @@ public class UserProfileDao {
 					    PreparedStatement preparedStatementInsert = null;
 					    try {
 					    	preparedStatementInsert = Pstm.createQuery(connection, 
-									UserProfileSql.updateUserDetails, Arrays.asList(userprofileBean.getUserid().toUpperCase(),userprofileBean.getUsername().toUpperCase(),
-											  userprofileBean.getPassword().toUpperCase(),userprofileBean.getAddress().toUpperCase(),userprofileBean.getContactno().toUpperCase(),
+									UserProfileSql.updateUserDetails, Arrays.asList(userprofileBean.getUserid(),userprofileBean.getUsername(),
+											  userprofileBean.getPassword(),userprofileBean.getAddress(),userprofileBean.getContactno(),
 											  userprofileBean.getEmail(),userprofileBean.getId()));
 					    	
-					    	System.out.println(preparedStatementInsert);
-					    	
-					    	
-					    	logger.info(" Update User Data- " + preparedStatementInsert.unwrap(PreparedStatement.class));
+					    	//logger.info(" Update User Data- " + preparedStatementInsert.unwrap(PreparedStatement.class));
 					    	
 							int i = preparedStatementInsert.executeUpdate();
 							if(i>0){
@@ -212,7 +205,7 @@ public class UserProfileDao {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.fatal(e);
+			//logger.fatal(e);
 		}
 		return isUpdated;
 	}
@@ -231,12 +224,7 @@ public class UserProfileDao {
 					    try {
 					    	preparedStatementInsert = Pstm.createQuery(connection, 
 									UserProfileSql.deleteUserSql, Arrays.asList(userprofileBean.getId()));
-					    	
-					    	System.out.println(preparedStatementInsert);
-					    	
-					    	
 					    	logger.info(" deleteUserData- " + preparedStatementInsert.unwrap(PreparedStatement.class));
-					    	
 							int i = preparedStatementInsert.executeUpdate();
 							if(i>0){
 								isDeleted = true;	
@@ -264,12 +252,11 @@ public class UserProfileDao {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.fatal(e);;
+			//logger.fatal(e);;
 		}
 		return isDeleted;
 	}
 
-	
 	/*********************************************************************************************************************************/
 	
 	public static Logger getLogger() {
