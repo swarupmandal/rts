@@ -172,8 +172,8 @@ public class UserProfileDao {
 					    PreparedStatement preparedStatementInsert = null;
 					    try {
 					    	preparedStatementInsert = Pstm.createQuery(connection, 
-									UserProfileSql.updateUserDetails, Arrays.asList(userprofileBean.getUserid().toUpperCase(),userprofileBean.getUsername().toUpperCase(),
-											  userprofileBean.getPassword().toUpperCase(),userprofileBean.getAddress().toUpperCase(),userprofileBean.getContactno().toUpperCase(),
+									UserProfileSql.updateUserDetails, Arrays.asList(userprofileBean.getUserid(),userprofileBean.getUsername(),
+											  userprofileBean.getPassword(),userprofileBean.getAddress(),userprofileBean.getContactno(),
 											  userprofileBean.getEmail(),userprofileBean.getId()));
 					    	
 					    	//logger.info(" Update User Data- " + preparedStatementInsert.unwrap(PreparedStatement.class));
