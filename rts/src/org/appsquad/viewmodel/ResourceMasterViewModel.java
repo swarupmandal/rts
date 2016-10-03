@@ -1,6 +1,7 @@
 package org.appsquad.viewmodel;
 
 import java.io.File;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -138,27 +139,40 @@ public class ResourceMasterViewModel {
 			 uploadEvent = (UploadEvent) objUpEvent;
 		 }
 		if(uploadEvent != null){
-			Media media = uploadEvent.getMedia();
-		Calendar now = Calendar.getInstance();
-		int year = now.get(Calendar.YEAR);
-        int month = now.get(Calendar.MONTH); // Note: zero based!
-        int day = now.get(Calendar.DAY_OF_MONTH);
-        filePath = Executions.getCurrent().getDesktop().getWebApp().getRealPath("/");
-        String yearPath = "\\" + "PDFs" + "\\" + year + "\\" + month + "\\" + day + "\\";
-        filePath = filePath + yearPath;
-        File baseDir = new File(filePath);
-        if (!baseDir.exists()) {
+		 Media media = uploadEvent.getMedia();
+		 Calendar now = Calendar.getInstance();
+		 int year = now.get(Calendar.YEAR);
+         int month = now.get(Calendar.MONTH); // Note: zero based!
+         int day = now.get(Calendar.DAY_OF_MONTH);
+         filePath = Executions.getCurrent().getDesktop().getWebApp().getRealPath("/");
+         String yearPath = "PDFs" + "\\" + year + "\\" + month + "\\" + day + "\\";
+         filePath = filePath + yearPath;
+         File baseDir = new File(filePath);
+         if (!baseDir.exists()) {
                baseDir.mkdirs();
           }
-        Files.copy(new File(filePath + media.getName()), media.getStreamData());
-        Messagebox.show("Uploaded Successfully", "Information", Messagebox.OK, Messagebox.INFORMATION);
-        fileuploaded = true;
-        fileName = media.getName();
-        filePath = filePath + media.getName();
+         
+         int number = ResourceMasterDao.countLastNumber();
+         String name = media.getName();
+         System.out.println("name is :"+name);
+         String parts[] = name.split("\\.");
+         for(int i=0;i<parts.length;i++){
+        	 System.out.println(parts[i]);
+         }
         
-        if(filePath != null){
-        	resourceMasterBean.setFilePath(filePath);
-          }
+         String n1 = parts[0];
+         String n2 = parts[1];
+         String n3 = n1+"_"+number;
+         String finalName = n3+"."+n2;
+         System.out.println("FINAL NAME:"+finalName);
+         Files.copy(new File(filePath + finalName), media.getStreamData());
+         Messagebox.show("Uploaded Successfully", "Information", Messagebox.OK, Messagebox.INFORMATION);
+         fileuploaded = true;
+         fileName = media.getName();
+         filePath = filePath + finalName;
+         resourceMasterBean.setFilePath(filePath);
+         //resourceMasterBean.setFileContent(media.getByteData());
+         //System.out.println("FILE CONTENT IS :"+resourceMasterBean.getFileContent());
 	   }
 	}
 	
