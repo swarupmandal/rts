@@ -31,7 +31,7 @@ public class RoleMasterDao {
 					    PreparedStatement preparedStatementInsert = null;
 					    try {
 					    	preparedStatementInsert = Pstm.createQuery(connection, 
-									RoleMasterSql.insertRoleQuery, Arrays.asList(roleMasterBean.getRoll().toUpperCase(),roleMasterBean.getUserid().toUpperCase()));
+									RoleMasterSql.insertRoleQuery, Arrays.asList(roleMasterBean.getRoll().toUpperCase(),roleMasterBean.getUserid()));
 					    	/*logger.info("insertSkillData- " + preparedStatementInsert.unwrap(PreparedStatement.class));*/
 							int i = preparedStatementInsert.executeUpdate();
 							if(i>0){
@@ -340,7 +340,7 @@ public class RoleMasterDao {
 					   PreparedStatement preparedStatement = null;
 					   try {
 						   preparedStatement = Pstm.createQuery(connection, RoleMasterSql.fetchMappingQuery, null);
-						   /*logger.info("onLoadMappingDeatils- " + preparedStatement.unwrap(PreparedStatement.class));*/
+						   logger.info("onLoadMappingDeatils- " + preparedStatement.unwrap(PreparedStatement.class));
 						   ResultSet resultSet = preparedStatement.executeQuery();
 						   while (resultSet.next()) {
 								RoleMasterBean bean = new RoleMasterBean();
