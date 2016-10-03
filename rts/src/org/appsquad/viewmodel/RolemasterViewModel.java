@@ -20,6 +20,8 @@ import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.Sessions;
+import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
@@ -79,11 +81,31 @@ public class RolemasterViewModel {
 		masterBean.setVisibilityRoleTextBox(true);
 	}
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Command
 	@NotifyChange("*")
 	public void onClickDelete(@BindingParam("bean") RoleMasterBean masterBean){
-		RoleMasterDao.deleteRoleData(masterBean);
-		rolebeanlist = RoleMasterDao.onLoadRoleDeatils();
+		
+		
+		Messagebox.show("Are you sure to delete ? ", "Confirm Dialog", Messagebox.OK |  Messagebox.CANCEL, 
+				Messagebox.QUESTION, new org.zkoss.zk.ui.event.EventListener(){
+
+					@Override
+					public void onEvent(Event evt) throws Exception {
+						if (evt.getName().equals("onOK")) {
+							RoleMasterDao.deleteRoleData(masterBean);
+							rolebeanlist = RoleMasterDao.onLoadRoleDeatils();
+							
+						}else if (evt.getName().equals("onIgnore")) {
+							
+						}else {
+							
+						}
+						
+					}
+			
+		});
+		
 	}
 	
 	@Command
