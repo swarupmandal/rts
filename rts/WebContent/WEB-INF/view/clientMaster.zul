@@ -59,7 +59,7 @@
 							<label value="Country:" style="font-weight:bold"></label>
 					</hlayout>
 		             	
-		             					<bandbox value="@bind(vm.clientInformationBean.countryBean.countryName)" id="ad" readonly="true" width="36%">
+		                  <bandbox value="@bind(vm.clientInformationBean.countryBean.countryName)" id="ad" readonly="true" width="36%">
 											<bandpopup >
 												<vbox>
 													<listbox model="@load(vm.countryList)" selectedItem="@bind(vm.clientInformationBean.countryBean)" 
@@ -77,6 +77,7 @@
 												</vbox>
 											</bandpopup>
 							           </bandbox>
+		            	
 					</row>
 					
 					<row>
@@ -84,7 +85,6 @@
 					     <label value="* " style="font-weight:bold; color:red"/>
 					     <label value="State:" style="font-weight:bold"></label>
 					</hlayout>
-		             	<label value="State:" style="font-weight:bold"></label>
 		             					<bandbox value="@bind(vm.clientInformationBean.stateBean.stateName)" id="cd" readonly="true" width="36%">
 											<bandpopup >
 												<vbox>
