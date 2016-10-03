@@ -55,7 +55,7 @@
 						
 						<row>
 						  <label value="Contact no:" style="font-weight:bold"></label>		
-						  <textbox width="20%" value="@bind(vm.reqEditGenBean.contactNo)"
+						  <textbox width="20%" value="@bind(vm.reqEditGenBean.contactNo)" readonly="true"
 						    xmlns:w="client">
 						      <attribute w:name="doKeyPress_">
 									<![CDATA[ function(evt) { if ( (evt.which >
@@ -67,7 +67,7 @@
 						
 						<row>
 						  <label value="Email Id:" style="font-weight:bold"></label>		
-						  <textbox width="30%" value="@bind(vm.reqEditGenBean.email)">
+						  <textbox width="30%" value="@bind(vm.reqEditGenBean.email)" readonly="true">
 						  </textbox>	
 						</row>
 						

@@ -39,7 +39,6 @@ public class DemoProlayComposer extends GenericForwardComposer {
 		}
     }
 	
-	
 	public String getPdtCodeList(ArrayList<DemoBean> list){
 		String passCode = "";
 		for(DemoBean bean: list){
@@ -48,7 +47,6 @@ public class DemoProlayComposer extends GenericForwardComposer {
 		return passCode = passCode.substring(0, passCode.length()-1);
 	}
 
-	
 	@Command
 	@NotifyChange("*")
 	public void onClick(){
@@ -57,47 +55,37 @@ public class DemoProlayComposer extends GenericForwardComposer {
 		winDemoFlow.detach();
 	}
 	
+	
+	/******************************************************************************************************************************************/
+	
 	public Iframe getiFrameDemo() {
 		return iFrameDemo;
 	}
-
 	public void setiFrameDemo(Iframe iFrameDemo) {
 		this.iFrameDemo = iFrameDemo;
 	}
-
 	public Window getWinDemoFlow() {
 		return winDemoFlow;
 	}
-
 	public void setWinDemoFlow(Window winDemoFlow) {
 		this.winDemoFlow = winDemoFlow;
 	}
-
 	public Session getSessions() {
 		return sessions;
 	}
-
 	public void setSessions(Session sessions) {
 		this.sessions = sessions;
 	}
-
 	public ArrayList<DemoBean> getList() {
 		return list;
 	}
-
 	public void setList(ArrayList<DemoBean> list) {
 		this.list = list;
 	}
-
 	public String getPassData() {
 		return passData;
 	}
-
 	public void setPassData(String passData) {
 		this.passData = passData;
 	}
-
-
-
-	
 }

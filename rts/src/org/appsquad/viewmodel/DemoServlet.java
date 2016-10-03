@@ -35,9 +35,8 @@ public class DemoServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
     protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws IOException {
-    	
+  
     	String passCode = request.getParameter("key");
-		System.out.println("in servlet page:"+passCode);
 		String[] parts = passCode.split(",");
 		
         List<String> filenames = new ArrayList<String>();

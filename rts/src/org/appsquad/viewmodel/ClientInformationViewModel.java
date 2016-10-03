@@ -71,7 +71,6 @@ public class ClientInformationViewModel {
 	@NotifyChange("*")
 	public void onClickSubmitButton(){
 		flag = ClientInformationService.insertClientMasterData(clientInformationBean);
-		System.out.println(flag);
 		if(flag){
 			ClientInformationService.clearAllField(clientInformationBean);
 			countryList = ClientInformationDao.onLoadCountry();

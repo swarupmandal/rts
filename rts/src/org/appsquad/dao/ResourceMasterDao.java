@@ -36,7 +36,7 @@ public class ResourceMasterDao {
 						   preparedStatement = Pstm.createQuery(connection, ClientInformationsql.stateQuery, null);
 							
 						   
-						   logger.info("onLoadState- " + preparedStatement.unwrap(PreparedStatement.class));
+						   //logger.info("onLoadState- " + preparedStatement.unwrap(PreparedStatement.class));
 						   
 							ResultSet resultSet = preparedStatement.executeQuery();
 							while (resultSet.next()) {
@@ -53,7 +53,6 @@ public class ResourceMasterDao {
 				    }
 				} catch (Exception e) {
 					e.printStackTrace();
-					
 				}finally{
 					if(connection!=null){
 						connection.close();
@@ -62,8 +61,7 @@ public class ResourceMasterDao {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			
-			logger.fatal(e);
+			//logger.fatal(e);
 		}
 		return stateList;	
 	}
@@ -83,7 +81,7 @@ public class ResourceMasterDao {
 					   PreparedStatement preparedStatement = null;
 					   try {
 						   preparedStatement = Pstm.createQuery(connection, ResourceMasterSql.countLastNumberSql, null);
-						   logger.info("Count Last Number- " + preparedStatement.unwrap(PreparedStatement.class));
+						   //logger.info("Count Last Number- " + preparedStatement.unwrap(PreparedStatement.class));
 						    ResultSet resultSet = preparedStatement.executeQuery();
 							while (resultSet.next()) {
 								num = resultSet.getInt(1);
@@ -106,8 +104,7 @@ public class ResourceMasterDao {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			
-			logger.fatal(e);
+			//logger.fatal(e);
 		}
 		return returnNum;	
 	}
@@ -125,9 +122,7 @@ public class ResourceMasterDao {
 					   PreparedStatement preparedStatement = null;
 					   try {
 						   preparedStatement = Pstm.createQuery(connection, ClientInformationsql.countryQuery, null);
-							
-						   
-						   logger.info("onLoadCountry- " + preparedStatement.unwrap(PreparedStatement.class));
+						   //logger.info("onLoadCountry- " + preparedStatement.unwrap(PreparedStatement.class));
 						   
 							ResultSet resultSet = preparedStatement.executeQuery();
 							while (resultSet.next()) {
@@ -153,7 +148,7 @@ public class ResourceMasterDao {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.fatal(e);
+			//logger.fatal(e);
 		}
 		return countryList;
 	}
@@ -171,10 +166,7 @@ public class ResourceMasterDao {
 					   PreparedStatement preparedStatement = null;
 					   try {
 						   preparedStatement = Pstm.createQuery(connection, ClientInformationsql.skillSetQuery, null);
-							
-						   
-						   
-						   logger.info("onLoadSkill- " + preparedStatement.unwrap(PreparedStatement.class));
+						   //logger.info("onLoadSkill- " + preparedStatement.unwrap(PreparedStatement.class));
 						   
 							ResultSet resultSet = preparedStatement.executeQuery();
 							while (resultSet.next()) {
@@ -193,7 +185,6 @@ public class ResourceMasterDao {
 				    }
 				} catch (Exception e) {
 					e.printStackTrace();
-					
 				}finally{
 					if(connection!=null){
 						connection.close();
@@ -202,7 +193,7 @@ public class ResourceMasterDao {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.fatal(e);
+			//logger.fatal(e);
 		}
 		return skillList;	
 	}
@@ -220,11 +211,7 @@ public class ResourceMasterDao {
 					   PreparedStatement preparedStatement = null;
 					   try {
 						   preparedStatement = Pstm.createQuery(connection, ClientInformationsql.statusSetQuery, null);
-							
-						   
-						   logger.info("onLoadStatus- " + preparedStatement.unwrap(PreparedStatement.class));
-						   
-						   
+						   //logger.info("onLoadStatus- " + preparedStatement.unwrap(PreparedStatement.class));
 							ResultSet resultSet = preparedStatement.executeQuery();
 							while (resultSet.next()) {
 								StatusMasterBean bean = new StatusMasterBean();
@@ -241,7 +228,6 @@ public class ResourceMasterDao {
 				    }
 				} catch (Exception e) {
 					e.printStackTrace();
-					
 				}finally{
 					if(connection!=null){
 						connection.close();
@@ -250,7 +236,7 @@ public class ResourceMasterDao {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.fatal(e);
+			//logger.fatal(e);
 		}
 		return statusList;	
 	}
@@ -276,8 +262,7 @@ public class ResourceMasterDao {
 											                                              resourceMasterBean.getCountryBean().getCountryName().toUpperCase(),
 											                                              resourceMasterBean.getStateBean().getStateName().toUpperCase(),resourceMasterBean.getProfit(),resourceMasterBean.getFilePath()));
 					    	
-					    	
-					    	logger.info("Inserting Resource Data Into Table: "+preparedStatementInsert.unwrap(PreparedStatement.class));
+					    	//logger.info("Inserting Resource Data Into Table: "+preparedStatementInsert.unwrap(PreparedStatement.class));
 							int i = preparedStatementInsert.executeUpdate();
 							if(i>0){
 								isSaved = true;	
@@ -304,7 +289,7 @@ public class ResourceMasterDao {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.fatal(e);
+			//logger.fatal(e);
 		}
 		return isSaved;
 	}
@@ -322,7 +307,7 @@ public class ResourceMasterDao {
 					   PreparedStatement preparedStatement = null;
 					   try {
 						   preparedStatement = Pstm.createQuery(connection, ResourceMasterSql.fetchResourceQyery, null);
-						   logger.info(" onLoadResourceDeatils- " + preparedStatement.unwrap(PreparedStatement.class));	   
+						   //logger.info(" onLoadResourceDeatils- " + preparedStatement.unwrap(PreparedStatement.class));	   
 						   ResultSet resultSet = preparedStatement.executeQuery();
 						   while (resultSet.next()) {
 								ResourceMasterBean bean = new ResourceMasterBean();
@@ -356,7 +341,6 @@ public class ResourceMasterDao {
 				    }
 				} catch (Exception e) {
 					e.printStackTrace();
-					
 				}finally{
 					if(connection!=null){
 						connection.close();
@@ -365,7 +349,7 @@ public class ResourceMasterDao {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.fatal(e);
+			//logger.fatal(e);
 		}
 		return resourceList;
 	}
@@ -391,7 +375,7 @@ public class ResourceMasterDao {
 											                                              resourceMasterBean.getCountryBean().getCountryName().toUpperCase(),
 											                                              resourceMasterBean.getStateBean().getStateName().toUpperCase(),resourceMasterBean.getFilePath(),resourceMasterBean.getProfit(),resourceMasterBean.getResourceId()));
 					    	
-					    	logger.info("Inserting Client Data Into Table: "+preparedStatementInsert.unwrap(PreparedStatement.class));
+					    	//logger.info("Inserting Client Data Into Table: "+preparedStatementInsert.unwrap(PreparedStatement.class));
 							int i = preparedStatementInsert.executeUpdate();
 							if(i>0){
 								isUpdated = true;	
@@ -419,7 +403,7 @@ public class ResourceMasterDao {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.fatal(e);
+			//logger.fatal(e);
 		}
 		return isUpdated;
 	}
