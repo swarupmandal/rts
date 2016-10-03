@@ -22,14 +22,17 @@ public class DemoDao {
 					sql1:{
 					    PreparedStatement preparedStatement = null;
 					    try {
-					    	 preparedStatement = Pstm.createQuery(connection, DemoSql.fetchSql, null);
+					    	 preparedStatement = Pstm.createQuery(connection, DemoSql.FETCHSQL, null);
 							   
 							 ResultSet resultSet = preparedStatement.executeQuery();
 							 while (resultSet.next()) {
 								DemoBean bean = new DemoBean();
-								bean.setName(resultSet.getString("res_name"));
-								bean.setSurName(resultSet.getString("res_surname"));
 								bean.setId(resultSet.getInt("id"));
+								bean.setFullName(resultSet.getString("fullname"));
+								bean.setExperience(resultSet.getInt("res_experience"));
+								bean.setAddress(resultSet.getString("res_address"));
+								bean.setEmailId(resultSet.getString("res_emailid"));
+								bean.setContactNumber(resultSet.getString("rts_contact_no"));
 								
 								list.add(bean);
 							 }  
