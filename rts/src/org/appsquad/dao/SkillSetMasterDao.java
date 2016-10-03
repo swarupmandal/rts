@@ -14,8 +14,6 @@ import org.appsquad.utility.Pstm;
 import org.zkoss.zul.Messagebox;
 
 public class SkillSetMasterDao {
-	
-	
 	final static Logger logger = Logger.getLogger(SkillSetMasterDao.class);
 	
 	public static boolean insertSkillData(SkillsetMasterbean skillsetMasterbean){
@@ -33,9 +31,7 @@ public class SkillSetMasterDao {
 					    	preparedStatementInsert = Pstm.createQuery(connection, 
 									SkillSetMasterSql.insertSkillSetQuery, Arrays.asList(skillsetMasterbean.getSkillset().toUpperCase(),skillsetMasterbean.getUserId(),skillsetMasterbean.getSkillsetdetails().toUpperCase()));
 					   
-					    	
-					    	logger.info("Login Function - " + preparedStatementInsert.unwrap(PreparedStatement.class));
-					    	
+					    	//logger.info("Login Function - " + preparedStatementInsert.unwrap(PreparedStatement.class));
 					    	
 							int i = preparedStatementInsert.executeUpdate();
 							if(i>0){
@@ -62,9 +58,7 @@ public class SkillSetMasterDao {
 				}
 			}
 		} catch (Exception e) {
-			
-			logger.fatal(e);
-			
+			//logger.fatal(e);
 			e.printStackTrace();
 		}
 		return isSaved;
@@ -85,9 +79,7 @@ public class SkillSetMasterDao {
 					   try {
 						   preparedStatement = Pstm.createQuery(connection, SkillSetMasterSql.fetchSkillSetDetails, null);
 							
-						   
-						   
-						   logger.info("onLoadSetDeatils - " + preparedStatement.unwrap(PreparedStatement.class));
+						   //logger.info("onLoadSetDeatils - " + preparedStatement.unwrap(PreparedStatement.class));
 						   
 							ResultSet resultSet = preparedStatement.executeQuery();
 							while (resultSet.next()) {
@@ -113,9 +105,7 @@ public class SkillSetMasterDao {
 				}
 			}
 		} catch (Exception e) {
-			
-			logger.fatal(e);
-			
+			//logger.fatal(e);
 			e.printStackTrace();
 		}
 		return skillList;
@@ -135,12 +125,7 @@ public class SkillSetMasterDao {
 					    try {
 					    	preparedStatementInsert = Pstm.createQuery(connection, 
 									SkillSetMasterSql.updateSkillSetDetails, Arrays.asList(masterbean.getSkillset().toUpperCase(),masterbean.getSkillsetdetails().toUpperCase(),masterbean.getId()));
-					    	
-					    	System.out.println(preparedStatementInsert);
-					    	
-					    	
-					    	logger.info("updateSkillData - " + preparedStatementInsert.unwrap(PreparedStatement.class));
-					    	
+					    	//logger.info("updateSkillData - " + preparedStatementInsert.unwrap(PreparedStatement.class));
 							int i = preparedStatementInsert.executeUpdate();
 							if(i>0){
 								isUpdated = true;	
@@ -166,9 +151,7 @@ public class SkillSetMasterDao {
 				}
 			}
 		} catch (Exception e) {
-			
-			logger.fatal(e);
-			
+			//logger.fatal(e);
 			e.printStackTrace();
 		}
 		return isUpdated;
@@ -188,12 +171,6 @@ public class SkillSetMasterDao {
 					    try {
 					    	preparedStatementInsert = Pstm.createQuery(connection, 
 									SkillSetMasterSql.deleteSkillSql, Arrays.asList(masterbean.getId()));
-					    	
-					    	System.out.println(preparedStatementInsert);
-					    	
-					    	
-					    	logger.info("deleteSkillDetails - " + preparedStatementInsert.unwrap(PreparedStatement.class));
-					    	
 							int i = preparedStatementInsert.executeUpdate();
 							if(i>0){
 								isDeleted = true;	
@@ -219,9 +196,7 @@ public class SkillSetMasterDao {
 				}
 			}
 		} catch (Exception e) {
-			
-			logger.fatal(e);
-			
+			//logger.fatal(e);
 			e.printStackTrace();
 		}
 		return isDeleted;
@@ -241,11 +216,6 @@ public class SkillSetMasterDao {
 					    try {
 					    	preparedStatementCount = Pstm.createQuery(connection,SkillSetMasterSql.countSkillNameSql, 
 					    			                                                                       Arrays.asList(masterbean.getSkillset().toUpperCase()));
-					    	
-					    	System.out.println(preparedStatementCount);
-					    	
-					    	logger.info("countSkillName - " + preparedStatementCount.unwrap(PreparedStatement.class));
-					    	
 					    	ResultSet resultSet = preparedStatementCount.executeQuery();
 							while (resultSet.next()) {
 								count = resultSet.getInt(1);
@@ -265,9 +235,7 @@ public class SkillSetMasterDao {
 				}
 			}
 		} catch (Exception e) {
-			
 			logger.fatal(e);
-			
 			e.printStackTrace();
 		}
 		return count;

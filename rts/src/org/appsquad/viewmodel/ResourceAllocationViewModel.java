@@ -95,7 +95,6 @@ public class ResourceAllocationViewModel {
 	    @Command
 	    @NotifyChange("*")
 	    public void onSelectResourcetypeName(){
-	    	System.out.println(resourceAllocationBean.getResourceTypeBean().getResourceTypeId());
 	    	resourceTypeList = ResourceAllocationDao.onLoadResourceTypeDetails();
 	    	resourceAllocationBean.setRequiredResourcenumber(ResourceAllocationDao.fetchRequiredResourceNumber(resourceAllocationBean.getClientInformationBean().getClientId(), resourceAllocationBean.getRequirementGenerationBean().getRequirementId(),resourceAllocationBean.getResourceTypeBean().getResourceTypeName()));
 	        resourceAllocationBean.setAllocatedResourceNumber(ResourceAllocationDao.fetchRequiredResourceNumberAllocated(resourceAllocationBean.getClientInformationBean().getClientId(), resourceAllocationBean.getRequirementGenerationBean().getRequirementId(),resourceAllocationBean.getResourceTypeBean().getResourceTypeName()));
@@ -133,8 +132,6 @@ public class ResourceAllocationViewModel {
 	    	int statusId = 0;
 	    	for(ResourceMasterBean bean : resourceList){
 	    		if(bean.isChkSelect()){
-	    			System.out.println("REQUIREMENTS ID IS :"+resourceAllocationBean.getRequirementGenerationBean().getRequirementId());
-	    	    	System.out.println("RESOURCE ID IS :"+bean.getResourceId());
 	    	    	try {
 						connection = DbConnection.createConnection();
 						connection.setAutoCommit(false);
@@ -152,22 +149,16 @@ public class ResourceAllocationViewModel {
 									}
 							    }
 							
-							  System.out.println(isUpdateResource);
-							  
 							  //2nd SQL block
 							  sql_update_number:{
 								  	isUpdate = ResourceAllocationService.isUpdateNumberInResourceTable(resourceAllocationBean.getClientInformationBean().getClientId(),resourceAllocationBean.getRequirementGenerationBean().getRequirementId(), 
 								  			                                                resourceAllocationBean.getResourceTypeBean().getResourceTypeName(),resourceAllocationBean.getAllocatedResourceNumber());
 							  }
 							  
-							  System.out.println(isUpdate);
-							  
 							  //3rd SQL block
 							  sql_insert_mapper:{
 								  isInsertMapper = ResourceAllocationService.isInsertMapperTable(resourceList, resourceAllocationBean);
 							  }
-							  
-							  System.out.println(isInsertMapper);
 							  
 							  statusId = ResourceAllocationDao.fetchStatusId();
 							  resourceAllocationBean.setStatusId(statusId);
@@ -176,8 +167,6 @@ public class ResourceAllocationViewModel {
 							  sql_insert_status_tracking:{
 								  isInsertTracking = ResourceAllocationService.isInsertStatusTrackingTable(resourceList, resourceAllocationBean);
 						      }
-							  
-							  System.out.println(isInsertTracking);
 							  
 							  if(isUpdateResource && isUpdate && isInsertMapper && isInsertTracking){
 								  connection.commit();

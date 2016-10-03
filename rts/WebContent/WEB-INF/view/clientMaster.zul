@@ -17,28 +17,49 @@
 				</columns>
 				<rows>
 					<row>
-					  <label value="Name:" style="font-weight:bold"></label>		
+					<hlayout>
+						  <label value="* " style="font-weight:bold; color:red"/>
+					     <label value="Name:" style="font-weight:bold"></label>
+					</hlayout>
+					
+					  		
 					  <textbox width="36%" value="@bind(vm.clientInformationBean.name)"></textbox>	
 					</row>
 					
 					<row>
-					  <label value="Surname:" style="font-weight:bold"></label>		
+					  <hlayout>
+					      <label value="* " style="font-weight:bold; color:red"/> 
+					       <label value="Surname:" style="font-weight:bold"></label>		
+					  </hlayout>
+					  
 					  <textbox width="36%" value="@bind(vm.clientInformationBean.surName)"></textbox>	
 					</row>
 					
 					<row>
-					  <label value="Company Name:" style="font-weight:bold"></label>		
+					<hlayout> 
+						<label value="* " style="font-weight:bold; color:red"/>
+						<label value="Company Name:" style="font-weight:bold"></label>
+					</hlayout>
+					  		
 					  <textbox width="36%" value="@bind(vm.clientInformationBean.companyName)"></textbox>	
 					</row>
 					
 					<row>
-					  <label value="Office Address:" style="font-weight:bold"></label>		
+					<hlayout>
+					     <label value="* " style="font-weight:bold; color:red"/>
+					     <label value="Office Address:" style="font-weight:bold"></label>
+					</hlayout>
+					  		
 					  <textbox width="36%" value="@bind(vm.clientInformationBean.address)"></textbox>	
 					</row>
 					
 					<row>
-		             	<label value="Country:" style="font-weight:bold"></label>
-		             					<bandbox value="@bind(vm.clientInformationBean.countryBean.countryName)" id="ad" readonly="true" width="36%">
+					<hlayout>
+							<label value="* " style="font-weight:bold; color:red"/>
+							<label value="Country:" style="font-weight:bold"></label>
+					</hlayout>
+		             	
+		                  <bandbox value="@bind(vm.clientInformationBean.countryBean.countryName)" id="ad" readonly="true" width="36%">
 											<bandpopup >
 												<vbox>
 													<listbox model="@load(vm.countryList)" selectedItem="@bind(vm.clientInformationBean.countryBean)" 
@@ -56,10 +77,14 @@
 												</vbox>
 											</bandpopup>
 							           </bandbox>
+		            	
 					</row>
 					
 					<row>
-		             	<label value="State:" style="font-weight:bold"></label>
+					<hlayout>
+					     <label value="* " style="font-weight:bold; color:red"/>
+					     <label value="State:" style="font-weight:bold"></label>
+					</hlayout>
 		             					<bandbox value="@bind(vm.clientInformationBean.stateBean.stateName)" id="cd" readonly="true" width="36%">
 											<bandpopup >
 												<vbox>
@@ -81,12 +106,20 @@
 					</row>
 					
 					<row>
-					  <label value="Pin/Zip code:" style="font-weight:bold"></label>
+					<hlayout>
+					     <label value="* " style="font-weight:bold; color:red"/>
+					     <label value="Pin/Zip code:" style="font-weight:bold"></label>
+					</hlayout>
+					  
 					   <intbox constraint="no negative,no zero" maxlength="6" value="@bind(vm.clientInformationBean.pinZipCode)" width="36%"/>	
 					</row>
 					
 					<row>
-					  <label value="Contact no:" style="font-weight:bold"></label>
+					<hlayout>
+					    <label value="* " style="font-weight:bold; color:red"/>
+					    <label value="Contact no:" style="font-weight:bold"></label>
+					</hlayout>
+					  
 					 <textbox value="@bind(vm.clientInformationBean.contactNo)" maxlength="10" width="36%"
 					     xmlns:w="client">
 					     	<attribute w:name="doKeyPress_">

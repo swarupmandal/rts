@@ -53,7 +53,7 @@
 				<div align="center" width="100%">
 					
 					<grid sclass="loginGrid" width="32%" apply="org.zkoss.bind.BindComposer"
-			viewModel="@id('vm') @init('org.appsquad.viewmodel.LogingViewModel')">
+			                  viewModel="@id('vm') @init('org.appsquad.viewmodel.LogingViewModel')">
 						<columns>
 							<column></column>
 						</columns>

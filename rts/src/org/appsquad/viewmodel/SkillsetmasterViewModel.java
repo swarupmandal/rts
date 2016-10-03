@@ -19,6 +19,7 @@ import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.Sessions;
+import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
@@ -54,7 +55,6 @@ public class SkillsetmasterViewModel {
 		int countNumber = 0;
 		boolean flagInsert = false;
 		countNumber = SkillSetMasterService.countNumberPresentSkillName(skillsetMasterbean);
-		System.out.println(countNumber);
 		if(countNumber>0){
 			 Messagebox.show("Please Enter New Skill Name!", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
 		}else{
@@ -83,13 +83,20 @@ public class SkillsetmasterViewModel {
 	@Command
 	@NotifyChange("*")
 	public void onClickDeleteButton(@BindingParam("bean") SkillsetMasterbean masterbean){
-		boolean flagDelete = false;
-		flagDelete = SkillSetMasterService.deleteSkillDetails(masterbean);
-		if(flagDelete){
-			BindUtils.postGlobalCommand(null, null, "globalSkillSetDetailsUpdate", null);
-		}
+		Messagebox.show("Are you sure to delete?", "Confirm Dialog", Messagebox.OK | Messagebox.CANCEL, Messagebox.QUESTION, new org.zkoss.zk.ui.event.EventListener() {
+		    public void onEvent(Event evt) throws InterruptedException {
+		        if (evt.getName().equals("onOK")) {
+		        	boolean flagDelete = false;
+		        	flagDelete = SkillSetMasterService.deleteSkillDetails(masterbean);
+		    		if(flagDelete){
+		    			BindUtils.postGlobalCommand(null, null, "globalSkillSetDetailsUpdate", null);
+		    		}
+		        } else {
+		           
+		        }
+		    }
+		});
 	}
-	
 	
 	/************************** Getter And Setter Method ************************************/
 	

@@ -22,7 +22,11 @@
                               </columns>
                               <rows>
                                      <row>
-                    				<label value="Status:" style="font-weight:bold"/>
+                                     <hlayout>
+                                           <label value="* " style="font-weight:bold; color:red"/>
+                                           <label value="Status:" style="font-weight:bold"/>
+                                     </hlayout>
+                    				
                     				<textbox value="@bind(vm.statusMasterBean.status)" width="150px" height="30px"/>
                    					 <button label="Submit" onClick="@command('onClickStatusSave')"/>
                 			        </row>

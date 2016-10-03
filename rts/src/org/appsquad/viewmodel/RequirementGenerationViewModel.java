@@ -50,7 +50,6 @@ public class RequirementGenerationViewModel {
 		statusBeanList = RequirementGenerationService.fetchStatusList();
 		reqGenBeanList = RequirementGenerationService.loadReqGenMasterData();
 		reqGenBean.setReqStatusId(RequirementGenerationDao.fetchOverallStatusId());
-		System.out.println(reqGenBean.getReqStatusId());
 	}
 
 	@Command
@@ -59,6 +58,7 @@ public class RequirementGenerationViewModel {
 		if(clientInfoBean.getClientId()>0){
 			reqGenBean.setClientId(clientInfoBean.getClientId());
 			reqGenBean.setClientName(clientInfoBean.getName());
+			RequirementGenerationDao.fetchEmailIdAndContactNumber(reqGenBean);
 		}
 	}
 	

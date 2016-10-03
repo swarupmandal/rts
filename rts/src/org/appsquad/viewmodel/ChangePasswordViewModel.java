@@ -19,66 +19,49 @@ import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Window;
 
 public class ChangePasswordViewModel {
-
 	Session session = null;
-	
-	
 	ChangePasswordbean changePasswordbean=new ChangePasswordbean();
 	ArrayList<String> alist= new ArrayList<String>();
-	
-	
 	@Wire("#changePasswordWindow")
 	private Window changepasswordWindow ;
-	
 	
 	@AfterCompose
 	public void initSetUp(@ContextParam(ContextType.VIEW) Component view)
 			throws Exception {
 
-		Selectors.wireComponents(view, this, false);
-	
+		Selectors.wireComponents(view, this, false);	
 		session = Sessions.getCurrent();
-		
 		changePasswordbean.setUserId((String)session.getAttribute("userId"));
-		
 	}
-	
 	
 	@Command
 	@NotifyChange("*")
 	public void onClickChange(){
-	
-		boolean updateStatus = false;
-		
-		updateStatus = ChangePasswordDao.changePassword(changePasswordbean.getUserId(), changePasswordbean.getPassword());
-		
-		if(updateStatus){
-			BindUtils.postGlobalCommand(null, null, "changepassUpdate", null);
-			changepasswordWindow.detach();
-			Messagebox.show("Password Changed Successfully ", "Information", Messagebox.OK, Messagebox.INFORMATION);
-			
-			
-		}else {
-			//Messagebox.show()
+		if(changePasswordbean.getPassword()!=null && changePasswordbean.getPassword().trim().length()>0){
+			boolean updateStatus = false;
+			updateStatus = ChangePasswordDao.changePassword(changePasswordbean.getUserId(), changePasswordbean.getPassword());
+			if(updateStatus){
+				BindUtils.postGlobalCommand(null, null, "changepassUpdate", null);
+				changepasswordWindow.detach();
+				Messagebox.show("Password Changed Successfully ", "Information", Messagebox.OK, Messagebox.INFORMATION);
+			}	
+		}else{
+			 Messagebox.show("Password Can't Be Blank!", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
 		}
-		
-		
 	}
 
+	/*******************************************************************************************************************************************/
+	
 	public ArrayList<String> getAlist() {
 		return alist;
 	}
-
 	public void setAlist(ArrayList<String> alist) {
 		this.alist = alist;
 	}
-
 	public ChangePasswordbean getChangePasswordbean() {
 		return changePasswordbean;
 	}
-
 	public void setChangePasswordbean(ChangePasswordbean changePasswordbean) {
 		this.changePasswordbean = changePasswordbean;
 	}
-	
 }

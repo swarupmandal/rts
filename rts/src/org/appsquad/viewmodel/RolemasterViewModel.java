@@ -9,6 +9,7 @@ import org.appsquad.bean.RollDropDownBean;
 import org.appsquad.bean.UserprofileBean;
 import org.appsquad.dao.RoleMasterDao;
 import org.appsquad.service.RoleMasterService;
+import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
@@ -20,6 +21,7 @@ import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.Sessions;
+import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
@@ -79,11 +81,20 @@ public class RolemasterViewModel {
 		masterBean.setVisibilityRoleTextBox(true);
 	}
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Command
 	@NotifyChange("*")
 	public void onClickDelete(@BindingParam("bean") RoleMasterBean masterBean){
-		RoleMasterDao.deleteRoleData(masterBean);
-		rolebeanlist = RoleMasterDao.onLoadRoleDeatils();
+		Messagebox.show("Are you sure to delete ? ", "Confirm Dialog", Messagebox.OK |  Messagebox.CANCEL, 
+				Messagebox.QUESTION, new org.zkoss.zk.ui.event.EventListener(){
+					@Override
+					public void onEvent(Event evt) throws Exception {
+						if (evt.getName().equals("onOK")) {
+							RoleMasterDao.deleteRoleData(masterBean);
+							BindUtils.postGlobalCommand(null, null, "refresh", null);
+						}
+				}
+		});
 	}
 	
 	@Command
@@ -104,6 +115,12 @@ public class RolemasterViewModel {
 	
 	@GlobalCommand
 	@NotifyChange("*")
+	public void refresh(){
+		rolebeanlist = RoleMasterDao.onLoadRoleDeatils();	
+	}
+	
+	@GlobalCommand
+	@NotifyChange("*")
 	public void globalMapingData(){
 		mappingList = RoleMasterDao.onLoadMappingDeatils();
 	}
@@ -111,13 +128,11 @@ public class RolemasterViewModel {
 	@Command
 	@NotifyChange("*")
 	public void onSelectUserName(){
-		System.out.println("user id is :"+roleMasterBean.getUserprofileBean().getId());
 	}
 	
 	@Command
 	@NotifyChange("*")
 	public void onSelectRollName(){
-		System.out.println("role id is :"+roleMasterBean.getDownBean().getRollId());
 	}
 	
 	@Command
@@ -204,19 +219,15 @@ public class RolemasterViewModel {
 	public static Integer getCountRole() {
 		return countRole;
 	}
-
 	public static void setCountRole(Integer countRole) {
 		RolemasterViewModel.countRole = countRole;
 	}
-
 	public static Integer getCount() {
 		return count;
 	}
-
 	public static void setCount(Integer count) {
 		RolemasterViewModel.count = count;
 	}
-
 	public ArrayList<RollDropDownBean> getRoleList() {
 		return roleList;
 	}

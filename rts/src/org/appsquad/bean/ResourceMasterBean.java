@@ -1,5 +1,7 @@
 package org.appsquad.bean;
 
+import java.util.ArrayList;
+
 public class ResourceMasterBean {
 	private String name;
 	private String surName;
@@ -18,11 +20,14 @@ public class ResourceMasterBean {
 	private String filePath;
 	private boolean countryVisibility = true;
 	private Double profit;
+	private byte[] fileContent;
 	
 	CountryBean countryBean = new CountryBean();
 	StateBean stateBean = new StateBean();	
 	StatusMasterBean statusMasterBean = new StatusMasterBean();
 	SkillsetMasterbean skillsetMasterbean = new SkillsetMasterbean();
+	
+	private ArrayList<Byte> binaryList = new ArrayList<Byte>();
 	
 	/*******************************************************************************************************/
 	
@@ -113,6 +118,12 @@ public class ResourceMasterBean {
 	public void setFullName(String fullName) {
 		this.fullName = fullName;
 	}
+	public ArrayList<Byte> getBinaryList() {
+		return binaryList;
+	}
+	public void setBinaryList(ArrayList<Byte> binaryList) {
+		this.binaryList = binaryList;
+	}
 	public Integer getYearOfExperience() {
 		return yearOfExperience;
 	}
@@ -151,5 +162,11 @@ public class ResourceMasterBean {
 	}
 	public void setCountryVisibility(boolean countryVisibility) {
 		this.countryVisibility = countryVisibility;
+	}
+	public byte[] getFileContent() {
+		return fileContent;
+	}
+	public void setFileContent(byte[] fileContent) {
+		this.fileContent = fileContent;
 	}
 }
