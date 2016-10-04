@@ -89,7 +89,7 @@ public class RequirementGenerationEditViewModel {
 				}else{
 					System.out.println("NEW VALUE IS :"+reqEditGenBean.getNofPerResource()+"-------------"+reqEditGenBean.getOldValue());
 					if(reqEditGenBean.getNofPerResource()<reqEditGenBean.getOldValue()){
-						 Messagebox.show("You Can't Drecrease The Number Of Resources"+reqEditGenBean.getOldValue()+"!", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
+						 Messagebox.show("You Can't Drecrease The Number Of Resources!", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
 						 reqEditGenBean.setNofPerResource(reqEditGenBean.getOldValue());
 						 flag = false;
 					}else{

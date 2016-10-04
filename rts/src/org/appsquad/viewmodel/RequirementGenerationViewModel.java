@@ -113,6 +113,7 @@ public class RequirementGenerationViewModel {
 				Messagebox.show("Saved Successfully ", "Information", Messagebox.OK, Messagebox.INFORMATION);
 				clear();
 				reqGenBeanList = RequirementGenerationService.loadReqGenMasterData();
+				typeList = RequirementGenerationService.loadTypeList();
 			}
 		}
 	}
@@ -153,6 +154,7 @@ public class RequirementGenerationViewModel {
 		statusBean.setOcstatus(null);
 		statusBeanList = RequirementGenerationService.fetchStatusList();
 		reqGenBean.setClosureReason(null);
+		reqGenBean.getResourceTypeBean().setResourceTypeName(null);
 	}
 	
 	/***********************************************************************************************************************************************/

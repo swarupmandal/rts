@@ -28,6 +28,10 @@ public class ResourceAllocationService {
 		return isInsertTracking = ResourceAllocationDao.insertIntoStatus(resourceList, bean);
 	}
 	
+	public static void getAllData(ResourceAllocationBean resourceAllocationBean){
+		ResourceAllocationDao.getAllFieldData(resourceAllocationBean);
+	}
+	
 	/****************************************************************************************************************************************/
 	
 	public static boolean isUpdateResource() {
