@@ -4,9 +4,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import org.appsquad.bean.StatusMasterBean;
-import org.appsquad.dao.ClientInformationDao;
 import org.appsquad.dao.StatusMasterDao;
-import org.appsquad.service.SkillSetMasterService;
 import org.appsquad.service.StatusMasterService;
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.AfterCompose;
@@ -81,6 +79,28 @@ public class StatusMasterViewModel {
 		        }
 		    }
 		});
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void onClickEditButton(@BindingParam("bean") StatusMasterBean masterBean){
+		masterBean.setStatusDisabled(false);
+		masterBean.setEditButtonDisable(true);
+		masterBean.setSaveButtonDisable(false);
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void onClickSaveButton(@BindingParam("bean") StatusMasterBean masterBean){
+		boolean flagUpdate = false;
+		flagUpdate = StatusMasterService.updateClientMasterData(masterBean);
+		if(flagUpdate){
+			masterBean.setEditButtonDisable(false);
+			masterBean.setSaveButtonDisable(true);
+			masterBean.setStatusDisabled(true);
+			System.out.println(masterBean.isStatusDisabled());
+			statuslist = StatusMasterDao.onLoadStatusDeatils();
+		}
 	}
 	
 	@Command

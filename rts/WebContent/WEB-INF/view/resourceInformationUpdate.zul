@@ -1,6 +1,6 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="Resource Information Update" border="none" height="510px" width="600px" apply="org.zkoss.bind.BindComposer"
+<window title="Resource Information Update" border="none" height="530px" width="600px" apply="org.zkoss.bind.BindComposer"
 		    viewModel="@id('vm') @init('org.appsquad.viewmodel.ResourceInformationUpdateViewModel')" id="winResourceUpdate" closable="true"
 		      onClose="@command('onCloseOperation')"> 
 		    <!-- <style>
@@ -112,6 +112,15 @@
 						  <doublebox width="75%" value="@bind(vm.masterBean.ctc)"></doublebox>	
 					   </row>
 					    
+					    <row>
+						  <label value="Profit(%)" style="font-weight:bold"></label>		
+						  <doublebox width="75%" value="@bind(vm.masterBean.profit)"></doublebox>	
+					   </row>
+					   
+					   <row>
+						  <label value="Other Info" style="font-weight:bold"></label>		
+						   <textbox width="75%" value="@bind(vm.masterBean.otherInfo)"></textbox>	
+					   </row>
 					   <row>
 					     <label></label>
 					     <button width="80px" height="30px" label="Update" style="font-weight: bold" onClick="@command('onClickUpdateButton')"></button>

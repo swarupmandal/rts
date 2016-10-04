@@ -260,7 +260,8 @@ public class ResourceMasterDao {
 											                                              resourceMasterBean.getPicCode().toUpperCase(),resourceMasterBean.getContactNumber().toUpperCase(),resourceMasterBean.getStatusMasterBean().getStatusId(),
 											                                              resourceMasterBean.getCtc(),resourceMasterBean.getSkillsetMasterbean().getSkillset().toUpperCase(),
 											                                              resourceMasterBean.getCountryBean().getCountryName().toUpperCase(),
-											                                              resourceMasterBean.getStateBean().getStateName().toUpperCase(),resourceMasterBean.getProfit(),resourceMasterBean.getFilePath()));
+											                                              resourceMasterBean.getStateBean().getStateName().toUpperCase(),resourceMasterBean.getProfit(),resourceMasterBean.getFilePath(),
+											                                              resourceMasterBean.getOtherInfo()));
 					    	
 					    	//logger.info("Inserting Resource Data Into Table: "+preparedStatementInsert.unwrap(PreparedStatement.class));
 							int i = preparedStatementInsert.executeUpdate();
@@ -330,6 +331,8 @@ public class ResourceMasterDao {
 								bean.getCountryBean().setCountryId(resultSet.getInt("rts_country_id"));
 								bean.getStatusMasterBean().setStatusId(resultSet.getInt("rts_status_id"));
 								bean.setFilePath(resultSet.getString("res_upcv"));
+								bean.setProfit(resultSet.getDouble("profit"));
+								bean.setOtherInfo(resultSet.getString("other_info"));
 								
 								resourceList.add(bean);
 							}  
@@ -367,13 +370,14 @@ public class ResourceMasterDao {
 					    PreparedStatement preparedStatementInsert = null;
 					    try {
 					    	preparedStatementInsert = Pstm.createQuery(connection, 
-									ResourceMasterSql.updateResourceQuery, Arrays.asList(resourceMasterBean.getName().toUpperCase(),resourceMasterBean.getSurName().toUpperCase(),
+									ResourceMasterSql.updateResourceQuery, Arrays.asList( resourceMasterBean.getName().toUpperCase(),resourceMasterBean.getSurName().toUpperCase(),
 											                                              resourceMasterBean.getYearOfExperience(),resourceMasterBean.getAddress().toUpperCase(),resourceMasterBean.getEmailId(),
 											                                              resourceMasterBean.getSkillsetMasterbean().getId(),resourceMasterBean.getCountryBean().getCountryId(),
 											                                              resourceMasterBean.getPicCode().toUpperCase(),resourceMasterBean.getContactNumber().toUpperCase(),resourceMasterBean.getStatusMasterBean().getStatusId(),
 											                                              resourceMasterBean.getCtc(),resourceMasterBean.getSkillsetMasterbean().getSkillset().toUpperCase(),
 											                                              resourceMasterBean.getCountryBean().getCountryName().toUpperCase(),
-											                                              resourceMasterBean.getStateBean().getStateName().toUpperCase(),resourceMasterBean.getFilePath(),resourceMasterBean.getProfit(),resourceMasterBean.getResourceId()));
+											                                              resourceMasterBean.getStateBean().getStateName().toUpperCase(),resourceMasterBean.getFilePath(),resourceMasterBean.getProfit(),
+											                                              resourceMasterBean.getOtherInfo(),resourceMasterBean.getResourceId()));
 					    	
 					    	//logger.info("Inserting Client Data Into Table: "+preparedStatementInsert.unwrap(PreparedStatement.class));
 							int i = preparedStatementInsert.executeUpdate();

@@ -1,12 +1,13 @@
 package org.appsquad.bean;
-
 public class StatusMasterBean {
 	private int statusId;
 	private String status;
 	private int ocstatusId;
 	private String ocstatus;
 	private String userId;
-	
+	private boolean editButtonDisable = false;
+	private boolean saveButtonDisable = true;
+	private boolean statusDisabled = true;
 	
 	/**************************************************************************************************************************************/
 	
@@ -39,5 +40,23 @@ public class StatusMasterBean {
 	}
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+	public boolean isEditButtonDisable() {
+		return editButtonDisable;
+	}
+	public void setEditButtonDisable(boolean editButtonDisable) {
+		this.editButtonDisable = editButtonDisable;
+	}
+	public boolean isSaveButtonDisable() {
+		return saveButtonDisable;
+	}
+	public boolean isStatusDisabled() {
+		return statusDisabled;
+	}
+	public void setStatusDisabled(boolean statusDisabled) {
+		this.statusDisabled = statusDisabled;
+	}
+	public void setSaveButtonDisable(boolean saveButtonDisable) {
+		this.saveButtonDisable = saveButtonDisable;
 	}
 }

@@ -18,20 +18,20 @@
 					<rows>
 						<row>
 						  <label value="Name:" style="font-weight:bold"></label>		
-						  <textbox width="35%" value="@bind(vm.resourceMasterBean.name)"></textbox>	
+						  <textbox width="65%" value="@bind(vm.resourceMasterBean.name)" maxlength="40"></textbox>	
 						</row>
 						<row>
 						  <label value="Surname:" style="font-weight:bold"></label>		
-						  <textbox width="35%" value="@bind(vm.resourceMasterBean.surName)"></textbox>	
+						  <textbox width="65%" value="@bind(vm.resourceMasterBean.surName)"></textbox>	
 						</row>
 						<row>
 						  <label value="Years of Experience:" style="font-weight:bold"></label>		
-						  <doublebox width="35%" value="@bind(vm.resourceMasterBean.yearOfExperience)"></doublebox>	
+						  <doublebox width="15%" value="@bind(vm.resourceMasterBean.yearOfExperience)" maxlength="2"></doublebox>	
 						</row>
 						<row>
 					  <label value="Skill-Set:" style="font-weight:bold"></label>		
 					  <combobox model="@bind(vm.skillList)" selectedItem="@bind(vm.resourceMasterBean.skillsetMasterbean)" readonly="true"
-		             		value="@bind(vm.resourceMasterBean.skillsetMasterbean.skillset)" width="35%" onSelect="@command('onSelectSkillName')">
+		             		value="@bind(vm.resourceMasterBean.skillsetMasterbean.skillset)" width="15%" onSelect="@command('onSelectSkillName')">
 		             		<template name="model" var="p">
 		             			<comboitem value="@bind(p.skillset)" label="@bind(p.skillset)"/>
 		             		</template>
@@ -39,7 +39,7 @@
 					</row>
 						<row>
 						  <label value="Address:" style="font-weight:bold"></label>		
-						  <textbox multiline="true" value="@bind(vm.resourceMasterBean.address)" width="35%"></textbox>	
+						  <textbox multiline="true" value="@bind(vm.resourceMasterBean.address)" width="65%"></textbox>	
 						</row>
 					<row>
 		             	<label value="Country:" style="font-weight:bold"></label>
@@ -117,10 +117,13 @@
 						  <label value="Profit(%)" style="font-weight:bold"></label>		
 						  <doublebox width="35%" value="@bind(vm.resourceMasterBean.profit)"></doublebox>	
 					   </row> 
+					   <row>
+						  <label value="Other Info" style="font-weight:bold"></label>		
+						  <textbox width="35%" value="@bind(vm.resourceMasterBean.otherInfo)"></textbox>	
+					   </row> 
 					</rows>
 				</grid>
 			</div>
-			<space></space>
 			<div align="center">
 				<button width="80px" height="30px" label="Submit" style="font-weight: bold" onClick="@command('onClickSubmitButton', upEvent=event)"></button>
 			</div>

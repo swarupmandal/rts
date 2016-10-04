@@ -36,15 +36,28 @@
                        <space></space>
                        <div>
                            <grid model="@bind(vm.statuslist)" mold="paging" pageSize="11" sclass="fgrid" height="430PX">
+                           
+                           		<auxhead>
+                           			<auxheader label="Status-Name" align="center" style="font-weight:bold;" colspan="1"/>
+                           			<auxheader colspan="3" label="Action" align="center" style="font-weight:bold;" ></auxheader>		
+                           		</auxhead>
+                           
                                <columns sizable="true">
-								<column label="Status-Name" align="center" style="font-weight:bold;" width="800px"/>
-								<column label="Action" align="center" style="font-weight:bold;" width="200px"/>
+								<column width="600px" align="center"/>
+								<column align="center"/>
+								<column align="center"/>
+								<column align="center"/>
 						       </columns>
                                <rows>
                                   <template name="model" var="v">
 										<row style="border: 0.01px solid #C0C0C0;">
-											<textbox value="@bind(v.status)" readonly="true" width="90%" tooltiptext="@bind(vm.statusMasterBean.status)"/>
-								    		<button label="Delete" width="90%" onClick="@command('onClickDelete', bean = v)"></button>
+											<textbox value="@bind(v.status)" tooltiptext="@bind(v.status)" width="98%"
+											                               readonly="@bind(v.statusDisabled)"/>
+								    		<button label="Edit" onClick="@command('onClickEditButton', bean = v)"
+								    		                           disabled="@bind(v.editButtonDisable)"></button>
+								    		<button label="Save" onClick="@command('onClickSaveButton', bean = v)"
+								    		                            disabled="@bind(v.saveButtonDisable)"></button>
+								    		<button label="Delete" onClick="@command('onClickDelete', bean = v)"></button>
 										</row>
 								</template> 
                                </rows>

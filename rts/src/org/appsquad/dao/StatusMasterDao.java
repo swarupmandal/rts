@@ -62,6 +62,53 @@ public class StatusMasterDao {
 		return isSaved;
 	}
 	
+	
+	public static boolean updateStatusData(StatusMasterBean statusMasterBean){
+		boolean isUpdate = false;
+		Connection connection = null;
+		try {
+			connection = DbConnection.createConnection();
+			sql_connection:{
+				try {
+					
+					//1st SQL block
+					sql_insert:{
+					    PreparedStatement preparedStatementInsert = null;
+					    try {
+					    	preparedStatementInsert = Pstm.createQuery(connection, 
+									StatusMasterSql.updateStatusSql, Arrays.asList(statusMasterBean.getStatus().toUpperCase(),statusMasterBean.getStatusId()));
+					    
+							int i = preparedStatementInsert.executeUpdate();
+							if(i>0){
+								isUpdate = true;	
+							}
+						} finally{
+							if(preparedStatementInsert!=null){
+								preparedStatementInsert.close();
+							}
+						}
+				    }
+				
+					if( isUpdate){
+						Messagebox.show(" Status Details Updated successfully!","Information",Messagebox.OK,Messagebox.INFORMATION);
+					}else{
+						Messagebox.show(" Status Details failed due to internal error!","ERROR",Messagebox.OK,Messagebox.ERROR);
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}finally{
+					if(connection!=null){
+						connection.close();
+					}
+				}
+			}
+		} catch (Exception e) {
+			//logger.fatal(e);
+			e.printStackTrace();
+		}
+		return isUpdate;
+	}
+	
 	public static ArrayList<StatusMasterBean> onLoadStatusDeatils(){
 		ArrayList<StatusMasterBean> statusList = new ArrayList<StatusMasterBean>();
 		Connection connection = null;
@@ -82,6 +129,7 @@ public class StatusMasterDao {
 								StatusMasterBean bean = new StatusMasterBean();
 								bean.setStatusId(resultSet.getInt("id"));
 								bean.setStatus(resultSet.getString("master_status_name"));
+								bean.setStatusDisabled(true);
 								
 								statusList.add(bean);
 							}  
