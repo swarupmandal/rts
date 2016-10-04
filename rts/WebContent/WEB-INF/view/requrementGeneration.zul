@@ -47,12 +47,22 @@
 						</row>
 						
 						<row>
-						  <label value="Number of Permanent Resource:" style="font-weight:bold"></label>		
+						  <label value="Requirement Type:" style="font-weight:bold"></label>		
+						  <combobox width="25%" model="@bind(vm.typeList)" autocomplete="true" autodrop="true" value="@bind(vm.reqGenBean.resourceTypeBean.resourceTypeName)"
+						      selectedItem="@bind(vm.reqGenBean.resourceTypeBean)" onSelect="@command('onSelectType')" readonly="true">
+						  		<template name="model" var = "v">
+						  		 <comboitem label="@bind(v.resourceTypeName)" value="@bind(v.resourceTypeName)"></comboitem>	
+						  		</template>
+						  </combobox>	
+						</row>
+						
+						<row visible="@bind(vm.reqGenBean.perFieldvisibility)">
+						  <label value="Number of Resource:" style="font-weight:bold"></label>		
 						  <intbox value="@bind(vm.reqGenBean.nofPerResource)" width="25%"></intbox>	
 						</row>
 						
-						<row>
-						  <label value="Number of Contract Resource:" style="font-weight:bold"></label>		
+						<row visible="@bind(vm.reqGenBean.conFieldvisibility)">
+						  <label value="Number of Resource:" style="font-weight:bold"></label>		
 						  <intbox value="@bind(vm.reqGenBean.nofConResource)" width="25%"></intbox>	
 						</row>
 						
@@ -99,8 +109,8 @@
 					<columns>
 						<column label="R_ID(req_id)" width="100px"></column>
 						<column label="Client Name" align="center" width="220px"></column>
+						<column label="Type Name" align="center" width="220px"></column>
 						<column label="Raise Date" align="center"></column>
-						<column label="Close Date" align="center"></column>
 						<column label="Requirement Status" align="center"></column>
 						<column label="Update" align="center"></column>
 						<column label="Delete" align="center" visible="false"></column>
@@ -110,8 +120,8 @@
 						<row>
 						    <label value="@bind(v.req_id)"></label>
 							<textbox width="95%" value="@bind(v.clientName)" readonly="true"></textbox>
+							<textbox width="95%" value="@bind(v.resourceTypeBean.resourceTypeName)" readonly="true"></textbox>
 							<textbox readonly="true" value="@bind(v.raiseDateStr)" width="98%"></textbox>
-							<textbox readonly="true" value="@bind(v.closeDateStr)" width="98%"></textbox>
 							<textbox readonly="true" width="98%" value="@bind(v.ocStatus)"></textbox>
 							<button label="Edit" width="98%" onClick="@command('onClickUpdate', bean = v)"    ></button>
 							<button label="Delete" width="98%"></button>	

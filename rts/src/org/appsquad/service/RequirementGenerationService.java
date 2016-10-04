@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.appsquad.bean.ClientInformationBean;
 import org.appsquad.bean.RequirementGenerationBean;
+import org.appsquad.bean.ResourceTypeBean;
 import org.appsquad.bean.SkillsetMasterbean;
 import org.appsquad.bean.StatusMasterBean;
 import org.appsquad.dao.RequirementGenerationDao;
@@ -41,9 +42,20 @@ public class RequirementGenerationService {
 		return list;
 	}
 	
+	public static ArrayList<ResourceTypeBean> loadTypeList(){
+		ArrayList<ResourceTypeBean> list = new ArrayList<ResourceTypeBean>();
+		list = RequirementGenerationDao.onLoadType();
+		return list;
+	}
+	
 	public static int updateReqGenMaster(RequirementGenerationBean bean){
 		int i = RequirementGenerationDao.onClikUpdate(bean);
 		return i;
+	}
+	
+	public static int countWrtReqId(RequirementGenerationBean bean){
+		int count = RequirementGenerationDao.countWrtRequirementId(bean);
+		return count;
 	}
 	
 	public static boolean isValid(RequirementGenerationBean bean){
