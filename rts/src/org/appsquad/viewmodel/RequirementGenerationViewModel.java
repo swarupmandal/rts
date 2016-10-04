@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.appsquad.bean.ClientInformationBean;
 import org.appsquad.bean.RequirementGenerationBean;
+import org.appsquad.bean.ResourceTypeBean;
 import org.appsquad.bean.SkillsetMasterbean;
 import org.appsquad.bean.StatusMasterBean;
 import org.appsquad.dao.RequirementGenerationDao;
@@ -38,6 +39,7 @@ public class RequirementGenerationViewModel {
 	private ArrayList<SkillsetMasterbean> skillSetBeanList = new ArrayList<SkillsetMasterbean>(); 
 	private ArrayList<StatusMasterBean> statusBeanList = new ArrayList<StatusMasterBean>();
 	private ArrayList<RequirementGenerationBean> reqGenBeanList = new ArrayList<RequirementGenerationBean>();
+	private ArrayList<ResourceTypeBean> typeList = null;
 	
 	@AfterCompose
 	public void initSetUp(@ContextParam(ContextType.VIEW) Component view)throws Exception{
@@ -50,6 +52,7 @@ public class RequirementGenerationViewModel {
 		statusBeanList = RequirementGenerationService.fetchStatusList();
 		reqGenBeanList = RequirementGenerationService.loadReqGenMasterData();
 		reqGenBean.setReqStatusId(RequirementGenerationDao.fetchOverallStatusId());
+		typeList = RequirementGenerationService.loadTypeList();
 	}
 
 	@Command
@@ -89,6 +92,17 @@ public class RequirementGenerationViewModel {
 		}
 	}
 	
+	@Command
+	@NotifyChange("*")
+	public void onSelectType(){
+		if(reqGenBean.getResourceTypeBean().getResourceTypeName().equalsIgnoreCase("CONTRACT")){
+			reqGenBean.setConFieldvisibility(true);
+			reqGenBean.setPerFieldvisibility(false);
+		}else{
+			reqGenBean.setConFieldvisibility(false);
+			reqGenBean.setPerFieldvisibility(true);
+		}
+	}
 	
 	@Command
 	@NotifyChange("*")
@@ -201,6 +215,14 @@ public class RequirementGenerationViewModel {
 	public ArrayList<RequirementGenerationBean> getReqGenBeanList() {
 		return reqGenBeanList;
 	}
+	public ArrayList<ResourceTypeBean> getTypeList() {
+		return typeList;
+	}
+
+	public void setTypeList(ArrayList<ResourceTypeBean> typeList) {
+		this.typeList = typeList;
+	}
+
 	public void setReqGenBeanList(
 			ArrayList<RequirementGenerationBean> reqGenBeanList) {
 		this.reqGenBeanList = reqGenBeanList;

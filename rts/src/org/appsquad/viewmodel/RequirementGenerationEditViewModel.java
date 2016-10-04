@@ -19,7 +19,6 @@ import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
-
 public class RequirementGenerationEditViewModel {
 	RequirementGenerationBean reqEditGenBean = new RequirementGenerationBean();
 	StatusMasterBean statusBeanEdit = new StatusMasterBean();
@@ -30,11 +29,21 @@ public class RequirementGenerationEditViewModel {
 	private Window winReqGenEdit;
 	
 	@AfterCompose
-	public void initSetUp(@ContextParam(ContextType.VIEW) Component view,
-						  @ExecutionArgParam("parentBean") RequirementGenerationBean bean) throws Exception{
+	public void initSetUp(@ContextParam(ContextType.VIEW) Component view,@ExecutionArgParam("parentBean") RequirementGenerationBean bean) 
+			                                                                         throws Exception{
 		 Selectors.wireComponents(view, this, false); 
 		 reqEditGenBean = bean;
 		 reqEditGenBean.setReqOpenDate(true);
+		 System.out.println("REQUIREMENTS ID IS:"+reqEditGenBean.getReq_id());
+		 if(reqEditGenBean.getResourceTypeBean().getResourceTypeName().equalsIgnoreCase("CONTRACT")){
+			 reqEditGenBean.setConFieldvisibility(true);
+			 reqEditGenBean.setPerFieldvisibility(false);
+			 reqEditGenBean.setOldValue(reqEditGenBean.getNofConResource());
+		 }else{
+			 reqEditGenBean.setConFieldvisibility(false);
+			 reqEditGenBean.setPerFieldvisibility(true);
+			 reqEditGenBean.setOldValue(reqEditGenBean.getNofPerResource());
+		 }
 		 statusBeanEditList = RequirementGenerationService.fetchStatusList();
 	}
 
@@ -48,14 +57,57 @@ public class RequirementGenerationEditViewModel {
 	
 	@Command
 	@NotifyChange("*")
+	public void onChangePer(){
+		System.out.println("METHOD 1");
+		System.out.println("Req Id :"+reqEditGenBean.getReq_id()+"--Type name -"+reqEditGenBean.getResourceTypeBean().getResourceTypeId());
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void onChangeCon(){
+		System.out.println("METHOD 2");
+		System.out.println("Req Id :"+reqEditGenBean.getReq_id()+"--Type name -"+reqEditGenBean.getResourceTypeBean().getResourceTypeId());
+	}
+	
+	@Command
+	@NotifyChange("*")
 	public void onClickUpdate(){
+		boolean flag = false;
 		if(RequirementGenerationService.isValidForUpdate(reqEditGenBean)){
-			int i = RequirementGenerationService.updateReqGenMaster(reqEditGenBean);
-			if(i>0){
-				Messagebox.show("Updated Successfully", "Information", Messagebox.OK, Messagebox.INFORMATION);
-				winReqGenEdit.detach();
-				BindUtils.postGlobalCommand(null, null, "editReqGen", null);
-			}	
+			int count = RequirementGenerationService.countWrtReqId(reqEditGenBean);
+			System.out.println("COUNT :"+count);
+			if(count>0){
+				if(reqEditGenBean.getResourceTypeBean().getResourceTypeName().equalsIgnoreCase("CONTRACT")){
+					System.out.println("NEW VALUE IS :"+reqEditGenBean.getNofConResource()+"-------------"+reqEditGenBean.getOldValue());
+					if(reqEditGenBean.getNofConResource()<reqEditGenBean.getOldValue()){
+						 Messagebox.show("You Can't Drecrease The Number Of Resources"+reqEditGenBean.getOldValue()+"!", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
+						 reqEditGenBean.setNofConResource(reqEditGenBean.getOldValue());
+						 flag = false;
+					}else{
+						flag = true;
+					}
+				}else{
+					System.out.println("NEW VALUE IS :"+reqEditGenBean.getNofPerResource()+"-------------"+reqEditGenBean.getOldValue());
+					if(reqEditGenBean.getNofPerResource()<reqEditGenBean.getOldValue()){
+						 Messagebox.show("You Can't Drecrease The Number Of Resources"+reqEditGenBean.getOldValue()+"!", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
+						 reqEditGenBean.setNofPerResource(reqEditGenBean.getOldValue());
+						 flag = false;
+					}else{
+						flag = true;
+					}
+				}
+			}else{
+				flag = true;
+			}
+			System.out.println(flag);
+			if(flag){
+				int i = RequirementGenerationService.updateReqGenMaster(reqEditGenBean);	
+				if(i>0){
+					Messagebox.show("Updated Successfully", "Information", Messagebox.OK, Messagebox.INFORMATION);
+					winReqGenEdit.detach();
+					BindUtils.postGlobalCommand(null, null, "editReqGen", null);
+				}	
+			}
 		}
 	}
 	

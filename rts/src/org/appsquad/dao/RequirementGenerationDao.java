@@ -11,9 +11,12 @@ import java.util.Arrays;
 import org.apache.log4j.Logger;
 import org.appsquad.bean.ClientInformationBean;
 import org.appsquad.bean.RequirementGenerationBean;
+import org.appsquad.bean.ResourceTypeBean;
 import org.appsquad.bean.SkillsetMasterbean;
+import org.appsquad.bean.StateBean;
 import org.appsquad.bean.StatusMasterBean;
 import org.appsquad.database.DbConnection;
+import org.appsquad.sql.ClientInformationsql;
 import org.appsquad.sql.RequirementGenerationSql;
 import org.appsquad.utility.Dateformatter;
 import org.appsquad.utility.Pstm;
@@ -66,6 +69,84 @@ public class RequirementGenerationDao {
 		return nameBeanList;
 	}
 	
+	public static int countWrtRequirementId(RequirementGenerationBean bean){
+		int count = 0;
+		Connection connection = null;
+		try {
+			connection = DbConnection.createConnection();
+			sql_connection:{
+				try {
+					//1st SQL block
+					sql_count:{
+					    PreparedStatement preparedStatement = null;
+					    try {
+					    	preparedStatement = Pstm.createQuery(connection, RequirementGenerationSql.countReqId, Arrays.asList(bean.getReq_id()));
+					    	System.out.println(preparedStatement);
+					    	ResultSet resultSet = preparedStatement.executeQuery();
+							while (resultSet.next()) {
+								count = resultSet.getInt(1);
+							}
+						} finally{
+							if(preparedStatement!=null){
+								preparedStatement.close();
+							}
+						}
+				    }
+				} catch (Exception e) {
+					e.printStackTrace();
+				}finally{
+					if(connection!=null){
+						connection.close();
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return count;
+	}
+	
+	public static ArrayList<ResourceTypeBean> onLoadType(){
+		ArrayList<ResourceTypeBean> typeList = new ArrayList<ResourceTypeBean>();
+		Connection connection = null;
+		try {
+			connection = DbConnection.createConnection();
+			sql_connection:{
+				try {
+					
+					//1st SQL block
+					sql_fetch:{
+					   PreparedStatement preparedStatement = null;
+					   try {
+						    preparedStatement = Pstm.createQuery(connection, RequirementGenerationSql.FETCHTYPE, null);
+							ResultSet resultSet = preparedStatement.executeQuery();
+							while (resultSet.next()) {
+								ResourceTypeBean bean = new ResourceTypeBean();
+								bean.setResourceTypeName(resultSet.getString("type_name"));
+								bean.setResourceTypeId(resultSet.getInt("type_id"));
+								
+								typeList.add(bean);
+							}  
+						} finally{
+							if(preparedStatement!=null){
+								preparedStatement.close();
+							}
+						}
+				    }
+				} catch (Exception e) {
+					e.printStackTrace();
+				}finally{
+					if(connection!=null){
+						connection.close();
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			//logger.fatal(e);
+		}
+		return typeList;	
+	}
 	
 	public static void fetchEmailIdAndContactNumber(RequirementGenerationBean generationBean){
 		Connection connection = null;
@@ -230,12 +311,9 @@ public class RequirementGenerationDao {
 		try {
 			connection = DbConnection.createConnection();
 			preparedStatement = Pstm.createQuery(connection, RequirementGenerationSql.insertReqGen, Arrays.asList(bean.getClientId(), bean.getReqSkillId(),bean.getJobType(),bean.getDetailedJob(),
-																												bean.getNofPerResource(), bean.getNofConResource(), bean.getRaiseDatesql(), bean.getCloseDatesql(),
+																										bean.getNofPerResource(), bean.getNofConResource(), bean.getRaiseDatesql(), bean.getCloseDatesql(),
 																										bean.getContactNo(), bean.getEmail(),1,bean.getClosureReason(), bean.getUserName(), bean.getUserName(),
-																												bean.getReqStatusId()));
-			
-			
-			//logger.info("onClikSubmit - " + preparedStatement.unwrap(PreparedStatement.class));
+																										bean.getReqStatusId(),bean.getResourceTypeBean().getResourceTypeId()));
 			
 			i = preparedStatement.executeUpdate();
 		} catch (Exception e) {
@@ -302,6 +380,8 @@ public class RequirementGenerationDao {
 				
 				bean.setContactNo(resultSet.getString("cont_no"));
 				bean.setEmail(resultSet.getString("email_id"));
+				bean.getResourceTypeBean().setResourceTypeId(resultSet.getInt("type_id"));
+				bean.getResourceTypeBean().setResourceTypeName(resultSet.getString("type_name"));
 				
 				list.add(bean);	
 			}

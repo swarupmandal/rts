@@ -32,14 +32,14 @@
 						  <textbox multiline="true" value="@bind(vm.reqEditGenBean.detailedJob)"></textbox>	
 						</row>
 						
-						<row>
-						  <label value="Number of Permanent Resource:" style="font-weight:bold"></label>		
-						  <intbox width="15%" value="@bind(vm.reqEditGenBean.nofPerResource)"></intbox>	
+						<row visible="@bind(vm.reqEditGenBean.perFieldvisibility)">
+						  <label value="Number of Resource:" style="font-weight:bold"></label>		
+						  <intbox width="15%" value="@bind(vm.reqEditGenBean.nofPerResource)" onChanging="@command('onChangePer')"></intbox>	
 						</row>
 						
-						<row>
-						  <label value="Number of Contract Resource:" style="font-weight:bold"></label>		
-						  <intbox width="15%" value="@bind(vm.reqEditGenBean.nofConResource)"></intbox>	
+						<row visible="@bind(vm.reqEditGenBean.conFieldvisibility)">
+						  <label value="Number of Resource:" style="font-weight:bold"></label>		
+						  <intbox width="15%" value="@bind(vm.reqEditGenBean.nofConResource)" onChanging="@command('onChangeCon')"></intbox>	
 						</row>
 						
 						<row>

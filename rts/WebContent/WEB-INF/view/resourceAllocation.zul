@@ -8,31 +8,36 @@
                                 <columns>
                                       <column></column>
                                       <column></column>
+                                      <column></column>
                                 </columns>
                                 <rows>
                                    <row>
-                                       <label value="Client-Name"></label>
+                                       <label value="Client-Name"></label> 
 								       <combobox model="@bind(vm.clientList)" selectedItem="@bind(vm.resourceAllocationBean.clientInformationBean)" readonly="true"
-		             						value="@bind(vm.resourceAllocationBean.clientInformationBean.fullName)" width="60%" onSelect="@command('onSelectClientName')">
+		             						value="@bind(vm.resourceAllocationBean.clientInformationBean.fullName)" width="90%" onSelect="@command('onSelectClientName')">
 		             					<template name="model" var="p">
 		             					<comboitem value="@bind(p.fullName)" label="@bind(p.fullName)"/>
 		             					</template>
 		             					</combobox>
 		             					
-		             					<label value="Requirement Id"></label>
-		             					<bandbox value="@bind(vm.resourceAllocationBean.requirementGenerationBean.requirementId)" id="bd" readonly="true" width="60%">
+		             				    <label value="Requirement Id"></label>
+		             					<bandbox value="@bind(vm.resourceAllocationBean.requirementGenerationBean.requirementId)" id="bd" readonly="true" width="90%">
 											<bandpopup >
 												<vbox>
 													<listbox model="@load(vm.requirementDetailsList)" selectedItem="@bind(vm.resourceAllocationBean.requirementGenerationBean)" 
-														onSelect="@command('onSelectReqSkill')" height="110px" width="200px"
+														onSelect="@command('onSelectReqSkill')" height="150px" width="305px"
 															mold="paging"  pageSize="5" >
 														<listhead sizable="true">
-															<listheader label="Requirement Id" />
-															<listheader label="Skill Name" />
+															<listheader label="RId" width="40px"/>
+															<listheader label="Date"/>
+															<listheader label="Type"/>
+															<listheader label="Skill"/>
 														</listhead>
 														<template name="model" var="p1">
 															<listitem>
 																<listcell label="@load(p1.requirementId)" />
+																<listcell label="@load(p1.raiseDateStr)" />
+																<listcell label="@load(p1.resourceTypeBean.resourceTypeName)" />
 																<listcell label="@load(p1.reqSkill)" />
 															</listitem>
 														</template>
@@ -40,23 +45,23 @@
 												</vbox>
 											</bandpopup>
 							           </bandbox>
-                                   
-                                   </row>
-                                   
-                                   <row>
-                                      <label value="Skill Set"></label>
-                                      <textbox value="@bind(vm.resourceAllocationBean.masterbean.skillset)" readonly="true" width="60%"></textbox>
-                                      
-                                      <label value="Resource Type"></label>
+							           
+							            <label value="Resource Type"></label>
 								       <combobox model="@bind(vm.resourceTypeList)" selectedItem="@bind(vm.resourceAllocationBean.resourceTypeBean)" readonly="true"
 		             						value="@bind(vm.resourceAllocationBean.resourceTypeBean.resourceTypeName)" width="60%" onSelect="@command('onSelectResourcetypeName')">
 		             					<template name="model" var="p">
 		             					<comboitem value="@bind(p.resourceTypeName)" label="@bind(p.resourceTypeName)"/>
 		             					</template>
 		             					</combobox>
+							           
+                                   
                                    </row>
-                                
+                                  
 								  <row>
+								  
+								      <label value="Skill Set"></label>
+                                      <textbox value="@bind(vm.resourceAllocationBean.masterbean.skillset)" readonly="true" width="60%"></textbox>
+								  
 								      <label value="Required Resource"></label>
 								      <textbox value="@bind(vm.resourceAllocationBean.requiredResourcenumber)" readonly="true" width="60%"></textbox>
 								      

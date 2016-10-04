@@ -43,7 +43,7 @@
             </treeitem>
              <treeitem open="false">
             	<treerow>
-            	 <treecell label="- Resource"
+            	 <treecell label="- Registered Resource"
             	  onClick='inclResults.setSrc("/WEB-INF/view/resourceMaster.zul");'>
             	</treecell>
             	</treerow>
@@ -74,7 +74,7 @@
          </treeitem>
          <treeitem open="false">
             	<treerow>
-            	 <treecell label="- Resource allocation"
+            	 <treecell label="- Assign Resource To RId"
             	  onClick='inclResults.setSrc("/WEB-INF/view/resourceAllocation.zul");'>
             	</treecell>
             	</treerow>
