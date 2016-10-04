@@ -82,6 +82,9 @@ public class IndividualClientReportBean {
 	private boolean noOfReqVis = false;
 	private boolean noOfResourcesVis = false;
 	
+	private String boldStyle = "font-weight: bold; color: #870525";
+	private String lighterStyle = "font-weight: lighter; color: black";
+	private String style;
 	
 	
 	private Integer r_idSearch;
@@ -509,6 +512,24 @@ public class IndividualClientReportBean {
 	}
 	public void setNoOfReqLebel(String noOfReqLebel) {
 		this.noOfReqLebel = noOfReqLebel;
+	}
+	public String getBoldStyle() {
+		return boldStyle;
+	}
+	public void setBoldStyle(String boldStyle) {
+		this.boldStyle = boldStyle;
+	}
+	public String getLighterStyle() {
+		return lighterStyle;
+	}
+	public void setLighterStyle(String lighterStyle) {
+		this.lighterStyle = lighterStyle;
+	}
+	public String getStyle() {
+		return style;
+	}
+	public void setStyle(String style) {
+		this.style = style;
 	}
 	
 }
