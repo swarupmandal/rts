@@ -1265,7 +1265,7 @@ public static ArrayList<IndividualClientReportBean> loadRidListWithDateRange(Dat
 	    public static ArrayList<IndividualClientReportBean> loadRidSummary(ArrayList<IndividualClientReportBean> parentList){
 	    	
 	    	ArrayList<IndividualClientReportBean> summarList = new ArrayList<IndividualClientReportBean>();
-	    	ArrayList<IndividualClientReportBean> sumStatusList = new ArrayList<IndividualClientReportBean>();
+	    	
 	    	if(summarList.size()>0){
 	    		summarList.clear();
 	    	}
@@ -1284,14 +1284,85 @@ public static ArrayList<IndividualClientReportBean> loadRidListWithDateRange(Dat
 	    	try {
 	    		Connection connection = null;
 				PreparedStatement preparedStatement = null;
-	    		
+				ResultSet resultSet = null;
 				try {
 				    connection = DbConnection.createConnection();
-				    //preparedStatement = Pstm.createQuery(connection, indi, params)
-					
-					
-					
+				       	
+					   for(Integer id: list){
+						   
+							   preparedStatement  = Pstm.createQuery(connection, IndividualClientReportSql.loadRidListSummay,Arrays.asList(id));
+							   resultSet = preparedStatement.executeQuery();
+							   while (resultSet.next()) {
+							   IndividualClientReportBean parentBean = new IndividualClientReportBean();
+							   
+							   parentBean.setrIdLabel("R id :" + resultSet.getInt("req_id"));
+							   parentBean.setrIdDateLabel("Date :" + resultSet.getString("created_date"));
+							   parentBean.setClientFullName("Client :" + resultSet.getString("client_name") );
+							   parentBean.setSkillSetLabel("Skill :" + resultSet.getString("master_skill_set_name"));
+							   parentBean.setNoOfReqLebel("Total Req :" + resultSet.getInt("total_req_number")); 	   
+							   
+							   parentBean.setStatusFieldVis(false);
+							   parentBean.setNoOfResourcesVis(false);
+							   
+							   
+							   parentBean.setRidLbFieldVis(true);
+							   parentBean.setRidDateFieldVis(true);
+							   parentBean.setClNameLbFieldVis(true);
+							   parentBean.setSklStLbFieldVis(true);
+							   parentBean.setNoOfReqVis(true);
+							   
+							   
+							   
+							   summarList.add(parentBean);
+							   
+							subSql:{
+								   
+							   try {
+								   PreparedStatement preparedStatement2 = null;
+								   preparedStatement2 = Pstm.createQuery(connection, IndividualClientReportSql.loadStatusSummmary, Arrays.asList(id));
+								   ResultSet resultSet2 = preparedStatement2.executeQuery();
+								   
+								   while (resultSet2.next()) {
+								    
+								   IndividualClientReportBean childBean = new IndividualClientReportBean();	   
+								   childBean.setStatus(resultSet2.getString("final_status"));
+								   childBean.setNoOfResources(resultSet2.getInt("total_count"));
+								   
+								   childBean.setStatusFieldVis(true);
+								   childBean.setNoOfResourcesVis(true);
+								   
+								   
+								   childBean.setRidLbFieldVis(false);
+								   childBean.setRidDateFieldVis(false);
+								   childBean.setClNameLbFieldVis(false);
+								   childBean.setSklStLbFieldVis(false);
+								   childBean.setNoOfReqVis(false);
+								   
+								   summarList.add(childBean);
+									   
+								}  
+								
+							} finally {
+								
+							}  
+						 }
+							   
+					    }
+						   
+						   
+					   }
+				    		
 				} finally {
+					
+					if(preparedStatement != null){
+						preparedStatement.close();
+					}
+					if(resultSet != null){
+						resultSet.close();
+					}
+					if(connection != null){
+						connection.close();
+					}
 					
 				}
 	    		
