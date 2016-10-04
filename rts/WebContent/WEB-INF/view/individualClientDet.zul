@@ -181,14 +181,14 @@
     				  <template name="model" var = "v">
     				   <row>
     				    
-    				    <label value="@bind(v.rIdLabel)" visible="@bind(v.ridLbFieldVis)"></label>
+    				    <label value="@bind(v.rIdLabel)" visible="@bind(v.ridLbFieldVis)" style="font-weight: bold; color: black"></label>
     				    
     				    <textbox value="@bind(v.status)" visible="@bind(v.statusFieldVis)" readonly="true"></textbox>
     				    
-    				    <label value="@bind(v.rIdDateLabel)" visible="@bind(v.ridDatelbFieldVis)"></label>
-    				    <label value="@bind(v.clientFullName)" visible="@bind(v.clNameLbFieldVis)"></label>
-    				    <label value="@bind(v.skillSetLabel)" visible="@bind(v.sklStLbFieldVis)"></label>
-    				    <label value="@bind(v.noOfReqLebel)" visible="@bind(v.noOfReqVis)"></label>
+    				    <label value="@bind(v.rIdDateLabel)" visible="@bind(v.ridDatelbFieldVis)" style="font-weight: bold; color: black"></label>
+    				    <label value="@bind(v.clientFullName)" visible="@bind(v.clNameLbFieldVis)" style="font-weight: bold; color: black"></label>
+    				    <label value="@bind(v.skillSetLabel)" visible="@bind(v.sklStLbFieldVis)" style="font-weight: bold; color: black"></label>
+    				    <label value="@bind(v.noOfReqLebel)" visible="@bind(v.noOfReqVis)" style="font-weight: bold; color: black"></label>
     				    
     				    <textbox value="@bind(v.noOfResources)" visible="@bind(v.noOfResourcesVis)" readonly="true"></textbox>
     				    
