@@ -1,7 +1,6 @@
 package org.appsquad.viewmodel;
 
 import java.io.File;
-import java.io.InputStream;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Calendar;

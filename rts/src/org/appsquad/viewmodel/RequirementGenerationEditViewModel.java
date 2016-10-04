@@ -80,7 +80,7 @@ public class RequirementGenerationEditViewModel {
 				if(reqEditGenBean.getResourceTypeBean().getResourceTypeName().equalsIgnoreCase("CONTRACT")){
 					System.out.println("NEW VALUE IS :"+reqEditGenBean.getNofConResource()+"-------------"+reqEditGenBean.getOldValue());
 					if(reqEditGenBean.getNofConResource()<reqEditGenBean.getOldValue()){
-						 Messagebox.show("You Can't Drecrease The Number Of Resources!"+reqEditGenBean.getOldValue()+"", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
+						 Messagebox.show("You Can't Drecrease The Number Of Resources"+reqEditGenBean.getOldValue()+"!", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
 						 reqEditGenBean.setNofConResource(reqEditGenBean.getOldValue());
 						 flag = false;
 					}else{
@@ -89,13 +89,15 @@ public class RequirementGenerationEditViewModel {
 				}else{
 					System.out.println("NEW VALUE IS :"+reqEditGenBean.getNofPerResource()+"-------------"+reqEditGenBean.getOldValue());
 					if(reqEditGenBean.getNofPerResource()<reqEditGenBean.getOldValue()){
-						 Messagebox.show("You Can't Drecrease The Number Of Resources!"+reqEditGenBean.getOldValue()+"", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
+						 Messagebox.show("You Can't Drecrease The Number Of Resources"+reqEditGenBean.getOldValue()+"!", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
 						 reqEditGenBean.setNofPerResource(reqEditGenBean.getOldValue());
 						 flag = false;
 					}else{
 						flag = true;
 					}
 				}
+			}else{
+				flag = true;
 			}
 			System.out.println(flag);
 			if(flag){

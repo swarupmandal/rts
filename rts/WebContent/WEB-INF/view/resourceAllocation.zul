@@ -24,15 +24,19 @@
 											<bandpopup >
 												<vbox>
 													<listbox model="@load(vm.requirementDetailsList)" selectedItem="@bind(vm.resourceAllocationBean.requirementGenerationBean)" 
-														onSelect="@command('onSelectReqSkill')" height="110px" width="200px"
+														onSelect="@command('onSelectReqSkill')" height="150px" width="250px"
 															mold="paging"  pageSize="5" >
 														<listhead sizable="true">
-															<listheader label="Requirement Id" />
-															<listheader label="Skill Name" />
+															<listheader label="RId" width="40px"/>
+															<listheader label="Date"/>
+															<listheader label="Type"/>
+															<listheader label="Skill"/>
 														</listhead>
 														<template name="model" var="p1">
 															<listitem>
 																<listcell label="@load(p1.requirementId)" />
+																<listcell label="@load(p1.raiseDateStr)" />
+																<listcell label="@load(p1.resourceTypeBean.resourceTypeName)" />
 																<listcell label="@load(p1.reqSkill)" />
 															</listitem>
 														</template>

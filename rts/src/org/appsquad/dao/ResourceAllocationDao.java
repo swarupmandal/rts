@@ -33,14 +33,14 @@ public class ResourceAllocationDao {
 					   try {
 						    preparedStatement = Pstm.createQuery(connection, ResourceAllocationSql.fetchRequirementSql, Arrays.asList(clientId));
 						    
-						    //logger.info("onLoadRequirementSkillDetails - " + preparedStatement.unwrap(PreparedStatement.class));
-						    
 							ResultSet resultSet = preparedStatement.executeQuery();
 							while (resultSet.next()) {
 								RequirementGenerationBean bean = new RequirementGenerationBean();
 								bean.setRequirementId(resultSet.getInt("r_id"));
 								bean.setReqSkillId(resultSet.getInt("id"));
 								bean.setReqSkill(resultSet.getString("master_skill_set_name"));
+								bean.getResourceTypeBean().setResourceTypeName(resultSet.getString("type_name"));
+								bean.setRaiseDateStr(resultSet.getString("req_raise_date"));
 								
 								requirementList.add(bean);
 							}  
