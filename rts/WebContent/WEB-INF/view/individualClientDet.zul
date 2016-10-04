@@ -78,7 +78,7 @@
     		
     		
     		
-    		<div visible="@bind(vm.individualClientReportBean.detailsDivVis)">
+    		<!-- <div visible="@bind(vm.individualClientReportBean.detailsDivVis)">
     		  <grid model="@bind(vm.reportBeanList)" mold="paging" pageSize="10">
     		     <auxhead>
     		  		<auxheader colspan="4" align="center">
@@ -157,6 +157,38 @@
     		  	 </template>	
     		  	</rows>
     		  </grid>
+    		</div> -->
+    		
+    		<div visible="@bind(vm.individualClientReportBean.detailsDivVis)">
+    			<grid model="@bind(vm.reportBeanList)" mold="paging" pageSize="10">
+    				
+    				
+    				<columns>	
+    					<column></column>
+    					<column></column>
+    					<column></column>
+    					<column></column>
+    					<column></column>
+    					<column></column>
+    					<column></column>
+    					<column></column>
+    				</columns>
+    				<rows>
+    						
+    				  <template name="mdoel" var = "v">
+    					<row>
+    				  		<label></label>
+    				  		<label></label>
+    				  		<label></label>
+    				  		<label></label>
+    				  		<label></label>
+    				  		<label></label>
+    				  		<label></label>
+    				  		<label></label>
+    				  	</row>
+    				  </template>	
+    				</rows>
+    			</grid>
     		</div>
     		
     		<div visible="@bind(vm.individualClientReportBean.summaryDivVis)">
@@ -172,25 +204,20 @@
     				  <column></column>
     				  <column></column>
     				  <column></column>
-    				  <column></column>
-    				  <column></column>
-    				  <column></column>
+    				  <column align="right"></column>
     				  	
     				</columns>
     				<rows>
     				  <template name="model" var = "v">
     				   <row>
     				    
-    				    <label value="@bind(v.rIdLabel)" visible="@bind(v.ridLbFieldVis)" style="font-weight: bold; color: black"></label>
+    				    <label value="@bind(v.rIdLabel)" visible="@bind(v.ridLbFieldVis)" style="@bind(v.style)"></label>
+    				   
+    				    <label value="@bind(v.rIdDateLabel)" visible="@bind(v.ridDatelbFieldVis)" style="@bind(v.style)"></label>
+    				    <label value="@bind(v.clientFullName)" visible="@bind(v.clNameLbFieldVis)" style="@bind(v.style)"></label>
+    				    <label value="@bind(v.skillSetLabel)" visible="@bind(v.sklStLbFieldVis)" style="@bind(v.style)"></label>
     				    
-    				    <textbox value="@bind(v.status)" visible="@bind(v.statusFieldVis)" readonly="true"></textbox>
-    				    
-    				    <label value="@bind(v.rIdDateLabel)" visible="@bind(v.ridDatelbFieldVis)" style="font-weight: bold; color: black"></label>
-    				    <label value="@bind(v.clientFullName)" visible="@bind(v.clNameLbFieldVis)" style="font-weight: bold; color: black"></label>
-    				    <label value="@bind(v.skillSetLabel)" visible="@bind(v.sklStLbFieldVis)" style="font-weight: bold; color: black"></label>
-    				    <label value="@bind(v.noOfReqLebel)" visible="@bind(v.noOfReqVis)" style="font-weight: bold; color: black"></label>
-    				    
-    				    <textbox value="@bind(v.noOfResources)" visible="@bind(v.noOfResourcesVis)" readonly="true"></textbox>
+    				    <label value="@bind(v.noOfReqLebel)" visible="@bind(v.noOfReqVis)" style="@bind(v.style)"></label>
     				    
     				   </row>
     				  
