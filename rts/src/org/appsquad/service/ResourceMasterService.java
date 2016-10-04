@@ -8,7 +8,7 @@ public class ResourceMasterService {
 	private static boolean flag = false;
 	private static boolean flagInsert = false;
 	private static String EMAIL_REGEX = "^[\\w-_\\.+]*[\\w-_\\.]@([\\w]+\\.)+[\\w]+[\\w]$";
-	
+		
 	public static boolean isValid(ResourceMasterBean resourceMasterBean){
 		if(resourceMasterBean.getName()!=null && resourceMasterBean.getName().trim().length()>0){
 			if(resourceMasterBean.getSurName()!=null && resourceMasterBean.getSurName().trim().length()>0){
@@ -16,17 +16,13 @@ public class ResourceMasterService {
 					if(resourceMasterBean.getSkillsetMasterbean().getSkillset()!=null && resourceMasterBean.getSkillsetMasterbean().getSkillset().trim().length()>0){
 						if(resourceMasterBean.getAddress()!=null && resourceMasterBean.getAddress().trim().length()>0){
 							if(resourceMasterBean.getCountryBean().getCountryName()!=null){
+								if(resourceMasterBean.getStateBean().getStateName()!=null){
 									if(resourceMasterBean.getPicCode()!=null && resourceMasterBean.getPicCode().trim().length()>0){
 										if(resourceMasterBean.getContactNumber()!=null && resourceMasterBean.getContactNumber().trim().length()>0){
-											if(resourceMasterBean.getEmailId()!=null){
-											if(resourceMasterBean.getEmailId().matches(EMAIL_REGEX)){
-												if(resourceMasterBean.getStateBean().getStateName()!=null){
+											if(resourceMasterBean.getEmailId()!=null && resourceMasterBean.getEmailId().trim().length()>0){
+												if(resourceMasterBean.getEmailId().matches(EMAIL_REGEX)){
 													return true;
 												}else {
-													Messagebox.show("Enter State","Informtion", Messagebox.OK, Messagebox.EXCLAMATION);
-													return false;
-												}
-											  }else {
 													Messagebox.show("Enter Proper Email Id","Informtion", Messagebox.OK, Messagebox.EXCLAMATION);
 													return false;
 												}
@@ -43,9 +39,13 @@ public class ResourceMasterService {
 										return false;
 									}
 								}else {
-									Messagebox.show("Enter Country","Informtion", Messagebox.OK, Messagebox.EXCLAMATION);
+									Messagebox.show("Enter State","Informtion", Messagebox.OK, Messagebox.EXCLAMATION);
 									return false;
 								}
+							}else {
+								Messagebox.show("Enter Country","Informtion", Messagebox.OK, Messagebox.EXCLAMATION);
+								return false;
+							}
 						}else {
 							Messagebox.show("Enter Address","Informtion", Messagebox.OK, Messagebox.EXCLAMATION);
 							return false;
@@ -67,6 +67,7 @@ public class ResourceMasterService {
 			return false;
 		}
 	}
+	
 
 	public static boolean insertClientMasterData(ResourceMasterBean resourceMasterBean){
 		if(isValid(resourceMasterBean)){
