@@ -50,7 +50,7 @@ public class IndividualClientReportSql {
 	
 				  //************************* summary ************************************************
 	
-	public static final String loadRidListSummay= "select * from vw_individual_client_report where client_id = ? ";
+	public static final String loadRidListSummay= "select * from vw_individual_client_report where req_id = ? ";
 	
 	public static final String loadStatusSummmary = "select final_status, total_count from vw_status_count where req_id = ? ";
 	

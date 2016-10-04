@@ -1279,7 +1279,6 @@ public static ArrayList<IndividualClientReportBean> loadRidListWithDateRange(Dat
 	    			list.add(pb.getReqId());
 	    		}
 	    	}
-	    	System.out.println("R I D LI ST >>> >> > " + list);
 	    	
 	    	try {
 	    		Connection connection = null;
@@ -1304,14 +1303,11 @@ public static ArrayList<IndividualClientReportBean> loadRidListWithDateRange(Dat
 							   parentBean.setStatusFieldVis(false);
 							   parentBean.setNoOfResourcesVis(false);
 							   
-							   
 							   parentBean.setRidLbFieldVis(true);
 							   parentBean.setRidDateFieldVis(true);
 							   parentBean.setClNameLbFieldVis(true);
 							   parentBean.setSklStLbFieldVis(true);
 							   parentBean.setNoOfReqVis(true);
-							   
-							   
 							   
 							   summarList.add(parentBean);
 							   

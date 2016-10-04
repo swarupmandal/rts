@@ -75,6 +75,7 @@ public class IndividualClientReportViewModel {
 	   @NotifyChange("*")
 	   public void onSelctClientName(){
 		   clnBandBox.close();
+		   summaryBeanList.clear();
 		   reportBeanList.clear();
 		   
 		   reportBeanList = IndividualClientReportService.loadRidList(individualClientReportBean.clientInformationBean.getClientId());
@@ -96,7 +97,7 @@ public class IndividualClientReportViewModel {
 	   public void onChangeFromDate(){
 		   
 		   reportBeanList.clear();
-		   
+		   summaryBeanList.clear();
 		   individualClientReportBean.skillsetMasterbean.setSkillset(null);
 		   skillList = RequirementGenerationService.fetchSkillSetList();
 		   
@@ -111,7 +112,7 @@ public class IndividualClientReportViewModel {
 	   @Command
 	   @NotifyChange("*")
 	   public void onChangeToDate(){
-		   
+		   summaryBeanList.clear();
 		   individualClientReportBean.skillsetMasterbean.setSkillset(null);
 		   skillList = RequirementGenerationService.fetchSkillSetList();
 		   
@@ -148,7 +149,7 @@ public class IndividualClientReportViewModel {
 	   @NotifyChange("*")
 	   public void onSelectStatusName(){
 		   
-		   
+		   summaryBeanList.clear();
 		  if(individualClientReportBean.clientInformationBean.getClientId() != null){
 			  
 			  
@@ -189,6 +190,7 @@ public class IndividualClientReportViewModel {
 	   @NotifyChange("*")
 	   public void onSelctSkillName(){
 		   skStBandBox.close();
+		   summaryBeanList.clear();
 		   reportBeanList.clear();
 		   individualClientReportBean.statusMasterBean.setStatus(null);
 		   statusList = ResourceMasterDao.onLoadStatus();
@@ -234,7 +236,7 @@ public class IndividualClientReportViewModel {
 	   @NotifyChange("*")
 	   public void onClickClear(){
 		   
-		   
+		   summaryBeanList.clear();
 		   reportBeanList.clear();
 		   individualClientReportBean.clientInformationBean.setFullName(null);
 		   clientList = ResourceAllocationTrackingService.fetchClientDetails();
@@ -253,26 +255,16 @@ public class IndividualClientReportViewModel {
 	   @NotifyChange("*")
 	   public void onCheckDetailSummary(){
 		   
-		   Map<String, Integer> summaryMap = new HashMap<String, Integer>();
-		   if(summaryMap.size()>0){
-			   summaryMap.clear();
-		   }
-		   
 		   if(individualClientReportBean.getSelectedRadioButton().equals("detail")){
 			 individualClientReportBean.setDetailsDivVis(true);
 			 individualClientReportBean.setSummaryDivVis(false);
 			   
 		   }else {
 			   
-			 individualClientReportBean.setDetailsDivVis(false);
-			 ArrayList<Integer> list = new ArrayList<Integer>();
+			   individualClientReportBean.setDetailsDivVis(false);
+			   summaryBeanList = IndividualClientReportService.loadRidSummaryList(reportBeanList);
+			   individualClientReportBean.setSummaryDivVis(true);
 			 
-			 
-			 
-			 individualClientReportBean.setSummaryDivVis(true);
-			 
-			 
-			
 		}
 		   
 	   }

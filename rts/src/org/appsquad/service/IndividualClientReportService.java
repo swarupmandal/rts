@@ -56,5 +56,11 @@ public class IndividualClientReportService {
 		return list;
 	}
 	
+	public static ArrayList<IndividualClientReportBean> loadRidSummaryList(ArrayList<IndividualClientReportBean> summaryList){
+		ArrayList<IndividualClientReportBean> list = new ArrayList<IndividualClientReportBean>();
+		list = IndividualClientReportDao.loadRidSummary(summaryList);
+		return list;
+	}
+	
 	
 }
