@@ -293,6 +293,10 @@ public static ArrayList<IndividualClientReportBean> loadRidListWithDateRange(Dat
 					bean.setClientFullName(resultSet.getString("client_name"));
 					bean.setCompanyName(resultSet.getString("companyname"));  
 					
+					bean.setEmailId("");
+					bean.setIntIntvValue("");
+					bean.setClntIntvValue("");
+					
 					bean.setStyle(bean.getBoldStyle());
 					bean.setBackGroundStyle(bean.getBackGroundpaParent());
 					bean.setRidLbFieldVis(true); 
@@ -335,14 +339,23 @@ public static ArrayList<IndividualClientReportBean> loadRidListWithDateRange(Dat
 							subBean.setIntIntvStr(resultSet2.getString("internal_interview_date"));
 							if(subBean.getIntIntvStr() != null){
 								subBean.setIntIntvValue(Dateformatter.toStringDate(subBean.getIntIntvStr()));
+							}else {
+								subBean.setIntIntvValue("");
 							}
 							
 							subBean.setClntIntvStr(resultSet2.getString("client_interview_date"));
 							if(subBean.getClntIntvStr() != null){
 								subBean.setClntIntvValue(Dateformatter.toStringDate(subBean.getClntIntvStr()));
+							}else {
+								subBean.setClntIntvValue("");
 							}
 							
 							subBean.setStyle(subBean.getLighterStyle());
+							
+							subBean.setCompanyName(resultSet2.getString("other_info"));
+							if(subBean.getCompanyName() == null){
+								subBean.setCompanyName("");
+							}
 							
 							subBean.setRidLbFieldVis(true); 
 							subBean.setRidDatelbFieldVis(true);
@@ -432,7 +445,11 @@ public static ArrayList<IndividualClientReportBean> loadRidListWithDateRange(Dat
 						bean.setSkillSetLabel("Skill : " + resultSet.getString("master_skill_set_name")); 
 						
 						bean.setClientFullName(resultSet.getString("client_name"));
-						bean.setCompanyName(resultSet.getString("companyname"));  
+						bean.setCompanyName(resultSet.getString("companyname"));
+						
+						bean.setEmailId("");
+						bean.setIntIntvValue("");
+						bean.setClntIntvValue("");
 						
 						bean.setStyle(bean.getBoldStyle());
 						bean.setBackGroundStyle(bean.getBackGroundpaParent());
@@ -476,11 +493,20 @@ public static ArrayList<IndividualClientReportBean> loadRidListWithDateRange(Dat
 								subBean.setIntIntvStr(resultSet2.getString("internal_interview_date"));
 								if(subBean.getIntIntvStr() != null){
 									subBean.setIntIntvValue(Dateformatter.toStringDate(subBean.getIntIntvStr()));
+								}else {
+									subBean.setIntIntvValue("");
 								}
 								
 								subBean.setClntIntvStr(resultSet2.getString("client_interview_date"));
 								if(subBean.getClntIntvStr() != null){
 									subBean.setClntIntvValue(Dateformatter.toStringDate(subBean.getClntIntvStr()));
+								}else {
+									subBean.setClntIntvValue("");
+								}
+								
+								subBean.setCompanyName(resultSet2.getString("other_info"));
+								if(subBean.getCompanyName() == null){
+									subBean.setCompanyName("");
 								}
 								
 								subBean.setStyle(subBean.getLighterStyle());
@@ -574,6 +600,10 @@ public static ArrayList<IndividualClientReportBean> loadRidListWithDateRange(Dat
 						bean.setClientFullName(resultSet.getString("client_name"));
 						bean.setCompanyName(resultSet.getString("companyname"));  
 						
+						bean.setEmailId("");
+						bean.setIntIntvValue("");
+						bean.setClntIntvValue("");
+						
 						bean.setStyle(bean.getBoldStyle());
 						bean.setBackGroundStyle(bean.getBackGroundpaParent());
 						bean.setRidLbFieldVis(true); 
@@ -616,12 +646,21 @@ public static ArrayList<IndividualClientReportBean> loadRidListWithDateRange(Dat
 								subBean.setIntIntvStr(resultSet2.getString("internal_interview_date"));
 								if(subBean.getIntIntvStr() != null){
 									subBean.setIntIntvValue(Dateformatter.toStringDate(subBean.getIntIntvStr()));
+								}else {
+									subBean.setIntIntvValue("");
 								}
 								
 								subBean.setClntIntvStr(resultSet2.getString("client_interview_date"));
 								if(subBean.getClntIntvStr() != null){
 									subBean.setClntIntvValue(Dateformatter.toStringDate(subBean.getClntIntvStr()));
+								}else {
+									subBean.setClntIntvValue("");
 								}
+								subBean.setCompanyName(resultSet2.getString("other_info"));
+								if(subBean.getCompanyName() == null){
+									subBean.setCompanyName("");
+								}
+								
 								
 								subBean.setStyle(subBean.getLighterStyle());
 								
@@ -714,6 +753,10 @@ public static ArrayList<IndividualClientReportBean> loadRidListWithDateRange(Dat
 						bean.setClientFullName(resultSet.getString("client_name"));
 						bean.setCompanyName(resultSet.getString("companyname"));  
 						
+						bean.setEmailId("");
+						bean.setIntIntvValue("");
+						bean.setClntIntvValue("");
+						
 						bean.setStyle(bean.getBoldStyle());
 						bean.setBackGroundStyle(bean.getBackGroundpaParent());
 						bean.setRidLbFieldVis(true); 
@@ -756,11 +799,19 @@ public static ArrayList<IndividualClientReportBean> loadRidListWithDateRange(Dat
 								subBean.setIntIntvStr(resultSet2.getString("internal_interview_date"));
 								if(subBean.getIntIntvStr() != null){
 									subBean.setIntIntvValue(Dateformatter.toStringDate(subBean.getIntIntvStr()));
+								}else {
+									subBean.setIntIntvValue("");
 								}
 								
 								subBean.setClntIntvStr(resultSet2.getString("client_interview_date"));
 								if(subBean.getClntIntvStr() != null){
 									subBean.setClntIntvValue(Dateformatter.toStringDate(subBean.getClntIntvStr()));
+								}else {
+									subBean.setClntIntvValue("");
+								}
+								subBean.setCompanyName(resultSet2.getString("other_info"));
+								if(subBean.getCompanyName() == null){
+									subBean.setCompanyName("");
 								}
 								
 								subBean.setStyle(subBean.getLighterStyle());
@@ -854,6 +905,10 @@ public static ArrayList<IndividualClientReportBean> loadRidListWithDateRange(Dat
 						bean.setClientFullName(resultSet.getString("client_name"));
 						bean.setCompanyName(resultSet.getString("companyname"));  
 						
+						bean.setEmailId("");
+						bean.setIntIntvValue("");
+						bean.setClntIntvValue("");
+						
 						bean.setStyle(bean.getBoldStyle());
 						bean.setBackGroundStyle(bean.getBackGroundpaParent());
 						bean.setRidLbFieldVis(true); 
@@ -895,11 +950,19 @@ public static ArrayList<IndividualClientReportBean> loadRidListWithDateRange(Dat
 								subBean.setIntIntvStr(resultSet2.getString("internal_interview_date"));
 								if(subBean.getIntIntvStr() != null){
 									subBean.setIntIntvValue(Dateformatter.toStringDate(subBean.getIntIntvStr()));
+								}else {
+									subBean.setIntIntvValue("");
 								}
 								
 								subBean.setClntIntvStr(resultSet2.getString("client_interview_date"));
 								if(subBean.getClntIntvStr() != null){
 									subBean.setClntIntvValue(Dateformatter.toStringDate(subBean.getClntIntvStr()));
+								}else {
+									subBean.setClntIntvValue("");
+								}
+								subBean.setCompanyName(resultSet2.getString("other_info"));
+								if(subBean.getCompanyName() == null){
+									subBean.setCompanyName("");
 								}
 								
 								subBean.setStyle(subBean.getLighterStyle());
@@ -992,6 +1055,10 @@ public static ArrayList<IndividualClientReportBean> loadRidListWithDateRange(Dat
 						bean.setClientFullName(resultSet.getString("client_name"));
 						bean.setCompanyName(resultSet.getString("companyname"));  
 						
+						bean.setEmailId("");
+						bean.setIntIntvValue("");
+						bean.setClntIntvValue("");
+						
 						bean.setStyle(bean.getBoldStyle());
 						bean.setBackGroundStyle(bean.getBackGroundpaParent());
 						bean.setRidLbFieldVis(true); 
@@ -1033,11 +1100,19 @@ public static ArrayList<IndividualClientReportBean> loadRidListWithDateRange(Dat
 								subBean.setIntIntvStr(resultSet2.getString("internal_interview_date"));
 								if(subBean.getIntIntvStr() != null){
 									subBean.setIntIntvValue(Dateformatter.toStringDate(subBean.getIntIntvStr()));
+								}else {
+									subBean.setIntIntvValue("");
 								}
 								
 								subBean.setClntIntvStr(resultSet2.getString("client_interview_date"));
 								if(subBean.getClntIntvStr() != null){
 									subBean.setClntIntvValue(Dateformatter.toStringDate(subBean.getClntIntvStr()));
+								}else {
+									subBean.setClntIntvValue("");
+								}
+								subBean.setCompanyName(resultSet2.getString("other_info"));
+								if(subBean.getCompanyName() == null){
+									subBean.setCompanyName("");
 								}
 								
 								subBean.setStyle(subBean.getLighterStyle());
@@ -1131,6 +1206,10 @@ public static ArrayList<IndividualClientReportBean> loadRidListWithDateRange(Dat
 						bean.setClientFullName(resultSet.getString("client_name"));
 						bean.setCompanyName(resultSet.getString("companyname"));  
 						
+						bean.setEmailId("");
+						bean.setIntIntvValue("");
+						bean.setClntIntvValue("");
+						
 						bean.setStyle(bean.getBoldStyle());
 						bean.setBackGroundStyle(bean.getBackGroundpaParent());
 						bean.setRidLbFieldVis(true); 
@@ -1172,11 +1251,19 @@ public static ArrayList<IndividualClientReportBean> loadRidListWithDateRange(Dat
 								subBean.setIntIntvStr(resultSet2.getString("internal_interview_date"));
 								if(subBean.getIntIntvStr() != null){
 									subBean.setIntIntvValue(Dateformatter.toStringDate(subBean.getIntIntvStr()));
+								}else {
+									subBean.setIntIntvValue("");
 								}
 								
 								subBean.setClntIntvStr(resultSet2.getString("client_interview_date"));
 								if(subBean.getClntIntvStr() != null){
 									subBean.setClntIntvValue(Dateformatter.toStringDate(subBean.getClntIntvStr()));
+								}else {
+									subBean.setClntIntvValue("");
+								}
+								subBean.setCompanyName(resultSet2.getString("other_info"));
+								if(subBean.getCompanyName() == null){
+									subBean.setCompanyName("");
 								}
 								
 								subBean.setStyle(subBean.getLighterStyle());
