@@ -77,17 +77,18 @@
     		</div>
     		
     		<div visible="@bind(vm.individualClientReportBean.detailsDivVis)">
-    			<grid model="@bind(vm.reportBeanList)" mold="paging" pageSize="10">
+    			
+    			<grid model="@bind(vm.reportBeanList)" mold="paging" pageSize="10">	
     				
-    				<columns>	
-    					<column width="170px"></column>
-    					<column width="230px"></column>
-    					<column width="50px"></column>
-    					<column width="120px"></column>
-    					<column width="230px"></column>
-    					<column width="170px"></column>
-    					<column width="100px"></column>
-    					<column width="100px"></column>
+    				<columns sizable="true">	
+    					<column width="170px" label="STATUS" style="font-weight:bold; color: black"></column>
+    					<column width="230px" label="RESOURCE NAME" style="font-weight:bold; color: black" align="center"></column>
+    					<column width="70px"  label="Yr.of.Exp" style="font-weight:bold; color: black" align="center"></column>
+    					<column width="120px" label="CONTACT NO." style="font-weight:bold; color: black" align="center"></column>
+    					<column width="230px" label="EMAIL" style="font-weight:bold; color: black" align="center"></column>
+    					<column width="170px" label="OTHER INFO" style="font-weight:bold; color: black" align="center"></column>
+    					<column width="100px" label="Intrnl Intv. Dt." style="font-weight:bold; color: black" align="center"></column>
+    					<column width="100px" label="Intrnl Intv. Dt." style="font-weight:bold; color: black" align="center"></column>
     				</columns>
     				<rows>
     						
@@ -110,17 +111,13 @@
     		<div visible="@bind(vm.individualClientReportBean.summaryDivVis)">
     		
     			<grid model="@bind(vm.summaryBeanList)">
-    				<auxhead>
-    					<auxheader colspan="6" label="Status" align="left"></auxheader>
-    					<auxheader colspan="1" label="No. of resources" align="right"></auxheader>
-    				</auxhead>
     				
-    				<columns>
+    				<columns sizable="true">
+    				  <column label="Status" align="left" style="font-weight:bold; color: black"></column>
     				  <column></column>
     				  <column></column>
     				  <column></column>
-    				  <column></column>
-    				  <column align="right"></column>
+    				  <column label="No. of resources" align="right" style="font-weight:bold; color: black"></column>
     				  	
     				</columns>
     				<rows>
