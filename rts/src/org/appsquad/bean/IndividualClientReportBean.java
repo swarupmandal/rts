@@ -55,6 +55,8 @@ public class IndividualClientReportBean {
 	private String clntIntvValue;
 	private String clntIntvStr;
 	
+	private String resOtherInfo;
+	
 	private boolean detailsDivVis = false;
 	private boolean summaryDivVis = false;
 	
@@ -544,6 +546,12 @@ public class IndividualClientReportBean {
 	}
 	public void setBackGroundStyle(String backGroundStyle) {
 		this.backGroundStyle = backGroundStyle;
+	}
+	public String getResOtherInfo() {
+		return resOtherInfo;
+	}
+	public void setResOtherInfo(String resOtherInfo) {
+		this.resOtherInfo = resOtherInfo;
 	}
 	
 }
