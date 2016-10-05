@@ -21,5 +21,17 @@ public class ResourceAllocationTrackingSql {
 	public static final String updateOnboardDate = "update rts_res_onboard_dates set onboard_date = ?,created_by = ?,updated_by = ?, other_comments = ? where r_id = ? and resource_id = ? and client_id = ? ";
 	
 	public static final String countStatusTrackingTable = "select count(*) from rts_req_res_status_tracking where r_id = ? and resource_id = ? and status_id = ? ";
+			
+	public static final String getTypeIdWrtReqId = "select rtm.type_name from rts_requirement_master rrm,rts_type_master rtm "
+												  +"where rrm.type_id = rtm.type_id and rrm.r_id = ? ";	
 	
+	public static final String updateRejectedSqlPer = "update rts_requirement_master set num_of_per_res_allocated = ? where r_id= ? ";
+	public static final String updateRejectedSqlCon = "update rts_requirement_master set num_of_con_res_allocated = ? where r_id= ? ";
+	
+	public static final String fetchConData = "select num_of_con_res_allocated from rts_requirement_master where r_id= ? ";
+	public static final String fetchPerData = "select num_of_per_res_allocated from rts_requirement_master where r_id= ? ";
+	
+	public static final String insertIntoRejectMapper = "insert into rts_reject_mapper (req_id,res_id,client_id,created_by) values (?,?,?,?) ";
+	
+	public static final String updateResourceTable = "update rts_resource_master set non_allocable_or_not = 'N' where id = ? ";
 }

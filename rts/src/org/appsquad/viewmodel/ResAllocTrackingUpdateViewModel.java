@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.appsquad.bean.ResourceAllocationTrackingBean;
 import org.appsquad.bean.StatusMasterBean;
+import org.appsquad.dao.ResourceAllocationTrackingDao;
 import org.appsquad.dao.ResourceMasterDao;
 import org.appsquad.service.ResourceAllocationTrackingService;
 import org.zkoss.bind.BindUtils;
@@ -26,6 +27,8 @@ public class ResAllocTrackingUpdateViewModel {
 	   private String userId;
 	   private Integer req_id;
 	   private int clientId;
+	   private Integer typeId;
+	   private String typeName;
 	   @Wire("#winResAllocTracking")
 	   private Window winResAllocTracking;
 	
@@ -146,7 +149,7 @@ public class ResAllocTrackingUpdateViewModel {
 	@Command
 	@NotifyChange("*")
 	public void onClickUpdate(){
-		int i = 0, j= 0, k= 0, l=0, comparison = 0, p = 0,m = 0,n = 0;
+		int i = 0, j= 0, k= 0, l=0, comparison = 0, p = 0,m = 0,n = 0,r = 0,s = 0,a = 0;
 		
 		if(statusBean.getStatusId()>0){
 			if(trackingUpdateBean.getPreviousStatusId()==statusBean.getStatusId()){
@@ -192,7 +195,33 @@ public class ResAllocTrackingUpdateViewModel {
 			n = ResourceAllocationTrackingService.insertOnboardDate(req_id, trackingUpdateBean.resourceMasterBean.getResourceId(), clientId, trackingUpdateBean.getOnboardDate(), userId, trackingUpdateBean.getOtherDetails());
 		}
 		
-		if(i>0 || j>0 || p>0 || k>0 || l>0 || n>0 || m>0){
+		
+		if(trackingUpdateBean.getStatus().equalsIgnoreCase("DECLINED") || 
+				trackingUpdateBean.getStatus().equalsIgnoreCase("TECHNICALLY REJECTED ") || 
+				   trackingUpdateBean.getStatus().equalsIgnoreCase("REJECTED BY CLIENT ")){
+			
+			System.out.println("RESOURCE ID IS :"+trackingUpdateBean.getResourceMasterBean().getResourceId());
+			System.out.println("REQ ID IS :"+req_id);
+			System.out.println("Client Id is :"+clientId);
+			System.out.println("type name is :"+trackingUpdateBean.getResourceType());
+			typeName = ResourceAllocationTrackingDao.getTypeName(req_id);
+			r = ResourceAllocationTrackingService.updateRejectedStatus(req_id, trackingUpdateBean.getResourceMasterBean().getResourceId(), clientId, typeName);
+			System.out.println("R IS :"+r);
+			if(r>0){
+				s = ResourceAllocationTrackingService.insertRejectStatusIntoMapper(req_id, trackingUpdateBean.getResourceMasterBean().getResourceId(), clientId, userId);
+			}
+			if(s>0){
+				a = ResourceAllocationTrackingService.updateResourceTable(trackingUpdateBean.getResourceMasterBean().getResourceId());
+			}
+			System.out.println("S IS :"+s);
+			System.out.println("A IS :"+a);
+		}
+		
+		if(i>0 && a>0){
+			Messagebox.show("Successfully Rejected", "Information", Messagebox.OK, Messagebox.INFORMATION);
+	    	winResAllocTracking.detach();
+	    	BindUtils.postGlobalCommand(null, null, "reLoadTrack", null);	
+		}else if(i>0 || j>0 || p>0 || k>0 || l>0 || n>0 || m>0){
 	    	Messagebox.show("Date Saved Successfully", "Information", Messagebox.OK, Messagebox.INFORMATION);
 	    	winResAllocTracking.detach();
 	    	BindUtils.postGlobalCommand(null, null, "reLoadTrack", null);	
@@ -249,5 +278,17 @@ public class ResAllocTrackingUpdateViewModel {
 	}
 	public void setWinResAllocTracking(Window winResAllocTracking) {
 		this.winResAllocTracking = winResAllocTracking;
+	}
+	public Integer getTypeId() {
+		return typeId;
+	}
+	public void setTypeId(Integer typeId) {
+		this.typeId = typeId;
+	}
+	public String getTypeName() {
+		return typeName;
+	}
+	public void setTypeName(String typeName) {
+		this.typeName = typeName;
 	}
 }
