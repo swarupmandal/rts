@@ -1,7 +1,7 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
 <window title="SORT CRITERIA : RID/STATUS" border="none" apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('org.appsquad.viewmodel.IndividualClientReportViewModel')">
+		viewModel="@id('vm') @init('org.appsquad.viewmodel.IndividualClientReportViewModel')" contentStyle="overflow:scroll">
     		
     		<div>
     			<hlayout spacing="20px">
@@ -76,115 +76,32 @@
     			</hlayout>
     		</div>
     		
-    		
-    		
-    		<!-- <div visible="@bind(vm.individualClientReportBean.detailsDivVis)">
-    		  <grid model="@bind(vm.reportBeanList)" mold="paging" pageSize="10">
-    		     <auxhead>
-    		  		<auxheader colspan="4" align="center">
-    		  			<label value="Status" style="font-weight:bold; color: black"></label>
-    		  		</auxheader>
-    		  		<auxheader colspan="4" align="center">
-    		  			<label value="Resource Name" style="font-weight:bold; color: black"></label>
-    		  		</auxheader>
-    		  		<auxheader colspan="4" align="center">
-    		  		    <label value="Year of Exp" style="font-weight:bold; color: black"></label>
-    		  		</auxheader>
-    		  		<auxheader align="center" colspan="4">
-    		  			<label value="Contact No" style="font-weight:bold; color: black"></label>
-    		  		</auxheader>
-    		  		<auxheader align="center" colspan="4">
-    		  			<label value="Email" style="font-weight:bold; color: black"></label>
-    		  		</auxheader>
-    		  		<auxheader align="center" colspan="4">
-    		  			<label value="Internal Interview Date" style="font-weight:bold; color: black"></label>
-    		  		</auxheader>
-    		  		<auxheader align="center" colspan="4">
-    		  			<label value="Client Interview Date" style="font-weight:bold; color: black"></label>
-    		  		</auxheader>	
-    		  	 </auxhead>
-    		  	 
-    		  	<columns sizable="true">
-    		  		<column></column>
-    		  		<column></column>
-    		  		<column></column>
-    		  		<column></column>
-    		  		<column></column>
-    		  		<column></column>
-    		  		<column></column>
-    		  		<column></column>
-    		  		<column></column>
-    		  		<column></column>
-    		  		<column></column>
-    		  		<column></column>
-    		  		<column></column>
-    		  		<column></column>
-    		  		<column></column>
-    		  		<column></column>
-    		  		
-    		 
-    		  	</columns>
-    		  	
-    		  	<rows>
-    		  	  <template name="model" var="v">
-    		  		<row>
-    		  		  
-    		  		    <label value="@bind(v.rIdLabel)" style="font-weight:bold; color: black" visible="@bind(v.ridLbFieldVis)"></label>
-    		  			<textbox value="@bind(v.status)" visible="@bind(v.statusFieldVis)"></textbox>
-    		  			
-    		  			<label value="@bind(v.reqId)" style="font-weight:bold; color: black" visible="@bind(v.ridFieldVis)"></label>
-    		  			<textbox value="@bind(v.resourceName)" visible="@bind(v.resNameFieldVis)"></textbox>
-    		  		  
-    		  			<label value="@bind(v.rIdDateLabel)" style="font-weight:bold; color: black" visible="@bind(v.ridDatelbFieldVis)"></label>
-    		  			<textbox value="@bind(v.yoExp)" visible="@bind(v.yoExpFieldVis)"></textbox>
-    		  			
-    		  			<label value="@bind(v.createdDateValue)" style="font-weight:bold; color: black" visible="@bind(v.ridDateFieldVis)"></label>
-    		  			<textbox value="@bind(v.contNo)" visible="@bind(v.contNoFieldVis)"></textbox>
-    		  			
-    		  			<label value="@bind(v.skillSetLabel)" style="font-weight:bold; color: black" visible="@bind(v.sklStLbFieldVis)"></label>
-    		  			<textbox value="@bind(v.emailId)" visible="@bind(v.emailFieldVis)"></textbox>
-    		  			
-    		  			<label value="@bind(v.skillSet)" style="font-weight:bold; color: black" visible="@bind(v.sklStFieldVis)"></label>
-    		  			<label></label>
-    		  			
-    		  			<label value="@bind(v.clientFullName)" style="font-weight:bold; color: black"></label>
-    		  			<textbox value="@bind(v.intIntvValue)" visible="@bind(v.intIntvDateFieldVis)"></textbox>
-    		  			
-    		  			<label value="@bind(v.companyName)" style="font-weight:bold; color: black"></label>
-    		  			<textbox value="@bind(v.clntIntvValue)" visible="@bind(v.clIntvDateFieldVis)"></textbox>
-    		  			
-    		  		</row>
-    		  	 </template>	
-    		  	</rows>
-    		  </grid>
-    		</div> -->
-    		
     		<div visible="@bind(vm.individualClientReportBean.detailsDivVis)">
-    			<grid model="@bind(vm.reportBeanList)" mold="paging" pageSize="10">
+    			
+    			<grid model="@bind(vm.reportBeanList)" mold="paging" pageSize="10">	
     				
-    				
-    				<columns>	
-    					<column></column>
-    					<column></column>
-    					<column></column>
-    					<column></column>
-    					<column></column>
-    					<column></column>
-    					<column></column>
-    					<column></column>
+    				<columns sizable="true">	
+    					<column width="170px" label="STATUS" style="font-weight:bold; color: black"></column>
+    					<column width="230px" label="RESOURCE NAME" style="font-weight:bold; color: black" align="center"></column>
+    					<column width="70px"  label="Yr.of.Exp" style="font-weight:bold; color: black" align="center"></column>
+    					<column width="120px" label="CONTACT NO." style="font-weight:bold; color: black" align="center"></column>
+    					<column width="230px" label="EMAIL" style="font-weight:bold; color: black" align="center"></column>
+    					<column width="170px" label="OTHER INFO" style="font-weight:bold; color: black" align="center"></column>
+    					<column width="100px" label="Intrnl Intv. Dt." style="font-weight:bold; color: black" align="center"></column>
+    					<column width="100px" label="Client Intv. Dt." style="font-weight:bold; color: black" align="center"></column>
     				</columns>
     				<rows>
     						
-    				  <template name="mdoel" var = "v">
-    					<row>
-    				  		<label></label>
-    				  		<label></label>
-    				  		<label></label>
-    				  		<label></label>
-    				  		<label></label>
-    				  		<label></label>
-    				  		<label></label>
-    				  		<label></label>
+    				  <template name="model" var = "v">
+    					<row style="@bind(v.backGroundStyle)">
+    				  		<label value="@bind(v.rIdLabel)" visible="@bind(v.ridLbFieldVis)" style="@bind(v.style)" width="98%"></label>
+    				  		<label value="@bind(v.rIdDateLabel)" visible="@bind(v.ridDatelbFieldVis)" style="@bind(v.style)" width="98%"></label>
+    				  		<label value="@bind(v.yoExp)" visible="@bind(v.yoExpFieldVis)" style="@bind(v.style)" width="98%"></label>
+    				  		<label value="@bind(v.skillSetLabel)" visible="@bind(v.sklStLbFieldVis)" style="@bind(v.style)" width="98%"></label>
+    				  		<label value="@bind(v.emailId)" visible="@bind(v.emailFieldVis)" style="@bind(v.style)" width="98%"></label>
+    				  		<label value="@bind(v.companyName)" visible="@bind(v.companyFieldVis)" style="@bind(v.style)" width="98%"></label>
+    				  		<label value="@bind(v.intIntvValue)" visible="@bind(v.intIntvDateFieldVis)" style="@bind(v.style)" width="98%"></label>
+    				  		<label value="@bind(v.clntIntvValue)" visible="@bind(v.clIntvDateFieldVis)" style="@bind(v.style)" width="98%"></label>
     				  	</row>
     				  </template>	
     				</rows>
@@ -194,22 +111,18 @@
     		<div visible="@bind(vm.individualClientReportBean.summaryDivVis)">
     		
     			<grid model="@bind(vm.summaryBeanList)">
-    				<auxhead>
-    					<auxheader colspan="6" label="Status" align="left"></auxheader>
-    					<auxheader colspan="1" label="No. of resources" align="right"></auxheader>
-    				</auxhead>
     				
-    				<columns>
+    				<columns sizable="true">
+    				  <column label="Status" align="left" style="font-weight:bold; color: black"></column>
     				  <column></column>
     				  <column></column>
     				  <column></column>
-    				  <column></column>
-    				  <column align="right"></column>
+    				  <column label="No. of resources" align="right" style="font-weight:bold; color: black"></column>
     				  	
     				</columns>
     				<rows>
     				  <template name="model" var = "v">
-    				   <row>
+    				   <row style="@bind(v.backGroundStyle)">
     				    
     				    <label value="@bind(v.rIdLabel)" visible="@bind(v.ridLbFieldVis)" style="@bind(v.style)"></label>
     				   
@@ -227,6 +140,14 @@
     			</grid>
     		
     		</div>
+    		<space></space>
+    		<div align="right">
+    			<button label="Generate Excel" style="font-weight:bold" height="25px" onClick="@command('onClickExcel')"></button>
+    			<button label="Generate Pdf" style="font-weight:bold"></button>	
+    		
+    		
+    		</div>
+    		
     		
 
 </window>

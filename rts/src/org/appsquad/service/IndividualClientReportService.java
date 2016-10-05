@@ -11,6 +11,7 @@ public class IndividualClientReportService {
 	public static ArrayList<IndividualClientReportBean> loadRidList(int clientId){
 		ArrayList<IndividualClientReportBean> list = new ArrayList<IndividualClientReportBean>();
 		list = IndividualClientReportDao.loadRidList(clientId);
+		//list = IndividualClientReportDao.loadRidListTest(clientId);
 		return list;
 	}
 	

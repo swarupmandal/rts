@@ -82,10 +82,12 @@ public class IndividualClientReportBean {
 	private boolean noOfReqVis = false;
 	private boolean noOfResourcesVis = false;
 	
-	private String boldStyle = "font-weight: bold; color: #870525";
+	private String boldStyle = "font-weight: bold; color: black";
 	private String lighterStyle = "font-weight: lighter; color: black";
+	private String backGroundpaParent = "background-color: pink";
+	//private String backGroundpaParent = "background-color: yellow";
 	private String style;
-	
+	private String backGroundStyle;
 	
 	private Integer r_idSearch;
 	
@@ -530,6 +532,18 @@ public class IndividualClientReportBean {
 	}
 	public void setStyle(String style) {
 		this.style = style;
+	}
+	public String getBackGroundpaParent() {
+		return backGroundpaParent;
+	}
+	public void setBackGroundpaParent(String backGroundpaParent) {
+		this.backGroundpaParent = backGroundpaParent;
+	}
+	public String getBackGroundStyle() {
+		return backGroundStyle;
+	}
+	public void setBackGroundStyle(String backGroundStyle) {
+		this.backGroundStyle = backGroundStyle;
 	}
 	
 }

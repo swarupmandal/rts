@@ -15,6 +15,7 @@ import org.appsquad.service.IndividualClientReportService;
 import org.appsquad.service.RequirementGenerationService;
 import org.appsquad.service.ResourceAllocationTrackingService;
 import org.appsquad.utility.Dateformatter;
+import org.appsquad.utility.IndividualClientReportExcel;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
@@ -270,6 +271,15 @@ public class IndividualClientReportViewModel {
 	   }
 	   
 	   
+	@Command
+	@NotifyChange("*")
+	public void onClickExcel(){
+		IndividualClientReportExcel.printCSV(reportBeanList);
+		
+		
+	}
+	
+	
 	
 	public ArrayList<SkillsetMasterbean> getSkillList() {
 		return skillList;
