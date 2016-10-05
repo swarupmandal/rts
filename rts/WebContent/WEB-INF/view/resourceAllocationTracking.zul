@@ -40,7 +40,7 @@
 				<listbox width="300px" model="@bind(vm.requirementGenerationBeanList)" 
 				     selectedItem="@bind(vm.requirementGenerationBean)" onSelect="@command('onSelctReqId')" mold="paging" pageSize="5">
 					<listhead sizable="true">
-						<listheader label="Req Id"></listheader>
+						<listheader label="Req Id" width="45px"></listheader>
 						<listheader label="Date"></listheader>
 						<listheader label="Type"/>
 						<listheader label="Skill"></listheader>
