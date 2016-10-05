@@ -58,6 +58,14 @@ public class RequirementGenerationService {
 		return count;
 	}
 	
+	public static boolean getReqAllEqual(int rId){
+		boolean flag = false;
+		flag = RequirementGenerationDao.isequalResource(rId);
+		return flag;
+	}
+	
+	
+	
 	public static boolean isValid(RequirementGenerationBean bean){
 		if(bean.getClientId()>0){
 				if(bean.getReqSkillId()>0){

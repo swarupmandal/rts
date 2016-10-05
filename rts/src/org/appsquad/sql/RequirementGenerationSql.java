@@ -2,6 +2,9 @@ package org.appsquad.sql;
 
 public class RequirementGenerationSql {
 	
+	public static final String selReqAllocationEqual="select req_no_of_per_res+req_no_of_con_res as reqiured_res, num_of_per_res_allocated + num_of_con_res_allocated as allocated_res from rts_requirement_master where r_id= ? ";
+
+	
 	public static final String loadClientName = "	select id, name, surname from rts_clients_master where is_delete = 'N' ";
 	
 	public static final String loadSkillSetName = "	select id, master_skill_set_name, skill_set_details from rts_skill_master where is_delete = 'N' ";
