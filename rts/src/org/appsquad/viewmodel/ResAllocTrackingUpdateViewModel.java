@@ -47,6 +47,7 @@ public class ResAllocTrackingUpdateViewModel {
 		req_id = r_id;
 		clientId = clId;
 		trackingUpdateBean = bean;
+		System.out.println("FETCHED STATUS IS :"+trackingUpdateBean.getStatus()+"--------"+"FETCHED STATUS ID IS :"+trackingUpdateBean.getStatusId());
 		if(trackingUpdateBean.getInternalInterviewDate()!=null){
 			trackingUpdateBean.setPreviousInternalInterviewDate(trackingUpdateBean.getInternalInterviewDate());
 			trackingUpdateBean.setPreviousStatusId(trackingUpdateBean.getStatusId());
@@ -74,6 +75,32 @@ public class ResAllocTrackingUpdateViewModel {
 	@NotifyChange("*")
 	public void onSelectStatus(){
 		trackingUpdateBean.setStatusId(statusBean.getStatusId());
+		trackingUpdateBean.setStatus(statusBean.getStatus());
+		System.out.println("SELECTED STATUS NAME IS :"+trackingUpdateBean.getStatus()+"-----------"+"ID IS :"+trackingUpdateBean.getStatusId());
+		final String status1 = "INTERVIEW SCHEDULED";
+		final String status2 = "TECHNICALLY SELECTED ";
+		final String status3 = "ON-BOARDING ";
+		
+		switch (trackingUpdateBean.getStatus()) {
+		  case status1:
+		        trackingUpdateBean.setInternalInterviewDateDisable(false);
+				trackingUpdateBean.setClientInterviewDateDisable(true);
+				trackingUpdateBean.setOnboardInterviewDateDisable(true);
+		        break;
+		  case status2: 
+		        trackingUpdateBean.setClientInterviewDateDisable(false);
+				trackingUpdateBean.setInternalInterviewDateDisable(true);
+				trackingUpdateBean.setOnboardInterviewDateDisable(true);
+		        break;
+		  case status3:
+		        trackingUpdateBean.setOnboardInterviewDateDisable(false);
+				trackingUpdateBean.setInternalInterviewDateDisable(true);
+				trackingUpdateBean.setClientInterviewDateDisable(true);
+		        break;      
+		  default:
+		        System.out.println("default");
+		        break;
+		}
 	}
 	
 	@Command
@@ -177,11 +204,9 @@ public class ResAllocTrackingUpdateViewModel {
 	public void setClientId(int clientId) {
 		this.clientId = clientId;
 	}
-
 	public Window getWinResAllocTracking() {
 		return winResAllocTracking;
 	}
-
 	public void setWinResAllocTracking(Window winResAllocTracking) {
 		this.winResAllocTracking = winResAllocTracking;
 	}

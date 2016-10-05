@@ -1,70 +1,70 @@
-<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<?page title="EDIT" contentType="text/html;charset=UTF-8"?>
 <zk>
 <window title="RESOURCE  ALLOCATION  STATUS  TRACKING" border="none" apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('org.appsquad.viewmodel.ResAllocTrackingUpdateViewModel')" closable="true" height="500px" width="700px"
-		  id="winResAllocTracking">
+		   viewModel="@id('vm') @init('org.appsquad.viewmodel.ResAllocTrackingUpdateViewModel')" closable="true" height="396px" width="700px"
+		               id="winResAllocTracking">
 		
 		<div>
-		   <hlayout spacing="44px">
-			  <label value="Resource Name" style="font-weight: bold"></label>
-			  <textbox value="@bind(vm.trackingUpdateBean.resourceMasterBean.fullName)" width="250px" readonly="true"></textbox>
-		   </hlayout>
-		</div>
-		
-		<space></space>
-		<div>
-		   <hlayout spacing="51px">	
-		   	<label value="Resource Type" style="Font-weight: bold"></label>
-		   	<textbox value="@bind(vm.trackingUpdateBean.resourceType)" readonly="true"></textbox>	
-		   </hlayout>	 
-		</div>
-		
-		<space></space>
-		<div>
-		   <hlayout spacing="53px">	
-		   <label value="Current Status" style="Font-weight: bold"></label>
+				<grid>
+					<columns>
+						<column width="20%"></column>
+						<column width="70%"></column>
+					</columns>
+					
+					<rows>
+						<row>
+			  				<label value="Resource Name" style="font-weight: bold"></label>
+			  					<textbox value="@bind(vm.trackingUpdateBean.resourceMasterBean.fullName)" width="250px" readonly="true"></textbox>			
+						  	
+						</row>
+						
+						<row>
+						  <label value="Resource Type" style="Font-weight: bold"></label>
+		   					<textbox value="@bind(vm.trackingUpdateBean.resourceType)" readonly="true" width="200px"></textbox>
+						</row>
+						
+						<row>
+						   <label value="Current Status" style="Font-weight: bold"></label>
 		   	
-		   	<combobox value="@bind(vm.trackingUpdateBean.status)" selectedItem="@bind(vm.statusBean)" 
-		   	  model="@bind(vm.statusBeanList)" readonly="true" width="200px" onSelect="@command('onSelectStatus')">
-		   	  <template name="model" var="v">
-		   		<comboitem label="@bind(v.status)" value="@bind(v.statusId)"></comboitem>
-		   	  </template>
-		   	</combobox>
-		   
-		   </hlayout>	 
-		</div>
-		
-		<space></space>
-		<div>
-		   <hlayout spacing="9px">	
-		    <label value="Internal Interview Date" style="Font-weight: bold"></label>
-		    <datebox value="@bind(vm.trackingUpdateBean.internalInterviewDate)"></datebox>	
-		   </hlayout>	 
-		</div>
-		
-		<space></space>
-		<div>
-		   <hlayout spacing="18px">	
-		    <label value="Client Interview Date" style="Font-weight: bold"></label>
-		    <datebox value="@bind(vm.trackingUpdateBean.clientInterviewDate)"></datebox>	
-		   </hlayout>	 
-		</div>
-		
-		<space></space>
-		<div>
-		   <hlayout spacing="55px">	
-		    <label value="Onboard Date" style="Font-weight: bold"></label>
-		    <datebox value="@bind(vm.trackingUpdateBean.onboardDate)"></datebox>	
-		   </hlayout>	 
-		</div>
-		
-		<space></space>
-		<div>
-		<space></space> 	
-			<hlayout spacing="135px">
-			<label></label>
-			<button label="Update" width="120px" style="font-weight: bold" onClick="@command('onClickUpdate')"></button>
-			</hlayout>
-		</div>
-</window>
+						   	<combobox value="@bind(vm.trackingUpdateBean.status)" selectedItem="@bind(vm.statusBean)" 
+						   	  model="@bind(vm.statusBeanList)" readonly="true" width="200px" onSelect="@command('onSelectStatus')">
+						   	  <template name="model" var="v">
+						   		<comboitem label="@bind(v.status)" value="@bind(v.statusId)"></comboitem>
+						   	  </template>
+						   	</combobox>
+						</row>
+					
+						<row>
+						 <label value="Other Comments" style="Font-weight: bold"></label>
+						 <textbox value="@bind(vm.trackingUpdateBean.otherDetails)" rows="7" width="200px"></textbox>
+						</row>
+						
+						<row>
+						 <label value="Internal Interview Date" style="Font-weight: bold"></label>
+		    				<datebox value="@bind(vm.trackingUpdateBean.internalInterviewDate)" width="200px"
+		    				  disabled="@bind(vm.trackingUpdateBean.internalInterviewDateDisable)"></datebox>	
+						</row>
+						
+						<row>
+						  <label value="Client Interview Date" style="Font-weight: bold"></label>
+		    				<datebox value="@bind(vm.trackingUpdateBean.clientInterviewDate)" width="200px"
+		    				  disabled="@bind(vm.trackingUpdateBean.clientInterviewDateDisable)"></datebox>	
+						</row>
+						
+						<row>
+						   <label value="Onboard Date" style="Font-weight: bold"></label>
+		    					<datebox value="@bind(vm.trackingUpdateBean.onboardDate)" width="200px"
+		    					  disabled="@bind(vm.trackingUpdateBean.onboardInterviewDateDisable)"></datebox>	
+					   </row>
+					   
+					   <row>
+					     <label></label>
+					     <button label="Update" width="120px" style="font-weight: bold" onClick="@command('onClickUpdate')"></button>
+					   </row>
+						
+					</rows>
+				</grid>
+			</div>
+			<space></space>
+	</window>
 </zk>

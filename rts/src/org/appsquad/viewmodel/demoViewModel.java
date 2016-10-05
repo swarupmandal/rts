@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.appsquad.bean.DemoBean;
 import org.appsquad.dao.DemoDao;
+import org.appsquad.service.RequirementGenerationService;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
