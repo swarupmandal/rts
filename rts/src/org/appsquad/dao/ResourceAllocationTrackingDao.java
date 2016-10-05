@@ -13,10 +13,10 @@ import org.appsquad.bean.ClientInformationBean;
 import org.appsquad.bean.RequirementGenerationBean;
 import org.appsquad.bean.ResourceAllocationTrackingBean;
 import org.appsquad.database.DbConnection;
+import org.appsquad.sql.ResourceAllocationSql;
 import org.appsquad.sql.ResourceAllocationTrackingSql;
 import org.appsquad.utility.Dateformatter;
 import org.appsquad.utility.Pstm;
-
 
 public class ResourceAllocationTrackingDao {
 	final static Logger logger = Logger.getLogger(ResourceAllocationTrackingDao.class);
@@ -105,16 +105,16 @@ public class ResourceAllocationTrackingDao {
 			ResultSet resultSet = null;
 			try {
 				connection = DbConnection.createConnection();
-				preparedStatement = Pstm.createQuery(connection, ResourceAllocationTrackingSql.loadReqIdList, Arrays.asList(clId));
-				
-				//logger.info(" fetchReqirmentDetails- " + preparedStatement.unwrap(PreparedStatement.class));
+				preparedStatement = Pstm.createQuery(connection, ResourceAllocationSql.fetchRequirementSql, Arrays.asList(clId));
 				
 				resultSet = preparedStatement.executeQuery();
 				while (resultSet.next()) {
 					RequirementGenerationBean bean = new RequirementGenerationBean();
 					bean.setReq_id(resultSet.getInt("r_id"));
 					bean.setReqSkill(resultSet.getString("master_skill_set_name"));
-					bean.setOcStatus(resultSet.getString("status"));
+					bean.getResourceTypeBean().setResourceTypeName(resultSet.getString("type_name"));
+					bean.getResourceTypeBean().setResourceTypeId(resultSet.getInt("type_id"));
+					bean.setRaiseDateStr(resultSet.getString("req_raise_date"));
 					
 					list.add(bean);
 				}
@@ -377,7 +377,7 @@ public class ResourceAllocationTrackingDao {
 		return i;
 	}
 	
-	public static int intInterviewDate(Integer rId, int resId,int clientId, Date date, String userId){
+	public static int intInterviewDate(Integer rId, int resId,int clientId, Date date, String userId, String otherComments){
 		int i = 0;
 		try {
 			Connection connection = null;
@@ -395,8 +395,14 @@ public class ResourceAllocationTrackingDao {
 				}
 				preparedStatement.setString(5, userId);
 				preparedStatement.setString(6, userId);
+				if(otherComments!=null){
+					preparedStatement.setString(7, otherComments);	
+				}else{
+					preparedStatement.setNull(7, Types.VARCHAR);
+				}
 				
-				//logger.info(" intInterviewDate- " + preparedStatement.unwrap(PreparedStatement.class));
+				
+				logger.info(" intInterviewDate- " + preparedStatement.unwrap(PreparedStatement.class));
 				
 				i = preparedStatement.executeUpdate();
 			}catch(Exception e){
@@ -415,7 +421,7 @@ public class ResourceAllocationTrackingDao {
 		return i;
 	}
 	
-	public static int updateInterviewDate(Integer rId, int resId,int clientId, Date date, String userId){
+	public static int updateInterviewDate(Integer rId, int resId,int clientId, Date date, String userId, String otherComments){
 		int j = 0;
 		try {
 			Connection connection = null;
@@ -430,10 +436,16 @@ public class ResourceAllocationTrackingDao {
 				}
 				preparedStatement.setString(2, userId);
 				preparedStatement.setString(3, userId);
-				preparedStatement.setInt(4, rId);
-				preparedStatement.setInt(5, resId);
-				preparedStatement.setInt(6, clientId);
-				//logger.info(" updateInterviewDate- " + preparedStatement.unwrap(PreparedStatement.class));
+				if(otherComments!=null){
+					preparedStatement.setString(4, otherComments);	
+				}else{
+					preparedStatement.setNull(4, Types.VARCHAR);
+				}
+				preparedStatement.setInt(5, rId);
+				preparedStatement.setInt(6, resId);
+				preparedStatement.setInt(7, clientId);
+				
+				logger.info(" updateInterviewDate- " + preparedStatement.unwrap(PreparedStatement.class));
 				
 				j = preparedStatement.executeUpdate();
 			}catch(Exception e){
@@ -452,7 +464,7 @@ public class ResourceAllocationTrackingDao {
 		return j;
 	}
 	
-	public static int clientInterviewDate(Integer rId, int resId,int clientId, Date date, String userId){
+	public static int clientInterviewDate(Integer rId, int resId,int clientId, Date date, String userId, String otherComments){
 		int i = 0;
 		try {
 			Connection connection = null;
@@ -470,9 +482,13 @@ public class ResourceAllocationTrackingDao {
 				}
 				preparedStatement.setString(5, userId);
 				preparedStatement.setString(6, userId);
+				if(otherComments!=null){
+					preparedStatement.setString(7, otherComments);	
+				}else{
+					preparedStatement.setNull(7, Types.VARCHAR);
+				}
 				
-				
-				//logger.info(" clientInterviewDate- " + preparedStatement.unwrap(PreparedStatement.class));
+				logger.info(" clientInterviewDate- " + preparedStatement.unwrap(PreparedStatement.class));
 				
 				i = preparedStatement.executeUpdate();
 			}catch(Exception e){
@@ -491,7 +507,7 @@ public class ResourceAllocationTrackingDao {
 		return i;
 	}
 	
-	public static int updateClientInterviewDate(Integer rId, int resId,int clientId, Date date, String userId){
+	public static int updateClientInterviewDate(Integer rId, int resId,int clientId, Date date, String userId, String otherComments){
 		int i = 0;
 		try {
 			Connection connection = null;
@@ -506,10 +522,16 @@ public class ResourceAllocationTrackingDao {
 				}
 				preparedStatement.setString(2, userId);
 				preparedStatement.setString(3, userId);
-				preparedStatement.setInt(4, rId);
-				preparedStatement.setInt(5, resId);
-				preparedStatement.setInt(6, clientId);
-				//logger.info("updateClientInterviewDate- " + preparedStatement.unwrap(PreparedStatement.class));
+				if(otherComments!=null){
+					preparedStatement.setString(4, otherComments);	
+				}else{
+					preparedStatement.setNull(4, Types.VARCHAR);
+				}
+				preparedStatement.setInt(5, rId);
+				preparedStatement.setInt(6, resId);
+				preparedStatement.setInt(7, clientId);
+				
+				logger.info("updateClientInterviewDate- " + preparedStatement.unwrap(PreparedStatement.class));
 				
 				i = preparedStatement.executeUpdate();
 			}catch(Exception e){
@@ -528,7 +550,7 @@ public class ResourceAllocationTrackingDao {
 		return i;
 	}
 	
-	public static int onboardDate(Integer rId, int resId,int clientId, Date date, String userId){
+	public static int onboardDate(Integer rId, int resId,int clientId, Date date, String userId, String otherComments){
 		int i = 0;
 		try {
 			Connection connection = null;
@@ -546,7 +568,12 @@ public class ResourceAllocationTrackingDao {
 				}
 				preparedStatement.setString(5, userId);
 				preparedStatement.setString(6, userId);
-				//logger.info("onboardDate- " + preparedStatement.unwrap(PreparedStatement.class));
+				if(otherComments!=null){
+					preparedStatement.setString(7, otherComments);	
+				}else{
+					preparedStatement.setNull(7, Types.VARCHAR);
+				}
+				logger.info("onboardDate- " + preparedStatement.unwrap(PreparedStatement.class));
 				
 				i = preparedStatement.executeUpdate();
 			}catch(Exception e){
@@ -565,7 +592,7 @@ public class ResourceAllocationTrackingDao {
 		return i;
 	}
 	
-	public static int updateOnboardDate(Integer rId, int resId,int clientId, Date date, String userId){
+	public static int updateOnboardDate(Integer rId, int resId,int clientId, Date date, String userId, String otherComments){
 		int i = 0;
 		try {
 			Connection connection = null;
@@ -580,10 +607,16 @@ public class ResourceAllocationTrackingDao {
 				}
 				preparedStatement.setString(2, userId);
 				preparedStatement.setString(3, userId);
-				preparedStatement.setInt(4, rId);
-				preparedStatement.setInt(5, resId);
-				preparedStatement.setInt(6, clientId);
-				//logger.info("updateOnboardDate- " + preparedStatement.unwrap(PreparedStatement.class));
+				if(otherComments!=null){
+					preparedStatement.setString(4, otherComments);	
+				}else{
+					preparedStatement.setNull(4, Types.VARCHAR);
+				}
+				preparedStatement.setInt(5, rId);
+				preparedStatement.setInt(6, resId);
+				preparedStatement.setInt(7, clientId);
+				
+				logger.info("updateOnboardDate- " + preparedStatement.unwrap(PreparedStatement.class));
 				
 				i = preparedStatement.executeUpdate();
 			}catch(Exception e){

@@ -37,10 +37,12 @@
 					<button label="Serach" onClick="@command('onChangeReqId')"></button>
 				</hbox>
 				<space></space>
-				<listbox width="280px" model="@bind(vm.requirementGenerationBeanList)" 
+				<listbox width="300px" model="@bind(vm.requirementGenerationBeanList)" 
 				     selectedItem="@bind(vm.requirementGenerationBean)" onSelect="@command('onSelctReqId')" mold="paging" pageSize="5">
 					<listhead sizable="true">
 						<listheader label="Req Id"></listheader>
+						<listheader label="Date"></listheader>
+						<listheader label="Type"/>
 						<listheader label="Skill"></listheader>
 					</listhead>
 					
@@ -48,6 +50,8 @@
 					<listitem>
 					  
 						<listcell label="@load(v.req_id)"></listcell>
+						<listcell label="@load(v.raiseDateStr)" />
+						<listcell label="@load(v.resourceTypeBean.resourceTypeName)" />
 						<listcell label="@load(v.reqSkill)"></listcell>
 					  	
 					</listitem>
