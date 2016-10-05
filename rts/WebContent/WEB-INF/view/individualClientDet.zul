@@ -88,7 +88,7 @@
     					<column width="230px" label="EMAIL" style="font-weight:bold; color: black" align="center"></column>
     					<column width="170px" label="OTHER INFO" style="font-weight:bold; color: black" align="center"></column>
     					<column width="100px" label="Intrnl Intv. Dt." style="font-weight:bold; color: black" align="center"></column>
-    					<column width="100px" label="Intrnl Intv. Dt." style="font-weight:bold; color: black" align="center"></column>
+    					<column width="100px" label="Client Intv. Dt." style="font-weight:bold; color: black" align="center"></column>
     				</columns>
     				<rows>
     						
@@ -140,6 +140,14 @@
     			</grid>
     		
     		</div>
+    		<space></space>
+    		<div align="right">
+    			<button label="Generate Excel" style="font-weight:bold" height="25px" onClick="@command('onClickExcel')"></button>
+    			<button label="Generate Pdf" style="font-weight:bold"></button>	
+    		
+    		
+    		</div>
+    		
     		
 
 </window>
