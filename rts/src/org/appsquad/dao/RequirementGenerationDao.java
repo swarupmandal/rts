@@ -459,6 +459,63 @@ public class RequirementGenerationDao {
 			}
 			return i;
 		}
+	
+	public static boolean isequalResource(int rId){
+		int allocatedCount = 0;
+		int totalReqCount = 0;
+		boolean flag = false;
+		Connection connection=null;
+		PreparedStatement preparedStatement=null;
+		ResultSet resultSet=null;
+		
+		connection=DbConnection.createConnection();
+		
+		try {
+			preparedStatement= Pstm.createQuery(connection, RequirementGenerationSql.selReqAllocationEqual, Arrays.asList(rId));
+			resultSet = preparedStatement.executeQuery();
+			
+			while (resultSet.next()) {
+				totalReqCount = resultSet.getInt("reqiured_res");
+				allocatedCount = resultSet.getInt("allocated_res");
+			}
+			if(totalReqCount >0 && allocatedCount>0){
+				if(totalReqCount == allocatedCount){
+					flag = true;
+				}else {
+					flag = false;
+					
+				}
+				
+			}else {
+				flag= false;
+			}
+			
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(preparedStatement != null){
+				try {
+					preparedStatement.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}if(connection != null){
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		return flag;
+	}
+	
+	
 }
 
 

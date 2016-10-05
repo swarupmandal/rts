@@ -22,7 +22,7 @@ public class ChangePasswordDao {
 			PreparedStatement preparedStatement=null;
 			try {
 				preparedStatement= Pstm.createQuery(connection, ChangePasswordsql.pssswordchangequery, Arrays.asList(password, userId));
-				System.out.println("Changed Password query -- >>> >> >  " + preparedStatement);
+				//System.out.println("Changed Password query -- >>> >> >  " + preparedStatement);
 				
 				logger.info("change password - " + preparedStatement.unwrap(PreparedStatement.class));
 			    
