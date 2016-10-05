@@ -40,6 +40,7 @@ public class ResourceAllocationDao {
 								bean.setReqSkillId(resultSet.getInt("id"));
 								bean.setReqSkill(resultSet.getString("master_skill_set_name"));
 								bean.getResourceTypeBean().setResourceTypeName(resultSet.getString("type_name"));
+								bean.getResourceTypeBean().setResourceTypeId(resultSet.getInt("type_id"));
 								bean.setRaiseDateStr(resultSet.getString("req_raise_date"));
 								
 								requirementList.add(bean);
@@ -104,6 +105,53 @@ public class ResourceAllocationDao {
 			e.printStackTrace();
 		}
 		return skillName;	
+	}
+	
+	
+	public static void getAllFieldData(ResourceAllocationBean resourceAllocationBean){
+		Connection connection = null;
+		try {
+			connection = DbConnection.createConnection();
+			sql_connection:{
+				try {
+					
+					//1st SQL block
+					sql_fetch:{
+					   PreparedStatement preparedStatement = null;
+					   try {
+						    preparedStatement = Pstm.createQuery(connection, ResourceAllocationSql.fetchAllFieldSql, Arrays.asList(resourceAllocationBean.getClientInformationBean().getClientId(), 
+						    		                                                                                 resourceAllocationBean.getRequirementGenerationBean().getRequirementId()));
+							System.out.println(preparedStatement);
+						    ResultSet resultSet = preparedStatement.executeQuery();
+							while (resultSet.next()) {
+								resourceAllocationBean.getResourceTypeBean().setResourceTypeId(resultSet.getInt("type_id"));
+								resourceAllocationBean.getResourceTypeBean().setResourceTypeName(resultSet.getString("type_name"));
+								resourceAllocationBean.getMasterbean().setSkillset(resultSet.getString("master_skill_set_name"));
+								if(resourceAllocationBean.getResourceTypeBean().getResourceTypeName().equalsIgnoreCase("CONTRACT")){
+                                   resourceAllocationBean.setRequiredResourcenumber(resultSet.getInt("req_no_of_con_res"));	
+                                   resourceAllocationBean.setAllocatedResourceNumber(resultSet.getInt("num_of_con_res_allocated"));	
+								}else{
+								   resourceAllocationBean.setRequiredResourcenumber(resultSet.getInt("req_no_of_per_res"));
+								   resourceAllocationBean.setAllocatedResourceNumber(resultSet.getInt("num_of_per_res_allocated"));	
+								}						
+							}  
+						} finally{
+							if(preparedStatement!=null){
+								preparedStatement.close();
+							}
+						}
+				    }
+				} catch (Exception e) {
+					e.printStackTrace();
+				}finally{
+					if(connection!=null){
+						connection.close();
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public static Integer fetchRequiredResourceNumber(Integer clientId,Integer reqId,String type){
@@ -322,9 +370,7 @@ public class ResourceAllocationDao {
 					   PreparedStatement preparedStatement = null;
 					   try {
 						    preparedStatement = Pstm.createQuery(connection, ResourceAllocationSql.fetchResourceDetails, Arrays.asList(resourceAllocationBean.getMasterbean().getSkillset().toUpperCase()));
-						    
-						    //logger.info(" onLoadResourceDetails- " + preparedStatement.unwrap(PreparedStatement.class));
-						    
+						    System.out.println("RESOURCE DETAILS QUERY :"+preparedStatement);
 							ResultSet resultSet = preparedStatement.executeQuery();
 							while (resultSet.next()) {
 								ResourceMasterBean bean = new ResourceMasterBean();

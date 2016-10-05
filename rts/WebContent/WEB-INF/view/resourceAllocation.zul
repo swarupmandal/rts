@@ -32,6 +32,7 @@
 															<listheader label="Date"/>
 															<listheader label="Type"/>
 															<listheader label="Skill"/>
+															<listheader label="typeId" visible="false"/>
 														</listhead>
 														<template name="model" var="p1">
 															<listitem>
@@ -39,6 +40,7 @@
 																<listcell label="@load(p1.raiseDateStr)" />
 																<listcell label="@load(p1.resourceTypeBean.resourceTypeName)" />
 																<listcell label="@load(p1.reqSkill)" />
+																<listcell label="@load(p1.resourceTypeBean.resourceTypeId)" visible="false"/>
 															</listitem>
 														</template>
 													</listbox>
@@ -47,12 +49,7 @@
 							           </bandbox>
 							           
 							            <label value="Resource Type"></label>
-								       <combobox model="@bind(vm.resourceTypeList)" selectedItem="@bind(vm.resourceAllocationBean.resourceTypeBean)" readonly="true"
-		             						value="@bind(vm.resourceAllocationBean.resourceTypeBean.resourceTypeName)" width="60%" onSelect="@command('onSelectResourcetypeName')">
-		             					<template name="model" var="p">
-		             					<comboitem value="@bind(p.resourceTypeName)" label="@bind(p.resourceTypeName)"/>
-		             					</template>
-		             					</combobox>
+								       <textbox value="@bind(vm.resourceAllocationBean.resourceTypeBean.resourceTypeName)" readonly="true" width="90%"></textbox>
 							           
                                    
                                    </row>
@@ -60,13 +57,13 @@
 								  <row>
 								  
 								      <label value="Skill Set"></label>
-                                      <textbox value="@bind(vm.resourceAllocationBean.masterbean.skillset)" readonly="true" width="60%"></textbox>
+                                      <textbox value="@bind(vm.resourceAllocationBean.masterbean.skillset)" readonly="true" width="90%"></textbox>
 								  
 								      <label value="Required Resource"></label>
-								      <textbox value="@bind(vm.resourceAllocationBean.requiredResourcenumber)" readonly="true" width="60%"></textbox>
+								      <textbox value="@bind(vm.resourceAllocationBean.requiredResourcenumber)" readonly="true" width="90%"></textbox>
 								      
 								      <label value="Allocated Resource"></label>
-								      <textbox value="@bind(vm.resourceAllocationBean.allocatedResourceNumber)" readonly="true" width="60%"></textbox>
+								      <textbox value="@bind(vm.resourceAllocationBean.allocatedResourceNumber)" readonly="true" width="90%"></textbox>
 								   </row> 
 						
 								 </rows>

@@ -97,6 +97,7 @@ public class ResourceMasterService {
 		bean.setCtc(null);
 		bean.setFilePath(null);
 		bean.setProfit(null);
+		bean.setOtherInfo(null);
 	}
 	
 	/*******************************************************************************************************************************************/

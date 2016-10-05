@@ -66,8 +66,14 @@ public class ResourceAllocationViewModel {
 	    	if(resourceTypeList.size()>0){
 	    		resourceTypeList.clear();
 	    	}
-	    	resourceTypeList = ResourceAllocationDao.onLoadResourceTypeDetails();
-	    	resourceAllocationBean.getMasterbean().setSkillset(ResourceAllocationDao.fetchSkillDetails(resourceAllocationBean.getClientInformationBean().getClientId(), resourceAllocationBean.getRequirementGenerationBean().getRequirementId()));
+	    	ResourceAllocationService.getAllData(resourceAllocationBean);
+	    	resourceList = ResourceAllocationDao.onLoadResourceDetails(resourceAllocationBean);
+	    	if(resourceList.size()>0){
+	    		resourceAllocationBean.setDivVisibility(true);
+	    		resourceAllocationBean.setAssignButtonVisibility(true);	
+	    	}else{
+	    		 Messagebox.show("No Resource Found Wrt Selected Skill Set!", "Information", Messagebox.OK, Messagebox.INFORMATION);
+	    	}
 	    	bandBox.close();
 	    }
 	    
@@ -91,21 +97,7 @@ public class ResourceAllocationViewModel {
 	    	resourceTypeList = ResourceAllocationDao.onLoadResourceTypeDetails();
 	    	requirementDetailsList = ResourceAllocationDao.onLoadRequirementSkillDetails(resourceAllocationBean.getClientInformationBean().getClientId());
 	    }
-	    
-	    @Command
-	    @NotifyChange("*")
-	    public void onSelectResourcetypeName(){
-	    	resourceTypeList = ResourceAllocationDao.onLoadResourceTypeDetails();
-	    	resourceAllocationBean.setRequiredResourcenumber(ResourceAllocationDao.fetchRequiredResourceNumber(resourceAllocationBean.getClientInformationBean().getClientId(), resourceAllocationBean.getRequirementGenerationBean().getRequirementId(),resourceAllocationBean.getResourceTypeBean().getResourceTypeName()));
-	        resourceAllocationBean.setAllocatedResourceNumber(ResourceAllocationDao.fetchRequiredResourceNumberAllocated(resourceAllocationBean.getClientInformationBean().getClientId(), resourceAllocationBean.getRequirementGenerationBean().getRequirementId(),resourceAllocationBean.getResourceTypeBean().getResourceTypeName()));
-	        resourceAllocationBean.setDivVisibility(true);
-	        if(resourceList.size()>0){
-	        	resourceList.clear();
-	        }
-	    	resourceList = ResourceAllocationDao.onLoadResourceDetails(resourceAllocationBean);
-	    	resourceAllocationBean.setAssignButtonVisibility(true);
-	    }
-	    
+	     
 	    @Command
 	    @NotifyChange("*")
 	    public void onCheck(@BindingParam("bean") ResourceMasterBean masterBean){
@@ -170,6 +162,7 @@ public class ResourceAllocationViewModel {
 							  
 							  if(isUpdateResource && isUpdate && isInsertMapper && isInsertTracking){
 								  connection.commit();
+								  Messagebox.show("You Have Allocated Resource Wrt RID!", "Information", Messagebox.OK, Messagebox.INFORMATION);
 								  resourceAllocationBean.setDivVisibility(true);
 							      resourceList = ResourceAllocationDao.onLoadResourceDetails(resourceAllocationBean);
 							      resourceAllocationBean.setAssignButtonVisibility(true);

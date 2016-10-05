@@ -16,4 +16,5 @@ public class ResourceAllocationSql {
     public static final String fetchStatusIdSql = "select id from rts_status_master where master_status_name = 'INITIAL ' ";
     public static final String fetchResourceDetails = "select id,res_name,res_surname,res_experience,res_address,res_emailid,"
     		                                        + "rts_skill_name from rts_resource_master where non_allocable_or_not = 'N' and rts_skill_name  = ? ";
+    public static final String fetchAllFieldSql = "select * from vw_req_skill_details where req_client_id = ? and r_id = ? ";
 }
