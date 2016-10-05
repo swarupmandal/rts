@@ -47,6 +47,10 @@ public class ResAllocTrackingUpdateViewModel {
 		req_id = r_id;
 		clientId = clId;
 		trackingUpdateBean = bean;
+		System.out.println("FETCHED STATUS IS :"+trackingUpdateBean.getStatus()+"--------"+"FETCHED STATUS ID IS :"+trackingUpdateBean.getStatusId());
+		DateFieldEnableLogic(trackingUpdateBean.getStatus());
+		trackingUpdateBean.setOldStatus(trackingUpdateBean.getStatus());
+		trackingUpdateBean.setOldStatusId(trackingUpdateBean.getStatusId());
 		if(trackingUpdateBean.getInternalInterviewDate()!=null){
 			trackingUpdateBean.setPreviousInternalInterviewDate(trackingUpdateBean.getInternalInterviewDate());
 			trackingUpdateBean.setPreviousStatusId(trackingUpdateBean.getStatusId());
@@ -69,11 +73,74 @@ public class ResAllocTrackingUpdateViewModel {
 		
 		statusBeanList = ResourceMasterDao.onLoadStatus();
 	}
-	
+	   
+	public void DateFieldEnableLogic(String statusName){
+		final String status1 = "INTERVIEW SCHEDULED";
+		final String status2 = "TECHNICALLY SELECTED ";
+		final String status3 = "ON-BOARDING ";
+		
+		switch (statusName) {
+		  case status1:
+		        trackingUpdateBean.setInternalInterviewDateDisable(false);
+				trackingUpdateBean.setClientInterviewDateDisable(true);
+				trackingUpdateBean.setOnboardInterviewDateDisable(true);
+		        break;
+		  case status2: 
+		        trackingUpdateBean.setClientInterviewDateDisable(false);
+				trackingUpdateBean.setInternalInterviewDateDisable(true);
+				trackingUpdateBean.setOnboardInterviewDateDisable(true);
+		        break;
+		  case status3:
+		        trackingUpdateBean.setOnboardInterviewDateDisable(false);
+				trackingUpdateBean.setInternalInterviewDateDisable(true);
+				trackingUpdateBean.setClientInterviewDateDisable(true);
+		        break;      
+		  default:
+		        System.out.println("default");
+		        break;
+		}
+	}
+	   
 	@Command
 	@NotifyChange("*")
 	public void onSelectStatus(){
 		trackingUpdateBean.setStatusId(statusBean.getStatusId());
+		trackingUpdateBean.setStatus(statusBean.getStatus());
+		System.out.println("SELECTED STATUS NAME IS :"+trackingUpdateBean.getStatus()+"-----------"+"ID IS :"+trackingUpdateBean.getStatusId());
+		System.out.println("OLD STATUS NAME IS :"+trackingUpdateBean.getOldStatus()+"-------"+trackingUpdateBean.getOldStatusId());
+		if(trackingUpdateBean.getStatusId()<trackingUpdateBean.getOldStatusId()){
+			statusBean.setStatus(trackingUpdateBean.getOldStatus());
+			statusBean.setStatusId(trackingUpdateBean.getOldStatusId());
+			trackingUpdateBean.setStatus(trackingUpdateBean.getOldStatus());
+			trackingUpdateBean.setStatusId(trackingUpdateBean.getOldStatusId());
+			statusBeanList = ResourceMasterDao.onLoadStatus();
+			Messagebox.show("You Can't Select Status Backward!", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
+		}
+		
+		final String status1 = "INTERVIEW SCHEDULED";
+		final String status2 = "TECHNICALLY SELECTED ";
+		final String status3 = "ON-BOARDING ";
+		
+		switch (trackingUpdateBean.getStatus()) {
+		  case status1:
+		        trackingUpdateBean.setInternalInterviewDateDisable(false);
+				trackingUpdateBean.setClientInterviewDateDisable(true);
+				trackingUpdateBean.setOnboardInterviewDateDisable(true);
+		        break;
+		  case status2: 
+		        trackingUpdateBean.setClientInterviewDateDisable(false);
+				trackingUpdateBean.setInternalInterviewDateDisable(true);
+				trackingUpdateBean.setOnboardInterviewDateDisable(true);
+		        break;
+		  case status3:
+		        trackingUpdateBean.setOnboardInterviewDateDisable(false);
+				trackingUpdateBean.setInternalInterviewDateDisable(true);
+				trackingUpdateBean.setClientInterviewDateDisable(true);
+		        break;      
+		  default:
+		        System.out.println("default");
+		        break;
+		}
 	}
 	
 	@Command
@@ -94,11 +161,11 @@ public class ResAllocTrackingUpdateViewModel {
 			System.out.println("inter interview date comparision:"+comparison);
 			if(!(comparison==0)){
 				System.out.println("update method ");
-				p = ResourceAllocationTrackingService.updateInternalIntDate(req_id, trackingUpdateBean.resourceMasterBean.getResourceId(), clientId, trackingUpdateBean.getInternalInterviewDate(), userId);
+				p = ResourceAllocationTrackingService.updateInternalIntDate(req_id, trackingUpdateBean.resourceMasterBean.getResourceId(), clientId, trackingUpdateBean.getInternalInterviewDate(), userId, trackingUpdateBean.getOtherDetails());
 			}
 		}else if(trackingUpdateBean.getInternalInterviewDate()!=null && trackingUpdateBean.getPreviousInternalInterviewDate()==null){
 			System.out.println("insert method ");
-			j = ResourceAllocationTrackingService.insertInternalIntDate(req_id, trackingUpdateBean.resourceMasterBean.getResourceId(), clientId, trackingUpdateBean.getInternalInterviewDate(), userId);
+			j = ResourceAllocationTrackingService.insertInternalIntDate(req_id, trackingUpdateBean.resourceMasterBean.getResourceId(), clientId, trackingUpdateBean.getInternalInterviewDate(), userId, trackingUpdateBean.getOtherDetails());
 		}
 		
 		if(trackingUpdateBean.getPreviousClientInterviewDate()!=null && trackingUpdateBean.getClientInterviewDate()!=null){
@@ -106,11 +173,11 @@ public class ResAllocTrackingUpdateViewModel {
 			System.out.println("client date comparision:"+comparison);
 			if(!(comparison==0)){
 				System.out.println("update method ");
-				l = ResourceAllocationTrackingService.updateClientIntDate(req_id, trackingUpdateBean.resourceMasterBean.getResourceId(), clientId, trackingUpdateBean.getClientInterviewDate(), userId);
+				l = ResourceAllocationTrackingService.updateClientIntDate(req_id, trackingUpdateBean.resourceMasterBean.getResourceId(), clientId, trackingUpdateBean.getClientInterviewDate(), userId, trackingUpdateBean.getOtherDetails());
 			}
 		}else if(trackingUpdateBean.getClientInterviewDate()!=null && trackingUpdateBean.getPreviousClientInterviewDate()==null){
 			System.out.println("insert method ");
-			k = ResourceAllocationTrackingService.insertClientIntDate(req_id, trackingUpdateBean.resourceMasterBean.getResourceId(), clientId, trackingUpdateBean.getClientInterviewDate(), userId);
+			k = ResourceAllocationTrackingService.insertClientIntDate(req_id, trackingUpdateBean.resourceMasterBean.getResourceId(), clientId, trackingUpdateBean.getClientInterviewDate(), userId, trackingUpdateBean.getOtherDetails());
 		}
 		
 		if(trackingUpdateBean.getPreviousOnboardDate()!=null && trackingUpdateBean.getOnboardDate()!=null){
@@ -118,11 +185,11 @@ public class ResAllocTrackingUpdateViewModel {
 			System.out.println("pnboard date comparision:"+comparison);
 			if(!(comparison==0)){
 				System.out.println("update method ");
-				m = ResourceAllocationTrackingService.updateOnboardDate(req_id, trackingUpdateBean.resourceMasterBean.getResourceId(), clientId, trackingUpdateBean.getOnboardDate(), userId);
+				m = ResourceAllocationTrackingService.updateOnboardDate(req_id, trackingUpdateBean.resourceMasterBean.getResourceId(), clientId, trackingUpdateBean.getOnboardDate(), userId, trackingUpdateBean.getOtherDetails());
 			}
 		}else if(trackingUpdateBean.getOnboardDate()!=null && trackingUpdateBean.getPreviousOnboardDate()==null){
 			System.out.println("insert method ");
-			n = ResourceAllocationTrackingService.insertOnboardDate(req_id, trackingUpdateBean.resourceMasterBean.getResourceId(), clientId, trackingUpdateBean.getOnboardDate(), userId);
+			n = ResourceAllocationTrackingService.insertOnboardDate(req_id, trackingUpdateBean.resourceMasterBean.getResourceId(), clientId, trackingUpdateBean.getOnboardDate(), userId, trackingUpdateBean.getOtherDetails());
 		}
 		
 		if(i>0 || j>0 || p>0 || k>0 || l>0 || n>0 || m>0){
@@ -177,11 +244,9 @@ public class ResAllocTrackingUpdateViewModel {
 	public void setClientId(int clientId) {
 		this.clientId = clientId;
 	}
-
 	public Window getWinResAllocTracking() {
 		return winResAllocTracking;
 	}
-
 	public void setWinResAllocTracking(Window winResAllocTracking) {
 		this.winResAllocTracking = winResAllocTracking;
 	}

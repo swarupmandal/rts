@@ -2,7 +2,67 @@
 <zk>
 <window title="new page title" border="normal" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('org.appsquad.viewmodel.demoViewModel')">
  <div>
-      <grid height="400px" sclass="fgrid" model="@bind(vm.list)" mold="paging" autopaging="true" pageSize="12">
+     <hlayout spacing="20px">
+    				
+    				<bandbox autodrop="true" readonly="true" id="skSt" value="@bind(vm.individualClientReportBean.skillsetMasterbean.skillset)" placeholder="Search by Skill Set">
+						<bandpopup>
+							<listbox width="280px" model="@bind(vm.skillList)" 
+							     selectedItem="@bind(vm.individualClientReportBean.skillsetMasterbean)" onSelect="@command('onSelctSkillName')" mold="paging" pageSize="5">
+								<listhead sizable="true">
+									<listheader label="Skill Set"></listheader>
+								</listhead>
+								
+								<template name="model" var = "v">
+								<listitem>
+								  <listcell label="@load(v.skillset)"></listcell>
+								</listitem>
+							   </template>
+							</listbox>
+						</bandpopup>
+					</bandbox>
+    				
+    				
+    				<bandbox autodrop="true" readonly="true" id="clname" value="@bind(vm.individualClientReportBean.clientInformationBean.fullName)" placeholder="Search By Client" width="220px">
+						<bandpopup>	
+							<hbox>
+								<textbox value="@bind(vm.individualClientReportBean.clientNameSearch)" onChange="@command('onChangeClientName')"></textbox>
+								<button label="Serach" onClick="@command('onChangeClientName')"></button>
+							</hbox>
+							<space></space>
+							<listbox width="280px" model="@bind(vm.clientList)" 
+							     selectedItem="@bind(vm.individualClientReportBean.clientInformationBean)" onSelect="@command('onSelctClientName')" mold="paging" pageSize="5">
+								<listhead sizable="true">
+									<listheader label="Client Name"></listheader>
+								</listhead>
+								
+								<template name="model" var = "v">
+								<listitem>
+								  <listcell label="@load(v.fullName)"></listcell>
+								</listitem>
+							   </template>
+							</listbox>
+						</bandpopup>
+					</bandbox>
+    				
+    				<datebox placeholder="From Date" format="dd-MMM-yyyy" value="@bind(vm.individualClientReportBean.fromDate)" onChange="@command('onChangeFromDate')" ></datebox>
+    				
+    				<datebox placeholder="To Date" format="dd-MMM-yyyy" value="@bind(vm.individualClientReportBean.toDate)" onChange="@command('onChangeToDate')"></datebox>
+    				
+    				<combobox model="@bind(vm.statusList)" selectedItem="@bind(vm.individualClientReportBean.statusMasterBean)" readonly="true"
+		             	value="@bind(vm.individualClientReportBean.statusMasterBean.status)" placeholder="Resourcing Status" onSelect="@command('onSelectStatusName')">
+		                <template name="model" var="p">
+		                   <comboitem value="@bind(p.statusId)" label="@bind(p.status)"/>
+		                </template>
+		            </combobox>
+		            
+		            <button label="Search" onClick="@command('onClickSearch')" style="font-weight:bold; color: black" visible="false"></button>
+		            <button label="Clear" onClick="@command('onClickClear')" style="font-weight:bold; color: black" width="90px"></button>	
+    				
+    			</hlayout>
+    			</div>
+    			<space></space>
+    			<div>
+      				<grid height="400px" sclass="fgrid" model="@bind(vm.list)" mold="paging" autopaging="true" pageSize="12">
 						<columns sizable="true">
 						        <column width="40px"></column>
 								<column label="Name" align="center" style="font-weight:bold;" width="220px"/>

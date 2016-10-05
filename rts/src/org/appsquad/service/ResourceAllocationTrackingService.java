@@ -53,39 +53,39 @@ public class ResourceAllocationTrackingService {
 		return i;
 	}
 	
-	public static int insertInternalIntDate(Integer rId, int resId,int clientId, Date date, String userId){
+	public static int insertInternalIntDate(Integer rId, int resId,int clientId, Date date, String userId, String otherComments){
 		int i = 0;
-		i = ResourceAllocationTrackingDao.intInterviewDate(rId, resId, clientId, date, userId);
+		i = ResourceAllocationTrackingDao.intInterviewDate(rId, resId, clientId, date, userId, otherComments);
 		return i;
 	}
 	
-	public static int updateInternalIntDate(Integer rId, int resId,int clientId, Date date, String userId){
+	public static int updateInternalIntDate(Integer rId, int resId,int clientId, Date date, String userId, String otherComments){
 		int j = 0;
-		j = ResourceAllocationTrackingDao.updateInterviewDate(rId, resId, clientId, date, userId);
+		j = ResourceAllocationTrackingDao.updateInterviewDate(rId, resId, clientId, date, userId, otherComments);
 		return j;
 	}
 	
-	public static int insertClientIntDate(Integer rId, int resId,int clientId, Date date, String userId){
+	public static int insertClientIntDate(Integer rId, int resId,int clientId, Date date, String userId, String otherComment){
 		int i = 0;
-		i = ResourceAllocationTrackingDao.clientInterviewDate(rId, resId, clientId, date, userId);
+		i = ResourceAllocationTrackingDao.clientInterviewDate(rId, resId, clientId, date, userId, otherComment);
 		return i;
 	}
 	
-	public static int updateClientIntDate(Integer rId, int resId,int clientId, Date date, String userId){
+	public static int updateClientIntDate(Integer rId, int resId,int clientId, Date date, String userId, String otherComments){
 		int q = 0;
-		q = ResourceAllocationTrackingDao.updateClientInterviewDate(rId, resId, clientId, date, userId);
+		q = ResourceAllocationTrackingDao.updateClientInterviewDate(rId, resId, clientId, date, userId, otherComments);
 		return q;
 	}
 	
-	public static int insertOnboardDate(Integer rId, int resId,int clientId, Date date, String userId){
+	public static int insertOnboardDate(Integer rId, int resId,int clientId, Date date, String userId, String otherComments){
 		int i = 0;
-		i = ResourceAllocationTrackingDao.onboardDate(rId, resId, clientId, date, userId);
+		i = ResourceAllocationTrackingDao.onboardDate(rId, resId, clientId, date, userId, otherComments);
 		return i;
 	}
 	
-	public static int updateOnboardDate(Integer rId, int resId,int clientId, Date date, String userId){
+	public static int updateOnboardDate(Integer rId, int resId,int clientId, Date date, String userId, String other_comments){
 		int s = 0;
-		s = ResourceAllocationTrackingDao.updateOnboardDate(rId, resId, clientId, date, userId);
+		s = ResourceAllocationTrackingDao.updateOnboardDate(rId, resId, clientId, date, userId, other_comments);
 		return s;
 	}
 	
