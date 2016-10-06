@@ -319,17 +319,17 @@ public class IndividualClientReportViewModel {
 			}
 			
 		}else {
-			// need change excel design and data for summary
 			
 			if(summaryBeanList.size()>0);
 			ArrayList<IndividualClientReportBean> summList = new ArrayList<IndividualClientReportBean>();
 			for(IndividualClientReportBean bean : summaryBeanList){
-				if(bean.isDetailChecked()){
+				if(bean.isSummaryChecked()){
 					summList.add(bean);
 				}
 			}
+			
 			if(summList.size()>0){
-				IndividualClientReportExcel.printCSV(summList);
+				IndividualClientReportExcel.printSummaryCSV(summList);
 			}else {
 				Messagebox.show("NO DATA SELECTED ", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION );
 			}
@@ -342,25 +342,63 @@ public class IndividualClientReportViewModel {
 	public void onClickPdf(){
 		String pdfPath = Executions.getCurrent().getDesktop().getWebApp().getRealPath("/");
 		//String totalPdfPath = pdfPath + "Report_Pdf.pdf";
-		
-		//String totalPdfPath = "C:\\Users\\swarup\\Desktop\\pdf test\\Report_Pdf.pdf";
 		String totalPdfPath = "C:\\pdf test\\Report_Pdf.pdf";
+		
 		IndividualClientReportPdf pdf = new IndividualClientReportPdf();
-		try {
+		
+		try{
+			
+		if(individualClientReportBean.getSelectedRadioButton().equals("detail")){
+		
+		  if(reportBeanList.size()>0);	
+		  ArrayList<IndividualClientReportBean> detailList = new ArrayList<IndividualClientReportBean>();
+			for(IndividualClientReportBean bean : reportBeanList){
+				if(bean.isDetailChecked()){
+					detailList.add(bean);
+				}
+			}
+			if(detailList.size()>0){
+				pdf.getDetails(totalPdfPath, individualClientReportBean, detailList);
+			}else {
+				Messagebox.show("NO DATA SELECTED ", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION );
+			}
+			
+		}else {
+			
+			if(summaryBeanList.size()>0);
+			ArrayList<IndividualClientReportBean> summList = new ArrayList<IndividualClientReportBean>();
+			for(IndividualClientReportBean bean : summaryBeanList){
+				if(bean.isSummaryChecked()){
+					summList.add(bean);
+				}
+			}
+			if(summList.size()>0){
+				pdf.getSummary(totalPdfPath, individualClientReportBean, summList);
+			}else {
+				Messagebox.show("NO DATA SELECTED ", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION );
+			}
+			
+		}
+	
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		
+		/*try {
 			
 			if(individualClientReportBean.getSelectedRadioButton().equals("detail")){
-			pdf.getDetails(totalPdfPath, individualClientReportBean, reportBeanList);
+			   pdf.getDetails(totalPdfPath, individualClientReportBean, reportBeanList);
+			   
 			}else {
-				// need change pdf design and data for summary
-				pdf.getDetails(totalPdfPath, individualClientReportBean, summaryBeanList);
+				pdf.getSummary(totalPdfPath, individualClientReportBean, summaryBeanList);
 			}
-		
 		
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (DocumentException e) {
 			e.printStackTrace();
-		}
+		}*/
 		
 	}
 	

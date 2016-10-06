@@ -226,6 +226,143 @@ public class IndividualClientReportPdf {
 		
 	}
 	
+	public void getSummary(String localFilePath, IndividualClientReportBean individualClientReportBean, ArrayList<IndividualClientReportBean> individualClientReportBeanList) throws FileNotFoundException, DocumentException{
+		
+		filePath = localFilePath;
+		
+		individualClientReportList = individualClientReportBeanList;
+		document = new Document(PageSize.A4, 2, 2, 20, 20);
+		document.setMargins(-40, -60, 60, 0);
+		writer = PdfWriter.getInstance(document, new FileOutputStream(filePath));
+		writer.setBoxSize("art", new Rectangle(36, 54, 559, 788));
+		
+		document.open();		
+		
+		createPdfHeader();
+		
+		printSummary(individualClientReportBeanList);
+		
+		document.close();
+		
+	}
+	
+	void printSummary(ArrayList<IndividualClientReportBean> list) throws DocumentException{
+		
+		String[] headerLabes = {"STATUS", "", "", "", "No.of Resources"};
+		
+			
+		float[]	widths = {4f,6f, 2f, 4f, 6f};
+		PdfPTable headerTable = new PdfPTable(widths);
+		
+		headerTable.getDefaultCell().setBorder(PdfPCell.NO_BORDER);
+		headerTable.setSpacingBefore(10f);
+        headerTable.setSpacingAfter(5f);
+		
+        for (int index = 0; index < headerLabes.length; index++) {
+        	
+			PdfPCell cell;
+
+			Paragraph headerParagraph = new Paragraph(headerLabes[index]);
+			headerParagraph.getFont().setSize(5f);
+			headerParagraph.getFont().setStyle(Font.BOLD);
+
+			cell = new PdfPCell(headerParagraph);
+			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+
+			headerTable.addCell(cell);
+			//document.add(headerTable); // for this double heading occurring
+
+		}
+        
+        for(IndividualClientReportBean bean : list){
+        	
+        	//System.out.println(bean.getrIdLabel() + " - " + bean.getrIdDateLabel() + " - " + bean.getYoExp() + " - " + bean.getSkillSetLabel() + " - " + bean.getEmailId() + " - " + bean.getCompanyName() + " - " + bean.getIntIntvValue() + " - " + bean.getClntIntvValue());
+        	cell_1: {
+
+			PdfPCell cell;
+
+			Paragraph headerParagraph = new Paragraph(bean.getrIdLabel());
+			headerParagraph.getFont().setSize(5f);
+			headerParagraph.setAlignment(Element.ALIGN_LEFT);
+			headerParagraph.getFont().setStyle(Font.NORMAL);
+
+			cell = new PdfPCell(headerParagraph);
+			cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+
+			headerTable.addCell(cell);
+
+		    }
+        
+        	cell_2: {
+
+			PdfPCell cell;
+
+			Paragraph headerParagraph = new Paragraph(bean.getrIdDateLabel());
+			headerParagraph.getFont().setSize(5f);
+			headerParagraph.setAlignment(Element.ALIGN_LEFT);
+			headerParagraph.getFont().setStyle(Font.NORMAL);
+
+			cell = new PdfPCell(headerParagraph);
+			cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+
+			headerTable.addCell(cell);
+
+			}
+		    
+		    cell_3: {
+
+			PdfPCell cell;
+			
+			Paragraph headerParagraph = new Paragraph(bean.getClientFullName());
+			headerParagraph.getFont().setSize(5f);
+			headerParagraph.setAlignment(Element.ALIGN_RIGHT);
+			headerParagraph.getFont().setStyle(Font.NORMAL);
+
+			cell = new PdfPCell(headerParagraph);
+			cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+
+			headerTable.addCell(cell);
+
+			}
+			
+			cell_4: {
+
+			PdfPCell cell;
+
+			Paragraph headerParagraph = new Paragraph(bean.getSkillSetLabel());
+			headerParagraph.getFont().setSize(5f);
+			headerParagraph.setAlignment(Element.ALIGN_LEFT);
+			headerParagraph.getFont().setStyle(Font.NORMAL);
+
+			cell = new PdfPCell(headerParagraph);
+			cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+
+			headerTable.addCell(cell);
+
+			}
+			
+			cell_5: {
+
+			PdfPCell cell;
+
+			Paragraph headerParagraph = new Paragraph(bean.getNoOfReqLebel());
+			headerParagraph.getFont().setSize(5f);
+			headerParagraph.setAlignment(Element.ALIGN_LEFT);
+			headerParagraph.getFont().setStyle(Font.NORMAL);
+
+			cell = new PdfPCell(headerParagraph);
+			cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+
+			headerTable.addCell(cell);
+
+			}
+			
+        }
+        document.add(headerTable);
+		
+	}
+	
+	
 	
 	
 }

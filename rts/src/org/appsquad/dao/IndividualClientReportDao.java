@@ -1379,8 +1379,10 @@ public static ArrayList<IndividualClientReportBean> loadRidListWithDateRange(Dat
 								   
 								   childBean.setrIdLabel(resultSet2.getString("final_status"));
 								   childBean.setNoOfReqLebel(resultSet2.getInt("total_count") + "");
-								   
+								   childBean.setSkillSetLabel("");
 								   childBean.setStyle(childBean.getLighterStyle());
+								   childBean.setClientFullName("");
+								   childBean.setrIdDateLabel("");
 								   
 								   childBean.setRidLbFieldVis(true);
 								   parentBean.setRidDatelbFieldVis(true);
