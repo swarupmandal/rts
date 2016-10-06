@@ -41,7 +41,7 @@ public class IndividualClientReportBean {
 	private int statusId;
 	private String status;
 	private String resourceName;
-	private int yoExp;
+	private Integer yoExp;
 	private String contNo;
 	private String emailId;
 	
@@ -307,12 +307,7 @@ public class IndividualClientReportBean {
 	public void setResourceName(String resourceName) {
 		this.resourceName = resourceName;
 	}
-	public int getYoExp() {
-		return yoExp;
-	}
-	public void setYoExp(int yoExp) {
-		this.yoExp = yoExp;
-	}
+	
 	public String getContNo() {
 		return contNo;
 	}
@@ -552,6 +547,12 @@ public class IndividualClientReportBean {
 	}
 	public void setResOtherInfo(String resOtherInfo) {
 		this.resOtherInfo = resOtherInfo;
+	}
+	public Integer getYoExp() {
+		return yoExp;
+	}
+	public void setYoExp(Integer yoExp) {
+		this.yoExp = yoExp;
 	}
 	
 }

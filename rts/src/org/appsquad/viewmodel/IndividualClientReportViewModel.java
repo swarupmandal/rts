@@ -1,5 +1,6 @@
 package org.appsquad.viewmodel;
 
+import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,18 +17,22 @@ import org.appsquad.service.RequirementGenerationService;
 import org.appsquad.service.ResourceAllocationTrackingService;
 import org.appsquad.utility.Dateformatter;
 import org.appsquad.utility.IndividualClientReportExcel;
+import org.appsquad.utility.IndividualClientReportPdf;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Bandbox;
 import org.zkoss.zul.Messagebox;
+
+import com.itextpdf.text.DocumentException;
 
 public class IndividualClientReportViewModel {
 	
@@ -276,9 +281,26 @@ public class IndividualClientReportViewModel {
 	public void onClickExcel(){
 		IndividualClientReportExcel.printCSV(reportBeanList);
 		
-		
 	}
 	
+	@Command
+	@NotifyChange("*")
+	public void onClickPdf(){
+		String pdfPath = Executions.getCurrent().getDesktop().getWebApp().getRealPath("/");
+		//String totalPdfPath = pdfPath + "Report_Pdf.pdf";
+		
+		String totalPdfPath = "C:\\Users\\swarup\\Desktop\\pdf test\\Report_Pdf.pdf";
+		
+		IndividualClientReportPdf pdf = new IndividualClientReportPdf();
+		try {
+			pdf.getDetails(totalPdfPath, individualClientReportBean, reportBeanList);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (DocumentException e) {
+			e.printStackTrace();
+		}
+		
+	}
 	
 	
 	public ArrayList<SkillsetMasterbean> getSkillList() {
