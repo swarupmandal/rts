@@ -289,8 +289,8 @@ public class IndividualClientReportViewModel {
 		String pdfPath = Executions.getCurrent().getDesktop().getWebApp().getRealPath("/");
 		//String totalPdfPath = pdfPath + "Report_Pdf.pdf";
 		
-		String totalPdfPath = "C:\\Users\\swarup\\Desktop\\pdf test\\Report_Pdf.pdf";
-		
+		//String totalPdfPath = "C:\\Users\\swarup\\Desktop\\pdf test\\Report_Pdf.pdf";
+		String totalPdfPath = "C:\\pdf test\\Report_Pdf.pdf";
 		IndividualClientReportPdf pdf = new IndividualClientReportPdf();
 		try {
 			pdf.getDetails(totalPdfPath, individualClientReportBean, reportBeanList);
