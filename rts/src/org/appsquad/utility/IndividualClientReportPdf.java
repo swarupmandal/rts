@@ -41,9 +41,9 @@ public class IndividualClientReportPdf {
 		document.open();
 		
 		createPdfHeader();
-		//printDetails(individualClientReportBeanList);
+		printDetails(individualClientReportBeanList);
 		//printPdfDetailsTest(individualClientReportBeanList);
-		createTable();
+		//createTable();
 		document.close();
 		
 	}
@@ -54,7 +54,7 @@ public class IndividualClientReportPdf {
 		PdfPTable table = new PdfPTable(headerLabes.length);
 		Font font;
 		font = new Font(Font.getFamily("HELVETICA"), 10, Font.BOLD);
-		PdfPCell cell;
+		//PdfPCell cell;
 		for(int i =0 ;i<headerLabes.length ; i++){
 			PdfPCell headCell = new PdfPCell(new Phrase(headerLabes[i]));
 			table.addCell(headCell);
@@ -65,59 +65,59 @@ public class IndividualClientReportPdf {
         	System.out.println("_______________________________________________________________________________________________________________");
 			
         	if(bean.getrIdLabel()!=null){
-				cell = new PdfPCell(new Phrase(bean.getrIdDateLabel()));
+        		PdfPCell cell = new PdfPCell(new Phrase(bean.getrIdDateLabel()));
 				table.addCell(cell);
 			}else{
-				cell = new PdfPCell(new Phrase(""));
+				PdfPCell cell = new PdfPCell(new Phrase(""));
 				table.addCell(cell);
 			}
 			
 			
         	if(bean.getrIdDateLabel() != null){
-        		cell = new PdfPCell(new Phrase(bean.getrIdDateLabel()));
+        		PdfPCell cell = new PdfPCell(new Phrase(bean.getrIdDateLabel()));
     			table.addCell(cell);
         	}else {
-        		cell = new PdfPCell(new Phrase(""));
+        		PdfPCell cell = new PdfPCell(new Phrase(""));
 				table.addCell(cell);
 			}
 			
 			if(bean.getYoExp() != null){
-				cell = new PdfPCell(new Phrase(bean.getYoExp()));
+				PdfPCell cell = new PdfPCell(new Phrase(bean.getYoExp()));
 				table.addCell(cell);	
 			}else {
-				cell = new PdfPCell(new Phrase(""));
+				PdfPCell cell = new PdfPCell(new Phrase(""));
 				table.addCell(cell);
 			}
 			
 			if(bean.getSkillSetLabel() != null){
-				cell = new PdfPCell(new Phrase(bean.getSkillSetLabel()));
+				PdfPCell cell = new PdfPCell(new Phrase(bean.getSkillSetLabel()));
 				table.addCell(cell);
 			}else {
-				cell = new PdfPCell(new Phrase(""));
+				PdfPCell cell = new PdfPCell(new Phrase(""));
 				table.addCell(cell);
 			}
 			
 			if(bean.getEmailId() != null){
-				cell = new PdfPCell(new Phrase(bean.getEmailId()));
+				PdfPCell cell = new PdfPCell(new Phrase(bean.getEmailId()));
 				table.addCell(cell);
 			}else {
-				cell = new PdfPCell(new Phrase(""));
+				PdfPCell cell = new PdfPCell(new Phrase(""));
 				table.addCell(cell);
 			}
 			
 			if(bean.getIntIntvValue() != null){
-				cell = new PdfPCell(new Phrase(bean.getIntIntvValue()));
+				PdfPCell cell = new PdfPCell(new Phrase(bean.getIntIntvValue()));
 				table.addCell(cell);
 			}else {
-				cell = new PdfPCell(new Phrase(""));
+				PdfPCell cell = new PdfPCell(new Phrase(""));
 				table.addCell(cell);
 			}
 			
 			if(bean.getClntIntvValue() != null){
-				cell = new PdfPCell(new Phrase(bean.getClntIntvValue()));
+				PdfPCell cell = new PdfPCell(new Phrase(bean.getClntIntvValue()));
 				table.addCell(cell);
 			}else {
-				cell = new PdfPCell(new Phrase(""));
+				PdfPCell cell = new PdfPCell(new Phrase(""));
 				table.addCell(cell);
 			}
 			
@@ -140,7 +140,7 @@ public class IndividualClientReportPdf {
 		
 	}
 	
-	void printDetails(ArrayList<IndividualClientReportBean> list){
+	void printDetails(ArrayList<IndividualClientReportBean> list) throws DocumentException{
 		
 		String[] headerLabes = {"STATUS", "RESOURCE NAME", "Year Of Exp.", "CONTACT NO.", "EMAIL", "OTHER INFO", " INTERNAL INTERVIEW DATE", " CLIENT INTERVIEW DATE"};
 		
@@ -164,6 +164,7 @@ public class IndividualClientReportPdf {
 			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 
 			headerTable.addCell(cell);
+			document.add(headerTable);
 
 		}
         
@@ -206,7 +207,7 @@ public class IndividualClientReportPdf {
 		    cell_3: {
 
 			PdfPCell cell;
-
+			//if(bean.getYoExp() != null)
 			Paragraph headerParagraph = new Paragraph(bean.getYoExp());
 			headerParagraph.getFont().setSize(5f);
 			headerParagraph.setAlignment(Element.ALIGN_LEFT);
@@ -297,7 +298,7 @@ public class IndividualClientReportPdf {
 
 			}
         }
-        
+        document.add(headerTable);
 		
 	}
 	

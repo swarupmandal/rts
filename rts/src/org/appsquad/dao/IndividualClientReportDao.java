@@ -141,7 +141,7 @@ public class IndividualClientReportDao {
 					bean.setCompanyName(resultSet.getString("companyname"));  
 					bean.setIntIntvValue("");
 					bean.setClntIntvValue("");
-					
+					bean.setYoExp(0);
 					
 					bean.setStyle(bean.getBoldStyle());
 					bean.setBackGroundStyle(bean.getBackGroundpaParent());
