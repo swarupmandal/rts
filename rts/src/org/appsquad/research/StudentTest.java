@@ -8,6 +8,8 @@ public class StudentTest {
 
 	public static void main(String[] args) {
 		
+		double i = 0.0;
+		System.out.println("Int 2 Str " + String.valueOf(i));
 		ArrayList<Student> studentList = new ArrayList<Student>();
 		
 		studentList.add(new Student(1, "a", 10));

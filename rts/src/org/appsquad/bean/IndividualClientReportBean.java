@@ -41,7 +41,8 @@ public class IndividualClientReportBean {
 	private int statusId;
 	private String status;
 	private String resourceName;
-	private Integer yoExp;
+	//private Integer yoExp;
+	private double yoExp;
 	private String contNo;
 	private String emailId;
 	
@@ -57,6 +58,8 @@ public class IndividualClientReportBean {
 	
 	private String resOtherInfo;
 	
+	private boolean detailChecked;
+	private boolean summaryChecked;
 	private boolean detailsDivVis = false;
 	private boolean summaryDivVis = false;
 	
@@ -86,7 +89,7 @@ public class IndividualClientReportBean {
 	
 	private String boldStyle = "font-weight: bold; color: black";
 	private String lighterStyle = "font-weight: lighter; color: black";
-	private String backGroundpaParent = "background-color: pink";
+	private String backGroundpaParent = "background-color: #ffe6f9";
 	//private String backGroundpaParent = "background-color: yellow";
 	private String style;
 	private String backGroundStyle;
@@ -548,11 +551,24 @@ public class IndividualClientReportBean {
 	public void setResOtherInfo(String resOtherInfo) {
 		this.resOtherInfo = resOtherInfo;
 	}
-	public Integer getYoExp() {
+	public double getYoExp() {
 		return yoExp;
 	}
-	public void setYoExp(Integer yoExp) {
+	public void setYoExp(double yoExp) {
 		this.yoExp = yoExp;
 	}
+	public boolean isDetailChecked() {
+		return detailChecked;
+	}
+	public void setDetailChecked(boolean detailChecked) {
+		this.detailChecked = detailChecked;
+	}
+	public boolean isSummaryChecked() {
+		return summaryChecked;
+	}
+	public void setSummaryChecked(boolean summaryChecked) {
+		this.summaryChecked = summaryChecked;
+	}
+	
 	
 }

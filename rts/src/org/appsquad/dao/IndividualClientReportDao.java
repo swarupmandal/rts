@@ -177,7 +177,7 @@ public class IndividualClientReportDao {
 							
 							subBean.setrIdLabel(resultSet2.getString("final_status"));
 							subBean.setrIdDateLabel(resultSet2.getString("res_name"));
-							subBean.setYoExp(resultSet2.getInt("res_experience"));
+							subBean.setYoExp(resultSet2.getDouble("res_experience"));
 							subBean.setSkillSetLabel(resultSet2.getString("rts_contact_no"));
 							
 							subBean.setEmailId(resultSet2.getString("res_emailid"));
@@ -296,7 +296,7 @@ public static ArrayList<IndividualClientReportBean> loadRidListWithDateRange(Dat
 					bean.setEmailId("");
 					bean.setIntIntvValue("");
 					bean.setClntIntvValue("");
-					
+					bean.setYoExp(0);
 					bean.setStyle(bean.getBoldStyle());
 					bean.setBackGroundStyle(bean.getBackGroundpaParent());
 					bean.setRidLbFieldVis(true); 
@@ -331,7 +331,7 @@ public static ArrayList<IndividualClientReportBean> loadRidListWithDateRange(Dat
 							
 							subBean.setrIdLabel(resultSet2.getString("final_status"));
 							subBean.setrIdDateLabel(resultSet2.getString("res_name"));
-							subBean.setYoExp(resultSet2.getInt("res_experience"));
+							subBean.setYoExp(resultSet2.getDouble("res_experience"));
 							subBean.setSkillSetLabel(resultSet2.getString("rts_contact_no"));
 							
 							subBean.setEmailId(resultSet2.getString("res_emailid"));
@@ -450,7 +450,7 @@ public static ArrayList<IndividualClientReportBean> loadRidListWithDateRange(Dat
 						bean.setEmailId("");
 						bean.setIntIntvValue("");
 						bean.setClntIntvValue("");
-						
+						bean.setYoExp(0);
 						bean.setStyle(bean.getBoldStyle());
 						bean.setBackGroundStyle(bean.getBackGroundpaParent());
 						bean.setRidLbFieldVis(true); 
@@ -485,7 +485,7 @@ public static ArrayList<IndividualClientReportBean> loadRidListWithDateRange(Dat
 								
 								subBean.setrIdLabel(resultSet2.getString("final_status"));
 								subBean.setrIdDateLabel(resultSet2.getString("res_name"));
-								subBean.setYoExp(resultSet2.getInt("res_experience"));
+								subBean.setYoExp(resultSet2.getDouble("res_experience"));
 								subBean.setSkillSetLabel(resultSet2.getString("rts_contact_no"));
 								
 								subBean.setEmailId(resultSet2.getString("res_emailid"));
@@ -603,7 +603,7 @@ public static ArrayList<IndividualClientReportBean> loadRidListWithDateRange(Dat
 						bean.setEmailId("");
 						bean.setIntIntvValue("");
 						bean.setClntIntvValue("");
-						
+						bean.setYoExp(0);
 						bean.setStyle(bean.getBoldStyle());
 						bean.setBackGroundStyle(bean.getBackGroundpaParent());
 						bean.setRidLbFieldVis(true); 
@@ -638,7 +638,7 @@ public static ArrayList<IndividualClientReportBean> loadRidListWithDateRange(Dat
 								
 								subBean.setrIdLabel(resultSet2.getString("final_status"));
 								subBean.setrIdDateLabel(resultSet2.getString("res_name"));
-								subBean.setYoExp(resultSet2.getInt("res_experience"));
+								subBean.setYoExp(resultSet2.getDouble("res_experience"));
 								subBean.setSkillSetLabel(resultSet2.getString("rts_contact_no"));
 								
 								subBean.setEmailId(resultSet2.getString("res_emailid"));
@@ -756,7 +756,7 @@ public static ArrayList<IndividualClientReportBean> loadRidListWithDateRange(Dat
 						bean.setEmailId("");
 						bean.setIntIntvValue("");
 						bean.setClntIntvValue("");
-						
+						bean.setYoExp(0);
 						bean.setStyle(bean.getBoldStyle());
 						bean.setBackGroundStyle(bean.getBackGroundpaParent());
 						bean.setRidLbFieldVis(true); 
@@ -791,7 +791,7 @@ public static ArrayList<IndividualClientReportBean> loadRidListWithDateRange(Dat
 								
 								subBean.setrIdLabel(resultSet2.getString("final_status"));
 								subBean.setrIdDateLabel(resultSet2.getString("res_name"));
-								subBean.setYoExp(resultSet2.getInt("res_experience"));
+								subBean.setYoExp(resultSet2.getDouble("res_experience"));
 								subBean.setSkillSetLabel(resultSet2.getString("rts_contact_no"));
 								
 								subBean.setEmailId(resultSet2.getString("res_emailid"));
@@ -908,7 +908,7 @@ public static ArrayList<IndividualClientReportBean> loadRidListWithDateRange(Dat
 						bean.setEmailId("");
 						bean.setIntIntvValue("");
 						bean.setClntIntvValue("");
-						
+						bean.setYoExp(0);
 						bean.setStyle(bean.getBoldStyle());
 						bean.setBackGroundStyle(bean.getBackGroundpaParent());
 						bean.setRidLbFieldVis(true); 
@@ -942,7 +942,7 @@ public static ArrayList<IndividualClientReportBean> loadRidListWithDateRange(Dat
 								
 								subBean.setrIdLabel(resultSet2.getString("final_status"));
 								subBean.setrIdDateLabel(resultSet2.getString("res_name"));
-								subBean.setYoExp(resultSet2.getInt("res_experience"));
+								subBean.setYoExp(resultSet2.getDouble("res_experience"));
 								subBean.setSkillSetLabel(resultSet2.getString("rts_contact_no"));
 								
 								subBean.setEmailId(resultSet2.getString("res_emailid"));
@@ -1058,7 +1058,7 @@ public static ArrayList<IndividualClientReportBean> loadRidListWithDateRange(Dat
 						bean.setEmailId("");
 						bean.setIntIntvValue("");
 						bean.setClntIntvValue("");
-						
+						bean.setYoExp(0);
 						bean.setStyle(bean.getBoldStyle());
 						bean.setBackGroundStyle(bean.getBackGroundpaParent());
 						bean.setRidLbFieldVis(true); 
@@ -1092,7 +1092,7 @@ public static ArrayList<IndividualClientReportBean> loadRidListWithDateRange(Dat
 								
 								subBean.setrIdLabel(resultSet2.getString("final_status"));
 								subBean.setrIdDateLabel(resultSet2.getString("res_name"));
-								subBean.setYoExp(resultSet2.getInt("res_experience"));
+								subBean.setYoExp(resultSet2.getDouble("res_experience"));
 								subBean.setSkillSetLabel(resultSet2.getString("rts_contact_no"));
 								
 								subBean.setEmailId(resultSet2.getString("res_emailid"));
@@ -1209,7 +1209,7 @@ public static ArrayList<IndividualClientReportBean> loadRidListWithDateRange(Dat
 						bean.setEmailId("");
 						bean.setIntIntvValue("");
 						bean.setClntIntvValue("");
-						
+						bean.setYoExp(0);
 						bean.setStyle(bean.getBoldStyle());
 						bean.setBackGroundStyle(bean.getBackGroundpaParent());
 						bean.setRidLbFieldVis(true); 
@@ -1243,7 +1243,7 @@ public static ArrayList<IndividualClientReportBean> loadRidListWithDateRange(Dat
 								
 								subBean.setrIdLabel(resultSet2.getString("final_status"));
 								subBean.setrIdDateLabel(resultSet2.getString("res_name"));
-								subBean.setYoExp(resultSet2.getInt("res_experience"));
+								subBean.setYoExp(resultSet2.getDouble("res_experience"));
 								subBean.setSkillSetLabel(resultSet2.getString("rts_contact_no"));
 								
 								subBean.setEmailId(resultSet2.getString("res_emailid"));
@@ -1503,7 +1503,7 @@ public static ArrayList<IndividualClientReportBean> loadRidListWithDateRange(Dat
 								
 								subBean.setrIdLabel(resultSet2.getString("final_status"));
 								subBean.setrIdDateLabel(resultSet2.getString("res_name"));
-								subBean.setYoExp(resultSet2.getInt("res_experience"));
+								subBean.setYoExp(resultSet2.getDouble("res_experience"));
 								subBean.setSkillSetLabel(resultSet2.getString("rts_contact_no"));
 								
 								subBean.setEmailId(resultSet2.getString("res_emailid"));
