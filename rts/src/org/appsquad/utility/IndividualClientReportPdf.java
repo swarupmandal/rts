@@ -32,7 +32,7 @@ public class IndividualClientReportPdf {
 	public void getDetails(String localFilePath, IndividualClientReportBean individualClientReportBean, ArrayList<IndividualClientReportBean> individualClientReportBeanList) throws FileNotFoundException, DocumentException{
 		
 		filePath = localFilePath;
-		System.out.println("File Path >>> >> > " + filePath);
+		//System.out.println("File Path >>> >> > " + filePath);
 		individualClientReportList = individualClientReportBeanList;
 		document = new Document(PageSize.A4, 2, 2, 60, 40);
 		document.setMargins(-40, -60, 60, 0);
