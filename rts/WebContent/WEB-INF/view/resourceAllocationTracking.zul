@@ -70,7 +70,7 @@
 	<space></space>
 	
 	<div>
-		<grid mold="paging" pageSize="10" model="@bind(vm.trackingBeanList)">
+		<grid mold="paging" pageSize="10"  model="@bind(vm.trackingBeanList)">
 			<auxhead>
 				<auxheader colspan="2">
 					<textbox placeholder="Search By Reasouce" onChange="@command('onChangeSearch')" value="@bind(vm.trackingBean.resNameSeach)"></textbox>
@@ -95,16 +95,16 @@
 			   <template name="model" var = "v">	
 				<row>
 				  <checkbox value="@bind(v.check)"></checkbox>
-				  <textbox width="98%" readonly="true" value="@bind(v.resourceMasterBean.fullName)"></textbox>
-				  <textbox width="98%" readonly="true" value="@bind(v.status)"></textbox>
+				  <textbox width="98%"  readonly="true" value="@bind(v.resourceMasterBean.fullName)"></textbox>
+				  <textbox width="98%"  readonly="true" value="@bind(v.status)"></textbox>
 				  <doublebox width="98%" readonly="true" value="@bind(v.resourceMasterBean.yearOfExperience)"></doublebox>
-				  <textbox width="98%" readonly="true" value="@bind(v.resourceType)"></textbox>
-				  <textbox width="98%" readonly="true" value="@bind(v.resourceMasterBean.contactNumber)"></textbox>
-				  <textbox width="98%" readonly="true" value="@bind(v.resourceMasterBean.emailId)"></textbox>
-				  <textbox width="98%" readonly="true" value="@bind(v.resourceMasterBean.address)"></textbox>
-				  <textbox width="98%" readonly="true" value="@bind(v.internalInterviewDateStr)"></textbox>
-				  <textbox width="98%" readonly="true" value="@bind(v.clientInterviewDateStr)"></textbox>
-				  <textbox width="98%" readonly="true" value="@bind(v.onboardDateStr)"></textbox>
+				  <textbox width="98%"  readonly="true" value="@bind(v.resourceType)"></textbox>
+				  <textbox width="98%"  readonly="true" value="@bind(v.resourceMasterBean.contactNumber)"></textbox>
+				  <textbox width="98%"  readonly="true" value="@bind(v.resourceMasterBean.emailId)"></textbox>
+				  <textbox width="98%"  readonly="true" value="@bind(v.resourceMasterBean.address)"></textbox>
+				  <textbox width="98%"  readonly="true" value="@bind(v.internalInterviewDateStr)"></textbox>
+				  <textbox width="98%"  readonly="true" value="@bind(v.clientInterviewDateStr)"></textbox>
+				  <textbox width="98%"  readonly="true" value="@bind(v.onboardDateStr)"></textbox>
 				  <button width="90%" label="Update" onClick="@command('onClickUpdate', bean =v)"></button>	
 				</row>
 			  </template>	

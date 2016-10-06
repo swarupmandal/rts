@@ -53,6 +53,12 @@ public class ResourceAllocationTrackingService {
 		return i;
 	}
 	
+	public static int insertRejectStatusIntoMapper(Integer rId, Integer resId, Integer clientId, String userId){
+		int q =0;
+		q = ResourceAllocationTrackingDao.inSertRejectStatus(rId, resId,clientId,userId);
+		return q;
+	}
+	
 	public static int insertInternalIntDate(Integer rId, int resId,int clientId, Date date, String userId, String otherComments){
 		int i = 0;
 		i = ResourceAllocationTrackingDao.intInterviewDate(rId, resId, clientId, date, userId, otherComments);
@@ -63,6 +69,18 @@ public class ResourceAllocationTrackingService {
 		int j = 0;
 		j = ResourceAllocationTrackingDao.updateInterviewDate(rId, resId, clientId, date, userId, otherComments);
 		return j;
+	}
+	
+	public static int updateResourceTable(Integer resId){
+		int j = 0;
+		j = ResourceAllocationTrackingDao.updateResourceTable(resId);
+		return j;
+	}
+	
+	public static int updateRejectedStatus(Integer rId, int resId,int clientId,String typeName){
+		int p = 0;
+		p = ResourceAllocationTrackingDao.updateRejectedStatus(rId, resId, clientId, typeName);
+		return p;
 	}
 	
 	public static int insertClientIntDate(Integer rId, int resId,int clientId, Date date, String userId, String otherComment){

@@ -326,8 +326,6 @@ public class ResourceAllocationDao {
 					   try {
 						    preparedStatement = Pstm.createQuery(connection, ResourceAllocationSql.fetchTypeSql, null);
 						    
-						    //logger.info(" onLoadResourceTypeDetails- " + preparedStatement.unwrap(PreparedStatement.class));
-						    
 							ResultSet resultSet = preparedStatement.executeQuery();
 							while (resultSet.next()) {
 								ResourceTypeBean resourceTypeBean = new ResourceTypeBean();
@@ -351,7 +349,6 @@ public class ResourceAllocationDao {
 				}
 			}
 		} catch (Exception e) {
-			//logger.fatal("---------------->>>>>>>"+e);
 			e.printStackTrace();
 		}
 		return typeList;	
@@ -360,6 +357,7 @@ public class ResourceAllocationDao {
 	public static ArrayList<ResourceMasterBean> onLoadResourceDetails(ResourceAllocationBean resourceAllocationBean){
 		ArrayList<ResourceMasterBean> resourceList = new ArrayList<ResourceMasterBean>();
 		Connection connection = null;
+		int count = 0;
 		try {
 			connection = DbConnection.createConnection();
 			sql_connection:{
@@ -380,8 +378,12 @@ public class ResourceAllocationDao {
 								bean.setAddress(resultSet.getString("res_address"));
 								bean.setEmailId(resultSet.getString("res_emailid"));
 								bean.getSkillsetMasterbean().setSkillset(resultSet.getString("rts_skill_name"));
-								
-								resourceList.add(bean);
+								count = presentInMapperTable(resourceAllocationBean.getRequirementGenerationBean().getRequirementId(), bean.getResourceId());
+								if(count>0){
+									
+								}else{
+									resourceList.add(bean);	
+								}
 							}  
 						} finally{
 							if(preparedStatement!=null){
@@ -402,6 +404,44 @@ public class ResourceAllocationDao {
 			e.printStackTrace();
 		}
 		return resourceList;	
+	}
+	
+	public static Integer presentInMapperTable(Integer reqId, Integer resId){
+		int count = 0;
+		Connection connection = null;
+		try {
+			connection = DbConnection.createConnection();
+			sql_connection:{
+				try {
+					
+					//1st SQL block
+					sql_fetch:{
+					   PreparedStatement preparedStatement = null;
+					   try {
+						    preparedStatement = Pstm.createQuery(connection, ResourceAllocationSql.countFromMapperSql, Arrays.asList(reqId,resId));
+						    
+							ResultSet resultSet = preparedStatement.executeQuery();
+							while (resultSet.next()) {
+								count = resultSet.getInt(1);
+							}  
+						} finally{
+							if(preparedStatement!=null){
+								preparedStatement.close();
+							}
+						}
+				    }
+				} catch (Exception e) {
+					e.printStackTrace();
+				}finally{
+					if(connection!=null){
+						connection.close();
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return count;	
 	}
 	
 	public static boolean updateResourceTable(ArrayList<ResourceMasterBean> list){

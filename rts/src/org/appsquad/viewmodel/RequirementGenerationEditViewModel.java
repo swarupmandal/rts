@@ -1,10 +1,18 @@
 package org.appsquad.viewmodel;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import org.appsquad.bean.RequirementGenerationBean;
+import org.appsquad.bean.ResourceTypeBean;
 import org.appsquad.bean.StatusMasterBean;
+import org.appsquad.database.DbConnection;
+import org.appsquad.database.DbConstants;
 import org.appsquad.service.RequirementGenerationService;
+import org.appsquad.sql.RequirementGenerationSql;
+import org.appsquad.utility.Pstm;
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.Command;
@@ -22,6 +30,10 @@ import org.zkoss.zul.Window;
 public class RequirementGenerationEditViewModel {
 	RequirementGenerationBean reqEditGenBean = new RequirementGenerationBean();
 	StatusMasterBean statusBeanEdit = new StatusMasterBean();
+	ResourceTypeBean resourceTypeBean=new ResourceTypeBean();
+	public int count;
+	private boolean isEqualResource;
+	
 	
 	private ArrayList<StatusMasterBean> statusBeanEditList = new ArrayList<StatusMasterBean>();
 	
@@ -45,6 +57,8 @@ public class RequirementGenerationEditViewModel {
 			 reqEditGenBean.setOldValue(reqEditGenBean.getNofPerResource());
 		 }
 		 statusBeanEditList = RequirementGenerationService.fetchStatusList();
+		 isEqualResource = RequirementGenerationService.getReqAllEqual(reqEditGenBean.getReq_id());
+		 
 	}
 
 	@Command
@@ -55,6 +69,8 @@ public class RequirementGenerationEditViewModel {
 		}
 	}
 	
+		
+		
 	@Command
 	@NotifyChange("*")
 	public void onChangePer(){
