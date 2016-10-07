@@ -177,7 +177,7 @@ public class ResourceAllocationTrackingDao {
 				connection = DbConnection.createConnection();
 				preparedStatement = Pstm.createQuery(connection, ResourceAllocationTrackingSql.loadClNameSearch, Arrays.asList("%"+name.trim().toUpperCase()+"%"));
 				
-				//logger.info("fetchClientDetailsSearch - " + preparedStatement.unwrap(PreparedStatement.class));
+				logger.info("fetchClientDetailsSearch - " + preparedStatement.unwrap(PreparedStatement.class));
 				
 				resultSet = preparedStatement.executeQuery();
 				while (resultSet.next()) {
@@ -257,7 +257,7 @@ public class ResourceAllocationTrackingDao {
 				connection = DbConnection.createConnection();
 				preparedStatement = Pstm.createQuery(connection, ResourceAllocationTrackingSql.loadReqIdSearchWithRid, Arrays.asList("%"+id+"%"));
 				
-				//logger.info("fetchReqirmentDetailsSearch - " + preparedStatement.unwrap(PreparedStatement.class));
+				logger.info("fetchReqirmentDetailsSearch - " + preparedStatement.unwrap(PreparedStatement.class));
 				
 				resultSet = preparedStatement.executeQuery();
 				while (resultSet.next()) {

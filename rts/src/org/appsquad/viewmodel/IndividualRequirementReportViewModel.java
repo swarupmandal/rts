@@ -70,6 +70,8 @@ public class IndividualRequirementReportViewModel {
    public void onChangeReqId(){
 	   if(individualRequirementReportBean.getR_idSearch() != null){
 			requirementGenerationBeanList = ResourceAllocationTrackingService.fetchReqSearch(individualRequirementReportBean.getR_idSearch());
+		}else {
+			requirementGenerationBeanList = IndividualRequirementReportDao.fetchReqirmentDetails();
 		}
    }
    
@@ -192,8 +194,8 @@ public class IndividualRequirementReportViewModel {
    public void onClickPdf(){
 
 		String pdfPath = Executions.getCurrent().getDesktop().getWebApp().getRealPath("/");
-		String totalPdfPath = pdfPath + "report.pdf";
-		//String totalPdfPath = "C:\\pdf test\\Report_Pdf.pdf";
+		//String totalPdfPath = pdfPath + "report.pdf";
+		String totalPdfPath = "C:\\pdf test\\Report_Pdf.pdf";
 		
 		IndividualClientReportPdf pdf = new IndividualClientReportPdf();
 		

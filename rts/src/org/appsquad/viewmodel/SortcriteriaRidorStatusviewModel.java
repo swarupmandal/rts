@@ -148,7 +148,9 @@ public class SortcriteriaRidorStatusviewModel {
   public void onChangeReqId(){
 	   if(rIdWiseReportBean.getR_idSearch() != null){
 			requirementGenerationBeanList = ResourceAllocationTrackingService.fetchReqSearch(rIdWiseReportBean.getR_idSearch());
-		}
+	   }else {
+		   requirementGenerationBeanList = IndividualRequirementReportDao.fetchReqirmentDetails();
+	}
   }
   
   
@@ -166,8 +168,8 @@ public class SortcriteriaRidorStatusviewModel {
 		   requirementGenerationBeanList = IndividualRequirementReportDao.fetchReqirmentDetails();
 		   Messagebox.show("SELECT FROOM DATE AND TO  DATE ", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION);
 	   }
-	   rIdWiseReportBean.setFromDate(null);
-	   rIdWiseReportBean.setToDate(null);
+	   //rIdWiseReportBean.setFromDate(null);
+	   //rIdWiseReportBean.setToDate(null);
 	   
 	   rIdWiseReportBean.skillsetMasterbean.setSkillset(null);
 	   
@@ -189,7 +191,7 @@ public class SortcriteriaRidorStatusviewModel {
 		
 		if(rIdWiseReportBean.getFromDate() != null && rIdWiseReportBean.getToDate() != null){
 			
-			if(rIdWiseReportBean.skillsetMasterbean.getId() != null){
+			if(requirementGenerationBean.getReq_id() != null){
 				
 				 reportBeanList = IndividualClientReportService.loadRidListWithStatusDateRidWiseReport(Dateformatter.sqlDate(rIdWiseReportBean.getFromDate()), Dateformatter.sqlDate(rIdWiseReportBean.getToDate()),requirementGenerationBean.getReq_id() , rIdWiseReportBean.statusMasterBean.getStatusId());
 				 rIdWiseReportBean.setSelectedRadioButton("detail");
@@ -197,7 +199,7 @@ public class SortcriteriaRidorStatusviewModel {
 			}else {
 				rIdWiseReportBean.statusMasterBean.setStatus(null);
 				statusList = ResourceMasterDao.onLoadStatus();
-				Messagebox.show("Select Skill Set", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION);   
+				Messagebox.show("Select R ID", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION);   
 			}
 			
 		}else {
@@ -206,6 +208,18 @@ public class SortcriteriaRidorStatusviewModel {
 			Messagebox.show("Select From Date and To Date", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION);
 		}
 	}
+  
+	 @Command
+	 @NotifyChange("*")
+	 public void onChangeClientName(){
+		   
+		   if(rIdWiseReportBean.getClientNameSearch() != null){
+			   clientList = ResourceAllocationTrackingService.fetchClientDetailsSearch(rIdWiseReportBean.getClientNameSearch());
+		   }
+		   reportBeanList.clear();
+		   summaryBeanList.clear();
+		   
+	 }
   
   
   	@Command

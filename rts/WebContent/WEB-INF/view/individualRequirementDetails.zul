@@ -40,7 +40,7 @@
 		   </template>
 	    </combobox>
     	<space></space>
-    	<button label="Clear" onClick="@command('onClickClear')"></button>
+    	<button label="Clear" onClick="@command('onClickClear')" width="70px" style="font-weight:bold; color: black"></button>
     	
     	<div></div>
     	<space></space>
