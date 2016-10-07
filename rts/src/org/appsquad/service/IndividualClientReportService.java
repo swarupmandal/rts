@@ -63,6 +63,13 @@ public class IndividualClientReportService {
 		return list;
 	}
 	
+	public static ArrayList<IndividualClientReportBean> loadRidListWithStatusDateRidWiseReport(Date fromDate, Date toDate, int rId,int statusId){
+		ArrayList<IndividualClientReportBean> list = new ArrayList<IndividualClientReportBean>();
+		list = IndividualClientReportDao.loadRidListWithStatusRIdDateWiseReport(fromDate, toDate, rId, statusId);
+		return list;
+	}
+	
+	
 	public static ArrayList<IndividualClientReportBean> loadRidListWithStatusAndSkill(int skillId,int statusId, int clientId){
 		ArrayList<IndividualClientReportBean> list = new ArrayList<IndividualClientReportBean>();
 		list = IndividualClientReportDao.loadRidListWithStatusSkill(skillId, statusId, clientId);
@@ -81,5 +88,9 @@ public class IndividualClientReportService {
 		return list;
 	}
 	
-	
+	public static ArrayList<IndividualClientReportBean> loadRidListwithDateRangeWithRidWiseReport(Date fromDate, Date toDate, int rId){
+		ArrayList<IndividualClientReportBean> list = new ArrayList<IndividualClientReportBean>();
+		list = IndividualClientReportDao.loadRidListWithDateRangeAndRIdWise(fromDate, toDate, rId);
+		return list;
+	}
 }

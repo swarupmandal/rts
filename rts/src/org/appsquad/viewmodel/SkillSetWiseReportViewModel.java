@@ -12,12 +12,15 @@ import org.appsquad.service.IndividualClientReportService;
 import org.appsquad.service.RequirementGenerationService;
 import org.appsquad.service.ResourceAllocationTrackingService;
 import org.appsquad.utility.Dateformatter;
+import org.appsquad.utility.IndividualClientReportExcel;
+import org.appsquad.utility.IndividualClientReportPdf;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.select.Selectors;
@@ -172,7 +175,6 @@ public class SkillSetWiseReportViewModel {
 	}
 	
 	
-	
 	@Command
 	@NotifyChange("*")
 	public void onSelctClientName(){
@@ -214,12 +216,7 @@ public class SkillSetWiseReportViewModel {
 			   skilWiseReportBean.setDetailsDivVis(false);
 			   summaryBeanList = IndividualClientReportService.loadRidSummaryList(reportBeanList);
 			   skilWiseReportBean.setSummaryDivVis(true);
-			 
 		}
-		   
-	   
-		
-		
 	}
 	
 	
@@ -227,12 +224,126 @@ public class SkillSetWiseReportViewModel {
 	@Command
 	@NotifyChange("*")
 	public void onClickClear(){
+
+		   
+		   summaryBeanList.clear();
+		   reportBeanList.clear();
+		   skilWiseReportBean.clientInformationBean.setFullName(null);
+		   clientList = ResourceAllocationTrackingService.fetchClientDetails();
+		   skilWiseReportBean.setFromDate(null);
+		   skilWiseReportBean.setToDate(null);
+		   
+		   skilWiseReportBean.skillsetMasterbean.setSkillset(null);
+		   skillList = RequirementGenerationService.fetchSkillSetList();
+		   
+		   skilWiseReportBean.statusMasterBean.setStatus(null);
+		   statusList = ResourceMasterDao.onLoadStatus();
+		   skilWiseReportBean.setSelectedRadioButton(null);
+		   
+	   
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void onClickPdf(){
+		String pdfPath = Executions.getCurrent().getDesktop().getWebApp().getRealPath("/");
+		//String totalPdfPath = pdfPath + "report.pdf";
+		String totalPdfPath = "C:\\pdf test\\Report_Pdf.pdf";
+		
+		IndividualClientReportPdf pdf = new IndividualClientReportPdf();
+		
+		try{
+			
+		if(skilWiseReportBean.getSelectedRadioButton().equals("detail")){
+		
+		  if(reportBeanList.size()>0);	
+		  ArrayList<IndividualClientReportBean> detailList = new ArrayList<IndividualClientReportBean>();
+			for(IndividualClientReportBean bean : reportBeanList){
+				if(bean.isDetailChecked()){
+					detailList.add(bean);
+				}
+			}
+			if(detailList.size()>0){
+				pdf.getDetails(totalPdfPath, skilWiseReportBean, detailList);
+			}else {
+				Messagebox.show("NO DATA SELECTED ", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION );
+			}
+			
+		}else {
+			
+			if(summaryBeanList.size()>0);
+			ArrayList<IndividualClientReportBean> summList = new ArrayList<IndividualClientReportBean>();
+			for(IndividualClientReportBean bean : summaryBeanList){
+				if(bean.isSummaryChecked()){
+					summList.add(bean);
+				}
+			}
+			if(summList.size()>0){
+				pdf.getSummary(totalPdfPath, skilWiseReportBean, summList);
+			}else {
+				Messagebox.show("NO DATA SELECTED ", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION );
+			}
+			
+		}
+	
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		
+		/*try {
+			
+			if(individualClientReportBean.getSelectedRadioButton().equals("detail")){
+			   pdf.getDetails(totalPdfPath, individualClientReportBean, reportBeanList);
+			   
+			}else {
+				pdf.getSummary(totalPdfPath, individualClientReportBean, summaryBeanList);
+			}
+		
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (DocumentException e) {
+			e.printStackTrace();
+		}*/
 		
 	}
 	
-	
-	
-	
+	@Command
+	@NotifyChange("*")
+	public void onClickExcel(){
+		if(skilWiseReportBean.getSelectedRadioButton().equals("detail")){
+		
+		  if(reportBeanList.size()>0);	
+		  ArrayList<IndividualClientReportBean> detailList = new ArrayList<IndividualClientReportBean>();
+			for(IndividualClientReportBean bean : reportBeanList){
+				if(bean.isDetailChecked()){
+					detailList.add(bean);
+				}
+			}
+			if(detailList.size()>0){
+				IndividualClientReportExcel.printCSV(detailList);
+			}else {
+				Messagebox.show("NO DATA SELECTED ", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION );
+			}
+			
+		}else {
+			
+			if(summaryBeanList.size()>0);
+			ArrayList<IndividualClientReportBean> summList = new ArrayList<IndividualClientReportBean>();
+			for(IndividualClientReportBean bean : summaryBeanList){
+				if(bean.isSummaryChecked()){
+					summList.add(bean);
+				}
+			}
+			
+			if(summList.size()>0){
+				IndividualClientReportExcel.printSummaryCSV(summList);
+			}else {
+				Messagebox.show("NO DATA SELECTED ", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION );
+			}
+			
+		}
+	}
 	
 	
 	public Session getSessions() {

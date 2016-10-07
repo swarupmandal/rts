@@ -342,8 +342,8 @@ public class IndividualClientReportViewModel {
 	@NotifyChange("*")
 	public void onClickPdf(){
 		String pdfPath = Executions.getCurrent().getDesktop().getWebApp().getRealPath("/");
-		String totalPdfPath = pdfPath + "report.pdf";
-		//String totalPdfPath = "C:\\pdf test\\Report_Pdf.pdf";
+		//String totalPdfPath = pdfPath + "report.pdf";
+		String totalPdfPath = "C:\\pdf test\\Report_Pdf.pdf";
 		
 		IndividualClientReportPdf pdf = new IndividualClientReportPdf();
 		

@@ -24,7 +24,6 @@ public class DownloadPdf {
 			try {
 
 				while ((baLength = fis.read(ba1)) != -1) {
-
 					bios.write(ba1, 0, baLength);
 
 				}
@@ -50,8 +49,9 @@ public class DownloadPdf {
 
 			if (xlsFile.exists()) {
 
-				FileUtils.forceDelete(xlsFile);
-
+				System.out.println("exists!!!!!!!!!!!!!!!!!!!");
+				//FileUtils.forceDelete(xlsFile);
+				xlsFile.delete();
 			}
 		}
 	}

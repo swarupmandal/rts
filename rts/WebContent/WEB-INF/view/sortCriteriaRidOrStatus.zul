@@ -3,93 +3,153 @@
 <window title="Sort criteria:RID/Status" border="none" apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('org.appsquad.viewmodel.SortcriteriaRidorStatusviewModel')">
    				 <div>
-                          <hlayout>
-                            <grid>
-                                <columns>
-                                      <column></column>
-                                      <column></column>
-                                      <column></column>
-                                </columns>
-                                
-                                <rows>
-                                
-								   <row>
-					  					<!-- <label value="From-date" style="font-weight:bold"></label>	 -->	
-					  					 <datebox format="dd-MMM-yyyy"
-											value="@bind(vm.criteriaRidorStatusBean.fromDate)" onChange="@command('onChangeFromDate')"
-										       placeholder="From-Date"></datebox>
+    			<hlayout spacing="20px">
+    				
+    				<datebox placeholder="From Date" format="dd-MMM-yyyy" value="@bind(vm.rIdWiseReportBean.fromDate)" onChange="@command('onChangeFromDate')" ></datebox>
+    				
+    				<datebox placeholder="To Date" format="dd-MMM-yyyy" value="@bind(vm.rIdWiseReportBean.toDate)" onChange="@command('onChangeToDate')"></datebox>
+    				
+    				<bandbox autodrop="true" readonly="true" id="reqIdb" value="@bind(vm.requirementGenerationBean.req_id)">
+						<bandpopup>	
+							<hbox>
+								<intbox value="@bind(vm.rIdWiseReportBean.r_idSearch)" onChange="@command('onChangeReqId')" placeholder="Search By Req Id"></intbox>
+								<button label="Serach" onClick="@command('onChangeReqId')"></button>
+							</hbox>
+							<space></space>
+							<listbox width="280px" model="@bind(vm.requirementGenerationBeanList)" 
+							     selectedItem="@bind(vm.requirementGenerationBean)" onSelect="@command('onSelctReqId')" mold="paging" pageSize="5">
+								<listhead sizable="true">
+									<listheader label="Req Id"></listheader>
+									<listheader label="Skill"></listheader>
+								</listhead>
+								
+								<template name="model" var = "v">
+								<listitem>
 								  
-					  					<!-- <label value="To-Date" style="font-weight:bold"></label> -->		
-					  						<datebox format="dd-MMM-yyyy"
-										        value="@bind(vm.criteriaRidorStatusBean.toDate)" onChange="@command('onChangeToDate')"
-										           placeholder="To-Date">
-										        </datebox>
-								   </row>
-								   
-								   <row>
-								     <label value="Skill-Set" style="font-weight:bold"></label>
-								     <combobox model="@bind(vm.skillList)" selectedItem="@bind(vm.criteriaRidorStatusBean.skillsetMasterbean)" readonly="true"
-		             					value="@bind(vm.criteriaRidorStatusBean.skillsetMasterbean.skillset)" width="50%" onSelect="@command('onSelectSkillName')">
-		             					<template name="model" var="p">
-		             						<comboitem value="@bind(p.skillset)" label="@bind(p.skillset)"/>
-		             					</template>
-		             				</combobox>	
-								   </row>
-								   
-								   <row>
-								      <label value="Resourcing Status"></label>
-								       <combobox model="@bind(vm.statusList)" selectedItem="@bind(vm.criteriaRidorStatusBean.statusMasterBean)" readonly="true"
-		             						value="@bind(vm.criteriaRidorStatusBean.statusMasterBean.status)" width="50%" onSelect="@command('onSelectStatusName')">
-		             					<template name="model" var="p">
-		             					<comboitem value="@bind(p.status)" label="@bind(p.status)"/>
-		             					</template>
-		             					</combobox>	
-								       <label value="Client-Name"></label>
-								       <combobox model="@bind(vm.clientList)" selectedItem="@bind(vm.criteriaRidorStatusBean.clientInformationBean)" readonly="true"
-		             						value="@bind(vm.criteriaRidorStatusBean.clientInformationBean.fullName)" width="50%" onSelect="@command('onSelectClientName')">
-		             					<template name="model" var="p">
-		             					<comboitem value="@bind(p.fullName)" label="@bind(p.fullName)"/>
-		             					</template>
-		             					</combobox>
-								   
-								   </row>
-								   
-								   <row>
-								   
-								       <radiogroup onCheck="@command('onCheckRepairRedo')" selectedItem="@bind(vm.criteriaRidorStatusBean.selectedRadioButton)">
-											<radio label="Detail" value="detail" />
-											<space></space>
-											<radio label="Summary" value="summary"/>
-										</radiogroup>
-								   
-								   </row>
-								   
-								 </rows>
-                            </grid>
-                            </hlayout>
-                        </div>
-                        <space></space>
-                         <div visible="@bind(vm.criteriaRidorStatusBean.divVisibility)">
-                           <grid model="@bind(vm.detailList)" mold="paging" pageSize="11" sclass="fgrid" height="430PX">
-                               <columns sizable="true">
-								<column label="Status-Name" align="center" style="font-weight:bold;" width="150px"/>
-								<column label="Resource Name" align="center" style="font-weight:bold;" width="150px"/>
-								<column label="Year Of Experience" align="center" style="font-weight:bold;" width="150px"/>
-								<column label="Contact Numeber" align="center" style="font-weight:bold;" width="150px"/>
-								<column label="Email Id" align="center" style="font-weight:bold;" width="150px"/>
-						       </columns>
-                               <rows>
-                                  <template name="model" var="v">
-										<row style="border: 0.01px solid #C0C0C0;">
-											<textbox value="@bind(v.statusMasterBean.status)" readonly="true" width="90%"/>
-								    		<textbox value="@bind(v.resourceMasterBean.fullName)" readonly="true" width="90%"/>
-								    		<textbox value="@bind(v.resourceMasterBean.yearOfExperience)" readonly="true" width="90%"/>
-								    		<textbox value="@bind(v.resourceMasterBean.contactNumber)" readonly="true" width="90%"/>
-								    		<textbox value="@bind(v.resourceMasterBean.emailId)" readonly="true" width="90%"/>
-										</row>
-								</template> 
-                               </rows>
-                           </grid>
-                       </div>
-                       </window>
+									<listcell label="@load(v.req_id)"></listcell>
+									<listcell label="@load(v.reqSkill)"></listcell>
+								  	
+								</listitem>
+								</template>
+							</listbox>
+						</bandpopup>
+					</bandbox>
+    				
+    				<combobox model="@bind(vm.statusList)" selectedItem="@bind(vm.rIdWiseReportBean.statusMasterBean)" readonly="true"
+		             	value="@bind(vm.rIdWiseReportBean.statusMasterBean.status)" placeholder="Resourcing Status" onSelect="@command('onSelectStatusName')">
+		                <template name="model" var="p">
+		                   <comboitem value="@bind(p.statusId)" label="@bind(p.status)"/>
+		                </template>
+		            </combobox>
+		            
+    				<bandbox autodrop="true" readonly="true" id="clntBb" value="@bind(vm.rIdWiseReportBean.clientInformationBean.fullName)" placeholder="Search By Client">
+						<bandpopup>	
+							<hbox>
+								<textbox value="@bind(vm.rIdWiseReportBean.clientNameSearch)" onChange="@command('onChangeClientName')"></textbox>
+								<button label="Serach" onClick="@command('onChangeClientName')"></button>
+							</hbox>
+							<space></space>
+							<listbox width="280px" model="@bind(vm.clientList)" 
+							     selectedItem="@bind(vm.rIdWiseReportBean.clientInformationBean)" onSelect="@command('onSelctClientName')" mold="paging" pageSize="5">
+								<listhead sizable="true">
+									<listheader label="Client Name"></listheader>
+								</listhead>
+								
+								<template name="model" var = "v">
+								<listitem>
+								  <listcell label="@load(v.fullName)"></listcell>
+								</listitem>
+							   </template>
+							</listbox>
+						</bandpopup>
+					</bandbox>
+    			
+    				<button label="Search" onClick="@command('onClickSearch')" style="font-weight:bold; color: black" visible="false"></button>
+		            <button label="Clear" onClick="@command('onClickClear')" style="font-weight:bold; color: black" visible="true" width="80px"></button>
+    			
+    			</hlayout>
+    			
+    			<space></space>
+    			<hlayout spacing="20px">
+    				<radiogroup onCheck="@command('onCheckDetailSummary')" selectedItem="@bind(vm.rIdWiseReportBean.selectedRadioButton)">
+						<radio label="Deatil" value="detail" style="font-weight:bold; color: black"/>
+						<space></space>	
+						<radio label="Summary" value="summary" style="font-weight:bold; color: black"/>
+					</radiogroup>
+    			</hlayout>
+    		</div>
+ 
+ 			
+ 			<div visible="@bind(vm.rIdWiseReportBean.detailsDivVis)">
+    			
+    			<grid model="@bind(vm.reportBeanList)" mold="paging" pageSize="10" height="400px">	
+    				
+    				<columns sizable="true">
+    					<column width="30px"></column>	
+    					<column width="170px" label="STATUS" style="font-weight:bold; color: black"></column>
+    					<column width="230px" label="RESOURCE NAME" style="font-weight:bold; color: black" align="center"></column>
+    					<column width="70px"  label="Yr.of.Exp" style="font-weight:bold; color: black" align="center"></column>
+    					<column width="120px" label="CONTACT NO." style="font-weight:bold; color: black" align="center"></column>
+    					<column width="230px" label="EMAIL" style="font-weight:bold; color: black" align="center"></column>
+    					<column width="170px" label="OTHER INFO" style="font-weight:bold; color: black" align="center"></column>
+    					<column width="100px" label="Intrnl Intv. Dt." style="font-weight:bold; color: black" align="center"></column>
+    					<column width="100px" label="Client Intv. Dt." style="font-weight:bold; color: black" align="center"></column>
+    				</columns>
+    				<rows>
+    						
+    				  <template name="model" var = "v">
+    					<row style="@bind(v.backGroundStyle)">
+    						<checkbox checked="@bind(v.detailChecked)"></checkbox>
+    				  		<label value="@bind(v.rIdLabel)" visible="@bind(v.ridLbFieldVis)" style="@bind(v.style)" width="98%"></label>
+    				  		<label value="@bind(v.rIdDateLabel)" visible="@bind(v.ridDatelbFieldVis)" style="@bind(v.style)" width="98%"></label>
+    				  		<label value="@bind(v.yoExp)" visible="@bind(v.yoExpFieldVis)" style="@bind(v.style)" width="98%"></label>
+    				  		<label value="@bind(v.skillSetLabel)" visible="@bind(v.sklStLbFieldVis)" style="@bind(v.style)" width="98%"></label>
+    				  		<label value="@bind(v.emailId)" visible="@bind(v.emailFieldVis)" style="@bind(v.style)" width="98%"></label>
+    				  		<label value="@bind(v.companyName)" visible="@bind(v.companyFieldVis)" style="@bind(v.style)" width="98%"></label>
+    				  		<label value="@bind(v.intIntvValue)" visible="@bind(v.intIntvDateFieldVis)" style="@bind(v.style)" width="98%"></label>
+    				  		<label value="@bind(v.clntIntvValue)" visible="@bind(v.clIntvDateFieldVis)" style="@bind(v.style)" width="98%"></label>
+    				  	</row>
+    				  </template>	
+    				</rows>
+    			</grid>
+    		</div>
+    		
+    		<div visible="@bind(vm.rIdWiseReportBean.summaryDivVis)">
+    		
+    			<grid model="@bind(vm.summaryBeanList)" mold="paging" pageSize="10" height="400px">
+    				
+    				<columns sizable="true">
+    				  <column width="30px"></column>	
+    				  <column label="Status" align="left" style="font-weight:bold; color: black"></column>
+    				  <column></column>
+    				  <column></column>
+    				  <column></column>
+    				  <column label="No. of resources" align="right" style="font-weight:bold; color: black"></column>
+    				  	
+    				</columns>
+    				<rows>
+    				  <template name="model" var = "v">
+    				   <row style="@bind(v.backGroundStyle)">
+    				    <checkbox checked="@bind(v.summaryChecked)"></checkbox>
+    				    <label value="@bind(v.rIdLabel)" visible="@bind(v.ridLbFieldVis)" style="@bind(v.style)"></label>
+    				   
+    				    <label value="@bind(v.rIdDateLabel)" visible="@bind(v.ridDatelbFieldVis)" style="@bind(v.style)"></label>
+    				    <label value="@bind(v.clientFullName)" visible="@bind(v.clNameLbFieldVis)" style="@bind(v.style)"></label>
+    				    <label value="@bind(v.skillSetLabel)" visible="@bind(v.sklStLbFieldVis)" style="@bind(v.style)"></label>
+    				    
+    				    <label value="@bind(v.noOfReqLebel)" visible="@bind(v.noOfReqVis)" style="@bind(v.style)"></label>
+    				    
+    				   </row>
+    				  
+    				  </template>	
+    				</rows>
+    				
+    			</grid>
+    		
+    		</div>
+    		
+    		<div align="right">
+    			<button label="Generate Excel" style="font-weight:bold" height="25px" onClick="@command('onClickExcel')"></button>
+    			<button label="Generate Pdf" style="font-weight:bold" onClick="@command('onClickPdf')"></button>    		
+    		</div>
 </zk>

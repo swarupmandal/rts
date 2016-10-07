@@ -73,8 +73,18 @@ public class IndividualClientReportSql {
 		
 		        //******************************  only date range selection date + skill wise report ************************
 		
-	public static final String loadRidListWithDateRangeAndSkillReport = "select * from vw_individual_client_report where req_raise_date >= ?  and  req_raise_date <= ? and req_skill_id = ? ";
+	 public static final String loadRidListWithDateRangeAndSkillReport = "select * from vw_individual_client_report where req_raise_date >= ?  and  req_raise_date <= ? and req_skill_id = ? ";
 		
-				
 	
+	 			//**************************** date + rid *******************************************************************
+	
+	 public static final String loadRidListWithDateRangeAndRidWiseReport = "select * from vw_individual_client_report where req_raise_date >= ?  and  req_raise_date <= ? and req_id = ? ";
+	 
+	 
+	 			//**************************** rid + date +status **************************************************
+	 
+	 public static final String loadRidListWithDateRangeAndRidReport = "select * from vw_individual_client_report where req_raise_date >= ?  and  req_raise_date <= ? and req_skill_id = ? ";
+		
+	 
+	 
 }
