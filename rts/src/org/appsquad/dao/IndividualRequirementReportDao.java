@@ -63,7 +63,9 @@ public class IndividualRequirementReportDao {
 		return list;
 	}
 	
-	public static ArrayList<IndividualClientReportBean> loadRidList(int rid){
+	
+	
+  public static ArrayList<IndividualClientReportBean> loadRidList(int reqId){
 		
 		ArrayList<IndividualClientReportBean> list = new ArrayList<IndividualClientReportBean>();
 		if(list.size()>0){
@@ -78,43 +80,45 @@ public class IndividualRequirementReportDao {
 			
 			try {
 				connection = DbConnection.createConnection();
-				preparedStatement = Pstm.createQuery(connection, IndividualRequirementReportSql.loadClientDetails, Arrays.asList(rid));
+				preparedStatement = Pstm.createQuery(connection, IndividualClientReportSql.loadIndividualRid, Arrays.asList(reqId));
 				
 				logger.info("load Rid List - " + preparedStatement.unwrap(PreparedStatement.class));
 				resultSet = preparedStatement.executeQuery();
 				while (resultSet.next()) {
+					
 					IndividualClientReportBean bean = new IndividualClientReportBean();
 					
-					bean.getrIdLabel();
+					
 					bean.setReqId(resultSet.getInt("req_id"));
 					
-					bean.getrIdDateLabel();
+					bean.setrIdLabel("R ID :" +resultSet.getInt("req_id")); 
+					
 					bean.setCreatedDateStr(resultSet.getString("created_date"));
 					if(bean.getCreatedDateStr() != null){
 						bean.setCreatedDateValue(Dateformatter.toStringDate(bean.getCreatedDateStr()));
+						bean.setrIdDateLabel("Date : " + bean.getCreatedDateValue()); 
+						
 					}
+					bean.setEmailId("");
 					
-					bean.getSkillSetLabel();
 					bean.setSkillId(resultSet.getInt("req_skill_id"));
-					bean.setSkillSet(resultSet.getString("master_skill_set_name"));
+					
+					bean.setSkillSetLabel("Skill : " + resultSet.getString("master_skill_set_name")); 
 					
 					bean.setClientFullName(resultSet.getString("client_name"));
-					bean.setCompanyName(resultSet.getString("companyname"));
+					bean.setCompanyName(resultSet.getString("companyname"));  
+					bean.setIntIntvValue("");
+					bean.setClntIntvValue("");
+					bean.setYoExp(0);
 					
-					bean.setRidLbFieldVis(true);
-					bean.setRidFieldVis(true);
-					bean.setRidDatelbFieldVis(true);
-					bean.setRidDateFieldVis(true);
-					bean.setSklStFieldVis(true);
-					bean.setSklStFieldVis(true);
-					bean.setClNameFieldVis(true);
-					bean.setCompanyFieldVis(true);
+					bean.setStyle(bean.getBoldStyle());
+					bean.setBackGroundStyle(bean.getBackGroundpaParent());
+					bean.setRidLbFieldVis(true); 
+					bean.setRidDatelbFieldVis(true); 
+					bean.setSklStLbFieldVis(true);
+					bean.setCompanyFieldVis(true); 
 					
-					
-					bean.setStatusFieldVis(false);
-					bean.setResNameFieldVis(false);
 					bean.setYoExpFieldVis(false);
-					bean.setContNoFieldVis(false);
 					bean.setEmailFieldVis(false);
 					bean.setIntIntvDateFieldVis(false);
 					bean.setClIntvDateFieldVis(false);
@@ -129,8 +133,9 @@ public class IndividualRequirementReportDao {
 						}
 						
 						PreparedStatement preparedStatement2 = null;
-						preparedStatement2 = Pstm.createQuery(connection, IndividualRequirementReportSql.loadRidDetailsList, Arrays.asList(rid));
-						System.out.println("preparedStatement2 -- " + preparedStatement2);
+						preparedStatement2 = Pstm.createQuery(connection, IndividualClientReportSql.loadIndividualRidDetails, Arrays.asList(reqId));
+						
+						logger.info("R_ID DETAILS - " + preparedStatement2.unwrap(PreparedStatement.class));
 						
 						ResultSet resultSet2 = preparedStatement2.executeQuery();
 						
@@ -138,44 +143,50 @@ public class IndividualRequirementReportDao {
 							
 							IndividualClientReportBean subBean = new IndividualClientReportBean();
 							
-							subBean.setStatus(resultSet2.getString("final_status"));
-							subBean.setResourceName(resultSet2.getString("res_name"));
-							subBean.setYoExp(resultSet2.getInt("res_experience"));
-							subBean.setContNo(resultSet2.getString("rts_contact_no"));
+							subBean.setrIdLabel(resultSet2.getString("final_status"));
+							subBean.setrIdDateLabel(resultSet2.getString("res_name"));
+							subBean.setYoExp(resultSet2.getDouble("res_experience"));
+							subBean.setSkillSetLabel(resultSet2.getString("rts_contact_no"));
+							
 							subBean.setEmailId(resultSet2.getString("res_emailid"));
 							
 							subBean.setIntIntvStr(resultSet2.getString("internal_interview_date"));
 							if(subBean.getIntIntvStr() != null){
 								subBean.setIntIntvValue(Dateformatter.toStringDate(subBean.getIntIntvStr()));
+							}else {
+								subBean.setIntIntvValue("");
 							}
+							
 							
 							subBean.setClntIntvStr(resultSet2.getString("client_interview_date"));
 							if(subBean.getClntIntvStr() != null){
 								subBean.setClntIntvValue(Dateformatter.toStringDate(subBean.getClntIntvStr()));
+							}else {
+								subBean.setClntIntvValue("");
 							}
 							
-							subBean.setStatusFieldVis(true);
-							subBean.setResNameFieldVis(true);
+							subBean.setCompanyName(resultSet2.getString("other_info"));
+							if(subBean.getCompanyName() == null){
+								subBean.setCompanyName("");
+							}
+							
+							subBean.setStyle(subBean.getLighterStyle());
+							
+							subBean.setRidLbFieldVis(true); 
+							subBean.setRidDatelbFieldVis(true);
+							subBean.setSklStLbFieldVis(true);
+							subBean.setCompanyFieldVis(true);
 							subBean.setYoExpFieldVis(true);
-							subBean.setContNoFieldVis(true);
 							subBean.setEmailFieldVis(true);
 							subBean.setIntIntvDateFieldVis(true);
 							subBean.setClIntvDateFieldVis(true);
-							
-							subBean.setRidLbFieldVis(false);
-							subBean.setRidFieldVis(false);
-							subBean.setRidDatelbFieldVis(false);
-							subBean.setRidDateFieldVis(false);
-							subBean.setSklStLbFieldVis(false);
-							subBean.setSklStFieldVis(false);
-							subBean.setClNameFieldVis(false);
-							subBean.setCompanyFieldVis(false);
-							
 							
 							list.add(subBean);
 							
 							
 						}
+						
+						
 						
 					} finally{
 						
@@ -206,5 +217,162 @@ public class IndividualRequirementReportDao {
 		return list;
 		
 	}
+  
+  public static ArrayList<IndividualClientReportBean> loadRidListWithStatus(int reqId, int statusId){
+		
+		ArrayList<IndividualClientReportBean> list = new ArrayList<IndividualClientReportBean>();
+		if(list.size()>0){
+			list.clear();
+		}
+		ArrayList<IndividualClientReportBean> subList = new ArrayList<IndividualClientReportBean>();
+		
+		try {
+			Connection connection = null;
+			PreparedStatement preparedStatement = null;
+			ResultSet resultSet = null;
+			
+			try {
+				connection = DbConnection.createConnection();
+				preparedStatement = Pstm.createQuery(connection, IndividualClientReportSql.loadIndividualRid, Arrays.asList(reqId));
+				
+				logger.info("load Rid List - " + preparedStatement.unwrap(PreparedStatement.class));
+				resultSet = preparedStatement.executeQuery();
+				while (resultSet.next()) {
+					
+					IndividualClientReportBean bean = new IndividualClientReportBean();
+					
+					
+					bean.setReqId(resultSet.getInt("req_id"));
+					
+					bean.setrIdLabel("R ID :" +resultSet.getInt("req_id")); 
+					
+					bean.setCreatedDateStr(resultSet.getString("created_date"));
+					if(bean.getCreatedDateStr() != null){
+						bean.setCreatedDateValue(Dateformatter.toStringDate(bean.getCreatedDateStr()));
+						bean.setrIdDateLabel("Date : " + bean.getCreatedDateValue()); 
+						
+					}
+					bean.setEmailId("");
+					
+					bean.setSkillId(resultSet.getInt("req_skill_id"));
+					
+					bean.setSkillSetLabel("Skill : " + resultSet.getString("master_skill_set_name")); 
+					
+					bean.setClientFullName(resultSet.getString("client_name"));
+					bean.setCompanyName(resultSet.getString("companyname"));  
+					bean.setIntIntvValue("");
+					bean.setClntIntvValue("");
+					bean.setYoExp(0);
+					
+					bean.setStyle(bean.getBoldStyle());
+					bean.setBackGroundStyle(bean.getBackGroundpaParent());
+					bean.setRidLbFieldVis(true); 
+					bean.setRidDatelbFieldVis(true); 
+					bean.setSklStLbFieldVis(true);
+					bean.setCompanyFieldVis(true); 
+					
+					bean.setYoExpFieldVis(false);
+					bean.setEmailFieldVis(false);
+					bean.setIntIntvDateFieldVis(false);
+					bean.setClIntvDateFieldVis(false);
+					
+					list.add(bean);
+					
+					sub_sql:{
+					
+					try {
+						if(subList.size()>0){
+							subList.clear();
+						}
+						
+						PreparedStatement preparedStatement2 = null;
+						preparedStatement2 = Pstm.createQuery(connection, IndividualClientReportSql.loadRidDetailsListWithStatus, Arrays.asList(reqId,statusId));
+						
+						logger.info("R_ID DETAILS - " + preparedStatement2.unwrap(PreparedStatement.class));
+						
+						ResultSet resultSet2 = preparedStatement2.executeQuery();
+						
+						while (resultSet2.next()) {
+							
+							IndividualClientReportBean subBean = new IndividualClientReportBean();
+							
+							subBean.setrIdLabel(resultSet2.getString("final_status"));
+							subBean.setrIdDateLabel(resultSet2.getString("res_name"));
+							subBean.setYoExp(resultSet2.getDouble("res_experience"));
+							subBean.setSkillSetLabel(resultSet2.getString("rts_contact_no"));
+							
+							subBean.setEmailId(resultSet2.getString("res_emailid"));
+							
+							subBean.setIntIntvStr(resultSet2.getString("internal_interview_date"));
+							if(subBean.getIntIntvStr() != null){
+								subBean.setIntIntvValue(Dateformatter.toStringDate(subBean.getIntIntvStr()));
+							}else {
+								subBean.setIntIntvValue("");
+							}
+							
+							
+							subBean.setClntIntvStr(resultSet2.getString("client_interview_date"));
+							if(subBean.getClntIntvStr() != null){
+								subBean.setClntIntvValue(Dateformatter.toStringDate(subBean.getClntIntvStr()));
+							}else {
+								subBean.setClntIntvValue("");
+							}
+							
+							subBean.setCompanyName(resultSet2.getString("other_info"));
+							if(subBean.getCompanyName() == null){
+								subBean.setCompanyName("");
+							}
+							
+							subBean.setStyle(subBean.getLighterStyle());
+							
+							subBean.setRidLbFieldVis(true); 
+							subBean.setRidDatelbFieldVis(true);
+							subBean.setSklStLbFieldVis(true);
+							subBean.setCompanyFieldVis(true);
+							subBean.setYoExpFieldVis(true);
+							subBean.setEmailFieldVis(true);
+							subBean.setIntIntvDateFieldVis(true);
+							subBean.setClIntvDateFieldVis(true);
+							
+							list.add(subBean);
+							
+							
+						}
+						
+						
+						
+					} finally{
+						
+					}
+					
+				}
+					
+				}
+				
+				
+			} finally {
+				if(preparedStatement != null){
+					preparedStatement.close();
+				}
+				if(resultSet != null){
+					resultSet.close();
+				}
+				if(connection != null){
+					connection.close();
+				}
+			}
+			
+		} catch (Exception e) {
+			logger.fatal("Load R_ID List - " + e);
+			e.printStackTrace();
+		}
+		
+		return list;
+		
+	}
+	
+  
+  	
+	
 	
 }

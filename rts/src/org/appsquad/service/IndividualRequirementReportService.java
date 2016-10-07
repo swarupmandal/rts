@@ -25,5 +25,13 @@ public class IndividualRequirementReportService {
 		
 	}
 	
+	public static ArrayList<IndividualClientReportBean> individualReqIdDetails(int reqId, int statusId){
+		
+		ArrayList<IndividualClientReportBean> list = new ArrayList<IndividualClientReportBean>();
+		list = IndividualRequirementReportDao.loadRidListWithStatus(reqId, statusId);
+		return list;
+		
+	}
+	
 	
 }

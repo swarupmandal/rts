@@ -21,9 +21,21 @@ public class IndividualClientReportService {
 		return list;
 	}
 	
+	public static ArrayList<IndividualClientReportBean> loadRidListwithDateRange(Date fromDate, Date toDate){
+		ArrayList<IndividualClientReportBean> list = new ArrayList<IndividualClientReportBean>();
+		list = IndividualClientReportDao.loadRidListWithDateRangeSkillReport(fromDate, toDate);
+		return list;
+	}
+	
 	public static ArrayList<IndividualClientReportBean> loadRidListwithDateRangeWithSkill(Date fromDate, Date toDate, int skillId, int clientId){
 		ArrayList<IndividualClientReportBean> list = new ArrayList<IndividualClientReportBean>();
 		list = IndividualClientReportDao.loadRidListWithDateRangeAndSkill(fromDate, toDate, skillId, clientId);
+		return list;
+	}
+	
+	public static ArrayList<IndividualClientReportBean> loadRidListwithDateRangeWithSkillReport(Date fromDate, Date toDate, int skillId){
+		ArrayList<IndividualClientReportBean> list = new ArrayList<IndividualClientReportBean>();
+		list = IndividualClientReportDao.loadRidListWithDateRangeAndSkillReport(fromDate, toDate, skillId);
 		return list;
 	}
 	
@@ -42,6 +54,12 @@ public class IndividualClientReportService {
 	public static ArrayList<IndividualClientReportBean> loadRidListWithStatusSkillDate(Date fromDate, Date toDate, int skillId,int statusId, int clientId){
 		ArrayList<IndividualClientReportBean> list = new ArrayList<IndividualClientReportBean>();
 		list = IndividualClientReportDao.loadRidListWithStatusSkillDate(fromDate, toDate, skillId, statusId, clientId);
+		return list;
+	}
+	
+	public static ArrayList<IndividualClientReportBean> loadRidListWithStatusSkillDateWiseReport(Date fromDate, Date toDate, int skillId,int statusId){
+		ArrayList<IndividualClientReportBean> list = new ArrayList<IndividualClientReportBean>();
+		list = IndividualClientReportDao.loadRidListWithStatusSkillDateWiseReport(fromDate, toDate, skillId, statusId);
 		return list;
 	}
 	

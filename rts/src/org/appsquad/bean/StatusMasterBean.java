@@ -1,6 +1,6 @@
 package org.appsquad.bean;
 public class StatusMasterBean {
-	private int statusId;
+	private Integer statusId;
 	private String status;
 	private int ocstatusId;
 	private String ocstatus;
@@ -11,12 +11,7 @@ public class StatusMasterBean {
 	
 	/**************************************************************************************************************************************/
 	
-	public int getStatusId() {
-		return statusId;
-	}
-	public void setStatusId(int statusId) {
-		this.statusId = statusId;
-	}
+	
 	public String getStatus() {
 		return status;
 	}
@@ -58,5 +53,11 @@ public class StatusMasterBean {
 	}
 	public void setSaveButtonDisable(boolean saveButtonDisable) {
 		this.saveButtonDisable = saveButtonDisable;
+	}
+	public Integer getStatusId() {
+		return statusId;
+	}
+	public void setStatusId(Integer statusId) {
+		this.statusId = statusId;
 	}
 }

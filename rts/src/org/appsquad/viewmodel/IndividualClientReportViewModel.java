@@ -193,6 +193,7 @@ public class IndividualClientReportViewModel {
 		  }else {
 			  
 			individualClientReportBean.statusMasterBean.setStatus(null);
+			reportBeanList.clear();
 			statusList = ResourceMasterDao.onLoadStatus();  
 			Messagebox.show("Select Client Name ", "ALERT", Messagebox.OK,Messagebox.EXCLAMATION);
 		}
@@ -341,8 +342,8 @@ public class IndividualClientReportViewModel {
 	@NotifyChange("*")
 	public void onClickPdf(){
 		String pdfPath = Executions.getCurrent().getDesktop().getWebApp().getRealPath("/");
-		//String totalPdfPath = pdfPath + "Report_Pdf.pdf";
-		String totalPdfPath = "C:\\pdf test\\Report_Pdf.pdf";
+		String totalPdfPath = pdfPath + "report.pdf";
+		//String totalPdfPath = "C:\\pdf test\\Report_Pdf.pdf";
 		
 		IndividualClientReportPdf pdf = new IndividualClientReportPdf();
 		

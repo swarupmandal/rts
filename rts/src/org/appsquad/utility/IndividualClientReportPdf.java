@@ -2,6 +2,7 @@ package org.appsquad.utility;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
@@ -29,7 +30,7 @@ public class IndividualClientReportPdf {
 	
 	ArrayList<IndividualClientReportBean> individualClientReportList = new ArrayList<IndividualClientReportBean>();
 	
-	public void getDetails(String localFilePath, IndividualClientReportBean individualClientReportBean, ArrayList<IndividualClientReportBean> individualClientReportBeanList) throws FileNotFoundException, DocumentException{
+	public void getDetails(String localFilePath, IndividualClientReportBean individualClientReportBean, ArrayList<IndividualClientReportBean> individualClientReportBeanList) throws DocumentException, IOException{
 		
 		filePath = localFilePath;
 		
@@ -44,7 +45,7 @@ public class IndividualClientReportPdf {
 		createPdfHeader();
 		
 		printDetails(individualClientReportBeanList);
-		
+		//DownloadPdf.download(filePath,"report.pdf");
 		document.close();
 		
 	}
@@ -226,7 +227,7 @@ public class IndividualClientReportPdf {
 		
 	}
 	
-	public void getSummary(String localFilePath, IndividualClientReportBean individualClientReportBean, ArrayList<IndividualClientReportBean> individualClientReportBeanList) throws FileNotFoundException, DocumentException{
+	public void getSummary(String localFilePath, IndividualClientReportBean individualClientReportBean, ArrayList<IndividualClientReportBean> individualClientReportBeanList) throws DocumentException, IOException{
 		
 		filePath = localFilePath;
 		
@@ -241,7 +242,7 @@ public class IndividualClientReportPdf {
 		createPdfHeader();
 		
 		printSummary(individualClientReportBeanList);
-		
+		DownloadPdf.download(filePath,"report.pdf");
 		document.close();
 		
 	}
@@ -251,7 +252,7 @@ public class IndividualClientReportPdf {
 		String[] headerLabes = {"STATUS", "", "", "", "No.of Resources"};
 		
 			
-		float[]	widths = {4f,6f, 2f, 4f, 6f};
+		float[]	widths = {4f,3f, 5f, 3f, 3f};
 		PdfPTable headerTable = new PdfPTable(widths);
 		
 		headerTable.getDefaultCell().setBorder(PdfPCell.NO_BORDER);
@@ -299,11 +300,11 @@ public class IndividualClientReportPdf {
 
 			Paragraph headerParagraph = new Paragraph(bean.getrIdDateLabel());
 			headerParagraph.getFont().setSize(5f);
-			headerParagraph.setAlignment(Element.ALIGN_LEFT);
+			headerParagraph.setAlignment(Element.ALIGN_RIGHT);
 			headerParagraph.getFont().setStyle(Font.NORMAL);
 
 			cell = new PdfPCell(headerParagraph);
-			cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+			cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 
 			headerTable.addCell(cell);
 
@@ -315,11 +316,11 @@ public class IndividualClientReportPdf {
 			
 			Paragraph headerParagraph = new Paragraph(bean.getClientFullName());
 			headerParagraph.getFont().setSize(5f);
-			headerParagraph.setAlignment(Element.ALIGN_RIGHT);
+			headerParagraph.setAlignment(Element.ALIGN_LEFT);
 			headerParagraph.getFont().setStyle(Font.NORMAL);
 
 			cell = new PdfPCell(headerParagraph);
-			cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+			cell.setHorizontalAlignment(Element.ALIGN_LEFT);
 
 			headerTable.addCell(cell);
 
@@ -347,11 +348,11 @@ public class IndividualClientReportPdf {
 
 			Paragraph headerParagraph = new Paragraph(bean.getNoOfReqLebel());
 			headerParagraph.getFont().setSize(5f);
-			headerParagraph.setAlignment(Element.ALIGN_LEFT);
+			headerParagraph.setAlignment(Element.ALIGN_RIGHT);
 			headerParagraph.getFont().setStyle(Font.NORMAL);
 
 			cell = new PdfPCell(headerParagraph);
-			cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+			cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 
 			headerTable.addCell(cell);
 
