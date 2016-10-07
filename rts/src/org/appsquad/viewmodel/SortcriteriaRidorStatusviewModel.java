@@ -1,5 +1,7 @@
 package org.appsquad.viewmodel;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.Connection;
 import java.util.ArrayList;
 
@@ -17,18 +19,23 @@ import org.appsquad.service.IndividualRequirementReportService;
 import org.appsquad.service.RequirementGenerationService;
 import org.appsquad.service.ResourceAllocationTrackingService;
 import org.appsquad.utility.Dateformatter;
+import org.appsquad.utility.IndividualClientReportExcel;
+import org.appsquad.utility.IndividualClientReportPdf;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Bandbox;
 import org.zkoss.zul.Messagebox;
+
+import com.itextpdf.text.DocumentException;
 
 public class SortcriteriaRidorStatusviewModel {
   
@@ -200,6 +207,179 @@ public class SortcriteriaRidorStatusviewModel {
 		}
 	}
   
+  
+  	@Command
+	@NotifyChange("*")
+	public void onSelctClientName(){
+		
+		summaryBeanList.clear();
+		reportBeanList.clear();
+		
+		clnBandBox.close();
+		
+		if(rIdWiseReportBean.getFromDate() != null && rIdWiseReportBean.getToDate() != null && requirementGenerationBean.getReq_id() != null){
+		
+			if(rIdWiseReportBean.statusMasterBean.getStatusId() != null){
+			   
+			   reportBeanList = IndividualClientReportService.loadRidListWithStatusRIdDateClientWiseReport(Dateformatter.sqlDate(rIdWiseReportBean.getFromDate()), Dateformatter.sqlDate(rIdWiseReportBean.getToDate()), requirementGenerationBean.getReq_id(), rIdWiseReportBean.statusMasterBean.getStatusId(), rIdWiseReportBean.clientInformationBean.getClientId());
+			   rIdWiseReportBean.setSelectedRadioButton("detail");
+			}else{
+		    
+			   reportBeanList = IndividualClientReportService.loadRidListWithStatusRIdDateClientWiseReport(Dateformatter.sqlDate(rIdWiseReportBean.getFromDate()), Dateformatter.sqlDate(rIdWiseReportBean.getToDate()), requirementGenerationBean.getReq_id(), rIdWiseReportBean.clientInformationBean.getClientId());
+			   rIdWiseReportBean.setSelectedRadioButton("detail");
+		 }
+		}else {
+			rIdWiseReportBean.clientInformationBean.setFullName(null);
+			clientList = ResourceAllocationTrackingService.fetchClientDetails();
+			Messagebox.show("Select From Date To Date And R ID ", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION);
+		}
+		
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void onCheckDetailSummary(){
+
+		   if(rIdWiseReportBean.getSelectedRadioButton().equals("detail")){
+			   rIdWiseReportBean.setDetailsDivVis(true);
+			   rIdWiseReportBean.setSummaryDivVis(false);
+			   
+		   }else {
+			   
+			   rIdWiseReportBean.setDetailsDivVis(false);
+			   summaryBeanList = IndividualClientReportService.loadRidSummaryList(reportBeanList);
+			   rIdWiseReportBean.setSummaryDivVis(true);
+		}
+	}
+	
+	
+	
+	@Command
+	@NotifyChange("*")
+	public void onClickClear(){
+
+		   
+		   summaryBeanList.clear();
+		   reportBeanList.clear();
+		   
+		   rIdWiseReportBean.clientInformationBean.setFullName(null);
+		   clientList = ResourceAllocationTrackingService.fetchClientDetails();
+		   
+		   rIdWiseReportBean.setFromDate(null);
+		   rIdWiseReportBean.setToDate(null);
+		   
+		   requirementGenerationBean.setReq_id(null);
+		   requirementGenerationBeanList = IndividualRequirementReportDao.fetchReqirmentDetails();
+		   
+		   rIdWiseReportBean.statusMasterBean.setStatus(null);
+		   statusList = ResourceMasterDao.onLoadStatus();
+		   
+		   rIdWiseReportBean.setSelectedRadioButton(null);
+		   
+	   
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void onClickPdf() throws IOException{
+		String pdfPath = Executions.getCurrent().getDesktop().getWebApp().getRealPath("/");
+		//String totalPdfPath = pdfPath + "report.pdf";
+		String totalPdfPath = "C:\\pdf test\\Report_Pdf.pdf";
+		
+		IndividualClientReportPdf pdf = new IndividualClientReportPdf();
+		
+		try{
+			
+		if(rIdWiseReportBean.getSelectedRadioButton().equals("detail")){
+		
+		  if(reportBeanList.size()>0);	
+		  ArrayList<IndividualClientReportBean> detailList = new ArrayList<IndividualClientReportBean>();
+			for(IndividualClientReportBean bean : reportBeanList){
+				if(bean.isDetailChecked()){
+					detailList.add(bean);
+				}
+			}
+			if(detailList.size()>0){
+				pdf.getDetails(totalPdfPath, rIdWiseReportBean, detailList);
+			}else {
+				Messagebox.show("NO DATA SELECTED ", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION );
+			}
+			
+		}else {
+			
+			if(summaryBeanList.size()>0);
+			ArrayList<IndividualClientReportBean> summList = new ArrayList<IndividualClientReportBean>();
+			for(IndividualClientReportBean bean : summaryBeanList){
+				if(bean.isSummaryChecked()){
+					summList.add(bean);
+				}
+			}
+			if(summList.size()>0){
+				pdf.getSummary(totalPdfPath, rIdWiseReportBean, summList);
+			}else {
+				Messagebox.show("NO DATA SELECTED ", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION );
+			}
+			
+		}
+	
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		
+		try {
+			
+			if(rIdWiseReportBean.getSelectedRadioButton().equals("detail")){
+			   pdf.getDetails(totalPdfPath, rIdWiseReportBean, reportBeanList);
+			   
+			}else {
+				pdf.getSummary(totalPdfPath, rIdWiseReportBean, summaryBeanList);
+			}
+		
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (DocumentException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void onClickExcel(){
+		if(rIdWiseReportBean.getSelectedRadioButton().equals("detail")){
+		
+		  if(reportBeanList.size()>0);	
+		  ArrayList<IndividualClientReportBean> detailList = new ArrayList<IndividualClientReportBean>();
+			for(IndividualClientReportBean bean : reportBeanList){
+				if(bean.isDetailChecked()){
+					detailList.add(bean);
+				}
+			}
+			if(detailList.size()>0){
+				IndividualClientReportExcel.printCSV(detailList);
+			}else {
+				Messagebox.show("NO DATA SELECTED ", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION );
+			}
+			
+		}else {
+			
+			if(summaryBeanList.size()>0);
+			ArrayList<IndividualClientReportBean> summList = new ArrayList<IndividualClientReportBean>();
+			for(IndividualClientReportBean bean : summaryBeanList){
+				if(bean.isSummaryChecked()){
+					summList.add(bean);
+				}
+			}
+			
+			if(summList.size()>0){
+				IndividualClientReportExcel.printSummaryCSV(summList);
+			}else {
+				Messagebox.show("NO DATA SELECTED ", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION );
+			}
+			
+		}
+	}
   
   
     /************************************************************************************************************************************************/

@@ -152,4 +152,5 @@
     			<button label="Generate Excel" style="font-weight:bold" height="25px" onClick="@command('onClickExcel')"></button>
     			<button label="Generate Pdf" style="font-weight:bold" onClick="@command('onClickPdf')"></button>    		
     		</div>
+    </window>		
 </zk>

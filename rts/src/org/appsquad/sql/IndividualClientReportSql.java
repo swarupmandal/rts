@@ -85,6 +85,12 @@ public class IndividualClientReportSql {
 	 
 	 public static final String loadRidListWithDateRangeAndRidReport = "select * from vw_individual_client_report where req_raise_date >= ?  and  req_raise_date <= ? and req_skill_id = ? ";
 		
+	 			//**************************** rid + date + status Id + Client Id **********************************
 	 
+	 public static final String loadRidListWithDateAndRidStatusClient = "select * from vw_individual_client_report where req_raise_date >= ?  and  req_raise_date <= ? and req_id = ? and client_id = ? ";
+		
 	 
+	 			//*************************** rid + client Id + date ***************************************************************
+	 
+	 public static final String loadRidListWithDateRangeClientAndRId = "select * from vw_individual_client_report where req_raise_date >= ?  and  req_raise_date <= ? and req_id = ? and client_id = ? ";
 }
