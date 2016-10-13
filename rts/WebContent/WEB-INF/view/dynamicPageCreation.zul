@@ -1,0 +1,26 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="Page Mapping Screen" border="none" height="530px" width="400px" apply="org.zkoss.bind.BindComposer"
+		    viewModel="@id('vm') @init('org.appsquad.viewmodel.DynamicPageCreationViewModel')" id="winDynamicPage" closable="true">
+    				 <div>
+                           <grid model="@bind(vm.pagelist)" mold="paging" pageSize="11" sclass="fgrid">
+                               <columns>
+                                    <column align="center" width="40px"/>
+                                    <column label="Screen Name" align="center" width="200px"/>
+                               </columns>
+                               <rows>
+                                   <template name="model" var="v">
+                                   <row>
+                                     <checkbox checked="@bind(v.chkSelect)" onCheck="@command('onCheck', bean = v)"></checkbox>
+                                     <textbox value="@bind(v.pageName)" readonly="true" width="100%"></textbox>
+                                   </row>
+                                   </template>
+                               </rows>
+                           </grid>
+                       </div>
+                       <space></space>
+                       <div align="center">
+                         <button label="Assign" onClick="@command('onClickAssign')"></button>
+                       </div>
+         </window>
+</zk>
