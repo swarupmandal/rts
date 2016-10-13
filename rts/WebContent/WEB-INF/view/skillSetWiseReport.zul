@@ -5,11 +5,18 @@
  			<div>
     			<hlayout spacing="20px">
     				
+    				<hlayout>
+    				<label value="* " style="font-weight:bold; color:red; font-size:large;" />
     				<datebox placeholder="From Date" format="dd-MMM-yyyy" value="@bind(vm.skilWiseReportBean.fromDate)" onChange="@command('onChangeFromDate')" ></datebox>
+    				</hlayout>
     				
+    				<hlayout>
+    				<label value="* " style="font-weight:bold; color:red; font-size:large;" />
     				<datebox placeholder="To Date" format="dd-MMM-yyyy" value="@bind(vm.skilWiseReportBean.toDate)" onChange="@command('onChangeToDate')"></datebox>
+    				</hlayout>
     				
-    				
+    				<hlayout>
+    				<label value="* " style="font-weight:bold; color:red; font-size:large;" />
     				<bandbox autodrop="true" readonly="true" id="skSt" value="@bind(vm.skilWiseReportBean.skillsetMasterbean.skillset)" placeholder="Search by Skill Set">
 						<bandpopup>	
 							<hbox>
@@ -31,7 +38,7 @@
 							</listbox>
 						</bandpopup>
 					</bandbox>
-    				
+    				</hlayout>
     				<combobox model="@bind(vm.statusList)" selectedItem="@bind(vm.skilWiseReportBean.statusMasterBean)" readonly="true"
 		             	value="@bind(vm.skilWiseReportBean.statusMasterBean.status)" placeholder="Resourcing Status" onSelect="@command('onSelectStatusName')">
 		                <template name="model" var="p">

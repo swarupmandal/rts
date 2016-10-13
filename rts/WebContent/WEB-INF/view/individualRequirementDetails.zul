@@ -4,8 +4,11 @@
 		viewModel="@id('vm') @init('org.appsquad.viewmodel.IndividualRequirementReportViewModel')">
     
     <div>
+       	
+       <label value="* " style="font-weight:bold; color:red; font-size:large;" />	
        <label value="Requirement Id" style="font-weight: bold; color: black"></label>
-		<bandbox autodrop="true" readonly="true" id="reqIdb" value="@bind(vm.requirementGenerationBean.req_id)">
+	   
+	   <bandbox autodrop="true" readonly="true" id="reqIdb" value="@bind(vm.requirementGenerationBean.req_id)">
 			<bandpopup>	
 				<hbox>
 					<intbox value="@bind(vm.individualRequirementReportBean.r_idSearch)" onChange="@command('onChangeReqId')" placeholder="Search By Req Id"></intbox>

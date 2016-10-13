@@ -4,8 +4,9 @@
 		viewModel="@id('vm') @init('org.appsquad.viewmodel.IndividualClientReportViewModel')" contentStyle="overflow:scroll">
     		
     		<div>
-    			<hlayout spacing="20px">
-    				
+    			<hlayout spacing="18px">
+    				<hlayout>
+    				<label value="* " style="font-weight:bold; color:red; font-size:large;" />
     				<bandbox autodrop="true" readonly="true" id="clname" value="@bind(vm.individualClientReportBean.clientInformationBean.fullName)" placeholder="Search By Client" width="220px">
 						<bandpopup>	
 							<hbox>
@@ -27,7 +28,7 @@
 							</listbox>
 						</bandpopup>
 					</bandbox>
-    				
+    				</hlayout>
     				<datebox placeholder="From Date" format="dd-MMM-yyyy" value="@bind(vm.individualClientReportBean.fromDate)" onChange="@command('onChangeFromDate')" ></datebox>
     				
     				<datebox placeholder="To Date" format="dd-MMM-yyyy" value="@bind(vm.individualClientReportBean.toDate)" onChange="@command('onChangeToDate')"></datebox>

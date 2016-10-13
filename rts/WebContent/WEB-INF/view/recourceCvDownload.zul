@@ -4,6 +4,8 @@
  <div>
      <hlayout spacing="20px">
     				
+    				<hlayout>
+    				<label value="* " style="font-weight:bold; color:red; font-size:large;" />
     				<bandbox autodrop="true" readonly="true" id="skSt" value="@bind(vm.bean.skillsetMasterbean.skillset)" placeholder="Search by Skill Set">
 						<bandpopup>
 							<listbox width="280px" model="@bind(vm.skillList)" 
@@ -19,7 +21,7 @@
 							</listbox>
 						</bandpopup>
 					</bandbox>
-    				
+    				</hlayout>
     				<datebox placeholder="From Date" format="dd-MMM-yyyy" value="@bind(vm.bean.fromDate)" readonly="true" onChange="@command('onChangeFromDate')" ></datebox>
     				
     				<datebox placeholder="To Date" format="dd-MMM-yyyy" value="@bind(vm.bean.toDate)" readonly="true" onChange="@command('onChangeToDate')"></datebox>
