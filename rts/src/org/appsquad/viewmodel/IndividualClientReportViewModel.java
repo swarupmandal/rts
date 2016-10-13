@@ -344,64 +344,18 @@ public class IndividualClientReportViewModel {
 	
 	@Command
 	@NotifyChange("*")
-	public void onClickPdf() throws IOException{
+	public void onClickPdf() throws IOException, DocumentException{
 		String pdfPath = Executions.getCurrent().getDesktop().getWebApp().getRealPath("/");
 		IndividualClientReportPdf pdf = new IndividualClientReportPdf();
-		
-		/*try{
-			
-		if(individualClientReportBean.getSelectedRadioButton().equals("detail")){
-		
-		  if(reportBeanList.size()>0);	
-		  ArrayList<IndividualClientReportBean> detailList = new ArrayList<IndividualClientReportBean>();
-			for(IndividualClientReportBean bean : reportBeanList){
-				if(bean.isDetailChecked()){
-					detailList.add(bean);
-				}
-			}
-			if(detailList.size()>0){
-				pdf.getDetails(totalPdfPath, individualClientReportBean, detailList);
-			}else {
-				Messagebox.show("NO DATA SELECTED ", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION );
-			}
-			
-		}else {
-			
-			if(summaryBeanList.size()>0);
-			ArrayList<IndividualClientReportBean> summList = new ArrayList<IndividualClientReportBean>();
-			for(IndividualClientReportBean bean : summaryBeanList){
-				if(bean.isSummaryChecked()){
-					summList.add(bean);
-				}
-			}
-			if(summList.size()>0){
-				pdf.getSummary(totalPdfPath, individualClientReportBean, summList);
-			}else {
-				Messagebox.show("NO DATA SELECTED ", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION );
-			}
-			
-		}
-	
-		}catch(Exception e){
-			e.printStackTrace();
-		}*/
-		
-		
 		try {
-			
 			if(individualClientReportBean.getSelectedRadioButton().equals("detail")){
 			   pdf.getDetails(pdfPath, individualClientReportBean, reportBeanList);
-			   
 			}else {
 				pdf.getSummary(pdfPath, individualClientReportBean, summaryBeanList);
 			}
-		
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-		} catch (DocumentException e) {
-			e.printStackTrace();
 		}
-		
 	}
 	
 	
