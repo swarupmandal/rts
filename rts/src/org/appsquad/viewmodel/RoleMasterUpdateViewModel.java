@@ -46,7 +46,7 @@ public class RoleMasterUpdateViewModel {
 		Selectors.wireComponents(view, this, false);
 		masterBean = bean;
 		sessions = Sessions.getCurrent();
-		roleList = RoleMasterDao.onLoadRoleDropDownDeatils();
+		roleList = RoleMasterDao.onLoadRoleDropDownDeatilsForUpdateScreen(masterBean);
 		masterBean.setVisibilityUpdateButton(true);
 		uId = masterBean.getUserprofileBean().getId();
 		masterBean.setuId(uId);
@@ -64,16 +64,10 @@ public class RoleMasterUpdateViewModel {
 	@Command
 	@NotifyChange("*")
 	public void onClickUpdateButton(){
-		count = RoleMasterDao.onLoadCountTabDeatils(masterBean);
-		System.out.println(count);
-		if(count>0){
-			Messagebox.show(" This User Name And Role Name Mapping Already Done!","Exclamation",Messagebox.OK,Messagebox.EXCLAMATION);
-		}else{
-			flag = RoleMasterService.updateAssignRoleData(masterBean);
-			if(flag){
-				winRoleUpdate.detach();
-				BindUtils.postGlobalCommand(null, null, "globalRoleDetailsUpdate", null);
-			}	
+		flag = RoleMasterService.updateAssignRoleData(masterBean);
+		if(flag){
+			winRoleUpdate.detach();
+			BindUtils.postGlobalCommand(null, null, "globalRoleDetailsUpdate", null);
 		}
 	}
 	
