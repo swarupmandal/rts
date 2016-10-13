@@ -22,11 +22,13 @@
 								<button label="Serach" onClick="@command('onChangeReqId')"></button>
 							</hbox>
 							<space></space>
-							<listbox width="280px" model="@bind(vm.requirementGenerationBeanList)" 
+							<listbox width="342px" model="@bind(vm.requirementGenerationBeanList)" 
 							     selectedItem="@bind(vm.requirementGenerationBean)" onSelect="@command('onSelctReqId')" mold="paging" pageSize="5">
 								<listhead sizable="true">
 									<listheader label="Req Id"></listheader>
 									<listheader label="Skill"></listheader>
+									<listheader label="Creation Date" width="90px"></listheader>
+									<listheader label="Type"></listheader>
 								</listhead>
 								
 								<template name="model" var = "v">
@@ -34,6 +36,8 @@
 								  
 									<listcell label="@load(v.req_id)"></listcell>
 									<listcell label="@load(v.reqSkill)"></listcell>
+									<listcell label="@load(v.createdDateStr)"></listcell>
+									<listcell label="@load(v.rIdType)" ></listcell>
 								  	
 								</listitem>
 								</template>

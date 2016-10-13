@@ -27,6 +27,13 @@ public class RequirementGenerationBean {
   private String closeDateStr;
   private String closeDateValue;
   
+  private Date createdDate;
+  private java.sql.Date createdDatesql;
+  private String createdDateStr;
+  private String CreatedDateValue;
+  
+  private String rIdType;
+  
   private String reqStatus;
   private int reqStatusId;
   private String ocStatus;
@@ -258,5 +265,35 @@ public class RequirementGenerationBean {
 	}
 	public void setType_name(String type_name) {
 		this.type_name = type_name;
+	}
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+	public java.sql.Date getCreatedDatesql() {
+		return createdDatesql;
+	}
+	public void setCreatedDatesql(java.sql.Date createdDatesql) {
+		this.createdDatesql = createdDatesql;
+	}
+	public String getCreatedDateStr() {
+		return createdDateStr;
+	}
+	public void setCreatedDateStr(String createdDateStr) {
+		this.createdDateStr = createdDateStr;
+	}
+	public String getCreatedDateValue() {
+		return CreatedDateValue;
+	}
+	public void setCreatedDateValue(String createdDateValue) {
+		CreatedDateValue = createdDateValue;
+	}
+	public String getrIdType() {
+		return rIdType;
+	}
+	public void setrIdType(String rIdType) {
+		this.rIdType = rIdType;
 	}
 }
