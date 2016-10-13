@@ -16,4 +16,5 @@ public class RoleMasterSql {
 	public static final String updateMappingQuery = "update rts_user_role_mapper set role_id = ? where user_role_mapper_id = ? ";
 	public static final String countSqlQuery = "select count(*) from rts_user_role_mapper where user_id = ? and role_id = ? ";
 	public static final String countRoleSqlQuery = "select count(*) from rts_role_master where master_role_name = ? ";
+	public static final String countUserPresentsWrtRole = "select count(*) from rts_user_role_mapper where role_id = ? ";
 }
