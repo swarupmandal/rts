@@ -5,6 +5,7 @@ public class RoleMasterBean {
 	private String roll;
 	private String user;
 	private String userid;
+	private Integer userSerialId;
 	private int rollId;
 	private boolean visibilityRoleTextBox = true;
 	private boolean visibilityEditButton = false;
@@ -13,6 +14,10 @@ public class RoleMasterBean {
 	private boolean visibilityUpdateButton = true;
 	private int mapperId;
 	private Integer uId;
+	private String pageName;
+	private Integer pageNameId;
+	private boolean chkSelect = false;
+	private String RoleAccessUserId;
 	
 	private UserprofileBean userprofileBean = new UserprofileBean(); 
 	private RollDropDownBean downBean = new RollDropDownBean();
@@ -97,10 +102,40 @@ public class RoleMasterBean {
 	public void setVisibilityUpdateButton(boolean visibilityUpdateButton) {
 		this.visibilityUpdateButton = visibilityUpdateButton;
 	}
+	public Integer getPageNameId() {
+		return pageNameId;
+	}
+	public String getRoleAccessUserId() {
+		return RoleAccessUserId;
+	}
+	public void setRoleAccessUserId(String roleAccessUserId) {
+		RoleAccessUserId = roleAccessUserId;
+	}
+	public void setPageNameId(Integer pageNameId) {
+		this.pageNameId = pageNameId;
+	}
 	public Integer getuId() {
 		return uId;
 	}
+	public String getPageName() {
+		return pageName;
+	}
+	public void setPageName(String pageName) {
+		this.pageName = pageName;
+	}
+	public boolean isChkSelect() {
+		return chkSelect;
+	}
+	public void setChkSelect(boolean chkSelect) {
+		this.chkSelect = chkSelect;
+	}
 	public void setuId(Integer uId) {
 		this.uId = uId;
+	}
+	public Integer getUserSerialId() {
+		return userSerialId;
+	}
+	public void setUserSerialId(Integer userSerialId) {
+		this.userSerialId = userSerialId;
 	}
 }

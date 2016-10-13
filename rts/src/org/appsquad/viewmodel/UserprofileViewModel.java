@@ -58,9 +58,10 @@ public class UserprofileViewModel {
 	public void onClickuserSubmit(){
 		boolean flagInsert = false;
 		int countNumber = 0;
-		countNumber = UserProfileDao.countPresentUserDetails(userprofileBean);
+		countNumber = UserProfileService.countUserIdPresentInTable(userprofileBean);
+		System.out.println(countNumber);
 		if(countNumber>0){
-			Messagebox.show("Please Enter New User Name And Password!", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
+			Messagebox.show("Please Enter New User Name!", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
 		}else{
 			flagInsert = UserProfileService.insertUserMasterData(userprofileBean);
 			if(flagInsert){

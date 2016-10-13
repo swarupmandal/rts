@@ -1,5 +1,7 @@
 package org.appsquad.bean;
 
+import java.util.Date;
+
 public class DemoBean {
 	private String name;
 	private String surName;
@@ -11,6 +13,22 @@ public class DemoBean {
 	private String address;
 	private String emailId;
 	private String contactNumber;
+	
+	private Date fromDate;
+	private java.sql.Date fromDateSql;
+	private String fromDateValue;
+	private String fromDateStr;
+	
+	private Date toDate;
+	private java.sql.Date toDateSql;
+	private String toDateValue;
+	private String toateStr;
+	
+	public SkillsetMasterbean masterbean = new SkillsetMasterbean();
+	public StatusMasterBean statusMasterBean = new StatusMasterBean();
+	public UserprofileBean userprofileBean = new UserprofileBean();
+	public SkillsetMasterbean skillsetMasterbean = new SkillsetMasterbean();
+	public ClientInformationBean clientInformationBean = new ClientInformationBean();
 	
 	
 	/**************************************************************************************************************************************************/
@@ -74,5 +92,83 @@ public class DemoBean {
 	}
 	public void setContactNumber(String contactNumber) {
 		this.contactNumber = contactNumber;
+	}
+	public Date getFromDate() {
+		return fromDate;
+	}
+	public void setFromDate(Date fromDate) {
+		this.fromDate = fromDate;
+	}
+	public java.sql.Date getFromDateSql() {
+		return fromDateSql;
+	}
+	public void setFromDateSql(java.sql.Date fromDateSql) {
+		this.fromDateSql = fromDateSql;
+	}
+	public String getFromDateValue() {
+		return fromDateValue;
+	}
+	public void setFromDateValue(String fromDateValue) {
+		this.fromDateValue = fromDateValue;
+	}
+	public String getFromDateStr() {
+		return fromDateStr;
+	}
+	public void setFromDateStr(String fromDateStr) {
+		this.fromDateStr = fromDateStr;
+	}
+	public Date getToDate() {
+		return toDate;
+	}
+	public void setToDate(Date toDate) {
+		this.toDate = toDate;
+	}
+	public java.sql.Date getToDateSql() {
+		return toDateSql;
+	}
+	public void setToDateSql(java.sql.Date toDateSql) {
+		this.toDateSql = toDateSql;
+	}
+	public String getToDateValue() {
+		return toDateValue;
+	}
+	public void setToDateValue(String toDateValue) {
+		this.toDateValue = toDateValue;
+	}
+	public String getToateStr() {
+		return toateStr;
+	}
+	public void setToateStr(String toateStr) {
+		this.toateStr = toateStr;
+	}
+	public SkillsetMasterbean getMasterbean() {
+		return masterbean;
+	}
+	public void setMasterbean(SkillsetMasterbean masterbean) {
+		this.masterbean = masterbean;
+	}
+	public StatusMasterBean getStatusMasterBean() {
+		return statusMasterBean;
+	}
+	public void setStatusMasterBean(StatusMasterBean statusMasterBean) {
+		this.statusMasterBean = statusMasterBean;
+	}
+	public UserprofileBean getUserprofileBean() {
+		return userprofileBean;
+	}
+	public void setUserprofileBean(UserprofileBean userprofileBean) {
+		this.userprofileBean = userprofileBean;
+	}
+	public SkillsetMasterbean getSkillsetMasterbean() {
+		return skillsetMasterbean;
+	}
+	public void setSkillsetMasterbean(SkillsetMasterbean skillsetMasterbean) {
+		this.skillsetMasterbean = skillsetMasterbean;
+	}
+	public ClientInformationBean getClientInformationBean() {
+		return clientInformationBean;
+	}
+	public void setClientInformationBean(ClientInformationBean clientInformationBean) {
+		this.clientInformationBean = clientInformationBean;
 	}
 }

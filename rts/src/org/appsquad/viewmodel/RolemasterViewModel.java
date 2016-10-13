@@ -159,6 +159,15 @@ public class RolemasterViewModel {
 		window.doModal();
 	}
 	
+	@Command
+	@NotifyChange("*")
+	public void onClickPage(@BindingParam("bean") RoleMasterBean roleMasterBean){
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("pageDetails", roleMasterBean);
+		Window window = (Window) Executions.createComponents("/WEB-INF/view/dynamicPageCreation.zul", null, map);
+		window.doModal();
+	}
+	
 	/*************************************************************************************************************************************************/
 	
 	public RoleMasterBean getRoleMasterBean() {

@@ -9,6 +9,7 @@ public class UserProfileService {
 	private static boolean flagInsert = false;
 	private static boolean flagCount = false;
 	private static String EMAIL_REGEX = "^[\\w-_\\.+]*[\\w-_\\.]@([\\w]+\\.)+[\\w]+[\\w]$";
+	private static Integer count = 0;
 	
 	public static boolean isValid(UserprofileBean userprofileBean){
 				if(userprofileBean.getUsername()!=null && userprofileBean.getUsername().trim().length()>0){
@@ -67,6 +68,10 @@ public class UserProfileService {
 		bean.setUsername(null);
 	}
 	
+	public static int countUserIdPresentInTable(UserprofileBean userprofileBean){
+	    	return count = UserProfileDao.countPresentUserDetails(userprofileBean);
+	}
+	
 	public static boolean updateUserMasterData(UserprofileBean userprofileBean){
 		if(isValid(userprofileBean)){
 			 flag = UserProfileDao.updateUserData(userprofileBean);
@@ -99,5 +104,15 @@ public class UserProfileService {
 	}
 	public static void setEMAIL_REGEX(String eMAIL_REGEX) {
 		EMAIL_REGEX = eMAIL_REGEX;
+	}
+
+
+	public static Integer getCount() {
+		return count;
+	}
+
+
+	public static void setCount(Integer count) {
+		UserProfileService.count = count;
 	}
 }

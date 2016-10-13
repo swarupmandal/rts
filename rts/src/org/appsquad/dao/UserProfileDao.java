@@ -128,11 +128,7 @@ public class UserProfileDao {
 					sql_fetch:{
 					   PreparedStatement preparedStatementCount = null;
 					   try {
-						   preparedStatementCount = Pstm.createQuery(connection, UserProfileSql.countNumberSql, Arrays.asList(userprofileBean.getUserid(),
-								                                                                             userprofileBean.getPassword()));
-							
-							//logger.info(" countPresentUserDetails- " + preparedStatementCount.unwrap(PreparedStatement.class));
-							
+						   preparedStatementCount = Pstm.createQuery(connection, UserProfileSql.countNumberSql, Arrays.asList(userprofileBean.getUserid()));
 							ResultSet resultSet = preparedStatementCount.executeQuery();
 							while (resultSet.next()) {
 								count = resultSet.getInt(1);
@@ -154,7 +150,6 @@ public class UserProfileDao {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			//logger.fatal(e);
 		}
 		return count;
 	}
@@ -175,8 +170,6 @@ public class UserProfileDao {
 									UserProfileSql.updateUserDetails, Arrays.asList(userprofileBean.getUserid(),userprofileBean.getUsername(),
 											  userprofileBean.getPassword(),userprofileBean.getAddress(),userprofileBean.getContactno(),
 											  userprofileBean.getEmail(),userprofileBean.getId()));
-					    	
-					    	//logger.info(" Update User Data- " + preparedStatementInsert.unwrap(PreparedStatement.class));
 					    	
 							int i = preparedStatementInsert.executeUpdate();
 							if(i>0){
@@ -205,7 +198,6 @@ public class UserProfileDao {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			//logger.fatal(e);
 		}
 		return isUpdated;
 	}
@@ -252,7 +244,6 @@ public class UserProfileDao {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			//logger.fatal(e);;
 		}
 		return isDeleted;
 	}

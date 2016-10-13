@@ -349,6 +349,8 @@ public class RoleMasterDao {
 								bean.getUserprofileBean().setId(resultSet.getInt("user_id"));
 								bean.getUserprofileBean().setUsername(resultSet.getString("user_name"));
 								bean.setMapperId(resultSet.getInt("user_role_mapper_id"));
+								bean.setUserSerialId(resultSet.getInt("id"));
+								
 								
 								mappingList.add(bean);
 							}  

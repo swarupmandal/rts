@@ -7,7 +7,7 @@ public class RoleMasterSql {
 	public static final String deleteSql = "update rts_role_master set is_delete = 'D' where id = ? ";
 	public static final String fetchUserQuery = "select * from rts_user_master where is_delete = 'N' ";
 	public static final String insertMappingQuery = "insert into rts_user_role_mapper (user_id,role_id) values(?,?) ";
-	public static final String fetchMappingQuery = "select rurm.user_role_mapper_id,rurm.user_id,rurm.role_id,rum.user_name,rrm.master_role_name "
+	public static final String fetchMappingQuery =   "select rurm.user_role_mapper_id,rurm.user_id,rurm.role_id,rum.user_name,rrm.master_role_name,rum.id "
 													+"from rts_user_role_mapper rurm,rts_user_master rum,rts_role_master rrm "
 													+"where rurm.user_id = rum.id "
 													+"and rurm.role_id = rrm.id "

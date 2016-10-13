@@ -10,48 +10,48 @@
       <treechildren>
        <treeitem open="false">
         <treerow>
-         <treecell label="Master"/>
+         <treecell label="Master" visible="@bind(vm.masterLinkVisibility)"/>
         </treerow>
           <treechildren>
             <treeitem open="false">
              <treerow>
               <treecell label="- User Role"
-               onClick='inclResults.setSrc("/WEB-INF/view/userRoleMaster.zul");' />
+               onClick='inclResults.setSrc("/WEB-INF/view/userRoleMaster.zul");' visible="@bind(vm.userRoleLinkVisibility)"/>
              </treerow>
             </treeitem>
 
             <treeitem open="false">
              <treerow>
               <treecell label="- Client"
-               onClick='inclResults.setSrc("/WEB-INF/view/clientMaster.zul");' />
+               onClick='inclResults.setSrc("/WEB-INF/view/clientMaster.zul");' visible="@bind(vm.clientLinkVisibility)"/>
              </treerow>
             </treeitem>
             
             <treeitem open="false">
             	<treerow>
             	 <treecell label="- Skill Set"
-            	  onClick='inclResults.setSrc("/WEB-INF/view/skillSetMaster.zul");'>
+            	  onClick='inclResults.setSrc("/WEB-INF/view/skillSetMaster.zul");' visible="@bind(vm.skillSetLinkVisibility)">
             	</treecell>
             	</treerow>
             </treeitem>
               <treeitem open="false">
             	<treerow>
             	 <treecell label="- Status"
-            	  onClick='inclResults.setSrc("/WEB-INF/view/statusMaster.zul");'>
+            	  onClick='inclResults.setSrc("/WEB-INF/view/statusMaster.zul");' visible="@bind(vm.statusLinkVisibility)">
             	</treecell>
             	</treerow>
             </treeitem>
              <treeitem open="false">
             	<treerow>
             	 <treecell label="- Registered Resource"
-            	  onClick='inclResults.setSrc("/WEB-INF/view/resourceMaster.zul");'>
+            	  onClick='inclResults.setSrc("/WEB-INF/view/resourceMaster.zul");' visible="@bind(vm.registeredResourceLinkVisibility)">
             	</treecell>
             	</treerow>
          </treeitem>
             <treeitem open="false">
             	<treerow>
             	 <treecell label="- User Profile"
-            	  onClick='inclResults.setSrc("/WEB-INF/view/userProfileMaster.zul");'>
+            	  onClick='inclResults.setSrc("/WEB-INF/view/userProfileMaster.zul");' visible="@bind(vm.userrofileLinkVisibility)">
             	</treecell>
             	</treerow>
             </treeitem>
@@ -61,28 +61,28 @@
        
         <treeitem open="false">
          <treerow>
-         	<treecell label="Transaction">
+         	<treecell label="Transaction" visible="@bind(vm.tranactionLinkVisibility)">
          	</treecell>
          </treerow>
          <treechildren>
          <treeitem>
          <treerow>
          	<treecell label="- Requirement Generation"
-         	onClick='inclResults.setSrc("/WEB-INF/view/requrementGeneration.zul");'>
+         	onClick='inclResults.setSrc("/WEB-INF/view/requrementGeneration.zul");' visible="@bind(vm.requirementGenerationLinkVisibility)">
          	</treecell>
          </treerow>
          </treeitem>
          <treeitem open="false">
             	<treerow>
             	 <treecell label="- Assign Resource To RId"
-            	  onClick='inclResults.setSrc("/WEB-INF/view/resourceAllocation.zul");'>
+            	  onClick='inclResults.setSrc("/WEB-INF/view/resourceAllocation.zul");' visible="@bind(vm.assignResourceToRIdLinkVisibility)">
             	</treecell>
             	</treerow>
          </treeitem>
             <treeitem open="false">
             	<treerow>
-            	 <treecell label="- Resource allocation Tracking"
-            	  onClick='inclResults.setSrc("/WEB-INF/view/resourceAllocationTracking.zul");'>
+            	 <treecell label="- Resource Allocation Tracking"
+            	  onClick='inclResults.setSrc("/WEB-INF/view/resourceAllocationTracking.zul");' visible="@bind(vm.resourceAllocationTrackingLinkVisibility)">
             	</treecell>
             	</treerow>
             </treeitem>
@@ -92,45 +92,45 @@
          
        <treeitem open="false">
          <treerow>
-         	<treecell label="Report">
+         	<treecell label="Report" visible="@bind(vm.reportLinkVisibility)">
          	</treecell>
          </treerow>
          <treechildren>
          
          <treeitem>
          <treerow>
-         	<treecell label="- Requirement wise status report" 
-         	onClick='inclResults.setSrc("/WEB-INF/view/sortCriteriaRidOrStatus.zul");' >
+         	<treecell label="- Requirement Wise Status Report" 
+         	onClick='inclResults.setSrc("/WEB-INF/view/sortCriteriaRidOrStatus.zul");' visible="@bind(vm.requirementWiseStatusReport)">
          	</treecell>
          </treerow>
          </treeitem>
          
          <treeitem>
          <treerow>
-         	<treecell label="- Individual client report" 
-         	onClick='inclResults.setSrc("/WEB-INF/view/individualClientDet.zul");' >
+         	<treecell label="- Individual Client Report" 
+         	onClick='inclResults.setSrc("/WEB-INF/view/individualClientDet.zul");' visible="@bind(vm.individualClientReport)">
          	</treecell>
          </treerow>
          </treeitem>
 
          <treeitem>
          <treerow>
-         	<treecell label="- Individual requirement (RID) report" 
-         	onClick='inclResults.setSrc("/WEB-INF/view/individualRequirementDetails.zul");' >
+         	<treecell label="- Individual Requirement (RID) Report" 
+         	onClick='inclResults.setSrc("/WEB-INF/view/individualRequirementDetails.zul");' visible="@bind(vm.individualRequirementRIDReport)">
          	</treecell>
          </treerow>
          </treeitem>
          <treeitem>
          <treerow>
-         	<treecell label="- Skill set wise requirement list" 
-         	onClick='inclResults.setSrc("/WEB-INF/view/skillSetWiseReport.zul");' >
+         	<treecell label="- Skill Set Wise Requirement List" 
+         	onClick='inclResults.setSrc("/WEB-INF/view/skillSetWiseReport.zul");' visible="@bind(vm.skillSetWiseRequirementList)">
          	</treecell>
          </treerow>
          </treeitem>
          <treeitem>
          <treerow>
-         	<treecell label="- Resource detail per requirement " 
-         	onClick='inclResults.setSrc("/WEB-INF/view/recourceCvDownload.zul");'>
+         	<treecell label="- Resource Detail Per Requirement(CV)" 
+         	onClick='inclResults.setSrc("/WEB-INF/view/recourceCvDownload.zul");' visible="@bind(vm.resourceDetailPerRequirementCV)">
          	</treecell>
          </treerow>
          </treeitem>

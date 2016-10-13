@@ -5,9 +5,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.appsquad.bean.ClientInformationBean;
 import org.appsquad.bean.DemoBean;
+import org.appsquad.bean.SkillsetMasterbean;
+import org.appsquad.bean.StatusMasterBean;
 import org.appsquad.dao.DemoDao;
+import org.appsquad.dao.ResourceMasterDao;
 import org.appsquad.service.RequirementGenerationService;
+import org.appsquad.service.ResourceAllocationTrackingService;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
@@ -20,6 +25,8 @@ import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.select.Selectors;
+import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zul.Bandbox;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
@@ -29,11 +36,20 @@ public class demoViewModel {
 	    private Session sessions = null;
 	    private String userName ;
 	    private String userId;
+	    @Wire("#clntBb")
+		private Bandbox clientBandBox;
+		@Wire("#skillBb")
+		private Bandbox skillBandBox;
 	    
 	    private DemoBean bean = new DemoBean();
 	    
 	    private ArrayList<DemoBean> list = new ArrayList<DemoBean>();
 	    private ArrayList<DemoBean> idList = new ArrayList<DemoBean>();
+	    private ArrayList<SkillsetMasterbean> skillList = new ArrayList<SkillsetMasterbean>();
+		private ArrayList<StatusMasterBean> statusList = new ArrayList<StatusMasterBean>();
+		private ArrayList<ClientInformationBean> clientList = new ArrayList<ClientInformationBean>();
+		
+	    DemoBean demoBean = new DemoBean();
 	    
 	 
 	    @AfterCompose
@@ -41,6 +57,9 @@ public class demoViewModel {
 			Selectors.wireComponents(view, this, false);
 			sessions = Sessions.getCurrent();
 			userId = (String) sessions.getAttribute("userId");
+			skillList = RequirementGenerationService.fetchSkillSetList();
+			statusList = ResourceMasterDao.onLoadStatus();
+			clientList = ResourceAllocationTrackingService.fetchClientDetails();
             list = DemoDao.getDetails();
 		}
 	    
@@ -75,6 +94,18 @@ public class demoViewModel {
 	    		Messagebox.show(" You Didn't Check Any Check-Box!","Excalamation",Messagebox.OK,Messagebox.EXCLAMATION);
 	    	}
 	    }
+	    
+	    @Command
+		@NotifyChange("*")
+		public void onSelctSkillName(){
+			skillBandBox.close();
+		}
+		
+		@Command
+		@NotifyChange("*")
+		public void onSelctClientName(){
+			clientBandBox.close();
+		}
 	    
 	/*****************************************************************************************************/
 	    
@@ -128,5 +159,41 @@ public class demoViewModel {
 	}
 	public void setIdList(ArrayList<DemoBean> idList) {
 		this.idList = idList;
+	}
+	public DemoBean getDemoBean() {
+		return demoBean;
+	}
+	public void setDemoBean(DemoBean demoBean) {
+		this.demoBean = demoBean;
+	}
+	public Bandbox getClientBandBox() {
+		return clientBandBox;
+	}
+	public void setClientBandBox(Bandbox clientBandBox) {
+		this.clientBandBox = clientBandBox;
+	}
+	public Bandbox getSkillBandBox() {
+		return skillBandBox;
+	}
+	public void setSkillBandBox(Bandbox skillBandBox) {
+		this.skillBandBox = skillBandBox;
+	}
+	public ArrayList<SkillsetMasterbean> getSkillList() {
+		return skillList;
+	}
+	public void setSkillList(ArrayList<SkillsetMasterbean> skillList) {
+		this.skillList = skillList;
+	}
+	public ArrayList<StatusMasterBean> getStatusList() {
+		return statusList;
+	}
+	public void setStatusList(ArrayList<StatusMasterBean> statusList) {
+		this.statusList = statusList;
+	}
+	public ArrayList<ClientInformationBean> getClientList() {
+		return clientList;
+	}
+	public void setClientList(ArrayList<ClientInformationBean> clientList) {
+		this.clientList = clientList;
 	}
 }

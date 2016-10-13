@@ -66,8 +66,8 @@ public class ResourceInformationUpdateViewModel {
 	public void initSetup(@ContextParam(ContextType.VIEW) Component view,@ExecutionArgParam("resourceIdDetails") ResourceMasterBean bean)
 									throws Exception {
 		Selectors.wireComponents(view, this, false);
-		masterBean = bean;
 		sessions = Sessions.getCurrent();
+		masterBean = bean;
 		countryList = ResourceMasterDao.onLoadCountry();
 		statusList = ResourceMasterDao.onLoadStatus();
 		skillList = ResourceMasterDao.onLoadSkill();
