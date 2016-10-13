@@ -11,8 +11,10 @@ import org.appsquad.bean.SkillsetMasterbean;
 import org.appsquad.bean.StatusMasterBean;
 import org.appsquad.dao.DemoDao;
 import org.appsquad.dao.ResourceMasterDao;
+import org.appsquad.service.IndividualClientReportService;
 import org.appsquad.service.RequirementGenerationService;
 import org.appsquad.service.ResourceAllocationTrackingService;
+import org.appsquad.utility.Dateformatter;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
@@ -113,6 +115,31 @@ public class demoViewModel {
 			clientBandBox.close();
 		}
 		
+		@Command
+		@NotifyChange("*")
+		public void onChangeFromDate(){
+			   
+			  
+		}
+		
+		@Command
+		@NotifyChange("*")
+		public void onChangeToDate(){
+			   if(bean.getFromDate() != null){
+				   if(bean.getToDate().after(bean.getFromDate())){
+					    	if(bean.getFromDate() != null && bean.getToDate() != null){
+					    		
+					    	 }
+				     }else {
+				    	bean.setToDate(null);
+					    Messagebox.show("To Date Should be Grater Than From Date", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION);
+				   }
+				   
+			   }else {
+				   bean.setToDate(null);
+				   Messagebox.show("Select From Date First", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION);
+			}
+	   }
 		
 	  /*************************************************************************************************************************************************/
 		public Double getCount() {

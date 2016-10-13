@@ -5,7 +5,7 @@
 	<tabbox>
 		<tabs>
 			<tab>New Entry</tab>
-			<tab>Existing Data</tab>
+			<tab>Existing Requirements</tab>
 		</tabs>
 		<tabpanels>
 			<tabpanel>
