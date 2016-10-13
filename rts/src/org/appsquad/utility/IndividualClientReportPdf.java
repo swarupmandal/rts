@@ -1,5 +1,7 @@
 package org.appsquad.utility;
 
+import java.awt.Desktop;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -41,11 +43,24 @@ public class IndividualClientReportPdf {
 		document.open();
 		createPdfHeader();
 		printDetails(individualClientReportBeanList);
-		DownloadPdf.download(filePath, "reportIndv.pdf");
+		//DownloadPdf.download(filePath, "reportIndv.pdf");
+		openPdf(filePath);
+		
 		document.close();
+		//DownloadPdf.download(filePath, "reportIndv.pdf");
 		
 	}
 	
+	void openPdf(String fileName) throws IOException{
+		  if (Desktop.isDesktopSupported()) {
+		   try {
+		          File myFile = new File(fileName );
+		          Desktop.getDesktop().open(myFile);
+		      } catch (IOException ex) {
+		         ex.printStackTrace();
+		      }
+		  }
+		 }
 	
 	void createPdfHeader() throws DocumentException{
 		
