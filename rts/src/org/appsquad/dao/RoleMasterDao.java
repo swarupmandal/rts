@@ -196,6 +196,50 @@ public class RoleMasterDao {
 		return roleDropList;
 	}
 	
+	
+	public static ArrayList<RollDropDownBean> onLoadRoleDropDownDeatilsForUpdateScreen(RoleMasterBean roleMasterBean){
+		ArrayList<RollDropDownBean> roleDropList = new ArrayList<RollDropDownBean>();
+		Connection connection = null;
+		try {
+			connection = DbConnection.createConnection();
+			sql_connection:{
+				try {
+					
+					//1st SQL block
+					sql_fetch:{
+					   PreparedStatement preparedStatement = null;
+					   try {
+						   preparedStatement = Pstm.createQuery(connection, RoleMasterSql.fetchRoleQueryForDrop, Arrays.asList(roleMasterBean.getDownBean().getRoll()));
+						   /*logger.info("onLoadRoleDropDownDeatils- " + preparedStatement.unwrap(PreparedStatement.class));*/
+						   ResultSet resultSet = preparedStatement.executeQuery();
+						   while (resultSet.next()) {
+								RollDropDownBean bean = new RollDropDownBean();
+								bean.setRollId(resultSet.getInt("id"));
+								bean.setRoll(resultSet.getString("master_role_name"));
+								
+								roleDropList.add(bean);
+							}  
+						} finally{
+							if(preparedStatement!=null){
+								preparedStatement.close();
+							}
+						}
+				    }
+				} catch (Exception e) {
+					e.printStackTrace();
+				}finally{
+					if(connection!=null){
+						connection.close();
+					}
+				}
+			}
+		} catch (Exception e) {
+			logger.fatal(e);
+			e.printStackTrace();
+		}
+		return roleDropList;
+	}
+	
 	public static void updateRoleData(RoleMasterBean roleMasterBean){
 		boolean isUpdate= false;
 		Connection connection = null;
@@ -436,9 +480,8 @@ public class RoleMasterDao {
 					sql_fetch:{
 					   PreparedStatement preparedStatement = null;
 					   try {
-						   preparedStatement = Pstm.createQuery(connection, RoleMasterSql.countSqlQuery, Arrays.asList(bean.getUserprofileBean().getId(),
-								                                                                         bean.getDownBean().getRollId()));
-						   /*logger.info("onLoadCountDeatils- " + preparedStatement.unwrap(PreparedStatement.class));*/
+						   preparedStatement = Pstm.createQuery(connection, RoleMasterSql.countSqlQuery, Arrays.asList(bean.getUserprofileBean().getId()));
+						
 							ResultSet resultSet = preparedStatement.executeQuery();
 							while (resultSet.next()) {
 								count = resultSet.getInt(1);
@@ -504,6 +547,7 @@ public class RoleMasterDao {
 		return count;
 	}
 	
+
 	public static Integer onLoadRoleNameCountDeatils(RoleMasterBean bean){
 		int countRole = 0;
 		Connection connection = null;

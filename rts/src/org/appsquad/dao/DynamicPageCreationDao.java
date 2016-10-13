@@ -34,7 +34,7 @@ public class DynamicPageCreationDao {
 								   RoleMasterBean bean = new RoleMasterBean();
 								   bean.setPageNameId(resultSet.getInt("menus_id"));
 								   bean.setPageName(resultSet.getString("menus_name"));
-								   if(countWrtMenusIdAndUserId(roleMasterBean.getUserSerialId(), bean.getPageNameId())>0){
+								   if(countWrtMenusIdAndUserId(roleMasterBean.getRollId(), bean.getPageNameId())>0){
 									   bean.setChkSelect(true);
 								   }else{
 									   bean.setChkSelect(false);
@@ -99,7 +99,7 @@ public class DynamicPageCreationDao {
 		return count;
 	 }
 	 
-	 public static int countWrtUserId(Integer userSerialId){
+	 public static int countWrtUserId(Integer roleId){
 		 int count = 0;
 		 Connection connection = null;
 		 try {
@@ -111,7 +111,7 @@ public class DynamicPageCreationDao {
 						sql_fetch:{
 						   PreparedStatement preparedStatement = null;
 						   try {
-							   preparedStatement = Pstm.createQuery(connection, DynamicPageCreationSql.COUNTWRTUSERIDANDSQL, Arrays.asList(userSerialId));
+							   preparedStatement = Pstm.createQuery(connection, DynamicPageCreationSql.COUNTWRTUSERIDANDSQL, Arrays.asList(roleId));
 							   System.out.println(preparedStatement);
 							   ResultSet resultSet = preparedStatement.executeQuery();
 							   while (resultSet.next()) {
@@ -148,7 +148,7 @@ public class DynamicPageCreationDao {
 			sql_connection:{
 				 try {
 					 
-					 countPresent = countWrtUserId(bean.getUserSerialId());
+					 countPresent = countWrtUserId(bean.getRollId());
 					 System.out.println("COUNT PRESENT NUMBER IS :"+countPresent);
 					 
 					 if(countPresent>0){
@@ -158,7 +158,7 @@ public class DynamicPageCreationDao {
 						   PreparedStatement preparedStatementDelete = null;
 						   try {
 							   preparedStatementDelete = Pstm.createQuery(connection, 
-										DynamicPageCreationSql.DELETEAPPPAGEWRTUSERSERIALID, Arrays.asList(bean.getUserSerialId()));
+										DynamicPageCreationSql.DELETEAPPPAGEWRTUSERSERIALID, Arrays.asList(bean.getRollId()));
 						    	
 						    	System.out.println("DELETE QUERY:"+preparedStatementDelete);
 								int i = preparedStatementDelete.executeUpdate();
@@ -179,7 +179,7 @@ public class DynamicPageCreationDao {
 							    	 PreparedStatement preparedStatementInsert = null;
 							    	 try {
 							    		 preparedStatementInsert = Pstm.createQuery(connection, 
-													DynamicPageCreationSql.INSERTINTOPAGEUSERMAPPERTABLE, Arrays.asList(bean.getUserSerialId(),masterBean.getPageNameId()));
+													DynamicPageCreationSql.INSERTINTOPAGEUSERMAPPERTABLE, Arrays.asList(bean.getRollId(),masterBean.getPageNameId()));
 									     System.out.println("INSERT QUERY:"+preparedStatementInsert);
 							    		 int i = preparedStatementInsert.executeUpdate();
 										 if(i>0){
@@ -205,7 +205,7 @@ public class DynamicPageCreationDao {
 						    	 PreparedStatement preparedStatementInsert = null;
 						    	 try {
 						    		 preparedStatementInsert = Pstm.createQuery(connection, 
-												DynamicPageCreationSql.INSERTINTOPAGEUSERMAPPERTABLE, Arrays.asList(bean.getUserSerialId(),masterBean.getPageNameId()));
+												DynamicPageCreationSql.INSERTINTOPAGEUSERMAPPERTABLE, Arrays.asList(bean.getRollId(),masterBean.getPageNameId()));
 								     System.out.println("INSERT QUERY:"+preparedStatementInsert);
 						    		 int i = preparedStatementInsert.executeUpdate();
 									 if(i>0){

@@ -26,6 +26,8 @@ import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
+import com.sun.javafx.tk.quantum.MasterTimer;
+
 public class RolemasterViewModel {
 	RoleMasterBean roleMasterBean= new RoleMasterBean();
 	private ArrayList<RoleMasterBean> rolebeanlist= new ArrayList<RoleMasterBean>();
@@ -147,7 +149,7 @@ public class RolemasterViewModel {
 	public void onClickAssign(){
 		count = RoleMasterDao.onLoadCountDeatils(roleMasterBean);
 		if(count>0){
-			Messagebox.show(" This User Name And Role Name Mapping Already Done!","Exclamation",Messagebox.OK,Messagebox.EXCLAMATION);
+			Messagebox.show("Please Enter New User Name!","Exclamation",Messagebox.OK,Messagebox.EXCLAMATION);
 		}else {
 			RoleMasterService.insertAssignData(roleMasterBean);
 			RoleMasterService.clearAllFieldAssign(roleMasterBean);
