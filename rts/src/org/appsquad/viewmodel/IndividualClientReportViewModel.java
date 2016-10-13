@@ -1,6 +1,7 @@
 package org.appsquad.viewmodel;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -306,7 +307,8 @@ public class IndividualClientReportViewModel {
 	public void onClickExcel(){
 		if(individualClientReportBean.getSelectedRadioButton().equals("detail")){
 		
-		  if(reportBeanList.size()>0);	
+			IndividualClientReportExcel.printCSV(reportBeanList);
+		  /*if(reportBeanList.size()>0);	
 		  ArrayList<IndividualClientReportBean> detailList = new ArrayList<IndividualClientReportBean>();
 			for(IndividualClientReportBean bean : reportBeanList){
 				if(bean.isDetailChecked()){
@@ -317,11 +319,13 @@ public class IndividualClientReportViewModel {
 				IndividualClientReportExcel.printCSV(detailList);
 			}else {
 				Messagebox.show("NO DATA SELECTED ", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION );
-			}
+			}*/
 			
 		}else {
 			
-			if(summaryBeanList.size()>0);
+			IndividualClientReportExcel.printSummaryCSV(summaryBeanList);
+			
+			/*if(summaryBeanList.size()>0);
 			ArrayList<IndividualClientReportBean> summList = new ArrayList<IndividualClientReportBean>();
 			for(IndividualClientReportBean bean : summaryBeanList){
 				if(bean.isSummaryChecked()){
@@ -333,21 +337,21 @@ public class IndividualClientReportViewModel {
 				IndividualClientReportExcel.printSummaryCSV(summList);
 			}else {
 				Messagebox.show("NO DATA SELECTED ", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION );
-			}
+			}*/
 			
 		}
 	}
 	
 	@Command
 	@NotifyChange("*")
-	public void onClickPdf(){
+	public void onClickPdf() throws IOException{
 		String pdfPath = Executions.getCurrent().getDesktop().getWebApp().getRealPath("/");
 		//String totalPdfPath = pdfPath + "report.pdf";
 		String totalPdfPath = "C:\\pdf test\\Report_Pdf.pdf";
 		
 		IndividualClientReportPdf pdf = new IndividualClientReportPdf();
 		
-		try{
+		/*try{
 			
 		if(individualClientReportBean.getSelectedRadioButton().equals("detail")){
 		
@@ -383,10 +387,10 @@ public class IndividualClientReportViewModel {
 	
 		}catch(Exception e){
 			e.printStackTrace();
-		}
+		}*/
 		
 		
-		/*try {
+		try {
 			
 			if(individualClientReportBean.getSelectedRadioButton().equals("detail")){
 			   pdf.getDetails(totalPdfPath, individualClientReportBean, reportBeanList);
@@ -399,7 +403,7 @@ public class IndividualClientReportViewModel {
 			e.printStackTrace();
 		} catch (DocumentException e) {
 			e.printStackTrace();
-		}*/
+		}
 		
 	}
 	

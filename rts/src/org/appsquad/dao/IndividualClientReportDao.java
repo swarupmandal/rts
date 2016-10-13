@@ -2395,7 +2395,7 @@ public static ArrayList<IndividualClientReportBean> loadRidListWithDateRange(Dat
 	    			list.add(pb.getReqId());
 	    		}
 	    	}
-	    	
+	    	int totCount = 0;
 	    	try {
 	    		Connection connection = null;
 				PreparedStatement preparedStatement = null;
@@ -2442,6 +2442,7 @@ public static ArrayList<IndividualClientReportBean> loadRidListWithDateRange(Dat
 								   
 								   childBean.setrIdLabel(resultSet2.getString("final_status"));
 								   childBean.setNoOfReqLebel(resultSet2.getInt("total_count") + "");
+								   totCount = totCount + resultSet2.getInt("total_count");
 								   childBean.setSkillSetLabel("");
 								   childBean.setStyle(childBean.getLighterStyle());
 								   childBean.setClientFullName("");
@@ -2462,6 +2463,29 @@ public static ArrayList<IndividualClientReportBean> loadRidListWithDateRange(Dat
 								
 							}  
 						 }
+							   
+						total:{
+							   
+							 IndividualClientReportBean totalCountBean = new IndividualClientReportBean();	   
+							   
+							 totalCountBean.setrIdLabel("Total");
+							 totalCountBean.setNoOfReqLebel(totCount+"");
+							 
+							 totalCountBean.setSkillSetLabel("");
+							 totalCountBean.setStyle(parentBean.getBoldStyle());
+							 totalCountBean.setBackGroundStyle(parentBean.getTotalbackGroundCount());
+							 totalCountBean.setClientFullName("");
+							 totalCountBean.setrIdDateLabel("");
+							   
+							 totalCountBean.setRidLbFieldVis(true);
+							 totalCountBean.setRidDatelbFieldVis(true);
+							 totalCountBean.setClNameLbFieldVis(false);
+							 totalCountBean.setSklStLbFieldVis(false);
+							 totalCountBean.setNoOfReqVis(true);
+							   
+							 summarList.add(totalCountBean);
+							 totCount = 0; 
+						    }
 							   
 					    }
 						   
