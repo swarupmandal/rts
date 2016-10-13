@@ -44,9 +44,10 @@ public class IndividualClientReportPdf {
 		createPdfHeader();
 		printDetails(individualClientReportBeanList);
 		//DownloadPdf.download(filePath, "reportIndv.pdf");
-		openPdf(filePath);
 		
+		System.out.println("FILE PATH IS :"+filePath);
 		document.close();
+		openPdf(filePath);
 		//DownloadPdf.download(filePath, "reportIndv.pdf");
 		
 	}
