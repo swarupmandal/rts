@@ -5,7 +5,7 @@
 	<tabbox>
 		<tabs>
 			<tab>New Entry</tab>
-			<tab>Existing Data</tab>
+			<tab>Existing Requirements</tab>
 		</tabs>
 		<tabpanels>
 			<tabpanel>
@@ -105,10 +105,10 @@
 			</tabpanel>
 		<tabpanel>		
 			  <div>	
-				<grid mold="paging" pageSize="8" model="@bind(vm.reqGenBeanList)">
+				<grid  mold="paging" pageSize="8" model="@bind(vm.reqGenBeanList)">
 					<columns>
 						<column label="R_ID(req_id)" width="100px"></column>
-						<column label="Client Name" align="center" width="220px"></column>
+						<column label="Client Name" align="center" width="300px"></column>
 						<column label="Type Name" align="center" width="220px"></column>
 						<column label="Raise Date" align="center"></column>
 						<column label="Requirement Status" align="center"></column>
@@ -119,10 +119,10 @@
 					  <template name="model" var = "v">
 						<row>
 						    <label value="@bind(v.req_id)"></label>
-							<textbox width="95%" value="@bind(v.clientName)" readonly="true"></textbox>
-							<textbox width="95%" value="@bind(v.resourceTypeBean.resourceTypeName)" readonly="true"></textbox>
-							<textbox readonly="true" value="@bind(v.raiseDateStr)" width="98%"></textbox>
-							<textbox readonly="true" width="98%" value="@bind(v.ocStatus)"></textbox>
+							<textbox width="99%" value="@bind(v.clientName)" readonly="true" ></textbox>
+							<textbox width="99%" value="@bind(v.resourceTypeBean.resourceTypeName)" readonly="true"></textbox>
+							<textbox readonly="true" value="@bind(v.raiseDateStr)" width="99%"></textbox>
+							<textbox readonly="true" width="99%" value="@bind(v.ocStatus)"></textbox>
 							<button label="Edit" width="98%" onClick="@command('onClickUpdate', bean = v)"    ></button>
 							<button label="Delete" width="98%"></button>	
 						</row>

@@ -58,6 +58,9 @@ public class IndividualClientReportBean {
 	
 	private String resOtherInfo;
 	
+	private String total;
+	private int totalCount;
+	
 	private boolean detailChecked;
 	private boolean summaryChecked;
 	private boolean detailsDivVis = false;
@@ -90,6 +93,8 @@ public class IndividualClientReportBean {
 	private String boldStyle = "font-weight: bold; color: black";
 	private String lighterStyle = "font-weight: lighter; color: black";
 	private String backGroundpaParent = "background-color: #ffe6f9";
+	private String totalbackGroundCount = "background-color: #ffffe6";
+	
 	//private String backGroundpaParent = "background-color: yellow";
 	private String style;
 	private String backGroundStyle;
@@ -568,6 +573,24 @@ public class IndividualClientReportBean {
 	}
 	public void setSummaryChecked(boolean summaryChecked) {
 		this.summaryChecked = summaryChecked;
+	}
+	public String getTotal() {
+		return total;
+	}
+	public void setTotal(String total) {
+		this.total = total;
+	}
+	public int getTotalCount() {
+		return totalCount;
+	}
+	public void setTotalCount(int totalCount) {
+		this.totalCount = totalCount;
+	}
+	public String getTotalbackGroundCount() {
+		return totalbackGroundCount;
+	}
+	public void setTotalbackGroundCount(String totalbackGroundCount) {
+		this.totalbackGroundCount = totalbackGroundCount;
 	}
 	
 	

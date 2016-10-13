@@ -11,8 +11,10 @@ import org.appsquad.bean.SkillsetMasterbean;
 import org.appsquad.bean.StatusMasterBean;
 import org.appsquad.dao.DemoDao;
 import org.appsquad.dao.ResourceMasterDao;
+import org.appsquad.service.IndividualClientReportService;
 import org.appsquad.service.RequirementGenerationService;
 import org.appsquad.service.ResourceAllocationTrackingService;
+import org.appsquad.utility.Dateformatter;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
@@ -38,8 +40,10 @@ public class demoViewModel {
 	    private String userId;
 	    @Wire("#clntBb")
 		private Bandbox clientBandBox;
-		@Wire("#skillBb")
+	    
+		@Wire("#skSt")
 		private Bandbox skillBandBox;
+		private boolean resourceDivVisibility = true;
 	    
 	    private DemoBean bean = new DemoBean();
 	    
@@ -49,9 +53,6 @@ public class demoViewModel {
 		private ArrayList<StatusMasterBean> statusList = new ArrayList<StatusMasterBean>();
 		private ArrayList<ClientInformationBean> clientList = new ArrayList<ClientInformationBean>();
 		
-	    DemoBean demoBean = new DemoBean();
-	    
-	 
 	    @AfterCompose
 		public void initSetUp(@ContextParam(ContextType.VIEW) Component view) throws Exception{
 			Selectors.wireComponents(view, this, false);
@@ -60,13 +61,12 @@ public class demoViewModel {
 			skillList = RequirementGenerationService.fetchSkillSetList();
 			statusList = ResourceMasterDao.onLoadStatus();
 			clientList = ResourceAllocationTrackingService.fetchClientDetails();
-            list = DemoDao.getDetails();
 		}
 	    
 	    @GlobalCommand
 	    @NotifyChange("*")
 	    public void refreshDownloadingScreen(){
-	    	list = DemoDao.getDetails();
+	    	list = DemoDao.getDetailsForSkill(bean);
 	    	for(DemoBean bean: list){
 	    		bean.setChkSelect(false);
 	    	}
@@ -98,6 +98,14 @@ public class demoViewModel {
 	    @Command
 		@NotifyChange("*")
 		public void onSelctSkillName(){
+	    	list = DemoDao.getDetailsForSkill(bean);
+	    	System.out.println("SKILL NAME CORRESPONDING LIST SIZE IS :"+list.size());
+	    	if(list.size()>0){
+	    		resourceDivVisibility = true;
+	    	}else{
+	    		resourceDivVisibility = false;
+	    		Messagebox.show("No Data Found Wrt This Skill Name!","Excalamation",Messagebox.OK,Messagebox.EXCLAMATION);
+	    	}
 			skillBandBox.close();
 		}
 		
@@ -106,94 +114,116 @@ public class demoViewModel {
 		public void onSelctClientName(){
 			clientBandBox.close();
 		}
-	    
-	/*****************************************************************************************************/
-	    
-    public void getDetails(){
-		 
-    }
-	public Double getCount() {
-		return count;
-	}
-	public void setCount(Double count) {
-		this.count = count;
-	}
-	public Connection getConnection() {
-		return connection;
-	}
-	public void setConnection(Connection connection) {
-		this.connection = connection;
-	}
-	public Session getSessions() {
-		return sessions;
-	}
-	public void setSessions(Session sessions) {
-		this.sessions = sessions;
-	}
-	public String getUserName() {
-		return userName;
-	}
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-	public String getUserId() {
-		return userId;
-	}
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-	public ArrayList<DemoBean> getList() {
-		return list;
-	}
-	public void setList(ArrayList<DemoBean> list) {
-		this.list = list;
-	}
-	public DemoBean getBean() {
-		return bean;
-	}
-	public void setBean(DemoBean bean) {
-		this.bean = bean;
-	}
-	public ArrayList<DemoBean> getIdList() {
-		return idList;
-	}
-	public void setIdList(ArrayList<DemoBean> idList) {
-		this.idList = idList;
-	}
-	public DemoBean getDemoBean() {
-		return demoBean;
-	}
-	public void setDemoBean(DemoBean demoBean) {
-		this.demoBean = demoBean;
-	}
-	public Bandbox getClientBandBox() {
-		return clientBandBox;
-	}
-	public void setClientBandBox(Bandbox clientBandBox) {
-		this.clientBandBox = clientBandBox;
-	}
-	public Bandbox getSkillBandBox() {
-		return skillBandBox;
-	}
-	public void setSkillBandBox(Bandbox skillBandBox) {
-		this.skillBandBox = skillBandBox;
-	}
-	public ArrayList<SkillsetMasterbean> getSkillList() {
-		return skillList;
-	}
-	public void setSkillList(ArrayList<SkillsetMasterbean> skillList) {
-		this.skillList = skillList;
-	}
-	public ArrayList<StatusMasterBean> getStatusList() {
-		return statusList;
-	}
-	public void setStatusList(ArrayList<StatusMasterBean> statusList) {
-		this.statusList = statusList;
-	}
-	public ArrayList<ClientInformationBean> getClientList() {
-		return clientList;
-	}
-	public void setClientList(ArrayList<ClientInformationBean> clientList) {
-		this.clientList = clientList;
-	}
+		
+		@Command
+		@NotifyChange("*")
+		public void onChangeFromDate(){
+			   
+			  
+		}
+		
+		@Command
+		@NotifyChange("*")
+		public void onChangeToDate(){
+			   if(bean.getFromDate() != null){
+				   if(bean.getToDate().after(bean.getFromDate())){
+					    	if(bean.getFromDate() != null && bean.getToDate() != null){
+					    		
+					    	 }
+				     }else {
+				    	bean.setToDate(null);
+					    Messagebox.show("To Date Should be Grater Than From Date", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION);
+				   }
+				   
+			   }else {
+				   bean.setToDate(null);
+				   Messagebox.show("Select From Date First", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION);
+			}
+	   }
+		
+	  /*************************************************************************************************************************************************/
+		public Double getCount() {
+			return count;
+		}
+		public void setCount(Double count) {
+			this.count = count;
+		}
+		public Connection getConnection() {
+			return connection;
+		}
+		public void setConnection(Connection connection) {
+			this.connection = connection;
+		}
+		public Session getSessions() {
+			return sessions;
+		}
+		public void setSessions(Session sessions) {
+			this.sessions = sessions;
+		}
+		public String getUserName() {
+			return userName;
+		}
+		public void setUserName(String userName) {
+			this.userName = userName;
+		}
+		public String getUserId() {
+			return userId;
+		}
+		public void setUserId(String userId) {
+			this.userId = userId;
+		}
+		public Bandbox getClientBandBox() {
+			return clientBandBox;
+		}
+		public void setClientBandBox(Bandbox clientBandBox) {
+			this.clientBandBox = clientBandBox;
+		}
+		public Bandbox getSkillBandBox() {
+			return skillBandBox;
+		}
+		public void setSkillBandBox(Bandbox skillBandBox) {
+			this.skillBandBox = skillBandBox;
+		}
+		public boolean isResourceDivVisibility() {
+			return resourceDivVisibility;
+		}
+		public void setResourceDivVisibility(boolean resourceDivVisibility) {
+			this.resourceDivVisibility = resourceDivVisibility;
+		}
+		public DemoBean getBean() {
+			return bean;
+		}
+		public void setBean(DemoBean bean) {
+			this.bean = bean;
+		}
+		public ArrayList<DemoBean> getList() {
+			return list;
+		}
+		public void setList(ArrayList<DemoBean> list) {
+			this.list = list;
+		}
+		public ArrayList<DemoBean> getIdList() {
+			return idList;
+		}
+		public void setIdList(ArrayList<DemoBean> idList) {
+			this.idList = idList;
+		}
+		public ArrayList<SkillsetMasterbean> getSkillList() {
+			return skillList;
+		}
+		public void setSkillList(ArrayList<SkillsetMasterbean> skillList) {
+			this.skillList = skillList;
+		}
+		public ArrayList<StatusMasterBean> getStatusList() {
+			return statusList;
+		}
+		public void setStatusList(ArrayList<StatusMasterBean> statusList) {
+			this.statusList = statusList;
+		}
+		public ArrayList<ClientInformationBean> getClientList() {
+			return clientList;
+		}
+		public void setClientList(ArrayList<ClientInformationBean> clientList) {
+			this.clientList = clientList;
+		} 
 }

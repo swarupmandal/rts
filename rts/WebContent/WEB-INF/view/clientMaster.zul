@@ -1,11 +1,11 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>    
-    <window title="Client Information" border="none" height="100%" apply="org.zkoss.bind.BindComposer"
+    <window title="Client Information" border="none" height="100%" apply="org.zkoss.bind.BindComposer" contentStyle="overflow:scroll" 
 		              viewModel="@id('vm') @init('org.appsquad.viewmodel.ClientInformationViewModel')"> 
 	<tabbox>
 	    <tabs>
 		<tab>New Entry</tab>
-		<tab onClick="@command('onClickExistingData')">Existing Data</tab>
+		<tab onClick="@command('onClickExistingData')">Existing Clients</tab>
 	    </tabs>
 	    <tabpanels>
 	       <tabpanel>
@@ -143,36 +143,40 @@
 			</div>
 	       </tabpanel>
 	       
-	       <tabpanel>
-	             <grid sclass="fgrid" height="500px" width="1400px" 
+	       <tabpanel >
+	       
+	             <grid sclass="fgrid" height="500px" 
 							 model="@bind(vm.clientDetailsList)" mold="paging" 
 							vflex="true" autopaging="true" pageSize="10">
 						<columns sizable="true">
-								<column label="Name" align="center" style="font-weight:bold;" width="125px"/>
-								<column label="Company-Name" align="center" style="font-weight:bold;" width="100px"/>
-								<column label="Comapny-Address" align="center" style="font-weight:bold;" width="120px"/>
+								<column label="Name" align="center" style="font-weight:bold;" width="300px"/>
+								<column label="Company-Name" align="center" style="font-weight:bold;" width="300px"/>
+								<column label="Comapny-Address" align="center" style="font-weight:bold;" width="300px"/>
 								<column label="Country" align="center" style="font-weight:bold;" width="120px"/>
 								<column label="Pincode" align="center" style="font-weight:bold;" width="120px"/>
 								<column label="Conatact-Number" align="center" style="font-weight:bold;" width="120px"/>
-								<column label="Eail-Id" align="center" style="font-weight:bold;" width="130px"/>
+								<column label="Email-Id" align="center" style="font-weight:bold;" width="300px"/>
 								<column label="" align="center" style="font-weight:bold;" width="100px" />
 								<column label="" align="center" style="font-weight:bold;" width="100px" />
 						</columns>	
 						
 						<template name="model" var="v">
+						
 								<row style="border: 0.01px solid #C0C0C0;">
-									<textbox value="@bind(v.fullName)" readonly="true" width="90%" tooltiptext="@bind(v.fullName)"/>
-									<textbox value="@bind(v.companyName)" readonly="true" width="90%" tooltiptext="@bind(v.companyName)"/>
-									<textbox value="@bind(v.address)" readonly="true" width="90%" tooltiptext="@bind(v.address)"/>
+									<textbox value="@bind(v.fullName)" readonly="true" width="99%" tooltiptext="@bind(v.fullName)"/>
+									<textbox value="@bind(v.companyName)" readonly="true" width="99%" tooltiptext="@bind(v.companyName)"/>
+									<textbox value="@bind(v.address)" readonly="true" width="99%" tooltiptext="@bind(v.address)"/>
 									<textbox value="@bind(v.countryBean.countryName)" readonly="true" width="90%" tooltiptext="@bind(v.countryBean.countryName)"/>
 									<textbox value="@bind(v.pinZipCode)" readonly="true" width="90%" tooltiptext="@bind(v.pinZipCode)"/>
 									<textbox value="@bind(v.contactNo)" readonly="true" width="90%" tooltiptext="@bind(v.contactNo)"/>
-									<textbox value="@bind(v.emailId)" readonly="true" width="90%" tooltiptext="@bind(v.emailId)"/>
+									<textbox value="@bind(v.emailId)" readonly="true" width="99%" tooltiptext="@bind(v.emailId)"/>
 								    <button label="Update" width="90%" onClick="@command('onClickUpdate', bean = v)"></button>
 								    <button label="Delete" width="90%" onClick="@command('onClickDelete', bean = v)"></button>
 								</row>
 							</template>
-				</grid>			
+							
+				</grid>		
+			
 	       </tabpanel>
 	    </tabpanels>
 	</tabbox>	    

@@ -24,6 +24,7 @@ public class HomePageViewModel {
 	final static Logger logger = Logger.getLogger(HomePageViewModel.class);
 	Session session = null;
 	private String userId;
+	private String user;
 	
 	private boolean masterLinkVisibility = false;
 	private boolean userRoleLinkVisibility = false;
@@ -55,9 +56,8 @@ public class HomePageViewModel {
 		if(userId==null){
 			Executions.sendRedirect("/welcome1.zul");
 		}else{
-			String user = userId;
-			userId = "Welcome :"+ userId;
-			
+			user = userId;
+			userId = "Welcome :"+ userId.toUpperCase();
 			setRoleAccessLink(user);
 		}
 	}
@@ -293,5 +293,11 @@ public class HomePageViewModel {
 	public void setResourceDetailPerRequirementCV(
 			boolean resourceDetailPerRequirementCV) {
 		this.resourceDetailPerRequirementCV = resourceDetailPerRequirementCV;
+	}
+	public String getUser() {
+		return user;
+	}
+	public void setUser(String user) {
+		this.user = user;
 	}
 }

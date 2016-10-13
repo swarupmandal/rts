@@ -4,13 +4,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Arrays;
+
 import org.appsquad.bean.DemoBean;
 import org.appsquad.database.DbConnection;
 import org.appsquad.sql.DemoSql;
 import org.appsquad.utility.Pstm;
 
 public class DemoDao {
-	public static ArrayList<DemoBean> getDetails(){
+	public static ArrayList<DemoBean> getDetailsForSkill(DemoBean demoBean){
 		ArrayList<DemoBean> list = new ArrayList<DemoBean>();
 		Connection connection = null;
 		try {
@@ -22,7 +24,7 @@ public class DemoDao {
 					sql1:{
 					    PreparedStatement preparedStatement = null;
 					    try {
-					    	 preparedStatement = Pstm.createQuery(connection, DemoSql.FETCHSQL, null);
+					    	 preparedStatement = Pstm.createQuery(connection, DemoSql.FETCHSQLFORSKILL, Arrays.asList(demoBean.skillsetMasterbean.getSkillset()));
 							   
 							 ResultSet resultSet = preparedStatement.executeQuery();
 							 while (resultSet.next()) {
