@@ -306,7 +306,7 @@ public class SortcriteriaRidorStatusviewModel {
 			
 		if(rIdWiseReportBean.getSelectedRadioButton().equals("detail")){
 		
-		  if(reportBeanList.size()>0);	
+		  /*if(reportBeanList.size()>0);	
 		  ArrayList<IndividualClientReportBean> detailList = new ArrayList<IndividualClientReportBean>();
 			for(IndividualClientReportBean bean : reportBeanList){
 				if(bean.isDetailChecked()){
@@ -317,11 +317,11 @@ public class SortcriteriaRidorStatusviewModel {
 				pdf.getDetails(totalPdfPath, rIdWiseReportBean, detailList);
 			}else {
 				Messagebox.show("NO DATA SELECTED ", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION );
-			}
+			}*/
 			
 		}else {
-			
-			if(summaryBeanList.size()>0);
+			pdf.getSummary(totalPdfPath, rIdWiseReportBean, summaryBeanList);
+			/*if(summaryBeanList.size()>0);
 			ArrayList<IndividualClientReportBean> summList = new ArrayList<IndividualClientReportBean>();
 			for(IndividualClientReportBean bean : summaryBeanList){
 				if(bean.isSummaryChecked()){
@@ -332,7 +332,7 @@ public class SortcriteriaRidorStatusviewModel {
 				pdf.getSummary(totalPdfPath, rIdWiseReportBean, summList);
 			}else {
 				Messagebox.show("NO DATA SELECTED ", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION );
-			}
+			}*/
 			
 		}
 	
@@ -363,7 +363,8 @@ public class SortcriteriaRidorStatusviewModel {
 	public void onClickExcel(){
 		if(rIdWiseReportBean.getSelectedRadioButton().equals("detail")){
 		
-		  if(reportBeanList.size()>0);	
+			IndividualClientReportExcel.printCSV(reportBeanList);
+		  /*if(reportBeanList.size()>0);	
 		  ArrayList<IndividualClientReportBean> detailList = new ArrayList<IndividualClientReportBean>();
 			for(IndividualClientReportBean bean : reportBeanList){
 				if(bean.isDetailChecked()){
@@ -374,11 +375,12 @@ public class SortcriteriaRidorStatusviewModel {
 				IndividualClientReportExcel.printCSV(detailList);
 			}else {
 				Messagebox.show("NO DATA SELECTED ", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION );
-			}
+			}*/
 			
 		}else {
+			IndividualClientReportExcel.printSummaryCSV(summaryBeanList);
 			
-			if(summaryBeanList.size()>0);
+			/*if(summaryBeanList.size()>0);
 			ArrayList<IndividualClientReportBean> summList = new ArrayList<IndividualClientReportBean>();
 			for(IndividualClientReportBean bean : summaryBeanList){
 				if(bean.isSummaryChecked()){
@@ -390,7 +392,7 @@ public class SortcriteriaRidorStatusviewModel {
 				IndividualClientReportExcel.printSummaryCSV(summList);
 			}else {
 				Messagebox.show("NO DATA SELECTED ", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION );
-			}
+			}*/
 			
 		}
 	}

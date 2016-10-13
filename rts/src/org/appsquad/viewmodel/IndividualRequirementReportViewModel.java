@@ -156,7 +156,8 @@ public class IndividualRequirementReportViewModel {
 
 		if(individualRequirementReportBean.getSelectedRadioButton().equals("detail")){
 		
-		  if(reportBeanList.size()>0);	
+			IndividualClientReportExcel.printCSV(reportBeanList);
+		  /*if(reportBeanList.size()>0);	
 		  ArrayList<IndividualClientReportBean> detailList = new ArrayList<IndividualClientReportBean>();
 			for(IndividualClientReportBean bean : reportBeanList){
 				if(bean.isDetailChecked()){
@@ -167,11 +168,11 @@ public class IndividualRequirementReportViewModel {
 				IndividualClientReportExcel.printCSV(detailList);
 			}else {
 				Messagebox.show("NO DATA SELECTED ", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION );
-			}
+			}*/
 			
 		}else {
-			
-			if(summaryBeanList.size()>0);
+			IndividualClientReportExcel.printSummaryCSV(summaryBeanList);
+			/*if(summaryBeanList.size()>0);
 			ArrayList<IndividualClientReportBean> summList = new ArrayList<IndividualClientReportBean>();
 			for(IndividualClientReportBean bean : summaryBeanList){
 				if(bean.isSummaryChecked()){
@@ -183,7 +184,7 @@ public class IndividualRequirementReportViewModel {
 				IndividualClientReportExcel.printSummaryCSV(summList);
 			}else {
 				Messagebox.show("NO DATA SELECTED ", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION );
-			}
+			}*/
 			
 		}
 	
@@ -203,7 +204,8 @@ public class IndividualRequirementReportViewModel {
 			
 		if(individualRequirementReportBean.getSelectedRadioButton().equals("detail")){
 		
-		  if(reportBeanList.size()>0);	
+			pdf.getDetails(totalPdfPath, individualRequirementReportBean, reportBeanList);
+		  /*if(reportBeanList.size()>0);	
 		  ArrayList<IndividualClientReportBean> detailList = new ArrayList<IndividualClientReportBean>();
 			for(IndividualClientReportBean bean : reportBeanList){
 				if(bean.isDetailChecked()){
@@ -214,11 +216,11 @@ public class IndividualRequirementReportViewModel {
 				pdf.getDetails(totalPdfPath, individualRequirementReportBean, detailList);
 			}else {
 				Messagebox.show("NO DATA SELECTED ", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION );
-			}
+			}*/
 			
 		}else {
-			
-			if(summaryBeanList.size()>0);
+			pdf.getSummary(totalPdfPath, individualRequirementReportBean, summaryBeanList);
+			/*if(summaryBeanList.size()>0);
 			ArrayList<IndividualClientReportBean> summList = new ArrayList<IndividualClientReportBean>();
 			for(IndividualClientReportBean bean : summaryBeanList){
 				if(bean.isSummaryChecked()){
@@ -229,7 +231,7 @@ public class IndividualRequirementReportViewModel {
 				pdf.getSummary(totalPdfPath, individualRequirementReportBean, summList);
 			}else {
 				Messagebox.show("NO DATA SELECTED ", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION );
-			}
+			}*/
 			
 		}
 	

@@ -256,7 +256,8 @@ public class SkillSetWiseReportViewModel {
 			
 		if(skilWiseReportBean.getSelectedRadioButton().equals("detail")){
 		
-		  if(reportBeanList.size()>0);	
+			pdf.getDetails(totalPdfPath, skilWiseReportBean, reportBeanList);
+			/*if(reportBeanList.size()>0);	
 		  ArrayList<IndividualClientReportBean> detailList = new ArrayList<IndividualClientReportBean>();
 			for(IndividualClientReportBean bean : reportBeanList){
 				if(bean.isDetailChecked()){
@@ -267,11 +268,11 @@ public class SkillSetWiseReportViewModel {
 				pdf.getDetails(totalPdfPath, skilWiseReportBean, detailList);
 			}else {
 				Messagebox.show("NO DATA SELECTED ", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION );
-			}
+			}*/
 			
 		}else {
-			
-			if(summaryBeanList.size()>0);
+			pdf.getSummary(totalPdfPath, skilWiseReportBean, summaryBeanList);
+			/*if(summaryBeanList.size()>0);
 			ArrayList<IndividualClientReportBean> summList = new ArrayList<IndividualClientReportBean>();
 			for(IndividualClientReportBean bean : summaryBeanList){
 				if(bean.isSummaryChecked()){
@@ -282,7 +283,7 @@ public class SkillSetWiseReportViewModel {
 				pdf.getSummary(totalPdfPath, skilWiseReportBean, summList);
 			}else {
 				Messagebox.show("NO DATA SELECTED ", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION );
-			}
+			}*/
 			
 		}
 	
@@ -313,7 +314,8 @@ public class SkillSetWiseReportViewModel {
 	public void onClickExcel(){
 		if(skilWiseReportBean.getSelectedRadioButton().equals("detail")){
 		
-		  if(reportBeanList.size()>0);	
+			IndividualClientReportExcel.printCSV(reportBeanList);
+		  /*if(reportBeanList.size()>0);	
 		  ArrayList<IndividualClientReportBean> detailList = new ArrayList<IndividualClientReportBean>();
 			for(IndividualClientReportBean bean : reportBeanList){
 				if(bean.isDetailChecked()){
@@ -324,11 +326,11 @@ public class SkillSetWiseReportViewModel {
 				IndividualClientReportExcel.printCSV(detailList);
 			}else {
 				Messagebox.show("NO DATA SELECTED ", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION );
-			}
+			}*/
 			
 		}else {
-			
-			if(summaryBeanList.size()>0);
+			IndividualClientReportExcel.printSummaryCSV(summaryBeanList);
+			/*if(summaryBeanList.size()>0);
 			ArrayList<IndividualClientReportBean> summList = new ArrayList<IndividualClientReportBean>();
 			for(IndividualClientReportBean bean : summaryBeanList){
 				if(bean.isSummaryChecked()){
@@ -340,7 +342,7 @@ public class SkillSetWiseReportViewModel {
 				IndividualClientReportExcel.printSummaryCSV(summList);
 			}else {
 				Messagebox.show("NO DATA SELECTED ", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION );
-			}
+			}*/
 			
 		}
 	}
