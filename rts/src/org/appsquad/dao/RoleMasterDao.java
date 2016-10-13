@@ -543,4 +543,43 @@ public class RoleMasterDao {
 		return countRole;
 	}
 	
+	public static Integer countUserPresentsWrtRole(RoleMasterBean bean){
+		int countRole = 0;
+		Connection connection = null;
+		try {
+			connection = DbConnection.createConnection();
+			sql_connection:{
+				try {
+					
+					//1st SQL block
+					sql_fetch:{
+					   PreparedStatement preparedStatement = null;
+					   try {
+						   preparedStatement = Pstm.createQuery(connection, RoleMasterSql.countUserPresentsWrtRole, Arrays.asList(bean.getRollId()));
+						   logger.info("onLoadRoleNameCountDeatils- " + preparedStatement.unwrap(PreparedStatement.class));
+						   ResultSet resultSet = preparedStatement.executeQuery();
+						   while (resultSet.next()) {
+								countRole = resultSet.getInt(1);
+							}  
+						} finally{
+							if(preparedStatement!=null){
+								preparedStatement.close();
+							}
+						}
+				    }
+				} catch (Exception e) {
+					e.printStackTrace();
+				}finally{
+					if(connection!=null){
+						connection.close();
+					}
+				}
+			}
+		} catch (Exception e) {
+			/*logger.fatal(e);*/
+			e.printStackTrace();
+		}
+		return countRole;
+	}
+	
 }

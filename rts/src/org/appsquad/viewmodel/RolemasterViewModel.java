@@ -85,16 +85,23 @@ public class RolemasterViewModel {
 	@Command
 	@NotifyChange("*")
 	public void onClickDelete(@BindingParam("bean") RoleMasterBean masterBean){
-		Messagebox.show("Are you sure to delete ? ", "Confirm Dialog", Messagebox.OK |  Messagebox.CANCEL, 
-				Messagebox.QUESTION, new org.zkoss.zk.ui.event.EventListener(){
-					@Override
-					public void onEvent(Event evt) throws Exception {
-						if (evt.getName().equals("onOK")) {
-							RoleMasterDao.deleteRoleData(masterBean);
-							BindUtils.postGlobalCommand(null, null, "refresh", null);
-						}
-				}
-		});
+		int count = 0;
+		count = RoleMasterService.getCountUserPresentWrtRole(masterBean);
+		System.out.println("ROLE MASTER SCREEN COUNT IS :"+count);
+		if(count<1){
+			Messagebox.show("Are you sure to delete ? ", "Confirm Dialog", Messagebox.OK |  Messagebox.CANCEL, 
+					Messagebox.QUESTION, new org.zkoss.zk.ui.event.EventListener(){
+						@Override
+						public void onEvent(Event evt) throws Exception {
+							if (evt.getName().equals("onOK")) {
+								RoleMasterDao.deleteRoleData(masterBean);
+								BindUtils.postGlobalCommand(null, null, "refresh", null);
+							}
+					}
+			});	
+		}else{
+			 Messagebox.show("User Assigned Wrt This Role-Name!", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+		}
 	}
 	
 	@Command

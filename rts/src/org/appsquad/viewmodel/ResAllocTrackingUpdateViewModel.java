@@ -74,7 +74,7 @@ public class ResAllocTrackingUpdateViewModel {
 			trackingUpdateBean.setPreviousOnboardDate(null);
 		}
 		
-		statusBeanList = ResourceMasterDao.onLoadStatus();
+		statusBeanList = ResourceMasterDao.onLoadStatusForTrackingUpdateScreen(trackingUpdateBean);
 	}
 	   
 	public void DateFieldEnableLogic(String statusName){
@@ -116,7 +116,7 @@ public class ResAllocTrackingUpdateViewModel {
 			statusBean.setStatusId(trackingUpdateBean.getOldStatusId());
 			trackingUpdateBean.setStatus(trackingUpdateBean.getOldStatus());
 			trackingUpdateBean.setStatusId(trackingUpdateBean.getOldStatusId());
-			statusBeanList = ResourceMasterDao.onLoadStatus();
+			statusBeanList = ResourceMasterDao.onLoadStatusForTrackingUpdateScreen(trackingUpdateBean);
 			Messagebox.show("You Can't Select Status Backward!", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
 		}
 		
