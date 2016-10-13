@@ -32,6 +32,7 @@ public class ChangePasswordViewModel {
 		Selectors.wireComponents(view, this, false);	
 		session = Sessions.getCurrent();
 		changePasswordbean.setUserId((String)session.getAttribute("userId"));
+		
 	}
 	
 	@Command
