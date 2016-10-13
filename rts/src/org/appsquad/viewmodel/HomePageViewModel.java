@@ -55,8 +55,10 @@ public class HomePageViewModel {
 		if(userId==null){
 			Executions.sendRedirect("/welcome1.zul");
 		}else{
-			userId = userId;
-			setRoleAccessLink(userId);
+			String user = userId;
+			userId = "Welcome :"+ userId;
+			
+			setRoleAccessLink(user);
 		}
 	}
 	
@@ -72,7 +74,6 @@ public class HomePageViewModel {
 							String sql = "select * from vw_role_priviledge_details where user_id = ? ";
 							preparedStatement = connection.prepareStatement(sql);
 							preparedStatement.setString(1, userId);
-							System.out.println("HOME PAGE VIEW MODEL SQL QUERY :"+preparedStatement);
 							ResultSet resultSet = preparedStatement.executeQuery();
 							while(resultSet.next()){
 								RoleMenusBean bean = new RoleMenusBean();

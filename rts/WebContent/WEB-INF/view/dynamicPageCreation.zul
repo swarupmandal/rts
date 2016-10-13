@@ -6,7 +6,7 @@
                            <grid model="@bind(vm.pagelist)" mold="paging" pageSize="11" sclass="fgrid">
                                <columns>
                                     <column align="center" width="40px"/>
-                                    <column label="Screen Name" align="center" width="200px"/>
+                                    <column label="Screen Name" align="center" width="350px"/>
                                </columns>
                                <rows>
                                    <template name="model" var="v">
