@@ -25,6 +25,12 @@ public class RequirementGenerationService {
 		return list;
 	}
 	
+	public static ArrayList<SkillsetMasterbean> skillSetListSearch(String name){
+		ArrayList<SkillsetMasterbean> list = new ArrayList<SkillsetMasterbean>();
+		list = RequirementGenerationDao.skillSetSearch(name);
+		return list;
+	}
+	
 	public static ArrayList<StatusMasterBean> fetchStatusList(){
 		ArrayList<StatusMasterBean> list = new ArrayList<StatusMasterBean>();
 		list = RequirementGenerationDao.fetchStatusList();

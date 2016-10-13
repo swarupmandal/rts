@@ -18,6 +18,7 @@ import org.appsquad.bean.StatusMasterBean;
 import org.appsquad.database.DbConnection;
 import org.appsquad.sql.ClientInformationsql;
 import org.appsquad.sql.RequirementGenerationSql;
+import org.appsquad.sql.ResourceAllocationTrackingSql;
 import org.appsquad.utility.Dateformatter;
 import org.appsquad.utility.Pstm;
 
@@ -259,6 +260,51 @@ public class RequirementGenerationDao {
 		}
 		return list;
 	}
+	
+	public static ArrayList<SkillsetMasterbean> skillSetSearch(String name){
+	ArrayList<SkillsetMasterbean> list = new ArrayList<SkillsetMasterbean>();
+		if(list.size()>0){
+			list.clear();
+		}
+		try {
+			Connection connection = null;
+			PreparedStatement preparedStatement = null;
+			ResultSet resultSet = null;
+			try {
+				connection = DbConnection.createConnection();
+				preparedStatement = Pstm.createQuery(connection, RequirementGenerationSql.loadSkillSetNameSearch, Arrays.asList("%"+name.trim().toUpperCase()+"%"));
+				
+				logger.info("skill set Search - " + preparedStatement.unwrap(PreparedStatement.class));
+				
+				resultSet = preparedStatement.executeQuery();
+				while (resultSet.next()) {
+					SkillsetMasterbean bean = new SkillsetMasterbean();
+					bean.setId(resultSet.getInt("id"));
+					bean.setSkillset(resultSet.getString("master_skill_set_name"));
+					bean.setSkillsetdetails(resultSet.getString("skill_set_details"));
+					
+					list.add(bean);
+				}
+			} finally {
+				if(preparedStatement != null){
+					preparedStatement.close();
+				}if(resultSet != null){
+					resultSet.close();
+				}if(connection != null){
+					connection.close();
+				}
+			}
+		} catch (Exception e) {
+			//logger.fatal(e);
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	
+	
+	
+	
 	
 	public static ArrayList<StatusMasterBean> fetchStatusList(){	
 		ArrayList<StatusMasterBean> list = new ArrayList<StatusMasterBean>();

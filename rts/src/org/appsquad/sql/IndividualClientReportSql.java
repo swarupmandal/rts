@@ -34,7 +34,7 @@ public class IndividualClientReportSql {
 	
 	public static final String loadRidDetailsListWithStatus = "select * from vw_individual_client_report_details where req_id = ? and final_status_id = ? ";
 	
-				  //************************* date + skill + statsus + client ************************
+				  //************************* date + skill + status + client ************************
 	
 	public static final String loadRidListWithDateAndSkillAndStatus = "select * from vw_individual_client_report where req_raise_date >= ?  and  req_raise_date <= ? and req_skill_id = ? and client_id = ? ";
 	
@@ -55,4 +55,42 @@ public class IndividualClientReportSql {
 	public static final String loadStatusSummmary = "select final_status, total_count from vw_status_count where req_id = ? ";
 	
 	
+	
+	
+	
+	             // ******************************* individual req report**************************
+	
+	public static final String loadIndividualRid = "select * from vw_individual_client_report where req_id = ? ";
+	
+	public static final String loadIndividualRidDetails = "select * from vw_individual_client_report_details where req_id = ? ";
+	
+	 
+	
+				//******************************  only date range selection skill wise report ************************
+
+     public static final String loadRidListWithDateRangeSkillWiseReport = " select * from vw_individual_client_report where req_raise_date >= ?  and  req_raise_date <= ? ";
+
+		
+		        //******************************  only date range selection date + skill wise report ************************
+		
+	 public static final String loadRidListWithDateRangeAndSkillReport = "select * from vw_individual_client_report where req_raise_date >= ?  and  req_raise_date <= ? and req_skill_id = ? ";
+		
+	
+	 			//**************************** date + rid *******************************************************************
+	
+	 public static final String loadRidListWithDateRangeAndRidWiseReport = "select * from vw_individual_client_report where req_raise_date >= ?  and  req_raise_date <= ? and req_id = ? ";
+	 
+	 
+	 			//**************************** rid + date +status **************************************************
+	 
+	 public static final String loadRidListWithDateRangeAndRidReport = "select * from vw_individual_client_report where req_raise_date >= ?  and  req_raise_date <= ? and req_id = ? ";
+		
+	 			//**************************** rid + date + status Id + Client Id **********************************
+	 
+	 public static final String loadRidListWithDateAndRidStatusClient = "select * from vw_individual_client_report where req_raise_date >= ?  and  req_raise_date <= ? and req_id = ? and client_id = ? ";
+		
+	 
+	 			//*************************** rid + client Id + date ***************************************************************
+	 
+	 public static final String loadRidListWithDateRangeClientAndRId = "select * from vw_individual_client_report where req_raise_date >= ?  and  req_raise_date <= ? and req_id = ? and client_id = ? ";
 }

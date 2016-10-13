@@ -177,7 +177,7 @@ public class ResourceAllocationTrackingDao {
 				connection = DbConnection.createConnection();
 				preparedStatement = Pstm.createQuery(connection, ResourceAllocationTrackingSql.loadClNameSearch, Arrays.asList("%"+name.trim().toUpperCase()+"%"));
 				
-				//logger.info("fetchClientDetailsSearch - " + preparedStatement.unwrap(PreparedStatement.class));
+				logger.info("fetchClientDetailsSearch - " + preparedStatement.unwrap(PreparedStatement.class));
 				
 				resultSet = preparedStatement.executeQuery();
 				while (resultSet.next()) {
@@ -218,6 +218,46 @@ public class ResourceAllocationTrackingDao {
 				preparedStatement = Pstm.createQuery(connection, ResourceAllocationTrackingSql.loadReqIdSearch, Arrays.asList(clId,"%"+id+"%"));
 				
 				//logger.info("fetchReqirmentDetailsSearch - " + preparedStatement.unwrap(PreparedStatement.class));
+				
+				resultSet = preparedStatement.executeQuery();
+				while (resultSet.next()) {
+					RequirementGenerationBean bean = new RequirementGenerationBean();
+					bean.setReq_id(resultSet.getInt("r_id"));
+					bean.setReqSkill(resultSet.getString("master_skill_set_name"));
+					bean.setOcStatus(resultSet.getString("status"));
+					
+					list.add(bean);
+				}
+			} finally {
+				if(preparedStatement != null){
+					preparedStatement.close();
+				}if(resultSet != null){
+					resultSet.close();
+				}if(connection != null){
+					connection.close();
+				}
+			}
+		} catch (Exception e) {
+			logger.fatal(e);
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	public static ArrayList<RequirementGenerationBean> fetchReqirmentDetailsSearch(int id){
+		ArrayList<RequirementGenerationBean> list = new ArrayList<RequirementGenerationBean>();
+		if(list.size()>0){
+			list.clear();	
+		}
+		try {
+			Connection connection = null;
+			PreparedStatement preparedStatement = null;
+			ResultSet resultSet = null;
+			try {
+				connection = DbConnection.createConnection();
+				preparedStatement = Pstm.createQuery(connection, ResourceAllocationTrackingSql.loadReqIdSearchWithRid, Arrays.asList("%"+id+"%"));
+				
+				logger.info("fetchReqirmentDetailsSearch - " + preparedStatement.unwrap(PreparedStatement.class));
 				
 				resultSet = preparedStatement.executeQuery();
 				while (resultSet.next()) {

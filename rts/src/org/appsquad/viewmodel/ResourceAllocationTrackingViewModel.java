@@ -53,7 +53,9 @@ public class ResourceAllocationTrackingViewModel {
 	@Command
 	@NotifyChange("*")
 	public void onChangeClientName(){
+		
 		if(trackingBean.getClientNameSearch() != null){
+			
 			clientInformationBeanList = ResourceAllocationTrackingService.fetchClientDetailsSearch(trackingBean.getClientNameSearch());
 		}
 		trackingBeanList.clear();
