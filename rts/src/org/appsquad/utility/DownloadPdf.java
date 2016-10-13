@@ -12,6 +12,10 @@ import org.zkoss.zhtml.Filedownload;
 public class DownloadPdf {
 
 	public static void download(String pdfNamewithPath, String fileName) throws IOException{
+		
+		System.out.println("Pdf Name With path " + pdfNamewithPath);
+		System.out.println("File Name " + fileName);
+		
 		FileInputStream fis = new FileInputStream(new File(pdfNamewithPath));
 		byte[] ba1 = new byte[1024];
 
