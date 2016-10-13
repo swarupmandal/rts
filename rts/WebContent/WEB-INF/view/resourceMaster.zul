@@ -1,6 +1,6 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="RESOURCE INFORMATION" border="none" height="100%" apply="org.zkoss.bind.BindComposer" width="99%"
+<window title="RESOURCE INFORMATION" border="none" height="100%" apply="org.zkoss.bind.BindComposer"  contentStyle="overflow:scroll"
 		               viewModel="@id('vm') @init('org.appsquad.viewmodel.ResourceMasterViewModel')">   
   <tabbox>
 	<tabs>
@@ -131,8 +131,8 @@
 		 <tabpanel>
 	             <grid height="400px" sclass="fgrid" model="@bind(vm.resourceList)" mold="paging" autopaging="true" pageSize="12">
 						<columns sizable="true">
-								<column label="Name" align="center" style="font-weight:bold;" width="120px"/>
-							    <column label="SurName" align="center" style="font-weight:bold;" width="120px"/>
+								<column label="Name" align="center" style="font-weight:bold;" width="300px"/>
+							    <column label="SurName" align="center" style="font-weight:bold;" width="300px"/>
 								<column label="Experience" align="center" style="font-weight:bold;" width="80px"/>
 								<column label="Skill-Set" align="center" style="font-weight:bold;" width="120px"/>
 								<column label="Address" align="center" style="font-weight:bold;" width="120px"/>
@@ -144,8 +144,8 @@
 						
 						<template name="model" var="v">
 								<row style="border: 0.01px solid #C0C0C0;">
-									<textbox value="@bind(v.name)" readonly="true" width="90%" tooltiptext="@bind(v.name)"/>
-									<textbox value="@bind(v.surName)" readonly="true" width="90%" tooltiptext="@bind(v.surName)"/> 
+									<textbox value="@bind(v.name)" readonly="true" width="99%" tooltiptext="@bind(v.name)"/>
+									<textbox value="@bind(v.surName)" readonly="true" width="99%" tooltiptext="@bind(v.surName)"/> 
 									<textbox value="@bind(v.yearOfExperience)" readonly="true" width="90%" tooltiptext="@bind(v.yearOfExperience)"/>
 									<textbox value="@bind(v.skillsetMasterbean.skillset)" readonly="true" width="90%" tooltiptext="@bind(v.skillsetMasterbean.skillset)"/>
 									<textbox value="@bind(v.address)" readonly="true" width="90%" tooltiptext="@bind(v.address)"/>
