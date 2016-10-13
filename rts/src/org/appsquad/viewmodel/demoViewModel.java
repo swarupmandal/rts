@@ -11,10 +11,9 @@ import org.appsquad.bean.SkillsetMasterbean;
 import org.appsquad.bean.StatusMasterBean;
 import org.appsquad.dao.DemoDao;
 import org.appsquad.dao.ResourceMasterDao;
-import org.appsquad.service.IndividualClientReportService;
+import org.appsquad.service.DemoService;
 import org.appsquad.service.RequirementGenerationService;
 import org.appsquad.service.ResourceAllocationTrackingService;
-import org.appsquad.utility.Dateformatter;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
@@ -98,7 +97,7 @@ public class demoViewModel {
 	    @Command
 		@NotifyChange("*")
 		public void onSelctSkillName(){
-	    	list = DemoDao.getDetailsForSkill(bean);
+	    	list = DemoService.getDetailsForSkillService(bean);
 	    	System.out.println("SKILL NAME CORRESPONDING LIST SIZE IS :"+list.size());
 	    	if(list.size()>0){
 	    		resourceDivVisibility = true;
@@ -112,14 +111,29 @@ public class demoViewModel {
 		@Command
 		@NotifyChange("*")
 		public void onSelctClientName(){
-			clientBandBox.close();
+			if(bean.skillsetMasterbean.getSkillset()!=null){
+				if(bean.getFromDate()!=null && bean.getToDate()!=null){
+					list = DemoService.getDetailsForSkillAndDateAndClientService(bean);
+					System.out.println("SKILL NAME and CLIENT NAME CORRESPONDING LIST SIZE IS :"+list.size());
+					if(list.size()>0){
+			    		resourceDivVisibility = true;
+			    	}else{
+			    		resourceDivVisibility = false;
+			    		Messagebox.show("No Data Found Wrt This Combination!","Excalamation",Messagebox.OK,Messagebox.EXCLAMATION);
+			    	}
+					clientBandBox.close();		
+				}else{
+					clientBandBox.close();	
+				}
+			}else{
+				Messagebox.show("First Select Skill Name!","Alert",Messagebox.OK,Messagebox.EXCLAMATION);
+			}
 		}
 		
 		@Command
 		@NotifyChange("*")
 		public void onChangeFromDate(){
-			   
-			  
+			    
 		}
 		
 		@Command
@@ -128,13 +142,19 @@ public class demoViewModel {
 			   if(bean.getFromDate() != null){
 				   if(bean.getToDate().after(bean.getFromDate())){
 					    	if(bean.getFromDate() != null && bean.getToDate() != null){
-					    		
+					    		list = DemoService.getDetailsForSkillAndDateService(bean);
+					    		System.out.println("SKILL NAME and DATE CORRESPONDING LIST SIZE IS :"+list.size());
+								if(list.size()>0){
+						    		resourceDivVisibility = true;
+						    	}else{
+						    		resourceDivVisibility = false;
+						    		Messagebox.show("No Data Found Wrt This Combination!","Excalamation",Messagebox.OK,Messagebox.EXCLAMATION);
+						    	}
 					    	 }
 				     }else {
 				    	bean.setToDate(null);
 					    Messagebox.show("To Date Should be Grater Than From Date", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION);
 				   }
-				   
 			   }else {
 				   bean.setToDate(null);
 				   Messagebox.show("Select From Date First", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION);

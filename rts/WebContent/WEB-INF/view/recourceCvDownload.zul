@@ -1,6 +1,6 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="new page title" border="normal" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('org.appsquad.viewmodel.demoViewModel')">
+<window title="Resource CV Download Screen" border="normal" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('org.appsquad.viewmodel.demoViewModel')">
  <div>
      <hlayout spacing="20px">
     				
@@ -20,12 +20,12 @@
 						</bandpopup>
 					</bandbox>
     				
-    				<datebox placeholder="From Date" format="dd-MMM-yyyy" value="@bind(vm.bean.fromDate)" onChange="@command('onChangeFromDate')" ></datebox>
+    				<datebox placeholder="From Date" format="dd-MMM-yyyy" value="@bind(vm.bean.fromDate)" readonly="true" onChange="@command('onChangeFromDate')" ></datebox>
     				
-    				<datebox placeholder="To Date" format="dd-MMM-yyyy" value="@bind(vm.bean.toDate)" onChange="@command('onChangeToDate')"></datebox>
+    				<datebox placeholder="To Date" format="dd-MMM-yyyy" value="@bind(vm.bean.toDate)" readonly="true" onChange="@command('onChangeToDate')"></datebox>
     				
     				<combobox model="@bind(vm.statusList)" selectedItem="@bind(vm.bean.statusMasterBean)" readonly="true"
-		             	value="@bind(vm.bean.statusMasterBean.status)" placeholder="Resourcing Status" onSelect="@command('onSelectStatusName')">
+		             	value="@bind(vm.bean.statusMasterBean.status)" placeholder="Resourcing Status">
 		                <template name="model" var="p">
 		                   <comboitem value="@bind(p.statusId)" label="@bind(p.status)"/>
 		                </template>
