@@ -9,6 +9,7 @@ public class DemoService {
     private static ArrayList<DemoBean> listForSkillSet = null;
     private static ArrayList<DemoBean> listForSkillSetAndDate = null;
     private static ArrayList<DemoBean> listForSkillSetAndDateAndClient = null;
+    private static String cvPath = "";
     
 	public static ArrayList<DemoBean> getDetailsForSkillService(DemoBean demoBean){
 		return listForSkillSet = DemoDao.getDetailsForSkill(demoBean);
@@ -20,6 +21,10 @@ public class DemoService {
 
 	public static ArrayList<DemoBean> getDetailsForSkillAndDateAndClientService(DemoBean demoBean){
 		return listForSkillSetAndDateAndClient = DemoDao.getDetailsForSkillAndDateAndClient(demoBean);
+	}
+	
+	public static String getCvPathService(DemoBean demoBean){
+		return cvPath = DemoDao.getCvPath(demoBean);
 	}
 	
 	/********************************************************************************************************************************************/
@@ -37,13 +42,19 @@ public class DemoService {
 			ArrayList<DemoBean> listForSkillSetAndDate) {
 		DemoService.listForSkillSetAndDate = listForSkillSetAndDate;
 	}
-
 	public static ArrayList<DemoBean> getListForSkillSetAndDateAndClient() {
 		return listForSkillSetAndDateAndClient;
 	}
-
 	public static void setListForSkillSetAndDateAndClient(
 			ArrayList<DemoBean> listForSkillSetAndDateAndClient) {
 		DemoService.listForSkillSetAndDateAndClient = listForSkillSetAndDateAndClient;
+	}
+
+	public static String getCvPath() {
+		return cvPath;
+	}
+
+	public static void setCvPath(String cvPath) {
+		DemoService.cvPath = cvPath;
 	}
 }

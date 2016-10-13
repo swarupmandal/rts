@@ -74,8 +74,16 @@ public class demoViewModel {
 	    @Command
 	    @NotifyChange("*")
 	    public void onCheckBox(@BindingParam("bean") DemoBean demoBean){
+	    	String cvPath = "";
 	    	if(demoBean.isChkSelect()){
-	    		idList.add(demoBean);
+	    		cvPath = DemoService.getCvPathService(demoBean);
+	    		System.out.println("CV PATH IS :"+cvPath);
+	    		if(!cvPath.equalsIgnoreCase("A")){
+	    			idList.add(demoBean);	
+	    		}else{
+	    			demoBean.setChkSelect(false);
+	    			Messagebox.show("This Resource Doesn't Have CV!","Excalamation",Messagebox.OK,Messagebox.EXCLAMATION);	
+	    		}
 	    	}else{
 	    		idList.remove(demoBean);
 	    	}
