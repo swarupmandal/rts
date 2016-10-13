@@ -8,12 +8,15 @@ import java.util.Arrays;
 
 import org.apache.log4j.Logger;
 import org.appsquad.bean.CountryBean;
+import org.appsquad.bean.ResourceAllocationTrackingBean;
 import org.appsquad.bean.ResourceMasterBean;
 import org.appsquad.bean.SkillsetMasterbean;
 import org.appsquad.bean.StateBean;
 import org.appsquad.bean.StatusMasterBean;
 import org.appsquad.database.DbConnection;
 import org.appsquad.sql.ClientInformationsql;
+import org.appsquad.sql.RecourceAllocationUpdateSql;
+import org.appsquad.sql.ResourceAllocationTrackingSql;
 import org.appsquad.sql.ResourceMasterSql;
 import org.appsquad.utility.Pstm;
 import org.zkoss.zul.Messagebox;
@@ -211,6 +214,49 @@ public class ResourceMasterDao {
 					   PreparedStatement preparedStatement = null;
 					   try {
 						   preparedStatement = Pstm.createQuery(connection, ClientInformationsql.statusSetQuery, null);
+						   //logger.info("onLoadStatus- " + preparedStatement.unwrap(PreparedStatement.class));
+							ResultSet resultSet = preparedStatement.executeQuery();
+							while (resultSet.next()) {
+								StatusMasterBean bean = new StatusMasterBean();
+								bean.setStatusId(resultSet.getInt("id"));
+								bean.setStatus(resultSet.getString("master_status_name"));
+								
+								statusList.add(bean);
+							}  
+						} finally{
+							if(preparedStatement!=null){
+								preparedStatement.close();
+							}
+						}
+				    }
+				} catch (Exception e) {
+					e.printStackTrace();
+				}finally{
+					if(connection!=null){
+						connection.close();
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			//logger.fatal(e);
+		}
+		return statusList;	
+	}
+	
+	public static ArrayList<StatusMasterBean> onLoadStatusForTrackingUpdateScreen(ResourceAllocationTrackingBean allocationTrackingBean){
+		ArrayList<StatusMasterBean> statusList = new ArrayList<StatusMasterBean>();
+		Connection connection = null;
+		try {
+			connection = DbConnection.createConnection();
+			sql_connection:{
+				try {
+					
+					//1st SQL block
+					sql_fetch:{
+					   PreparedStatement preparedStatement = null;
+					   try {
+						   preparedStatement = Pstm.createQuery(connection, RecourceAllocationUpdateSql.statusSetQuery, Arrays.asList(allocationTrackingBean.getStatus()));
 						   //logger.info("onLoadStatus- " + preparedStatement.unwrap(PreparedStatement.class));
 							ResultSet resultSet = preparedStatement.executeQuery();
 							while (resultSet.next()) {
