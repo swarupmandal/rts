@@ -2449,7 +2449,8 @@ public static ArrayList<IndividualClientReportBean> loadRidListWithDateRange(Dat
 								   childBean.setrIdDateLabel("");
 								   
 								   childBean.setRidLbFieldVis(true);
-								   parentBean.setRidDatelbFieldVis(true);
+								   childBean.setRidDatelbFieldVis(true);
+								   //parentBean.setRidDatelbFieldVis(true);
 								   //childBean.setRidDateFieldVis(false);
 								   childBean.setClNameLbFieldVis(false);
 								   childBean.setSklStLbFieldVis(false);
