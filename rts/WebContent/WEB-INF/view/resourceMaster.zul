@@ -5,7 +5,7 @@
   <tabbox>
 	<tabs>
 		<tab>New Entry</tab>
-		<tab onClick="@command('onClickExistingData')">Existing Data</tab>
+		<tab onClick="@command('onClickExistingData')">Existing Resources</tab>
 	</tabs>
 	<tabpanels>
 		<tabpanel>
