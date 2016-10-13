@@ -4,12 +4,18 @@
 		viewModel="@id('vm') @init('org.appsquad.viewmodel.SortcriteriaRidorStatusviewModel')">
    				 <div>
     			<hlayout spacing="20px">
-    				
+    				<hlayout>
+    				<label value="* " style="font-weight:bold; color:red; font-size:large;" />
     				<datebox placeholder="From Date" format="dd-MMM-yyyy" value="@bind(vm.rIdWiseReportBean.fromDate)" onChange="@command('onChangeFromDate')" ></datebox>
+    				</hlayout>
     				
+    				<hlayout>
+    				<label value="* " style="font-weight:bold; color:red; font-size:large;" />
     				<datebox placeholder="To Date" format="dd-MMM-yyyy" value="@bind(vm.rIdWiseReportBean.toDate)" onChange="@command('onChangeToDate')"></datebox>
-    				
-    				<bandbox autodrop="true" readonly="true" id="reqIdb" value="@bind(vm.requirementGenerationBean.req_id)">
+    				</hlayout>
+    				<hlayout>
+    				<label value="* " style="font-weight:bold; color:red; font-size:large;" />
+    				   <bandbox autodrop="true" readonly="true" id="reqIdb" value="@bind(vm.requirementGenerationBean.req_id)" placeholder="Requirement Id">
 						<bandpopup>	
 							<hbox>
 								<intbox value="@bind(vm.rIdWiseReportBean.r_idSearch)" onChange="@command('onChangeReqId')" placeholder="Search By Req Id"></intbox>
@@ -34,6 +40,8 @@
 							</listbox>
 						</bandpopup>
 					</bandbox>
+    				</hlayout>
+    				
     				
     				<combobox model="@bind(vm.statusList)" selectedItem="@bind(vm.rIdWiseReportBean.statusMasterBean)" readonly="true"
 		             	value="@bind(vm.rIdWiseReportBean.statusMasterBean.status)" placeholder="Resourcing Status" onSelect="@command('onSelectStatusName')">
