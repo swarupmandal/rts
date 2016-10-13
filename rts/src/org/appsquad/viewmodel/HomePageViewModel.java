@@ -57,7 +57,7 @@ public class HomePageViewModel {
 			Executions.sendRedirect("/welcome1.zul");
 		}else{
 			user = userId;
-			userId = "Welcome :"+ userId;
+			userId = "Welcome :"+ userId.toUpperCase();
 			setRoleAccessLink(user);
 		}
 	}
