@@ -346,9 +346,6 @@ public class IndividualClientReportViewModel {
 	@NotifyChange("*")
 	public void onClickPdf() throws IOException{
 		String pdfPath = Executions.getCurrent().getDesktop().getWebApp().getRealPath("/");
-		//String totalPdfPath = pdfPath + "report.pdf";
-		String totalPdfPath = "C:\\pdf test\\Report_Pdf.pdf";
-		
 		IndividualClientReportPdf pdf = new IndividualClientReportPdf();
 		
 		/*try{
@@ -393,10 +390,10 @@ public class IndividualClientReportViewModel {
 		try {
 			
 			if(individualClientReportBean.getSelectedRadioButton().equals("detail")){
-			   pdf.getDetails(totalPdfPath, individualClientReportBean, reportBeanList);
+			   pdf.getDetails(pdfPath, individualClientReportBean, reportBeanList);
 			   
 			}else {
-				pdf.getSummary(totalPdfPath, individualClientReportBean, summaryBeanList);
+				pdf.getSummary(pdfPath, individualClientReportBean, summaryBeanList);
 			}
 		
 		} catch (FileNotFoundException e) {

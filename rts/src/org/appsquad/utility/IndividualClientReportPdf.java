@@ -30,24 +30,18 @@ public class IndividualClientReportPdf {
 	
 	ArrayList<IndividualClientReportBean> individualClientReportList = new ArrayList<IndividualClientReportBean>();
 	
-	public void getDetails(String webAppPath, IndividualClientReportBean individualClientReportBean, ArrayList<IndividualClientReportBean> individualClientReportBeanList) throws DocumentException, IOException{
-		
-		//filePath = webAppPath+"reportIndv.pdf";
-		filePath = webAppPath;
-		
+	public void getDetails(String webAppPath, IndividualClientReportBean individualClientReportBean, ArrayList<IndividualClientReportBean> individualClientReportBeanList) 
+						throws DocumentException, IOException{
+		filePath = webAppPath+"reportIndv.pdf";
 		individualClientReportList = individualClientReportBeanList;
 		document = new Document(PageSize.A4, 2, 2, 20, 20);
 		document.setMargins(-40, -60, 60, 0);
-				
 		writer = PdfWriter.getInstance(document, new FileOutputStream(filePath));
 		writer.setBoxSize("art", new Rectangle(36, 54, 559, 788));
 		document.open();
-		
-		
 		createPdfHeader();
-		
 		printDetails(individualClientReportBeanList);
-		DownloadPdf.download(filePath,"reportIndv.pdf");
+		DownloadPdf.download(filePath, "reportIndv.pdf");
 		document.close();
 		
 	}
