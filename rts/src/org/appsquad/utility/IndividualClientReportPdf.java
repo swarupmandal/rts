@@ -1,9 +1,9 @@
 package org.appsquad.utility;
 
-import java.io.FileNotFoundException;
+import java.awt.Desktop;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import org.appsquad.bean.IndividualClientReportBean;
@@ -14,20 +14,16 @@ import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.Phrase;
 import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.pdf.PdfPCell;
 
 public class IndividualClientReportPdf {
-	
 	private String filePath;
-	
 	private Document document= null;
 	private PdfWriter writer = null;
 	ParagraphBorder border; 
-	
 	ArrayList<IndividualClientReportBean> individualClientReportList = new ArrayList<IndividualClientReportBean>();
 	
 	public void getDetails(String webAppPath, IndividualClientReportBean individualClientReportBean, ArrayList<IndividualClientReportBean> individualClientReportBeanList) 
@@ -41,11 +37,20 @@ public class IndividualClientReportPdf {
 		document.open();
 		createPdfHeader();
 		printDetails(individualClientReportBeanList);
-		DownloadPdf.download(filePath, "reportIndv.pdf");
+		DownloadPdf.download(webAppPath, "reportIndv.pdf");
 		document.close();
-		
 	}
 	
+	void openPdf(String fileName) throws IOException{
+		if (Desktop.isDesktopSupported()) {
+			try {
+		        File myFile = new File(fileName );
+		        Desktop.getDesktop().open(myFile);
+		    } catch (IOException ex) {
+		       ex.printStackTrace();
+		    }
+		}
+	}
 	
 	void createPdfHeader() throws DocumentException{
 		
@@ -357,6 +362,57 @@ public class IndividualClientReportPdf {
         }
         document.add(headerTable);
 		
+	}
+
+
+	public String getFilePath() {
+		return filePath;
+	}
+
+
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
+
+
+	public Document getDocument() {
+		return document;
+	}
+
+
+	public void setDocument(Document document) {
+		this.document = document;
+	}
+
+
+	public PdfWriter getWriter() {
+		return writer;
+	}
+
+
+	public void setWriter(PdfWriter writer) {
+		this.writer = writer;
+	}
+
+
+	public ParagraphBorder getBorder() {
+		return border;
+	}
+
+
+	public void setBorder(ParagraphBorder border) {
+		this.border = border;
+	}
+
+
+	public ArrayList<IndividualClientReportBean> getIndividualClientReportList() {
+		return individualClientReportList;
+	}
+
+
+	public void setIndividualClientReportList(
+			ArrayList<IndividualClientReportBean> individualClientReportList) {
+		this.individualClientReportList = individualClientReportList;
 	}
 	
 	
