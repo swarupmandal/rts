@@ -43,7 +43,7 @@
             </treeitem>
              <treeitem open="false">
             	<treerow>
-            	 <treecell label="- Registered Resource"
+            	 <treecell label="- Register Resource"
             	  onClick='inclResults.setSrc("/WEB-INF/view/resourceMaster.zul");' visible="@bind(vm.registeredResourceLinkVisibility)">
             	</treecell>
             	</treerow>
