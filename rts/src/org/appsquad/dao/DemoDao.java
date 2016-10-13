@@ -60,6 +60,47 @@ public class DemoDao {
 		return list;
 	}
 	
+	public static String getCvPath(DemoBean demoBean){
+		String cvPath = "";
+		Connection connection = null;
+		try {
+			connection = DbConnection.createConnection();
+			sql_connection:{
+				try {
+					
+					//1t SQL block
+					sql1:{
+					    PreparedStatement preparedStatement = null;
+					    try {
+					    	 preparedStatement = Pstm.createQuery(connection, DemoSql.FETCHCVPATHWRTRESOURCE, Arrays.asList(demoBean.getId()));
+							 System.out.println("QUERY IS :"+preparedStatement);  
+							 ResultSet resultSet = preparedStatement.executeQuery();
+							 while (resultSet.next()) {
+								cvPath = resultSet.getString("res_upcv");
+								if(cvPath!=null){
+									cvPath = resultSet.getString("res_upcv");
+								}else{
+									cvPath = "A";
+								}
+							 }  
+						}finally{
+							if(preparedStatement!=null){
+								preparedStatement.close();
+							}
+						}
+				    }
+				} catch (Exception e) {
+					e.printStackTrace();
+				}if(connection!=null){
+					connection.close();
+				}
+			}
+		} catch (Exception e) {
+		   e.printStackTrace();
+		}
+		return cvPath;
+	}
+	
 	public static ArrayList<DemoBean> getDetailsForSkillAndDate(DemoBean demoBean){
 		ArrayList<DemoBean> listWrtSkillAndDate = new ArrayList<DemoBean>();
 		Connection connection = null;
