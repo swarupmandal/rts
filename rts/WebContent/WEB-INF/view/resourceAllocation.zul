@@ -73,21 +73,21 @@
                         <space></space>
                            <div visible="@bind(vm.resourceAllocationBean.divVisibility)">
                            <grid model="@bind(vm.resourceList)" mold="paging" pageSize="7" sclass="fgrid">
-                               <columns>
+                               <columns sizable="true">
                                     <column width="45px"></column>
-                                    <column label="Resource Name" align="center"/>
+                                    <column label="Resource Name" align="center" width="300px"/>
                                     <column label="Year Of Experience" align="center"/>
                                     <column label="Skill" align="center"/>
-                                    <column label="Email Id" align="center"/>
+                                    <column label="Email Id" align="center" width="300px"/>
                                </columns>
                                <rows>
                                    <template name="model" var="v">
                                    <row>
                                        <checkbox checked="@bind(v.chkSelect)" onCheck="@command('onCheck', bean = v)"></checkbox>
-                                       <textbox value="@bind(v.fullName)" readonly="true" tooltiptext="@bind(v.fullName)"></textbox>
+                                       <textbox value="@bind(v.fullName)" readonly="true" tooltiptext="@bind(v.fullName)" width="98%"></textbox>
                                        <textbox value="@bind(v.yearOfExperience)" readonly="true" tooltiptext="@bind(v.yearOfExperience)"></textbox>
                                        <textbox value="@bind(v.skillsetMasterbean.skillset)" readonly="true" tooltiptext="@bind(v.address)"></textbox>
-                                       <textbox value="@bind(v.emailId)" readonly="true" tooltiptext="@bind(v.emailId)"></textbox>
+                                       <textbox value="@bind(v.emailId)" readonly="true" tooltiptext="@bind(v.emailId)" width="98%"></textbox>
                                    </row>
                                    </template>
                                </rows>
