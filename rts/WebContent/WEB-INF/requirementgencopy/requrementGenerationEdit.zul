@@ -1,0 +1,100 @@
+<?page title="EDIT" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="REQUIREMENT GENERATION EDIT" border="none" height="550px" width="900px" 
+		        apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('org.appsquad.viewmodel.RequirementGenerationEditViewModel')" 
+		                 closable="true" id="winReqGenEdit" onClose="@command('onCloseOperation')">
+		
+		<div>
+					<grid>
+					<columns>
+						<column width="20%"></column>
+						<column width="70%"></column>
+					</columns>
+					<rows>
+						<row>
+						  <label value="Client Name:" style="font-weight:bold"></label>
+						  <textbox width="40%" value="@bind(vm.reqEditGenBean.clientName)" readonly="true"></textbox>		
+						  	
+						</row>
+						
+						<row>
+						  <label value="Required Skill:" style="font-weight:bold"></label>		
+						  <textbox width="15%" readonly="true" value="@bind(vm.reqEditGenBean.reqSkill)"></textbox>	
+						</row>
+						
+						<row>
+						  <label value="Job Type:" style="font-weight:bold"></label>		
+						  <textbox value="@bind(vm.reqEditGenBean.jobType)" readonly="true"></textbox>	
+						</row>
+						
+						<row>
+						  <label value="Detailed Job:" style="font-weight:bold"></label>		
+						  <textbox multiline="true" value="@bind(vm.reqEditGenBean.detailedJob)"></textbox>	
+						</row>
+						
+						<row visible="@bind(vm.reqEditGenBean.perFieldvisibility)">
+						  <label value="Number of Resource:" style="font-weight:bold"></label>		
+						  <intbox width="15%" value="@bind(vm.reqEditGenBean.nofPerResource)" onChanging="@command('onChangePer')"></intbox>	
+						</row>
+						
+						<row visible="@bind(vm.reqEditGenBean.conFieldvisibility)">
+						  <label value="Number of Resource:" style="font-weight:bold"></label>		
+						  <intbox width="15%" value="@bind(vm.reqEditGenBean.nofConResource)" onChanging="@command('onChangeCon')"></intbox>	
+						</row>
+						
+						<row>
+						  <label value="Requirement Raise Date:" style="font-weight:bold"></label>		
+						  <datebox width="20%" value="@bind(vm.reqEditGenBean.raiseDate)" disabled="@bind(vm.reqEditGenBean.reqOpenDate)"></datebox>
+						</row>
+						
+						<row>
+						  <label value="Requirement Close Date:" style="font-weight:bold"></label>		
+						  <datebox width="20%" value="@bind(vm.reqEditGenBean.closeDate)" readonly="true"
+						    onChange="@command('onChangeCloseDate')"></datebox>	
+						</row>
+						
+						<row>
+						  <label value="Contact no:" style="font-weight:bold"></label>		
+						  <textbox width="20%" value="@bind(vm.reqEditGenBean.contactNo)" readonly="true"
+						    xmlns:w="client">
+						      <attribute w:name="doKeyPress_">
+									<![CDATA[ function(evt) { if ( (evt.which >
+											31) && (evt.which < 48 ||
+												evt.which > 57)) evt.stop(); } ]]>
+							   </attribute>
+						  </textbox>	
+						</row>
+						
+						<row>
+						  <label value="Email Id:" style="font-weight:bold"></label>		
+						  <textbox width="30%" value="@bind(vm.reqEditGenBean.email)" readonly="true">
+						  </textbox>	
+						</row>
+						
+						<row>
+						<label value="Requirement Status:" style="font-weight:bold"></label>
+						<combobox width="15%" model="@bind(vm.statusBeanEditList)" selectedItem="@bind(vm.statusBeanEdit)" onSelect="@command('onSelectOcStatusEdit')"
+							autocomplete="true" autodrop="true" value="@bind(vm.reqEditGenBean.ocStatus)" readonly="true">
+							 <template name="model" var ="v">
+							   <comboitem value="@bind(v.ocstatusId)" label="@bind(v.ocstatus)"></comboitem>
+							 </template>
+						</combobox>
+						</row>
+						
+						<row>
+						<label value="Closure Reason:" style="font-weight:bold"></label>
+						<textbox multiline="true" value="@bind(vm.reqEditGenBean.closureReason)"></textbox>
+						</row>
+						
+					</rows>
+				</grid>
+			</div>
+			<space></space>
+			<div align="center">
+				<button width="80px" height="30px" label="Update" style="font-weight: bold" onClick="@command('onClickUpdate')"></button>
+	
+			</div>
+		
+
+</window>
+</zk>
