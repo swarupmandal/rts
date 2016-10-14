@@ -84,6 +84,9 @@ public class IndividualClientReportBean {
 	private boolean clNameFieldVis = false;
 	private boolean companyFieldVis = false;
 	
+	private boolean pdfBtnDis;
+	private boolean excelBtnDis;
+	
 	private String noOfReqLebel;
 	private int noOfReq;
 	private int NoOfResources;
@@ -592,6 +595,19 @@ public class IndividualClientReportBean {
 	public void setTotalbackGroundCount(String totalbackGroundCount) {
 		this.totalbackGroundCount = totalbackGroundCount;
 	}
+	public boolean isPdfBtnDis() {
+		return pdfBtnDis;
+	}
+	public void setPdfBtnDis(boolean pdfBtnDis) {
+		this.pdfBtnDis = pdfBtnDis;
+	}
+	public boolean isExcelBtnDis() {
+		return excelBtnDis;
+	}
+	public void setExcelBtnDis(boolean excelBtnDis) {
+		this.excelBtnDis = excelBtnDis;
+	}
+	
 	
 	
 }
