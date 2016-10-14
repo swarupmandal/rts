@@ -266,6 +266,14 @@ public class ResourceAllocationTrackingDao {
 					bean.setReqSkill(resultSet.getString("master_skill_set_name"));
 					bean.setOcStatus(resultSet.getString("status"));
 					
+					bean.setCreatedDate(resultSet.getDate("created_date"));
+					bean.setCreatedDateValue(resultSet.getString("created_date"));
+					if(bean.getCreatedDateValue() != null){
+						bean.setCreatedDateStr(Dateformatter.toStringDate(bean.getCreatedDateValue()));
+					}
+					
+					bean.setrIdType(resultSet.getString("type_name"));
+					
 					list.add(bean);
 				}
 			} finally {

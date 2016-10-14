@@ -4,7 +4,7 @@
 		viewModel="@id('vm') @init('org.appsquad.viewmodel.IndividualClientReportViewModel')" contentStyle="overflow:scroll">
     		
     		<div>
-    			<hlayout spacing="18px">
+    			<hlayout spacing="16px">
     				<hlayout>
     				<label value="* " style="font-weight:bold; color:red; font-size:large;" />
     				<bandbox autodrop="true" readonly="true" id="clname" value="@bind(vm.individualClientReportBean.clientInformationBean.fullName)" placeholder="Search By Client" width="220px">

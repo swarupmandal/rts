@@ -18,7 +18,7 @@
     				   <bandbox autodrop="true" readonly="true" id="reqIdb" value="@bind(vm.requirementGenerationBean.req_id)" placeholder="Requirement Id">
 						<bandpopup>	
 							<hbox>
-								<intbox value="@bind(vm.rIdWiseReportBean.r_idSearch)" onChange="@command('onChangeReqId')" placeholder="Search By Req Id"></intbox>
+								<intbox value="@bind(vm.rIdWiseReportBean.r_idSearch)" onChange="@command('onChangeReqId')" placeholder="Search By Req Id" width="120px"></intbox>
 								<button label="Serach" onClick="@command('onChangeReqId')"></button>
 							</hbox>
 							<space></space>
