@@ -305,6 +305,7 @@ public class IndividualClientReportViewModel {
 	@Command
 	@NotifyChange("*")
 	public void onClickExcel(){
+		if(reportBeanList.size()>0){
 		if(individualClientReportBean.getSelectedRadioButton().equals("detail")){
 		
 			IndividualClientReportExcel.printCSV(reportBeanList);
@@ -340,6 +341,9 @@ public class IndividualClientReportViewModel {
 			}*/
 			
 		}
+		}else {
+			Messagebox.show("No Data Found ","Alert",Messagebox.OK,Messagebox.EXCLAMATION);
+		}
 	}
 	
 	@Command
@@ -348,10 +352,14 @@ public class IndividualClientReportViewModel {
 		String realPath = Executions.getCurrent().getDesktop().getWebApp().getRealPath("/");
 		IndividualClientReportPdf pdf = new IndividualClientReportPdf();
 		try {
+			if(reportBeanList.size()>0){
 			if(individualClientReportBean.getSelectedRadioButton().equals("detail")){
 			   pdf.getDetails(realPath, individualClientReportBean, reportBeanList);
 			}else {
 				pdf.getSummary(realPath, individualClientReportBean, summaryBeanList);
+			}
+			}else {
+				Messagebox.show("No Data Found ","Alert",Messagebox.OK,Messagebox.EXCLAMATION);
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

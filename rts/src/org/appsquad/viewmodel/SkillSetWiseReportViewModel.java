@@ -251,7 +251,7 @@ public class SkillSetWiseReportViewModel {
 		IndividualClientReportPdf pdf = new IndividualClientReportPdf();
 		
 		try{
-			
+		if(reportBeanList.size()>0){	
 		if(skilWiseReportBean.getSelectedRadioButton().equals("detail")){
 		
 			pdf.getDetails(pdfPath, skilWiseReportBean, reportBeanList);
@@ -284,6 +284,9 @@ public class SkillSetWiseReportViewModel {
 			}*/
 			
 		}
+		}else {
+			Messagebox.show("No Data Found ","Alert",Messagebox.OK,Messagebox.EXCLAMATION);
+		}
 	
 		}catch(Exception e){
 			e.printStackTrace();
@@ -310,6 +313,7 @@ public class SkillSetWiseReportViewModel {
 	@Command
 	@NotifyChange("*")
 	public void onClickExcel(){
+		if(reportBeanList.size()>0){
 		if(skilWiseReportBean.getSelectedRadioButton().equals("detail")){
 		
 			IndividualClientReportExcel.printCSV(reportBeanList);
@@ -342,6 +346,10 @@ public class SkillSetWiseReportViewModel {
 				Messagebox.show("NO DATA SELECTED ", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION );
 			}*/
 			
+		}
+		}else {
+			
+			Messagebox.show("No Data Found ","Alert",Messagebox.OK,Messagebox.EXCLAMATION);
 		}
 	}
 	
