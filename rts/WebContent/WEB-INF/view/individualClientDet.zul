@@ -4,13 +4,13 @@
 		viewModel="@id('vm') @init('org.appsquad.viewmodel.IndividualClientReportViewModel')" contentStyle="overflow:scroll">
     		
     		<div>
-    			<hlayout spacing="16px">
+    			<hlayout spacing="12px">
     				<hlayout>
     				<label value="* " style="font-weight:bold; color:red; font-size:large;" />
     				<bandbox autodrop="true" readonly="true" id="clname" value="@bind(vm.individualClientReportBean.clientInformationBean.fullName)" placeholder="Search By Client" width="220px">
 						<bandpopup>	
 							<hbox>
-								<textbox value="@bind(vm.individualClientReportBean.clientNameSearch)" onChange="@command('onChangeClientName')"></textbox>
+								<textbox value="@bind(vm.individualClientReportBean.clientNameSearch)" onChange="@command('onChangeClientName')" placeholder="Search By Client"></textbox>
 								<button label="Serach" onClick="@command('onChangeClientName')"></button>
 							</hbox>
 							<space></space>
@@ -33,10 +33,10 @@
     				
     				<datebox placeholder="To Date" format="dd-MMM-yyyy" value="@bind(vm.individualClientReportBean.toDate)" onChange="@command('onChangeToDate')"></datebox>
     				
-    				<bandbox autodrop="true" readonly="true" id="skSt" value="@bind(vm.individualClientReportBean.skillsetMasterbean.skillset)" placeholder="Search by Skill Set">
+    				<bandbox autodrop="true" readonly="true" id="skSt" value="@bind(vm.individualClientReportBean.skillsetMasterbean.skillset)" placeholder="Search by Skill Set" width="160px">
 						<bandpopup>	
 							<hbox>
-								<textbox value="@bind(vm.individualClientReportBean.skillSetSearch)" onChange="@command('onChangeSkillName')"></textbox>
+								<textbox value="@bind(vm.individualClientReportBean.skillSetSearch)" onChange="@command('onChangeSkillName')" placeholder="Search by Skill Set"></textbox>
 								<button label="Serach" onClick="@command('onChangeSkillName')"></button>
 							</hbox>
 							<space></space>
@@ -55,15 +55,15 @@
 						</bandpopup>
 					</bandbox>
     				
-    				<combobox model="@bind(vm.statusList)" selectedItem="@bind(vm.individualClientReportBean.statusMasterBean)" readonly="true"
+    				<combobox model="@bind(vm.statusList)" selectedItem="@bind(vm.individualClientReportBean.statusMasterBean)" readonly="true" width="170px"
 		             	value="@bind(vm.individualClientReportBean.statusMasterBean.status)" placeholder="Resourcing Status" onSelect="@command('onSelectStatusName')">
 		                <template name="model" var="p">
 		                   <comboitem value="@bind(p.statusId)" label="@bind(p.status)"/>
 		                </template>
 		            </combobox>
 		            
-		            <button label="Search" onClick="@command('onClickSearch')" style="font-weight:bold; color: black" visible="false"></button>
-		            <button label="Clear" onClick="@command('onClickClear')" style="font-weight:bold; color: black" width="90px"></button>	
+		            <button label="Search" onClick="@command('onClickSearch')" style="font-weight:bold; color: black" visible="true"></button>
+		            <button label="Clear" onClick="@command('onClickClear')" style="font-weight:bold; color: black" width="70px"></button>	
     				
     			</hlayout>
     			<space></space>

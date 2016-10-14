@@ -3,7 +3,7 @@
 <window title="Sort criteria:RID/Status" border="none" apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('org.appsquad.viewmodel.SortcriteriaRidorStatusviewModel')">
    				 <div>
-    			<hlayout spacing="20px">
+    			<hlayout spacing="12px">
     				<hlayout>
     				<label value="* " style="font-weight:bold; color:red; font-size:large;" />
     				<datebox placeholder="From Date" format="dd-MMM-yyyy" value="@bind(vm.rIdWiseReportBean.fromDate)" onChange="@command('onChangeFromDate')" ></datebox>
@@ -15,7 +15,7 @@
     				</hlayout>
     				<hlayout>
     				<label value="* " style="font-weight:bold; color:red; font-size:large;" />
-    				   <bandbox autodrop="true" readonly="true" id="reqIdb" value="@bind(vm.requirementGenerationBean.req_id)" placeholder="Requirement Id">
+    				   <bandbox autodrop="true" readonly="true" id="reqIdb" value="@bind(vm.requirementGenerationBean.req_id)" placeholder="Requirement Id" width="180px">
 						<bandpopup>	
 							<hbox>
 								<intbox value="@bind(vm.rIdWiseReportBean.r_idSearch)" onChange="@command('onChangeReqId')" placeholder="Search By Req Id" width="120px"></intbox>
@@ -76,8 +76,8 @@
 						</bandpopup>
 					</bandbox>
     			
-    				<button label="Search" onClick="@command('onClickSearch')" style="font-weight:bold; color: black" visible="false"></button>
-		            <button label="Clear" onClick="@command('onClickClear')" style="font-weight:bold; color: black" visible="true" width="80px"></button>
+    				<button label="Search" onClick="@command('onClickSearch')" style="font-weight:bold; color: black" visible="true"></button>
+		            <button label="Clear" onClick="@command('onClickClear')" style="font-weight:bold; color: black" visible="true" width="70px"></button>
     			
     			</hlayout>
     			

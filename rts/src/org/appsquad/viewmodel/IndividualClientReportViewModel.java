@@ -92,15 +92,19 @@ public class IndividualClientReportViewModel {
 		   summaryBeanList.clear();
 		   reportBeanList.clear();
 		   
-		   reportBeanList = IndividualClientReportService.loadRidList(individualClientReportBean.clientInformationBean.getClientId());
+		   //functionality gone to SEARCH button
+		   //reportBeanList = IndividualClientReportService.loadRidList(individualClientReportBean.clientInformationBean.getClientId());
 		   
 		   individualClientReportBean.setFromDate(null);
 		   individualClientReportBean.setToDate(null);
 		   
+		   
 		   individualClientReportBean.skillsetMasterbean.setSkillset(null);
+		   individualClientReportBean.skillsetMasterbean.setId(null);
 		   skillList = RequirementGenerationService.fetchSkillSetList();
 		   
 		   individualClientReportBean.statusMasterBean.setStatus(null);
+		   individualClientReportBean.statusMasterBean.setStatusId(null);
 		   statusList = ResourceMasterDao.onLoadStatus();
 		   individualClientReportBean.setSelectedRadioButton("detail");
 		   
@@ -112,10 +116,13 @@ public class IndividualClientReportViewModel {
 		   
 		   reportBeanList.clear();
 		   summaryBeanList.clear();
+		   
 		   individualClientReportBean.skillsetMasterbean.setSkillset(null);
+		   individualClientReportBean.skillsetMasterbean.setId(null);
 		   skillList = RequirementGenerationService.fetchSkillSetList();
 		   
 		   individualClientReportBean.statusMasterBean.setStatus(null);
+		   individualClientReportBean.statusMasterBean.setStatusId(null);
 		   statusList = ResourceMasterDao.onLoadStatus();
 		   
 		   if(individualClientReportBean.getFromDate() == null){
@@ -251,17 +258,7 @@ public class IndividualClientReportViewModel {
 	    * for search button. now invisible
 	    */
 	   
-	   @Command
-	   @NotifyChange("*")
-	   public void onClickSearch(){
-		  //reportBeanList = IndividualClientReportService.loadRidList(individualClientReportBean.clientInformationBean.getClientId());
-		   
-		   //System.out.println("List Size >>> >> > " +reportBeanList.size());
-		   for(IndividualClientReportBean rrb : reportBeanList){
-			  
-		   }
-		      
-	   }
+	  
 	   
 	   @Command
 	   @NotifyChange("*")
@@ -269,6 +266,11 @@ public class IndividualClientReportViewModel {
 		   
 		   summaryBeanList.clear();
 		   reportBeanList.clear();
+		   
+		   individualClientReportBean.skillsetMasterbean.setId(null);
+		   individualClientReportBean.statusMasterBean.setStatusId(null);
+		   individualClientReportBean.clientInformationBean.setClientId(null);
+		   
 		   individualClientReportBean.clientInformationBean.setFullName(null);
 		   clientList = ResourceAllocationTrackingService.fetchClientDetails();
 		   individualClientReportBean.setFromDate(null);
@@ -365,6 +367,36 @@ public class IndividualClientReportViewModel {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	 @Command
+	 @NotifyChange("*")
+	 public void onClickSearch(){
+		 
+		 //when only client selected
+	     if(individualClientReportBean.clientInformationBean.getClientId() != null && individualClientReportBean.getFromDate() == null && individualClientReportBean.getToDate() == null && individualClientReportBean.skillsetMasterbean.getId() == null && individualClientReportBean.statusMasterBean.getStatusId() == null){
+			
+	    	 reportBeanList = IndividualClientReportService.loadRidList(individualClientReportBean.clientInformationBean.getClientId());
+	    	 if(reportBeanList.size() == 0){
+	    		 Messagebox.show("No Data Found!! 1", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+	    	 }
+		   
+		 }
+		 if(individualClientReportBean.clientInformationBean.getClientId() != null && individualClientReportBean.getFromDate() == null && individualClientReportBean.getToDate() == null && individualClientReportBean.skillsetMasterbean.getId() == null && individualClientReportBean.statusMasterBean.getStatusId() == null){
+			 
+		 }
+	 }
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	public ArrayList<SkillsetMasterbean> getSkillList() {
