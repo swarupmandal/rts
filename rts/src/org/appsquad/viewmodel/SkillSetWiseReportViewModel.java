@@ -247,8 +247,6 @@ public class SkillSetWiseReportViewModel {
 	@NotifyChange("*")
 	public void onClickPdf(){
 		String pdfPath = Executions.getCurrent().getDesktop().getWebApp().getRealPath("/");
-		//String totalPdfPath = pdfPath + "report.pdf";
-		String totalPdfPath = "C:\\pdf test\\Report_Pdf.pdf";
 		
 		IndividualClientReportPdf pdf = new IndividualClientReportPdf();
 		
@@ -256,7 +254,7 @@ public class SkillSetWiseReportViewModel {
 			
 		if(skilWiseReportBean.getSelectedRadioButton().equals("detail")){
 		
-			pdf.getDetails(totalPdfPath, skilWiseReportBean, reportBeanList);
+			pdf.getDetails(pdfPath, skilWiseReportBean, reportBeanList);
 			/*if(reportBeanList.size()>0);	
 		  ArrayList<IndividualClientReportBean> detailList = new ArrayList<IndividualClientReportBean>();
 			for(IndividualClientReportBean bean : reportBeanList){
@@ -271,7 +269,7 @@ public class SkillSetWiseReportViewModel {
 			}*/
 			
 		}else {
-			pdf.getSummary(totalPdfPath, skilWiseReportBean, summaryBeanList);
+			pdf.getSummary(pdfPath, skilWiseReportBean, summaryBeanList);
 			/*if(summaryBeanList.size()>0);
 			ArrayList<IndividualClientReportBean> summList = new ArrayList<IndividualClientReportBean>();
 			for(IndividualClientReportBean bean : summaryBeanList){

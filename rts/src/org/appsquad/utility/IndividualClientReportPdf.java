@@ -32,9 +32,9 @@ public class IndividualClientReportPdf {
 	
 	ArrayList<IndividualClientReportBean> individualClientReportList = new ArrayList<IndividualClientReportBean>();
 	
-	public void getDetails(String webAppPath, IndividualClientReportBean individualClientReportBean, ArrayList<IndividualClientReportBean> individualClientReportBeanList) 
+	public void getDetails(String realPath, IndividualClientReportBean individualClientReportBean, ArrayList<IndividualClientReportBean> individualClientReportBeanList) 
 						throws DocumentException, IOException{
-		filePath = webAppPath+"reportIndv.pdf";
+		filePath = realPath+"report.pdf";
 		individualClientReportList = individualClientReportBeanList;
 		document = new Document(PageSize.A4, 2, 2, 20, 20);
 		document.setMargins(-40, -60, 60, 0);
@@ -43,17 +43,19 @@ public class IndividualClientReportPdf {
 		document.open();
 		createPdfHeader();
 		printDetails(individualClientReportBeanList);
-		//DownloadPdf.download(filePath, "reportIndv.pdf");
+		document.close();
+		DownloadPdf.download(filePath, "Report.pdf");
 		
 		System.out.println("FILE PATH IS :"+filePath);
-		document.close();
-		openPdf(filePath);
+		
+		//openPdf(filePath);
 		//DownloadPdf.download(filePath, "reportIndv.pdf");
 		
 	}
 	
 	void openPdf(String fileName) throws IOException{
-		  if (Desktop.isDesktopSupported()) {
+		System.out.println("Open pdf called..");
+		if (Desktop.isDesktopSupported()) {
 		   try {
 		          File myFile = new File(fileName );
 		          Desktop.getDesktop().open(myFile);
@@ -241,8 +243,8 @@ public class IndividualClientReportPdf {
 	
 	public void getSummary(String localFilePath, IndividualClientReportBean individualClientReportBean, ArrayList<IndividualClientReportBean> individualClientReportBeanList) throws DocumentException, IOException{
 		
-		filePath = localFilePath;
-		
+		//filePath = localFilePath;
+		filePath = localFilePath+"reportIndv.pdf";
 		individualClientReportList = individualClientReportBeanList;
 		document = new Document(PageSize.A4, 2, 2, 20, 20);
 		document.setMargins(-40, -60, 60, 0);
@@ -254,8 +256,9 @@ public class IndividualClientReportPdf {
 		createPdfHeader();
 		
 		printSummary(individualClientReportBeanList);
-		DownloadPdf.download(filePath,"report.pdf");
 		document.close();
+		//openPdf(filePath);
+		DownloadPdf.download(filePath,"Summary.pdf");
 		
 	}
 	

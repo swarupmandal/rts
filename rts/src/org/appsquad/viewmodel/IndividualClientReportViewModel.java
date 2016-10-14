@@ -345,13 +345,13 @@ public class IndividualClientReportViewModel {
 	@Command
 	@NotifyChange("*")
 	public void onClickPdf() throws IOException, DocumentException{
-		String pdfPath = Executions.getCurrent().getDesktop().getWebApp().getRealPath("/");
+		String realPath = Executions.getCurrent().getDesktop().getWebApp().getRealPath("/");
 		IndividualClientReportPdf pdf = new IndividualClientReportPdf();
 		try {
 			if(individualClientReportBean.getSelectedRadioButton().equals("detail")){
-			   pdf.getDetails(pdfPath, individualClientReportBean, reportBeanList);
+			   pdf.getDetails(realPath, individualClientReportBean, reportBeanList);
 			}else {
-				pdf.getSummary(pdfPath, individualClientReportBean, summaryBeanList);
+				pdf.getSummary(realPath, individualClientReportBean, summaryBeanList);
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

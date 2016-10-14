@@ -297,15 +297,13 @@ public class SortcriteriaRidorStatusviewModel {
 	@NotifyChange("*")
 	public void onClickPdf() throws IOException{
 		String pdfPath = Executions.getCurrent().getDesktop().getWebApp().getRealPath("/");
-		//String totalPdfPath = pdfPath + "report.pdf";
-		String totalPdfPath = "C:\\pdf test\\Report_Pdf.pdf";
 		
 		IndividualClientReportPdf pdf = new IndividualClientReportPdf();
 		
 		try{
 			
 		if(rIdWiseReportBean.getSelectedRadioButton().equals("detail")){
-		
+			pdf.getDetails(pdfPath, rIdWiseReportBean, reportBeanList);
 		  /*if(reportBeanList.size()>0);	
 		  ArrayList<IndividualClientReportBean> detailList = new ArrayList<IndividualClientReportBean>();
 			for(IndividualClientReportBean bean : reportBeanList){
@@ -320,7 +318,7 @@ public class SortcriteriaRidorStatusviewModel {
 			}*/
 			
 		}else {
-			pdf.getSummary(totalPdfPath, rIdWiseReportBean, summaryBeanList);
+			pdf.getSummary(pdfPath, rIdWiseReportBean, summaryBeanList);
 			/*if(summaryBeanList.size()>0);
 			ArrayList<IndividualClientReportBean> summList = new ArrayList<IndividualClientReportBean>();
 			for(IndividualClientReportBean bean : summaryBeanList){
@@ -344,10 +342,10 @@ public class SortcriteriaRidorStatusviewModel {
 		try {
 			
 			if(rIdWiseReportBean.getSelectedRadioButton().equals("detail")){
-			   pdf.getDetails(totalPdfPath, rIdWiseReportBean, reportBeanList);
+			   pdf.getDetails(pdfPath, rIdWiseReportBean, reportBeanList);
 			   
 			}else {
-				pdf.getSummary(totalPdfPath, rIdWiseReportBean, summaryBeanList);
+				pdf.getSummary(pdfPath, rIdWiseReportBean, summaryBeanList);
 			}
 		
 		} catch (FileNotFoundException e) {

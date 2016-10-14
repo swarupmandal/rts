@@ -11,9 +11,9 @@ import org.zkoss.zul.Messagebox;
 
 public class DownloadPdf {
 	public static void download(String pdfNamewithPath, String fileName) throws IOException{
-
+		System.out.println("Download method calling..");
 		  String path=pdfNamewithPath.replace('\\','/');
-		  Messagebox.show(path);
+		  //Messagebox.show(path);
 		  byte[] ba1 = new byte[102400];
 		  File myFile = new File(path );
 		  FileInputStream fis = new FileInputStream(myFile);

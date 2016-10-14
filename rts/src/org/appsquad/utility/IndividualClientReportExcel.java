@@ -10,6 +10,7 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.ArrayList;
 
+import org.apache.commons.io.FileUtils;
 import org.appsquad.bean.IndividualClientReportBean;
 import org.zkoss.util.media.AMedia;
 import org.zkoss.zhtml.Filedownload;
@@ -18,7 +19,7 @@ import org.zkoss.zk.ui.Executions;
 public class IndividualClientReportExcel {
 
 	public static void printCSV(ArrayList<IndividualClientReportBean> reportBeanList){
-		File f = null;  boolean bool = false;
+		File f = null;  boolean bool = false,delBool = false;
 		try{
 	         // create new file
 	    	 String realPath = Executions.getCurrent().getDesktop().getWebApp().getRealPath("/");
@@ -31,18 +32,20 @@ public class IndividualClientReportExcel {
 	         
 	         // prints
 	         System.out.println("File created: "+bool);
-	         if(f.exists())
+	         if(f.exists()){
 	         // deletes file from the system
-	         f.delete();
-	         System.out.println("delete() method is invoked");
+	         delBool = f.delete();
+	         System.out.println("delete() method is invoked"+delBool);
+	        // FileUtils.forceDelete(f);
 	         // delete() is invoked
-	         f.createNewFile();
-	       
+	        // f.createNewFile();
+	         f = new File(reportNamewithPath);
 	         // tries to create new file in the system
-	         bool = f.createNewFile();
-	         
-	         // print
+	         bool = f.exists();
 	         System.out.println("File created: "+bool);
+	         }
+	         // print
+	        
 	         FileOutputStream fileOutputStream = new FileOutputStream(f);
 	         OutputStreamWriter osw = new OutputStreamWriter(fileOutputStream);    
 	            Writer w = new BufferedWriter(osw);
@@ -53,7 +56,7 @@ public class IndividualClientReportExcel {
 	            			+","+reportBeanList.get(i).getIntIntvValue()+","+reportBeanList.get(i).getClntIntvValue()+"\n");
 	            }
 	            w.close();
-	           Desktop.getDesktop().open(f);
+	         //  Desktop.getDesktop().open(f);
 	           
 	            FileInputStream fis = new FileInputStream(new File(reportNamewithPath));
 	    		byte[] ba1 = new byte[1024];
@@ -91,16 +94,15 @@ public class IndividualClientReportExcel {
 	         
 	         // prints
 	         System.out.println("File created: "+bool);
-	         if(f.exists())
-	         // deletes file from the system
+	         if(f.exists()){
+	         
 	         f.delete();
-	         System.out.println("delete() method is invoked");
-	         // delete() is invoked
-	         f.createNewFile();
+	         
+	         f = new File(reportNamewithPath);
 	       
 	         // tries to create new file in the system
-	         bool = f.createNewFile();
 	         
+	         }
 	         // print
 	         System.out.println("File created: "+bool);
 	         FileOutputStream fileOutputStream = new FileOutputStream(f);
@@ -112,7 +114,7 @@ public class IndividualClientReportExcel {
 	            			+","+reportBeanList.get(i).getSkillSetLabel()+","+reportBeanList.get(i).getNoOfReqLebel()+"\n");
 	            }
 	            w.close();
-	           Desktop.getDesktop().open(f);
+	            //Desktop.getDesktop().open(f);
 	           
 	            FileInputStream fis = new FileInputStream(new File(reportNamewithPath));
 	    		byte[] ba1 = new byte[1024];
