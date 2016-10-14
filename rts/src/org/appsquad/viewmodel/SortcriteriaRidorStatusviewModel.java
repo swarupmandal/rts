@@ -303,7 +303,7 @@ public class SortcriteriaRidorStatusviewModel {
 		try{
 			
 		if(rIdWiseReportBean.getSelectedRadioButton().equals("detail")){
-			pdf.getDetails(pdfPath, rIdWiseReportBean, reportBeanList);
+			//pdf.getDetails(pdfPath, rIdWiseReportBean, reportBeanList);
 		  /*if(reportBeanList.size()>0);	
 		  ArrayList<IndividualClientReportBean> detailList = new ArrayList<IndividualClientReportBean>();
 			for(IndividualClientReportBean bean : reportBeanList){
@@ -318,7 +318,7 @@ public class SortcriteriaRidorStatusviewModel {
 			}*/
 			
 		}else {
-			pdf.getSummary(pdfPath, rIdWiseReportBean, summaryBeanList);
+			//pdf.getSummary(pdfPath, rIdWiseReportBean, summaryBeanList);
 			/*if(summaryBeanList.size()>0);
 			ArrayList<IndividualClientReportBean> summList = new ArrayList<IndividualClientReportBean>();
 			for(IndividualClientReportBean bean : summaryBeanList){
@@ -340,6 +340,7 @@ public class SortcriteriaRidorStatusviewModel {
 		
 		
 		try {
+			if(reportBeanList.size()>0){
 			
 			if(rIdWiseReportBean.getSelectedRadioButton().equals("detail")){
 			   pdf.getDetails(pdfPath, rIdWiseReportBean, reportBeanList);
@@ -347,7 +348,9 @@ public class SortcriteriaRidorStatusviewModel {
 			}else {
 				pdf.getSummary(pdfPath, rIdWiseReportBean, summaryBeanList);
 			}
-		
+			}else {
+				Messagebox.show("No Data Found ","Alert",Messagebox.OK,Messagebox.EXCLAMATION);
+			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (DocumentException e) {
@@ -359,6 +362,7 @@ public class SortcriteriaRidorStatusviewModel {
 	@Command
 	@NotifyChange("*")
 	public void onClickExcel(){
+		if(reportBeanList.size()>0){
 		if(rIdWiseReportBean.getSelectedRadioButton().equals("detail")){
 		
 			IndividualClientReportExcel.printCSV(reportBeanList);
@@ -392,6 +396,9 @@ public class SortcriteriaRidorStatusviewModel {
 				Messagebox.show("NO DATA SELECTED ", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION );
 			}*/
 			
+		}
+		}else {
+			Messagebox.show("No Data Found ","Alert",Messagebox.OK,Messagebox.EXCLAMATION);
 		}
 	}
   

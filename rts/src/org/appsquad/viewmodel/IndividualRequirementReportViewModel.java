@@ -154,6 +154,7 @@ public class IndividualRequirementReportViewModel {
    @NotifyChange("*")
    public void onClickExcel(){
 
+	   if(reportBeanList.size()>0){
 		if(individualRequirementReportBean.getSelectedRadioButton().equals("detail")){
 		
 			IndividualClientReportExcel.printCSV(reportBeanList);
@@ -187,6 +188,9 @@ public class IndividualRequirementReportViewModel {
 			}*/
 			
 		}
+	   }else {
+		   Messagebox.show("No Data Found ","Alert",Messagebox.OK,Messagebox.EXCLAMATION);
+	}
 	
    }
    
@@ -199,7 +203,7 @@ public class IndividualRequirementReportViewModel {
 		IndividualClientReportPdf pdf = new IndividualClientReportPdf();
 		
 		try{
-			
+		if(reportBeanList.size()>0){	
 		if(individualRequirementReportBean.getSelectedRadioButton().equals("detail")){
 		
 			pdf.getDetails(pdfPath, individualRequirementReportBean, reportBeanList);
@@ -231,6 +235,9 @@ public class IndividualRequirementReportViewModel {
 				Messagebox.show("NO DATA SELECTED ", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION );
 			}*/
 			
+		}
+		}else {
+			Messagebox.show("No Data Found ","Alert",Messagebox.OK,Messagebox.EXCLAMATION);
 		}
 	
 		}catch(Exception e){
