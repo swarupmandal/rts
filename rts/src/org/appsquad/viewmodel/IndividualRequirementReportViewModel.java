@@ -195,8 +195,6 @@ public class IndividualRequirementReportViewModel {
    public void onClickPdf(){
 
 		String pdfPath = Executions.getCurrent().getDesktop().getWebApp().getRealPath("/");
-		//String totalPdfPath = pdfPath + "report.pdf";
-		String totalPdfPath = "C:\\pdf test\\Report_Pdf.pdf";
 		
 		IndividualClientReportPdf pdf = new IndividualClientReportPdf();
 		
@@ -204,7 +202,7 @@ public class IndividualRequirementReportViewModel {
 			
 		if(individualRequirementReportBean.getSelectedRadioButton().equals("detail")){
 		
-			pdf.getDetails(totalPdfPath, individualRequirementReportBean, reportBeanList);
+			pdf.getDetails(pdfPath, individualRequirementReportBean, reportBeanList);
 		  /*if(reportBeanList.size()>0);	
 		  ArrayList<IndividualClientReportBean> detailList = new ArrayList<IndividualClientReportBean>();
 			for(IndividualClientReportBean bean : reportBeanList){
@@ -219,7 +217,7 @@ public class IndividualRequirementReportViewModel {
 			}*/
 			
 		}else {
-			pdf.getSummary(totalPdfPath, individualRequirementReportBean, summaryBeanList);
+			pdf.getSummary(pdfPath, individualRequirementReportBean, summaryBeanList);
 			/*if(summaryBeanList.size()>0);
 			ArrayList<IndividualClientReportBean> summList = new ArrayList<IndividualClientReportBean>();
 			for(IndividualClientReportBean bean : summaryBeanList){
