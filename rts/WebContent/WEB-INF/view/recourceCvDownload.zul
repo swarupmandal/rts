@@ -52,7 +52,8 @@
 					</bandbox>
     				
 		            <button label="Search" onClick="@command('onClickSearch')" style="font-weight:bold; color: black" visible="false"></button>
-		            <button label="Clear" onClick="@command('onClickClear')" style="font-weight:bold; color: black" width="90px"></button>	
+		            <button label="Clear" onClick="@command('onClickClear')" style="font-weight:bold; color: black" width="60px"
+		              visible="@bind(vm.saveButtonVisibility)"></button>	
     				
     			</hlayout>
     			</div>
@@ -82,7 +83,7 @@
  </div>
  <space></space>
  <div align="center">
-   <button label="DOWNLOAD" onClick="@command('onClickDownload')"></button>
+   <button label="DOWNLOAD" onClick="@command('onClickDownload')" visible="@bind(vm.saveButtonVisibility)"></button>
  </div>
 </window>
 </zk> 

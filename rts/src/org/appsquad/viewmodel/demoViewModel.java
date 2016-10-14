@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.appsquad.bean.ClientInformationBean;
 import org.appsquad.bean.DemoBean;
 import org.appsquad.bean.SkillsetMasterbean;
@@ -39,6 +38,7 @@ public class demoViewModel {
 	    private String userId;
 	    @Wire("#clntBb")
 		private Bandbox clientBandBox;
+	    private boolean saveButtonVisibility = false;
 	    
 		@Wire("#skSt")
 		private Bandbox skillBandBox;
@@ -109,8 +109,10 @@ public class demoViewModel {
 	    	System.out.println("SKILL NAME CORRESPONDING LIST SIZE IS :"+list.size());
 	    	if(list.size()>0){
 	    		resourceDivVisibility = true;
+	    		saveButtonVisibility = true;
 	    	}else{
 	    		resourceDivVisibility = false;
+	    		saveButtonVisibility = false;
 	    		Messagebox.show("No Data Found Wrt This Skill Name!","Excalamation",Messagebox.OK,Messagebox.EXCLAMATION);
 	    	}
 			skillBandBox.close();
@@ -125,8 +127,10 @@ public class demoViewModel {
 					System.out.println("SKILL NAME and CLIENT NAME CORRESPONDING LIST SIZE IS :"+list.size());
 					if(list.size()>0){
 			    		resourceDivVisibility = true;
+			    		saveButtonVisibility = true;
 			    	}else{
 			    		resourceDivVisibility = false;
+			    		saveButtonVisibility = false;
 			    		Messagebox.show("No Data Found Wrt This Combination!","Excalamation",Messagebox.OK,Messagebox.EXCLAMATION);
 			    	}
 					clientBandBox.close();		
@@ -141,7 +145,6 @@ public class demoViewModel {
 		@Command
 		@NotifyChange("*")
 		public void onChangeFromDate(){
-			    
 		}
 		
 		@Command
@@ -154,8 +157,10 @@ public class demoViewModel {
 					    		System.out.println("SKILL NAME and DATE CORRESPONDING LIST SIZE IS :"+list.size());
 								if(list.size()>0){
 						    		resourceDivVisibility = true;
+						    		saveButtonVisibility = true;
 						    	}else{
 						    		resourceDivVisibility = false;
+						    		saveButtonVisibility = false;
 						    		Messagebox.show("No Data Found Wrt This Combination!","Excalamation",Messagebox.OK,Messagebox.EXCLAMATION);
 						    	}
 					    	 }
@@ -167,6 +172,26 @@ public class demoViewModel {
 				   bean.setToDate(null);
 				   Messagebox.show("Select From Date First", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION);
 			}
+	   }
+		
+	   @Command
+	   @NotifyChange("*")
+	   public void onClickClear(){
+		   list.clear();
+		   resourceDivVisibility = false;
+		   saveButtonVisibility = false;
+		   
+		   bean.skillsetMasterbean.setSkillset(null);
+		   skillList = RequirementGenerationService.fetchSkillSetList();
+		   
+		   bean.setFromDate(null);
+		   bean.setToDate(null);
+		   
+		   bean.statusMasterBean.setStatus(null);
+		   statusList = ResourceMasterDao.onLoadStatus();
+		   
+		   bean.clientInformationBean.setFullName(null);
+		   clientList = ResourceAllocationTrackingService.fetchClientDetails();
 	   }
 		
 	  /*************************************************************************************************************************************************/
@@ -253,5 +278,11 @@ public class demoViewModel {
 		}
 		public void setClientList(ArrayList<ClientInformationBean> clientList) {
 			this.clientList = clientList;
+		}
+		public boolean isSaveButtonVisibility() {
+			return saveButtonVisibility;
+		}
+		public void setSaveButtonVisibility(boolean saveButtonVisibility) {
+			this.saveButtonVisibility = saveButtonVisibility;
 		} 
 }
