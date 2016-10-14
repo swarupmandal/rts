@@ -60,6 +60,7 @@ public class demoViewModel {
 			skillList = RequirementGenerationService.fetchSkillSetList();
 			statusList = ResourceMasterDao.onLoadStatus();
 			clientList = ResourceAllocationTrackingService.fetchClientDetails();
+			resourceDivVisibility = false;
 		}
 	    
 	    @GlobalCommand
@@ -105,16 +106,6 @@ public class demoViewModel {
 	    @Command
 		@NotifyChange("*")
 		public void onSelctSkillName(){
-	    	list = DemoService.getDetailsForSkillService(bean);
-	    	System.out.println("SKILL NAME CORRESPONDING LIST SIZE IS :"+list.size());
-	    	if(list.size()>0){
-	    		resourceDivVisibility = true;
-	    		saveButtonVisibility = true;
-	    	}else{
-	    		resourceDivVisibility = false;
-	    		saveButtonVisibility = false;
-	    		Messagebox.show("No Data Found Wrt This Skill Name!","Excalamation",Messagebox.OK,Messagebox.EXCLAMATION);
-	    	}
 			skillBandBox.close();
 		}
 		
@@ -123,16 +114,6 @@ public class demoViewModel {
 		public void onSelctClientName(){
 			if(bean.skillsetMasterbean.getSkillset()!=null){
 				if(bean.getFromDate()!=null && bean.getToDate()!=null){
-					list = DemoService.getDetailsForSkillAndDateAndClientService(bean);
-					System.out.println("SKILL NAME and CLIENT NAME CORRESPONDING LIST SIZE IS :"+list.size());
-					if(list.size()>0){
-			    		resourceDivVisibility = true;
-			    		saveButtonVisibility = true;
-			    	}else{
-			    		resourceDivVisibility = false;
-			    		saveButtonVisibility = false;
-			    		Messagebox.show("No Data Found Wrt This Combination!","Excalamation",Messagebox.OK,Messagebox.EXCLAMATION);
-			    	}
 					clientBandBox.close();		
 				}else{
 					clientBandBox.close();	
@@ -145,6 +126,7 @@ public class demoViewModel {
 		@Command
 		@NotifyChange("*")
 		public void onChangeFromDate(){
+			System.out.println("INSIDE FORM DATE METHOD");
 		}
 		
 		@Command
@@ -153,16 +135,7 @@ public class demoViewModel {
 			   if(bean.getFromDate() != null){
 				   if(bean.getToDate().after(bean.getFromDate())){
 					    	if(bean.getFromDate() != null && bean.getToDate() != null){
-					    		list = DemoService.getDetailsForSkillAndDateService(bean);
-					    		System.out.println("SKILL NAME and DATE CORRESPONDING LIST SIZE IS :"+list.size());
-								if(list.size()>0){
-						    		resourceDivVisibility = true;
-						    		saveButtonVisibility = true;
-						    	}else{
-						    		resourceDivVisibility = false;
-						    		saveButtonVisibility = false;
-						    		Messagebox.show("No Data Found Wrt This Combination!","Excalamation",Messagebox.OK,Messagebox.EXCLAMATION);
-						    	}
+					    		System.out.println("INSIDE METHOD");
 					    	 }
 				     }else {
 				    	bean.setToDate(null);
@@ -194,6 +167,49 @@ public class demoViewModel {
 		   clientList = ResourceAllocationTrackingService.fetchClientDetails();
 	   }
 		
+	   @Command
+	   @NotifyChange("*")
+	   public void onClickSearch(){
+		   if(bean.skillsetMasterbean.getSkillset()!=null && bean.skillsetMasterbean.getSkillset().trim().length()>0){
+			   list = DemoService.getDetailsForSkillService(bean);
+		    	System.out.println("SKILL NAME CORRESPONDING LIST SIZE IS :"+list.size());
+		    	if(list.size()>0){
+		    		resourceDivVisibility = true;
+		    		saveButtonVisibility = true;
+		    	}else{
+		    		resourceDivVisibility = false;
+		    		saveButtonVisibility = false;
+		    		Messagebox.show("No Data Found Wrt This Skill Name!","Excalamation",Messagebox.OK,Messagebox.EXCLAMATION);
+		    	}
+		   }else if(bean.getFromDate()!=null && bean.getToDate()!=null){
+			   list = DemoService.getDetailsForSkillAndDateService(bean);
+	    		System.out.println("SKILL NAME and DATE CORRESPONDING LIST SIZE IS :"+list.size());
+				if(list.size()>0){
+		    		resourceDivVisibility = true;
+		    		saveButtonVisibility = true;
+		    	}else{
+		    		resourceDivVisibility = false;
+		    		saveButtonVisibility = false;
+		    		Messagebox.show("No Data Found Wrt This Combination!","Excalamation",Messagebox.OK,Messagebox.EXCLAMATION);
+		    	}
+		   }else if(bean.clientInformationBean.getFullName()!=null && bean.clientInformationBean.getFullName().trim().length()>0){
+			   list = DemoService.getDetailsForSkillAndDateAndClientService(bean);
+				System.out.println("SKILL NAME and CLIENT NAME CORRESPONDING LIST SIZE IS :"+list.size());
+				if(list.size()>0){
+		    		resourceDivVisibility = true;
+		    		saveButtonVisibility = true;
+		    	}else{
+		    		resourceDivVisibility = false;
+		    		saveButtonVisibility = false;
+		    		Messagebox.show("No Data Found Wrt This Combination!","Excalamation",Messagebox.OK,Messagebox.EXCLAMATION);
+		    	}
+		   }
+		   
+		   if(!(bean.skillsetMasterbean.getSkillset()!=null && bean.skillsetMasterbean.getSkillset().trim().length()>0)){
+			   Messagebox.show("Select Skill Name First!", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
+		   }
+	   }
+	   
 	  /*************************************************************************************************************************************************/
 		public Double getCount() {
 			return count;

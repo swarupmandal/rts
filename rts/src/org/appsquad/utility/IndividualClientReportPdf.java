@@ -14,6 +14,7 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
+import com.itextpdf.text.Image;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
@@ -246,6 +247,10 @@ public class IndividualClientReportPdf {
 		//filePath = localFilePath;
 		filePath = localFilePath+"reportIndv.pdf";
 		individualClientReportList = individualClientReportBeanList;
+		
+		Image image1 = Image.getInstance("watermark.png");
+        document.add(image1);
+        
 		document = new Document(PageSize.A4, 2, 2, 20, 20);
 		document.setMargins(-40, -60, 60, 0);
 		writer = PdfWriter.getInstance(document, new FileOutputStream(filePath));

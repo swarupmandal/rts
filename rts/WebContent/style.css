@@ -1,0 +1,9 @@
+@charset "utf-8";
+/* CSS Document */
+.refrm_back{ background:url('images/reformwater.png') no-repeat 23% 50%; 
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	background-size: 57%;}
+	
