@@ -3,7 +3,6 @@ package org.appsquad.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -159,7 +158,7 @@ public class DemoDao {
 					    PreparedStatement preparedStatement = null;
 					    try {
 					    	preparedStatement = Pstm.createQuery(connection, DemoSql.FETCHSQLFORSKILLANDDATEANDCLIENT, Arrays.asList(demoBean.skillsetMasterbean.getSkillset(),
-					    			 demoBean.clientInformationBean.getFullName(),Dateformatter.sqlDate(demoBean.getFromDate()), Dateformatter.sqlDate(demoBean.getToDate())));
+					    			 								demoBean.clientInformationBean.getFullName()));
 							   
 					    	
 							 ResultSet resultSet = preparedStatement.executeQuery();

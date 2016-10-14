@@ -3,12 +3,11 @@
 <window title="Resource CV Download Screen" border="normal" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('org.appsquad.viewmodel.demoViewModel')" contentStyle="overflow:scroll">
  <div>
      <hlayout spacing="20px">
-    				
     				<hlayout>
     				<label value="* " style="font-weight:bold; color:red; font-size:large;" />
-    				<bandbox autodrop="true" readonly="true" id="skSt" value="@bind(vm.bean.skillsetMasterbean.skillset)" placeholder="Search by Skill Set">
+    				<bandbox autodrop="true" readonly="true" id="skSt" value="@bind(vm.bean.skillsetMasterbean.skillset)" placeholder="Search by Skill Set" width="150px">
 						<bandpopup>
-							<listbox width="280px" model="@bind(vm.skillList)" 
+							<listbox width="150px" model="@bind(vm.skillList)" 
 							     selectedItem="@bind(vm.bean.skillsetMasterbean)" onSelect="@command('onSelctSkillName')" mold="paging" pageSize="5">
 								<listhead sizable="true">
 									<listheader label="Skill Set"></listheader>
@@ -22,21 +21,22 @@
 						</bandpopup>
 					</bandbox>
     				</hlayout>
-    				<datebox placeholder="From Date" format="dd-MMM-yyyy" value="@bind(vm.bean.fromDate)" readonly="true" onChange="@command('onChangeFromDate')" ></datebox>
     				
-    				<datebox placeholder="To Date" format="dd-MMM-yyyy" value="@bind(vm.bean.toDate)" readonly="true" onChange="@command('onChangeToDate')"></datebox>
+    				<datebox placeholder="From Date" format="dd-MMM-yyyy" width="130px" value="@bind(vm.bean.fromDate)" readonly="true" onChange="@command('onChangeFromDate')" ></datebox>
+    				
+    				<datebox placeholder="To Date" format="dd-MMM-yyyy" width="130px" value="@bind(vm.bean.toDate)" readonly="true" onChange="@command('onChangeToDate')"></datebox>
     				
     				<combobox model="@bind(vm.statusList)" selectedItem="@bind(vm.bean.statusMasterBean)" readonly="true"
-		             	value="@bind(vm.bean.statusMasterBean.status)" placeholder="Resourcing Status">
+		             	value="@bind(vm.bean.statusMasterBean.status)" placeholder="Resourcing Status" width="150px">
 		                <template name="model" var="p">
 		                   <comboitem value="@bind(p.statusId)" label="@bind(p.status)"/>
 		                </template>
 		            </combobox>
     				
-    				<bandbox autodrop="true" readonly="true" id="clntBb" value="@bind(vm.bean.clientInformationBean.fullName)" placeholder="Search By Client" width="220px">
+    				<bandbox autodrop="true" readonly="true" id="clntBb" value="@bind(vm.bean.clientInformationBean.fullName)" placeholder="Search By Client" width="180px">
 						<bandpopup>	
 							<space></space>
-							<listbox width="280px" model="@bind(vm.clientList)" 
+							<listbox width="180px" model="@bind(vm.clientList)" 
 							     selectedItem="@bind(vm.bean.clientInformationBean)" onSelect="@command('onSelctClientName')" mold="paging" pageSize="5">
 								<listhead sizable="true">
 									<listheader label="Client Name"></listheader>
@@ -51,9 +51,8 @@
 						</bandpopup>
 					</bandbox>
     				
-		            <button label="Search" onClick="@command('onClickSearch')" style="font-weight:bold; color: black" visible="false"></button>
-		            <button label="Clear" onClick="@command('onClickClear')" style="font-weight:bold; color: black" width="60px"
-		              visible="@bind(vm.saveButtonVisibility)"></button>	
+		            <button label="Search" onClick="@command('onClickSearch')" style="font-weight:bold; color: black" visible="true"></button>
+		            <button label="Clear" onClick="@command('onClickClear')" style="font-weight:bold; color: black" width="60px"></button>	
     				
     			</hlayout>
     			</div>

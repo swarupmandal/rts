@@ -2,10 +2,9 @@
 <zk>
 
 <window title="" border="none" >
-<!-- <style src="style.css"></style> -->
+<style src="style.css"></style>
 
 <div style="width:12%; margin-top:1%; height:1%; float: left; padding-right: 2vw; border: 1px" height="">
-	
 	<label style="float:left; font-size:14px; color: #0033cc;" value="@bind(vm.userId)" />
 </div>
     <div style="width:50%; margin-top:1%; height:1%;float: left; padding-right: 2vw; border: 1px">
@@ -13,10 +12,8 @@
     </div>
 
 <div style="width:20%; margin-top:1%; height:1%; float: right; padding-right: 2vw; border: 1px">
-		
 	<a onClick="@command('onClickChangePassword')" style="float:right; padding-right: 0%;">Change Password</a>
-	<a onClick="@command('onClickSignOut')" style="float:right; padding-right: 5%;">Sign-out</a>
-	 
+	<a onClick="@command('onClickSignOut')" style="float:right; padding-right: 5%;">Sign-out</a> 
 </div>
 </window>
 </zk>
