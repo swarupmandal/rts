@@ -83,7 +83,8 @@ public class IndividualRequirementReportViewModel {
 	   summaryBeanList.clear();
 	   reportBeanList.clear();
 	   
-	   reportBeanList = IndividualRequirementReportService.individualReqIdDetails(requirementGenerationBean.getReq_id());
+	   //functionality shifted to search button
+	   //reportBeanList = IndividualRequirementReportService.individualReqIdDetails(requirementGenerationBean.getReq_id());
 	   
 	   individualRequirementReportBean.setFromDate(null);
 	   individualRequirementReportBean.setToDate(null);
@@ -91,8 +92,9 @@ public class IndividualRequirementReportViewModel {
 	   individualRequirementReportBean.skillsetMasterbean.setSkillset(null);
 	   
 	   individualRequirementReportBean.statusMasterBean.setStatus(null);
+	   individualRequirementReportBean.statusMasterBean.setStatusId(null);
 	   statusBeanList = ResourceMasterDao.onLoadStatus();
-	   individualRequirementReportBean.setSelectedRadioButton("detail");
+	   
 	   
    }
    
@@ -101,15 +103,16 @@ public class IndividualRequirementReportViewModel {
    public void onSelectStatusName(){
 	   
 	   summaryBeanList.clear();
+	   reportBeanList.clear();
 	   if(requirementGenerationBean.getReq_id() != null){
-		   
-		   reportBeanList = IndividualRequirementReportService.individualReqIdDetails(requirementGenerationBean.getReq_id(), individualRequirementReportBean.statusMasterBean.getStatusId());
-		   individualRequirementReportBean.setSelectedRadioButton("detail");
+		   //functionality shifted to search button
+		   //reportBeanList = IndividualRequirementReportService.individualReqIdDetails(requirementGenerationBean.getReq_id(), individualRequirementReportBean.statusMasterBean.getStatusId());
+		   //individualRequirementReportBean.setSelectedRadioButton("detail");
 	   }else {
 		   individualRequirementReportBean.statusMasterBean.setStatus(null);
-			reportBeanList.clear();
-			statusBeanList = ResourceMasterDao.onLoadStatus();  
-			Messagebox.show("Select Requirement id ", "ALERT", Messagebox.OK,Messagebox.EXCLAMATION);
+		   individualRequirementReportBean.statusMasterBean.setStatusId(null);
+		   statusBeanList = ResourceMasterDao.onLoadStatus();  
+		   Messagebox.show("Select Requirement id ", "ALERT", Messagebox.OK,Messagebox.EXCLAMATION);
 	}
 	   
 	   
@@ -146,6 +149,7 @@ public class IndividualRequirementReportViewModel {
 	   requirementGenerationBeanList = IndividualRequirementReportDao.fetchReqirmentDetails();
 	   
 	   individualRequirementReportBean.statusMasterBean.setStatus(null);
+	   individualRequirementReportBean.statusMasterBean.setStatusId(null);
 	   statusBeanList = ResourceMasterDao.onLoadStatus();
 	   individualRequirementReportBean.setSelectedRadioButton(null);
    }
@@ -245,6 +249,38 @@ public class IndividualRequirementReportViewModel {
 		}
 	
    }
+   
+   @Command
+   @NotifyChange("*")
+   public void onClickSearch(){
+	   
+	   //when only rid Selected
+	   if(requirementGenerationBean.getReq_id() != null && individualRequirementReportBean.statusMasterBean.getStatusId() == null){
+		   reportBeanList = IndividualRequirementReportService.individualReqIdDetails(requirementGenerationBean.getReq_id());
+		   	 individualRequirementReportBean.setSelectedRadioButton("detail");
+		   	 
+		   	 if(reportBeanList.size()==0){
+		   		 Messagebox.show("No Data Found!!", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+		   	 }
+	   }
+	   //when rid and status both selected
+	   if(requirementGenerationBean.getReq_id() != null && individualRequirementReportBean.statusMasterBean.getStatusId() != null){
+		   reportBeanList = IndividualRequirementReportService.individualReqIdDetails(requirementGenerationBean.getReq_id(), individualRequirementReportBean.statusMasterBean.getStatusId());
+	        individualRequirementReportBean.setSelectedRadioButton("detail");
+	      
+	         if(reportBeanList.size()==0){
+		   		 Messagebox.show("No Data Found!!", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+		   	 }
+	   }
+	   //when nothing selected
+		if(requirementGenerationBean.getReq_id() == null && individualRequirementReportBean.statusMasterBean.getStatusId() == null){
+			Messagebox.show("Select Rid", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+			individualRequirementReportBean.setSelectedRadioButton(null);
+		}
+	   
+	   
+   }
+   
    
 public Connection getConnection() {
 	return connection;

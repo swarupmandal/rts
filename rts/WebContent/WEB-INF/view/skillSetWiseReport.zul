@@ -1,9 +1,9 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="SKILL SET WISE REQUIREMENT LIST" border="none" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('org.appsquad.viewmodel.SkillSetWiseReportViewModel')">
+<window title="SORT CRITERIA: DATE/ SKILL SET" border="none" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('org.appsquad.viewmodel.SkillSetWiseReportViewModel')">
  
  			<div>
-    			<hlayout spacing="20px">
+    			<hlayout spacing="12px">
     				
     				<hlayout>
     				<label value="* " style="font-weight:bold; color:red; font-size:large;" />
@@ -17,7 +17,7 @@
     				
     				<hlayout>
     				<label value="* " style="font-weight:bold; color:red; font-size:large;" />
-    				<bandbox autodrop="true" readonly="true" id="skSt" value="@bind(vm.skilWiseReportBean.skillsetMasterbean.skillset)" placeholder="Search by Skill Set">
+    				<bandbox autodrop="true" readonly="true" id="skSt" value="@bind(vm.skilWiseReportBean.skillsetMasterbean.skillset)" placeholder="Search by Skill Set" width="170px">
 						<bandpopup>	
 							<hbox>
 								<textbox value="@bind(vm.skilWiseReportBean.skillSetSearch)" onChange="@command('onChangeSkillName')"></textbox>
@@ -68,7 +68,7 @@
 						</bandpopup>
 					</bandbox>
     			
-    				<button label="Search" onClick="@command('onClickSearch')" style="font-weight:bold; color: black" visible="false"></button>
+    				<button label="Search" onClick="@command('onClickSearch')" style="font-weight:bold; color: black" visible="true"></button>
 		            <button label="Clear" onClick="@command('onClickClear')" style="font-weight:bold; color: black" visible="true" width="80px"></button>
     			
     			</hlayout>

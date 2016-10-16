@@ -1,6 +1,6 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="Sort criteria:RID/Status" border="none" apply="org.zkoss.bind.BindComposer"
+<window title="SORT CRITERIA: RID/ STATUS" border="none" apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('org.appsquad.viewmodel.IndividualRequirementReportViewModel')">
     
     <div>
@@ -46,6 +46,8 @@
 		      <comboitem value="@bind(p.statusId)" label="@bind(p.status)"/>
 		   </template>
 	    </combobox>
+    	<space></space>
+    	<button label="Search" onClick="@command('onClickSearch')" width="80px" style="font-weight:bold; color: black"></button>
     	<space></space>
     	<button label="Clear" onClick="@command('onClickClear')" width="70px" style="font-weight:bold; color: black"></button>
     	
