@@ -21,6 +21,8 @@ public class ClientInformationsql {
 			                                       + "where id = ? ";
 	
 	public static final String deleteClientDetailsSql = "update rts_clients_master set is_delete = 'D' where id = ? ";
+	
+	public static final String countClientPresentWrtRequirementSql = "select count(*) from rts_requirement_master where req_client_id = ? ";
 
 }
  

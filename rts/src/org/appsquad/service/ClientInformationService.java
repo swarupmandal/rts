@@ -7,6 +7,7 @@ import org.zkoss.zul.Messagebox;
 public class ClientInformationService {
 	private static boolean flag = false;
 	private static boolean flagDelete = false;
+	private static int countNumber = 0;
 	private static String EMAIL_REGEX = "^[\\w-_\\.+]*[\\w-_\\.]@([\\w]+\\.)+[\\w]+[\\w]$";
 	
 	public static boolean isValid(ClientInformationBean clientInformationBean){
@@ -135,6 +136,10 @@ public class ClientInformationService {
 		return flagDelete = ClientInformationDao.deleteClientData(clientInformationBean);
 	}
 	
+	public static int countClientPresentWrtRequirementService(ClientInformationBean clientInformationBean){
+		return countNumber = ClientInformationDao.countClientPresentWrtRequirementDao(clientInformationBean);
+	}
+	
 	public static void clearAllField(ClientInformationBean bean){
 		bean.setName(null);
 		bean.setSurName(null);
@@ -166,5 +171,13 @@ public class ClientInformationService {
 	}
 	public static void setEMAIL_REGEX(String eMAIL_REGEX) {
 		EMAIL_REGEX = eMAIL_REGEX;
+	}
+
+	public static int getCountNumber() {
+		return countNumber;
+	}
+
+	public static void setCountNumber(int countNumber) {
+		ClientInformationService.countNumber = countNumber;
 	}
 }
