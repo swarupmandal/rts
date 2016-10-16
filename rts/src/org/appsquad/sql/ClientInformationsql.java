@@ -2,11 +2,11 @@ package org.appsquad.sql;
 
 public class ClientInformationsql {
 	
-	public static final String stateQuery = "select state_id,state_name from rts_state_master where country_id = ? ";
+	public static final String stateQuery = "select state_id,state_name from rts_state_master where country_id = ? order by state_id ";
 	
-	public static final String countryQuery = "select country_id,country_name from rts_country_master ";
+	public static final String countryQuery = "select country_id,country_name from rts_country_master order by country_id ";
 	
-	public static final String skillSetQuery = "select * from rts_skill_master ";
+	public static final String skillSetQuery = "select * from rts_skill_master order by id ";
 	
 	public static final String statusSetQuery = "select * from rts_status_master where is_delete = 'N' order by id ";
 	

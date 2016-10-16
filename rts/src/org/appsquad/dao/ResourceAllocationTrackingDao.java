@@ -33,9 +33,7 @@ public class ResourceAllocationTrackingDao {
 			try {
 				connection = DbConnection.createConnection();
 				preparedStatement = Pstm.createQuery(connection, ResourceAllocationTrackingSql.loadClientList, null);
-				
-				//logger.info(" fetchClientDetails- " + preparedStatement.unwrap(PreparedStatement.class));
-				
+				logger.info(" fetchClientDetails- " + preparedStatement.unwrap(PreparedStatement.class));
 				resultSet = preparedStatement.executeQuery();
 				while (resultSet.next()) {
 					ClientInformationBean bean = new ClientInformationBean();

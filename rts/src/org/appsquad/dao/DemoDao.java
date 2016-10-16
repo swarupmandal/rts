@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Arrays;
-
+import org.apache.log4j.Logger;
 import org.appsquad.bean.DemoBean;
 import org.appsquad.database.DbConnection;
 import org.appsquad.sql.DemoSql;
@@ -13,6 +13,7 @@ import org.appsquad.utility.Dateformatter;
 import org.appsquad.utility.Pstm;
 
 public class DemoDao {
+	final static Logger logger = Logger.getLogger(DemoDao.class);
 	
 	public static ArrayList<DemoBean> getDetailsForSkill(DemoBean demoBean){
 		ArrayList<DemoBean> list = new ArrayList<DemoBean>();
@@ -24,11 +25,11 @@ public class DemoDao {
 					
 					//1t SQL block
 					sql1:{
-					    PreparedStatement preparedStatement = null;
+					    PreparedStatement preparedStatementSkill = null;
 					    try {
-					    	 preparedStatement = Pstm.createQuery(connection, DemoSql.FETCHSQLFORSKILL, Arrays.asList(demoBean.skillsetMasterbean.getSkillset()));
-							   
-							 ResultSet resultSet = preparedStatement.executeQuery();
+					    	 preparedStatementSkill = Pstm.createQuery(connection, DemoSql.FETCHSQLFORSKILL, Arrays.asList(demoBean.skillsetMasterbean.getSkillset()));
+					    	 logger.info("fetchDetailsSkillName - " + preparedStatementSkill.unwrap(PreparedStatement.class));  
+							 ResultSet resultSet = preparedStatementSkill.executeQuery();
 							 while (resultSet.next()) {
 								DemoBean bean = new DemoBean();
 								bean.setId(resultSet.getInt("id"));
@@ -41,8 +42,8 @@ public class DemoDao {
 								list.add(bean);
 							 }  
 						}finally{
-							if(preparedStatement!=null){
-								preparedStatement.close();
+							if(preparedStatementSkill!=null){
+								preparedStatementSkill.close();
 							}
 						}
 				    }
@@ -110,12 +111,13 @@ public class DemoDao {
 					
 					//1t SQL block
 					sql1:{
-					    PreparedStatement preparedStatement = null;
+					    PreparedStatement preparedStatementSkillAndDate = null;
 					    try {
-					    	 preparedStatement = Pstm.createQuery(connection, DemoSql.FETCHSQLFORSKILLANDDATE, Arrays.asList(demoBean.skillsetMasterbean.getSkillset(),
-					    			 Dateformatter.sqlDate(demoBean.getFromDate()), Dateformatter.sqlDate(demoBean.getToDate())));
-							   
-							 ResultSet resultSet = preparedStatement.executeQuery();
+					    	 preparedStatementSkillAndDate = Pstm.createQuery(connection, DemoSql.FETCHSQLFORSKILLANDDATE, Arrays.asList(demoBean.skillsetMasterbean.getSkillset(),
+					    			 								Dateformatter.sqlDate(demoBean.getFromDate()), Dateformatter.sqlDate(demoBean.getToDate())));
+							 
+					    	 logger.info("fetchDetailsSkillNameAndDate - " + preparedStatementSkillAndDate.unwrap(PreparedStatement.class)); 
+							 ResultSet resultSet = preparedStatementSkillAndDate.executeQuery();
 							 while (resultSet.next()) {
 								DemoBean bean = new DemoBean();
 								bean.setId(resultSet.getInt("id"));
@@ -128,8 +130,8 @@ public class DemoDao {
 								listWrtSkillAndDate.add(bean);
 							 }  
 						}finally{
-							if(preparedStatement!=null){
-								preparedStatement.close();
+							if(preparedStatementSkillAndDate!=null){
+								preparedStatementSkillAndDate.close();
 							}
 						}
 				    }
@@ -155,13 +157,13 @@ public class DemoDao {
 					
 					//1t SQL block
 					sql1:{
-					    PreparedStatement preparedStatement = null;
+					    PreparedStatement preparedStatementSkillAndDateAndClient = null;
 					    try {
-					    	preparedStatement = Pstm.createQuery(connection, DemoSql.FETCHSQLFORSKILLANDDATEANDCLIENT, Arrays.asList(demoBean.skillsetMasterbean.getSkillset(),
+					    	 preparedStatementSkillAndDateAndClient = Pstm.createQuery(connection, DemoSql.FETCHSQLFORSKILLANDDATEANDCLIENT, Arrays.asList(demoBean.skillsetMasterbean.getSkillset(),
 					    			 								demoBean.clientInformationBean.getFullName()));
 							   
-					    	
-							 ResultSet resultSet = preparedStatement.executeQuery();
+					    	 logger.info("fetchDetailsSkillNameDateClient - " + preparedStatementSkillAndDateAndClient.unwrap(PreparedStatement.class)); 
+							 ResultSet resultSet = preparedStatementSkillAndDateAndClient.executeQuery();
 							 while (resultSet.next()) {
 								DemoBean bean = new DemoBean();
 								bean.setId(resultSet.getInt("id"));
@@ -174,8 +176,8 @@ public class DemoDao {
 								listWrtSkillAndDateAndClient.add(bean);
 							 }  
 						}finally{
-							if(preparedStatement!=null){
-								preparedStatement.close();
+							if(preparedStatementSkillAndDateAndClient!=null){
+								preparedStatementSkillAndDateAndClient.close();
 							}
 						}
 				    }

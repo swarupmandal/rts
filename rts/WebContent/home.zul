@@ -136,6 +136,21 @@
          </treeitem>
          </treechildren>
          </treeitem>
+        
+         <treeitem open="false">
+         <treerow>
+         	<treecell label="Sign-out" onClick="@command('onClickSignOut')">
+         	</treecell>
+         </treerow>
+         </treeitem>
+         
+         <treeitem open="false">
+         <treerow>
+         	<treecell label="Change Password" onClick="@command('onClickChangePassword')">
+         	</treecell>
+         </treerow>
+         </treeitem>
+         
       </treechildren>
      </tree>
   </div>
