@@ -70,7 +70,7 @@
 	<space></space>
 	
 	<div>
-		<grid mold="paging" pageSize="10"  model="@bind(vm.trackingBeanList)">
+		<grid mold="paging" pageSize="10"  model="@bind(vm.trackingBeanList)" height="450px">
 			<auxhead>
 				<auxheader colspan="2">
 					<textbox placeholder="Search By Reasouce" onChange="@command('onChangeSearch')" value="@bind(vm.trackingBean.resNameSeach)"></textbox>
@@ -78,17 +78,17 @@
 			</auxhead>
 			<columns sizable="true">
 				<column width="50px" style="font-weight:bold; color: black;" align="center" visible="false">Check</column>
-				<column width="220px" style="font-weight:bold; color: black;" align="center">Resource</column>
-				<column width="180px" style="font-weight:bold; color: black;" align="center">Status</column>
-				<column width="100px" style="font-weight:bold; color: black;" align="center">Year of Exp</column>
-				<column width="120px" style="font-weight:bold; color: black;" align="center">Resource Type</column>
-				<column width="140px" style="font-weight:bold; color: black;" align="center">Ph number</column>
-				<column width="200px" style="font-weight:bold; color: black;" align="center">E-mail</column>
-				<column width="200px" style="font-weight:bold; color: black;" align="center">Addreass</column>
-				<column width="130px" style="font-weight:bold; color: black;" align="center">Iternal Interview Date</column>
-				<column width="130px" style="font-weight:bold; color: black;" align="center">Client Interview Date</column>
-				<column width="130px" style="font-weight:bold; color: black;" align="center">On-board Date</column>
-				<column width="130px" style="font-weight:bold; color: black;" align="center">Update</column>
+				<column width="220px" style="font-weight:bold; color: black;" align="center" label="Resource"></column>
+				<column width="180px" style="font-weight:bold; color: black;" align="center" label="Status"></column>
+				<column width="100px" style="font-weight:bold; color: black;" align="center" label="Year of Exp"></column>
+				<column width="120px" style="font-weight:bold; color: black;" align="center" label="Resource Type"></column>
+				<column width="140px" style="font-weight:bold; color: black;" align="center" label="Ph number"></column>
+				<column width="200px" style="font-weight:bold; color: black;" align="center" label="E-mail"></column>
+				<column width="200px" style="font-weight:bold; color: black;" align="center" label="Addreass"></column>
+				<column width="130px" style="font-weight:bold; color: black;" align="center" label="Iternal Interview Date"></column>
+				<column width="130px" style="font-weight:bold; color: black;" align="center" label="Client Interview Date"></column>
+				<column width="130px" style="font-weight:bold; color: black;" align="center" label="On-board Date"></column>
+				<column width="130px" style="font-weight:bold; color: black;" align="center" label="Update"></column>
 			</columns>
 	
 			<rows>
