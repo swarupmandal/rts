@@ -12,8 +12,8 @@
     </div>
 
 <div style="width:20%; margin-top:1%; height:1%; float: right; padding-right: 2vw; border: 1px">
-	<a onClick="@command('onClickChangePassword')" style="float:right; padding-right: 0%;">Change Password</a>
-	<a onClick="@command('onClickSignOut')" style="float:right; padding-right: 5%;">Sign-out</a> 
+	<!-- <a onClick="@command('onClickChangePassword')" style="float:right; padding-right: 0%;">Change Password</a>
+	<a onClick="@command('onClickSignOut')" style="float:right; padding-right: 5%;">Sign-out</a>  -->
 </div>
 </window>
 </zk>

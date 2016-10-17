@@ -16,7 +16,6 @@ import org.appsquad.sql.SortCriteriaSql;
 import org.appsquad.utility.Pstm;
 
 public class SortCriteriaDao {
-	
 	final static Logger logger = Logger.getLogger(SortCriteriaDao.class);
     
 	public static ArrayList<SkillsetMasterbean> onLoadSetDeatils(){
@@ -31,11 +30,8 @@ public class SortCriteriaDao {
 					sql_fetch:{
 					   PreparedStatement preparedStatement = null;
 					   try {
-						   preparedStatement = Pstm.createQuery(connection, SkillSetMasterSql.fetchSkillSetDetails, null);
-							
-						   
-						   logger.info(" onLoadSetDeatils- " + preparedStatement.unwrap(PreparedStatement.class));
-						   
+						    preparedStatement = Pstm.createQuery(connection, SkillSetMasterSql.fetchSkillSetDetails, null);
+						    logger.info(" onLoadSetDeatils- " + preparedStatement.unwrap(PreparedStatement.class));
 							ResultSet resultSet = preparedStatement.executeQuery();
 							while (resultSet.next()) {
 								SkillsetMasterbean masterbean = new SkillsetMasterbean();
@@ -79,7 +75,6 @@ public class SortCriteriaDao {
 					   PreparedStatement preparedStatement = null;
 					   try {
 						    preparedStatement = Pstm.createQuery(connection, SortCriteriaSql.detailsSqlQuery, null);
-						    logger.info(" onLoadSDeatlsReport- " + preparedStatement.unwrap(PreparedStatement.class));
 						    if(statusName!=null && statusName.trim().length()>0){
 						    	preparedStatement.setString(1, ("%"+statusName+"%").trim().toUpperCase());
 						    }else{
@@ -150,7 +145,6 @@ public class SortCriteriaDao {
 		if(statusList.size()>0){
 			statusList.clear();
 		}
-		
 		Connection connection = null;
 		try {
 			connection = DbConnection.createConnection();
@@ -162,7 +156,6 @@ public class SortCriteriaDao {
 					   PreparedStatement preparedStatement = null;
 					   try {
 						    preparedStatement = Pstm.createQuery(connection, SortCriteriaSql.statusQuery, null);
-							
 						    logger.info(" onLoadStatus- " + preparedStatement.unwrap(PreparedStatement.class));
 							ResultSet resultSet = preparedStatement.executeQuery();
 							while (resultSet.next()) {
@@ -187,10 +180,8 @@ public class SortCriteriaDao {
 				}
 			}
 		} catch (Exception e) {
-			
-			logger.fatal(e);
-			
 			e.printStackTrace();
+			logger.fatal(e);
 		}
 		return statusList;	
 	}
@@ -207,11 +198,8 @@ public class SortCriteriaDao {
 					sql_fetch:{
 					   PreparedStatement preparedStatement = null;
 					   try {
-						   preparedStatement = Pstm.createQuery(connection, ClientInformationsql.fetchClientDeatils, null);
-							
-						   logger.info(" onLoadClientDeatils- " + preparedStatement.unwrap(PreparedStatement.class));
-						   
-						   
+						    preparedStatement = Pstm.createQuery(connection, ClientInformationsql.fetchClientDeatils, null);
+						    logger.info(" onLoadClientDeatils- " + preparedStatement.unwrap(PreparedStatement.class));
 							ResultSet resultSet = preparedStatement.executeQuery();
 							while (resultSet.next()) {
 								ClientInformationBean bean = new ClientInformationBean();
@@ -245,11 +233,8 @@ public class SortCriteriaDao {
 				}
 			}
 		} catch (Exception e) {
-			
-			
-			logger.fatal(e);
-			
 			e.printStackTrace();
+			logger.fatal(e);
 		}
 		return clientList;
 	}

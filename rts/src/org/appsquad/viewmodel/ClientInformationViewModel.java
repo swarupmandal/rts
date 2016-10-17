@@ -24,6 +24,7 @@ import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Bandbox;
+import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
 public class ClientInformationViewModel {
@@ -103,9 +104,15 @@ public class ClientInformationViewModel {
 	@Command
 	@NotifyChange("*")
 	public void onClickDelete(@BindingParam("bean") ClientInformationBean clientInformationBean){
-		flagDelete = ClientInformationService.deleteClientMasterData(clientInformationBean);
-		if(flagDelete){
-			BindUtils.postGlobalCommand(null, null, "globalClientDetailsUpdate", null);
+		int count = 0;
+		count = ClientInformationService.countClientPresentWrtRequirementService(clientInformationBean);
+		if(count>0){
+			Messagebox.show("Requirement Is Generated With This Client,Can't Delete!", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
+		}else{
+			flagDelete = ClientInformationService.deleteClientMasterData(clientInformationBean);
+			if(flagDelete){
+				BindUtils.postGlobalCommand(null, null, "globalClientDetailsUpdate", null);
+			}	
 		}
 	}
 	

@@ -170,19 +170,22 @@ public class demoViewModel {
 	   @Command
 	   @NotifyChange("*")
 	   public void onClickSearch(){
-		   if(bean.skillsetMasterbean.getSkillset()!=null && bean.skillsetMasterbean.getSkillset().trim().length()>0){
-			   list = DemoService.getDetailsForSkillService(bean);
-		    	System.out.println("SKILL NAME CORRESPONDING LIST SIZE IS :"+list.size());
-		    	if(list.size()>0){
-		    		resourceDivVisibility = true;
-		    		saveButtonVisibility = true;
-		    	}else{
-		    		resourceDivVisibility = false;
-		    		saveButtonVisibility = false;
-		    		Messagebox.show("No Data Found Wrt This Skill Name!","Excalamation",Messagebox.OK,Messagebox.EXCLAMATION);
-		    	}
-		   }else if(bean.getFromDate()!=null && bean.getToDate()!=null){
-			   list = DemoService.getDetailsForSkillAndDateService(bean);
+		   if(bean.skillsetMasterbean.getSkillset()!=null && bean.skillsetMasterbean.getSkillset().trim().length()>0 && 
+				         bean.getFromDate()==null && bean.getToDate()==null &&
+				            bean.clientInformationBean.getFullName()==null){
+				   list = DemoService.getDetailsForSkillService(bean);
+			    	System.out.println("SKILL NAME CORRESPONDING LIST SIZE IS :"+list.size());
+			    	if(list.size()>0){
+			    		resourceDivVisibility = true;
+			    		saveButtonVisibility = true;
+			    	}else{
+			    		resourceDivVisibility = false;
+			    		saveButtonVisibility = false;
+			    		Messagebox.show("No Data Found Wrt This Skill Name!","Excalamation",Messagebox.OK,Messagebox.EXCLAMATION);
+			    	}
+		   }else if(bean.skillsetMasterbean.getSkillset()!=null && bean.skillsetMasterbean.getSkillset().trim().length()>0 && 
+				              bean.getFromDate()!=null && bean.getToDate()!=null){
+			    list = DemoService.getDetailsForSkillAndDateService(bean);
 	    		System.out.println("SKILL NAME and DATE CORRESPONDING LIST SIZE IS :"+list.size());
 				if(list.size()>0){
 		    		resourceDivVisibility = true;
@@ -192,8 +195,9 @@ public class demoViewModel {
 		    		saveButtonVisibility = false;
 		    		Messagebox.show("No Data Found Wrt This Combination!","Excalamation",Messagebox.OK,Messagebox.EXCLAMATION);
 		    	}
-		   }else if(bean.clientInformationBean.getFullName()!=null && bean.clientInformationBean.getFullName().trim().length()>0){
-			   list = DemoService.getDetailsForSkillAndDateAndClientService(bean);
+		   }else if(bean.skillsetMasterbean.getSkillset()!=null && bean.skillsetMasterbean.getSkillset().trim().length()>0 && 
+				           bean.clientInformationBean.getFullName()!=null && bean.clientInformationBean.getFullName().trim().length()>0){
+			    list = DemoService.getDetailsForSkillAndDateAndClientService(bean);
 				System.out.println("SKILL NAME and CLIENT NAME CORRESPONDING LIST SIZE IS :"+list.size());
 				if(list.size()>0){
 		    		resourceDivVisibility = true;

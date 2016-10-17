@@ -3,10 +3,8 @@ package org.appsquad.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Wrapper;
 import java.util.ArrayList;
 import java.util.Arrays;
-
 import org.apache.log4j.Logger;
 import org.appsquad.bean.RequirementGenerationBean;
 import org.appsquad.bean.ResourceAllocationBean;

@@ -8,9 +8,9 @@ public class ResourceMasterSql {
 			                                       + "rts_state_name,profit,res_upcv,other_info)"
 												   + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
 
-    public static final String fetchResourceQyery = "select * from rts_resource_master ";
+    public static final String fetchResourceQyery = "select * from rts_resource_master order by id ";
     
-    public static final String fetchResourceView = "select * from rts_resource_master ";
+    public static final String fetchResourceView = "select * from rts_resource_master order by id ";
     
     public static final String updateResourceQuery = "update rts_resource_master set res_name = ?,res_surname = ?, res_experience =? ,res_address = ?, "
     		                                        +"res_emailid = ?,rts_skill_id = ?,rts_country_id = ?,rts_pincode = ?,rts_contact_no = ?, "
