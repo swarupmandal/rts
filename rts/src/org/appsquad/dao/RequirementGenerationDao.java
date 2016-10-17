@@ -13,12 +13,9 @@ import org.appsquad.bean.ClientInformationBean;
 import org.appsquad.bean.RequirementGenerationBean;
 import org.appsquad.bean.ResourceTypeBean;
 import org.appsquad.bean.SkillsetMasterbean;
-import org.appsquad.bean.StateBean;
 import org.appsquad.bean.StatusMasterBean;
 import org.appsquad.database.DbConnection;
-import org.appsquad.sql.ClientInformationsql;
 import org.appsquad.sql.RequirementGenerationSql;
-import org.appsquad.sql.ResourceAllocationTrackingSql;
 import org.appsquad.utility.Dateformatter;
 import org.appsquad.utility.Pstm;
 
@@ -188,15 +185,13 @@ public class RequirementGenerationDao {
 		try {
 			connection = DbConnection.createConnection();
 			preparedStatement = Pstm.createQuery(connection, RequirementGenerationSql.fetchStatusId, null);
-			
-			//logger.info("fetchOverallStatusId - " + preparedStatement.unwrap(PreparedStatement.class));
-			
+			logger.info("fetchOverallStatusId - " + preparedStatement.unwrap(PreparedStatement.class));
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				statusId = resultSet.getInt("id");
 			}
 		} catch (Exception e) {
-			//logger.fatal("--------------------->>>>>>>>>"+e);
+			logger.fatal("--------------------->>>>>>>>>"+e);
 			e.printStackTrace();
 		} finally{
 			if(preparedStatement != null){
@@ -227,9 +222,7 @@ public class RequirementGenerationDao {
 		try {
 			connection = DbConnection.createConnection();
 			preparedStatement = Pstm.createQuery(connection, RequirementGenerationSql.loadSkillSetName, null);
-			
-			//logger.info("fetchSkillSetList- " + preparedStatement.unwrap(PreparedStatement.class));
-			
+			logger.info("fetchSkillSetList- " + preparedStatement.unwrap(PreparedStatement.class));
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				SkillsetMasterbean bean = new SkillsetMasterbean();
@@ -240,7 +233,7 @@ public class RequirementGenerationDao {
 				list.add(bean);	
 			}
 		} catch (Exception e) {
-			//logger.fatal("------------------>>>>"+e);
+			logger.fatal("------------------>>>>"+e);
 			e.printStackTrace();
 		} finally{
 			if(preparedStatement != null){
@@ -273,9 +266,7 @@ public class RequirementGenerationDao {
 			try {
 				connection = DbConnection.createConnection();
 				preparedStatement = Pstm.createQuery(connection, RequirementGenerationSql.loadSkillSetNameSearch, Arrays.asList("%"+name.trim().toUpperCase()+"%"));
-				
 				logger.info("skill set Search - " + preparedStatement.unwrap(PreparedStatement.class));
-				
 				resultSet = preparedStatement.executeQuery();
 				while (resultSet.next()) {
 					SkillsetMasterbean bean = new SkillsetMasterbean();
@@ -295,16 +286,11 @@ public class RequirementGenerationDao {
 				}
 			}
 		} catch (Exception e) {
-			//logger.fatal(e);
+			logger.fatal(e);
 			e.printStackTrace();
 		}
 		return list;
 	}
-	
-	
-	
-	
-	
 	
 	public static ArrayList<StatusMasterBean> fetchStatusList(){	
 		ArrayList<StatusMasterBean> list = new ArrayList<StatusMasterBean>();
@@ -316,9 +302,7 @@ public class RequirementGenerationDao {
 		try {
 			connection = DbConnection.createConnection();
 			preparedStatement = Pstm.createQuery(connection, RequirementGenerationSql.loadocStatus, null);
-			
-			//logger.info("fetchStatusList- " + preparedStatement.unwrap(PreparedStatement.class));
-			
+			logger.info("fetchStatusList- " + preparedStatement.unwrap(PreparedStatement.class));
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				StatusMasterBean bean = new StatusMasterBean();
@@ -360,10 +344,9 @@ public class RequirementGenerationDao {
 																										bean.getNofPerResource(), bean.getNofConResource(), bean.getRaiseDatesql(), bean.getCloseDatesql(),
 																										bean.getContactNo(), bean.getEmail(),1,bean.getClosureReason(), bean.getUserName(), bean.getUserName(),
 																										bean.getReqStatusId(),bean.getResourceTypeBean().getResourceTypeId()));
-			
 			i = preparedStatement.executeUpdate();
 		} catch (Exception e) {
-			//logger.fatal("------------>>>>>>>>>>>>"+e);
+			logger.fatal("------------>>>>>>>>>>>>"+e);
 			e.printStackTrace();
 		}finally{
 			if(preparedStatement != null){
@@ -393,7 +376,7 @@ public class RequirementGenerationDao {
 		try {
 			connection = DbConnection.createConnection();
 			preparedStatement = Pstm.createQuery(connection, RequirementGenerationSql.loadReqGenMasterData, null);
-			//logger.info("fetchReqGenMasterData - " + preparedStatement.unwrap(PreparedStatement.class));
+			logger.info("fetchReqGenMasterData - " + preparedStatement.unwrap(PreparedStatement.class));
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				RequirementGenerationBean bean = new RequirementGenerationBean();
@@ -432,14 +415,13 @@ public class RequirementGenerationDao {
 				list.add(bean);	
 			}
 		} catch (Exception e) {
-			//logger.fatal("----------------->>>>>"+e);
+			logger.fatal("----------------->>>>>"+e);
 			e.printStackTrace();
 		} finally{
 			if(preparedStatement != null){
 				try {
 					preparedStatement.close();
 				} catch (SQLException e) {
-					
 					e.printStackTrace();
 				}
 			}
@@ -447,7 +429,6 @@ public class RequirementGenerationDao {
 				try {
 					connection.close();
 				} catch (SQLException e) {
-				
 					e.printStackTrace();
 				}
 			}
@@ -483,10 +464,10 @@ public class RequirementGenerationDao {
 				  preparedStatement.setString(8, bean.getClosureReason());
 				  preparedStatement.setString(9, bean.getUserName());
 				  preparedStatement.setInt(10, bean.getReq_id());
-				  //logger.info("onClikUpdate - " + preparedStatement.unwrap(PreparedStatement.class));
+				  logger.info("onClikUpdate - " + preparedStatement.unwrap(PreparedStatement.class));
 				  i = preparedStatement.executeUpdate();
 			} catch (Exception e) {
-				//logger.fatal("------------>>>>>>"+e);
+				logger.fatal("------------>>>>>>"+e);
 				e.printStackTrace();
 			}finally{
 				if(preparedStatement != null){
@@ -509,35 +490,37 @@ public class RequirementGenerationDao {
 	public static boolean isequalResource(int rId){
 		int allocatedCount = 0;
 		int totalReqCount = 0;
+		int onboardCount = 0;
 		boolean flag = false;
 		Connection connection=null;
 		PreparedStatement preparedStatement=null;
 		ResultSet resultSet=null;
-		
 		connection=DbConnection.createConnection();
-		
 		try {
 			preparedStatement= Pstm.createQuery(connection, RequirementGenerationSql.selReqAllocationEqual, Arrays.asList(rId));
+			System.out.println("ON SELECT STATUS QUERY :"+preparedStatement);
 			resultSet = preparedStatement.executeQuery();
-			
 			while (resultSet.next()) {
 				totalReqCount = resultSet.getInt("reqiured_res");
 				allocatedCount = resultSet.getInt("allocated_res");
 			}
+			System.out.println("TotalReqCount IS :"+totalReqCount);
+			System.out.println("AllocatedCount Is :"+allocatedCount);
 			if(totalReqCount >0 && allocatedCount>0){
 				if(totalReqCount == allocatedCount){
-					flag = true;
+					onboardCount = countOnboardNumber(rId);
+					System.out.println("OnboardCount Is:"+onboardCount);
+					if(allocatedCount==onboardCount){
+						flag = true;
+					}else{
+						flag = false;
+					}
 				}else {
-					flag = false;
-					
-				}
-				
+					flag = false;	
+				}	
 			}else {
 				flag= false;
 			}
-			
-			
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally{
@@ -545,22 +528,51 @@ public class RequirementGenerationDao {
 				try {
 					preparedStatement.close();
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}if(connection != null){
 				try {
 					connection.close();
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
-		}
-		
+		}	
 		return flag;
 	}
 	
+	public static int countOnboardNumber(int rId){
+		int count = 0;
+		Connection connection=null;
+		PreparedStatement preparedStatement=null;
+		ResultSet resultSet=null;
+		connection=DbConnection.createConnection();
+		try {
+			preparedStatement= Pstm.createQuery(connection, RequirementGenerationSql.countReqIdInOnboardTable, Arrays.asList(rId));
+			System.out.println("REQ ID PRESENT IN ONBOARD TABLE :"+preparedStatement);
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				count = resultSet.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(preparedStatement != null){
+				try {
+					preparedStatement.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}if(connection != null){
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}	
+		return count;
+	}
 	
 }
 

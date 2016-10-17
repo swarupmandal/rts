@@ -1,6 +1,6 @@
 <?page title="EDIT" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="REQUIREMENT GENERATION EDIT Screen" border="none" height="450px" width="900px" 
+<window title="REQUIREMENT GENERATION EDIT" border="none" height="550px" width="900px" 
 		        apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('org.appsquad.viewmodel.RequirementGenerationEditViewModel')" 
 		                 closable="true" id="winReqGenEdit" onClose="@command('onCloseOperation')">
 		
@@ -86,13 +86,12 @@
 						<textbox multiline="true" value="@bind(vm.reqEditGenBean.closureReason)"></textbox>
 						</row>
 						
-						<row>
-						<label></label>
-						<button width="80px" height="30px" label="Update" style="font-weight: bold" onClick="@command('onClickUpdate')"></button>
-						</row>
-						
 					</rows>
 				</grid>
+			</div>
+			<space></space>
+			<div align="center">
+				<button width="80px" height="30px" label="Update" style="font-weight: bold" onClick="@command('onClickUpdate')"></button>
 			</div>
 </window>
 </zk>

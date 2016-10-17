@@ -3,7 +3,6 @@ package org.appsquad.bean;
 import java.util.Date;
 
 public class RequirementGenerationBean {
-
   private String clientName;
   private String clientfName;
   private String clientsName;
@@ -38,6 +37,8 @@ public class RequirementGenerationBean {
   private int reqStatusId;
   private String ocStatus;
   private int ocStatusId;
+  private Integer oldOcStatusId;
+  private String oldOcStatus;
   
   private String closureReason;
   private String userName;
@@ -54,9 +55,11 @@ public class RequirementGenerationBean {
   private Integer type_id;
   private String type_name;
   
+  StatusMasterBean statusMasterBean = new StatusMasterBean();
+  
   /*************************************************************************************************************************************************/
   
-  public String getClientName() {
+    public String getClientName() {
 		return clientName;
 	}
 	public void setClientName(String clientName) {
@@ -295,5 +298,23 @@ public class RequirementGenerationBean {
 	}
 	public void setrIdType(String rIdType) {
 		this.rIdType = rIdType;
+	}
+	public Integer getOldOcStatusId() {
+		return oldOcStatusId;
+	}
+	public void setOldOcStatusId(Integer oldOcStatusId) {
+		this.oldOcStatusId = oldOcStatusId;
+	}
+	public StatusMasterBean getStatusMasterBean() {
+		return statusMasterBean;
+	}
+	public void setStatusMasterBean(StatusMasterBean statusMasterBean) {
+		this.statusMasterBean = statusMasterBean;
+	}
+	public String getOldOcStatus() {
+		return oldOcStatus;
+	}
+	public void setOldOcStatus(String oldOcStatus) {
+		this.oldOcStatus = oldOcStatus;
 	}
 }

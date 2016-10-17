@@ -8,9 +8,9 @@ public class StatusMasterBean {
 	private boolean editButtonDisable = false;
 	private boolean saveButtonDisable = true;
 	private boolean statusDisabled = true;
+	private Integer oldOcStatusId;
 	
 	/**************************************************************************************************************************************/
-	
 	
 	public String getStatus() {
 		return status;
@@ -59,5 +59,11 @@ public class StatusMasterBean {
 	}
 	public void setStatusId(Integer statusId) {
 		this.statusId = statusId;
+	}
+	public Integer getOldOcStatusId() {
+		return oldOcStatusId;
+	}
+	public void setOldOcStatusId(Integer oldOcStatusId) {
+		this.oldOcStatusId = oldOcStatusId;
 	}
 }

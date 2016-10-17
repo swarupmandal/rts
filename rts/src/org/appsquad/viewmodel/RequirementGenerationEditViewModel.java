@@ -1,18 +1,11 @@
 package org.appsquad.viewmodel;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import org.appsquad.bean.RequirementGenerationBean;
 import org.appsquad.bean.ResourceTypeBean;
 import org.appsquad.bean.StatusMasterBean;
-import org.appsquad.database.DbConnection;
-import org.appsquad.database.DbConstants;
 import org.appsquad.service.RequirementGenerationService;
-import org.appsquad.sql.RequirementGenerationSql;
-import org.appsquad.utility.Pstm;
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.Command;
@@ -33,12 +26,10 @@ public class RequirementGenerationEditViewModel {
 	ResourceTypeBean resourceTypeBean=new ResourceTypeBean();
 	public int count;
 	private boolean isEqualResource;
-	
-	
-	private ArrayList<StatusMasterBean> statusBeanEditList = new ArrayList<StatusMasterBean>();
-	
 	@Wire("#winReqGenEdit")
 	private Window winReqGenEdit;
+	
+	private ArrayList<StatusMasterBean> statusBeanEditList = new ArrayList<StatusMasterBean>();
 	
 	@AfterCompose
 	public void initSetUp(@ContextParam(ContextType.VIEW) Component view,@ExecutionArgParam("parentBean") RequirementGenerationBean bean) 
@@ -56,32 +47,39 @@ public class RequirementGenerationEditViewModel {
 			 reqEditGenBean.setPerFieldvisibility(true);
 			 reqEditGenBean.setOldValue(reqEditGenBean.getNofPerResource());
 		 }
+		 reqEditGenBean.setOldOcStatusId(reqEditGenBean.getOcStatusId());
+		 reqEditGenBean.setOldOcStatus(reqEditGenBean.getOcStatus());
 		 statusBeanEditList = RequirementGenerationService.fetchStatusList();
 		 isEqualResource = RequirementGenerationService.getReqAllEqual(reqEditGenBean.getReq_id());
-		 
 	}
 
 	@Command
 	@NotifyChange("*")
 	public void onSelectOcStatusEdit(){
-		if(statusBeanEdit.getOcstatusId()>0){
-			reqEditGenBean.setOcStatusId(statusBeanEdit.getOcstatusId());	
+		System.out.println("NEW OC STATUS ID IS :"+statusBeanEdit.getOcstatusId()+"----------"+reqEditGenBean.getOldOcStatusId());
+		System.out.println("IS EQUAL RESOURCE IS :"+isEqualResource);
+		if(statusBeanEdit.getOcstatusId()>1){
+			if(isEqualResource){
+				reqEditGenBean.setOcStatusId(statusBeanEdit.getOcstatusId());	
+			}else{
+				Messagebox.show("This Requirement ID Is In Process,Can't Close!", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
+				reqEditGenBean.setOcStatusId(reqEditGenBean.getOldOcStatusId());
+				reqEditGenBean.setOcStatus(reqEditGenBean.getOldOcStatus());
+				statusBeanEdit.setOcstatus(reqEditGenBean.getOcStatus());
+				statusBeanEditList = RequirementGenerationService.fetchStatusList();
+			}
 		}
 	}
-	
-		
 		
 	@Command
 	@NotifyChange("*")
 	public void onChangePer(){
-		System.out.println("METHOD 1");
 		System.out.println("Req Id :"+reqEditGenBean.getReq_id()+"--Type name -"+reqEditGenBean.getResourceTypeBean().getResourceTypeId());
 	}
 	
 	@Command
 	@NotifyChange("*")
 	public void onChangeCon(){
-		System.out.println("METHOD 2");
 		System.out.println("Req Id :"+reqEditGenBean.getReq_id()+"--Type name -"+reqEditGenBean.getResourceTypeBean().getResourceTypeId());
 	}
 	
@@ -164,5 +162,29 @@ public class RequirementGenerationEditViewModel {
 	}
 	public void setStatusBeanEditList(ArrayList<StatusMasterBean> statusBeanEditList) {
 		this.statusBeanEditList = statusBeanEditList;
+	}
+	public ResourceTypeBean getResourceTypeBean() {
+		return resourceTypeBean;
+	}
+	public void setResourceTypeBean(ResourceTypeBean resourceTypeBean) {
+		this.resourceTypeBean = resourceTypeBean;
+	}
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
+	}
+	public boolean isEqualResource() {
+		return isEqualResource;
+	}
+	public void setEqualResource(boolean isEqualResource) {
+		this.isEqualResource = isEqualResource;
+	}
+	public Window getWinReqGenEdit() {
+		return winReqGenEdit;
+	}
+	public void setWinReqGenEdit(Window winReqGenEdit) {
+		this.winReqGenEdit = winReqGenEdit;
 	}
 }

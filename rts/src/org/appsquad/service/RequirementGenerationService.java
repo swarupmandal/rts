@@ -70,8 +70,6 @@ public class RequirementGenerationService {
 		return flag;
 	}
 	
-	
-	
 	public static boolean isValid(RequirementGenerationBean bean){
 		if(bean.getClientId()>0){
 				if(bean.getReqSkillId()>0){
@@ -171,5 +169,4 @@ public class RequirementGenerationService {
 				return false;
 		}		
 	}
-	
 }
