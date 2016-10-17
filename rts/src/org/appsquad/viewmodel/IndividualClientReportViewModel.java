@@ -319,7 +319,7 @@ public class IndividualClientReportViewModel {
 		if(reportBeanList.size()>0){
 		if(individualClientReportBean.getSelectedRadioButton().equals("detail")){
 		
-			IndividualClientReportExcel.printCSV(reportBeanList);
+			IndividualClientReportExcel.printCSV(reportBeanList,"Individual Client Report");
 		  /*if(reportBeanList.size()>0);	
 		  ArrayList<IndividualClientReportBean> detailList = new ArrayList<IndividualClientReportBean>();
 			for(IndividualClientReportBean bean : reportBeanList){
@@ -335,7 +335,7 @@ public class IndividualClientReportViewModel {
 			
 		}else {
 			
-			IndividualClientReportExcel.printSummaryCSV(summaryBeanList);
+			IndividualClientReportExcel.printSummaryCSV(summaryBeanList,"Individual Client Summary");
 			
 			/*if(summaryBeanList.size()>0);
 			ArrayList<IndividualClientReportBean> summList = new ArrayList<IndividualClientReportBean>();
@@ -359,15 +359,15 @@ public class IndividualClientReportViewModel {
 	
 	@Command
 	@NotifyChange("*")
-	public void onClickPdf() throws IOException, DocumentException{
+	public void onClickPdf() throws Exception{
 		String realPath = Executions.getCurrent().getDesktop().getWebApp().getRealPath("/");
 		IndividualClientReportPdf pdf = new IndividualClientReportPdf();
 		try {
 			if(reportBeanList.size()>0){
 			if(individualClientReportBean.getSelectedRadioButton().equals("detail")){
-			   pdf.getDetails(realPath, individualClientReportBean, reportBeanList);
+			   pdf.getDetails(realPath, individualClientReportBean, reportBeanList, "Individual Client Report");
 			}else {
-				pdf.getSummary(realPath, individualClientReportBean, summaryBeanList);
+				pdf.getSummary(realPath, individualClientReportBean, summaryBeanList, "Individual Client Summary");
 			}
 			}else {
 				Messagebox.show("No Data Found ","Alert",Messagebox.OK,Messagebox.EXCLAMATION);

@@ -8,7 +8,9 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.apache.commons.io.FileUtils;
 import org.appsquad.bean.IndividualClientReportBean;
@@ -16,15 +18,20 @@ import org.zkoss.util.media.AMedia;
 import org.zkoss.zhtml.Filedownload;
 import org.zkoss.zk.ui.Executions;
 
+import sun.security.mscapi.PRNG;
+
 public class IndividualClientReportExcel {
 
-	public static void printCSV(ArrayList<IndividualClientReportBean> reportBeanList){
+	
+	public static void printCSV(ArrayList<IndividualClientReportBean> reportBeanList, String rn){
 		File f = null;  boolean bool = false,delBool = false;
+		String printDate = new SimpleDateFormat("dd-MMM-yyyy").format(new Date());
+		
 		try{
 	         // create new file
 	    	 String realPath = Executions.getCurrent().getDesktop().getWebApp().getRealPath("/");
-	  		
-	  		String reportNamewithPath = realPath + "report.csv";
+	  		rn = rn+"--"+printDate;
+	  		String reportNamewithPath = realPath + rn;
 	  		System.out.println(reportNamewithPath);
 	        f = new File(reportNamewithPath);
 	         // tries to create new file in the system
@@ -71,7 +78,7 @@ public class IndividualClientReportExcel {
 	    			} finally {
 	    				fis.close();
 	    			}
-	    			final AMedia amedia = new AMedia("report", "csv", "application/csv", bios.toByteArray());
+	    			final AMedia amedia = new AMedia(rn, "csv", "application/csv", bios.toByteArray());
 	    			Filedownload.save(amedia);
 	    		}catch(Exception exception){		
 	    		}
@@ -80,13 +87,14 @@ public class IndividualClientReportExcel {
 	      }
 	}
 	
-	public static void printSummaryCSV(ArrayList<IndividualClientReportBean> reportBeanList){
+	public static void printSummaryCSV(ArrayList<IndividualClientReportBean> reportBeanList, String rn){
 		File f = null;  boolean bool = false;
+		String printDate = new SimpleDateFormat("dd-MMM-yyyy").format(new Date());
 		try{
 	         // create new file
 	    	 String realPath = Executions.getCurrent().getDesktop().getWebApp().getRealPath("/");
-	  		
-	  		String reportNamewithPath = realPath + "report.csv";
+	  		rn = rn +"--"+printDate;
+	  		String reportNamewithPath = realPath + rn;
 	  		System.out.println(reportNamewithPath);
 	        f = new File(reportNamewithPath);
 	         // tries to create new file in the system
@@ -129,7 +137,7 @@ public class IndividualClientReportExcel {
 	    			} finally {
 	    				fis.close();
 	    			}
-	    			final AMedia amedia = new AMedia("report", "csv", "application/csv", bios.toByteArray());
+	    			final AMedia amedia = new AMedia(rn, "csv", "application/csv", bios.toByteArray());
 	    			Filedownload.save(amedia);
 	    		}catch(Exception exception){		
 	    		}

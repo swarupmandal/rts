@@ -307,7 +307,7 @@ public class SortcriteriaRidorStatusviewModel {
 	
 	@Command
 	@NotifyChange("*")
-	public void onClickPdf() throws IOException{
+	public void onClickPdf() throws Exception{
 		String pdfPath = Executions.getCurrent().getDesktop().getWebApp().getRealPath("/");
 		
 		IndividualClientReportPdf pdf = new IndividualClientReportPdf();
@@ -355,10 +355,10 @@ public class SortcriteriaRidorStatusviewModel {
 			if(reportBeanList.size()>0){
 			
 			if(rIdWiseReportBean.getSelectedRadioButton().equals("detail")){
-			   pdf.getDetails(pdfPath, rIdWiseReportBean, reportBeanList);
+			   pdf.getDetails(pdfPath, rIdWiseReportBean, reportBeanList, "Requirement Wise Status Report");
 			   
 			}else {
-				pdf.getSummary(pdfPath, rIdWiseReportBean, summaryBeanList);
+				pdf.getSummary(pdfPath, rIdWiseReportBean, summaryBeanList, "Requirement Wise Status Summary");
 			}
 			}else {
 				Messagebox.show("No Data Found ","Alert",Messagebox.OK,Messagebox.EXCLAMATION);
@@ -377,7 +377,7 @@ public class SortcriteriaRidorStatusviewModel {
 		if(reportBeanList.size()>0){
 		if(rIdWiseReportBean.getSelectedRadioButton().equals("detail")){
 		
-			IndividualClientReportExcel.printCSV(reportBeanList);
+			IndividualClientReportExcel.printCSV(reportBeanList, "Requirement Wise Status Report" );
 		  /*if(reportBeanList.size()>0);	
 		  ArrayList<IndividualClientReportBean> detailList = new ArrayList<IndividualClientReportBean>();
 			for(IndividualClientReportBean bean : reportBeanList){
@@ -392,7 +392,7 @@ public class SortcriteriaRidorStatusviewModel {
 			}*/
 			
 		}else {
-			IndividualClientReportExcel.printSummaryCSV(summaryBeanList);
+			IndividualClientReportExcel.printSummaryCSV(summaryBeanList, "Requirement Wise Status Summary");
 			
 			/*if(summaryBeanList.size()>0);
 			ArrayList<IndividualClientReportBean> summList = new ArrayList<IndividualClientReportBean>();

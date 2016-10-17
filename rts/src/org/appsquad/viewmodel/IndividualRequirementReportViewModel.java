@@ -161,7 +161,7 @@ public class IndividualRequirementReportViewModel {
 	   if(reportBeanList.size()>0){
 		if(individualRequirementReportBean.getSelectedRadioButton().equals("detail")){
 		
-			IndividualClientReportExcel.printCSV(reportBeanList);
+			IndividualClientReportExcel.printCSV(reportBeanList, "Individual Requirement Report");
 		  /*if(reportBeanList.size()>0);	
 		  ArrayList<IndividualClientReportBean> detailList = new ArrayList<IndividualClientReportBean>();
 			for(IndividualClientReportBean bean : reportBeanList){
@@ -176,7 +176,7 @@ public class IndividualRequirementReportViewModel {
 			}*/
 			
 		}else {
-			IndividualClientReportExcel.printSummaryCSV(summaryBeanList);
+			IndividualClientReportExcel.printSummaryCSV(summaryBeanList, "Individual Requirement Summary");
 			/*if(summaryBeanList.size()>0);
 			ArrayList<IndividualClientReportBean> summList = new ArrayList<IndividualClientReportBean>();
 			for(IndividualClientReportBean bean : summaryBeanList){
@@ -210,7 +210,7 @@ public class IndividualRequirementReportViewModel {
 		if(reportBeanList.size()>0){	
 		if(individualRequirementReportBean.getSelectedRadioButton().equals("detail")){
 		
-			pdf.getDetails(pdfPath, individualRequirementReportBean, reportBeanList);
+			pdf.getDetails(pdfPath, individualRequirementReportBean, reportBeanList, "Individual Requirement Report");
 		  /*if(reportBeanList.size()>0);	
 		  ArrayList<IndividualClientReportBean> detailList = new ArrayList<IndividualClientReportBean>();
 			for(IndividualClientReportBean bean : reportBeanList){
@@ -225,7 +225,7 @@ public class IndividualRequirementReportViewModel {
 			}*/
 			
 		}else {
-			pdf.getSummary(pdfPath, individualRequirementReportBean, summaryBeanList);
+			pdf.getSummary(pdfPath, individualRequirementReportBean, summaryBeanList, "Individual Requirement Summary");
 			/*if(summaryBeanList.size()>0);
 			ArrayList<IndividualClientReportBean> summList = new ArrayList<IndividualClientReportBean>();
 			for(IndividualClientReportBean bean : summaryBeanList){
