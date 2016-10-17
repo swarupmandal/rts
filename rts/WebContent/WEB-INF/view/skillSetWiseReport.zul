@@ -69,7 +69,7 @@
 					</bandbox>
     			
     				<button label="Search" onClick="@command('onClickSearch')" style="font-weight:bold; color: black" visible="true"></button>
-		            <button label="Clear" onClick="@command('onClickClear')" style="font-weight:bold; color: black" visible="true" width="80px"></button>
+		            <button label="Clear" onClick="@command('onClickClear')" style="font-weight:bold; color: black" visible="true" width="70px"></button>
     			
     			</hlayout>
     			
