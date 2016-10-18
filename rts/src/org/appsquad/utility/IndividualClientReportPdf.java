@@ -83,9 +83,9 @@ public class IndividualClientReportPdf {
 		PdfPTable table;
 		float tableHeight;
 
-		//Image image = Image.getInstance("http://localhost:8080/pdf_lg.png");
+		Image image = Image.getInstance("http://appsquad.cloudapp.net:8080/pdf_lg.png");
 		
-		Image image = Image.getInstance("C:\\Users\\swarup\\Downloads\\pdf_lg.png");
+		//Image image = Image.getInstance("C:\\Users\\swarup\\Downloads\\pdf_lg.png");
 		
 		float[] colWidths = {8, 16};
 		table = new PdfPTable(colWidths);
@@ -379,7 +379,7 @@ public class IndividualClientReportPdf {
 		String reportName =rn;
 		HeaderTable ht = new HeaderTable("Details");
 		
-		//Image image1 = Image.getInstance("\\WebContent\\images\\reform.jpg");
+		//Image image1 = Image.getInstance("http://appsquad.cloudapp.net:8080/pdf_lg.png");
         //document.add(image1);
         
 		document = new Document(PageSize.A4, 2, 2, 5, 10);
