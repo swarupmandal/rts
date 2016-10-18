@@ -284,7 +284,7 @@ public class SkillSetWiseReportViewModel {
 		if(reportBeanList.size()>0){	
 		if(skilWiseReportBean.getSelectedRadioButton().equals("detail")){
 		
-			pdf.getDetails(pdfPath, skilWiseReportBean, reportBeanList, "Skill Set Wise Report");
+			pdf.getDetails(pdfPath, skilWiseReportBean, reportBeanList, "Skill Set Report");
 			/*if(reportBeanList.size()>0);	
 		  ArrayList<IndividualClientReportBean> detailList = new ArrayList<IndividualClientReportBean>();
 			for(IndividualClientReportBean bean : reportBeanList){
@@ -299,7 +299,7 @@ public class SkillSetWiseReportViewModel {
 			}*/
 			
 		}else {
-			pdf.getSummary(pdfPath, skilWiseReportBean, summaryBeanList, "Skill Set Wise Summary");
+			pdf.getSummary(pdfPath, skilWiseReportBean, summaryBeanList, "Skill Set Summary");
 			/*if(summaryBeanList.size()>0);
 			ArrayList<IndividualClientReportBean> summList = new ArrayList<IndividualClientReportBean>();
 			for(IndividualClientReportBean bean : summaryBeanList){
@@ -346,7 +346,7 @@ public class SkillSetWiseReportViewModel {
 		if(reportBeanList.size()>0){
 		if(skilWiseReportBean.getSelectedRadioButton().equals("detail")){
 		
-			IndividualClientReportExcel.printCSV(reportBeanList, "Skill Set Wise Report");
+			IndividualClientReportExcel.printCSV(reportBeanList, "Skill Set Report");
 		  /*if(reportBeanList.size()>0);	
 		  ArrayList<IndividualClientReportBean> detailList = new ArrayList<IndividualClientReportBean>();
 			for(IndividualClientReportBean bean : reportBeanList){
@@ -361,7 +361,7 @@ public class SkillSetWiseReportViewModel {
 			}*/
 			
 		}else {
-			IndividualClientReportExcel.printSummaryCSV(summaryBeanList,"Skill Set Wise Summary");
+			IndividualClientReportExcel.printSummaryCSV(summaryBeanList,"Skill Set Summary");
 			/*if(summaryBeanList.size()>0);
 			ArrayList<IndividualClientReportBean> summList = new ArrayList<IndividualClientReportBean>();
 			for(IndividualClientReportBean bean : summaryBeanList){
