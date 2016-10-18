@@ -213,8 +213,7 @@ public class ResAllocTrackingUpdateViewModel {
 			if(s>0){
 				a = ResourceAllocationTrackingService.updateResourceTable(trackingUpdateBean.getResourceMasterBean().getResourceId());
 			}
-			System.out.println("S IS :"+s);
-			System.out.println("A IS :"+a);
+			
 		}
 		
 		if(i>0 && a>0){
