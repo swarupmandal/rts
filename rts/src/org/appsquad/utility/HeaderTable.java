@@ -34,6 +34,8 @@ public class HeaderTable extends PdfPageEventHelper {
 		
 		System.out.println(document.top());
 		System.out.println(document.topMargin());
+		System.out.println("Bottom " + document.bottom());
+		
 		PdfContentByte cb = writer.getDirectContent();
 		Font ffont = new Font(Font.FontFamily.HELVETICA,12, Font.NORMAL);
 		Phrase footer = new Phrase("Page no."+c,ffont);
@@ -44,8 +46,8 @@ public class HeaderTable extends PdfPageEventHelper {
 		
 		ColumnText.showTextAligned(cb, Element.ALIGN_LEFT,
                 footer,
-                510,
-                document.bottom()+10 , 0);
+                525,
+                25 , 0);
 		//System.out.println("C ------------ " + c);
 		c++;
 	}

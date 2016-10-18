@@ -48,9 +48,9 @@ public class IndividualClientReportPdf {
 		
 		individualClientReportList = individualClientReportBeanList;
 		
-		document = new Document(PageSize.A4, 2, 2, 5, 10);
+		document = new Document(PageSize.A4, 2, 5, 30, 50);
 		
-		//document.setMargins(1, 1, 2, 2);
+		//document.setMargins(2, 2, 2, 2);
 		writer = PdfWriter.getInstance(document, new FileOutputStream(filePath));
 		writer.setBoxSize("art", new Rectangle(36, 54, 900, 850));
 		
@@ -382,7 +382,7 @@ public class IndividualClientReportPdf {
 		//Image image1 = Image.getInstance("http://appsquad.cloudapp.net:8080/pdf_lg.png");
         //document.add(image1);
         
-		document = new Document(PageSize.A4, 2, 2, 5, 10);
+		document = new Document(PageSize.A4, 2, 5, 30, 50);
 		//document.setMargins(1, 1, 2, 2);
 		writer = PdfWriter.getInstance(document, new FileOutputStream(filePath));
 		writer.setBoxSize("art", new Rectangle(36, 54, 900, 850));
