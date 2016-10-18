@@ -113,8 +113,8 @@ public class ResourceAllocationTrackingService {
 		return s;
 	}
 	
-	public static boolean isValidate(int clid, Integer r_id){
-		if(clid>0){
+	public static boolean isValidate(Integer clid, Integer r_id){
+		if(clid !=null){
 			if(r_id != null){
 				 return true;
 				}else {

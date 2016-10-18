@@ -22,6 +22,7 @@ import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Bandbox;
+import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
 public class ResourceAllocationTrackingViewModel {
@@ -94,9 +95,9 @@ public class ResourceAllocationTrackingViewModel {
 	@Command
 	@NotifyChange("*")
 	public void onClickSearch(){
-		if(ResourceAllocationTrackingService.isValidate(clientInformationBean.getClientId(), requirementGenerationBean.getReq_id())){
-			trackingBeanList = ResourceAllocationTrackingService.loadTrackingBeanList(clientInformationBean.getClientId(), requirementGenerationBean.getReq_id());
-		}
+				if(ResourceAllocationTrackingService.isValidate(clientInformationBean.getClientId(), requirementGenerationBean.getReq_id())){
+					trackingBeanList = ResourceAllocationTrackingService.loadTrackingBeanList(clientInformationBean.getClientId(), requirementGenerationBean.getReq_id());
+				}
 	}
 	
 	@Command
