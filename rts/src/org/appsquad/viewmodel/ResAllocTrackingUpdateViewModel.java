@@ -17,6 +17,7 @@ import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.Sessions;
+import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Messagebox;
@@ -61,19 +62,16 @@ public class ResAllocTrackingUpdateViewModel {
 			trackingUpdateBean.setPreviousInternalInterviewDate(null);
 			trackingUpdateBean.setPreviousStatusId(trackingUpdateBean.getStatusId());
 		}
-		
 		if(trackingUpdateBean.getClientInterviewDate()!=null){
 			trackingUpdateBean.setPreviousClientInterviewDate(trackingUpdateBean.getClientInterviewDate());
 		}else{
 			trackingUpdateBean.setPreviousClientInterviewDate(null);
 		}
-		
 		if(trackingUpdateBean.getOnboardDate()!=null){
 			trackingUpdateBean.setPreviousOnboardDate(trackingUpdateBean.getOnboardDate());
 		}else{
 			trackingUpdateBean.setPreviousOnboardDate(null);
 		}
-		
 		statusBeanList = ResourceMasterDao.onLoadStatusForTrackingUpdateScreen(trackingUpdateBean);
 	}
 	   
@@ -151,69 +149,211 @@ public class ResAllocTrackingUpdateViewModel {
 	public void onClickUpdate(){
 		int i = 0, j= 0, k= 0, l=0, comparison = 0, p = 0,m = 0,n = 0,r = 0,s = 0,a = 0;
 		
-		if(statusBean.getStatusId()>0){
-			if(trackingUpdateBean.getPreviousStatusId()==statusBean.getStatusId()){
+		if(!(trackingUpdateBean.isInternalInterviewDateDisable())&& (trackingUpdateBean.isClientInterviewDateDisable()) && 
+				   (trackingUpdateBean.isOnboardInterviewDateDisable())){
+			if(trackingUpdateBean.getInternalInterviewDate()!=null){
+				if(statusBean.getStatusId()>0){
+					if(trackingUpdateBean.getPreviousStatusId()==statusBean.getStatusId()){
+					}else{
+						System.out.println("inside method.");
+						i = ResourceAllocationTrackingService.insertFinalStatus(req_id, trackingUpdateBean.resourceMasterBean.getResourceId(), trackingUpdateBean.getStatusId(), userId);
+					}	
+				}
+				
+				if(trackingUpdateBean.getPreviousInternalInterviewDate()!=null && trackingUpdateBean.getInternalInterviewDate()!=null){
+					comparison = trackingUpdateBean.getPreviousInternalInterviewDate().compareTo(trackingUpdateBean.getInternalInterviewDate());
+					System.out.println("inter interview date comparision:"+comparison);
+					if(!(comparison==0)){
+						System.out.println("update method ");
+						p = ResourceAllocationTrackingService.updateInternalIntDate(req_id, trackingUpdateBean.resourceMasterBean.getResourceId(), clientId, trackingUpdateBean.getInternalInterviewDate(), userId, trackingUpdateBean.getOtherDetails());
+					}
+				}else if(trackingUpdateBean.getInternalInterviewDate()!=null && trackingUpdateBean.getPreviousInternalInterviewDate()==null){
+					System.out.println("insert method ");
+					j = ResourceAllocationTrackingService.insertInternalIntDate(req_id, trackingUpdateBean.resourceMasterBean.getResourceId(), clientId, trackingUpdateBean.getInternalInterviewDate(), userId, trackingUpdateBean.getOtherDetails());
+				}
+				
+				if(trackingUpdateBean.getPreviousClientInterviewDate()!=null && trackingUpdateBean.getClientInterviewDate()!=null){
+					comparison = trackingUpdateBean.getPreviousClientInterviewDate().compareTo(trackingUpdateBean.getClientInterviewDate());
+					System.out.println("client date comparision:"+comparison);
+					if(!(comparison==0)){
+						System.out.println("update method ");
+						l = ResourceAllocationTrackingService.updateClientIntDate(req_id, trackingUpdateBean.resourceMasterBean.getResourceId(), clientId, trackingUpdateBean.getClientInterviewDate(), userId, trackingUpdateBean.getOtherDetails());
+					}
+				}else if(trackingUpdateBean.getClientInterviewDate()!=null && trackingUpdateBean.getPreviousClientInterviewDate()==null){
+					System.out.println("insert method ");
+					k = ResourceAllocationTrackingService.insertClientIntDate(req_id, trackingUpdateBean.resourceMasterBean.getResourceId(), clientId, trackingUpdateBean.getClientInterviewDate(), userId, trackingUpdateBean.getOtherDetails());
+				}
+				
+				if(trackingUpdateBean.getPreviousOnboardDate()!=null && trackingUpdateBean.getOnboardDate()!=null){
+					comparison = trackingUpdateBean.getPreviousOnboardDate().compareTo(trackingUpdateBean.getOnboardDate());
+					System.out.println("pnboard date comparision:"+comparison);
+					if(!(comparison==0)){
+						System.out.println("update method ");
+						m = ResourceAllocationTrackingService.updateOnboardDate(req_id, trackingUpdateBean.resourceMasterBean.getResourceId(), clientId, trackingUpdateBean.getOnboardDate(), userId, trackingUpdateBean.getOtherDetails());
+					}
+				}else if(trackingUpdateBean.getOnboardDate()!=null && trackingUpdateBean.getPreviousOnboardDate()==null){
+					System.out.println("insert method ");
+					n = ResourceAllocationTrackingService.insertOnboardDate(req_id, trackingUpdateBean.resourceMasterBean.getResourceId(), clientId, trackingUpdateBean.getOnboardDate(), userId, trackingUpdateBean.getOtherDetails());
+				}
+				
+				if(trackingUpdateBean.getStatus().equalsIgnoreCase("DECLINED") || 
+						trackingUpdateBean.getStatus().equalsIgnoreCase("TECHNICALLY REJECTED ") || 
+						   trackingUpdateBean.getStatus().equalsIgnoreCase("REJECTED BY CLIENT ")){
+					
+					System.out.println("RESOURCE ID IS :"+trackingUpdateBean.getResourceMasterBean().getResourceId());
+					System.out.println("REQ ID IS :"+req_id);
+					System.out.println("Client Id is :"+clientId);
+					System.out.println("type name is :"+trackingUpdateBean.getResourceType());
+					typeName = ResourceAllocationTrackingDao.getTypeName(req_id);
+					r = ResourceAllocationTrackingService.updateRejectedStatus(req_id, trackingUpdateBean.getResourceMasterBean().getResourceId(), clientId, typeName);
+					System.out.println("R IS :"+r);
+					if(r>0){
+						s = ResourceAllocationTrackingService.insertRejectStatusIntoMapper(req_id, trackingUpdateBean.getResourceMasterBean().getResourceId(), clientId, userId);
+					}
+					if(s>0){
+						a = ResourceAllocationTrackingService.updateResourceTable(trackingUpdateBean.getResourceMasterBean().getResourceId());
+					}
+					
+				}
 			}else{
-				System.out.println("inside method.");
-				i = ResourceAllocationTrackingService.insertFinalStatus(req_id, trackingUpdateBean.resourceMasterBean.getResourceId(), trackingUpdateBean.getStatusId(), userId);
-			}	
-		}
-		
-		if(trackingUpdateBean.getPreviousInternalInterviewDate()!=null && trackingUpdateBean.getInternalInterviewDate()!=null){
-			comparison = trackingUpdateBean.getPreviousInternalInterviewDate().compareTo(trackingUpdateBean.getInternalInterviewDate());
-			System.out.println("inter interview date comparision:"+comparison);
-			if(!(comparison==0)){
-				System.out.println("update method ");
-				p = ResourceAllocationTrackingService.updateInternalIntDate(req_id, trackingUpdateBean.resourceMasterBean.getResourceId(), clientId, trackingUpdateBean.getInternalInterviewDate(), userId, trackingUpdateBean.getOtherDetails());
+				Messagebox.show("Select Internal Intervie Date!", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
 			}
-		}else if(trackingUpdateBean.getInternalInterviewDate()!=null && trackingUpdateBean.getPreviousInternalInterviewDate()==null){
-			System.out.println("insert method ");
-			j = ResourceAllocationTrackingService.insertInternalIntDate(req_id, trackingUpdateBean.resourceMasterBean.getResourceId(), clientId, trackingUpdateBean.getInternalInterviewDate(), userId, trackingUpdateBean.getOtherDetails());
-		}
-		
-		if(trackingUpdateBean.getPreviousClientInterviewDate()!=null && trackingUpdateBean.getClientInterviewDate()!=null){
-			comparison = trackingUpdateBean.getPreviousClientInterviewDate().compareTo(trackingUpdateBean.getClientInterviewDate());
-			System.out.println("client date comparision:"+comparison);
-			if(!(comparison==0)){
-				System.out.println("update method ");
-				l = ResourceAllocationTrackingService.updateClientIntDate(req_id, trackingUpdateBean.resourceMasterBean.getResourceId(), clientId, trackingUpdateBean.getClientInterviewDate(), userId, trackingUpdateBean.getOtherDetails());
+		}else if(!(trackingUpdateBean.isClientInterviewDateDisable()) && (trackingUpdateBean.isInternalInterviewDateDisable()) && 
+				  (trackingUpdateBean.isOnboardInterviewDateDisable())){
+			if(trackingUpdateBean.getClientInterviewDate()!=null){
+				if(statusBean.getStatusId()>0){
+					if(trackingUpdateBean.getPreviousStatusId()==statusBean.getStatusId()){
+					}else{
+						System.out.println("inside method.");
+						i = ResourceAllocationTrackingService.insertFinalStatus(req_id, trackingUpdateBean.resourceMasterBean.getResourceId(), trackingUpdateBean.getStatusId(), userId);
+					}	
+				}
+				
+				if(trackingUpdateBean.getPreviousInternalInterviewDate()!=null && trackingUpdateBean.getInternalInterviewDate()!=null){
+					comparison = trackingUpdateBean.getPreviousInternalInterviewDate().compareTo(trackingUpdateBean.getInternalInterviewDate());
+					System.out.println("inter interview date comparision:"+comparison);
+					if(!(comparison==0)){
+						System.out.println("update method ");
+						p = ResourceAllocationTrackingService.updateInternalIntDate(req_id, trackingUpdateBean.resourceMasterBean.getResourceId(), clientId, trackingUpdateBean.getInternalInterviewDate(), userId, trackingUpdateBean.getOtherDetails());
+					}
+				}else if(trackingUpdateBean.getInternalInterviewDate()!=null && trackingUpdateBean.getPreviousInternalInterviewDate()==null){
+					System.out.println("insert method ");
+					j = ResourceAllocationTrackingService.insertInternalIntDate(req_id, trackingUpdateBean.resourceMasterBean.getResourceId(), clientId, trackingUpdateBean.getInternalInterviewDate(), userId, trackingUpdateBean.getOtherDetails());
+				}
+				
+				if(trackingUpdateBean.getPreviousClientInterviewDate()!=null && trackingUpdateBean.getClientInterviewDate()!=null){
+					comparison = trackingUpdateBean.getPreviousClientInterviewDate().compareTo(trackingUpdateBean.getClientInterviewDate());
+					System.out.println("client date comparision:"+comparison);
+					if(!(comparison==0)){
+						System.out.println("update method ");
+						l = ResourceAllocationTrackingService.updateClientIntDate(req_id, trackingUpdateBean.resourceMasterBean.getResourceId(), clientId, trackingUpdateBean.getClientInterviewDate(), userId, trackingUpdateBean.getOtherDetails());
+					}
+				}else if(trackingUpdateBean.getClientInterviewDate()!=null && trackingUpdateBean.getPreviousClientInterviewDate()==null){
+					System.out.println("insert method ");
+					k = ResourceAllocationTrackingService.insertClientIntDate(req_id, trackingUpdateBean.resourceMasterBean.getResourceId(), clientId, trackingUpdateBean.getClientInterviewDate(), userId, trackingUpdateBean.getOtherDetails());
+				}
+				
+				if(trackingUpdateBean.getPreviousOnboardDate()!=null && trackingUpdateBean.getOnboardDate()!=null){
+					comparison = trackingUpdateBean.getPreviousOnboardDate().compareTo(trackingUpdateBean.getOnboardDate());
+					System.out.println("pnboard date comparision:"+comparison);
+					if(!(comparison==0)){
+						System.out.println("update method ");
+						m = ResourceAllocationTrackingService.updateOnboardDate(req_id, trackingUpdateBean.resourceMasterBean.getResourceId(), clientId, trackingUpdateBean.getOnboardDate(), userId, trackingUpdateBean.getOtherDetails());
+					}
+				}else if(trackingUpdateBean.getOnboardDate()!=null && trackingUpdateBean.getPreviousOnboardDate()==null){
+					System.out.println("insert method ");
+					n = ResourceAllocationTrackingService.insertOnboardDate(req_id, trackingUpdateBean.resourceMasterBean.getResourceId(), clientId, trackingUpdateBean.getOnboardDate(), userId, trackingUpdateBean.getOtherDetails());
+				}
+				
+				if(trackingUpdateBean.getStatus().equalsIgnoreCase("DECLINED") || 
+						trackingUpdateBean.getStatus().equalsIgnoreCase("TECHNICALLY REJECTED ") || 
+						   trackingUpdateBean.getStatus().equalsIgnoreCase("REJECTED BY CLIENT ")){
+					
+					System.out.println("RESOURCE ID IS :"+trackingUpdateBean.getResourceMasterBean().getResourceId());
+					System.out.println("REQ ID IS :"+req_id);
+					System.out.println("Client Id is :"+clientId);
+					System.out.println("type name is :"+trackingUpdateBean.getResourceType());
+					typeName = ResourceAllocationTrackingDao.getTypeName(req_id);
+					r = ResourceAllocationTrackingService.updateRejectedStatus(req_id, trackingUpdateBean.getResourceMasterBean().getResourceId(), clientId, typeName);
+					System.out.println("R IS :"+r);
+					if(r>0){
+						s = ResourceAllocationTrackingService.insertRejectStatusIntoMapper(req_id, trackingUpdateBean.getResourceMasterBean().getResourceId(), clientId, userId);
+					}
+					if(s>0){
+						a = ResourceAllocationTrackingService.updateResourceTable(trackingUpdateBean.getResourceMasterBean().getResourceId());
+					}
+				}
+			}else{
+				Messagebox.show("Select Client Intervie Date!", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
 			}
-		}else if(trackingUpdateBean.getClientInterviewDate()!=null && trackingUpdateBean.getPreviousClientInterviewDate()==null){
-			System.out.println("insert method ");
-			k = ResourceAllocationTrackingService.insertClientIntDate(req_id, trackingUpdateBean.resourceMasterBean.getResourceId(), clientId, trackingUpdateBean.getClientInterviewDate(), userId, trackingUpdateBean.getOtherDetails());
-		}
-		
-		if(trackingUpdateBean.getPreviousOnboardDate()!=null && trackingUpdateBean.getOnboardDate()!=null){
-			comparison = trackingUpdateBean.getPreviousOnboardDate().compareTo(trackingUpdateBean.getOnboardDate());
-			System.out.println("pnboard date comparision:"+comparison);
-			if(!(comparison==0)){
-				System.out.println("update method ");
-				m = ResourceAllocationTrackingService.updateOnboardDate(req_id, trackingUpdateBean.resourceMasterBean.getResourceId(), clientId, trackingUpdateBean.getOnboardDate(), userId, trackingUpdateBean.getOtherDetails());
+		}else if(!(trackingUpdateBean.isOnboardInterviewDateDisable()) && (trackingUpdateBean.isInternalInterviewDateDisable()) && 
+				 (trackingUpdateBean.isClientInterviewDateDisable())){
+			if(trackingUpdateBean.getOnboardDate()!=null){
+				if(statusBean.getStatusId()>0){
+					if(trackingUpdateBean.getPreviousStatusId()==statusBean.getStatusId()){
+					}else{
+						System.out.println("inside method.");
+						i = ResourceAllocationTrackingService.insertFinalStatus(req_id, trackingUpdateBean.resourceMasterBean.getResourceId(), trackingUpdateBean.getStatusId(), userId);
+					}	
+				}
+				
+				if(trackingUpdateBean.getPreviousInternalInterviewDate()!=null && trackingUpdateBean.getInternalInterviewDate()!=null){
+					comparison = trackingUpdateBean.getPreviousInternalInterviewDate().compareTo(trackingUpdateBean.getInternalInterviewDate());
+					System.out.println("inter interview date comparision:"+comparison);
+					if(!(comparison==0)){
+						System.out.println("update method ");
+						p = ResourceAllocationTrackingService.updateInternalIntDate(req_id, trackingUpdateBean.resourceMasterBean.getResourceId(), clientId, trackingUpdateBean.getInternalInterviewDate(), userId, trackingUpdateBean.getOtherDetails());
+					}
+				}else if(trackingUpdateBean.getInternalInterviewDate()!=null && trackingUpdateBean.getPreviousInternalInterviewDate()==null){
+					System.out.println("insert method ");
+					j = ResourceAllocationTrackingService.insertInternalIntDate(req_id, trackingUpdateBean.resourceMasterBean.getResourceId(), clientId, trackingUpdateBean.getInternalInterviewDate(), userId, trackingUpdateBean.getOtherDetails());
+				}
+				
+				if(trackingUpdateBean.getPreviousClientInterviewDate()!=null && trackingUpdateBean.getClientInterviewDate()!=null){
+					comparison = trackingUpdateBean.getPreviousClientInterviewDate().compareTo(trackingUpdateBean.getClientInterviewDate());
+					System.out.println("client date comparision:"+comparison);
+					if(!(comparison==0)){
+						System.out.println("update method ");
+						l = ResourceAllocationTrackingService.updateClientIntDate(req_id, trackingUpdateBean.resourceMasterBean.getResourceId(), clientId, trackingUpdateBean.getClientInterviewDate(), userId, trackingUpdateBean.getOtherDetails());
+					}
+				}else if(trackingUpdateBean.getClientInterviewDate()!=null && trackingUpdateBean.getPreviousClientInterviewDate()==null){
+					System.out.println("insert method ");
+					k = ResourceAllocationTrackingService.insertClientIntDate(req_id, trackingUpdateBean.resourceMasterBean.getResourceId(), clientId, trackingUpdateBean.getClientInterviewDate(), userId, trackingUpdateBean.getOtherDetails());
+				}
+				
+				if(trackingUpdateBean.getPreviousOnboardDate()!=null && trackingUpdateBean.getOnboardDate()!=null){
+					comparison = trackingUpdateBean.getPreviousOnboardDate().compareTo(trackingUpdateBean.getOnboardDate());
+					System.out.println("pnboard date comparision:"+comparison);
+					if(!(comparison==0)){
+						System.out.println("update method ");
+						m = ResourceAllocationTrackingService.updateOnboardDate(req_id, trackingUpdateBean.resourceMasterBean.getResourceId(), clientId, trackingUpdateBean.getOnboardDate(), userId, trackingUpdateBean.getOtherDetails());
+					}
+				}else if(trackingUpdateBean.getOnboardDate()!=null && trackingUpdateBean.getPreviousOnboardDate()==null){
+					System.out.println("insert method ");
+					n = ResourceAllocationTrackingService.insertOnboardDate(req_id, trackingUpdateBean.resourceMasterBean.getResourceId(), clientId, trackingUpdateBean.getOnboardDate(), userId, trackingUpdateBean.getOtherDetails());
+				}
+				
+				if(trackingUpdateBean.getStatus().equalsIgnoreCase("DECLINED") || 
+						trackingUpdateBean.getStatus().equalsIgnoreCase("TECHNICALLY REJECTED ") || 
+						   trackingUpdateBean.getStatus().equalsIgnoreCase("REJECTED BY CLIENT ")){
+					
+					System.out.println("RESOURCE ID IS :"+trackingUpdateBean.getResourceMasterBean().getResourceId());
+					System.out.println("REQ ID IS :"+req_id);
+					System.out.println("Client Id is :"+clientId);
+					System.out.println("type name is :"+trackingUpdateBean.getResourceType());
+					typeName = ResourceAllocationTrackingDao.getTypeName(req_id);
+					r = ResourceAllocationTrackingService.updateRejectedStatus(req_id, trackingUpdateBean.getResourceMasterBean().getResourceId(), clientId, typeName);
+					System.out.println("R IS :"+r);
+					if(r>0){
+						s = ResourceAllocationTrackingService.insertRejectStatusIntoMapper(req_id, trackingUpdateBean.getResourceMasterBean().getResourceId(), clientId, userId);
+					}
+					if(s>0){
+						a = ResourceAllocationTrackingService.updateResourceTable(trackingUpdateBean.getResourceMasterBean().getResourceId());
+					}
+				}
+			}else{
+				Messagebox.show("Select Client Intervie Date!", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
 			}
-		}else if(trackingUpdateBean.getOnboardDate()!=null && trackingUpdateBean.getPreviousOnboardDate()==null){
-			System.out.println("insert method ");
-			n = ResourceAllocationTrackingService.insertOnboardDate(req_id, trackingUpdateBean.resourceMasterBean.getResourceId(), clientId, trackingUpdateBean.getOnboardDate(), userId, trackingUpdateBean.getOtherDetails());
-		}
-		
-		
-		if(trackingUpdateBean.getStatus().equalsIgnoreCase("DECLINED") || 
-				trackingUpdateBean.getStatus().equalsIgnoreCase("TECHNICALLY REJECTED ") || 
-				   trackingUpdateBean.getStatus().equalsIgnoreCase("REJECTED BY CLIENT ")){
-			
-			System.out.println("RESOURCE ID IS :"+trackingUpdateBean.getResourceMasterBean().getResourceId());
-			System.out.println("REQ ID IS :"+req_id);
-			System.out.println("Client Id is :"+clientId);
-			System.out.println("type name is :"+trackingUpdateBean.getResourceType());
-			typeName = ResourceAllocationTrackingDao.getTypeName(req_id);
-			r = ResourceAllocationTrackingService.updateRejectedStatus(req_id, trackingUpdateBean.getResourceMasterBean().getResourceId(), clientId, typeName);
-			System.out.println("R IS :"+r);
-			if(r>0){
-				s = ResourceAllocationTrackingService.insertRejectStatusIntoMapper(req_id, trackingUpdateBean.getResourceMasterBean().getResourceId(), clientId, userId);
-			}
-			if(s>0){
-				a = ResourceAllocationTrackingService.updateResourceTable(trackingUpdateBean.getResourceMasterBean().getResourceId());
-			}
-			
 		}
 		
 		if(i>0 && a>0){
