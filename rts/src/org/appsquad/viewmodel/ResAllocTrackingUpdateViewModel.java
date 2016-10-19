@@ -17,7 +17,6 @@ import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.Sessions;
-import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Messagebox;
@@ -299,8 +298,8 @@ public class ResAllocTrackingUpdateViewModel {
 			}else{
 				Messagebox.show("Select Client Intervie Date!", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
 			}
-		}else if(!(trackingUpdateBean.isClientInterviewDateDisable()) && !(trackingUpdateBean.isInternalInterviewDateDisable()) && 
-																								!(trackingUpdateBean.isOnboardInterviewDateDisable())){
+		}else if(trackingUpdateBean.isClientInterviewDateDisable() && trackingUpdateBean.isInternalInterviewDateDisable() && 
+																								trackingUpdateBean.isOnboardInterviewDateDisable()){
 			System.out.println("4TH CONDITION");
 			if(statusBean.getStatusId()>0){
 				if(trackingUpdateBean.getPreviousStatusId()==statusBean.getStatusId()){
