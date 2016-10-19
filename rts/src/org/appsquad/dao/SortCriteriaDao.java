@@ -203,9 +203,9 @@ public class SortCriteriaDao {
 							ResultSet resultSet = preparedStatement.executeQuery();
 							while (resultSet.next()) {
 								ClientInformationBean bean = new ClientInformationBean();
-								bean.setFullName(resultSet.getString("name")+" "+resultSet.getString("surname"));
 								bean.setSurName(resultSet.getString("surname"));
-								bean.setCompanyName(resultSet.getString("companyname"));
+								bean.setClientOriginalName(resultSet.getString("clientname"));
+								bean.setFullName(resultSet.getString("clientname"));
 								bean.setAddress(resultSet.getString("officeaddress"));
 								bean.getStateBean().setStateName(resultSet.getString("state"));
 								bean.getCountryBean().setCountryName(resultSet.getString("country"));

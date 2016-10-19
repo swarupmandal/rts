@@ -38,11 +38,8 @@ public class RequirementGenerationDao {
 				bean.setClientId(resultSet.getInt("id"));
 				bean.setName(resultSet.getString("name"));
 				bean.setSurName(resultSet.getString("surname"));
-				if(bean.getSurName() !=null){
-				bean.setFullName(bean.getName()+" " +bean.getSurName());
-				}else {
-					bean.setFullName(bean.getName());
-				}
+				bean.setClientOriginalName(resultSet.getString("clientname"));
+				bean.setFullName(resultSet.getString("clientname"));
 				nameBeanList.add(bean);	
 			}
 		} catch (Exception e) {

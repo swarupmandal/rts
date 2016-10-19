@@ -7,6 +7,7 @@ public class RequirementGenerationBean {
   private String clientfName;
   private String clientsName;
   private int clientId;
+  private String clientOriginalName;
   
   private String reqSkill;
   private int reqSkillId;
@@ -316,5 +317,11 @@ public class RequirementGenerationBean {
 	}
 	public void setOldOcStatus(String oldOcStatus) {
 		this.oldOcStatus = oldOcStatus;
+	}
+	public String getClientOriginalName() {
+		return clientOriginalName;
+	}
+	public void setClientOriginalName(String clientOriginalName) {
+		this.clientOriginalName = clientOriginalName;
 	}
 }

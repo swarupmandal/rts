@@ -32,10 +32,7 @@ public class IndividualRequirementReportDao {
 			try {
 				connection = DbConnection.createConnection();
 				preparedStatement = Pstm.createQuery(connection, IndividualRequirementReportSql.loadReqIdDetails, null);
-				
-				logger.info(" Individual client report fetchReqirmentDetails- " + preparedStatement.unwrap(PreparedStatement.class));
-				
-				
+			    logger.info(" Individual client report fetchReqirmentDetails- " + preparedStatement.unwrap(PreparedStatement.class));
 				resultSet = preparedStatement.executeQuery();
 				while (resultSet.next()) {
 					RequirementGenerationBean bean = new RequirementGenerationBean();
@@ -50,6 +47,7 @@ public class IndividualRequirementReportDao {
 					}
 					
 					bean.setrIdType(resultSet.getString("type_name"));
+					bean.setClientOriginalName(resultSet.getString("clientname"));
 					
 					list.add(bean);
 				}
@@ -63,18 +61,13 @@ public class IndividualRequirementReportDao {
 				}
 			}
 		} catch (Exception e) {
-			
 			logger.fatal(e);
-			
 			e.printStackTrace();
 		}
 		return list;
 	}
 	
-	
-	
-  public static ArrayList<IndividualClientReportBean> loadRidList(int reqId){
-		
+  public static ArrayList<IndividualClientReportBean> loadRidList(int reqId){	
 		ArrayList<IndividualClientReportBean> list = new ArrayList<IndividualClientReportBean>();
 		if(list.size()>0){
 			list.clear();

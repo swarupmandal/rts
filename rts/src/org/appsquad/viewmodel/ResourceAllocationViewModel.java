@@ -86,6 +86,7 @@ public class ResourceAllocationViewModel {
 	    	resourceAllocationBean.setRequiredResourcenumber(null);
 	    	resourceAllocationBean.setAllocatedResourceNumber(null);
 	    	resourceAllocationBean.setDivVisibility(false);
+	    	resourceAllocationBean.setAssignButtonVisibility(false);
 	    	if(requirementDetailsList.size()>0){
 	    		requirementDetailsList.clear();
 	    	}

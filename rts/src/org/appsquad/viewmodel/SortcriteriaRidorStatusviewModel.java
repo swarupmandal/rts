@@ -263,26 +263,19 @@ public class SortcriteriaRidorStatusviewModel {
 	@Command
 	@NotifyChange("*")
 	public void onCheckDetailSummary(){
-
 		   if(rIdWiseReportBean.getSelectedRadioButton().equals("detail")){
 			   rIdWiseReportBean.setDetailsDivVis(true);
 			   rIdWiseReportBean.setSummaryDivVis(false);
-			   
 		   }else {
-			   
 			   rIdWiseReportBean.setDetailsDivVis(false);
 			   summaryBeanList = IndividualClientReportService.loadRidSummaryList(reportBeanList);
 			   rIdWiseReportBean.setSummaryDivVis(true);
 		}
 	}
 	
-	
-	
 	@Command
 	@NotifyChange("*")
-	public void onClickClear(){
-
-		   
+	public void onClickClear(){		   
 		   summaryBeanList.clear();
 		   reportBeanList.clear();
 		   
@@ -302,18 +295,14 @@ public class SortcriteriaRidorStatusviewModel {
 		   
 		   rIdWiseReportBean.setSelectedRadioButton(null);
 		   
-	   
 	}
 	
 	@Command
 	@NotifyChange("*")
 	public void onClickPdf() throws Exception{
 		String pdfPath = Executions.getCurrent().getDesktop().getWebApp().getRealPath("/");
-		
 		IndividualClientReportPdf pdf = new IndividualClientReportPdf();
-		
 		try{
-			
 		if(rIdWiseReportBean.getSelectedRadioButton().equals("detail")){
 			//pdf.getDetails(pdfPath, rIdWiseReportBean, reportBeanList);
 		  /*if(reportBeanList.size()>0);	
@@ -349,14 +338,10 @@ public class SortcriteriaRidorStatusviewModel {
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		
-		
 		try {
 			if(reportBeanList.size()>0){
-			
 			if(rIdWiseReportBean.getSelectedRadioButton().equals("detail")){
 			   pdf.getDetails(pdfPath, rIdWiseReportBean, reportBeanList, "Requirement Status Report");
-			   
 			}else {
 				pdf.getSummary(pdfPath, rIdWiseReportBean, summaryBeanList, "Requirement Status Summary");
 			}
@@ -368,7 +353,6 @@ public class SortcriteriaRidorStatusviewModel {
 		} catch (DocumentException e) {
 			e.printStackTrace();
 		}
-		
 	}
 	
 	@Command
@@ -376,7 +360,6 @@ public class SortcriteriaRidorStatusviewModel {
 	public void onClickExcel(){
 		if(reportBeanList.size()>0){
 		if(rIdWiseReportBean.getSelectedRadioButton().equals("detail")){
-		
 			IndividualClientReportExcel.printCSV(reportBeanList, "Requirement Status Report" );
 		  /*if(reportBeanList.size()>0);	
 		  ArrayList<IndividualClientReportBean> detailList = new ArrayList<IndividualClientReportBean>();
@@ -408,7 +391,7 @@ public class SortcriteriaRidorStatusviewModel {
 				Messagebox.show("NO DATA SELECTED ", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION );
 			}*/
 			
-		}
+		   }
 		}else {
 			Messagebox.show("No Data Found ","Alert",Messagebox.OK,Messagebox.EXCLAMATION);
 		}
@@ -484,7 +467,6 @@ public class SortcriteriaRidorStatusviewModel {
   
     /************************************************************************************************************************************************/
   
-	
 	public ArrayList<SkillsetMasterbean> getSkillList() {
 		return skillList;
 	}
@@ -527,110 +509,54 @@ public class SortcriteriaRidorStatusviewModel {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-
 	public ArrayList<SortCriteriaRidorStatusBean> getDetailList() {
 		return detailList;
 	}
-
 	public void setDetailList(ArrayList<SortCriteriaRidorStatusBean> detailList) {
 		this.detailList = detailList;
 	}
-
 	public String getFrmDate() {
 		return frmDate;
 	}
-
 	public void setFrmDate(String frmDate) {
 		this.frmDate = frmDate;
 	}
-
 	public String getToDate() {
 		return toDate;
 	}
-
 	public void setToDate(String toDate) {
 		this.toDate = toDate;
 	}
-
-
-
-
-
 	public RequirementGenerationBean getRequirementGenerationBean() {
 		return requirementGenerationBean;
 	}
-
-
-
-
-
 	public void setRequirementGenerationBean(
 			RequirementGenerationBean requirementGenerationBean) {
 		this.requirementGenerationBean = requirementGenerationBean;
 	}
-
-
-
-
-
 	public IndividualClientReportBean getrIdWiseReportBean() {
 		return rIdWiseReportBean;
 	}
-
-
-
-
-
 	public void setrIdWiseReportBean(IndividualClientReportBean rIdWiseReportBean) {
 		this.rIdWiseReportBean = rIdWiseReportBean;
 	}
-
-
-
-
-
 	public ArrayList<RequirementGenerationBean> getRequirementGenerationBeanList() {
 		return requirementGenerationBeanList;
 	}
-
-
-
-
-
 	public void setRequirementGenerationBeanList(
 			ArrayList<RequirementGenerationBean> requirementGenerationBeanList) {
 		this.requirementGenerationBeanList = requirementGenerationBeanList;
 	}
-
-
-
-
-
 	public ArrayList<IndividualClientReportBean> getReportBeanList() {
 		return reportBeanList;
 	}
-
-
-
-
-
 	public void setReportBeanList(
 			ArrayList<IndividualClientReportBean> reportBeanList) {
 		this.reportBeanList = reportBeanList;
 	}
-
-
-
-
-
 	public ArrayList<IndividualClientReportBean> getSummaryBeanList() {
 		return summaryBeanList;
 	}
-
-
-
-
-
 	public void setSummaryBeanList(
 			ArrayList<IndividualClientReportBean> summaryBeanList) {
 		this.summaryBeanList = summaryBeanList;

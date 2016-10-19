@@ -150,7 +150,8 @@ public class ResAllocTrackingUpdateViewModel {
 		int i = 0, j= 0, k= 0, l=0, comparison = 0, p = 0,m = 0,n = 0,r = 0,s = 0,a = 0;
 		
 		if(!(trackingUpdateBean.isInternalInterviewDateDisable())&& (trackingUpdateBean.isClientInterviewDateDisable()) && 
-				   (trackingUpdateBean.isOnboardInterviewDateDisable())){
+				                                                                       (trackingUpdateBean.isOnboardInterviewDateDisable())){
+			System.out.println("1ST CONDITION");
 			if(trackingUpdateBean.getInternalInterviewDate()!=null){
 				if(statusBean.getStatusId()>0){
 					if(trackingUpdateBean.getPreviousStatusId()==statusBean.getStatusId()){
@@ -195,31 +196,12 @@ public class ResAllocTrackingUpdateViewModel {
 					System.out.println("insert method ");
 					n = ResourceAllocationTrackingService.insertOnboardDate(req_id, trackingUpdateBean.resourceMasterBean.getResourceId(), clientId, trackingUpdateBean.getOnboardDate(), userId, trackingUpdateBean.getOtherDetails());
 				}
-				
-				if(trackingUpdateBean.getStatus().equalsIgnoreCase("DECLINED") || 
-						trackingUpdateBean.getStatus().equalsIgnoreCase("TECHNICALLY REJECTED ") || 
-						   trackingUpdateBean.getStatus().equalsIgnoreCase("REJECTED BY CLIENT ")){
-					
-					System.out.println("RESOURCE ID IS :"+trackingUpdateBean.getResourceMasterBean().getResourceId());
-					System.out.println("REQ ID IS :"+req_id);
-					System.out.println("Client Id is :"+clientId);
-					System.out.println("type name is :"+trackingUpdateBean.getResourceType());
-					typeName = ResourceAllocationTrackingDao.getTypeName(req_id);
-					r = ResourceAllocationTrackingService.updateRejectedStatus(req_id, trackingUpdateBean.getResourceMasterBean().getResourceId(), clientId, typeName);
-					System.out.println("R IS :"+r);
-					if(r>0){
-						s = ResourceAllocationTrackingService.insertRejectStatusIntoMapper(req_id, trackingUpdateBean.getResourceMasterBean().getResourceId(), clientId, userId);
-					}
-					if(s>0){
-						a = ResourceAllocationTrackingService.updateResourceTable(trackingUpdateBean.getResourceMasterBean().getResourceId());
-					}
-					
-				}
 			}else{
 				Messagebox.show("Select Internal Intervie Date!", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
 			}
 		}else if(!(trackingUpdateBean.isClientInterviewDateDisable()) && (trackingUpdateBean.isInternalInterviewDateDisable()) && 
-				  (trackingUpdateBean.isOnboardInterviewDateDisable())){
+				  																			(trackingUpdateBean.isOnboardInterviewDateDisable())){
+			System.out.println("2ND CONDITION");
 			if(trackingUpdateBean.getClientInterviewDate()!=null){
 				if(statusBean.getStatusId()>0){
 					if(trackingUpdateBean.getPreviousStatusId()==statusBean.getStatusId()){
@@ -264,30 +246,12 @@ public class ResAllocTrackingUpdateViewModel {
 					System.out.println("insert method ");
 					n = ResourceAllocationTrackingService.insertOnboardDate(req_id, trackingUpdateBean.resourceMasterBean.getResourceId(), clientId, trackingUpdateBean.getOnboardDate(), userId, trackingUpdateBean.getOtherDetails());
 				}
-				
-				if(trackingUpdateBean.getStatus().equalsIgnoreCase("DECLINED") || 
-						trackingUpdateBean.getStatus().equalsIgnoreCase("TECHNICALLY REJECTED ") || 
-						   trackingUpdateBean.getStatus().equalsIgnoreCase("REJECTED BY CLIENT ")){
-					
-					System.out.println("RESOURCE ID IS :"+trackingUpdateBean.getResourceMasterBean().getResourceId());
-					System.out.println("REQ ID IS :"+req_id);
-					System.out.println("Client Id is :"+clientId);
-					System.out.println("type name is :"+trackingUpdateBean.getResourceType());
-					typeName = ResourceAllocationTrackingDao.getTypeName(req_id);
-					r = ResourceAllocationTrackingService.updateRejectedStatus(req_id, trackingUpdateBean.getResourceMasterBean().getResourceId(), clientId, typeName);
-					System.out.println("R IS :"+r);
-					if(r>0){
-						s = ResourceAllocationTrackingService.insertRejectStatusIntoMapper(req_id, trackingUpdateBean.getResourceMasterBean().getResourceId(), clientId, userId);
-					}
-					if(s>0){
-						a = ResourceAllocationTrackingService.updateResourceTable(trackingUpdateBean.getResourceMasterBean().getResourceId());
-					}
-				}
 			}else{
 				Messagebox.show("Select Client Intervie Date!", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
 			}
 		}else if(!(trackingUpdateBean.isOnboardInterviewDateDisable()) && (trackingUpdateBean.isInternalInterviewDateDisable()) && 
-				 (trackingUpdateBean.isClientInterviewDateDisable())){
+				 																					(trackingUpdateBean.isClientInterviewDateDisable())){
+			System.out.println("3RD CONDITION");
 			if(trackingUpdateBean.getOnboardDate()!=null){
 				if(statusBean.getStatusId()>0){
 					if(trackingUpdateBean.getPreviousStatusId()==statusBean.getStatusId()){
@@ -332,7 +296,21 @@ public class ResAllocTrackingUpdateViewModel {
 					System.out.println("insert method ");
 					n = ResourceAllocationTrackingService.insertOnboardDate(req_id, trackingUpdateBean.resourceMasterBean.getResourceId(), clientId, trackingUpdateBean.getOnboardDate(), userId, trackingUpdateBean.getOtherDetails());
 				}
-				
+			}else{
+				Messagebox.show("Select Client Intervie Date!", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
+			}
+		}else if(!(trackingUpdateBean.isClientInterviewDateDisable()) && !(trackingUpdateBean.isInternalInterviewDateDisable()) && 
+																								!(trackingUpdateBean.isOnboardInterviewDateDisable())){
+			System.out.println("4TH CONDITION");
+			if(statusBean.getStatusId()>0){
+				if(trackingUpdateBean.getPreviousStatusId()==statusBean.getStatusId()){
+				}else{
+					System.out.println("inside method.");
+					i = ResourceAllocationTrackingService.insertFinalStatus(req_id, trackingUpdateBean.resourceMasterBean.getResourceId(), trackingUpdateBean.getStatusId(), userId);
+				}	
+			}
+			
+			if(i>0){
 				if(trackingUpdateBean.getStatus().equalsIgnoreCase("DECLINED") || 
 						trackingUpdateBean.getStatus().equalsIgnoreCase("TECHNICALLY REJECTED ") || 
 						   trackingUpdateBean.getStatus().equalsIgnoreCase("REJECTED BY CLIENT ")){
@@ -351,8 +329,6 @@ public class ResAllocTrackingUpdateViewModel {
 						a = ResourceAllocationTrackingService.updateResourceTable(trackingUpdateBean.getResourceMasterBean().getResourceId());
 					}
 				}
-			}else{
-				Messagebox.show("Select Client Intervie Date!", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
 			}
 		}
 		

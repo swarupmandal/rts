@@ -43,46 +43,12 @@
 						</row>
 					<row>
 		             	<label value="Country:" style="font-weight:bold"></label>
-		             					<bandbox value="@bind(vm.resourceMasterBean.countryBean.countryName)" id="ad" readonly="true" width="35%">
-											<bandpopup >
-												<vbox>
-													<listbox model="@load(vm.countryList)" selectedItem="@bind(vm.resourceMasterBean.countryBean)" 
-														onSelect="@command('onSelectCountryName')" height="200px" width="280px"
-															mold="paging"  pageSize="4" >
-														<listhead sizable="true">
-															<listheader label="Country Name" />
-														</listhead>
-														<template name="model" var="p1">
-															<listitem>
-																<listcell label="@load(p1.countryName)" />
-															</listitem>
-														</template>
-													</listbox>
-												</vbox>
-											</bandpopup>
-							           </bandbox>
-					              </row>
+		             	<textbox value="@bind(vm.resourceMasterBean.country)" width="35%"></textbox>				
+					</row>
 					<row>
 		             	<label value="State:" style="font-weight:bold"></label>
-		             					<bandbox value="@bind(vm.resourceMasterBean.stateBean.stateName)" id="cd" readonly="true" width="35%">
-											<bandpopup >
-												<vbox>
-													<listbox model="@load(vm.stateList)" selectedItem="@bind(vm.resourceMasterBean.stateBean)" 
-														onSelect="@command('onSelectStateName')" height="200px" width="280px"
-															mold="paging"  pageSize="4" >
-														<listhead sizable="true">
-															<listheader label="State Name" />
-														</listhead>
-														<template name="model" var="p1">
-															<listitem>
-																<listcell label="@load(p1.stateName)" />
-															</listitem>
-														</template>
-													</listbox>
-												</vbox>
-											</bandpopup>
-							           </bandbox>
-								</row>
+		             	<textbox value="@bind(vm.resourceMasterBean.state)" width="35%"></textbox>				
+					</row>
 						<row>
 						  <label value="Pin/Zip code:" style="font-weight:bold"></label>
 						 <intbox width="35%" value="@bind(vm.resourceMasterBean.picCode)" maxlength="6" constraint="no negative,no zero"></intbox>
@@ -121,11 +87,12 @@
 						  <label value="Other Info" style="font-weight:bold"></label>		
 						  <textbox width="35%" value="@bind(vm.resourceMasterBean.otherInfo)"></textbox>	
 					   </row> 
+					   <row>
+					       <label></label>
+					       <button width="80px" height="30px" label="Submit" style="font-weight: bold" onClick="@command('onClickSubmitButton', upEvent=event)"></button>
+					   </row>
 					</rows>
 				</grid>
-			</div>
-			<div align="center">
-				<button width="80px" height="30px" label="Submit" style="font-weight: bold" onClick="@command('onClickSubmitButton', upEvent=event)"></button>
 			</div>
 		</tabpanel>
 		 <tabpanel>
@@ -149,8 +116,8 @@
 									<textbox value="@bind(v.yearOfExperience)" readonly="true" width="90%" tooltiptext="@bind(v.yearOfExperience)"/>
 									<textbox value="@bind(v.skillsetMasterbean.skillset)" readonly="true" width="90%" tooltiptext="@bind(v.skillsetMasterbean.skillset)"/>
 									<textbox value="@bind(v.address)" readonly="true" width="90%" tooltiptext="@bind(v.address)"/>
-									<textbox value="@bind(v.countryBean.countryName)" readonly="true" width="90%" tooltiptext="@bind(v.countryBean.countryName)"/>
-									<textbox value="@bind(v.stateBean.stateName)" readonly="true" width="90%" tooltiptext="@bind(v.stateBean.stateName)"/>
+									<textbox value="@bind(v.country)" readonly="true" width="90%" tooltiptext="@bind(v.country)"/>
+									<textbox value="@bind(v.state)" readonly="true" width="90%" tooltiptext="@bind(v.state)"/>
 									<textbox value="@bind(v.ctc)" readonly="true" width="90%" tooltiptext="@bind(v.ctc)"/>
 								    <button label="Update" width="90%" onClick="@command('onClickUpdate', bean = v)"></button>
 								</row>

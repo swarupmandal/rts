@@ -16,7 +16,7 @@
     				</hlayout>
     				
     				<hlayout>
-    				<label value="* " style="font-weight:bold; color:red; font-size:large;" />
+    				<label/>
     				<bandbox autodrop="true" readonly="true" id="skSt" value="@bind(vm.skilWiseReportBean.skillsetMasterbean.skillset)" placeholder="Search by Skill Set" width="170px">
 						<bandpopup>	
 							<hbox>

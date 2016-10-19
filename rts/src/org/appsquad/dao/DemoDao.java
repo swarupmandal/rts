@@ -17,6 +17,7 @@ public class DemoDao {
 	
 	public static ArrayList<DemoBean> getDetailsForSkill(DemoBean demoBean){
 		ArrayList<DemoBean> list = new ArrayList<DemoBean>();
+		int countClientNumber = 0;
 		Connection connection = null;
 		try {
 			connection = DbConnection.createConnection();
@@ -38,6 +39,13 @@ public class DemoDao {
 								bean.setAddress(resultSet.getString("res_address"));
 								bean.setEmailId(resultSet.getString("res_emailid"));
 								bean.setContactNumber(resultSet.getString("rts_contact_no"));
+								countClientNumber = AssignedClientNameForResourceDao.fetchUserPresentWrtResourceDao(bean);
+								System.out.println("NUMBER OF COUNT In While Loop IS :"+countClientNumber);
+								if(countClientNumber>0){
+									bean.setAssignedOrNot("Assigned");
+								}else{
+									bean.setAssignedOrNot("N.A");
+								}
 								
 								list.add(bean);
 							 }  

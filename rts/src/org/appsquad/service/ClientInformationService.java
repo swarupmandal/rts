@@ -11,12 +11,12 @@ public class ClientInformationService {
 	private static String EMAIL_REGEX = "^[\\w-_\\.+]*[\\w-_\\.]@([\\w]+\\.)+[\\w]+[\\w]$";
 	
 	public static boolean isValid(ClientInformationBean clientInformationBean){
-		if(clientInformationBean.getName()!=null){
-			if(clientInformationBean.getSurName()!=null && clientInformationBean.getSurName().trim().length()>0){
-				if(clientInformationBean.getCompanyName()!=null && clientInformationBean.getCompanyName().trim().length()>0){
+		if(clientInformationBean.getClientOriginalName()!=null && clientInformationBean.getClientOriginalName().trim().length()>0){
+			if(clientInformationBean.getName()!=null && clientInformationBean.getName().trim().length()>0){
+				if(clientInformationBean.getSurName()!=null && clientInformationBean.getSurName().trim().length()>0){
 					if(clientInformationBean.getAddress()!=null && clientInformationBean.getAddress().trim().length()>0){
-							if(clientInformationBean.getCountryBean().getCountryName()!=null && clientInformationBean.getCountryBean().getCountryName().trim().length()>0){
-								if(clientInformationBean.getStateBean().getStateName()!=null && clientInformationBean.getStateBean().getStateName().trim().length()>0){
+							if(clientInformationBean.getCountry()!=null && clientInformationBean.getCountry().trim().length()>0){
+								if(clientInformationBean.getState()!=null && clientInformationBean.getState().trim().length()>0){
 								if(clientInformationBean.getPinZipCode()!=null && clientInformationBean.getPinZipCode().trim().length()==6){
 									if(clientInformationBean.getContactNo()!=null && clientInformationBean.getContactNo().trim().length()==10){
 										if(clientInformationBean.getEmailId()!=null && clientInformationBean.getEmailId().trim().length()>0){
@@ -51,72 +51,19 @@ public class ClientInformationService {
 						return false;
 					}
 				}else {
-					Messagebox.show("Enter Company Name","Informtion", Messagebox.OK, Messagebox.EXCLAMATION);
+					Messagebox.show("Enter SurName","Informtion", Messagebox.OK, Messagebox.EXCLAMATION);
 					return false;
 				}
 			}else {
-				Messagebox.show("Enter SurName","Informtion", Messagebox.OK, Messagebox.EXCLAMATION);
+				Messagebox.show("Enter Name","Informtion", Messagebox.OK, Messagebox.EXCLAMATION);
 				return false;
 			}
 		}else {
-			Messagebox.show("Enter Name","Informtion", Messagebox.OK, Messagebox.EXCLAMATION);
+			Messagebox.show("Enter Client Name","Informtion", Messagebox.OK, Messagebox.EXCLAMATION);
 			return false;
 		}
 	}
 	
-	public static boolean isValidForUpdate(ClientInformationBean clientInformationBean){
-		if(clientInformationBean.getFullName()!=null){
-			if(clientInformationBean.getSurName()!=null && clientInformationBean.getSurName().trim().length()>0){
-				if(clientInformationBean.getCompanyName()!=null && clientInformationBean.getCompanyName().trim().length()>0){
-					if(clientInformationBean.getAddress()!=null && clientInformationBean.getAddress().trim().length()>0){
-						if(clientInformationBean.getStateBean().getStateName()!=null && clientInformationBean.getStateBean().getStateName().trim().length()>0){
-							if(clientInformationBean.getCountryBean().getCountryName()!=null && clientInformationBean.getCountryBean().getCountryName().trim().length()>0){
-								if(clientInformationBean.getPinZipCode()!=null && clientInformationBean.getPinZipCode().trim().length()==6){
-									if(clientInformationBean.getContactNo()!=null && clientInformationBean.getContactNo().trim().length()==10){
-										if(clientInformationBean.getEmailId()!=null && clientInformationBean.getEmailId().trim().length()>0){
-											   if(clientInformationBean.getEmailId().matches(EMAIL_REGEX)){
-												return true;
-											   }else{
-												   Messagebox.show("Enter Proper Email Id","Informtion", Messagebox.OK, Messagebox.EXCLAMATION);
-												   return false;
-												}
-											}else {
-												Messagebox.show("Enter Email Id","Informtion", Messagebox.OK, Messagebox.EXCLAMATION);
-												return false;
-											}
-									}else {
-										Messagebox.show("Enter Proper Conatct Number","Informtion", Messagebox.OK, Messagebox.EXCLAMATION);
-										return false;
-									}
-								}else {
-									Messagebox.show("Enter Proper Pin Code","Informtion", Messagebox.OK, Messagebox.EXCLAMATION);
-									return false;
-								}
-							}else {
-								Messagebox.show("Enter Country","Informtion", Messagebox.OK, Messagebox.EXCLAMATION);
-								return false;
-							}
-						}else {
-							Messagebox.show("Enter State","Informtion", Messagebox.OK, Messagebox.EXCLAMATION);
-							return false;
-						}
-					}else {
-						Messagebox.show("Enter Address","Informtion", Messagebox.OK, Messagebox.EXCLAMATION);
-						return false;
-					}
-				}else {
-					Messagebox.show("Enter Company Name","Informtion", Messagebox.OK, Messagebox.EXCLAMATION);
-					return false;
-				}
-			}else {
-				Messagebox.show("Enter SurName","Informtion", Messagebox.OK, Messagebox.EXCLAMATION);
-				return false;
-			}
-		}else {
-			Messagebox.show("Enter Name","Informtion", Messagebox.OK, Messagebox.EXCLAMATION);
-			return false;
-		}
-	}
 	
 	public static boolean insertClientMasterData(ClientInformationBean clientInformationBean){
 		if(isValid(clientInformationBean)){
@@ -126,7 +73,7 @@ public class ClientInformationService {
 	}
 	
 	public static boolean updateClientMasterData(ClientInformationBean clientInformationBean){
-		if(isValidForUpdate(clientInformationBean)){
+		if(isValid(clientInformationBean)){
 			 flag = ClientInformationDao.updateClientData(clientInformationBean);
 		}
 		return flag;
@@ -144,9 +91,10 @@ public class ClientInformationService {
 		bean.setName(null);
 		bean.setSurName(null);
 		bean.setCompanyName(null);
+		bean.setClientOriginalName(null);
 		bean.setAddress(null);
-		bean.getStateBean().setStateName(null);
-		bean.getCountryBean().setCountryName(null);
+		bean.setCountry(null);
+		bean.setState(null);
 		bean.setPinZipCode(null);
 		bean.setContactNo(null);
 		bean.setEmailId(null);
@@ -172,11 +120,9 @@ public class ClientInformationService {
 	public static void setEMAIL_REGEX(String eMAIL_REGEX) {
 		EMAIL_REGEX = eMAIL_REGEX;
 	}
-
 	public static int getCountNumber() {
 		return countNumber;
 	}
-
 	public static void setCountNumber(int countNumber) {
 		ClientInformationService.countNumber = countNumber;
 	}

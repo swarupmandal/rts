@@ -22,6 +22,8 @@ public class ResourceMasterBean {
 	private Double profit;
 	private byte[] fileContent;
 	private String otherInfo;
+	private String country;
+	private String state;
 	
 	CountryBean countryBean = new CountryBean();
 	StateBean stateBean = new StateBean();	
@@ -175,5 +177,17 @@ public class ResourceMasterBean {
 	}
 	public void setOtherInfo(String otherInfo) {
 		this.otherInfo = otherInfo;
+	}
+	public String getCountry() {
+		return country;
+	}
+	public void setCountry(String country) {
+		this.country = country;
+	}
+	public String getState() {
+		return state;
+	}
+	public void setState(String state) {
+		this.state = state;
 	}
 }

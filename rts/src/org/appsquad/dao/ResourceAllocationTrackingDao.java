@@ -38,7 +38,7 @@ public class ResourceAllocationTrackingDao {
 				while (resultSet.next()) {
 					ClientInformationBean bean = new ClientInformationBean();
 					bean.setClientId(resultSet.getInt("id"));
-					bean.setFullName(resultSet.getString("full_name"));
+					bean.setFullName(resultSet.getString("clientname"));
 					
 					list.add(bean);
 				}
@@ -138,6 +138,7 @@ public class ResourceAllocationTrackingDao {
 					bean.getResourceTypeBean().setResourceTypeName(resultSet.getString("type_name"));
 					bean.getResourceTypeBean().setResourceTypeId(resultSet.getInt("type_id"));
 					bean.setRaiseDateStr(resultSet.getString("req_raise_date"));
+					bean.setClientOriginalName(resultSet.getString("clientname"));
 					
 					list.add(bean);
 				}

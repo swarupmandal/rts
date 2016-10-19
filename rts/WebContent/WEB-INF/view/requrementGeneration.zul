@@ -18,7 +18,7 @@
 					<rows>
 						<row>
 						  <label value="Client Name:" style="font-weight:bold"></label>		
-						  <combobox width="25%" model="@bind(vm.clientNameBeanList)" autocomplete="true" autodrop="true" readonly="true" 
+						  <combobox width="35%" model="@bind(vm.clientNameBeanList)" autocomplete="true" autodrop="true" readonly="true" 
 						    selectedItem="@bind(vm.clientInfoBean)" onSelect="@command('onSelectName')" value="@bind(vm.clientInfoBean.fullName)">
 						  	<template name="model" var = "v">
 						  		<comboitem label="@bind(v.fullName)" value="@bind(v.clientId)"></comboitem>
@@ -28,7 +28,7 @@
 						
 						<row>
 						  <label value="Required Skill:" style="font-weight:bold"></label>		
-						  <combobox width="25%" model="@bind(vm.skillSetBeanList)" autocomplete="true" autodrop="true" value="@bind(vm.skillsetMasterbean.skillset)"
+						  <combobox width="35%" model="@bind(vm.skillSetBeanList)" autocomplete="true" autodrop="true" value="@bind(vm.skillsetMasterbean.skillset)"
 						      selectedItem="@bind(vm.skillsetMasterbean)" onSelect="@command('onSelectSkill')" readonly="true">
 						  		<template name="model" var = "v">
 						  		 <comboitem label="@bind(v.skillset)" value="@bind(v.id)"></comboitem>	
@@ -38,17 +38,17 @@
 						
 						<row>
 						  <label value="Job Description:" style="font-weight:bold"></label>		
-						  <textbox value="@bind(vm.reqGenBean.jobType)" width="25%"></textbox>	
+						  <textbox value="@bind(vm.reqGenBean.jobType)" width="35%"></textbox>	
 						</row>
 						
 						<row>
 						  <label value="Detailed Job:" style="font-weight:bold"></label>		
-						  <textbox multiline="true" value="@bind(vm.reqGenBean.detailedJob)" width="25%"></textbox>	
+						  <textbox multiline="true" value="@bind(vm.reqGenBean.detailedJob)" width="35%"></textbox>	
 						</row>
 						
 						<row>
 						  <label value="Requirement Type:" style="font-weight:bold"></label>		
-						  <combobox width="25%" model="@bind(vm.typeList)" autocomplete="true" autodrop="true" value="@bind(vm.reqGenBean.resourceTypeBean.resourceTypeName)"
+						  <combobox width="35%" model="@bind(vm.typeList)" autocomplete="true" autodrop="true" value="@bind(vm.reqGenBean.resourceTypeBean.resourceTypeName)"
 						      selectedItem="@bind(vm.reqGenBean.resourceTypeBean)" onSelect="@command('onSelectType')" readonly="true">
 						  		<template name="model" var = "v">
 						  		 <comboitem label="@bind(v.resourceTypeName)" value="@bind(v.resourceTypeName)"></comboitem>	
@@ -58,28 +58,28 @@
 						
 						<row visible="@bind(vm.reqGenBean.perFieldvisibility)">
 						  <label value="Number of Resource:" style="font-weight:bold"></label>		
-						  <intbox value="@bind(vm.reqGenBean.nofPerResource)" width="25%"></intbox>	
+						  <intbox value="@bind(vm.reqGenBean.nofPerResource)" width="35%"></intbox>	
 						</row>
 						
 						<row visible="@bind(vm.reqGenBean.conFieldvisibility)">
 						  <label value="Number of Resource:" style="font-weight:bold"></label>		
-						  <intbox value="@bind(vm.reqGenBean.nofConResource)" width="25%"></intbox>	
+						  <intbox value="@bind(vm.reqGenBean.nofConResource)" width="35%"></intbox>	
 						</row>
 						
 						<row>
 						  <label value="Requirement Raise Date:" style="font-weight:bold"></label>		
-						  <datebox value="@bind(vm.reqGenBean.raiseDatesql)" width="25%"></datebox>
+						  <datebox value="@bind(vm.reqGenBean.raiseDatesql)" width="35%"></datebox>
 						</row>
 						
 						<row>
 						  <label value="Requirement Close Date:" style="font-weight:bold"></label>		
-						  <datebox value="@bind(vm.reqGenBean.closeDatesql)" width="25%"
+						  <datebox value="@bind(vm.reqGenBean.closeDatesql)" width="35%"
 						     onChange="@command('onChangeCloseDate')"></datebox>	
 						</row>
 						
 						<row>
 						  <label value="Contact no:" style="font-weight:bold"></label>		
-						  <textbox width="25%" value="@bind(vm.reqGenBean.contactNo)" maxlength="15" readonly="true"
+						  <textbox width="35%" value="@bind(vm.reqGenBean.contactNo)" maxlength="15" readonly="true"
 						    xmlns:w="client">
 						       <attribute w:name="doKeyPress_">
 									<![CDATA[ function(evt) { if ( (evt.which >
@@ -91,7 +91,7 @@
 						
 						<row>
 						  <label value="Email Id:" style="font-weight:bold"></label>		
-						  <textbox width="25%" value="@bind(vm.reqGenBean.email)" readonly="true"></textbox>	
+						  <textbox width="35%" value="@bind(vm.reqGenBean.email)" readonly="true"></textbox>	
 						</row>
 						
 						<row>

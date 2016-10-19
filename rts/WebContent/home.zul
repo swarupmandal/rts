@@ -129,7 +129,7 @@
          </treeitem>
          <treeitem>
          <treerow>
-         	<treecell label="- Resource Detail Per Requirement(CV)" 
+         	<treecell label="- Resource CV Download " 
          	onClick='inclResults.setSrc("/WEB-INF/view/recourceCvDownload.zul");' visible="@bind(vm.resourceDetailPerRequirementCV)">
          	</treecell>
          </treerow>

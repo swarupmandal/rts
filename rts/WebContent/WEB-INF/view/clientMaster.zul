@@ -16,13 +16,22 @@
 					<column width="70%"></column>
 				</columns>
 				<rows>
+				
+				    <row>
+					<hlayout> 
+						<label value="* " style="font-weight:bold; color:red"/>
+						<label value="Client Name:" style="font-weight:bold"></label>
+					</hlayout>
+					  		
+					  <textbox width="36%" value="@bind(vm.clientInformationBean.clientOriginalName)"></textbox>	
+					</row>
+				
 					<row>
 					<hlayout>
 						  <label value="* " style="font-weight:bold; color:red"/>
 					     <label value="Name:" style="font-weight:bold"></label>
 					</hlayout>
 					
-					  		
 					  <textbox width="36%" value="@bind(vm.clientInformationBean.name)"></textbox>	
 					</row>
 					
@@ -33,15 +42,6 @@
 					  </hlayout>
 					  
 					  <textbox width="36%" value="@bind(vm.clientInformationBean.surName)"></textbox>	
-					</row>
-					
-					<row>
-					<hlayout> 
-						<label value="* " style="font-weight:bold; color:red"/>
-						<label value="Company Name:" style="font-weight:bold"></label>
-					</hlayout>
-					  		
-					  <textbox width="36%" value="@bind(vm.clientInformationBean.companyName)"></textbox>	
 					</row>
 					
 					<row>
@@ -58,26 +58,7 @@
 							<label value="* " style="font-weight:bold; color:red"/>
 							<label value="Country:" style="font-weight:bold"></label>
 					</hlayout>
-		             	
-		                  <bandbox value="@bind(vm.clientInformationBean.countryBean.countryName)" id="ad" readonly="true" width="36%">
-											<bandpopup >
-												<vbox>
-													<listbox model="@load(vm.countryList)" selectedItem="@bind(vm.clientInformationBean.countryBean)" 
-														onSelect="@command('onSelectCountryName')" height="200px" width="280px"
-															mold="paging"  pageSize="4" >
-														<listhead sizable="true">
-															<listheader label="Country Name" />
-														</listhead>
-														<template name="model" var="p1">
-															<listitem>
-																<listcell label="@load(p1.countryName)" />
-															</listitem>
-														</template>
-													</listbox>
-												</vbox>
-											</bandpopup>
-							           </bandbox>
-		            	
+		            <textbox value="@bind(vm.clientInformationBean.country)" width="36%"></textbox>
 					</row>
 					
 					<row>
@@ -85,24 +66,8 @@
 					     <label value="* " style="font-weight:bold; color:red"/>
 					     <label value="State:" style="font-weight:bold"></label>
 					</hlayout>
-		             					<bandbox value="@bind(vm.clientInformationBean.stateBean.stateName)" id="cd" readonly="true" width="36%">
-											<bandpopup >
-												<vbox>
-													<listbox model="@load(vm.stateList)" selectedItem="@bind(vm.clientInformationBean.stateBean)" 
-														onSelect="@command('onSelectStateName')" height="200px" width="280px"
-															mold="paging"  pageSize="4" >
-														<listhead sizable="true">
-															<listheader label="State Name" />
-														</listhead>
-														<template name="model" var="p1">
-															<listitem>
-																<listcell label="@load(p1.stateName)" />
-															</listitem>
-														</template>
-													</listbox>
-												</vbox>
-											</bandpopup>
-							           </bandbox>
+					
+					<textbox value="@bind(vm.clientInformationBean.state)" width="36%"></textbox>			
 					</row>
 					
 					<row>
@@ -131,15 +96,20 @@
 					</row>
 					
 					<row>
-					  <label value="Email Id:" style="font-weight:bold"></label>		
+					  <hlayout>
+					     <label value="* " style="font-weight:bold; color:red"/>
+					     <label value="Email Id:" style="font-weight:bold"></label>
+					  </hlayout>		
 					  <textbox width="36%" value="@bind(vm.clientInformationBean.emailId)"></textbox>	
 					</row>
+					
+					<row>
+					 <label></label>
+					 <button width="80px" height="30px" label="Submit" style="font-weight: bold" onClick="@command('onClickSubmitButton')"></button>
+					</row>
+					
 				</rows>
 			    </grid>
-			</div>
-			<space></space>
-			<div align="center">
-				<button width="80px" height="30px" label="Submit" style="font-weight: bold" onClick="@command('onClickSubmitButton')"></button>
 			</div>
 	       </tabpanel>
 	       
@@ -149,8 +119,8 @@
 							 model="@bind(vm.clientDetailsList)" mold="paging" 
 							vflex="true" autopaging="true" pageSize="10">
 						<columns sizable="true">
+						        <column label="Client-Name" align="center" style="font-weight:bold;" width="300px"/>
 								<column label="Name" align="center" style="font-weight:bold;" width="300px"/>
-								<column label="Company-Name" align="center" style="font-weight:bold;" width="300px"/>
 								<column label="Comapny-Address" align="center" style="font-weight:bold;" width="300px"/>
 								<column label="Country" align="center" style="font-weight:bold;" width="120px"/>
 								<column label="Pincode" align="center" style="font-weight:bold;" width="120px"/>
@@ -161,12 +131,11 @@
 						</columns>	
 						
 						<template name="model" var="v">
-						
 								<row style="border: 0.01px solid #C0C0C0;">
+								    <textbox value="@bind(v.clientOriginalName)" readonly="true" width="99%" tooltiptext="@bind(v.clientOriginalName)"/>
 									<textbox value="@bind(v.fullName)" readonly="true" width="99%" tooltiptext="@bind(v.fullName)"/>
-									<textbox value="@bind(v.companyName)" readonly="true" width="99%" tooltiptext="@bind(v.companyName)"/>
 									<textbox value="@bind(v.address)" readonly="true" width="99%" tooltiptext="@bind(v.address)"/>
-									<textbox value="@bind(v.countryBean.countryName)" readonly="true" width="90%" tooltiptext="@bind(v.countryBean.countryName)"/>
+									<textbox value="@bind(v.country)" readonly="true" width="90%" tooltiptext="@bind(v.country)"/>
 									<textbox value="@bind(v.pinZipCode)" readonly="true" width="90%" tooltiptext="@bind(v.pinZipCode)"/>
 									<textbox value="@bind(v.contactNo)" readonly="true" width="90%" tooltiptext="@bind(v.contactNo)"/>
 									<textbox value="@bind(v.emailId)" readonly="true" width="99%" tooltiptext="@bind(v.emailId)"/>
@@ -174,11 +143,9 @@
 								    <button label="Delete" width="90%" onClick="@command('onClickDelete', bean = v)"></button>
 								</row>
 							</template>
-							
-				</grid>		
-			
-	       </tabpanel>
-	    </tabpanels>
-	</tabbox>	    
-</window>
+				      </grid>		
+	           </tabpanel>
+	     </tabpanels>
+	 </tabbox>	    
+  </window>
 </zk>

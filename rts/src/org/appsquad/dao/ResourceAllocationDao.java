@@ -30,7 +30,7 @@ public class ResourceAllocationDao {
 					   PreparedStatement preparedStatement = null;
 					   try {
 						    preparedStatement = Pstm.createQuery(connection, ResourceAllocationSql.fetchRequirementSql, Arrays.asList(clientId));
-						    
+						    logger.info("onLoadReqDeatilsWrtClientName - " + preparedStatement.unwrap(PreparedStatement.class));
 							ResultSet resultSet = preparedStatement.executeQuery();
 							while (resultSet.next()) {
 								RequirementGenerationBean bean = new RequirementGenerationBean();
@@ -40,7 +40,7 @@ public class ResourceAllocationDao {
 								bean.getResourceTypeBean().setResourceTypeName(resultSet.getString("type_name"));
 								bean.getResourceTypeBean().setResourceTypeId(resultSet.getInt("type_id"));
 								bean.setRaiseDateStr(resultSet.getString("req_raise_date"));
-								
+								bean.setClientOriginalName(resultSet.getString("clientname"));
 								requirementList.add(bean);
 							}  
 						} finally{
@@ -58,7 +58,7 @@ public class ResourceAllocationDao {
 				}
 			}
 		} catch (Exception e) {
-			//logger.fatal("--------------------->>>>>"+e);
+			logger.fatal("--------------------->>>>>"+e);
 			e.printStackTrace();
 		}
 		return requirementList;	
@@ -78,7 +78,7 @@ public class ResourceAllocationDao {
 					   try {
 						    preparedStatement = Pstm.createQuery(connection, ResourceAllocationSql.fetchSkillName, Arrays.asList(clientId,reqId));
 						    
-						    //logger.info("fetchSkillDetails - " + preparedStatement.unwrap(PreparedStatement.class));
+						    logger.info("fetchSkillDetails - " + preparedStatement.unwrap(PreparedStatement.class));
 						    
 							ResultSet resultSet = preparedStatement.executeQuery();
 							while (resultSet.next()) {
@@ -99,7 +99,7 @@ public class ResourceAllocationDao {
 				}
 			}
 		} catch (Exception e) {
-			//logger.fatal("-------------------->>>>>>>>"+e);
+			logger.fatal("-------------------->>>>>>>>"+e);
 			e.printStackTrace();
 		}
 		return skillName;	
@@ -167,7 +167,7 @@ public class ResourceAllocationDao {
 						   try {
 							    preparedStatement = Pstm.createQuery(connection, ResourceAllocationSql.fetchRequiredResourceNumberCon, Arrays.asList(clientId,reqId));
 							    
-							    //logger.info("fetchRequiredResourceNumber - " + preparedStatement.unwrap(PreparedStatement.class));
+							    logger.info("fetchRequiredResourceNumber - " + preparedStatement.unwrap(PreparedStatement.class));
 							    
 								ResultSet resultSet = preparedStatement.executeQuery();
 								while (resultSet.next()) {
@@ -188,7 +188,7 @@ public class ResourceAllocationDao {
 					}
 				}
 			} catch (Exception e) {
-				//logger.fatal("--------------->>>>>>>>>"+e);
+				logger.fatal("--------------->>>>>>>>>"+e);
 				e.printStackTrace();
 			}
 		}else if (type.startsWith("PERMANANT")){
@@ -202,9 +202,7 @@ public class ResourceAllocationDao {
 						   PreparedStatement preparedStatement = null;
 						   try {
 							    preparedStatement = Pstm.createQuery(connection, ResourceAllocationSql.fetchRequiredResourceNumberPer, Arrays.asList(clientId,reqId));
-							    
-							    //logger.info("fetchRequiredResourceNumber1 - " + preparedStatement.unwrap(PreparedStatement.class));
-							    
+							    logger.info("fetchRequiredResourceNumber1 - " + preparedStatement.unwrap(PreparedStatement.class));
 								ResultSet resultSet = preparedStatement.executeQuery();
 								while (resultSet.next()) {
 									countNumber = resultSet.getInt("req_no_of_per_res");
@@ -224,7 +222,7 @@ public class ResourceAllocationDao {
 					}
 				}
 			} catch (Exception e) {
-				//logger.fatal("----------------------->>>>>"+e);
+				logger.fatal("----------------------->>>>>"+e);
 				e.printStackTrace();
 			}
 		}
@@ -246,7 +244,7 @@ public class ResourceAllocationDao {
 						   try {
 							    preparedStatement = Pstm.createQuery(connection, ResourceAllocationSql.fetchRequiredResourceNumberConAllocated, Arrays.asList(clientId,reqId));
 							    
-							    //logger.info(" fetchRequiredResourceNumberAllocated- " + preparedStatement.unwrap(PreparedStatement.class));
+							    logger.info(" fetchRequiredResourceNumberAllocated- " + preparedStatement.unwrap(PreparedStatement.class));
 							    
 								ResultSet resultSet = preparedStatement.executeQuery();
 								while (resultSet.next()) {
@@ -267,7 +265,7 @@ public class ResourceAllocationDao {
 					}
 				}
 			} catch (Exception e) {
-				//logger.fatal("-------------->>>>>>>>"+e);
+				logger.fatal("-------------->>>>>>>>"+e);
 				e.printStackTrace();
 			}
 		}else if (type.startsWith("PERMANANT")){
@@ -282,7 +280,7 @@ public class ResourceAllocationDao {
 						   try {
 							    preparedStatement = Pstm.createQuery(connection, ResourceAllocationSql.fetchRequiredResourceNumberPerAllocated, Arrays.asList(clientId,reqId));
 							    
-							    //logger.info(" fetchRequiredResourceNumberAllocated1- " + preparedStatement.unwrap(PreparedStatement.class));
+							    logger.info(" fetchRequiredResourceNumberAllocated1- " + preparedStatement.unwrap(PreparedStatement.class));
 							    
 								ResultSet resultSet = preparedStatement.executeQuery();
 								while (resultSet.next()) {
@@ -303,7 +301,7 @@ public class ResourceAllocationDao {
 					}
 				}
 			} catch (Exception e) {
-				//logger.fatal("----------------->>>>>>>>>"+e);
+				logger.fatal("----------------->>>>>>>>>"+e);
 				e.printStackTrace();
 			}
 		}
@@ -354,8 +352,12 @@ public class ResourceAllocationDao {
 	
 	public static ArrayList<ResourceMasterBean> onLoadResourceDetails(ResourceAllocationBean resourceAllocationBean){
 		ArrayList<ResourceMasterBean> resourceList = new ArrayList<ResourceMasterBean>();
+		if(resourceList.size()>0){
+			resourceList.clear();
+		}
 		Connection connection = null;
 		int count = 0;
+		int countNumber = 0;
 		try {
 			connection = DbConnection.createConnection();
 			sql_connection:{
@@ -376,11 +378,12 @@ public class ResourceAllocationDao {
 								bean.setAddress(resultSet.getString("res_address"));
 								bean.setEmailId(resultSet.getString("res_emailid"));
 								bean.getSkillsetMasterbean().setSkillset(resultSet.getString("rts_skill_name"));
-								count = presentInMapperTable(resourceAllocationBean.getRequirementGenerationBean().getRequirementId(), bean.getResourceId());
-								if(count>0){
-									
+								countNumber = presentInMapperTableForResAndClientID(bean.getResourceId(), resourceAllocationBean.getClientInformationBean().getClientId(),resourceAllocationBean.getRequirementGenerationBean().getRequirementId());
+								System.out.println("COUNT NUMBER IS :"+countNumber);
+								if((countNumber>0)){
+										
 								}else{
-									resourceList.add(bean);	
+									resourceList.add(bean);
 								}
 							}  
 						} finally{
@@ -398,7 +401,7 @@ public class ResourceAllocationDao {
 				}
 			}
 		} catch (Exception e) {
-			//logger.fatal("---------------->>>>>>"+e);
+			logger.fatal("---------------->>>>>>"+e);
 			e.printStackTrace();
 		}
 		return resourceList;	
@@ -442,6 +445,45 @@ public class ResourceAllocationDao {
 		return count;	
 	}
 	
+	
+	public static Integer presentInMapperTableForResAndClientID(Integer resId, Integer clientId, Integer reqId){
+		int count = 0;
+		Connection connection = null;
+		try {
+			connection = DbConnection.createConnection();
+			sql_connection:{
+				try {
+					
+					//1st SQL block
+					sql_fetch:{
+					   PreparedStatement preparedStatement = null;
+					   try {
+						    preparedStatement = Pstm.createQuery(connection, ResourceAllocationSql.countFromMapperSqlForResAndClient, Arrays.asList(resId,clientId,reqId));
+						    logger.info(" QUERY FOR RES AND CLIENT AND REQ COMBINATION- " + preparedStatement.unwrap(PreparedStatement.class));
+							ResultSet resultSet = preparedStatement.executeQuery();
+							while (resultSet.next()) {
+								count = resultSet.getInt(1);
+							}  
+						} finally{
+							if(preparedStatement!=null){
+								preparedStatement.close();
+							}
+						}
+				    }
+				} catch (Exception e) {
+					e.printStackTrace();
+				}finally{
+					if(connection!=null){
+						connection.close();
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return count;	
+	}
+	
 	public static boolean updateResourceTable(ArrayList<ResourceMasterBean> list){
 		boolean isUpdated = false;
 		Connection connection = null;
@@ -459,7 +501,7 @@ public class ResourceAllocationDao {
 							    	preparedStatementInsert = Pstm.createQuery(connection, 
 											ResourceAllocationSql.updateResourceTableSql, Arrays.asList(bean.getResourceId()));
 							    	
-									//logger.info(" updateResourceTable- " + preparedStatementInsert.unwrap(PreparedStatement.class));
+									logger.info(" updateResourceTable- " + preparedStatementInsert.unwrap(PreparedStatement.class));
 							    	
 									int i = preparedStatementInsert.executeUpdate();
 									if(i>0){
@@ -482,7 +524,7 @@ public class ResourceAllocationDao {
 				}
 			}
 		} catch (Exception e) {
-			//logger.fatal("------------------>>>>>>>>>>>"+e);
+			logger.fatal("------------------>>>>>>>>>>>"+e);
 			e.printStackTrace();
 		}
 		return isUpdated;
@@ -508,7 +550,7 @@ public class ResourceAllocationDao {
 													                                 bean.getResourceId(),allocationBean.getClientInformationBean().getClientId(),
 													                                 allocationBean.getUserId(),allocationBean.getResourceTypeBean().getResourceTypeId()));
 							    	
-							    	//logger.info(" insertIntoMapper- " + preparedStatementInsert.unwrap(PreparedStatement.class));
+							    	logger.info(" insertIntoMapper- " + preparedStatementInsert.unwrap(PreparedStatement.class));
 									int i = preparedStatementInsert.executeUpdate();
 									if(i>0){
 										isInsertedMapper = true;	
@@ -522,7 +564,7 @@ public class ResourceAllocationDao {
 						}
 					}
 				} catch (Exception e) {
-					//logger.fatal("--------------->>>>>>>>>>>>"+e);
+					logger.fatal("--------------->>>>>>>>>>>>"+e);
 					e.printStackTrace();
 				}finally{
 					if(connection!=null){
@@ -555,7 +597,7 @@ public class ResourceAllocationDao {
 													                                 bean.getResourceId(),allocationBean.getStatusId(),
 													                                 allocationBean.getUserId()));
 							    	
-							    	//logger.info(" insertIntoStatus- " + preparedStatementInsert.unwrap(PreparedStatement.class));
+							    	logger.info(" insertIntoStatus- " + preparedStatementInsert.unwrap(PreparedStatement.class));
 							    	
 									int i = preparedStatementInsert.executeUpdate();
 									if(i>0){
@@ -578,7 +620,7 @@ public class ResourceAllocationDao {
 				}
 			}
 		} catch (Exception e) {
-			//logger.fatal("-------------------------->>>>>>>>>>>>>>"+e);
+			logger.fatal("-------------------------->>>>>>>>>>>>>>"+e);
 			e.printStackTrace();
 		}
 		return isInsertedStatus;
@@ -598,7 +640,7 @@ public class ResourceAllocationDao {
 					   try {
 						    preparedStatement = Pstm.createQuery(connection, ResourceAllocationSql.fetchStatusIdSql, null);
 						    
-						    //logger.info(" fetchStatusId- " + preparedStatement.unwrap(PreparedStatement.class));
+						    logger.info(" fetchStatusId- " + preparedStatement.unwrap(PreparedStatement.class));
 						    
 							ResultSet resultSet = preparedStatement.executeQuery();
 							while (resultSet.next()) {
@@ -619,7 +661,7 @@ public class ResourceAllocationDao {
 				}
 			}
 		} catch (Exception e) {
-			//logger.fatal("-------------------->>>>>>>>>>>>"+e);
+			logger.fatal("-------------------->>>>>>>>>>>>"+e);
 			e.printStackTrace();
 		}
 		return statusId;	
@@ -641,7 +683,7 @@ public class ResourceAllocationDao {
 						   try {
 							    preparedStatement = Pstm.createQuery(connection, ResourceAllocationSql.updateResourceTableConSql, Arrays.asList(number,clientId,reqId));
 							    
-							    //logger.info(" updateResourceTableNumber- " + preparedStatement.unwrap(PreparedStatement.class));
+							    logger.info(" updateResourceTableNumber- " + preparedStatement.unwrap(PreparedStatement.class));
 							    
 								int i = preparedStatement.executeUpdate();
 								if(i>0){
@@ -662,7 +704,7 @@ public class ResourceAllocationDao {
 					}
 				}
 			} catch (Exception e) {
-				//logger.fatal(e);
+				logger.fatal(e);
 				e.printStackTrace();
 			}
 		}else if (type.startsWith("PERMANANT")){
@@ -677,7 +719,7 @@ public class ResourceAllocationDao {
 						   try {
 							    preparedStatement = Pstm.createQuery(connection, ResourceAllocationSql.updateResourceTablePerSql, Arrays.asList(number,clientId,reqId));
 							    
-							    //logger.info(" updateResourceTableNumber1- " + preparedStatement.unwrap(PreparedStatement.class));
+							    logger.info(" updateResourceTableNumber1- " + preparedStatement.unwrap(PreparedStatement.class));
 							    
 								int i = preparedStatement.executeUpdate();
 								if(i>0){
@@ -698,7 +740,7 @@ public class ResourceAllocationDao {
 					}
 				}
 			} catch (Exception e) {
-				//logger.fatal(e);
+				logger.fatal(e);
 				e.printStackTrace();
 			}
 		}

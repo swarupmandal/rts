@@ -22,34 +22,6 @@
 					</bandbox>
     				</hlayout>
     				
-    				<datebox placeholder="From Date" format="dd-MMM-yyyy" width="130px" value="@bind(vm.bean.fromDate)" readonly="true" onChange="@command('onChangeFromDate')" ></datebox>
-    				
-    				<datebox placeholder="To Date" format="dd-MMM-yyyy" width="130px" value="@bind(vm.bean.toDate)" readonly="true" onChange="@command('onChangeToDate')"></datebox>
-    				
-    				<combobox model="@bind(vm.statusList)" selectedItem="@bind(vm.bean.statusMasterBean)" readonly="true"
-		             	value="@bind(vm.bean.statusMasterBean.status)" placeholder="Resourcing Status" width="150px">
-		                <template name="model" var="p">
-		                   <comboitem value="@bind(p.statusId)" label="@bind(p.status)"/>
-		                </template>
-		            </combobox>
-    				
-    				<bandbox autodrop="true" readonly="true" id="clntBb" value="@bind(vm.bean.clientInformationBean.fullName)" placeholder="Search By Client" width="180px">
-						<bandpopup>	
-							<space></space>
-							<listbox width="180px" model="@bind(vm.clientList)" 
-							     selectedItem="@bind(vm.bean.clientInformationBean)" onSelect="@command('onSelctClientName')" mold="paging" pageSize="5">
-								<listhead sizable="true">
-									<listheader label="Client Name"></listheader>
-								</listhead>
-								
-								<template name="model" var = "v">
-								<listitem>
-								  <listcell label="@load(v.fullName)"></listcell>
-								</listitem>
-							   </template>
-							</listbox>
-						</bandpopup>
-					</bandbox>
     				
 		            <button label="Search" onClick="@command('onClickSearch')" style="font-weight:bold; color: black" visible="true"></button>
 		            <button label="Clear" onClick="@command('onClickClear')" style="font-weight:bold; color: black" width="60px"></button>	
@@ -60,6 +32,8 @@
     			<div visible="@bind(vm.resourceDivVisibility)">
       				<grid height="400px" sclass="fgrid" model="@bind(vm.list)" mold="paging" autopaging="true" pageSize="12">
 						<columns sizable="true">
+						        <column width="150px" label="Verify" align="center" style="font-weight:bold;"></column>
+						        <column label="Assigned or Not" align="center" style="font-weight:bold;" width="150px"/> 
 						        <column width="40px"></column>
 								<column label="Name" align="center" style="font-weight:bold;" width="300px"/>
 							    <column label="Address" align="center" style="font-weight:bold;" width="300px"/>
@@ -70,6 +44,8 @@
 						
 						<template name="model" var="v">
 								<row style="border: 0.01px solid #C0C0C0;">
+								    <button label="Verify" width="99%" onClick="@command('onClickVerify', bean = v)"></button>
+								    <textbox value="@bind(v.assignedOrNot)" readonly="true" width="99%"></textbox>
 								    <checkbox checked="@bind(v.chkSelect)" onCheck="@command('onCheckBox', bean = v)" ></checkbox>
 									<textbox value="@bind(v.fullName)" readonly="true" width="99%"></textbox>
 									<textbox value="@bind(v.address)" readonly="true" width="99%"></textbox>
@@ -79,7 +55,7 @@
 								</row>
 					  </template>
 				</grid>			
- </div>
+ 		</div>
  <space></space>
  <div align="center">
    <button label="DOWNLOAD" onClick="@command('onClickDownload')" visible="@bind(vm.saveButtonVisibility)"></button>

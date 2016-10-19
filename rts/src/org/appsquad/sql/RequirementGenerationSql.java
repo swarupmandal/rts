@@ -5,7 +5,7 @@ public class RequirementGenerationSql {
 	public static final String selReqAllocationEqual="SELECT COALESCE(req_no_of_per_res,0) + COALESCE(req_no_of_con_res,0) as reqiured_res,COALESCE(num_of_per_res_allocated,0) + COALESCE(num_of_con_res_allocated,0) as allocated_res "
 													+"from rts_requirement_master where r_id= ? ";
 	
-	public static final String loadClientName = "	select id, name, surname from rts_clients_master where is_delete = 'N' ";
+	public static final String loadClientName = "	select id, name, surname,clientname from rts_clients_master where is_delete = 'N' order by id ";
 	
 	public static final String loadSkillSetName = "	select id, master_skill_set_name, skill_set_details from rts_skill_master where is_delete = 'N' ";
 	

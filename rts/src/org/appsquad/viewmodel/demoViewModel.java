@@ -4,12 +4,14 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
 import org.appsquad.bean.ClientInformationBean;
 import org.appsquad.bean.DemoBean;
 import org.appsquad.bean.SkillsetMasterbean;
 import org.appsquad.bean.StatusMasterBean;
 import org.appsquad.dao.DemoDao;
 import org.appsquad.dao.ResourceMasterDao;
+import org.appsquad.service.AssignedClientNameForResourceService;
 import org.appsquad.service.DemoService;
 import org.appsquad.service.RequirementGenerationService;
 import org.appsquad.service.ResourceAllocationTrackingService;
@@ -104,6 +106,22 @@ public class demoViewModel {
 	    }
 	    
 	    @Command
+	    @NotifyChange("*")
+	    public void onClickVerify(@BindingParam("bean") DemoBean demoBean){
+	    	    int count = 0;
+	    	    count = AssignedClientNameForResourceService.fetchUserPresentWrtResourceService(demoBean);
+	    	    System.out.println("CLIENT PRESENT WRT RESOURCE COUNT IS :"+count);
+	    	    if(count>0){
+	    	    	Map<String, Object> parentMap = new HashMap<String, Object>();
+			    	parentMap.put("AssignDetailsWrtResource", demoBean);
+			    	Window window = (Window) Executions.createComponents("/WEB-INF/view/assignClientNameForResource.zul", null, parentMap);
+					window.doModal();
+	    	    }else{
+	    	    	Messagebox.show("No Client Assigned For This Resource!", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
+	    	    }
+	    }
+	    
+	    @Command
 		@NotifyChange("*")
 		public void onSelctSkillName(){
 			skillBandBox.close();
@@ -173,7 +191,7 @@ public class demoViewModel {
 		   if(bean.skillsetMasterbean.getSkillset()!=null && bean.skillsetMasterbean.getSkillset().trim().length()>0 && 
 				         bean.getFromDate()==null && bean.getToDate()==null &&
 				            bean.clientInformationBean.getFullName()==null){
-				   list = DemoService.getDetailsForSkillService(bean);
+				    list = DemoService.getDetailsForSkillService(bean);
 			    	System.out.println("SKILL NAME CORRESPONDING LIST SIZE IS :"+list.size());
 			    	if(list.size()>0){
 			    		resourceDivVisibility = true;

@@ -60,8 +60,8 @@
 				<image src="images/reformlogopng.png" width="20%" height="70%" />
 			</div>
 			<div width="100%" align="center" style="padding-bottom:6px;">
-				<label sclass="mylabel" value="Sign in to continue" />
-			</div>
+				<label sclass="mylabel" value="Sign in to Resource Augmentaion Tracker" />
+		    </div>
 			
 			<div >
 				<div align="center" width="100%" class="login_sec">

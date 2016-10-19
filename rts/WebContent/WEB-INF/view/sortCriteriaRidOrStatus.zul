@@ -14,7 +14,7 @@
     				<datebox placeholder="To Date" format="dd-MMM-yyyy" value="@bind(vm.rIdWiseReportBean.toDate)" onChange="@command('onChangeToDate')"></datebox>
     				</hlayout>
     				<hlayout>
-    				<label value="* " style="font-weight:bold; color:red; font-size:large;" />
+    				<label/>
     				   <bandbox autodrop="true" readonly="true" id="reqIdb" value="@bind(vm.requirementGenerationBean.req_id)" placeholder="Requirement Id" width="180px">
 						<bandpopup>	
 							<hbox>
@@ -22,13 +22,14 @@
 								<button label="Serach" onClick="@command('onChangeReqId')"></button>
 							</hbox>
 							<space></space>
-							<listbox width="342px" model="@bind(vm.requirementGenerationBeanList)" 
+							<listbox width="400px" model="@bind(vm.requirementGenerationBeanList)" 
 							     selectedItem="@bind(vm.requirementGenerationBean)" onSelect="@command('onSelctReqId')" mold="paging" pageSize="5">
 								<listhead sizable="true">
 									<listheader label="Req Id"></listheader>
 									<listheader label="Skill"></listheader>
 									<listheader label="Creation Date" width="90px"></listheader>
 									<listheader label="Type"></listheader>
+									<listheader label="ClientName"></listheader>
 								</listhead>
 								
 								<template name="model" var = "v">
@@ -38,7 +39,7 @@
 									<listcell label="@load(v.reqSkill)"></listcell>
 									<listcell label="@load(v.createdDateStr)"></listcell>
 									<listcell label="@load(v.rIdType)" ></listcell>
-								  	
+								  	<listcell label="@load(v.clientOriginalName)"></listcell>
 								</listitem>
 								</template>
 							</listbox>

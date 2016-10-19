@@ -35,48 +35,13 @@
 						</row>
 						
 						<row>
-		             	<label value="Country:" style="font-weight:bold"></label>
-		             					<bandbox value="@bind(vm.masterBean.countryBean.countryName)" id="ad" readonly="true" width="75%"
-		             					    disabled="@bind(vm.masterBean.countryVisibility)">
-											<bandpopup >
-												<vbox>
-													<listbox model="@load(vm.countryList)" selectedItem="@bind(vm.masterBean.countryBean)" 
-														onSelect="@command('onSelectCountryName')" height="200px" width="280px"
-															mold="paging"  pageSize="4" >
-														<listhead sizable="true">
-															<listheader label="Country Name" />
-														</listhead>
-														<template name="model" var="p1">
-															<listitem>
-																<listcell label="@load(p1.countryName)" />
-															</listitem>
-														</template>
-													</listbox>
-												</vbox>
-											</bandpopup>
-							           </bandbox>
-					              </row>
-					<row>
+		             	   <label value="Country:" style="font-weight:bold"></label>
+		             	   <textbox value="@bind(vm.masterBean.country)" width="75%" readonly="true"></textbox>				
+					    </row>
+					   <row>
 		             	<label value="State:" style="font-weight:bold"></label>
-		             					<bandbox value="@bind(vm.masterBean.stateBean.stateName)" id="cd" readonly="true" width="75%">
-											<bandpopup >
-												<vbox>
-													<listbox model="@load(vm.stateList)" selectedItem="@bind(vm.masterBean.stateBean)" 
-														onSelect="@command('onSelectStateName')" height="200px" width="280px"
-															mold="paging"  pageSize="4" >
-														<listhead sizable="true">
-															<listheader label="State Name" />
-														</listhead>
-														<template name="model" var="p1">
-															<listitem>
-																<listcell label="@load(p1.stateName)" />
-															</listitem>
-														</template>
-													</listbox>
-												</vbox>
-											</bandpopup>
-							           </bandbox>
-								</row>
+		                <textbox value="@bind(vm.masterBean.state)" width="75%"></textbox>					
+					  </row>
 						<row>
 						  <label value="Pin/Zip code:" style="font-weight:bold"></label>		
 						  <textbox width="75%" value="@bind(vm.masterBean.picCode)" maxlength="6" constraint="no negative,no zero"></textbox>	

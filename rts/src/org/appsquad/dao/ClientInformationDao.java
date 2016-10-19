@@ -162,8 +162,8 @@ public class ClientInformationDao {
 					    try {
 					    	preparedStatementInsert = Pstm.createQuery(connection, 
 									ClientInformationsql.insertClientInfo, Arrays.asList(clientInformationBean.getName().toUpperCase(),clientInformationBean.getSurName().toUpperCase(),
-											clientInformationBean.getCompanyName().toUpperCase(),clientInformationBean.getAddress().toUpperCase(),
-											clientInformationBean.getStateBean().getStateName(),clientInformationBean.getCountryBean().getCountryName(),
+											clientInformationBean.getClientOriginalName().toUpperCase(),clientInformationBean.getAddress().toUpperCase(),
+											clientInformationBean.getState(),clientInformationBean.getCountry(),
 											clientInformationBean.getPinZipCode(),clientInformationBean.getContactNo().toUpperCase(),
 											clientInformationBean.getEmailId(),clientInformationBean.getUserId(),
 											clientInformationBean.getStateBean().getStateId(),clientInformationBean.getCountryBean().getCountryId()));
@@ -217,10 +217,9 @@ public class ClientInformationDao {
 					    try {
 					    	preparedStatementInsert = Pstm.createQuery(connection, 
 									ClientInformationsql.clientDetailsUpdate, Arrays.asList(clientInformationBean.getAddress().toUpperCase(),
-											clientInformationBean.getStateBean().getStateName(),
+											clientInformationBean.getState().toUpperCase(),
 											clientInformationBean.getPinZipCode(),clientInformationBean.getContactNo().toUpperCase(),
-											clientInformationBean.getEmailId(),
-											clientInformationBean.getStateBean().getStateId(),clientInformationBean.getUserId(),
+											clientInformationBean.getEmailId(),clientInformationBean.getUserId(),
 											clientInformationBean.getClientId()));
 					    	logger.info("Updating Client Data Into Table: "+preparedStatementInsert.unwrap(PreparedStatement.class));
 							int i = preparedStatementInsert.executeUpdate();
@@ -271,7 +270,7 @@ public class ClientInformationDao {
 					    	preparedStatementDelete = Pstm.createQuery(connection, 
 													ClientInformationsql.deleteClientDetailsSql, Arrays.asList(clientInformationBean.getClientId()));
 					    	System.out.println(preparedStatementDelete);
-					    	logger.info("Inserting Client Data Into Table: "+preparedStatementDelete.unwrap(PreparedStatement.class));
+					    	logger.info("Deleting Client Data From Table: "+preparedStatementDelete.unwrap(PreparedStatement.class));
 							int i = preparedStatementDelete.executeUpdate();
 							if(i>0){
 								isDeleted = true;	
@@ -324,15 +323,13 @@ public class ClientInformationDao {
 								bean.setFullName(resultSet.getString("name")+" "+resultSet.getString("surname"));
 								bean.setName(resultSet.getString("name"));
 								bean.setSurName(resultSet.getString("surname"));
-								bean.setCompanyName(resultSet.getString("companyname"));
+								bean.setClientOriginalName(resultSet.getString("clientname"));
 								bean.setAddress(resultSet.getString("officeaddress"));
-								bean.getStateBean().setStateName(resultSet.getString("state"));
-								bean.getCountryBean().setCountryName(resultSet.getString("country"));
+								bean.setState(resultSet.getString("state"));
+								bean.setCountry(resultSet.getString("country"));
 								bean.setPinZipCode(resultSet.getString("zipcode"));
 								bean.setContactNo(resultSet.getString("contactno"));
 								bean.setEmailId(resultSet.getString("emailid"));
-								bean.getStateBean().setStateId(resultSet.getInt("state_id"));
-								bean.getCountryBean().setCountryId(resultSet.getInt("country_id"));
 								bean.setClientId(resultSet.getInt("id"));
 								
 								clientList.add(bean);
@@ -399,5 +396,4 @@ public class ClientInformationDao {
 		}
 		return count;	
 	}
-	
 }

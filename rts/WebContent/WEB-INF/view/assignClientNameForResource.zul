@@ -1,0 +1,28 @@
+<?page title="Assigned Client Name For Resource Screen" contentType="text/html;charset=UTF-8"?>
+<zk>
+    <window title="Assigned Client Name For Resource " closable="true" border="normal" height="300px" width="700px" apply="org.zkoss.bind.BindComposer" contentStyle="overflow:scroll" 
+		              viewModel="@id('vm') @init('org.appsquad.viewmodel.AssignedClientNameForResourceViewModel')"> 
+		 
+		  <grid sclass="fgrid" height="500px" 
+							 model="@bind(vm.clientDetailsWrtResource)" mold="paging" 
+							vflex="true" autopaging="true" pageSize="6">
+						<columns sizable="true">
+								<column label="Client-Name" align="center" style="font-weight:bold;" width="400px"/>
+								<column label="Resource-Name" align="center" style="font-weight:bold;" width="300px"/>
+								<column label="R-ID" align="center" style="font-weight:bold;" width="70px"/>
+								<column label="Requirement-Status" align="center" style="font-weight:bold;" width="300px"/>
+								<column label="Requirement-Skill" align="center" style="font-weight:bold;" width="120px"/>
+						</columns>	
+						
+						<template name="model" var="v">
+								<row style="border: 0.01px solid #C0C0C0;">
+									<textbox value="@bind(v.clientOriginalName)" readonly="true" width="99%" tooltiptext="@bind(v.clientOriginalName)"/>
+									<textbox value="@bind(v.resourceName)" readonly="true" width="99%" tooltiptext="@bind(v.resourceName)"/>
+									<textbox value="@bind(v.reqId)" readonly="true" width="99%" tooltiptext="@bind(v.reqId)"/>
+									<textbox value="@bind(v.reqStatus)" readonly="true" width="90%" tooltiptext="@bind(v.reqStatus)"/>
+									<textbox value="@bind(v.reqSkillName)" readonly="true" width="90%" tooltiptext="@bind(v.reqSkillName)"/>
+								</row>
+							</template>
+				      </grid>	        
+		</window>
+</zk>

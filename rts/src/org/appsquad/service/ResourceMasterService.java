@@ -15,8 +15,8 @@ public class ResourceMasterService {
 				if(resourceMasterBean.getYearOfExperience() != null){
 					if(resourceMasterBean.getSkillsetMasterbean().getSkillset()!=null && resourceMasterBean.getSkillsetMasterbean().getSkillset().trim().length()>0){
 						if(resourceMasterBean.getAddress()!=null && resourceMasterBean.getAddress().trim().length()>0){
-							if(resourceMasterBean.getCountryBean().getCountryName()!=null){
-								if(resourceMasterBean.getStateBean().getStateName()!=null){
+							if(resourceMasterBean.getCountry()!=null && resourceMasterBean.getCountry().trim().length()>0){
+								if(resourceMasterBean.getState()!=null && resourceMasterBean.getState().trim().length()>0){
 									if(resourceMasterBean.getPicCode()!=null && resourceMasterBean.getPicCode().trim().length()>0){
 										if(resourceMasterBean.getContactNumber()!=null && resourceMasterBean.getContactNumber().trim().length()>0){
 											if(resourceMasterBean.getEmailId()!=null && resourceMasterBean.getEmailId().trim().length()>0){
@@ -89,8 +89,8 @@ public class ResourceMasterService {
 		bean.setYearOfExperience(null);
 		bean.getSkillsetMasterbean().setSkillset(null);
 		bean.setAddress(null);
-		bean.getStateBean().setStateName(null);
-		bean.getCountryBean().setCountryName(null);
+		bean.setState(null);
+		bean.setCountry(null);
 		bean.setPicCode(null);
 		bean.setContactNumber(null);
 		bean.setEmailId(null);

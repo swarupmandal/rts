@@ -2,23 +2,15 @@
 <zk>
 <window title="RESOURCE ALLOCATION TRACKING" border="none" apply="org.zkoss.bind.BindComposer"
         viewModel="@id('vm') @init('org.appsquad.viewmodel.ResourceAllocationTrackingViewModel')">
-
 	<div>
-		
 		<label value="Client Name" style="font-weight: bold; color: black"></label>
 		<bandbox autodrop="true" readonly="true" id="clname" value="@bind(vm.clientInformationBean.fullName)">
-			<bandpopup>	
-				<hbox>
-					<textbox value="@bind(vm.trackingBean.clientNameSearch)" onChange="@command('onChangeClientName')"></textbox>
-					<button label="Serach" onClick="@command('onChangeClientName')"></button>
-				</hbox>
-				<space></space>
+			<bandpopup>
 				<listbox width="280px" model="@bind(vm.clientInformationBeanList)" 
 				     selectedItem="@bind(vm.clientInformationBean)" onSelect="@command('onSelctClientName')" mold="paging" pageSize="5">
 					<listhead sizable="true">
 						<listheader label="Client Name"></listheader>
 					</listhead>
-					
 					<template name="model" var = "v">
 					<listitem>
 					  <listcell label="@load(v.fullName)"></listcell>
@@ -31,29 +23,24 @@
 		
 		<label value="Requirement Id" style="font-weight: bold; color: black"></label>
 		<bandbox autodrop="true" readonly="true" id="reqId" value="@bind(vm.requirementGenerationBean.req_id)">
-			<bandpopup>	
-				<hbox>
-					<intbox value="@bind(vm.trackingBean.r_idSearch)" onChange="@command('onChangeReqId')"></intbox>
-					<button label="Serach" onClick="@command('onChangeReqId')"></button>
-				</hbox>
-				<space></space>
-				<listbox width="300px" model="@bind(vm.requirementGenerationBeanList)" 
+			<bandpopup>
+				<listbox width="400px" model="@bind(vm.requirementGenerationBeanList)" 
 				     selectedItem="@bind(vm.requirementGenerationBean)" onSelect="@command('onSelctReqId')" mold="paging" pageSize="5">
 					<listhead sizable="true">
 						<listheader label="Req Id" width="45px"></listheader>
 						<listheader label="Date"></listheader>
 						<listheader label="Type"/>
 						<listheader label="Skill"></listheader>
+						<listheader label="ClientName"></listheader>
 					</listhead>
 					
 					<template name="model" var = "v">
 					<listitem>
-					  
 						<listcell label="@load(v.req_id)"></listcell>
 						<listcell label="@load(v.raiseDateStr)" />
 						<listcell label="@load(v.resourceTypeBean.resourceTypeName)" />
 						<listcell label="@load(v.reqSkill)"></listcell>
-					  	
+					  	<listcell label="@bind(v.clientOriginalName)"></listcell>
 					</listitem>
 					</template>
 				</listbox>
@@ -71,11 +58,6 @@
 	
 	<div>
 		<grid mold="paging" pageSize="10"  model="@bind(vm.trackingBeanList)" height="450px">
-			<auxhead>
-				<auxheader colspan="2">
-					<textbox placeholder="Search By Reasouce" onChange="@command('onChangeSearch')" value="@bind(vm.trackingBean.resNameSeach)"></textbox>
-				</auxheader>
-			</auxhead>
 			<columns sizable="true">
 				<column width="50px" style="font-weight:bold; color: black;" align="center" visible="false">Check</column>
 				<column width="220px" style="font-weight:bold; color: black;" align="center" label="Resource"></column>

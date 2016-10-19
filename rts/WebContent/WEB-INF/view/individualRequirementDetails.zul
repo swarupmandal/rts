@@ -8,20 +8,21 @@
        <label value="* " style="font-weight:bold; color:red; font-size:large;" />	
        <label value="Requirement Id" style="font-weight: bold; color: black"></label>
 	   
-	   <bandbox autodrop="true" readonly="true" id="reqIdb" value="@bind(vm.requirementGenerationBean.req_id)">
+	   <bandbox autodrop="true" readonly="true" id="reqIdb" value="@bind(vm.requirementGenerationBean.req_id)" width="400px">
 			<bandpopup>	
 				<hbox>
 					<intbox value="@bind(vm.individualRequirementReportBean.r_idSearch)" onChange="@command('onChangeReqId')" placeholder="Search By Req Id" width="120px"></intbox>
 					<button label="Serach" onClick="@command('onChangeReqId')"></button>
 				</hbox>
 				<space></space>
-				<listbox width="345px" model="@bind(vm.requirementGenerationBeanList)" 
+				<listbox width="400px" model="@bind(vm.requirementGenerationBeanList)" 
 				     selectedItem="@bind(vm.requirementGenerationBean)" onSelect="@command('onSelctReqId')" mold="paging" pageSize="5">
 					<listhead sizable="true">
 						<listheader label="Req Id"></listheader>
 						<listheader label="Skill"></listheader>
 						<listheader label="Creation Date" width="90px"></listheader>
 						<listheader label="Type"></listheader>
+						<listheader label="ClientName"></listheader>
 					</listhead>
 					
 					<template name="model" var = "v">
@@ -31,7 +32,7 @@
 						<listcell label="@load(v.reqSkill)"></listcell>
 						<listcell label="@load(v.createdDateStr)"></listcell>
 						<listcell label="@load(v.rIdType)"></listcell>
-					  	
+					  	<listcell label="@load(v.clientOriginalName)"></listcell>
 					</listitem>
 					</template>
 				</listbox>

@@ -61,24 +61,6 @@ public class ClientInformationUpdateViewModel {
 	
 	@Command
 	@NotifyChange("*")
-	public void onSelectStateName(){
-		System.out.println("UPDATE SCREEN-> STATE ID IS :"+informationBean.getStateBean().getStateId());
-		System.out.println("UPDATE SCREEN-> STATE NAME IS :"+informationBean.getStateBean().getStateName());
-		bandBox1.close();
-	}
-	
-	@Command
-	@NotifyChange("*")
-	public void onSelectCountryName(){
-		System.out.println("UPDATE SCREEN-> COUNTRY ID IS :"+informationBean.getCountryBean().getCountryId());
-		System.out.println("UPDATE SCREEN-> COUNTRY NAME IS :"+informationBean.getCountryBean().getCountryName());
-		stateList = ClientInformationDao.onLoadState(informationBean);
-		informationBean.getStateBean().setStateName(null);
-		bandBox.close();
-	}
-	
-	@Command
-	@NotifyChange("*")
 	public void onClickUpdateButton(){
 		flag = ClientInformationService.updateClientMasterData(informationBean);
 		if(flag){
