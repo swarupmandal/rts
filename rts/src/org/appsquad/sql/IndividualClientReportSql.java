@@ -32,7 +32,7 @@ public class IndividualClientReportSql {
 	
 	public static final String loadRidListWithStatus = "select * from vw_individual_client_report where client_id = ? ";
 	
-	public static final String loadRidDetailsListWithStatus = "select * from vw_individual_client_report_details where req_id = ? and final_status_id = ? ";
+	public static final String loadRidDetailsListWithStatus = "select * from vw_individual_client_report_details_status_client where req_id = ? and final_status_id = ? and client_id = ? ";
 	
 				  //************************* date + skill + status + client ************************
 	

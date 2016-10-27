@@ -132,6 +132,23 @@ public class ResourceMasterViewModel {
 	
 	@Command
 	@NotifyChange("*")
+	public void onClickDelete(@BindingParam("bean") ResourceMasterBean bean){
+		int countDelete = 0;
+		boolean flag = false;
+		countDelete = ResourceMasterService.countResourceNumberInMapperTable(bean);
+		if(countDelete>0){
+			Messagebox.show("Resource Is Assigned,Can't Delete!", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
+		}else{
+			flag = ResourceMasterService.deleteResourceMasterData(bean);
+		}	
+		System.out.println("FLAG IS :"+flag);
+		if(flag){
+			onClickExistingData();
+		}
+	}
+	
+	@Command
+	@NotifyChange("*")
 	public void onUploadFile(@ContextParam(ContextType.BIND_CONTEXT) BindContext bindContext) throws Exception{
 		UploadEvent uploadEvent = null;
 		Object objUpEvent = bindContext.getTriggerEvent();

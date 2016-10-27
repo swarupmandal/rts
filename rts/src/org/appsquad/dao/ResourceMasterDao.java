@@ -107,6 +107,46 @@ public class ResourceMasterDao {
 		return returnNum;	
 	}
 	
+	public static int countLastNumberOfResource(ResourceMasterBean resourceMasterBean){
+		int num = 0;
+		Connection connection = null;
+		try {
+			connection = DbConnection.createConnection();
+			sql_connection:{
+				try {
+					
+					//1st SQL block
+					sql_fetch:{
+					   PreparedStatement preparedStatement = null;
+					   try {
+						    preparedStatement = Pstm.createQuery(connection, ResourceMasterSql.countResourceNumberInMapperTableSql, Arrays.asList(resourceMasterBean.getResourceId()));
+						    logger.info("Count Last Number- " + preparedStatement.unwrap(PreparedStatement.class));
+						    ResultSet resultSet = preparedStatement.executeQuery();
+							while (resultSet.next()) {
+								num = resultSet.getInt(1);
+							} 
+						} finally{
+							if(preparedStatement!=null){
+								preparedStatement.close();
+							}
+						}
+				    }
+				} catch (Exception e) {
+					e.printStackTrace();
+					
+				}finally{
+					if(connection!=null){
+						connection.close();
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.fatal(e);
+		}
+		return num;	
+	}
+	
 	public static ArrayList<CountryBean> onLoadCountry(){
 		ArrayList<CountryBean> countryList = new ArrayList<CountryBean>();
 		Connection connection = null;
@@ -447,6 +487,54 @@ public class ResourceMasterDao {
 			logger.fatal(e);
 		}
 		return isUpdated;
+	}
+	
+	public static boolean deleteResourceData(ResourceMasterBean resourceMasterBean){
+		boolean isDeleted = false;
+		Connection connection = null;
+		try {
+			connection = DbConnection.createConnection();
+			sql_connection:{
+				try {
+					
+					//1st SQL block
+					sql_insert:{
+					    PreparedStatement preparedStatementInsert = null;
+					    try {
+					    	preparedStatementInsert = Pstm.createQuery(connection, 
+									ResourceMasterSql.deleteResourceFromTableSql, Arrays.asList(resourceMasterBean.getResourceId()));
+					    	
+					    	logger.info("Deleting Resource Data From Table: "+preparedStatementInsert.unwrap(PreparedStatement.class));
+							int i = preparedStatementInsert.executeUpdate();
+							if(i>0){
+								isDeleted = true;	
+							}
+						} finally{
+							if(preparedStatementInsert!=null){
+								preparedStatementInsert.close();
+							}
+						}
+				    }
+				
+					if( isDeleted){
+						Messagebox.show(" Resource Details Deleted successfully!","Information",Messagebox.OK,Messagebox.INFORMATION);
+					}else{
+						Messagebox.show(" Resource Details failed due to internal error!","ERROR",Messagebox.OK,Messagebox.ERROR);
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+					
+				}finally{
+					if(connection!=null){
+						connection.close();
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.fatal(e);
+		}
+		return isDeleted;
 	}
 	
 }

@@ -7,6 +7,8 @@ import org.zkoss.zul.Messagebox;
 public class ResourceMasterService {
 	private static boolean flag = false;
 	private static boolean flagInsert = false;
+	private static boolean flagDelete = false;
+	private static int countNumber = 0;
 	private static String EMAIL_REGEX = "^[\\w-_\\.+]*[\\w-_\\.]@([\\w]+\\.)+[\\w]+[\\w]$";
 		
 	public static boolean isValid(ResourceMasterBean resourceMasterBean){
@@ -100,6 +102,14 @@ public class ResourceMasterService {
 		bean.setOtherInfo(null);
 	}
 	
+	public static int countResourceNumberInMapperTable(ResourceMasterBean resourceMasterBean){
+		return countNumber = ResourceMasterDao.countLastNumberOfResource(resourceMasterBean);
+	}
+	
+	public static boolean deleteResourceMasterData(ResourceMasterBean resourceMasterBean){
+	     return flagDelete = ResourceMasterDao.deleteResourceData(resourceMasterBean);
+	}
+	
 	/*******************************************************************************************************************************************/
 	
 	public static boolean isFlag() {
@@ -119,5 +129,25 @@ public class ResourceMasterService {
 	}
 	public static void setEMAIL_REGEX(String eMAIL_REGEX) {
 		EMAIL_REGEX = eMAIL_REGEX;
+	}
+
+
+	public static int getCountNumber() {
+		return countNumber;
+	}
+
+
+	public static void setCountNumber(int countNumber) {
+		ResourceMasterService.countNumber = countNumber;
+	}
+
+
+	public static boolean isFlagDelete() {
+		return flagDelete;
+	}
+
+
+	public static void setFlagDelete(boolean flagDelete) {
+		ResourceMasterService.flagDelete = flagDelete;
 	}
 }

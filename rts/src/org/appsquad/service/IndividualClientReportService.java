@@ -51,9 +51,9 @@ public class IndividualClientReportService {
 		return list;
 	}
 	
-	public static ArrayList<IndividualClientReportBean> loadRidListWithStatusSkillDate(Date fromDate, Date toDate, int skillId,int statusId, int clientId){
+	public static ArrayList<IndividualClientReportBean> loadRidListWithStatusSkillDate(int statusId, int clientId){
 		ArrayList<IndividualClientReportBean> list = new ArrayList<IndividualClientReportBean>();
-		list = IndividualClientReportDao.loadRidListWithStatusSkillDate(fromDate, toDate, skillId, statusId, clientId);
+		list = IndividualClientReportDao.loadRidListWithStatusSkillDate(statusId, clientId);
 		return list;
 	}
 	

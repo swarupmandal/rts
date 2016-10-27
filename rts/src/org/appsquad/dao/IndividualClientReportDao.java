@@ -1452,8 +1452,7 @@ public class IndividualClientReportDao {
 		return list;
 	}
 
-	public static ArrayList<IndividualClientReportBean> loadRidListWithStatusSkillDate(
-			Date fromDate, Date toDate, int skillId, int statusId, int clientId) {
+	public static ArrayList<IndividualClientReportBean> loadRidListWithStatusSkillDate(int statusId, int clientId) {
 
 		ArrayList<IndividualClientReportBean> list = new ArrayList<IndividualClientReportBean>();
 		if (list.size() > 0) {
@@ -1468,12 +1467,8 @@ public class IndividualClientReportDao {
 
 			try {
 				connection = DbConnection.createConnection();
-				preparedStatement = Pstm
-						.createQuery(
-								connection,
-								IndividualClientReportSql.loadRidListWithDateAndSkillAndStatus,
-								Arrays.asList(fromDate, toDate, skillId,
-										clientId));
+				preparedStatement = Pstm.createQuery(connection,IndividualClientReportSql.loadRidDetailsListWithStatus,
+						                                Arrays.asList(statusId,clientId));
 
 				logger.info("load Rid List with skill - "
 						+ preparedStatement.unwrap(PreparedStatement.class));
@@ -1533,8 +1528,7 @@ public class IndividualClientReportDao {
 									.createQuery(
 											connection,
 											IndividualClientReportSql.loadRidDetailsListWithStatus,
-											Arrays.asList(bean.getReqId(),
-													statusId));
+											Arrays.asList(bean.getReqId(),statusId,clientId));
 							logger.info("R_ID DETAILS - "
 									+ preparedStatement2
 											.unwrap(PreparedStatement.class));

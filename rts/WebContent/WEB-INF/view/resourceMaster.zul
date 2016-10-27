@@ -107,6 +107,7 @@
 								<column label="State" align="center" style="font-weight:bold;" width="140px"/>
 								<column label="Ctc" align="center" style="font-weight:bold;" width="70px"/>
 								<column label="Update" align="center" style="font-weight:bold;" width="110px"/>
+								<column label="Delete" align="center" style="font-weight:bold;" width="110px"/>
 						</columns>	
 						
 						<template name="model" var="v">
@@ -120,6 +121,7 @@
 									<textbox value="@bind(v.state)" readonly="true" width="90%" tooltiptext="@bind(v.state)"/>
 									<textbox value="@bind(v.ctc)" readonly="true" width="90%" tooltiptext="@bind(v.ctc)"/>
 								    <button label="Update" width="90%" onClick="@command('onClickUpdate', bean = v)"></button>
+								    <button label="Delete" width="90%" onClick="@command('onClickDelete', bean = v)"></button>
 								</row>
 					  </template>
 				</grid>			

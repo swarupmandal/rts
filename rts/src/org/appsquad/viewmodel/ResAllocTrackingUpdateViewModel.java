@@ -317,8 +317,10 @@ public class ResAllocTrackingUpdateViewModel {
 					System.out.println("RESOURCE ID IS :"+trackingUpdateBean.getResourceMasterBean().getResourceId());
 					System.out.println("REQ ID IS :"+req_id);
 					System.out.println("Client Id is :"+clientId);
-					System.out.println("type name is :"+trackingUpdateBean.getResourceType());
+					System.out.println("Resource Type Name Is :"+trackingUpdateBean.getResourceType());
 					typeName = ResourceAllocationTrackingDao.getTypeName(req_id);
+					System.out.println("TYPE NAME IS :"+typeName);
+					
 					r = ResourceAllocationTrackingService.updateRejectedStatus(req_id, trackingUpdateBean.getResourceMasterBean().getResourceId(), clientId, typeName);
 					System.out.println("R IS :"+r);
 					if(r>0){

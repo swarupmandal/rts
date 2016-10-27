@@ -15,7 +15,7 @@ public class ResourceAllocationSql {
     public static final String insertIntoTrackingHistoryTableSql = "INSERT INTO rts_req_res_status_tracking(r_id, resource_id, status_id,created_by) VALUES (?, ?,?, ?) "; 
     public static final String fetchStatusIdSql = "select id from rts_status_master where master_status_name = 'INITIAL ' ";
     public static final String fetchResourceDetails = "select id,res_name,res_surname,res_experience,res_address,res_emailid,"
-    		                                        + "rts_skill_name from rts_resource_master where rts_skill_name  = ? order by id ";
+    		                                        + "rts_skill_name from rts_resource_master where rts_skill_name  = ? and is_delete = 'N' order by id ";
     public static final String fetchAllFieldSql = "select * from vw_req_skill_details where req_client_id = ? and r_id = ? ";
     public static final String countFromMapperSql = "select count(*) from rts_reject_mapper where req_id = ? and res_id = ? ";
     public static final String countFromMapperSqlForResAndClient = "select count(*) from rts_req_resource_mapper where resource_id = ? and client_id = ? and req_id = ? ";

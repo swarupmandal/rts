@@ -165,8 +165,7 @@ public class ClientInformationDao {
 											clientInformationBean.getClientOriginalName().toUpperCase(),clientInformationBean.getAddress().toUpperCase(),
 											clientInformationBean.getState(),clientInformationBean.getCountry(),
 											clientInformationBean.getPinZipCode(),clientInformationBean.getContactNo().toUpperCase(),
-											clientInformationBean.getEmailId(),clientInformationBean.getUserId(),
-											clientInformationBean.getStateBean().getStateId(),clientInformationBean.getCountryBean().getCountryId()));
+											clientInformationBean.getEmailId(),clientInformationBean.getUserId()));
 					    	
 					    	logger.info("Inserting Client Data Into Table: "+preparedStatementInsert.unwrap(PreparedStatement.class));
 							int i = preparedStatementInsert.executeUpdate();
