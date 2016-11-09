@@ -17,6 +17,10 @@ public class ClientInformationsql {
 	
 	public static final String deleteClientDetailsSql = "update rts_clients_master set is_delete = 'D' where id = ? ";
 	public static final String countClientPresentWrtRequirementSql = "select count(*) from rts_requirement_master where req_client_id = ? ";
+	
+	public static final String selectUserDetailsSql = "select id, user_id, user_name, email from rts_user_master where is_delete = 'N' ";
+	
+	public static final String insertClientUserMapperSql = "insert into rts_user_client_mapper (client_id,user_id,user_name,user_email, created_by, updated_by) values(?,?,?,?,?,?) ";
 
 }
  

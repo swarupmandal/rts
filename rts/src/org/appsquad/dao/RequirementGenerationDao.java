@@ -262,7 +262,7 @@ public class RequirementGenerationDao {
 			ResultSet resultSet = null;
 			try {
 				connection = DbConnection.createConnection();
-				preparedStatement = Pstm.createQuery(connection, RequirementGenerationSql.loadSkillSetNameSearch, Arrays.asList("%"+name.trim().toUpperCase()+"%"));
+				preparedStatement = Pstm.createQuery(connection, RequirementGenerationSql.loadSkillSetNameSearch, Arrays.asList(name.trim().toUpperCase()+"%"));
 				logger.info("skill set Search - " + preparedStatement.unwrap(PreparedStatement.class));
 				resultSet = preparedStatement.executeQuery();
 				while (resultSet.next()) {

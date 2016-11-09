@@ -92,7 +92,16 @@ public class SkillSetWiseReportViewModel {
 		   summaryBeanList.clear();
 		   reportBeanList.clear();   
 	}
+	
+	@Command
+	@NotifyChange("*")
+	public void onChangeSkillName(){
 		
+		 skillList = RequirementGenerationService.skillSetListSearch(skilWiseReportBean.getSkillSetSearch());
+		reportBeanList.clear();
+		summaryBeanList.clear();
+	}
+	
 	@Command
 	@NotifyChange("*")
 	public void onSelctClientName(){
@@ -121,6 +130,14 @@ public class SkillSetWiseReportViewModel {
 			  skilWiseReportBean.setDetailsDivVis(false);
 			  skilWiseReportBean.setSummaryDivVis(true); 
 		   }
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void onChangeClientName(){
+		clientList = ResourceAllocationTrackingService.fetchClientDetailsSearchClient(skilWiseReportBean.getClientNameSearch());
+		reportBeanList.clear();
+		summaryBeanList.clear();
 	}
 	
 	

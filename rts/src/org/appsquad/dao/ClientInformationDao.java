@@ -3,6 +3,7 @@ package org.appsquad.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -11,6 +12,7 @@ import org.appsquad.bean.ClientInformationBean;
 import org.appsquad.bean.CountryBean;
 import org.appsquad.bean.ResourceMasterBean;
 import org.appsquad.bean.StateBean;
+import org.appsquad.bean.UserprofileBean;
 import org.appsquad.database.DbConnection;
 import org.appsquad.sql.ClientInformationsql;
 import org.appsquad.utility.Pstm;
@@ -154,7 +156,7 @@ public class ClientInformationDao {
 		return countryList;
 	}
 	
-	public static boolean insertClientData(ClientInformationBean clientInformationBean){
+	/*public static boolean insertClientData(ClientInformationBean clientInformationBean){
 		boolean isSaved = false;
 		Connection connection = null;
 		try {
@@ -178,6 +180,96 @@ public class ClientInformationDao {
 							if(i>0){
 								isSaved = true;	
 							}
+						} finally{
+							if(preparedStatementInsert!=null){
+								preparedStatementInsert.close();
+							}
+						}
+				    }
+				
+					if( isSaved){
+						Messagebox.show(" Client Details Saved Successfully!","Information",Messagebox.OK,Messagebox.INFORMATION);
+					}else{
+						Messagebox.show(" Client Details failed due to internal error!","ERROR",Messagebox.OK,Messagebox.ERROR);
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+					logger.error(e);
+					logger.error(e);
+				}finally{
+					if(connection!=null){
+						connection.close();
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(e);
+			logger.error(e);
+		}
+		return isSaved;
+	}*/
+	
+	public static boolean insertClientData(ClientInformationBean clientInformationBean, ArrayList<UserprofileBean> userProfileBeanList){
+		boolean isSaved = false;
+		int key =0;
+		Connection connection = null;
+		try {
+			connection = DbConnection.createConnection();
+			sql_connection:{
+				try {
+					
+					//1st SQL block
+					sql_insert:{
+					    PreparedStatement preparedStatementInsert = null;
+					    try {
+					    	/*preparedStatementInsert = Pstm.createQuery(connection, 
+									ClientInformationsql.insertClientInfo, Arrays.asList(clientInformationBean.getName().toUpperCase(),clientInformationBean.getSurName().toUpperCase(),
+											clientInformationBean.getClientOriginalName().toUpperCase(),clientInformationBean.getAddress().toUpperCase(),
+											clientInformationBean.getState(),clientInformationBean.getCountry(),
+											clientInformationBean.getPinZipCode(),clientInformationBean.getContactNo().toUpperCase(),
+											clientInformationBean.getEmailId(),clientInformationBean.getUserId()));*/
+					    			
+					    	preparedStatementInsert = connection.prepareStatement(ClientInformationsql.insertClientInfo, Statement.RETURN_GENERATED_KEYS);
+					    	preparedStatementInsert.setString(1, clientInformationBean.getName());
+					    	preparedStatementInsert.setString(2, clientInformationBean.getSurName());
+					    	preparedStatementInsert.setString(3, clientInformationBean.getClientOriginalName());
+					    	preparedStatementInsert.setString(4, clientInformationBean.getAddress());
+					    	preparedStatementInsert.setString(5, clientInformationBean.getState());
+					    	preparedStatementInsert.setString(6, clientInformationBean.getCountry());
+					    	preparedStatementInsert.setString(7, clientInformationBean.getPinZipCode());
+					    	preparedStatementInsert.setString(8, clientInformationBean.getContactNo());
+					    	preparedStatementInsert.setString(9, clientInformationBean.getEmailId());
+					    	preparedStatementInsert.setString(10, clientInformationBean.getUserId());
+					    	
+					    	logger.info("Inserting Client Data Into Table: "+preparedStatementInsert.unwrap(PreparedStatement.class));
+							int i = preparedStatementInsert.executeUpdate();
+							ResultSet rs = preparedStatementInsert.getGeneratedKeys();
+					    	if(rs.next()){
+					    		key = rs.getInt(1);
+					    		System.out.println("KEY - " + key);
+					    	}
+							if(i>0){
+								isSaved = true;
+								PreparedStatement preparedStatement = null;
+								try {
+									
+									for(UserprofileBean ub: userProfileBeanList){
+										if(ub.isChecked()){
+											preparedStatement = Pstm.createQuery(connection, ClientInformationsql.insertClientUserMapperSql, Arrays.asList(key, ub.getId(), ub.getUsername(), ub.getEmail(), clientInformationBean.getUserId(), clientInformationBean.getUserId()));
+											int insert = preparedStatement.executeUpdate();
+											System.out.println("INSERT " + insert);
+											logger.info("Inserting Client User Mapper Table: "+preparedStatement.unwrap(PreparedStatement.class));
+										}
+									}
+									
+								} finally{
+									if(preparedStatement != null){
+										preparedStatement.close();
+									}
+								}
+							}
+							
 						} finally{
 							if(preparedStatementInsert!=null){
 								preparedStatementInsert.close();
@@ -407,5 +499,50 @@ public class ClientInformationDao {
 			logger.fatal(e);
 		}
 		return count;	
+	}
+	
+	public static ArrayList<UserprofileBean> onLoadUserProfile(Connection connection){
+		ArrayList<UserprofileBean> list = new ArrayList<UserprofileBean>();
+		if(list.size()>0){
+			list.clear();
+		}
+		try {
+			connection= DbConnection.createConnection();
+			PreparedStatement preparedStatement = null;
+			
+			try {
+				preparedStatement = Pstm.createQuery(connection, ClientInformationsql.selectUserDetailsSql, null);
+				logger.info("onLoad User Details Query:- " + preparedStatement.unwrap(PreparedStatement.class));
+				ResultSet resultSet = preparedStatement.executeQuery(); 
+				while (resultSet.next()) {
+					UserprofileBean bean = new UserprofileBean();
+					bean.setId(resultSet.getInt("id"));
+					bean.setUserid(resultSet.getString("user_id"));
+					bean.setUsername(resultSet.getString("user_name"));
+					bean.setEmail(resultSet.getString("email"));
+					bean.setChecked(false);
+					
+					list.add(bean);
+				}
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+				logger.error(e);
+				logger.fatal(e);
+			}finally{
+				if(preparedStatement != null){
+					preparedStatement.close();
+				}
+				if(connection != null){
+					connection.close();
+				}
+				
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+		
 	}
 }

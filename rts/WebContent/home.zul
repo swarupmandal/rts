@@ -133,7 +133,14 @@
          	</treecell>
          </treerow>
          </treeitem>
-           <treeitem>
+         <treeitem>  
+           <treerow>
+           	<treecell label="- Current Opportunities"
+           		onClick='inclResults.setSrc("/WEB-INF/view/currentOpportunities.zul");'>
+           	</treecell>
+           </treerow>
+         </treeitem>
+         <treeitem>
          <treerow>
          	<treecell label="- Log Audit Section" 
          	onClick='inclResults.setSrc("/WEB-INF/view/logAuditView.zul");' visible="@bind(vm.resourceDetailPerRequirementCV)">

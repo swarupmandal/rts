@@ -195,6 +195,43 @@ public class ResourceAllocationTrackingDao {
 		return list;
 	}
 	
+	public static ArrayList<ClientInformationBean> fetchClientDetailsSearchClient(String name){
+		ArrayList<ClientInformationBean> list = new ArrayList<ClientInformationBean>();
+		if(list.size()>0){
+			list.clear();
+		}
+		try {
+			Connection connection = null;
+			PreparedStatement preparedStatement = null;
+			ResultSet resultSet = null;
+			try {
+				connection = DbConnection.createConnection();
+				preparedStatement = Pstm.createQuery(connection, ResourceAllocationTrackingSql.loadClNameSearchClient, Arrays.asList(name.trim().toUpperCase()+"%"));
+				logger.info("fetchClientDetailsSearch - " + preparedStatement.unwrap(PreparedStatement.class));
+				resultSet = preparedStatement.executeQuery();
+				while (resultSet.next()) {
+					ClientInformationBean bean = new ClientInformationBean();
+					bean.setClientId(resultSet.getInt("id"));
+					bean.setFullName(resultSet.getString("clientname")); // changed due to change client name to company name
+					
+					list.add(bean);
+				}
+			} finally {
+				if(preparedStatement != null){
+					preparedStatement.close();
+				}if(resultSet != null){
+					resultSet.close();
+				}if(connection != null){
+					connection.close();
+				}
+			}
+		} catch (Exception e) {
+			logger.fatal(e);
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
 	public static ArrayList<RequirementGenerationBean> fetchReqirmentDetailsSearch(int clId,int id){
 		ArrayList<RequirementGenerationBean> list = new ArrayList<RequirementGenerationBean>();
 		if(list.size()>0){
@@ -244,7 +281,7 @@ public class ResourceAllocationTrackingDao {
 			ResultSet resultSet = null;
 			try {
 				connection = DbConnection.createConnection();
-				preparedStatement = Pstm.createQuery(connection, ResourceAllocationTrackingSql.loadReqIdSearchWithRid, Arrays.asList("%"+id+"%"));
+				preparedStatement = Pstm.createQuery(connection, ResourceAllocationTrackingSql.loadReqIdSearchWithRid, Arrays.asList(id+"%"));
 				logger.info("fetchReqirmentDetailsSearch - " + preparedStatement.unwrap(PreparedStatement.class));
 				resultSet = preparedStatement.executeQuery();
 				while (resultSet.next()) {
@@ -258,7 +295,7 @@ public class ResourceAllocationTrackingDao {
 					if(bean.getCreatedDateValue() != null){
 						bean.setCreatedDateStr(Dateformatter.toStringDate(bean.getCreatedDateValue()));
 					}
-					
+					bean.setClientOriginalName(resultSet.getString("clientname"));
 					bean.setrIdType(resultSet.getString("type_name"));
 					
 					list.add(bean);

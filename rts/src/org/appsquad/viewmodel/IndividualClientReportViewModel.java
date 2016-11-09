@@ -65,7 +65,8 @@ public class IndividualClientReportViewModel {
 	   @NotifyChange("*")
 	   public void onChangeClientName(){
 		   if(individualClientReportBean.getClientNameSearch() != null){
-			   clientList = ResourceAllocationTrackingService.fetchClientDetailsSearch(individualClientReportBean.getClientNameSearch());
+			   //clientList = ResourceAllocationTrackingService.fetchClientDetailsSearch(individualClientReportBean.getClientNameSearch());
+			   clientList = ResourceAllocationTrackingService.fetchClientDetailsSearchClient(individualClientReportBean.getClientNameSearch());
 		   }
 		   reportBeanList.clear();
 		   summaryBeanList.clear();

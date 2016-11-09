@@ -126,7 +126,8 @@ public class SortcriteriaRidorStatusviewModel {
 	 @NotifyChange("*")
 	 public void onChangeClientName(){
 		   if(rIdWiseReportBean.getClientNameSearch() != null){
-			   clientList = ResourceAllocationTrackingService.fetchClientDetailsSearch(rIdWiseReportBean.getClientNameSearch());
+			   //clientList = ResourceAllocationTrackingService.fetchClientDetailsSearch(rIdWiseReportBean.getClientNameSearch());
+			   clientList = ResourceAllocationTrackingService.fetchClientDetailsSearchClient(rIdWiseReportBean.getClientNameSearch());
 		   }
 		   reportBeanList.clear();
 		   summaryBeanList.clear();

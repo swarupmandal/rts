@@ -12,6 +12,8 @@ public class UserprofileBean {
 	private String Contactno;
 	private int id;
 	
+	private boolean isChecked;
+	
 	/*********Log-Audit Purpose ************/
 	private String mainScreenName = "MASTER";
 	private String chileScreenName = "USER PROFILE MASTER";
@@ -106,5 +108,11 @@ public class UserprofileBean {
 	}
 	public void setOperationId(Integer operationId) {
 		this.operationId = operationId;
+	}
+	public boolean isChecked() {
+		return isChecked;
+	}
+	public void setChecked(boolean isChecked) {
+		this.isChecked = isChecked;
 	}
 }

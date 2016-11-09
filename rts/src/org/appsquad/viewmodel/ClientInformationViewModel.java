@@ -8,6 +8,7 @@ import java.util.HashMap;
 import org.appsquad.bean.ClientInformationBean;
 import org.appsquad.bean.CountryBean;
 import org.appsquad.bean.StateBean;
+import org.appsquad.bean.UserprofileBean;
 import org.appsquad.dao.ClientInformationDao;
 import org.appsquad.service.ClientInformationService;
 import org.appsquad.service.LogAuditServiceClass;
@@ -31,10 +32,13 @@ import org.zkoss.zul.Window;
 
 public class ClientInformationViewModel {
 	ClientInformationBean clientInformationBean = new ClientInformationBean();
+	UserprofileBean userprofileBean = new UserprofileBean();
+	
 	
 	private ArrayList<StateBean> stateList = new ArrayList<StateBean>();
 	private ArrayList<CountryBean> countryList = new ArrayList<CountryBean>();
 	private ArrayList<ClientInformationBean> clientDetailsList = new ArrayList<ClientInformationBean>();
+	private ArrayList<UserprofileBean> userBeanList = new ArrayList<UserprofileBean>();
 	
 	private Connection connection = null;
 	private Session sessions = null;
@@ -57,6 +61,7 @@ public class ClientInformationViewModel {
 		clientInformationBean.setSessionUserId(userId);
 		countryList = ClientInformationDao.onLoadCountry();
 		clientDetailsList = ClientInformationDao.onLoadClientDeatils();
+		userBeanList = ClientInformationDao.onLoadUserProfile(connection);
 	}
 	
 	@GlobalCommand
@@ -74,7 +79,7 @@ public class ClientInformationViewModel {
 	@Command
 	@NotifyChange("*")
 	public void onClickSubmitButton(){
-		flag = ClientInformationService.insertClientMasterData(clientInformationBean);
+		flag = ClientInformationService.insertClientMasterData(clientInformationBean, userBeanList);
 		if(flag){
 			clientInformationBean.setOperation("INSERT");
 			clientInformationBean.setOperationId(1);
@@ -86,6 +91,9 @@ public class ClientInformationViewModel {
 																	clientInformationBean.getOperationId());
 			System.out.println("flagLogInsert Is:"+flagLogInsert);
 			ClientInformationService.clearAllField(clientInformationBean);
+			
+			userBeanList.clear();
+			userBeanList = ClientInformationService.loadUser(connection);
 		}
 	}
 	
@@ -218,5 +226,21 @@ public class ClientInformationViewModel {
 	}
 	public void setFlagLogInsert(boolean flagLogInsert) {
 		this.flagLogInsert = flagLogInsert;
+	}
+
+	public UserprofileBean getUserprofileBean() {
+		return userprofileBean;
+	}
+
+	public void setUserprofileBean(UserprofileBean userprofileBean) {
+		this.userprofileBean = userprofileBean;
+	}
+
+	public ArrayList<UserprofileBean> getUserBeanList() {
+		return userBeanList;
+	}
+
+	public void setUserBeanList(ArrayList<UserprofileBean> userBeanList) {
+		this.userBeanList = userBeanList;
 	}
 }

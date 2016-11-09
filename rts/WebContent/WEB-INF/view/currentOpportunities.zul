@@ -1,0 +1,59 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="CURRENT OPPORTUNITIES" border="none" apply="org.zkoss.bind.BindComposer" 
+   viewModel="@id('vm') @init('org.appsquad.viewmodel.CurrentOpportunitiesViewModel')">
+	<div>
+	  <grid model="@bind(vm.currentOpportunitiesBeanList)" height="470px" mold="paging" pageSize="9">
+		<columns sizable="true">
+			<column label="Client Name" width="250px" style="font-weight: bold; color:black" align="center"></column>
+			<column label="Req_Id" width="120px" style="font-weight: bold; color:black" align="center"></column>
+			<column label="Skill Set" width="180px" style="font-weight: bold; color:black" align="center"></column>
+			<column label="Resource Name" width="250px" style="font-weight: bold; color:black" align="center"></column>
+			<column label="Type" width="150px" style="font-weight: bold; color:black" align="center"></column>
+			<column label="Tenure From" width="150px" style="font-weight: bold; color:black" align="center"></column>
+			<column label="Tenure To" width="150px" style="font-weight: bold; color:black" align="center"></column>
+			<column label="Charge Out Rate" width="150px" style="font-weight: bold; color:black" align="center"></column>
+			<column label="Resource Salary" width="150px" style="font-weight: bold; color:black" align="center"></column>
+			<column label="Margin" width="150px" style="font-weight: bold; color:black" align="center"></column>
+			<column label="Approval" width="150px" style="font-weight: bold; color:black" align="center"></column>
+			<column label="Approvar Person" width="200px" style="font-weight: bold; color:black" align="center"></column>
+			<column label="Action" width="250px" style="font-weight: bold; color:black" align="center"></column>
+		</columns>
+		<rows>
+		  <template name="model" var = "v">	
+			<row>
+				<textbox value="@bind(v.clientName)" width="100%" readonly="true"></textbox>
+				<textbox value="@bind(v.rid)" width="100%" readonly="true"></textbox>
+				<textbox value="@bind(v.skillset)" width="100%" readonly="true"></textbox>
+				<textbox value="@bind(v.resourceName)" width="100%" readonly="true"></textbox>
+				<textbox value="@bind(v.resourceType)" width="100%" readonly="true"></textbox>
+				<textbox value="@bind(v.tenureFromString)" width="100%" readonly="true"></textbox>
+				<textbox value="@bind(v.tenureToString)" width="100%"></textbox>
+				<doublebox value="@bind(v.chargeoutRate)" width="100%"></doublebox>
+				<doublebox value="@bind(v.resourceSalary)" width="100%"></doublebox>
+				<doublebox value="@bind(v.margin)" width="100%"></doublebox>
+				
+				<combobox value="@bind(v.approval)" disabled="false" width="100%" readonly="true">
+					<comboitem label="Approve"></comboitem>
+					<comboitem label="Reject"></comboitem>
+				</combobox>
+				
+				<combobox model="@bind(v.userClBeanList)" value="@bind(v.bean.userName)" width="100%" selectedItem="@bind(v.bean)" readonly="true">
+					<template name="model" var = "p">
+					  <comboitem value="@bind(p.userId)" label="@bind(p.userName)"></comboitem>
+					</template>
+				</combobox>
+				
+				<hlayout spacing="10px" width="100%">
+				  <button label="Send To Approver" visible="true" style="font-weight:bold"></button>
+				  <button label="Create Offer" visible="false" style="font-weight:bold"></button>	
+				</hlayout>
+				
+			</row>
+		  </template>	
+		</rows>
+	
+	  </grid>
+	</div>
+</window>
+</zk>

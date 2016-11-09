@@ -1,6 +1,10 @@
 package org.appsquad.service;
 
+import java.sql.Connection;
+import java.util.ArrayList;
+
 import org.appsquad.bean.ClientInformationBean;
+import org.appsquad.bean.UserprofileBean;
 import org.appsquad.dao.ClientInformationDao;
 import org.zkoss.zul.Messagebox;
 
@@ -64,9 +68,9 @@ public class ClientInformationService {
 		}
 	}
 	
-	public static boolean insertClientMasterData(ClientInformationBean clientInformationBean){
+	public static boolean insertClientMasterData(ClientInformationBean clientInformationBean, ArrayList<UserprofileBean> userpList){
 		if(isValid(clientInformationBean)){
-			flag = ClientInformationDao.insertClientData(clientInformationBean);
+			flag = ClientInformationDao.insertClientData(clientInformationBean, userpList);
 		}
 		return flag;
 	}
@@ -84,6 +88,12 @@ public class ClientInformationService {
 	
 	public static int countClientPresentWrtRequirementService(ClientInformationBean clientInformationBean){
 		return countNumber = ClientInformationDao.countClientPresentWrtRequirementDao(clientInformationBean);
+	}
+	
+	public static ArrayList<UserprofileBean> loadUser(Connection connection){
+		ArrayList<UserprofileBean> list = new ArrayList<UserprofileBean>();
+		list= ClientInformationDao.onLoadUserProfile(connection);
+		return list;
 	}
 	
 	public static void clearAllField(ClientInformationBean bean){

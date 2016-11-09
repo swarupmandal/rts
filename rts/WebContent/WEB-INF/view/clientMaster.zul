@@ -104,6 +104,33 @@
 					</row>
 					
 					<row>
+					  <hlayout>
+					     <label value="* " style="font-weight:bold; color:red" visible="false"/>
+					     <label value="User Access:" style="font-weight:bold"></label>
+					  </hlayout>		
+					  
+					  <bandbox readonly="true" id="idList" width="36%">
+						 <bandpopup>
+							<grid width="280px" model="@bind(vm.userBeanList)" mold="paging" pageSize="5">
+							  <columns>
+								  <column label="Chk" width="35px" align="center"/>
+								  <column label="User Name" align="center"/>
+							  </columns>
+							  <rows>
+							  	<template name="model" var = "v">
+								  <row>
+									 <checkbox checked="@bind(v.checked)"/>
+									 <textbox value="@bind(v.username)" width="100%" readonly="true"/>
+								  </row>
+								 </template>  
+							  </rows>
+							</grid>
+					    </bandpopup>
+					 </bandbox>
+					</row>
+					
+					
+					<row>
 					 <label></label>
 					 <button width="80px" height="30px" label="Submit" style="font-weight: bold" onClick="@command('onClickSubmitButton')"></button>
 					</row>
