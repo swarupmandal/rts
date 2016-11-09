@@ -328,7 +328,6 @@ public class ResourceAllocationTrackingDao {
 					}	
 					list.add(bean);
 				}
-				list.add(new ResourceAllocationTrackingBean());
 			} finally {
 				if(preparedStatement != null){
 					preparedStatement.close();

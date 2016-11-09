@@ -2,12 +2,14 @@ package org.appsquad.viewmodel;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 
 import org.appsquad.bean.RoleMasterBean;
 import org.appsquad.bean.RollDropDownBean;
 import org.appsquad.bean.UserprofileBean;
 import org.appsquad.dao.RoleMasterDao;
+import org.appsquad.service.LogAuditServiceClass;
 import org.appsquad.service.RoleMasterService;
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.AfterCompose;
@@ -26,8 +28,6 @@ import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
-import com.sun.javafx.tk.quantum.MasterTimer;
-
 public class RolemasterViewModel {
 	RoleMasterBean roleMasterBean= new RoleMasterBean();
 	private ArrayList<RoleMasterBean> rolebeanlist= new ArrayList<RoleMasterBean>();
@@ -42,6 +42,7 @@ public class RolemasterViewModel {
 	private static boolean flag = false;
 	private static Integer count ;
 	private static Integer countRole ;
+	private boolean flagLogDelete = false;
 	
 	@AfterCompose
 	public void initSetUp(@ContextParam(ContextType.VIEW) Component view) throws Exception{
@@ -49,18 +50,29 @@ public class RolemasterViewModel {
 		sessions = Sessions.getCurrent();
 		userId = (String) sessions.getAttribute("userId");
 		roleMasterBean.setUserid(userId);
+		roleMasterBean.setSessionUserId(userId);
 		rolebeanlist = RoleMasterDao.onLoadRoleDeatils();
 	}
 	
 	@Command
 	@NotifyChange("*")
 	public void onClickRoleSave(){
+		boolean flagLogInsert = false;
 		countRole = RoleMasterDao.onLoadRoleNameCountDeatils(roleMasterBean);
 		if(countRole>0){
 			roleMasterBean.setRoll(null);
 			Messagebox.show(" Enter New Role Name!","Exclamation",Messagebox.OK,Messagebox.EXCLAMATION);
 		}else{
 			RoleMasterService.insertClientMasterData(roleMasterBean);
+			roleMasterBean.setOperation("INSERT");
+			roleMasterBean.setOperationId(1);
+			Calendar calendar = Calendar.getInstance();
+		    java.sql.Date currentDate = new java.sql.Date(calendar.getTime().getTime());
+			System.out.println("CREATION DATE :"+currentDate);
+			flagLogInsert = LogAuditServiceClass.insertIntoLogTable(roleMasterBean.getMainScreenName(), roleMasterBean.getChileScreenName(), 
+																			roleMasterBean.getSessionUserId(), roleMasterBean.getOperation(),currentDate,
+																			   roleMasterBean.getOperationId());
+			System.out.println("flagLogInsert Is:"+flagLogInsert);
 			RoleMasterService.clearAllField(roleMasterBean);
 			rolebeanlist = RoleMasterDao.onLoadRoleDeatils();	
 		}
@@ -76,7 +88,18 @@ public class RolemasterViewModel {
 	@Command
 	@NotifyChange("*")
 	public void onClickSave(@BindingParam("bean") RoleMasterBean masterBean){
+		boolean flagLogUpdate = false;
 		RoleMasterDao.updateRoleData(masterBean);
+		masterBean.setOperation("UPDATE");
+		masterBean.setSessionUserId(userId);
+		masterBean.setOperationId(2);
+		Calendar calendar = Calendar.getInstance();
+	    java.sql.Date currentDate = new java.sql.Date(calendar.getTime().getTime());
+		System.out.println("CREATION DATE :"+currentDate);
+		flagLogUpdate = LogAuditServiceClass.insertIntoLogTable(masterBean.getMainScreenName(), masterBean.getChileScreenName(), 
+																	masterBean.getSessionUserId(), masterBean.getOperation(),currentDate,
+																	masterBean.getOperationId());
+		System.out.println("flagLogUpdate Is:"+flagLogUpdate);
 		masterBean.setVisibilityEditButton(false);
 		masterBean.setVisibilitySaveButton(false);
 		masterBean.setVisibilityDeleteButton(false);
@@ -97,6 +120,16 @@ public class RolemasterViewModel {
 						public void onEvent(Event evt) throws Exception {
 							if (evt.getName().equals("onOK")) {
 								RoleMasterDao.deleteRoleData(masterBean);
+								masterBean.setOperation("DELETE");
+								masterBean.setSessionUserId(userId);
+								masterBean.setOperationId(3);
+								Calendar calendar = Calendar.getInstance();
+							    java.sql.Date currentDate = new java.sql.Date(calendar.getTime().getTime());
+								System.out.println("CREATION DATE :"+currentDate);
+								flagLogDelete = LogAuditServiceClass.insertIntoLogTable(masterBean.getMainScreenName(), masterBean.getChileScreenName(), 
+																							masterBean.getSessionUserId(), masterBean.getOperation(),currentDate,
+																							   masterBean.getOperationId());
+								System.out.println("flagLogDelete Is:"+flagLogDelete);
 								BindUtils.postGlobalCommand(null, null, "refresh", null);
 							}
 					}
@@ -147,11 +180,23 @@ public class RolemasterViewModel {
 	@Command
 	@NotifyChange("*")
 	public void onClickAssign(){
+		boolean flagAssignLogInsert = false;
 		count = RoleMasterDao.onLoadCountDeatils(roleMasterBean);
 		if(count>0){
 			Messagebox.show("Please Enter New User Name!","Exclamation",Messagebox.OK,Messagebox.EXCLAMATION);
 		}else {
 			RoleMasterService.insertAssignData(roleMasterBean);
+			RoleMasterService.insertClientMasterData(roleMasterBean);
+			roleMasterBean.setOperation("INSERT");
+			roleMasterBean.setSessionUserId(userId);
+			roleMasterBean.setOperationId(1);
+			Calendar calendar = Calendar.getInstance();
+		    java.sql.Date currentDate = new java.sql.Date(calendar.getTime().getTime());
+			System.out.println("CREATION DATE :"+currentDate);
+			flagAssignLogInsert = LogAuditServiceClass.insertIntoLogTable(roleMasterBean.getMainScreenName(), roleMasterBean.getChileScreenName(), 
+																			roleMasterBean.getSessionUserId(), roleMasterBean.getOperation(),currentDate,
+																			 roleMasterBean.getOperationId());
+			System.out.println("flagAssignLogInsert Is:"+flagAssignLogInsert);
 			RoleMasterService.clearAllFieldAssign(roleMasterBean);
 			userList = RoleMasterDao.onLoadUserDeatils();
 			roleList = RoleMasterDao.onLoadRoleDropDownDeatils();
@@ -177,7 +222,7 @@ public class RolemasterViewModel {
 		window.doModal();
 	}
 	
-	/*************************************************************************************************************************************************/
+	/***************************************************Getter And Setter Method ****************************************************************/
 	
 	public RoleMasterBean getRoleMasterBean() {
 		return roleMasterBean;
@@ -224,13 +269,18 @@ public class RolemasterViewModel {
 	public ArrayList<UserprofileBean> getUserList() {
 		return userList;
 	}
+	public boolean isFlagLogDelete() {
+		return flagLogDelete;
+	}
+	public void setFlagLogDelete(boolean flagLogDelete) {
+		this.flagLogDelete = flagLogDelete;
+	}
 	public ArrayList<RoleMasterBean> getMappingList() {
 		return mappingList;
 	}
 	public void setMappingList(ArrayList<RoleMasterBean> mappingList) {
 		this.mappingList = mappingList;
 	}
-
 	public void setUserList(ArrayList<UserprofileBean> userList) {
 		this.userList = userList;
 	}

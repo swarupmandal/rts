@@ -594,11 +594,10 @@ public class ResourceAllocationDao {
 							    try {
 							    	preparedStatementInsert = Pstm.createQuery(connection, 
 											ResourceAllocationSql.insertIntoTrackingHistoryTableSql, Arrays.asList(allocationBean.getRequirementGenerationBean().getRequirementId(),
-													                                 bean.getResourceId(),allocationBean.getStatusId(),
-													                                 allocationBean.getUserId()));
+													                                 									bean.getResourceId(),allocationBean.getStatusId(),
+													                                 											allocationBean.getUserId()));
 							    	
-							    	logger.info(" insertIntoStatus- " + preparedStatementInsert.unwrap(PreparedStatement.class));
-							    	
+							    	logger.info(" INSERT INTO STATUS TRACKING TABLE FROM RESOURCE ALLOCATION SCREEN- " + preparedStatementInsert.unwrap(PreparedStatement.class));
 									int i = preparedStatementInsert.executeUpdate();
 									if(i>0){
 										isInsertedStatus = true;	
@@ -639,9 +638,7 @@ public class ResourceAllocationDao {
 					   PreparedStatement preparedStatement = null;
 					   try {
 						    preparedStatement = Pstm.createQuery(connection, ResourceAllocationSql.fetchStatusIdSql, null);
-						    
 						    logger.info(" fetchStatusId- " + preparedStatement.unwrap(PreparedStatement.class));
-						    
 							ResultSet resultSet = preparedStatement.executeQuery();
 							while (resultSet.next()) {
 								statusId = resultSet.getInt("id");
@@ -682,9 +679,7 @@ public class ResourceAllocationDao {
 						   PreparedStatement preparedStatement = null;
 						   try {
 							    preparedStatement = Pstm.createQuery(connection, ResourceAllocationSql.updateResourceTableConSql, Arrays.asList(number,clientId,reqId));
-							    
 							    logger.info(" updateResourceTableNumber- " + preparedStatement.unwrap(PreparedStatement.class));
-							    
 								int i = preparedStatement.executeUpdate();
 								if(i>0){
 									isUpdatedResource = true;	
@@ -718,9 +713,7 @@ public class ResourceAllocationDao {
 						   PreparedStatement preparedStatement = null;
 						   try {
 							    preparedStatement = Pstm.createQuery(connection, ResourceAllocationSql.updateResourceTablePerSql, Arrays.asList(number,clientId,reqId));
-							    
 							    logger.info(" updateResourceTableNumber1- " + preparedStatement.unwrap(PreparedStatement.class));
-							    
 								int i = preparedStatement.executeUpdate();
 								if(i>0){
 									isUpdatedResource = true;	
@@ -746,5 +739,4 @@ public class ResourceAllocationDao {
 		}
 		return isUpdatedResource;	
 	}
-	
 }

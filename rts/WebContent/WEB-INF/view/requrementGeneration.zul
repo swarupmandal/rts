@@ -1,7 +1,7 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
 <window title="REQUIREMENT GENERATION" border="none" apply="org.zkoss.bind.BindComposer"
-            viewModel="@id('vm') @init('org.appsquad.viewmodel.RequirementGenerationViewModel')">
+            								viewModel="@id('vm') @init('org.appsquad.viewmodel.RequirementGenerationViewModel')">
 	<tabbox>
 		<tabs>
 			<tab>New Entry</tab>
@@ -78,6 +78,11 @@
 						</row>
 						
 						<row>
+						  <label value="Requirement Target Date:" style="font-weight:bold"></label>		
+						  <datebox value="@bind(vm.reqGenBean.targetDatesql)" width="35%"></datebox>	
+						</row>
+						
+						<row>
 						  <label value="Contact no:" style="font-weight:bold"></label>		
 						  <textbox width="35%" value="@bind(vm.reqGenBean.contactNo)" maxlength="15" readonly="true"
 						    xmlns:w="client">
@@ -111,7 +116,8 @@
 						<column label="Client Name" align="center" width="300px"></column>
 						<column label="Type Name" align="center" width="220px"></column>
 						<column label="Raise Date" align="center"></column>
-						<column label="Requirement Status" align="center"></column>
+						<column label="Target Date" align="center"></column>
+						<column label="Status" align="center"></column>
 						<column label="Update" align="center"></column>
 						<column label="Delete" align="center" visible="false"></column>
 					</columns>
@@ -119,9 +125,10 @@
 					  <template name="model" var = "v">
 						<row>
 						    <label value="@bind(v.req_id)"></label>
-							<textbox width="99%" value="@bind(v.clientName)" readonly="true" ></textbox>
+							<textbox width="99%" value="@bind(v.clientOriginalName)" readonly="true" ></textbox>
 							<textbox width="99%" value="@bind(v.resourceTypeBean.resourceTypeName)" readonly="true"></textbox>
 							<textbox readonly="true" value="@bind(v.raiseDateStr)" width="99%"></textbox>
+							<textbox readonly="true" value="@bind(v.targetDateStr)" width="99%"></textbox>
 							<textbox readonly="true" width="99%" value="@bind(v.ocStatus)"></textbox>
 							<button label="Edit" width="98%" onClick="@command('onClickUpdate', bean = v)"    ></button>
 							<button label="Delete" width="98%"></button>	

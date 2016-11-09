@@ -1,8 +1,10 @@
 package org.appsquad.viewmodel;
 
 import java.sql.Connection;
+import java.util.Calendar;
 
 import org.appsquad.bean.UserprofileBean;
+import org.appsquad.service.LogAuditServiceClass;
 import org.appsquad.service.UserProfileService;
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.AfterCompose;
@@ -30,12 +32,15 @@ public class UserProfileUpdateViewModel {
 	@Wire("#winUserProfile")
 	private Window winUserProfile;
 	private boolean flag = false;
+	private boolean flagLogUpdate = false;
 	
 	@AfterCompose
 	public void initSetup(@ContextParam(ContextType.VIEW) Component view,@ExecutionArgParam("userIdDetails") UserprofileBean userprofileBean)
 			throws Exception {
 		Selectors.wireComponents(view, this, false);
+		sessions = Sessions.getCurrent();
 		bean = userprofileBean;
+		userId = (String) sessions.getAttribute("userId");
 		sessions = Sessions.getCurrent();
 	}
 	
@@ -44,6 +49,16 @@ public class UserProfileUpdateViewModel {
 	public void onClickUpdateButton(){
 		flag = UserProfileService.updateUserMasterData(bean);
 		if(flag){
+			userprofileBean.setOperation("UPDATE");
+			userprofileBean.setSessionUserId(userId);
+			userprofileBean.setOperationId(2);
+			Calendar calendar = Calendar.getInstance();
+		    java.sql.Date currentDate = new java.sql.Date(calendar.getTime().getTime());
+			System.out.println("CREATION DATE :"+currentDate);
+			flagLogUpdate = LogAuditServiceClass.insertIntoLogTable(userprofileBean.getMainScreenName(), userprofileBean.getChileScreenName(), 
+                    												userprofileBean.getSessionUserId(), userprofileBean.getOperation(),currentDate,
+                    												userprofileBean.getOperationId());
+			System.out.println("flagLogUpdate Is:"+flagLogUpdate);
 			winUserProfile.detach();
 			BindUtils.postGlobalCommand(null, null, "globalUserDetailsUpdate", null);
 		}
@@ -56,7 +71,7 @@ public class UserProfileUpdateViewModel {
 		BindUtils.postGlobalCommand(null, null, "globalUserDetailsUpdate", null);
 	}
 	
-	/**************************************************************************************************************************************/
+	/***************************************************Getter And Setter Method ****************************************************************/
 	
 	public UserprofileBean getUserprofileBean() {
 		return userprofileBean;
@@ -105,5 +120,11 @@ public class UserProfileUpdateViewModel {
 	}
 	public void setFlag(boolean flag) {
 		this.flag = flag;
+	}
+	public boolean isFlagLogUpdate() {
+		return flagLogUpdate;
+	}
+	public void setFlagLogUpdate(boolean flagLogUpdate) {
+		this.flagLogUpdate = flagLogUpdate;
 	}
 }

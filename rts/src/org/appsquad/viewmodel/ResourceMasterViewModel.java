@@ -13,6 +13,7 @@ import org.appsquad.bean.StateBean;
 import org.appsquad.bean.StatusMasterBean;
 import org.appsquad.dao.ClientInformationDao;
 import org.appsquad.dao.ResourceMasterDao;
+import org.appsquad.service.LogAuditServiceClass;
 import org.appsquad.service.ResourceMasterService;
 import org.zkoss.bind.BindContext;
 import org.zkoss.bind.annotation.AfterCompose;
@@ -64,6 +65,7 @@ public class ResourceMasterViewModel {
 		sessions = Sessions.getCurrent();
 		userId = (String) sessions.getAttribute("userId");
 		resourceMasterBean.setUserId(userId);
+		resourceMasterBean.setSessionUserId(userId);
 		countryList = ResourceMasterDao.onLoadCountry();
 		skillList = ResourceMasterDao.onLoadSkill();
 		resourceList = ResourceMasterDao.onLoadResourceDeatils();
@@ -109,9 +111,20 @@ public class ResourceMasterViewModel {
 	@NotifyChange("*")
 	public void onClickSubmitButton(){
 		boolean isInsert = false;
+		boolean flagLogInsert = false;
 		isInsert = ResourceMasterService.insertClientMasterData(resourceMasterBean);
 		System.out.println("RESOURCE MASTER SCREEN IS INSERT -:"+isInsert);
 		if(isInsert){
+			resourceMasterBean.setOperation("INSERT");
+			resourceMasterBean.setSessionUserId(userId);
+			resourceMasterBean.setOperationId(1);
+			Calendar calendar = Calendar.getInstance();
+		    java.sql.Date currentDate = new java.sql.Date(calendar.getTime().getTime());
+			System.out.println("CREATION DATE :"+currentDate);
+			flagLogInsert = LogAuditServiceClass.insertIntoLogTable(resourceMasterBean.getMainScreenName(), resourceMasterBean.getChileScreenName(), 
+																	resourceMasterBean.getSessionUserId(), resourceMasterBean.getOperation(),currentDate,
+																	resourceMasterBean.getOperationId());
+			System.out.println("flagLogInsert Is:"+flagLogInsert);
 			ResourceMasterService.clearAllField(resourceMasterBean);
 			fileName = null;
 			fileContent =null;
@@ -135,6 +148,7 @@ public class ResourceMasterViewModel {
 	public void onClickDelete(@BindingParam("bean") ResourceMasterBean bean){
 		int countDelete = 0;
 		boolean flag = false;
+		boolean flagLogDelete = false;
 		countDelete = ResourceMasterService.countResourceNumberInMapperTable(bean);
 		if(countDelete>0){
 			Messagebox.show("Resource Is Assigned,Can't Delete!", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
@@ -143,6 +157,15 @@ public class ResourceMasterViewModel {
 		}	
 		System.out.println("FLAG IS :"+flag);
 		if(flag){
+			bean.setOperation("DELETE");
+			bean.setSessionUserId(userId);
+			bean.setOperationId(3);
+			Calendar calendar = Calendar.getInstance();
+		    java.sql.Date currentDate = new java.sql.Date(calendar.getTime().getTime());
+			System.out.println("CREATION DATE :"+currentDate);
+			flagLogDelete = LogAuditServiceClass.insertIntoLogTable(bean.getMainScreenName(), bean.getChileScreenName(), 
+																	bean.getSessionUserId(), bean.getOperation(),currentDate,bean.getOperationId());
+			System.out.println("flagLogDelete Is:"+flagLogDelete);
 			onClickExistingData();
 		}
 	}
@@ -192,7 +215,7 @@ public class ResourceMasterViewModel {
 	}
 	
 	
-	/*******************************************************************************************************************************************/
+	/***************************************************Getter And Setter Method ****************************************************************/
 	
 	public ResourceMasterBean getResourceMasterBean() {
 		return resourceMasterBean;

@@ -51,6 +51,15 @@ public class ResourceAllocationTrackingBean {
 	private Integer oldStatusId;
 	private String oldStatus;
 	
+	/*********Log-Audit Purpose ************/
+	private String mainScreenName = "TRANSACTION";
+	private String chileScreenName = "RESOURCE ALLOCATION TRACKING";
+	private Integer userSerialId;
+	private String operation;
+	private Date creationDate;
+	private String sessionUserId;
+	private Integer operationId;
+	
 	
 	/************************************************************************************************************************************************/
 	
@@ -263,5 +272,47 @@ public class ResourceAllocationTrackingBean {
 	}
 	public void setOldStatus(String oldStatus) {
 		this.oldStatus = oldStatus;
+	}
+	public String getMainScreenName() {
+		return mainScreenName;
+	}
+	public void setMainScreenName(String mainScreenName) {
+		this.mainScreenName = mainScreenName;
+	}
+	public String getChileScreenName() {
+		return chileScreenName;
+	}
+	public void setChileScreenName(String chileScreenName) {
+		this.chileScreenName = chileScreenName;
+	}
+	public Integer getUserSerialId() {
+		return userSerialId;
+	}
+	public void setUserSerialId(Integer userSerialId) {
+		this.userSerialId = userSerialId;
+	}
+	public String getOperation() {
+		return operation;
+	}
+	public void setOperation(String operation) {
+		this.operation = operation;
+	}
+	public Date getCreationDate() {
+		return creationDate;
+	}
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
+	}
+	public String getSessionUserId() {
+		return sessionUserId;
+	}
+	public void setSessionUserId(String sessionUserId) {
+		this.sessionUserId = sessionUserId;
+	}
+	public Integer getOperationId() {
+		return operationId;
+	}
+	public void setOperationId(Integer operationId) {
+		this.operationId = operationId;
 	}
 }

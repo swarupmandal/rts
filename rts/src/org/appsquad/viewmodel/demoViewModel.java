@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.appsquad.bean.ClientInformationBean;
 import org.appsquad.bean.DemoBean;
 import org.appsquad.bean.SkillsetMasterbean;
@@ -85,7 +84,7 @@ public class demoViewModel {
 	    			idList.add(demoBean);	
 	    		}else{
 	    			demoBean.setChkSelect(false);
-	    			Messagebox.show("This Resource Doesn't Have CV!","Excalamation",Messagebox.OK,Messagebox.EXCLAMATION);	
+	    			Messagebox.show("This Resource Doesn't Have CV ","Excalamation",Messagebox.OK,Messagebox.EXCLAMATION);	
 	    		}
 	    	}else{
 	    		idList.remove(demoBean);
@@ -101,7 +100,7 @@ public class demoViewModel {
 		    	Window window = (Window) Executions.createComponents("/WEB-INF/view/testing.zul", null, parentMap);
 				window.doModal();	
 	    	}else{
-	    		Messagebox.show(" You Didn't Check Any Check-Box!","Excalamation",Messagebox.OK,Messagebox.EXCLAMATION);
+	    		Messagebox.show(" You Didn't Check Any Check-Box ","Excalamation",Messagebox.OK,Messagebox.EXCLAMATION);
 	    	}
 	    }
 	    
@@ -117,7 +116,7 @@ public class demoViewModel {
 			    	Window window = (Window) Executions.createComponents("/WEB-INF/view/assignClientNameForResource.zul", null, parentMap);
 					window.doModal();
 	    	    }else{
-	    	    	Messagebox.show("No Client Assigned For This Resource!", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
+	    	    	Messagebox.show("No Client Assigned For This Resource ", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
 	    	    }
 	    }
 	    
@@ -137,7 +136,7 @@ public class demoViewModel {
 					clientBandBox.close();	
 				}
 			}else{
-				Messagebox.show("First Select Skill Name!","Alert",Messagebox.OK,Messagebox.EXCLAMATION);
+				Messagebox.show("First Select Skill Name ","Alert",Messagebox.OK,Messagebox.EXCLAMATION);
 			}
 		}
 		
@@ -199,7 +198,7 @@ public class demoViewModel {
 			    	}else{
 			    		resourceDivVisibility = false;
 			    		saveButtonVisibility = false;
-			    		Messagebox.show("No Data Found Wrt This Skill Name!","Excalamation",Messagebox.OK,Messagebox.EXCLAMATION);
+			    		Messagebox.show("No Data Found Wrt This Skill Name ","Excalamation",Messagebox.OK,Messagebox.EXCLAMATION);
 			    	}
 		   }else if(bean.skillsetMasterbean.getSkillset()!=null && bean.skillsetMasterbean.getSkillset().trim().length()>0 && 
 				              bean.getFromDate()!=null && bean.getToDate()!=null){
@@ -211,7 +210,7 @@ public class demoViewModel {
 		    	}else{
 		    		resourceDivVisibility = false;
 		    		saveButtonVisibility = false;
-		    		Messagebox.show("No Data Found Wrt This Combination!","Excalamation",Messagebox.OK,Messagebox.EXCLAMATION);
+		    		Messagebox.show("No Data Found Wrt This Combination ","Excalamation",Messagebox.OK,Messagebox.EXCLAMATION);
 		    	}
 		   }else if(bean.skillsetMasterbean.getSkillset()!=null && bean.skillsetMasterbean.getSkillset().trim().length()>0 && 
 				           bean.clientInformationBean.getFullName()!=null && bean.clientInformationBean.getFullName().trim().length()>0){
@@ -223,12 +222,12 @@ public class demoViewModel {
 		    	}else{
 		    		resourceDivVisibility = false;
 		    		saveButtonVisibility = false;
-		    		Messagebox.show("No Data Found Wrt This Combination!","Excalamation",Messagebox.OK,Messagebox.EXCLAMATION);
+		    		Messagebox.show("No Data Found Wrt This Combination ","Excalamation",Messagebox.OK,Messagebox.EXCLAMATION);
 		    	}
 		   }
 		   
 		   if(!(bean.skillsetMasterbean.getSkillset()!=null && bean.skillsetMasterbean.getSkillset().trim().length()>0)){
-			   Messagebox.show("Select Skill Name First!", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
+			   Messagebox.show("Select Skill Name First ", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
 		   }
 	   }
 	   

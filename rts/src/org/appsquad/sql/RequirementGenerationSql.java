@@ -16,11 +16,11 @@ public class RequirementGenerationSql {
 	public static final String insertReqGen = "INSERT INTO rts_requirement_master( " +
 									           " req_client_id, req_skill_id, req_jobtype, req_job_details, " +
 									           " req_no_of_per_res, req_no_of_con_res ,req_raise_date,req_close_date,  " +
-									           " cont_no,email_id,req_status_id,req_closure_reason, created_by, updated_by,overall_status_id,type_id " +
+									           " cont_no,email_id,req_status_id,req_closure_reason, created_by, updated_by,overall_status_id,type_id,req_target_date " +
 									           " ) " +
 									           " VALUES (?, ?, ?, ?, " +
 									           " ?, ?, ?, ?, " + 
-									           " ?, ?, ?, ?, ?, ?,?,?) " ;
+									           " ?, ?, ?, ?, ?, ?,?,?,?) " ;
 	
 	public static final String updateReqGen =  " UPDATE rts_requirement_master " +
 											   " SET req_no_of_per_res=?, req_no_of_con_res=?,req_raise_date=?, req_close_date=?, " +

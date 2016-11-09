@@ -1,18 +1,14 @@
 package org.appsquad.viewmodel;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.sql.Connection;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.appsquad.bean.ClientInformationBean;
 import org.appsquad.bean.IndividualClientReportBean;
 import org.appsquad.bean.SkillsetMasterbean;
 import org.appsquad.bean.StatusMasterBean;
 import org.appsquad.dao.ResourceMasterDao;
-import org.appsquad.dao.SortCriteriaDao;
 import org.appsquad.service.IndividualClientReportService;
 import org.appsquad.service.RequirementGenerationService;
 import org.appsquad.service.ResourceAllocationTrackingService;
@@ -33,20 +29,13 @@ import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Bandbox;
 import org.zkoss.zul.Messagebox;
 
-import com.itextpdf.text.DocumentException;
-
 public class IndividualClientReportViewModel {
-	
 	  IndividualClientReportBean individualClientReportBean = new IndividualClientReportBean();
-	
-	  
 	  private ArrayList<IndividualClientReportBean> reportBeanList = new ArrayList<IndividualClientReportBean>();
 	  private ArrayList<IndividualClientReportBean> summaryBeanList = new ArrayList<IndividualClientReportBean>();
-	  
 	  private ArrayList<SkillsetMasterbean> skillList = new ArrayList<SkillsetMasterbean>();
 	  private ArrayList<StatusMasterBean> statusList = new ArrayList<StatusMasterBean>();
 	  private ArrayList<ClientInformationBean> clientList = new ArrayList<ClientInformationBean>();
-	  
 	  private Connection connection = null;
 	  private Session sessions = null;
 	  private String userName ;
@@ -65,7 +54,7 @@ public class IndividualClientReportViewModel {
 			userId = (String) sessions.getAttribute("userId");
 			individualClientReportBean.setUserId(userId);
 			skillList = RequirementGenerationService.fetchSkillSetList();
-			statusList = ResourceMasterDao.onLoadStatus();
+			statusList = ResourceMasterDao.onLoadStatusForReport();
 			clientList = ResourceAllocationTrackingService.fetchClientDetails();
 			
 			individualClientReportBean.setDetailsDivVis(true);
@@ -75,7 +64,6 @@ public class IndividualClientReportViewModel {
 	   @Command
 	   @NotifyChange("*")
 	   public void onChangeClientName(){
-		   
 		   if(individualClientReportBean.getClientNameSearch() != null){
 			   clientList = ResourceAllocationTrackingService.fetchClientDetailsSearch(individualClientReportBean.getClientNameSearch());
 		   }
@@ -84,47 +72,19 @@ public class IndividualClientReportViewModel {
 		   
 	   }
 	    
-	   
 	   @Command
 	   @NotifyChange("*")
 	   public void onSelctClientName(){
 		   clnBandBox.close();
 		   summaryBeanList.clear();
 		   reportBeanList.clear();
-		   
-		   //functionality gone to SEARCH button
-		   //reportBeanList = IndividualClientReportService.loadRidList(individualClientReportBean.clientInformationBean.getClientId());
-		   
-		   individualClientReportBean.setFromDate(null);
-		   individualClientReportBean.setToDate(null);
-		   
-		   
-		   individualClientReportBean.skillsetMasterbean.setSkillset(null);
-		   individualClientReportBean.skillsetMasterbean.setId(null);
-		   skillList = RequirementGenerationService.fetchSkillSetList();
-		   
-		   individualClientReportBean.statusMasterBean.setStatus(null);
-		   individualClientReportBean.statusMasterBean.setStatusId(null);
-		   statusList = ResourceMasterDao.onLoadStatus();
-		   individualClientReportBean.setSelectedRadioButton("detail");
-		   
 	   }
 	    
 	   @Command
 	   @NotifyChange("*")
 	   public void onChangeFromDate(){
-		   
 		   reportBeanList.clear();
-		   summaryBeanList.clear();
-		   
-		   individualClientReportBean.skillsetMasterbean.setSkillset(null);
-		   individualClientReportBean.skillsetMasterbean.setId(null);
-		   skillList = RequirementGenerationService.fetchSkillSetList();
-		   
-		   individualClientReportBean.statusMasterBean.setStatus(null);
-		   individualClientReportBean.statusMasterBean.setStatusId(null);
-		   statusList = ResourceMasterDao.onLoadStatus();
-		   
+		   summaryBeanList.clear(); 
 		   if(individualClientReportBean.getFromDate() == null){
 			   individualClientReportBean.setToDate(null);
 		   }
@@ -134,94 +94,43 @@ public class IndividualClientReportViewModel {
 	   @NotifyChange("*")
 	   public void onChangeToDate(){
 		   summaryBeanList.clear();
-		   
-		   individualClientReportBean.skillsetMasterbean.setSkillset(null);
-		   individualClientReportBean.skillsetMasterbean.setId(null);
-		   skillList = RequirementGenerationService.fetchSkillSetList();
-		   
-		   individualClientReportBean.statusMasterBean.setStatus(null);
-		   individualClientReportBean.statusMasterBean.setStatusId(null);
-		   statusList = ResourceMasterDao.onLoadStatus();
-		   
+		   reportBeanList.clear();
+		  
 		   if(individualClientReportBean.getFromDate() != null){
-			   
 			   if(individualClientReportBean.getToDate().after(individualClientReportBean.getFromDate())){
-				    
-				    if(individualClientReportBean.clientInformationBean.getClientId() != null){
-				    	
-				    	//functionality gone to search button 
-				    	/*if(individualClientReportBean.getFromDate() != null && individualClientReportBean.getToDate() != null){
-				    	reportBeanList = IndividualClientReportService.loadRidListwithDateRange(Dateformatter.sqlDate(individualClientReportBean.getFromDate()), Dateformatter.sqlDate(individualClientReportBean.getToDate()), individualClientReportBean.clientInformationBean.getClientId());
-				    	individualClientReportBean.setSelectedRadioButton("detail");
-				    	}*/
-				    }else {
-				    	Messagebox.show("Select Client Name", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION);
-					}
-				   
+				   System.out.println("FROM DATE AND TO DATE ARE OK TO PROCEED.");
 			     }else {
 				    individualClientReportBean.setToDate(null);
 				    Messagebox.show("To Date Should be Grater Than From Date", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION);
-			   }
-			   
+			   }   
 		   }else {
 			   individualClientReportBean.setToDate(null);
 			   Messagebox.show("Select From Date First", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION);
-		}
-	   
+		   }
 	   }
 	   
 	   
 	   @Command
 	   @NotifyChange("*")
 	   public void onSelectStatusName(){
-		   
 		   summaryBeanList.clear();
-		  if(individualClientReportBean.clientInformationBean.getClientId() != null){
-			  
-			  
-			   /*if(individualClientReportBean.getFromDate()==null && individualClientReportBean.getToDate() == null && individualClientReportBean.skillsetMasterbean.getId()== null){
-				   
-				   reportBeanList = IndividualClientReportService.loadRidListWithStatus(individualClientReportBean.statusMasterBean.getStatusId(), individualClientReportBean.clientInformationBean.getClientId()); 
-				   individualClientReportBean.setSelectedRadioButton("detail");
-			   }
-			   else if(individualClientReportBean.getFromDate() != null && individualClientReportBean.getToDate() != null && individualClientReportBean.skillsetMasterbean.getId() != null){
-				   
-				   reportBeanList = IndividualClientReportService.loadRidListWithStatusSkillDate(Dateformatter.sqlDate(individualClientReportBean.getFromDate()), Dateformatter.sqlDate(individualClientReportBean.getToDate()), individualClientReportBean.skillsetMasterbean.getId(), individualClientReportBean.statusMasterBean.getStatusId(), individualClientReportBean.clientInformationBean.getClientId());
-				   individualClientReportBean.setSelectedRadioButton("detail");
-			   }
-			   else if(individualClientReportBean.skillsetMasterbean.getId() != null && (individualClientReportBean.getFromDate() == null && individualClientReportBean.getToDate() == null)){
-				   
-				   reportBeanList = IndividualClientReportService.loadRidListWithStatusAndSkill(individualClientReportBean.skillsetMasterbean.getId(), individualClientReportBean.statusMasterBean.getStatusId(), individualClientReportBean.clientInformationBean.getClientId());
-				   individualClientReportBean.setSelectedRadioButton("detail");
-			   }
-			   else if((individualClientReportBean.getFromDate() != null && individualClientReportBean.getToDate() != null) && individualClientReportBean.skillsetMasterbean.getId() == null){
-				   
-				   reportBeanList = IndividualClientReportService.loadRidListWithDateSatus(Dateformatter.sqlDate(individualClientReportBean.getFromDate()), Dateformatter.sqlDate(individualClientReportBean.getToDate()), individualClientReportBean.statusMasterBean.getStatusId(), individualClientReportBean.clientInformationBean.getClientId());
-				   individualClientReportBean.setSelectedRadioButton("detail");
-			   }else {
-				 
-			   }*/
-		   
-		  }else {
-			
-			reportBeanList.clear();
-			
-			individualClientReportBean.statusMasterBean.setStatus(null);
-			individualClientReportBean.statusMasterBean.setStatusId(null);
-			statusList = ResourceMasterDao.onLoadStatus();  
-			Messagebox.show("Select Client Name ", "ALERT", Messagebox.OK,Messagebox.EXCLAMATION);
-		}
+		   reportBeanList.clear();
+		   if(individualClientReportBean.statusMasterBean.getStatusId()==13){
+			   individualClientReportBean.statusMasterBean.setStatus(null);
+			   individualClientReportBean.statusMasterBean.setStatusId(null);
+			   statusList = ResourceMasterDao.onLoadStatusForReport();
+		   }
 	   }
 	
 	   @Command
 	   @NotifyChange("*")
 	   public void onChangeSkillName(){
 		   if(individualClientReportBean.getSkillSetSearch() != null){
-		   skillList = RequirementGenerationService.skillSetListSearch(individualClientReportBean.getSkillSetSearch());
+			   skillList = RequirementGenerationService.skillSetListSearch(individualClientReportBean.getSkillSetSearch());
 		   }else {
 			reportBeanList.clear();
 			summaryBeanList.clear();
-		}
+		   }
 	   }
 	   
 	   @Command
@@ -230,45 +139,44 @@ public class IndividualClientReportViewModel {
 		   skStBandBox.close();
 		   summaryBeanList.clear();
 		   reportBeanList.clear();
-		   
-		   individualClientReportBean.statusMasterBean.setStatus(null);
-		   individualClientReportBean.statusMasterBean.setStatusId(null);
-		   statusList = ResourceMasterDao.onLoadStatus();
-		   
-		   if(individualClientReportBean.clientInformationBean.getClientId() != null){
-			
-			   //functionality gone to search method
-			   /*if(individualClientReportBean.getFromDate() != null && individualClientReportBean.getToDate() != null){
-			    
-				   reportBeanList = IndividualClientReportService.loadRidListwithDateRangeWithSkill(Dateformatter.sqlDate(individualClientReportBean.getFromDate()), Dateformatter.sqlDate(individualClientReportBean.getToDate()), individualClientReportBean.skillsetMasterbean.getId(), individualClientReportBean.clientInformationBean.getClientId());
-				   individualClientReportBean.setSelectedRadioButton("detail");
-			    }
-			   if(individualClientReportBean.getFromDate() == null && individualClientReportBean.getToDate() == null){
-				   
-				   reportBeanList = IndividualClientReportService.loadRidListWithSkill(individualClientReportBean.skillsetMasterbean.getId(), individualClientReportBean.clientInformationBean.getClientId());
-				   individualClientReportBean.setSelectedRadioButton("detail");
-			   }*/
-			   
-			   
-		   }else {
-			  
-			individualClientReportBean.skillsetMasterbean.setSkillset(null);
-			individualClientReportBean.skillsetMasterbean.setId(null);
-			skillList = RequirementGenerationService.fetchSkillSetList();
-			   
-			Messagebox.show("Client Not Selected", "ALERT", Messagebox.OK,Messagebox.EXCLAMATION);
-		}
-		   
-		   
-		   
 	   }
 	   
-	   /**
-	    * for search button. now invisible
-	    */
 	   
-	  
-	   
+	@Command
+	@NotifyChange("*")
+	public void onClickExcel(){
+		if(reportBeanList.size()>0){
+			if(individualClientReportBean.getSelectedRadioButton().equals("detail")){
+			   IndividualClientReportExcel.printCSV(reportBeanList,"Individual Client Report");
+			}else {
+			   IndividualClientReportExcel.printSummaryCSV(summaryBeanList,"Individual Client Summary");
+			}
+		}else {
+			Messagebox.show("No Data Found ","Alert",Messagebox.OK,Messagebox.EXCLAMATION);
+		}
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void onClickPdf() throws Exception{
+		String realPath = Executions.getCurrent().getDesktop().getWebApp().getRealPath("/");
+		IndividualClientReportPdf pdf = new IndividualClientReportPdf();
+		try {
+			if(reportBeanList.size()>0){
+				if(individualClientReportBean.getSelectedRadioButton().equals("detail")){
+				    pdf.getDetails(realPath, individualClientReportBean, reportBeanList, "Individual Client Report");
+				}else {
+					pdf.getSummary(realPath, individualClientReportBean, summaryBeanList, "Individual Client Summary");
+				}
+			}else {
+				Messagebox.show("No Data Found ","Alert",Messagebox.OK,Messagebox.EXCLAMATION);
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	 
 	   @Command
 	   @NotifyChange("*")
 	   public void onClickClear(){
@@ -289,217 +197,127 @@ public class IndividualClientReportViewModel {
 		   skillList = RequirementGenerationService.fetchSkillSetList();
 		   
 		   individualClientReportBean.statusMasterBean.setStatus(null);
-		   statusList = ResourceMasterDao.onLoadStatus();
-		   individualClientReportBean.setSelectedRadioButton(null);
+		   statusList = ResourceMasterDao.onLoadStatusForReport();
+		   individualClientReportBean.setSelectedRadioButton("detail");
 		   
 	   }
-	   
-	   @Command
-	   @NotifyChange("*")
-	   public void onCheckDetailSummary(){
-		   
-		   if(individualClientReportBean.getSelectedRadioButton().equals("detail")){
-			 individualClientReportBean.setDetailsDivVis(true);
-			 individualClientReportBean.setSummaryDivVis(false);
-			   
-		   }else {
-			   
-			   individualClientReportBean.setDetailsDivVis(false);
-			   summaryBeanList = IndividualClientReportService.loadRidSummaryList(reportBeanList);
-			   individualClientReportBean.setSummaryDivVis(true);
-			 
-		}
-		   
-	   }
-	   
-	   
-	@Command
-	@NotifyChange("*")
-	public void onClickExcel(){
-		if(reportBeanList.size()>0){
-		if(individualClientReportBean.getSelectedRadioButton().equals("detail")){
-		
-			IndividualClientReportExcel.printCSV(reportBeanList,"Individual Client Report");
-		  /*if(reportBeanList.size()>0);	
-		  ArrayList<IndividualClientReportBean> detailList = new ArrayList<IndividualClientReportBean>();
-			for(IndividualClientReportBean bean : reportBeanList){
-				if(bean.isDetailChecked()){
-					detailList.add(bean);
-				}
-			}
-			if(detailList.size()>0){
-				IndividualClientReportExcel.printCSV(detailList);
-			}else {
-				Messagebox.show("NO DATA SELECTED ", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION );
-			}*/
-			
-		}else {
-			
-			IndividualClientReportExcel.printSummaryCSV(summaryBeanList,"Individual Client Summary");
-			
-			/*if(summaryBeanList.size()>0);
-			ArrayList<IndividualClientReportBean> summList = new ArrayList<IndividualClientReportBean>();
-			for(IndividualClientReportBean bean : summaryBeanList){
-				if(bean.isSummaryChecked()){
-					summList.add(bean);
-				}
-			}
-			
-			if(summList.size()>0){
-				IndividualClientReportExcel.printSummaryCSV(summList);
-			}else {
-				Messagebox.show("NO DATA SELECTED ", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION );
-			}*/
-			
-		}
-		}else {
-			Messagebox.show("No Data Found ","Alert",Messagebox.OK,Messagebox.EXCLAMATION);
-		}
-	}
 	
-	@Command
-	@NotifyChange("*")
-	public void onClickPdf() throws Exception{
-		String realPath = Executions.getCurrent().getDesktop().getWebApp().getRealPath("/");
-		IndividualClientReportPdf pdf = new IndividualClientReportPdf();
-		try {
-			if(reportBeanList.size()>0){
-			if(individualClientReportBean.getSelectedRadioButton().equals("detail")){
-			   pdf.getDetails(realPath, individualClientReportBean, reportBeanList, "Individual Client Report");
-			}else {
-				pdf.getSummary(realPath, individualClientReportBean, summaryBeanList, "Individual Client Summary");
-			}
-			}else {
-				Messagebox.show("No Data Found ","Alert",Messagebox.OK,Messagebox.EXCLAMATION);
-			}
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	
+	 
 	 @Command
 	 @NotifyChange("*")
-	 public void onClickSearch(){
-		 
+	 public void onClearSkillSet(){
+		 skStBandBox.close();
+		 individualClientReportBean.skillsetMasterbean.setSkillset(null);
+		 individualClientReportBean.skillsetMasterbean.setId(null);
+		 individualClientReportBean.setSkillSetSearch(null);
+		 skillList = RequirementGenerationService.fetchSkillSetList();
+		 reportBeanList.clear();
+		 summaryBeanList.clear();
+	 }
+	
+	 
+	 public void generationOfDetailsReport(){
 		 //when only client selected
-	     if(individualClientReportBean.clientInformationBean.getClientId() != null && 
-	    		       individualClientReportBean.getFromDate() == null && individualClientReportBean.getToDate() == null 
-	    		              && individualClientReportBean.skillsetMasterbean.getId() == null && 
-	    		                     individualClientReportBean.statusMasterBean.getStatusId() == null){
+	     if(individualClientReportBean.clientInformationBean.getClientId() != null && individualClientReportBean.getFromDate() == null && individualClientReportBean.getToDate() == null && individualClientReportBean.skillsetMasterbean.getId() == null && individualClientReportBean.statusMasterBean.getStatusId() == null){
 			
 	    	 reportBeanList = IndividualClientReportService.loadRidList(individualClientReportBean.clientInformationBean.getClientId());
 	    	 if(reportBeanList.size() == 0){
-	    		 Messagebox.show("No Data Found For This Combination. ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+	    		 Messagebox.show("No Data Found For This Combination ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
 	    	 }
 		 }
-	     
+ 
 	     //when client and both date selected
-		 if(individualClientReportBean.clientInformationBean.getClientId() != null && 
-				 individualClientReportBean.getFromDate() != null && 
-				    individualClientReportBean.getToDate() != null && 
-				         individualClientReportBean.skillsetMasterbean.getId() == null && 
-				             individualClientReportBean.statusMasterBean.getStatusId() == null){
+		 if(individualClientReportBean.clientInformationBean.getClientId() != null && individualClientReportBean.getFromDate() != null && individualClientReportBean.getToDate() != null && individualClientReportBean.skillsetMasterbean.getId() == null && individualClientReportBean.statusMasterBean.getStatusId() == null){
 			 
 			reportBeanList = IndividualClientReportService.loadRidListwithDateRange(Dateformatter.sqlDate(individualClientReportBean.getFromDate()), Dateformatter.sqlDate(individualClientReportBean.getToDate()), individualClientReportBean.clientInformationBean.getClientId());
-		    individualClientReportBean.setSelectedRadioButton("detail");
 		    	
 		    if(reportBeanList.size() == 0){
-	    		 Messagebox.show("No Data Found For This Combination. ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+		    	Messagebox.show("No Data Found For This Combination ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
 	    	} 
+			 
 		 }
-		 
+ 
 		//when client both date and skill selected
-		if(individualClientReportBean.clientInformationBean.getClientId() != null && 
-				individualClientReportBean.getFromDate() != null && 
-				   individualClientReportBean.getToDate() != null && 
-				      individualClientReportBean.skillsetMasterbean.getId() != null && 
-				         individualClientReportBean.statusMasterBean.getStatusId() == null){
+		if(individualClientReportBean.clientInformationBean.getClientId() != null && individualClientReportBean.getFromDate() != null && individualClientReportBean.getToDate() != null && individualClientReportBean.skillsetMasterbean.getId() != null && individualClientReportBean.statusMasterBean.getStatusId() == null){
 		
 	 		reportBeanList = IndividualClientReportService.loadRidListwithDateRangeWithSkill(Dateformatter.sqlDate(individualClientReportBean.getFromDate()), Dateformatter.sqlDate(individualClientReportBean.getToDate()), individualClientReportBean.skillsetMasterbean.getId(), individualClientReportBean.clientInformationBean.getClientId());
-	 		individualClientReportBean.setSelectedRadioButton("detail");
 	 		
 	 		if(reportBeanList.size() == 0){
-	    		 Messagebox.show("No Data Found For This Combination. ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+	 			Messagebox.show("No Data Found For This Combination ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
 	    	}
+	 		
 		}
-		
+
 		//when client and skill selected
-		if(individualClientReportBean.clientInformationBean.getClientId() != null && 
-				individualClientReportBean.getFromDate() == null && 
-				  individualClientReportBean.getToDate() == null && 
-				     individualClientReportBean.skillsetMasterbean.getId() != null && 
-				       individualClientReportBean.statusMasterBean.getStatusId() == null){
+		if(individualClientReportBean.clientInformationBean.getClientId() != null && individualClientReportBean.getFromDate() == null && individualClientReportBean.getToDate() == null && individualClientReportBean.skillsetMasterbean.getId() != null && individualClientReportBean.statusMasterBean.getStatusId() == null){
 	
 			reportBeanList = IndividualClientReportService.loadRidListWithSkill(individualClientReportBean.skillsetMasterbean.getId(), individualClientReportBean.clientInformationBean.getClientId());
-		    individualClientReportBean.setSelectedRadioButton("detail");
-			
+		    
 			if(reportBeanList.size() == 0){
-			 Messagebox.show("No Data Found For This Combination. ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+				Messagebox.show("No Data Found For This Combination ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
 			}
 		}
-		
+
 		//when status and client selected
-		if(individualClientReportBean.clientInformationBean.getClientId() != null && 
-				individualClientReportBean.getFromDate() == null && 
-				  individualClientReportBean.getToDate() == null && 
-				    individualClientReportBean.skillsetMasterbean.getId() == null && 
-				      individualClientReportBean.statusMasterBean.getStatusId() != null){
+		if(individualClientReportBean.clientInformationBean.getClientId() != null && individualClientReportBean.getFromDate() == null && individualClientReportBean.getToDate() == null && individualClientReportBean.skillsetMasterbean.getId() == null && individualClientReportBean.statusMasterBean.getStatusId() != null){
 			
-			reportBeanList = IndividualClientReportService.loadRidListWithStatusSkillDate(individualClientReportBean.statusMasterBean.getStatusId(), individualClientReportBean.clientInformationBean.getClientId());
-			individualClientReportBean.setSelectedRadioButton("detail");
+			reportBeanList = IndividualClientReportService.loadClientListWithStatusService(individualClientReportBean.statusMasterBean.getStatusId(), individualClientReportBean.clientInformationBean.getClientId());
 			   
 				if(reportBeanList.size() == 0){
-				 Messagebox.show("No Data Found For This Combination. ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+					Messagebox.show("No Data Found For This Combination ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
 			}	
 		}
-		
+
 		//when skill status and client given
-		if(individualClientReportBean.clientInformationBean.getClientId() != null && 
-				individualClientReportBean.getFromDate() == null && 
-				  individualClientReportBean.getToDate() == null && 
-				    individualClientReportBean.skillsetMasterbean.getId() != null && 
-				      individualClientReportBean.statusMasterBean.getStatusId() != null){
+		if(individualClientReportBean.clientInformationBean.getClientId() != null && individualClientReportBean.getFromDate() == null && individualClientReportBean.getToDate() == null && individualClientReportBean.skillsetMasterbean.getId() != null && individualClientReportBean.statusMasterBean.getStatusId() != null){
 			
 	 		reportBeanList = IndividualClientReportService.loadRidListWithStatusAndSkill(individualClientReportBean.skillsetMasterbean.getId(), individualClientReportBean.statusMasterBean.getStatusId(), individualClientReportBean.clientInformationBean.getClientId());
-	 		individualClientReportBean.setSelectedRadioButton("detail");
-			   
+	 		   
 				if(reportBeanList.size() == 0){
-				 Messagebox.show("No Data Found For This Combination. ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+					Messagebox.show("No Data Found For This Combination ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
 			}
+				
 		}
-		
+
 		//when date status and client given
 		if(individualClientReportBean.clientInformationBean.getClientId() != null && 
 				individualClientReportBean.getFromDate() != null && 
-				 individualClientReportBean.getToDate() != null && 
-				  individualClientReportBean.skillsetMasterbean.getId() == null && 
-				   individualClientReportBean.statusMasterBean.getStatusId() != null){
+				  individualClientReportBean.getToDate() != null && individualClientReportBean.skillsetMasterbean.getId() == null && 
+				      individualClientReportBean.statusMasterBean.getStatusId() != null){
 			
 			reportBeanList = IndividualClientReportService.loadRidListWithDateSatus(Dateformatter.sqlDate(individualClientReportBean.getFromDate()), Dateformatter.sqlDate(individualClientReportBean.getToDate()), individualClientReportBean.statusMasterBean.getStatusId(), individualClientReportBean.clientInformationBean.getClientId());
-			individualClientReportBean.setSelectedRadioButton("detail");
 				
 				if(reportBeanList.size() == 0){
-				 Messagebox.show("No Data Found For This Combination. ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
-			}		
+					Messagebox.show("No Data Found For This Combination ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+			}
 		}
-		
+
+		//when date status client and skill given-prolay
+		if(individualClientReportBean.clientInformationBean.getClientId() != null && 
+				individualClientReportBean.getFromDate() != null && individualClientReportBean.getToDate() != null && 
+				  individualClientReportBean.skillsetMasterbean.getId() != null && 
+				     individualClientReportBean.statusMasterBean.getStatusId() != null){
+			
+			reportBeanList = IndividualClientReportService.loadRidListWithStatusSkillDate(Dateformatter.sqlDate(individualClientReportBean.getFromDate()), Dateformatter.sqlDate(individualClientReportBean.getToDate()),individualClientReportBean.skillsetMasterbean.getId(), individualClientReportBean.statusMasterBean.getStatusId(), individualClientReportBean.clientInformationBean.getClientId());
+				
+				if(reportBeanList.size() == 0){
+					Messagebox.show("No Data Found For This Combination ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+			}
+		}
+
+
 		//when nothing selected
-		if(individualClientReportBean.clientInformationBean.getClientId() == null && 
-				 individualClientReportBean.getFromDate() == null && 
-				   individualClientReportBean.getToDate() == null && 
-				    individualClientReportBean.skillsetMasterbean.getId() == null && 
-				     individualClientReportBean.statusMasterBean.getStatusId() == null){
+		if(individualClientReportBean.clientInformationBean.getClientId() == null && individualClientReportBean.getFromDate() == null && individualClientReportBean.getToDate() == null && individualClientReportBean.skillsetMasterbean.getId() == null && individualClientReportBean.statusMasterBean.getStatusId() == null){
 			Messagebox.show("Select Client ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
 		}
-		
+
 		//when client and from date selected
 		if(individualClientReportBean.clientInformationBean.getClientId() != null && 
 				 individualClientReportBean.getFromDate() != null && 
 				   individualClientReportBean.getToDate() == null && 
 				    individualClientReportBean.skillsetMasterbean.getId() == null && 
 				     individualClientReportBean.statusMasterBean.getStatusId() == null){
-			Messagebox.show("Select To Date ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+							Messagebox.show("Select To Date ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
 		}
 		
 		//when skill set selected
@@ -508,7 +326,7 @@ public class IndividualClientReportViewModel {
 				   individualClientReportBean.getToDate() == null && 
 				    individualClientReportBean.skillsetMasterbean.getId() != null && 
 				     individualClientReportBean.statusMasterBean.getStatusId() == null){
-			Messagebox.show("Select Client ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+							Messagebox.show("Select Client ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
 		}
 		
 		//when status is selected
@@ -517,11 +335,44 @@ public class IndividualClientReportViewModel {
 				   individualClientReportBean.getToDate() == null && 
 				    individualClientReportBean.skillsetMasterbean.getId() == null && 
 				     individualClientReportBean.statusMasterBean.getStatusId() != null){
-			Messagebox.show("Select Client ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+							Messagebox.show("Select Client ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
 		}
 	 }
 	
-	/*******************************************************************************************************************************************/
+	 @Command
+	 @NotifyChange("*")
+	 public void onClickSearch(){
+			 if(individualClientReportBean.getSelectedRadioButton().equalsIgnoreCase("detail")){
+				 System.out.println("SEARCH BUTTON CLICKED FOR DETAIL REPORT");
+				 generationOfDetailsReport();
+				 System.out.println("DETAILS REPORT LIST SIZE IS :"+reportBeanList.size());
+			 }else{
+				 System.out.println("SEARCH BUTTON CLICKED FOR SUMMARY REPORT");
+				 generationOfDetailsReport();
+				 System.out.println("DETAILS REPORT LIST SIZE IS :"+reportBeanList.size());
+				 if(individualClientReportBean.statusMasterBean.getStatusId()!=null){
+					 summaryBeanList = IndividualClientReportService.loadRidSummaryListTest(reportBeanList,individualClientReportBean.statusMasterBean.getStatusId());
+				 }else{
+					 individualClientReportBean.statusMasterBean.setStatusId(200);
+					 summaryBeanList = IndividualClientReportService.loadRidSummaryListTest(reportBeanList,individualClientReportBean.statusMasterBean.getStatusId());
+				 }
+			}
+	 }
+	 
+	 @Command
+	   @NotifyChange("*")
+	   public void onCheckDetailSummary(){
+		   if(individualClientReportBean.getSelectedRadioButton().equals("detail")){
+			 individualClientReportBean.setDetailsDivVis(true);
+			 individualClientReportBean.setSummaryDivVis(false);
+		   }else {
+			 individualClientReportBean.setDetailsDivVis(false);
+			 individualClientReportBean.setSummaryDivVis(true);  
+		   }
+	   }
+	
+	 
+	/**********************************************************************************************************************************************/
 	 
 	public ArrayList<SkillsetMasterbean> getSkillList() {
 		return skillList;
@@ -565,46 +416,36 @@ public class IndividualClientReportViewModel {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-
 	public IndividualClientReportBean getIndividualClientReportBean() {
 		return individualClientReportBean;
 	}
-
 	public void setIndividualClientReportBean(
 			IndividualClientReportBean individualClientReportBean) {
 		this.individualClientReportBean = individualClientReportBean;
 	}
-
 	public ArrayList<IndividualClientReportBean> getReportBeanList() {
 		return reportBeanList;
 	}
-
 	public void setReportBeanList(
 			ArrayList<IndividualClientReportBean> reportBeanList) {
 		this.reportBeanList = reportBeanList;
 	}
-
 	public ArrayList<IndividualClientReportBean> getSummaryBeanList() {
 		return summaryBeanList;
 	}
-
 	public void setSummaryBeanList(
 			ArrayList<IndividualClientReportBean> summaryBeanList) {
 		this.summaryBeanList = summaryBeanList;
 	}
-
 	public Bandbox getClnBandBox() {
 		return clnBandBox;
 	}
-
 	public void setClnBandBox(Bandbox clnBandBox) {
 		this.clnBandBox = clnBandBox;
 	}
-
 	public Bandbox getSkStBandBox() {
 		return skStBandBox;
 	}
-
 	public void setSkStBandBox(Bandbox skStBandBox) {
 		this.skStBandBox = skStBandBox;
 	}

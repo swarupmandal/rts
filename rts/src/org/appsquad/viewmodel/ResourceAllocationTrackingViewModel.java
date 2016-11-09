@@ -22,7 +22,6 @@ import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Bandbox;
-import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
 public class ResourceAllocationTrackingViewModel {
@@ -43,20 +42,16 @@ public class ResourceAllocationTrackingViewModel {
 	
 	@AfterCompose
 	public void initSetup(@ContextParam(ContextType.VIEW) Component view)throws Exception {
-
 		Selectors.wireComponents(view, this, false);
 		session = Sessions.getCurrent();
 		userName = (String) session.getAttribute("userId");
 		clientInformationBeanList = ResourceAllocationTrackingService.fetchClientDetails();
-		
 	}
 
 	@Command
 	@NotifyChange("*")
 	public void onChangeClientName(){
-		
 		if(trackingBean.getClientNameSearch() != null){
-			
 			clientInformationBeanList = ResourceAllocationTrackingService.fetchClientDetailsSearch(trackingBean.getClientNameSearch());
 		}
 		trackingBeanList.clear();
@@ -92,12 +87,18 @@ public class ResourceAllocationTrackingViewModel {
 		}
 	}
 	
+	@GlobalCommand
+	@NotifyChange("*")
+	public void refreshTrackingUpdateScreen(){
+		trackingBeanList = ResourceAllocationTrackingService.loadTrackingBeanList(clientInformationBean.getClientId(), requirementGenerationBean.getReq_id());
+	}
+	
 	@Command
 	@NotifyChange("*")
 	public void onClickSearch(){
-				if(ResourceAllocationTrackingService.isValidate(clientInformationBean.getClientId(), requirementGenerationBean.getReq_id())){
-					trackingBeanList = ResourceAllocationTrackingService.loadTrackingBeanList(clientInformationBean.getClientId(), requirementGenerationBean.getReq_id());
-				}
+		if(ResourceAllocationTrackingService.isValidate(clientInformationBean.getClientId(), requirementGenerationBean.getReq_id())){
+		   trackingBeanList = ResourceAllocationTrackingService.loadTrackingBeanList(clientInformationBean.getClientId(), requirementGenerationBean.getReq_id());
+		}
 	}
 	
 	@Command

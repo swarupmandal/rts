@@ -340,7 +340,8 @@ public class RequirementGenerationDao {
 			preparedStatement = Pstm.createQuery(connection, RequirementGenerationSql.insertReqGen, Arrays.asList(bean.getClientId(), bean.getReqSkillId(),bean.getJobType(),bean.getDetailedJob(),
 																										bean.getNofPerResource(), bean.getNofConResource(), bean.getRaiseDatesql(), bean.getCloseDatesql(),
 																										bean.getContactNo(), bean.getEmail(),1,bean.getClosureReason(), bean.getUserName(), bean.getUserName(),
-																										bean.getReqStatusId(),bean.getResourceTypeBean().getResourceTypeId()));
+																										bean.getReqStatusId(),bean.getResourceTypeBean().getResourceTypeId(),bean.getTargetDatesql()));
+			logger.info("INSERTING REQUIREMENT DATA INTO TABLE  - " + preparedStatement.unwrap(PreparedStatement.class));
 			i = preparedStatement.executeUpdate();
 		} catch (Exception e) {
 			logger.fatal("------------>>>>>>>>>>>>"+e);
@@ -373,12 +374,13 @@ public class RequirementGenerationDao {
 		try {
 			connection = DbConnection.createConnection();
 			preparedStatement = Pstm.createQuery(connection, RequirementGenerationSql.loadReqGenMasterData, null);
-			logger.info("fetchReqGenMasterData - " + preparedStatement.unwrap(PreparedStatement.class));
+			logger.info("fetch Req Gen MasterData - " + preparedStatement.unwrap(PreparedStatement.class));
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				RequirementGenerationBean bean = new RequirementGenerationBean();
 				bean.setReq_id(resultSet.getInt("r_id"));
 				bean.setClientName(resultSet.getString("full_name"));
+				bean.setClientOriginalName(resultSet.getString("clientname"));
 				bean.setClientId(resultSet.getInt("req_client_id"));
 				bean.setReqSkillId(resultSet.getInt("req_skill_id"));
 				bean.setReqSkill(resultSet.getString("master_skill_set_name"));
@@ -396,6 +398,12 @@ public class RequirementGenerationDao {
 				bean.setRaiseDateValue(resultSet.getString("req_raise_date"));
 				if(bean.getRaiseDateValue() !=null){
 				bean.setRaiseDateStr(Dateformatter.toStringDate(bean.getRaiseDateValue()));
+				}
+				
+				bean.setTargetDate(resultSet.getDate("req_target_date"));
+				bean.setTargetDateValue(resultSet.getString("req_target_date"));
+				if(bean.getTargetDateValue() !=null){
+				bean.setTargetDateStr(Dateformatter.toStringDate(bean.getTargetDateValue()));
 				}
 				
 				bean.setCloseDate(resultSet.getDate("req_close_date"));

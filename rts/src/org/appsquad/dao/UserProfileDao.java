@@ -31,9 +31,10 @@ public class UserProfileDao {
 					    	preparedStatementInsert = Pstm.createQuery(connection, 
 									UserProfileSql.insertUserData, Arrays.asList(userprofileBean.getUserid(),userprofileBean.getUsername(),
 																userprofileBean.getPassword(),userprofileBean.getAddress().toUpperCase(),
-																userprofileBean.getContactno().toUpperCase(),userprofileBean.getEmail()));
+																userprofileBean.getContactno().toUpperCase(),userprofileBean.getEmail(),
+																userprofileBean.getSessionUserId()));
 					    
-					    	/*logger.info(" insertUserData- " + preparedStatementInsert.unwrap(PreparedStatement.class));*/
+					    	logger.info(" Inserting Data Into User Profile Table:- " + preparedStatementInsert.unwrap(PreparedStatement.class));
 							int i = preparedStatementInsert.executeUpdate();
 							if(i>0){
 								isSaved = true;	
@@ -52,7 +53,8 @@ public class UserProfileDao {
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
-					
+					logger.error(e);
+					logger.fatal(e);
 				}finally{
 					if(connection!=null){
 						connection.close();
@@ -61,7 +63,8 @@ public class UserProfileDao {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			//logger.fatal(e);
+			logger.error(e);
+			logger.fatal(e);
 		}
 		return isSaved;
 	}
@@ -78,9 +81,8 @@ public class UserProfileDao {
 					sql_fetch:{
 					   PreparedStatement preparedStatement = null;
 					   try {
-						   preparedStatement = Pstm.createQuery(connection, UserProfileSql.fetchUserDeatils, null);
-						   //logger.info(" onLoadUserDeatils- " + preparedStatement.unwrap(PreparedStatement.class));
-						   
+						    preparedStatement = Pstm.createQuery(connection, UserProfileSql.fetchUserDeatils, null);
+						    logger.info(" onLoad User Deatils For User Screen:- " + preparedStatement.unwrap(PreparedStatement.class));
 							ResultSet resultSet = preparedStatement.executeQuery();
 							while (resultSet.next()) {
 								UserprofileBean bean = new UserprofileBean();
@@ -102,7 +104,8 @@ public class UserProfileDao {
 				    }
 				} catch (Exception e) {
 					e.printStackTrace();
-					
+					logger.error(e);
+					logger.fatal(e);
 				}finally{
 					if(connection!=null){
 						connection.close();
@@ -111,7 +114,8 @@ public class UserProfileDao {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			//logger.fatal(e);
+			logger.error(e);
+			logger.fatal(e);
 		}
 		return userList;
 	}
@@ -128,7 +132,7 @@ public class UserProfileDao {
 					sql_fetch:{
 					   PreparedStatement preparedStatementCount = null;
 					   try {
-						   preparedStatementCount = Pstm.createQuery(connection, UserProfileSql.countNumberSql, Arrays.asList(userprofileBean.getUserid()));
+						    preparedStatementCount = Pstm.createQuery(connection, UserProfileSql.countNumberSql, Arrays.asList(userprofileBean.getUserid()));
 							ResultSet resultSet = preparedStatementCount.executeQuery();
 							while (resultSet.next()) {
 								count = resultSet.getInt(1);
@@ -141,7 +145,8 @@ public class UserProfileDao {
 				    }
 				} catch (Exception e) {
 					e.printStackTrace();
-					
+					logger.error(e);
+					logger.fatal(e);
 				}finally{
 					if(connection!=null){
 						connection.close();
@@ -150,6 +155,8 @@ public class UserProfileDao {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			logger.error(e);
+			logger.fatal(e);
 		}
 		return count;
 	}
@@ -171,6 +178,7 @@ public class UserProfileDao {
 											  userprofileBean.getPassword(),userprofileBean.getAddress(),userprofileBean.getContactno(),
 											  userprofileBean.getEmail(),userprofileBean.getId()));
 					    	
+					    	logger.info(" UPDATE USER PROFILE DATA:- " + preparedStatementInsert.unwrap(PreparedStatement.class));
 							int i = preparedStatementInsert.executeUpdate();
 							if(i>0){
 								isUpdated = true;	
@@ -189,7 +197,8 @@ public class UserProfileDao {
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
-					
+					logger.error(e);
+					logger.fatal(e);
 				}finally{
 					if(connection!=null){
 						connection.close();
@@ -198,6 +207,8 @@ public class UserProfileDao {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			logger.error(e);
+			logger.fatal(e);
 		}
 		return isUpdated;
 	}
@@ -209,14 +220,12 @@ public class UserProfileDao {
 			connection = DbConnection.createConnection();
 			sql_connection:{
 				try {
-					
 					//1st SQL block
 					sql_insert:{
 					    PreparedStatement preparedStatementInsert = null;
 					    try {
-					    	preparedStatementInsert = Pstm.createQuery(connection, 
-									UserProfileSql.deleteUserSql, Arrays.asList(userprofileBean.getId()));
-					    	logger.info(" deleteUserData- " + preparedStatementInsert.unwrap(PreparedStatement.class));
+					    	preparedStatementInsert = Pstm.createQuery(connection,UserProfileSql.deleteUserSql, Arrays.asList(userprofileBean.getId()));
+					    	logger.info(" Delete User Data For User Screen- " + preparedStatementInsert.unwrap(PreparedStatement.class));
 							int i = preparedStatementInsert.executeUpdate();
 							if(i>0){
 								isDeleted = true;	
@@ -235,7 +244,8 @@ public class UserProfileDao {
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
-					
+					logger.error(e);
+					logger.fatal(e);
 				}finally{
 					if(connection!=null){
 						connection.close();
@@ -244,6 +254,8 @@ public class UserProfileDao {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			logger.error(e);
+			logger.fatal(e);
 		}
 		return isDeleted;
 	}

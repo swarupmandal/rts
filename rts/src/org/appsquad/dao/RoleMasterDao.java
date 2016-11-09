@@ -32,7 +32,7 @@ public class RoleMasterDao {
 					    try {
 					    	preparedStatementInsert = Pstm.createQuery(connection, 
 									RoleMasterSql.insertRoleQuery, Arrays.asList(roleMasterBean.getRoll().toUpperCase(),roleMasterBean.getUserid()));
-					    	/*logger.info("insertSkillData- " + preparedStatementInsert.unwrap(PreparedStatement.class));*/
+					    	logger.info("insertSkillData- " + preparedStatementInsert.unwrap(PreparedStatement.class));
 							int i = preparedStatementInsert.executeUpdate();
 							if(i>0){
 								isSaved = true;	
@@ -51,6 +51,8 @@ public class RoleMasterDao {
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
+					logger.error(e);
+					logger.fatal(e);
 				}finally{
 					if(connection!=null){
 						connection.close();
@@ -58,8 +60,9 @@ public class RoleMasterDao {
 				}
 			}
 		} catch (Exception e) {
-			/*logger.fatal(e);*/
 			e.printStackTrace();
+			logger.error(e);
+			logger.fatal(e);
 		}
 	}
 	
@@ -78,7 +81,7 @@ public class RoleMasterDao {
 					    try {
 					    	preparedStatementInsert = Pstm.createQuery(connection, 
 									RoleMasterSql.insertMappingQuery, Arrays.asList(roleMasterBean.getUserprofileBean().getId(),roleMasterBean.getDownBean().getRollId()));
-					    	/*logger.info("insertAssignData- " + preparedStatementInsert.unwrap(PreparedStatement.class));*/
+					    	logger.info("insertAssignData- " + preparedStatementInsert.unwrap(PreparedStatement.class));
 							int i = preparedStatementInsert.executeUpdate();
 							if(i>0){
 								isSavedAssign = true;	
@@ -97,6 +100,8 @@ public class RoleMasterDao {
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
+					logger.error(e);
+					logger.fatal(e);
 				}finally{
 					if(connection!=null){
 						connection.close();
@@ -104,8 +109,9 @@ public class RoleMasterDao {
 				}
 			}
 		} catch (Exception e) {
-			/*logger.fatal(e);*/
 			e.printStackTrace();
+			logger.error(e);
+			logger.fatal(e);
 		}
 	}
 	
@@ -122,7 +128,7 @@ public class RoleMasterDao {
 					   PreparedStatement preparedStatement = null;
 					   try {
 						   preparedStatement = Pstm.createQuery(connection, RoleMasterSql.fetchRoleQuery, null);
-						   /*logger.info("onLoadRoleDeatils- " + preparedStatement.unwrap(PreparedStatement.class));*/
+						   logger.info("onLoadRoleDeatils- " + preparedStatement.unwrap(PreparedStatement.class));
 						   ResultSet resultSet = preparedStatement.executeQuery();
 						   while (resultSet.next()) {
 								RoleMasterBean bean = new RoleMasterBean();
@@ -139,6 +145,8 @@ public class RoleMasterDao {
 				    }
 				} catch (Exception e) {
 					e.printStackTrace();
+					logger.error(e);
+					logger.fatal(e);
 				}finally{
 					if(connection!=null){
 						connection.close();
@@ -146,8 +154,9 @@ public class RoleMasterDao {
 				}
 			}
 		} catch (Exception e) {
-			/*logger.fatal(e);*/
 			e.printStackTrace();
+			logger.error(e);
+			logger.fatal(e);
 		}
 		return roleList;
 	}
@@ -166,7 +175,7 @@ public class RoleMasterDao {
 					   PreparedStatement preparedStatement = null;
 					   try {
 						   preparedStatement = Pstm.createQuery(connection, RoleMasterSql.fetchRoleQuery, null);
-						   /*logger.info("onLoadRoleDropDownDeatils- " + preparedStatement.unwrap(PreparedStatement.class));*/
+						   logger.info("onLoadRoleDropDownDeatils- " + preparedStatement.unwrap(PreparedStatement.class));
 						   ResultSet resultSet = preparedStatement.executeQuery();
 						   while (resultSet.next()) {
 								RollDropDownBean bean = new RollDropDownBean();
@@ -183,6 +192,8 @@ public class RoleMasterDao {
 				    }
 				} catch (Exception e) {
 					e.printStackTrace();
+					logger.error(e);
+					logger.fatal(e);
 				}finally{
 					if(connection!=null){
 						connection.close();
@@ -190,8 +201,9 @@ public class RoleMasterDao {
 				}
 			}
 		} catch (Exception e) {
-			logger.fatal(e);
 			e.printStackTrace();
+			logger.error(e);
+			logger.fatal(e);
 		}
 		return roleDropList;
 	}
@@ -210,7 +222,7 @@ public class RoleMasterDao {
 					   PreparedStatement preparedStatement = null;
 					   try {
 						   preparedStatement = Pstm.createQuery(connection, RoleMasterSql.fetchRoleQueryForDrop, Arrays.asList(roleMasterBean.getDownBean().getRoll()));
-						   /*logger.info("onLoadRoleDropDownDeatils- " + preparedStatement.unwrap(PreparedStatement.class));*/
+						   logger.info("onLoadRoleDropDownDeatils- " + preparedStatement.unwrap(PreparedStatement.class));
 						   ResultSet resultSet = preparedStatement.executeQuery();
 						   while (resultSet.next()) {
 								RollDropDownBean bean = new RollDropDownBean();
@@ -227,6 +239,8 @@ public class RoleMasterDao {
 				    }
 				} catch (Exception e) {
 					e.printStackTrace();
+					logger.error(e);
+					logger.fatal(e);
 				}finally{
 					if(connection!=null){
 						connection.close();
@@ -234,8 +248,9 @@ public class RoleMasterDao {
 				}
 			}
 		} catch (Exception e) {
-			logger.fatal(e);
 			e.printStackTrace();
+			logger.error(e);
+			logger.fatal(e);
 		}
 		return roleDropList;
 	}
@@ -254,7 +269,7 @@ public class RoleMasterDao {
 					    try {
 					    	preparedStatementInsert = Pstm.createQuery(connection, 
 									RoleMasterSql.updateRoleQuery, Arrays.asList(roleMasterBean.getRoll().toUpperCase(),roleMasterBean.getRollId()));
-					    	/*logger.info("updateRoleData- " + preparedStatementInsert.unwrap(PreparedStatement.class));*/
+					    	logger.info("updateRoleData- " + preparedStatementInsert.unwrap(PreparedStatement.class));
 							int i = preparedStatementInsert.executeUpdate();
 							if(i>0){
 								isUpdate = true;	
@@ -272,6 +287,8 @@ public class RoleMasterDao {
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
+					logger.error(e);
+					logger.fatal(e);
 				}finally{
 					if(connection!=null){
 						connection.close();
@@ -279,8 +296,9 @@ public class RoleMasterDao {
 				}
 			}
 		} catch (Exception e) {
-			/*logger.fatal(e);*/
 			e.printStackTrace();
+			logger.error(e);
+			logger.fatal(e);
 		}
 	}
 
@@ -297,8 +315,8 @@ public class RoleMasterDao {
 					    PreparedStatement preparedStatementInsert = null;
 					    try {
 					    	preparedStatementInsert = Pstm.createQuery(connection, 
-									RoleMasterSql.deleteSql, Arrays.asList(roleMasterBean.getRollId()));
-					    	/*logger.info("deleteRoleData- " + preparedStatementInsert.unwrap(PreparedStatement.class));*/
+																			RoleMasterSql.deleteSql, Arrays.asList(roleMasterBean.getRollId()));
+					    	logger.info("deleteRoleData- " + preparedStatementInsert.unwrap(PreparedStatement.class));
 							int i = preparedStatementInsert.executeUpdate();
 							if(i>0){
 								isDeleted = true;	
@@ -316,6 +334,8 @@ public class RoleMasterDao {
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
+					logger.error(e);
+					logger.fatal(e);
 				}finally{
 					if(connection!=null){
 						connection.close();
@@ -323,8 +343,9 @@ public class RoleMasterDao {
 				}
 			}
 		} catch (Exception e) {
-			/*logger.fatal(e);*/
 			e.printStackTrace();
+			logger.error(e);
+			logger.fatal(e);
 		}
 	}
 	
@@ -339,8 +360,8 @@ public class RoleMasterDao {
 					sql_fetch:{
 					   PreparedStatement preparedStatement = null;
 					   try {
-						   preparedStatement = Pstm.createQuery(connection, RoleMasterSql.fetchUserQuery, null);
-						   /*logger.info("onLoadUserDeatils- " + preparedStatement.unwrap(PreparedStatement.class));*/
+						    preparedStatement = Pstm.createQuery(connection, RoleMasterSql.fetchUserQuery, null);
+						    logger.info("onLoadUserDeatils- " + preparedStatement.unwrap(PreparedStatement.class));
 							ResultSet resultSet = preparedStatement.executeQuery();
 							while (resultSet.next()) {
 								UserprofileBean bean = new UserprofileBean();
@@ -358,6 +379,8 @@ public class RoleMasterDao {
 				    }
 				} catch (Exception e) {
 					e.printStackTrace();
+					logger.error(e);
+					logger.fatal(e);
 				}finally{
 					if(connection!=null){
 						connection.close();
@@ -365,8 +388,9 @@ public class RoleMasterDao {
 				}
 			}
 		} catch (Exception e) {
-			/*logger.fatal(e);*/
 			e.printStackTrace();
+			logger.error(e);
+			logger.fatal(e);
 		}
 		return userList;
 	}
@@ -406,6 +430,8 @@ public class RoleMasterDao {
 				    }
 				} catch (Exception e) {
 					e.printStackTrace();
+					logger.error(e);
+					logger.fatal(e);
 				}finally{
 					if(connection!=null){
 						connection.close();
@@ -413,8 +439,9 @@ public class RoleMasterDao {
 				}
 			}
 		} catch (Exception e) {
-			/*logger.fatal(e);*/
 			e.printStackTrace();
+			logger.error(e);
+			logger.fatal(e);
 		}
 		return mappingList;
 	}
@@ -432,10 +459,11 @@ public class RoleMasterDao {
 					    PreparedStatement preparedStatementInsert = null;
 					    try {
 					    	preparedStatementInsert = Pstm.createQuery(connection, 
-									RoleMasterSql.updateMappingQuery, Arrays.asList(roleMasterBean.getDownBean().getRollId(),roleMasterBean.getMapperId()));
+																RoleMasterSql.updateMappingQuery, Arrays.asList(roleMasterBean.getDownBean().getRollId(),
+											                                                                    roleMasterBean.getMapperId()));
 					    	
 					    	System.out.println(preparedStatementInsert);
-					    	/*logger.info("updateAssignData- " + preparedStatementInsert.unwrap(PreparedStatement.class));*/
+					    	logger.info("updateAssignData- " + preparedStatementInsert.unwrap(PreparedStatement.class));
 							int i = preparedStatementInsert.executeUpdate();
 							if(i>0){
 								isUpdated = true;	
@@ -454,6 +482,8 @@ public class RoleMasterDao {
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
+					logger.error(e);
+					logger.fatal(e);
 				}finally{
 					if(connection!=null){
 						connection.close();
@@ -461,8 +491,9 @@ public class RoleMasterDao {
 				}
 			}
 		} catch (Exception e) {
-			/*logger.fatal(e);*/
 			e.printStackTrace();
+			logger.error(e);
+			logger.fatal(e);
 		}
 		return isUpdated;
 	}
@@ -494,6 +525,8 @@ public class RoleMasterDao {
 				    }
 				} catch (Exception e) {
 					e.printStackTrace();
+					logger.error(e);
+					logger.fatal(e);
 				}finally{
 					if(connection!=null){
 						connection.close();
@@ -501,8 +534,9 @@ public class RoleMasterDao {
 				}
 			}
 		} catch (Exception e) {
-			/*logger.fatal(e);*/
 			e.printStackTrace();
+			logger.error(e);
+			logger.fatal(e);
 		}
 		return count;
 	}
@@ -519,9 +553,9 @@ public class RoleMasterDao {
 					sql_fetch:{
 					   PreparedStatement preparedStatement = null;
 					   try {
-						   preparedStatement = Pstm.createQuery(connection, RoleMasterSql.countSqlQuery, Arrays.asList(bean.getuId(),
+						    preparedStatement = Pstm.createQuery(connection, RoleMasterSql.countSqlQuery, Arrays.asList(bean.getuId(),
 								                                                                         bean.getDownBean().getRollId()));
-						   /*logger.info("onLoadCountTabDeatils- " + preparedStatement.unwrap(PreparedStatement.class));*/
+						    logger.info("onLoadCountTabDeatils- " + preparedStatement.unwrap(PreparedStatement.class));
 							ResultSet resultSet = preparedStatement.executeQuery();
 							while (resultSet.next()) {
 								count = resultSet.getInt(1);
@@ -534,6 +568,8 @@ public class RoleMasterDao {
 				    }
 				} catch (Exception e) {
 					e.printStackTrace();
+					logger.error(e);
+					logger.fatal(e);
 				}finally{
 					if(connection!=null){
 						connection.close();
@@ -541,8 +577,9 @@ public class RoleMasterDao {
 				}
 			}
 		} catch (Exception e) {
-			/*logger.fatal(e);*/
 			e.printStackTrace();
+			logger.error(e);
+			logger.fatal(e);
 		}
 		return count;
 	}
@@ -561,7 +598,7 @@ public class RoleMasterDao {
 					   PreparedStatement preparedStatement = null;
 					   try {
 						   preparedStatement = Pstm.createQuery(connection, RoleMasterSql.countRoleSqlQuery, Arrays.asList(bean.getRoll()));
-						   /*logger.info("onLoadRoleNameCountDeatils- " + preparedStatement.unwrap(PreparedStatement.class));*/
+						   logger.info("onLoadRoleNameCountDeatils- " + preparedStatement.unwrap(PreparedStatement.class));
 						   ResultSet resultSet = preparedStatement.executeQuery();
 						   while (resultSet.next()) {
 								countRole = resultSet.getInt(1);
@@ -574,6 +611,8 @@ public class RoleMasterDao {
 				    }
 				} catch (Exception e) {
 					e.printStackTrace();
+					logger.error(e);
+					logger.fatal(e);
 				}finally{
 					if(connection!=null){
 						connection.close();
@@ -581,8 +620,9 @@ public class RoleMasterDao {
 				}
 			}
 		} catch (Exception e) {
-			/*logger.fatal(e);*/
 			e.printStackTrace();
+			logger.error(e);
+			logger.fatal(e);
 		}
 		return countRole;
 	}
@@ -613,6 +653,8 @@ public class RoleMasterDao {
 				    }
 				} catch (Exception e) {
 					e.printStackTrace();
+					logger.error(e);
+					logger.fatal(e);
 				}finally{
 					if(connection!=null){
 						connection.close();
@@ -620,10 +662,10 @@ public class RoleMasterDao {
 				}
 			}
 		} catch (Exception e) {
-			/*logger.fatal(e);*/
 			e.printStackTrace();
+			logger.error(e);
+			logger.fatal(e);
 		}
 		return countRole;
 	}
-	
 }

@@ -64,7 +64,6 @@ public class ClientInformationService {
 		}
 	}
 	
-	
 	public static boolean insertClientMasterData(ClientInformationBean clientInformationBean){
 		if(isValid(clientInformationBean)){
 			flag = ClientInformationDao.insertClientData(clientInformationBean);

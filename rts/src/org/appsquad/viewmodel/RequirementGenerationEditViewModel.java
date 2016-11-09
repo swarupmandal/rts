@@ -1,10 +1,12 @@
 package org.appsquad.viewmodel;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import org.appsquad.bean.RequirementGenerationBean;
 import org.appsquad.bean.ResourceTypeBean;
 import org.appsquad.bean.StatusMasterBean;
+import org.appsquad.service.LogAuditServiceClass;
 import org.appsquad.service.RequirementGenerationService;
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.AfterCompose;
@@ -14,6 +16,8 @@ import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.ExecutionArgParam;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Session;
+import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
@@ -28,15 +32,20 @@ public class RequirementGenerationEditViewModel {
 	private boolean isEqualResource;
 	@Wire("#winReqGenEdit")
 	private Window winReqGenEdit;
+	private String userId;
+	private Session session = null;
 	
 	private ArrayList<StatusMasterBean> statusBeanEditList = new ArrayList<StatusMasterBean>();
 	
 	@AfterCompose
-	public void initSetUp(@ContextParam(ContextType.VIEW) Component view,@ExecutionArgParam("parentBean") RequirementGenerationBean bean) 
-			                                                                         throws Exception{
+	public void initSetUp(@ContextParam(ContextType.VIEW) Component view,@ExecutionArgParam("parentBean") RequirementGenerationBean bean)throws Exception
+	{
 		 Selectors.wireComponents(view, this, false); 
+		 session = Sessions.getCurrent();
+		 userId =  (String) session.getAttribute("userId");
 		 reqEditGenBean = bean;
 		 reqEditGenBean.setReqOpenDate(true);
+		 reqEditGenBean.setSessionUserId(userId);
 		 System.out.println("REQUIREMENTS ID IS:"+reqEditGenBean.getReq_id());
 		 if(reqEditGenBean.getResourceTypeBean().getResourceTypeName().equalsIgnoreCase("CONTRACT")){
 			 reqEditGenBean.setConFieldvisibility(true);
@@ -87,6 +96,7 @@ public class RequirementGenerationEditViewModel {
 	@NotifyChange("*")
 	public void onClickUpdate(){
 		boolean flag = false;
+		boolean flagLogUpdate = false;
 		if(RequirementGenerationService.isValidForUpdate(reqEditGenBean)){
 			int count = RequirementGenerationService.countWrtReqId(reqEditGenBean);
 			System.out.println("COUNT :"+count);
@@ -118,6 +128,15 @@ public class RequirementGenerationEditViewModel {
 				int i = RequirementGenerationService.updateReqGenMaster(reqEditGenBean);	
 				if(i>0){
 					Messagebox.show("Updated Successfully", "Information", Messagebox.OK, Messagebox.INFORMATION);
+					reqEditGenBean.setOperation("UPDATE");
+					reqEditGenBean.setOperationId(2);
+					Calendar calendar = Calendar.getInstance();
+				    java.sql.Date currentDate = new java.sql.Date(calendar.getTime().getTime());
+					System.out.println("CREATION DATE :"+currentDate);
+					flagLogUpdate = LogAuditServiceClass.insertIntoLogTable(reqEditGenBean.getMainScreenName(), reqEditGenBean.getChileScreenName(), 
+																			reqEditGenBean.getSessionUserId(), reqEditGenBean.getOperation(),currentDate,
+																			reqEditGenBean.getOperationId());
+					System.out.println("Requirement screen flagLogUpdate Is:"+flagLogUpdate);
 					winReqGenEdit.detach();
 					BindUtils.postGlobalCommand(null, null, "editReqGen", null);
 				}	
@@ -186,5 +205,17 @@ public class RequirementGenerationEditViewModel {
 	}
 	public void setWinReqGenEdit(Window winReqGenEdit) {
 		this.winReqGenEdit = winReqGenEdit;
+	}
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	public Session getSession() {
+		return session;
+	}
+	public void setSession(Session session) {
+		this.session = session;
 	}
 }

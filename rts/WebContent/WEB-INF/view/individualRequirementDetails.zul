@@ -1,10 +1,8 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
 <window title="SORT CRITERIA: RID/ STATUS" border="none" apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('org.appsquad.viewmodel.IndividualRequirementReportViewModel')">
-    
+												viewModel="@id('vm') @init('org.appsquad.viewmodel.IndividualRequirementReportViewModel')">
     <div>
-       	
        <label value="* " style="font-weight:bold; color:red; font-size:large;" />	
        <label value="Requirement Id" style="font-weight: bold; color: black"></label>
 	   
@@ -18,7 +16,7 @@
 				<listbox width="400px" model="@bind(vm.requirementGenerationBeanList)" 
 				     selectedItem="@bind(vm.requirementGenerationBean)" onSelect="@command('onSelctReqId')" mold="paging" pageSize="5">
 					<listhead sizable="true">
-						<listheader label="Req Id"></listheader>
+						<listheader label="RID" width="30px"></listheader>
 						<listheader label="Skill"></listheader>
 						<listheader label="Creation Date" width="90px"></listheader>
 						<listheader label="Type"></listheader>
@@ -65,7 +63,7 @@
     
     <div visible="@bind(vm.individualRequirementReportBean.detailsDivVis)">
     			
-    			<grid model="@bind(vm.reportBeanList)" mold="paging" pageSize="10" height="400px">	
+    			<grid model="@bind(vm.reportBeanList)" mold="paging" pageSize="8" height="400px">	
     				
     				<columns sizable="true">
     					<!-- <column width="30px"></column> -->	
@@ -99,7 +97,7 @@
     		
     		<div visible="@bind(vm.individualRequirementReportBean.summaryDivVis)">
     		
-    			<grid model="@bind(vm.summaryBeanList)" mold="paging" pageSize="10" height="400px">
+    			<grid model="@bind(vm.summaryBeanList)" mold="paging" pageSize="8" height="400px">
     				
     				<columns sizable="true">
     				  <!-- <column width="30px"></column> -->	
@@ -123,24 +121,13 @@
     				    <label value="@bind(v.noOfReqLebel)" visible="@bind(v.noOfReqVis)" style="@bind(v.style)"></label>
     				    
     				   </row>
-    				  
     				  </template>	
     				</rows>
-    				
     			</grid>
-    		
     		</div>
-    		
     		<div align="right">
     			<button label="Generate Excel" style="font-weight:bold" height="25px" onClick="@command('onClickExcel')"></button>
     			<button label="Generate Pdf" style="font-weight:bold" onClick="@command('onClickPdf')"></button>	
-    		
-    		
-    		</div>
-    
-    
-    
-                          
-                        
+    		</div>                      
 </window>
 </zk>

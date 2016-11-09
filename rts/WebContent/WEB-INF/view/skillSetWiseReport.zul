@@ -1,6 +1,7 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="SORT CRITERIA: DATE/ SKILL SET" border="none" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('org.appsquad.viewmodel.SkillSetWiseReportViewModel')">
+	<window title="SORT CRITERIA: DATE/ SKILL SET" border="none" apply="org.zkoss.bind.BindComposer" 
+             														viewModel="@id('vm') @init('org.appsquad.viewmodel.SkillSetWiseReportViewModel')">
  
  			<div>
     			<hlayout spacing="12px">
@@ -20,8 +21,9 @@
     				<bandbox autodrop="true" readonly="true" id="skSt" value="@bind(vm.skilWiseReportBean.skillsetMasterbean.skillset)" placeholder="Search by Skill Set" width="170px">
 						<bandpopup>	
 							<hbox>
-								<textbox value="@bind(vm.skilWiseReportBean.skillSetSearch)" onChange="@command('onChangeSkillName')"></textbox>
+								<textbox value="@bind(vm.skilWiseReportBean.skillSetSearch)" onChange="@command('onChangeSkillName')" width="120px"></textbox>
 								<button label="Serach" onClick="@command('onChangeSkillName')"></button>
+								<button label="Clear" onClick="@command('onClearSkillSet')"></button>
 							</hbox>
 							<space></space>
 							<listbox width="280px" model="@bind(vm.skillList)" 
@@ -49,8 +51,10 @@
     				<bandbox autodrop="true" readonly="true" id="clntBb" value="@bind(vm.skilWiseReportBean.clientInformationBean.fullName)" placeholder="Search By Client">
 						<bandpopup>	
 							<hbox>
-								<textbox value="@bind(vm.skilWiseReportBean.clientNameSearch)" onChange="@command('onChangeClientName')"></textbox>
+								<textbox value="@bind(vm.skilWiseReportBean.clientNameSearch)" onChange="@command('onChangeClientName')"
+								    width="120px"></textbox>
 								<button label="Serach" onClick="@command('onChangeClientName')"></button>
+								<button label="Clear" onClick="@command('onClearClientName')"></button>
 							</hbox>
 							<space></space>
 							<listbox width="280px" model="@bind(vm.clientList)" 
@@ -85,11 +89,8 @@
  
  			
  			<div visible="@bind(vm.skilWiseReportBean.detailsDivVis)">
-    			
-    			<grid model="@bind(vm.reportBeanList)" mold="paging" pageSize="10" height="400px">	
-    				
+    			<grid model="@bind(vm.reportBeanList)" mold="paging" pageSize="8" height="400px">
     				<columns sizable="true">
-    					<!-- <column width="30px"></column> -->	
     					<column width="170px" label="STATUS" style="font-weight:bold; color: black"></column>
     					<column width="230px" label="RESOURCE NAME" style="font-weight:bold; color: black" align="center"></column>
     					<column width="70px"  label="Yr.of.Exp" style="font-weight:bold; color: black" align="center"></column>
@@ -103,7 +104,6 @@
     						
     				  <template name="model" var = "v">
     					<row style="@bind(v.backGroundStyle)">
-    						<!-- <checkbox checked="@bind(v.detailChecked)"></checkbox> -->
     				  		<label value="@bind(v.rIdLabel)" visible="@bind(v.ridLbFieldVis)" style="@bind(v.style)" width="98%"></label>
     				  		<label value="@bind(v.rIdDateLabel)" visible="@bind(v.ridDatelbFieldVis)" style="@bind(v.style)" width="98%"></label>
     				  		<label value="@bind(v.yoExp)" visible="@bind(v.yoExpFieldVis)" style="@bind(v.style)" width="98%"></label>
@@ -119,44 +119,30 @@
     		</div>
     		
     		<div visible="@bind(vm.skilWiseReportBean.summaryDivVis)">
-    		
-    			<grid model="@bind(vm.summaryBeanList)" mold="paging" pageSize="10" height="400px">
-    				
+    			<grid model="@bind(vm.summaryBeanList)" mold="paging" pageSize="8" height="400px">
     				<columns sizable="true">
-    				  <!-- <column width="30px"></column> -->	
     				  <column label="Status" align="left" style="font-weight:bold; color: black"></column>
     				  <column></column>
     				  <column></column>
     				  <column></column>
     				  <column label="No. of resources" align="right" style="font-weight:bold; color: black"></column>
-    				  	
     				</columns>
     				<rows>
     				  <template name="model" var = "v">
     				   <row style="@bind(v.backGroundStyle)">
-    				    <!-- <checkbox checked="@bind(v.summaryChecked)"></checkbox> -->
-    				    <label value="@bind(v.rIdLabel)" visible="@bind(v.ridLbFieldVis)" style="@bind(v.style)"></label>
-    				   
-    				    <label value="@bind(v.rIdDateLabel)" visible="@bind(v.ridDatelbFieldVis)" style="@bind(v.style)"></label>
-    				    <label value="@bind(v.clientFullName)" visible="@bind(v.clNameLbFieldVis)" style="@bind(v.style)"></label>
-    				    <label value="@bind(v.skillSetLabel)" visible="@bind(v.sklStLbFieldVis)" style="@bind(v.style)"></label>
-    				    
-    				    <label value="@bind(v.noOfReqLebel)" visible="@bind(v.noOfReqVis)" style="@bind(v.style)"></label>
-    				    
+	    				    <label value="@bind(v.rIdLabel)" visible="@bind(v.ridLbFieldVis)" style="@bind(v.style)"></label>
+	    				    <label value="@bind(v.rIdDateLabel)" visible="@bind(v.ridDatelbFieldVis)" style="@bind(v.style)"></label>
+	    				    <label value="@bind(v.clientFullName)" visible="@bind(v.clNameLbFieldVis)" style="@bind(v.style)"></label>
+	    				    <label value="@bind(v.skillSetLabel)" visible="@bind(v.sklStLbFieldVis)" style="@bind(v.style)"></label>
+	    				    <label value="@bind(v.noOfReqLebel)" visible="@bind(v.noOfReqVis)" style="@bind(v.style)"></label>
     				   </row>
-    				  
     				  </template>	
     				</rows>
-    				
     			</grid>
-    		
     		</div>
-    		
     		<div align="right">
     			<button label="Generate Excel" style="font-weight:bold" height="25px" onClick="@command('onClickExcel')"></button>
     			<button label="Generate Pdf" style="font-weight:bold" onClick="@command('onClickPdf')"></button>    		
     		</div>
- 
- 
-</window>
+	</window>
 </zk>

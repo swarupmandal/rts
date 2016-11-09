@@ -5,6 +5,7 @@ public class ClientInformationsql {
 	public static final String countryQuery = "select country_id,country_name from rts_country_master order by country_id ";
 	public static final String skillSetQuery = "select * from rts_skill_master order by id ";
 	public static final String statusSetQuery = "select * from rts_status_master where is_delete = 'N' order by id ";
+	public static final String statusSetQueryForReport = "select * from rts_status_master where is_delete IN('N','C') order by id ";
 	public static final String insertClientInfo = " INSERT INTO rts_clients_master(name,surname, clientname, officeaddress, state, "
                                            +" country, zipcode, contactno, emailid, created_by) "
                                            +" VALUES (?, ?, ?, ?, ?, ?, ?,?, ?, ?) ";

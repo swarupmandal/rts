@@ -2,6 +2,7 @@ package org.appsquad.viewmodel;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 
 import org.appsquad.bean.ClientInformationBean;
@@ -9,6 +10,7 @@ import org.appsquad.bean.CountryBean;
 import org.appsquad.bean.StateBean;
 import org.appsquad.dao.ClientInformationDao;
 import org.appsquad.service.ClientInformationService;
+import org.appsquad.service.LogAuditServiceClass;
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
@@ -40,11 +42,11 @@ public class ClientInformationViewModel {
 	private String userId;
 	private boolean flag = false;
 	private boolean flagDelete = false;
+	private boolean flagLogInsert = false;
 	@Wire("#ad")
 	private Bandbox bandBox;
 	@Wire("#cd")
 	private Bandbox bandBox1;
-	
 	
 	@AfterCompose
 	public void initSetUp(@ContextParam(ContextType.VIEW) Component view) throws Exception{
@@ -52,6 +54,7 @@ public class ClientInformationViewModel {
 		sessions = Sessions.getCurrent();
 		userId = (String) sessions.getAttribute("userId");
 		clientInformationBean.setUserId(userId);
+		clientInformationBean.setSessionUserId(userId);
 		countryList = ClientInformationDao.onLoadCountry();
 		clientDetailsList = ClientInformationDao.onLoadClientDeatils();
 	}
@@ -73,6 +76,15 @@ public class ClientInformationViewModel {
 	public void onClickSubmitButton(){
 		flag = ClientInformationService.insertClientMasterData(clientInformationBean);
 		if(flag){
+			clientInformationBean.setOperation("INSERT");
+			clientInformationBean.setOperationId(1);
+			Calendar calendar = Calendar.getInstance();
+		    java.sql.Date currentDate = new java.sql.Date(calendar.getTime().getTime());
+			System.out.println("CREATION DATE :"+currentDate);
+			flagLogInsert = LogAuditServiceClass.insertIntoLogTable(clientInformationBean.getMainScreenName(), clientInformationBean.getChileScreenName(), 
+																	clientInformationBean.getSessionUserId(), clientInformationBean.getOperation(),currentDate,
+																	clientInformationBean.getOperationId());
+			System.out.println("flagLogInsert Is:"+flagLogInsert);
 			ClientInformationService.clearAllField(clientInformationBean);
 		}
 	}
@@ -103,18 +115,30 @@ public class ClientInformationViewModel {
 	@NotifyChange("*")
 	public void onClickDelete(@BindingParam("bean") ClientInformationBean clientInformationBean){
 		int count = 0;
+		boolean flagLogDelete = false;
 		count = ClientInformationService.countClientPresentWrtRequirementService(clientInformationBean);
 		if(count>0){
 			Messagebox.show("Requirement Is Generated With This Client,Can't Delete!", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
 		}else{
 			flagDelete = ClientInformationService.deleteClientMasterData(clientInformationBean);
 			if(flagDelete){
+				clientInformationBean.setOperation("DELETE");
+				clientInformationBean.setOperationId(3);
+				clientInformationBean.setSessionUserId(userId);
+				Calendar calendar = Calendar.getInstance();
+			    java.sql.Date currentDate = new java.sql.Date(calendar.getTime().getTime());
+				System.out.println("CREATION DATE :"+currentDate);
+				flagLogDelete = LogAuditServiceClass.insertIntoLogTable(clientInformationBean.getMainScreenName(), clientInformationBean.getChileScreenName(), 
+																		clientInformationBean.getSessionUserId(), clientInformationBean.getOperation(),currentDate,
+																		clientInformationBean.getOperationId());
+				System.out.println("flagLogDelete Is:"+flagLogDelete);
+				
 				BindUtils.postGlobalCommand(null, null, "globalClientDetailsUpdate", null);
 			}	
 		}
 	}
 	
-	/*********************************************Getter and Setter Method ****************************************************/
+	/***************************************************Getter And Setter Method ****************************************************************/
 	
 	public ClientInformationBean getClientInformationBean() {
 		return clientInformationBean;
@@ -188,5 +212,11 @@ public class ClientInformationViewModel {
 	}
 	public void setBandBox1(Bandbox bandBox1) {
 		this.bandBox1 = bandBox1;
+	}
+	public boolean isFlagLogInsert() {
+		return flagLogInsert;
+	}
+	public void setFlagLogInsert(boolean flagLogInsert) {
+		this.flagLogInsert = flagLogInsert;
 	}
 }

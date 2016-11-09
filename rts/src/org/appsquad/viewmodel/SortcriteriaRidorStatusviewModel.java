@@ -1,7 +1,6 @@
 package org.appsquad.viewmodel;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.sql.Connection;
 import java.util.ArrayList;
 
@@ -13,10 +12,7 @@ import org.appsquad.bean.SortCriteriaRidorStatusBean;
 import org.appsquad.bean.StatusMasterBean;
 import org.appsquad.dao.IndividualRequirementReportDao;
 import org.appsquad.dao.ResourceMasterDao;
-import org.appsquad.dao.SortCriteriaDao;
 import org.appsquad.service.IndividualClientReportService;
-import org.appsquad.service.IndividualRequirementReportService;
-import org.appsquad.service.RequirementGenerationService;
 import org.appsquad.service.ResourceAllocationTrackingService;
 import org.appsquad.utility.Dateformatter;
 import org.appsquad.utility.IndividualClientReportExcel;
@@ -38,15 +34,13 @@ import org.zkoss.zul.Messagebox;
 import com.itextpdf.text.DocumentException;
 
 public class SortcriteriaRidorStatusviewModel {
-  
-	public RequirementGenerationBean requirementGenerationBean = new RequirementGenerationBean();
-	public IndividualClientReportBean rIdWiseReportBean = new IndividualClientReportBean();
+  public RequirementGenerationBean requirementGenerationBean = new RequirementGenerationBean();
+  public IndividualClientReportBean rIdWiseReportBean = new IndividualClientReportBean();
 	   
-	private ArrayList<RequirementGenerationBean> requirementGenerationBeanList = new ArrayList<RequirementGenerationBean>();
-	private ArrayList<IndividualClientReportBean> reportBeanList = new ArrayList<IndividualClientReportBean>();
-	private ArrayList<IndividualClientReportBean> summaryBeanList = new ArrayList<IndividualClientReportBean>();	
+  private ArrayList<RequirementGenerationBean> requirementGenerationBeanList = new ArrayList<RequirementGenerationBean>();
+  private ArrayList<IndividualClientReportBean> reportBeanList = new ArrayList<IndividualClientReportBean>();
+  private ArrayList<IndividualClientReportBean> summaryBeanList = new ArrayList<IndividualClientReportBean>();	
 	
-  
   private ArrayList<SkillsetMasterbean> skillList = new ArrayList<SkillsetMasterbean>();
   private ArrayList<StatusMasterBean> statusList = new ArrayList<StatusMasterBean>();
   private ArrayList<ClientInformationBean> clientList = new ArrayList<ClientInformationBean>();
@@ -70,37 +64,20 @@ public class SortcriteriaRidorStatusviewModel {
 		Selectors.wireComponents(view, this, false);
 		sessions = Sessions.getCurrent();
 		userId = (String) sessions.getAttribute("userId");
-		
 		requirementGenerationBeanList = IndividualRequirementReportDao.fetchReqirmentDetails();
-		//skillList = RequirementGenerationService.fetchSkillSetList();
-		statusList = ResourceMasterDao.onLoadStatus();
+		statusList = ResourceMasterDao.onLoadStatusForReport();
 		clientList = ResourceAllocationTrackingService.fetchClientDetails();
 		
 		rIdWiseReportBean.setDetailsDivVis(true);
 		rIdWiseReportBean.setSelectedRadioButton("detail");
-		
 	}
   
   
   @Command
   @NotifyChange("*")
   public void onChangeFromDate(){
-	   
 	   reportBeanList.clear();
 	   summaryBeanList.clear();
-	   
-	   //rIdWiseReportBean.skillsetMasterbean.setSkillset(null);
-	   //skillList = RequirementGenerationService.fetchSkillSetList();
-	   rIdWiseReportBean.clientInformationBean.setClientId(null);
-	   rIdWiseReportBean.statusMasterBean.setStatusId(null);
-	   requirementGenerationBean.setReq_id(null);
-	   requirementGenerationBeanList = IndividualRequirementReportDao.fetchReqirmentDetails();
-	   
-	   rIdWiseReportBean.statusMasterBean.setStatus(null);
-	   statusList = ResourceMasterDao.onLoadStatus();
-	   
-	   rIdWiseReportBean.clientInformationBean.setFullName(null);
-	   clientList = ResourceAllocationTrackingService.fetchClientDetails();
 	   
 	   if(rIdWiseReportBean.getFromDate() == null){
 		   rIdWiseReportBean.setToDate(null);
@@ -110,43 +87,22 @@ public class SortcriteriaRidorStatusviewModel {
   @Command
   @NotifyChange("*")
   public void onChangeToDate(){
+	   reportBeanList.clear();
 	   summaryBeanList.clear();
-	   rIdWiseReportBean.clientInformationBean.setClientId(null);
-	   rIdWiseReportBean.statusMasterBean.setStatusId(null);
-	   rIdWiseReportBean.skillsetMasterbean.setSkillset(null);
-	   skillList = RequirementGenerationService.fetchSkillSetList();
-	   
-	   rIdWiseReportBean.statusMasterBean.setStatus(null);
-	   statusList = ResourceMasterDao.onLoadStatus();
-	   
-	   rIdWiseReportBean.clientInformationBean.setFullName(null);
-	   clientList = ResourceAllocationTrackingService.fetchClientDetails();
 	   
 	   if(rIdWiseReportBean.getFromDate() != null){
-		   
 		   if(rIdWiseReportBean.getToDate().after(rIdWiseReportBean.getFromDate())){
-			    	
-			   		// all the functionalities are going to search button
-			   
-			    	/*if(rIdWiseReportBean.getFromDate() != null && rIdWiseReportBean.getToDate() != null){
-			    	reportBeanList = IndividualClientReportService.loadRidListwithDateRange(Dateformatter.sqlDate(rIdWiseReportBean.getFromDate()), Dateformatter.sqlDate(rIdWiseReportBean.getToDate()));
-			    	rIdWiseReportBean.setSelectedRadioButton("detail");
-			    	}*/
-			    
-			   
 		     }else {
 		    	 rIdWiseReportBean.setToDate(null);
 			    Messagebox.show("To Date Should be Grater Than From Date", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION);
 		   }
-		   
 	   }else {
 		   rIdWiseReportBean.setToDate(null);
 		   Messagebox.show("Select From Date First", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION);
-	}
+	   }
+   }
   
-  }
-  
-  
+    
   @Command
   @NotifyChange("*")
   public void onChangeReqId(){
@@ -154,7 +110,7 @@ public class SortcriteriaRidorStatusviewModel {
 			requirementGenerationBeanList = ResourceAllocationTrackingService.fetchReqSearch(rIdWiseReportBean.getR_idSearch());
 	   }else {
 		   requirementGenerationBeanList = IndividualRequirementReportDao.fetchReqirmentDetails();
-	}
+	   }
   }
   
   
@@ -162,115 +118,27 @@ public class SortcriteriaRidorStatusviewModel {
   @NotifyChange("*")
   public void onSelctReqId(){
 	   reqIDdBandBox.close();
-	   
 	   summaryBeanList.clear();
 	   reportBeanList.clear();
-	   rIdWiseReportBean.clientInformationBean.setClientId(null);
-	   rIdWiseReportBean.statusMasterBean.setStatusId(null);
-	   if(rIdWiseReportBean.getFromDate() != null && rIdWiseReportBean.getToDate() != null){
-	   	 //this functionality gone to search button
-		//reportBeanList = IndividualClientReportService.loadRidListwithDateRangeWithRidWiseReport(Dateformatter.sqlDate(rIdWiseReportBean.getFromDate()), Dateformatter.sqlDate(rIdWiseReportBean.getToDate()), requirementGenerationBean.getReq_id());
-	   }else {
-		   requirementGenerationBean.setReq_id(null);
-		   requirementGenerationBeanList = IndividualRequirementReportDao.fetchReqirmentDetails();
-		   Messagebox.show("SELECT FROM DATE AND TO  DATE ", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION);
-	   }
-	   //rIdWiseReportBean.setFromDate(null);
-	   //rIdWiseReportBean.setToDate(null);
-	   
-	   rIdWiseReportBean.skillsetMasterbean.setSkillset(null);
-	   
-	   rIdWiseReportBean.statusMasterBean.setStatus(null);
-	   statusList = ResourceMasterDao.onLoadStatus();
-	   rIdWiseReportBean.setSelectedRadioButton("detail");
-	   
   }
-  
-  @Command
-	@NotifyChange("*")
-	public void onSelectStatusName(){
-		
-		summaryBeanList.clear();
-		reportBeanList.clear();
-		rIdWiseReportBean.clientInformationBean.setClientId(null);
-		
-		rIdWiseReportBean.clientInformationBean.setFullName(null);
-		clientList = ResourceAllocationTrackingService.fetchClientDetails();
-		
-		if(rIdWiseReportBean.getFromDate() != null && rIdWiseReportBean.getToDate() != null){
-			
-			if(requirementGenerationBean.getReq_id() != null){
-				
-				 //functionality gone to SEARCH button
-				 //reportBeanList = IndividualClientReportService.loadRidListWithStatusDateRidWiseReport(Dateformatter.sqlDate(rIdWiseReportBean.getFromDate()), Dateformatter.sqlDate(rIdWiseReportBean.getToDate()),requirementGenerationBean.getReq_id() , rIdWiseReportBean.statusMasterBean.getStatusId());
-				 //rIdWiseReportBean.setSelectedRadioButton("detail");
-			   
-			}else {
-				rIdWiseReportBean.statusMasterBean.setStatus(null);
-				statusList = ResourceMasterDao.onLoadStatus();
-				Messagebox.show("Select R ID", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION);   
-			}
-			
-		}else {
-			rIdWiseReportBean.statusMasterBean.setStatus(null);
-			statusList = ResourceMasterDao.onLoadStatus();
-			Messagebox.show("Select From Date and To Date", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION);
-		}
-	}
   
 	 @Command
 	 @NotifyChange("*")
 	 public void onChangeClientName(){
-		   
 		   if(rIdWiseReportBean.getClientNameSearch() != null){
 			   clientList = ResourceAllocationTrackingService.fetchClientDetailsSearch(rIdWiseReportBean.getClientNameSearch());
 		   }
 		   reportBeanList.clear();
 		   summaryBeanList.clear();
-		   
 	 }
   
   
   	@Command
 	@NotifyChange("*")
 	public void onSelctClientName(){
-		
 		summaryBeanList.clear();
 		reportBeanList.clear();
-	
-		
 		clnBandBox.close();
-		
-		if(rIdWiseReportBean.getFromDate() != null && rIdWiseReportBean.getToDate() != null && requirementGenerationBean.getReq_id() != null){
-		
-			if(rIdWiseReportBean.statusMasterBean.getStatusId() != null){
-			   //functionality gone to SEARCH button
-			   //reportBeanList = IndividualClientReportService.loadRidListWithStatusRIdDateClientWiseReport(Dateformatter.sqlDate(rIdWiseReportBean.getFromDate()), Dateformatter.sqlDate(rIdWiseReportBean.getToDate()), requirementGenerationBean.getReq_id(), rIdWiseReportBean.statusMasterBean.getStatusId(), rIdWiseReportBean.clientInformationBean.getClientId());
-			   //rIdWiseReportBean.setSelectedRadioButton("detail");
-			}else{
-				//functionality gone to SEARCH button
-			   //reportBeanList = IndividualClientReportService.loadRidListWithStatusRIdDateClientWiseReport(Dateformatter.sqlDate(rIdWiseReportBean.getFromDate()), Dateformatter.sqlDate(rIdWiseReportBean.getToDate()), requirementGenerationBean.getReq_id(), rIdWiseReportBean.clientInformationBean.getClientId());
-			   //rIdWiseReportBean.setSelectedRadioButton("detail");
-		 }
-		}else {
-			rIdWiseReportBean.clientInformationBean.setFullName(null);
-			clientList = ResourceAllocationTrackingService.fetchClientDetails();
-			Messagebox.show("Select From Date To Date And R ID ", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION);
-		}
-		
-	}
-	
-	@Command
-	@NotifyChange("*")
-	public void onCheckDetailSummary(){
-		   if(rIdWiseReportBean.getSelectedRadioButton().equals("detail")){
-			   rIdWiseReportBean.setDetailsDivVis(true);
-			   rIdWiseReportBean.setSummaryDivVis(false);
-		   }else {
-			   rIdWiseReportBean.setDetailsDivVis(false);
-			   summaryBeanList = IndividualClientReportService.loadRidSummaryList(reportBeanList);
-			   rIdWiseReportBean.setSummaryDivVis(true);
-		}
 	}
 	
 	@Command
@@ -291,10 +159,9 @@ public class SortcriteriaRidorStatusviewModel {
 		   
 		   rIdWiseReportBean.statusMasterBean.setStatus(null);
 		   rIdWiseReportBean.statusMasterBean.setStatusId(null);
-		   statusList = ResourceMasterDao.onLoadStatus();
+		   statusList = ResourceMasterDao.onLoadStatusForReport();
 		   
-		   rIdWiseReportBean.setSelectedRadioButton(null);
-		   
+		   rIdWiseReportBean.setSelectedRadioButton("detail");	   
 	}
 	
 	@Command
@@ -303,48 +170,19 @@ public class SortcriteriaRidorStatusviewModel {
 		String pdfPath = Executions.getCurrent().getDesktop().getWebApp().getRealPath("/");
 		IndividualClientReportPdf pdf = new IndividualClientReportPdf();
 		try{
-		if(rIdWiseReportBean.getSelectedRadioButton().equals("detail")){
-			//pdf.getDetails(pdfPath, rIdWiseReportBean, reportBeanList);
-		  /*if(reportBeanList.size()>0);	
-		  ArrayList<IndividualClientReportBean> detailList = new ArrayList<IndividualClientReportBean>();
-			for(IndividualClientReportBean bean : reportBeanList){
-				if(bean.isDetailChecked()){
-					detailList.add(bean);
-				}
-			}
-			if(detailList.size()>0){
-				pdf.getDetails(totalPdfPath, rIdWiseReportBean, detailList);
+			if(rIdWiseReportBean.getSelectedRadioButton().equals("detail")){
 			}else {
-				Messagebox.show("NO DATA SELECTED ", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION );
-			}*/
-			
-		}else {
-			//pdf.getSummary(pdfPath, rIdWiseReportBean, summaryBeanList);
-			/*if(summaryBeanList.size()>0);
-			ArrayList<IndividualClientReportBean> summList = new ArrayList<IndividualClientReportBean>();
-			for(IndividualClientReportBean bean : summaryBeanList){
-				if(bean.isSummaryChecked()){
-					summList.add(bean);
-				}
 			}
-			if(summList.size()>0){
-				pdf.getSummary(totalPdfPath, rIdWiseReportBean, summList);
-			}else {
-				Messagebox.show("NO DATA SELECTED ", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION );
-			}*/
-			
-		}
-	
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 		try {
 			if(reportBeanList.size()>0){
-			if(rIdWiseReportBean.getSelectedRadioButton().equals("detail")){
-			   pdf.getDetails(pdfPath, rIdWiseReportBean, reportBeanList, "Requirement Status Report");
-			}else {
-				pdf.getSummary(pdfPath, rIdWiseReportBean, summaryBeanList, "Requirement Status Summary");
-			}
+				if(rIdWiseReportBean.getSelectedRadioButton().equals("detail")){
+				   pdf.getDetails(pdfPath, rIdWiseReportBean, reportBeanList, "Requirement Status Report");
+				}else {
+					pdf.getSummary(pdfPath, rIdWiseReportBean, summaryBeanList, "Requirement Status Summary");
+				}
 			}else {
 				Messagebox.show("No Data Found ","Alert",Messagebox.OK,Messagebox.EXCLAMATION);
 			}
@@ -359,112 +197,207 @@ public class SortcriteriaRidorStatusviewModel {
 	@NotifyChange("*")
 	public void onClickExcel(){
 		if(reportBeanList.size()>0){
-		if(rIdWiseReportBean.getSelectedRadioButton().equals("detail")){
-			IndividualClientReportExcel.printCSV(reportBeanList, "Requirement Status Report" );
-		  /*if(reportBeanList.size()>0);	
-		  ArrayList<IndividualClientReportBean> detailList = new ArrayList<IndividualClientReportBean>();
-			for(IndividualClientReportBean bean : reportBeanList){
-				if(bean.isDetailChecked()){
-					detailList.add(bean);
-				}
-			}
-			if(detailList.size()>0){
-				IndividualClientReportExcel.printCSV(detailList);
+			if(rIdWiseReportBean.getSelectedRadioButton().equals("detail")){
+				IndividualClientReportExcel.printCSV(reportBeanList, "Requirement Status Report" );
 			}else {
-				Messagebox.show("NO DATA SELECTED ", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION );
-			}*/
-			
-		}else {
-			IndividualClientReportExcel.printSummaryCSV(summaryBeanList, "Requirement Status Summary");
-			
-			/*if(summaryBeanList.size()>0);
-			ArrayList<IndividualClientReportBean> summList = new ArrayList<IndividualClientReportBean>();
-			for(IndividualClientReportBean bean : summaryBeanList){
-				if(bean.isSummaryChecked()){
-					summList.add(bean);
-				}
+				IndividualClientReportExcel.printSummaryCSV(summaryBeanList, "Requirement Status Summary");
 			}
-			
-			if(summList.size()>0){
-				IndividualClientReportExcel.printSummaryCSV(summList);
-			}else {
-				Messagebox.show("NO DATA SELECTED ", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION );
-			}*/
-			
-		   }
 		}else {
 			Messagebox.show("No Data Found ","Alert",Messagebox.OK,Messagebox.EXCLAMATION);
 		}
 	}
   
 	
+	public void generationOfDetailsReport(){
+		//when only both date are given
+				if(rIdWiseReportBean.getFromDate() != null && rIdWiseReportBean.getToDate() != null && 
+						requirementGenerationBean.getReq_id() ==null && rIdWiseReportBean.statusMasterBean.getStatusId() == null && 
+						   rIdWiseReportBean.clientInformationBean.getClientId() == null){
+					
+					System.out.println("1ST METHOD");
+					reportBeanList = IndividualClientReportService.loadRidListwithDateRange(Dateformatter.sqlDate(rIdWiseReportBean.getFromDate()), Dateformatter.sqlDate(rIdWiseReportBean.getToDate()));
+			    	
+			    	if(reportBeanList.size()==0){
+			    		Messagebox.show("No Data Found For This Combination ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+			    	}
+				}
+				
+				
+				//when both date and rid given
+				if (rIdWiseReportBean.getFromDate() != null && rIdWiseReportBean.getToDate() != null && 
+						requirementGenerationBean.getReq_id() !=null && rIdWiseReportBean.statusMasterBean.getStatusId() == null && 
+						    rIdWiseReportBean.clientInformationBean.getClientId() == null) {
+					
+					System.out.println("2ND METHOD");
+					reportBeanList = IndividualClientReportService.loadRidListwithDateRangeWithRidWiseReport(Dateformatter.sqlDate(rIdWiseReportBean.getFromDate()), Dateformatter.sqlDate(rIdWiseReportBean.getToDate()), requirementGenerationBean.getReq_id());
+					
+					if(reportBeanList.size()==0){
+						Messagebox.show("No Data Found For This Combination ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+			    	}
+				}
+				
+				
+				//when both date rid and status given
+				if (rIdWiseReportBean.getFromDate() != null && rIdWiseReportBean.getToDate() != null && 
+						requirementGenerationBean.getReq_id() !=null && rIdWiseReportBean.statusMasterBean.getStatusId() != null && 
+						   rIdWiseReportBean.clientInformationBean.getClientId() == null) {
+					
+					System.out.println("3RD METHOD");
+					reportBeanList = IndividualClientReportService.loadRidListWithStatusDateRidWiseReport(Dateformatter.sqlDate(rIdWiseReportBean.getFromDate()), Dateformatter.sqlDate(rIdWiseReportBean.getToDate()),requirementGenerationBean.getReq_id() , rIdWiseReportBean.statusMasterBean.getStatusId());
+					
+					if(reportBeanList.size()==0){
+						Messagebox.show("No Data Found For This Combination ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+			    	}
+				}
+				
+				
+				//when both date rid status and client given
+				if (rIdWiseReportBean.getFromDate() != null && rIdWiseReportBean.getToDate() != null && 
+						requirementGenerationBean.getReq_id() !=null && rIdWiseReportBean.statusMasterBean.getStatusId() != null && 
+						   rIdWiseReportBean.clientInformationBean.getClientId() != null) {
+					
+					System.out.println("4TH METHOD");
+					reportBeanList = IndividualClientReportService.loadRidListWithStatusRIdDateClientWiseReport(Dateformatter.sqlDate(rIdWiseReportBean.getFromDate()), Dateformatter.sqlDate(rIdWiseReportBean.getToDate()), requirementGenerationBean.getReq_id(), rIdWiseReportBean.statusMasterBean.getStatusId(), rIdWiseReportBean.clientInformationBean.getClientId());
+					
+					if(reportBeanList.size()==0){
+						Messagebox.show("No Data Found For This Combination ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+			    	}
+				}
+				
+				//when date and client selected
+				if (rIdWiseReportBean.getFromDate() != null && rIdWiseReportBean.getToDate() != null && 
+						requirementGenerationBean.getReq_id() ==null && rIdWiseReportBean.statusMasterBean.getStatusId() == null && 
+						   rIdWiseReportBean.clientInformationBean.getClientId() != null) {
+					
+					reportBeanList = IndividualClientReportService.loadRidListwithDateRange(Dateformatter.sqlDate(rIdWiseReportBean.getFromDate()), Dateformatter.sqlDate(rIdWiseReportBean.getToDate()),rIdWiseReportBean.clientInformationBean.getClientId());
+					
+					if(reportBeanList.size()==0){
+						Messagebox.show("No Data Found For This Combination ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+			    	}
+				}
+				
+				//when date and Status selected
+						if (rIdWiseReportBean.getFromDate() != null && rIdWiseReportBean.getToDate() != null && 
+								requirementGenerationBean.getReq_id() ==null && rIdWiseReportBean.statusMasterBean.getStatusId() != null && 
+								   rIdWiseReportBean.clientInformationBean.getClientId() == null) {
+							
+							reportBeanList = IndividualClientReportService.loadDateAndStatusInClientReportService(Dateformatter.sqlDate(rIdWiseReportBean.getFromDate()), Dateformatter.sqlDate(rIdWiseReportBean.getToDate()),rIdWiseReportBean.statusMasterBean.getStatusId());
+							
+							if(reportBeanList.size()==0){
+								Messagebox.show("No Data Found For This Combination ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+					    	}
+						}
+
+						//when date and Status and client selected
+						if (rIdWiseReportBean.getFromDate() != null && rIdWiseReportBean.getToDate() != null && 
+								requirementGenerationBean.getReq_id() ==null && rIdWiseReportBean.statusMasterBean.getStatusId() != null && 
+								   rIdWiseReportBean.clientInformationBean.getClientId() != null) {
+							
+							reportBeanList = IndividualClientReportService.loadRidListWithDateSatus(Dateformatter.sqlDate(rIdWiseReportBean.getFromDate()), Dateformatter.sqlDate(rIdWiseReportBean.getToDate()),rIdWiseReportBean.statusMasterBean.getStatusId(),rIdWiseReportBean.clientInformationBean.getClientId());
+							
+							if(reportBeanList.size()==0){
+								Messagebox.show("No Data Found For This Combination ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+					    	}
+						}		
+						
+				
+						//when date and ReqId and client selected
+						if (rIdWiseReportBean.getFromDate() != null && rIdWiseReportBean.getToDate() != null && 
+								requirementGenerationBean.getReq_id() !=null && rIdWiseReportBean.statusMasterBean.getStatusId() == null && 
+								   rIdWiseReportBean.clientInformationBean.getClientId() != null) {
+							
+							reportBeanList = IndividualClientReportService.loadRidListWithStatusRIdDateClientWiseReport(Dateformatter.sqlDate(rIdWiseReportBean.getFromDate()), Dateformatter.sqlDate(rIdWiseReportBean.getToDate()),requirementGenerationBean.getReq_id(),rIdWiseReportBean.clientInformationBean.getClientId());
+							
+							if(reportBeanList.size()==0){
+								Messagebox.show("No Data Found For This Combination ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+					    	}
+						}			
+						
+				//when to Date not selected
+				if(rIdWiseReportBean.getFromDate() != null && rIdWiseReportBean.getToDate() == null && 
+						requirementGenerationBean.getReq_id() ==null && rIdWiseReportBean.statusMasterBean.getStatusId() == null && 
+						   rIdWiseReportBean.clientInformationBean.getClientId() == null){
+									Messagebox.show("Select To Date!!", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+				}
+				
+				
+				//when no date selected
+				if(rIdWiseReportBean.getFromDate() == null && rIdWiseReportBean.getToDate() == null && 
+						requirementGenerationBean.getReq_id() ==null && rIdWiseReportBean.statusMasterBean.getStatusId() == null && 
+						   rIdWiseReportBean.clientInformationBean.getClientId() == null){
+									Messagebox.show("Select From Date And To Date", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+				}
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void onCheckDetailSummary(){
+		   if(rIdWiseReportBean.getSelectedRadioButton().equals("detail")){
+			   rIdWiseReportBean.setDetailsDivVis(true);
+			   rIdWiseReportBean.setSummaryDivVis(false);
+		   }else {
+			   rIdWiseReportBean.setDetailsDivVis(false);
+			   rIdWiseReportBean.setSummaryDivVis(true);
+		 }
+	}
+	
 	@Command
 	@NotifyChange("*")
 	public void onClickSearch(){
 		
-		//when only both date are given
-		if(rIdWiseReportBean.getFromDate() != null && rIdWiseReportBean.getToDate() != null && requirementGenerationBean.getReq_id() ==null && rIdWiseReportBean.statusMasterBean.getStatusId() == null && rIdWiseReportBean.clientInformationBean.getClientId() == null){
-			
-			reportBeanList = IndividualClientReportService.loadRidListwithDateRange(Dateformatter.sqlDate(rIdWiseReportBean.getFromDate()), Dateformatter.sqlDate(rIdWiseReportBean.getToDate()));
-	    	rIdWiseReportBean.setSelectedRadioButton("detail");
-	    	
-	    	if(reportBeanList.size()==0){
-	    		Messagebox.show("No Data Found!! ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
-	    	}
-	    	
-	    //when both date and rid given
-		}if (rIdWiseReportBean.getFromDate() != null && rIdWiseReportBean.getToDate() != null && requirementGenerationBean.getReq_id() !=null && rIdWiseReportBean.statusMasterBean.getStatusId() == null && rIdWiseReportBean.clientInformationBean.getClientId() == null) {
-			
-			reportBeanList = IndividualClientReportService.loadRidListwithDateRangeWithRidWiseReport(Dateformatter.sqlDate(rIdWiseReportBean.getFromDate()), Dateformatter.sqlDate(rIdWiseReportBean.getToDate()), requirementGenerationBean.getReq_id());
-			rIdWiseReportBean.setSelectedRadioButton("detail");
-			
-			if(reportBeanList.size()==0){
-	    		Messagebox.show("No Data Found!! ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
-	    	}
+		/******************NEW LOGIC - PROLAY **************************************************************************************************/
 		
-		//when both date rid and status given
-		}if (rIdWiseReportBean.getFromDate() != null && rIdWiseReportBean.getToDate() != null && requirementGenerationBean.getReq_id() !=null && rIdWiseReportBean.statusMasterBean.getStatusId() != null && rIdWiseReportBean.clientInformationBean.getClientId() == null) {
-			
-			reportBeanList = IndividualClientReportService.loadRidListWithStatusDateRidWiseReport(Dateformatter.sqlDate(rIdWiseReportBean.getFromDate()), Dateformatter.sqlDate(rIdWiseReportBean.getToDate()),requirementGenerationBean.getReq_id() , rIdWiseReportBean.statusMasterBean.getStatusId());
-			rIdWiseReportBean.setSelectedRadioButton("detail");
-			
-			if(reportBeanList.size()==0){
-	    		Messagebox.show("No Data Found!!", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
-	    	}
-			
-		//when both date rid status and client given
-		}if (rIdWiseReportBean.getFromDate() != null && rIdWiseReportBean.getToDate() != null && requirementGenerationBean.getReq_id() !=null && rIdWiseReportBean.statusMasterBean.getStatusId() != null && rIdWiseReportBean.clientInformationBean.getClientId() != null) {
-			
-			reportBeanList = IndividualClientReportService.loadRidListWithStatusRIdDateClientWiseReport(Dateformatter.sqlDate(rIdWiseReportBean.getFromDate()), Dateformatter.sqlDate(rIdWiseReportBean.getToDate()), requirementGenerationBean.getReq_id(), rIdWiseReportBean.statusMasterBean.getStatusId(), rIdWiseReportBean.clientInformationBean.getClientId());
-			rIdWiseReportBean.setSelectedRadioButton("detail");
-			
-			if(reportBeanList.size()==0){
-	    		Messagebox.show("No Data Found!!", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
-	    	}
+			if(rIdWiseReportBean.getSelectedRadioButton().equalsIgnoreCase("detail")){
+				System.out.println("SEARCH BUTTON CLICKED FOR DETAIL REPORT");
+				generationOfDetailsReport();
+				System.out.println("DETAILS REPORT LIST SIZE IS :"+reportBeanList.size());
+			}else{
+				System.out.println("SEARCH BUTTON CLICKED FOR SUMMARY REPORT");
+				generationOfDetailsReport();
+				System.out.println("SUMMARY REPORT LIST SIZE IS :"+reportBeanList.size());
+				if(rIdWiseReportBean.statusMasterBean.getStatusId()!=null){
+					summaryBeanList = IndividualClientReportService.loadRidSummaryListTest(reportBeanList,rIdWiseReportBean.statusMasterBean.getStatusId());
+				}else{
+					rIdWiseReportBean.statusMasterBean.setStatusId(200);
+					summaryBeanList = IndividualClientReportService.loadRidSummaryListTest(reportBeanList,rIdWiseReportBean.statusMasterBean.getStatusId());
+				}
+		  }
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void onSelectStatusName(){
+		summaryBeanList.clear();
+		reportBeanList.clear();
 		
-		//when both date rid and client given	
-		}if (rIdWiseReportBean.getFromDate() != null && rIdWiseReportBean.getToDate() != null && requirementGenerationBean.getReq_id() !=null && rIdWiseReportBean.statusMasterBean.getStatusId() == null && rIdWiseReportBean.clientInformationBean.getClientId() != null) {
-			
-			reportBeanList = IndividualClientReportService.loadRidListWithStatusRIdDateClientWiseReport(Dateformatter.sqlDate(rIdWiseReportBean.getFromDate()), Dateformatter.sqlDate(rIdWiseReportBean.getToDate()), requirementGenerationBean.getReq_id(), rIdWiseReportBean.clientInformationBean.getClientId());
-			rIdWiseReportBean.setSelectedRadioButton("detail");
-			
-			if(reportBeanList.size()==0){
-	    		Messagebox.show("No Data Found!!", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
-	    	}
-			
-		}//when to Date not selected
-		if(rIdWiseReportBean.getFromDate() != null && rIdWiseReportBean.getToDate() == null && requirementGenerationBean.getReq_id() ==null && rIdWiseReportBean.statusMasterBean.getStatusId() == null && rIdWiseReportBean.clientInformationBean.getClientId() == null){
-			
-			Messagebox.show("Select To Date!!", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
-		}
-		//when no date selected
-		if(rIdWiseReportBean.getFromDate() == null && rIdWiseReportBean.getToDate() == null && requirementGenerationBean.getReq_id() ==null && rIdWiseReportBean.statusMasterBean.getStatusId() == null && rIdWiseReportBean.clientInformationBean.getClientId() == null){
-			
-			Messagebox.show("No Data Found!!", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+		if(rIdWiseReportBean.statusMasterBean.getStatusId()==13){
+			rIdWiseReportBean.statusMasterBean.setStatus(null);
+			rIdWiseReportBean.statusMasterBean.setStatusId(null);
+			statusList = ResourceMasterDao.onLoadStatusForReport();
 		}
 	}
 	
-  
+	@Command
+	@NotifyChange("*")
+	public void onClearReqId(){
+		reqIDdBandBox.close();
+		requirementGenerationBean.setReq_id(null);
+		requirementGenerationBeanList = IndividualRequirementReportDao.fetchReqirmentDetails();
+		summaryBeanList.clear();
+		reportBeanList.clear();
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void onClickClientClear(){
+		clnBandBox.close();
+		rIdWiseReportBean.clientInformationBean.setFullName(null);
+		rIdWiseReportBean.clientInformationBean.setClientId(null);
+		clientList = ResourceAllocationTrackingService.fetchClientDetails();
+		summaryBeanList.clear();
+		reportBeanList.clear();
+	}
+	
     /************************************************************************************************************************************************/
   
 	public ArrayList<SkillsetMasterbean> getSkillList() {

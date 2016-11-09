@@ -32,7 +32,11 @@ public class IndividualClientReportSql {
 	
 	public static final String loadRidListWithStatus = "select * from vw_individual_client_report where client_id = ? ";
 	
-	public static final String loadRidDetailsListWithStatus = "select * from vw_individual_client_report_details_status_client where req_id = ? and final_status_id = ? and client_id = ? ";
+	public static final String loadClientListWithStatus = "select * from vw_individual_client_report where client_id = ? ";
+	
+	public static final String loadRidDetailsListWithStatus = "select * from vw_individual_client_report_details where req_id = ? and final_status_id = ? ";
+	
+	public static final String loadDateAndClientInClientReportSql = "select * from vw_individual_client_report_details where req_id = ? ";
 	
 				  //************************* date + skill + status + client ************************
 	
@@ -46,6 +50,9 @@ public class IndividualClientReportSql {
 	
 	public static final String loadRidListWithDateStatus = "select * from vw_individual_client_report where req_raise_date >= ?  and  req_raise_date <= ? and client_id = ? ";
 	
+	
+	public static final String loadDateAndStatusForClientReportSql = "select * from vw_individual_client_report where req_raise_date >= ?  and  req_raise_date <= ? ";
+	
 				  
 	
 				  //************************* summary ************************************************
@@ -54,7 +61,7 @@ public class IndividualClientReportSql {
 	
 	public static final String loadStatusSummmary = "select final_status, total_count from vw_status_count where req_id = ? ";
 	
-	
+	public static final String loadStatusSummmaryTestSql = "select final_status, total_count from vw_status_count where req_id = ? and final_status_id = ? ";
 	
 	
 	

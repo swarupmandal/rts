@@ -3,19 +3,13 @@ package org.appsquad.viewmodel;
 import java.sql.Connection;
 import java.util.ArrayList;
 
-import org.appsquad.bean.ClientInformationBean;
 import org.appsquad.bean.IndividualClientReportBean;
-import org.appsquad.bean.IndividualRequirementReportBean;
 import org.appsquad.bean.RequirementGenerationBean;
-import org.appsquad.bean.SkillsetMasterbean;
 import org.appsquad.bean.StatusMasterBean;
-import org.appsquad.dao.IndividualClientReportDao;
 import org.appsquad.dao.IndividualRequirementReportDao;
 import org.appsquad.dao.ResourceMasterDao;
-import org.appsquad.dao.SortCriteriaDao;
 import org.appsquad.service.IndividualClientReportService;
 import org.appsquad.service.IndividualRequirementReportService;
-import org.appsquad.service.RequirementGenerationService;
 import org.appsquad.service.ResourceAllocationTrackingService;
 import org.appsquad.utility.IndividualClientReportExcel;
 import org.appsquad.utility.IndividualClientReportPdf;
@@ -34,7 +28,6 @@ import org.zkoss.zul.Bandbox;
 import org.zkoss.zul.Messagebox;
 
 public class IndividualRequirementReportViewModel {
-   	
    private Connection connection = null;
    private Session sessions = null;
    private String userId;
@@ -58,7 +51,7 @@ public class IndividualRequirementReportViewModel {
  		userId = (String) sessions.getAttribute("userId");
  		
  		requirementGenerationBeanList = IndividualRequirementReportDao.fetchReqirmentDetails();
- 		statusBeanList = ResourceMasterDao.onLoadStatus();
+ 		statusBeanList = ResourceMasterDao.onLoadStatusForReport();
  		
  		individualRequirementReportBean.setDetailsDivVis(true);
  		individualRequirementReportBean.setSelectedRadioButton("detail");
@@ -79,69 +72,39 @@ public class IndividualRequirementReportViewModel {
    @NotifyChange("*")
    public void onSelctReqId(){
 	   reqIDdBandBox.close();
-	   
 	   summaryBeanList.clear();
 	   reportBeanList.clear();
-	   
-	   //functionality shifted to search button
-	   //reportBeanList = IndividualRequirementReportService.individualReqIdDetails(requirementGenerationBean.getReq_id());
-	   
-	   individualRequirementReportBean.setFromDate(null);
-	   individualRequirementReportBean.setToDate(null);
-	   
-	   individualRequirementReportBean.skillsetMasterbean.setSkillset(null);
-	   
-	   individualRequirementReportBean.statusMasterBean.setStatus(null);
-	   individualRequirementReportBean.statusMasterBean.setStatusId(null);
-	   statusBeanList = ResourceMasterDao.onLoadStatus();
-	   
-	   
    }
    
    @Command
    @NotifyChange("*")
    public void onSelectStatusName(){
-	   
 	   summaryBeanList.clear();
 	   reportBeanList.clear();
-	   if(requirementGenerationBean.getReq_id() != null){
-		   //functionality shifted to search button
-		   //reportBeanList = IndividualRequirementReportService.individualReqIdDetails(requirementGenerationBean.getReq_id(), individualRequirementReportBean.statusMasterBean.getStatusId());
-		   //individualRequirementReportBean.setSelectedRadioButton("detail");
-	   }else {
+	   
+	   if(individualRequirementReportBean.statusMasterBean.getStatusId()==13){
 		   individualRequirementReportBean.statusMasterBean.setStatus(null);
 		   individualRequirementReportBean.statusMasterBean.setStatusId(null);
-		   statusBeanList = ResourceMasterDao.onLoadStatus();  
-		   Messagebox.show("Select Requirement id ", "ALERT", Messagebox.OK,Messagebox.EXCLAMATION);
-	}
-	   
-	   
+		   statusBeanList = ResourceMasterDao.onLoadStatusForReport();
+	   }
    }
    
    @Command
    @NotifyChange("*")
    public void onCheckDetailSummary(){
-	   
 	   if(individualRequirementReportBean.getSelectedRadioButton().equals("detail")){
 		   individualRequirementReportBean.setDetailsDivVis(true);
 		   individualRequirementReportBean.setSummaryDivVis(false);
-		   
 	   }else {
-		   
 		   individualRequirementReportBean.setDetailsDivVis(false);
-		   summaryBeanList = IndividualClientReportService.loadRidSummaryList(reportBeanList);
 		   individualRequirementReportBean.setSummaryDivVis(true);
-		 
-	}
-	   
+	    }
    }
    
    
    @Command
    @NotifyChange("*")
    public void onClickClear(){
-
-	   
 	   summaryBeanList.clear();
 	   reportBeanList.clear();
 	   
@@ -150,249 +113,164 @@ public class IndividualRequirementReportViewModel {
 	   
 	   individualRequirementReportBean.statusMasterBean.setStatus(null);
 	   individualRequirementReportBean.statusMasterBean.setStatusId(null);
-	   statusBeanList = ResourceMasterDao.onLoadStatus();
-	   individualRequirementReportBean.setSelectedRadioButton(null);
+	   statusBeanList = ResourceMasterDao.onLoadStatusForReport();
+	   individualRequirementReportBean.setSelectedRadioButton("detail");
    }
    
    @Command
    @NotifyChange("*")
    public void onClickExcel(){
-
 	   if(reportBeanList.size()>0){
-		if(individualRequirementReportBean.getSelectedRadioButton().equals("detail")){
-		
-			IndividualClientReportExcel.printCSV(reportBeanList, "Individual Requirement Report");
-		  /*if(reportBeanList.size()>0);	
-		  ArrayList<IndividualClientReportBean> detailList = new ArrayList<IndividualClientReportBean>();
-			for(IndividualClientReportBean bean : reportBeanList){
-				if(bean.isDetailChecked()){
-					detailList.add(bean);
-				}
-			}
-			if(detailList.size()>0){
-				IndividualClientReportExcel.printCSV(detailList);
+			if(individualRequirementReportBean.getSelectedRadioButton().equals("detail")){
+				IndividualClientReportExcel.printCSV(reportBeanList, "Individual Requirement Report");
 			}else {
-				Messagebox.show("NO DATA SELECTED ", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION );
-			}*/
-			
-		}else {
-			IndividualClientReportExcel.printSummaryCSV(summaryBeanList, "Individual Requirement Summary");
-			/*if(summaryBeanList.size()>0);
-			ArrayList<IndividualClientReportBean> summList = new ArrayList<IndividualClientReportBean>();
-			for(IndividualClientReportBean bean : summaryBeanList){
-				if(bean.isSummaryChecked()){
-					summList.add(bean);
-				}
+				IndividualClientReportExcel.printSummaryCSV(summaryBeanList, "Individual Requirement Summary");
 			}
-			
-			if(summList.size()>0){
-				IndividualClientReportExcel.printSummaryCSV(summList);
-			}else {
-				Messagebox.show("NO DATA SELECTED ", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION );
-			}*/
-			
-		}
 	   }else {
 		   Messagebox.show("No Data Found ","Alert",Messagebox.OK,Messagebox.EXCLAMATION);
-	}
-	
+	   }
    }
    
    @Command
    @NotifyChange("*")
    public void onClickPdf(){
-
 		String pdfPath = Executions.getCurrent().getDesktop().getWebApp().getRealPath("/");
-		
 		IndividualClientReportPdf pdf = new IndividualClientReportPdf();
-		
 		try{
-		if(reportBeanList.size()>0){	
-		if(individualRequirementReportBean.getSelectedRadioButton().equals("detail")){
-		
-			pdf.getDetails(pdfPath, individualRequirementReportBean, reportBeanList, "Individual Requirement Report");
-		  /*if(reportBeanList.size()>0);	
-		  ArrayList<IndividualClientReportBean> detailList = new ArrayList<IndividualClientReportBean>();
-			for(IndividualClientReportBean bean : reportBeanList){
-				if(bean.isDetailChecked()){
-					detailList.add(bean);
+			if(reportBeanList.size()>0){	
+				if(individualRequirementReportBean.getSelectedRadioButton().equals("detail")){
+					pdf.getDetails(pdfPath, individualRequirementReportBean, reportBeanList, "Individual Requirement Report");
+				}else {
+					pdf.getSummary(pdfPath, individualRequirementReportBean, summaryBeanList, "Individual Requirement Summary");
 				}
-			}
-			if(detailList.size()>0){
-				pdf.getDetails(totalPdfPath, individualRequirementReportBean, detailList);
 			}else {
-				Messagebox.show("NO DATA SELECTED ", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION );
-			}*/
-			
-		}else {
-			pdf.getSummary(pdfPath, individualRequirementReportBean, summaryBeanList, "Individual Requirement Summary");
-			/*if(summaryBeanList.size()>0);
-			ArrayList<IndividualClientReportBean> summList = new ArrayList<IndividualClientReportBean>();
-			for(IndividualClientReportBean bean : summaryBeanList){
-				if(bean.isSummaryChecked()){
-					summList.add(bean);
-				}
+				Messagebox.show("No Data Found ","Alert",Messagebox.OK,Messagebox.EXCLAMATION);
 			}
-			if(summList.size()>0){
-				pdf.getSummary(totalPdfPath, individualRequirementReportBean, summList);
-			}else {
-				Messagebox.show("NO DATA SELECTED ", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION );
-			}*/
-			
-		}
-		}else {
-			Messagebox.show("No Data Found ","Alert",Messagebox.OK,Messagebox.EXCLAMATION);
-		}
-	
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-	
    }
+   
+   public void generationOfDetailsReport(){
+	   
+	 //when only rid Selected
+	   if(requirementGenerationBean.getReq_id() != null && individualRequirementReportBean.statusMasterBean.getStatusId() == null){
+		   reportBeanList = IndividualRequirementReportService.individualReqIdDetails(requirementGenerationBean.getReq_id());
+		   	 
+		   	 if(reportBeanList.size()==0){
+		   		Messagebox.show("No Data Found For This Combination ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+		   	 }
+	   }
+	   
+	   //when rid and status both selected
+	   if(requirementGenerationBean.getReq_id() != null && individualRequirementReportBean.statusMasterBean.getStatusId() != null){
+		   reportBeanList = IndividualRequirementReportService.individualReqIdDetails(requirementGenerationBean.getReq_id(), individualRequirementReportBean.statusMasterBean.getStatusId());
+	       
+	         if(reportBeanList.size()==0){
+	        	 Messagebox.show("No Data Found For This Combination ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+		   	 }
+	   }
+	   
+	   //when nothing selected
+		if(requirementGenerationBean.getReq_id() == null && individualRequirementReportBean.statusMasterBean.getStatusId() == null){
+			Messagebox.show("Select Requirement ID ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+		}
+		
+		//when only status selected
+		if(requirementGenerationBean.getReq_id() == null && individualRequirementReportBean.statusMasterBean.getStatusId() != null){
+		    Messagebox.show("Select Requirement ID ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+		}
+   }
+   
    
    @Command
    @NotifyChange("*")
    public void onClickSearch(){
 	   
-	   //when only rid Selected
-	   if(requirementGenerationBean.getReq_id() != null && individualRequirementReportBean.statusMasterBean.getStatusId() == null){
-		   reportBeanList = IndividualRequirementReportService.individualReqIdDetails(requirementGenerationBean.getReq_id());
-		   	 individualRequirementReportBean.setSelectedRadioButton("detail");
-		   	 
-		   	 if(reportBeanList.size()==0){
-		   		 Messagebox.show("No Data Found!!", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
-		   	 }
-	   }
-	   //when rid and status both selected
-	   if(requirementGenerationBean.getReq_id() != null && individualRequirementReportBean.statusMasterBean.getStatusId() != null){
-		   reportBeanList = IndividualRequirementReportService.individualReqIdDetails(requirementGenerationBean.getReq_id(), individualRequirementReportBean.statusMasterBean.getStatusId());
-	        individualRequirementReportBean.setSelectedRadioButton("detail");
-	      
-	         if(reportBeanList.size()==0){
-		   		 Messagebox.show("No Data Found!!", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
-		   	 }
-	   }
-	   //when nothing selected
-		if(requirementGenerationBean.getReq_id() == null && individualRequirementReportBean.statusMasterBean.getStatusId() == null){
-			Messagebox.show("Select Rid", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
-			individualRequirementReportBean.setSelectedRadioButton(null);
-		}
+		/******************NEW LOGIC - PROLAY **************************************************************************************************/
 	   
-	   
+	    if(individualRequirementReportBean.getSelectedRadioButton().equalsIgnoreCase("detail")){
+	    	System.out.println("SEARCH BUTTON CLICKED FOR DETAIL REPORT");
+			generationOfDetailsReport();
+			System.out.println("DETAILS REPORT LIST SIZE IS :"+reportBeanList.size());
+	    }else{
+	    	System.out.println("SEARCH BUTTON CLICKED FOR SUMMARY REPORT");
+			generationOfDetailsReport();
+			System.out.println("SUMMARY REPORT LIST SIZE IS :"+reportBeanList.size());
+			 if(individualRequirementReportBean.statusMasterBean.getStatusId()!=null){
+				 summaryBeanList = IndividualClientReportService.loadRidSummaryListTest(reportBeanList,individualRequirementReportBean.statusMasterBean.getStatusId());
+			 }else{
+				 individualRequirementReportBean.statusMasterBean.setStatusId(200);
+				 summaryBeanList = IndividualClientReportService.loadRidSummaryListTest(reportBeanList,individualRequirementReportBean.statusMasterBean.getStatusId());
+			 }
+	    }
    }
    
+    /*****************************************************************************************************************************************/
    
-public Connection getConnection() {
-	return connection;
-}
-
-public void setConnection(Connection connection) {
-	this.connection = connection;
-}
-
-public Session getSessions() {
-	return sessions;
-}
-
-public void setSessions(Session sessions) {
-	this.sessions = sessions;
-}
-
-public String getUserId() {
-	return userId;
-}
-
-public void setUserId(String userId) {
-	this.userId = userId;
-}
-
-
-
-public RequirementGenerationBean getRequirementGenerationBean() {
-	return requirementGenerationBean;
-}
-
-public void setRequirementGenerationBean(
-		RequirementGenerationBean requirementGenerationBean) {
-	this.requirementGenerationBean = requirementGenerationBean;
-}
-
-public ArrayList<RequirementGenerationBean> getRequirementGenerationBeanList() {
-	return requirementGenerationBeanList;
-}
-
-
-public void setRequirementGenerationBeanList(
-		ArrayList<RequirementGenerationBean> requirementGenerationBeanList) {
-	this.requirementGenerationBeanList = requirementGenerationBeanList;
-}
-
-
-
-public Bandbox getReqIDdBandBox() {
-	return reqIDdBandBox;
-}
-
-
-
-public void setReqIDdBandBox(Bandbox reqIDdBandBox) {
-	this.reqIDdBandBox = reqIDdBandBox;
-}
-
-
-
-public ArrayList<StatusMasterBean> getStatusBeanList() {
-	return statusBeanList;
-}
-
-
-
-public void setStatusBeanList(ArrayList<StatusMasterBean> statusBeanList) {
-	this.statusBeanList = statusBeanList;
-}
-
-
-
-public IndividualClientReportBean getIndividualRequirementReportBean() {
-	return individualRequirementReportBean;
-}
-
-
-
-public void setIndividualRequirementReportBean(
-		IndividualClientReportBean individualRequirementReportBean) {
-	this.individualRequirementReportBean = individualRequirementReportBean;
-}
-
-
-
-public ArrayList<IndividualClientReportBean> getReportBeanList() {
-	return reportBeanList;
-}
-
-
-
-public void setReportBeanList(
-		ArrayList<IndividualClientReportBean> reportBeanList) {
-	this.reportBeanList = reportBeanList;
-}
-
-
-
-public ArrayList<IndividualClientReportBean> getSummaryBeanList() {
-	return summaryBeanList;
-}
-
-
-
-public void setSummaryBeanList(
-		ArrayList<IndividualClientReportBean> summaryBeanList) {
-	this.summaryBeanList = summaryBeanList;
-}
-
-
-
-
-   
-   
+	public Connection getConnection() {
+		return connection;
+	}
+	public void setConnection(Connection connection) {
+		this.connection = connection;
+	}
+	public Session getSessions() {
+		return sessions;
+	}
+	public void setSessions(Session sessions) {
+		this.sessions = sessions;
+	}
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	public RequirementGenerationBean getRequirementGenerationBean() {
+		return requirementGenerationBean;
+	}
+	public void setRequirementGenerationBean(
+			RequirementGenerationBean requirementGenerationBean) {
+		this.requirementGenerationBean = requirementGenerationBean;
+	}
+	public ArrayList<RequirementGenerationBean> getRequirementGenerationBeanList() {
+		return requirementGenerationBeanList;
+	}
+	public void setRequirementGenerationBeanList(
+			ArrayList<RequirementGenerationBean> requirementGenerationBeanList) {
+		this.requirementGenerationBeanList = requirementGenerationBeanList;
+	}
+	public Bandbox getReqIDdBandBox() {
+		return reqIDdBandBox;
+	}
+	public void setReqIDdBandBox(Bandbox reqIDdBandBox) {
+		this.reqIDdBandBox = reqIDdBandBox;
+	}
+	public ArrayList<StatusMasterBean> getStatusBeanList() {
+		return statusBeanList;
+	}
+	public void setStatusBeanList(ArrayList<StatusMasterBean> statusBeanList) {
+		this.statusBeanList = statusBeanList;
+	}
+	public IndividualClientReportBean getIndividualRequirementReportBean() {
+		return individualRequirementReportBean;
+	}
+	public void setIndividualRequirementReportBean(
+			IndividualClientReportBean individualRequirementReportBean) {
+		this.individualRequirementReportBean = individualRequirementReportBean;
+	}
+	public ArrayList<IndividualClientReportBean> getReportBeanList() {
+		return reportBeanList;
+	}
+	public void setReportBeanList(
+			ArrayList<IndividualClientReportBean> reportBeanList) {
+		this.reportBeanList = reportBeanList;
+	}
+	public ArrayList<IndividualClientReportBean> getSummaryBeanList() {
+		return summaryBeanList;
+	}
+	public void setSummaryBeanList(
+			ArrayList<IndividualClientReportBean> summaryBeanList) {
+		this.summaryBeanList = summaryBeanList;
+	}
 }

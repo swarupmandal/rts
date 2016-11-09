@@ -30,7 +30,7 @@ public class StatusMasterDao {
 					    try {
 					    	preparedStatementInsert = Pstm.createQuery(connection, 
 									StatusMasterSql.insertStatusQuery, Arrays.asList(statusMasterBean.getUserId(),statusMasterBean.getStatus().toUpperCase()));
-					    	//logger.info(" insertStatusData- " + preparedStatementInsert.unwrap(PreparedStatement.class));
+					    	logger.info(" insertStatusData- " + preparedStatementInsert.unwrap(PreparedStatement.class));
 							int i = preparedStatementInsert.executeUpdate();
 							if(i>0){
 								isSaved = true;	
@@ -49,6 +49,8 @@ public class StatusMasterDao {
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
+					logger.error(e);
+					logger.fatal(e);
 				}finally{
 					if(connection!=null){
 						connection.close();
@@ -56,8 +58,9 @@ public class StatusMasterDao {
 				}
 			}
 		} catch (Exception e) {
-			//logger.fatal(e);
 			e.printStackTrace();
+			logger.error(e);
+			logger.fatal(e);
 		}
 		return isSaved;
 	}
@@ -78,6 +81,7 @@ public class StatusMasterDao {
 					    	preparedStatementInsert = Pstm.createQuery(connection, 
 									StatusMasterSql.updateStatusSql, Arrays.asList(statusMasterBean.getStatus().toUpperCase(),statusMasterBean.getStatusId()));
 					    
+					    	logger.info(" updateStatusData- " + preparedStatementInsert.unwrap(PreparedStatement.class));
 							int i = preparedStatementInsert.executeUpdate();
 							if(i>0){
 								isUpdate = true;	
@@ -96,6 +100,8 @@ public class StatusMasterDao {
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
+					logger.error(e);
+					logger.fatal(e);
 				}finally{
 					if(connection!=null){
 						connection.close();
@@ -103,8 +109,9 @@ public class StatusMasterDao {
 				}
 			}
 		} catch (Exception e) {
-			//logger.fatal(e);
 			e.printStackTrace();
+			logger.error(e);
+			logger.fatal(e);
 		}
 		return isUpdate;
 	}
@@ -121,9 +128,8 @@ public class StatusMasterDao {
 					sql_fetch:{
 					   PreparedStatement preparedStatement = null;
 					   try {
-						   preparedStatement = Pstm.createQuery(connection, StatusMasterSql.fetchStatusQuery, null);
-						   /*logger.info(" onLoadStatusDeatils- " + preparedStatement.unwrap(PreparedStatement.class));*/
-						   
+						    preparedStatement = Pstm.createQuery(connection, StatusMasterSql.fetchStatusQuery, null);
+						    logger.info("onLoad Status Deatils- " + preparedStatement.unwrap(PreparedStatement.class));
 							ResultSet resultSet = preparedStatement.executeQuery();
 							while (resultSet.next()) {
 								StatusMasterBean bean = new StatusMasterBean();
@@ -141,6 +147,8 @@ public class StatusMasterDao {
 				    }
 				} catch (Exception e) {
 					e.printStackTrace();
+					logger.error(e);
+					logger.fatal(e);
 				}finally{
 					if(connection!=null){
 						connection.close();
@@ -148,8 +156,9 @@ public class StatusMasterDao {
 				}
 			}
 		} catch (Exception e) {
-			//logger.fatal(e);
 			e.printStackTrace();
+			logger.error(e);
+			logger.fatal(e);
 		}
 		return statusList;
 	}
@@ -168,8 +177,7 @@ public class StatusMasterDao {
 					   try {
 						    preparedStatement = Pstm.createQuery(connection, StatusMasterSql.countStatusSql, Arrays.asList(statusMasterBean.getStatus().toUpperCase()));
 							
-							//logger.info(" countStatusNumber- " + preparedStatement.unwrap(PreparedStatement.class));
-							
+							logger.info(" count Status Number- " + preparedStatement.unwrap(PreparedStatement.class));
 							ResultSet resultSet = preparedStatement.executeQuery();
 							while (resultSet.next()) {
 								count = resultSet.getInt(1);
@@ -182,6 +190,8 @@ public class StatusMasterDao {
 				    }
 				} catch (Exception e) {
 					e.printStackTrace();
+					logger.error(e);
+					logger.fatal(e);
 				}finally{
 					if(connection!=null){
 						connection.close();
@@ -189,8 +199,9 @@ public class StatusMasterDao {
 				}
 			}
 		} catch (Exception e) {
-			//logger.fatal(e);
 			e.printStackTrace();
+			logger.error(e);
+			logger.fatal(e);
 		}
 		return count;
 	}
@@ -208,8 +219,8 @@ public class StatusMasterDao {
 					    PreparedStatement preparedStatementInsert = null;
 					    try {
 					    	preparedStatementInsert = Pstm.createQuery(connection, 
-									StatusMasterSql.deleteStatusQuery, Arrays.asList(statusMasterBean.getStatusId()));
-					    	//logger.info(" deleteStatus- " + preparedStatementInsert.unwrap(PreparedStatement.class));
+									                              StatusMasterSql.deleteStatusQuery, Arrays.asList(statusMasterBean.getStatusId()));
+					    	logger.info(" delete Status- " + preparedStatementInsert.unwrap(PreparedStatement.class));
 							int i = preparedStatementInsert.executeUpdate();
 							if(i>0){
 								isSaved = true;	
@@ -228,6 +239,8 @@ public class StatusMasterDao {
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
+					logger.error(e);
+					logger.fatal(e);
 				}finally{
 					if(connection!=null){
 						connection.close();
@@ -235,10 +248,10 @@ public class StatusMasterDao {
 				}
 			}
 		} catch (Exception e) {
-			//logger.fatal(e);
 			e.printStackTrace();
+			logger.error(e);
+			logger.fatal(e);
 		}
 		return isSaved;
 	}
-	
 }

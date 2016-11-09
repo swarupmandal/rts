@@ -1,5 +1,7 @@
 package org.appsquad.bean;
 
+import java.sql.Date;
+
 public class ClientInformationBean {
 	private String name;
 	private String surName;
@@ -19,6 +21,15 @@ public class ClientInformationBean {
 	
 	CountryBean countryBean = new CountryBean();
 	StateBean stateBean = new StateBean();
+	
+	/*********Log-Audit Purpose ************/
+	private String mainScreenName = "MASTER";
+	private String chileScreenName = "CLIENT INFORMATION MASTER";
+	private Integer userSerialId;
+	private String operation;
+	private Date creationDate;
+	private String sessionUserId;
+	private Integer operationId;
 	
 	/*************************** GETTER AND SETTER METHOD ********************************/
 	
@@ -97,7 +108,6 @@ public class ClientInformationBean {
 	public String getFullName() {
 		return fullName;
 	}
-	
 	public boolean isStateDropdownDisable() {
 		return stateDropdownDisable;
 	}
@@ -124,5 +134,47 @@ public class ClientInformationBean {
 	}
 	public void setClientId(Integer clientId) {
 		this.clientId = clientId;
+	}
+	public String getMainScreenName() {
+		return mainScreenName;
+	}
+	public void setMainScreenName(String mainScreenName) {
+		this.mainScreenName = mainScreenName;
+	}
+	public String getChileScreenName() {
+		return chileScreenName;
+	}
+	public void setChileScreenName(String chileScreenName) {
+		this.chileScreenName = chileScreenName;
+	}
+	public Integer getUserSerialId() {
+		return userSerialId;
+	}
+	public void setUserSerialId(Integer userSerialId) {
+		this.userSerialId = userSerialId;
+	}
+	public String getOperation() {
+		return operation;
+	}
+	public void setOperation(String operation) {
+		this.operation = operation;
+	}
+	public Date getCreationDate() {
+		return creationDate;
+	}
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
+	}
+	public String getSessionUserId() {
+		return sessionUserId;
+	}
+	public void setSessionUserId(String sessionUserId) {
+		this.sessionUserId = sessionUserId;
+	}
+	public Integer getOperationId() {
+		return operationId;
+	}
+	public void setOperationId(Integer operationId) {
+		this.operationId = operationId;
 	}
 }

@@ -32,7 +32,7 @@ public class ClientInformationDao {
 					   PreparedStatement preparedStatement = null;
 					   try {
 						    preparedStatement = Pstm.createQuery(connection, ClientInformationsql.stateQuery, Arrays.asList(clientInformationBean.getCountryBean().getCountryId()));
-						    logger.info("onLoadState - " + preparedStatement.unwrap(PreparedStatement.class));
+						    logger.info("onLoad State Query:- " + preparedStatement.unwrap(PreparedStatement.class));
 							ResultSet resultSet = preparedStatement.executeQuery();
 							while (resultSet.next()) {
 								StateBean bean = new StateBean();
@@ -48,7 +48,8 @@ public class ClientInformationDao {
 				    }
 				} catch (Exception e) {
 					e.printStackTrace();
-					logger.fatal("--------------->>>"+ e);
+					logger.error(e);
+					logger.fatal(e);
 				}finally{
 					if(connection!=null){
 						connection.close();
@@ -57,7 +58,8 @@ public class ClientInformationDao {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.fatal("---------------->>>>" + e);
+			logger.error(e);
+			logger.fatal(e);
 		}
 		return stateList;	
 	}
@@ -91,7 +93,8 @@ public class ClientInformationDao {
 				    }
 				} catch (Exception e) {
 					e.printStackTrace();
-					logger.fatal("-------------->>>>"+ e);
+					logger.error(e);
+					logger.fatal(e);
 				}finally{
 					if(connection!=null){
 						connection.close();
@@ -100,7 +103,8 @@ public class ClientInformationDao {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		    logger.fatal("------------------>>>>"+e);
+			logger.error(e);
+			logger.fatal(e);
 		}
 		return stateList;	
 	}
@@ -134,7 +138,8 @@ public class ClientInformationDao {
 				    }
 				} catch (Exception e) {
 					e.printStackTrace();
-					logger.fatal("-------------------->>>>"+e);
+					logger.error(e);
+					logger.fatal(e);
 				}finally{
 					if(connection!=null){
 						connection.close();
@@ -143,7 +148,8 @@ public class ClientInformationDao {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.fatal("----------------------->>>>>>>>>"+e);
+			logger.error(e);
+			logger.fatal(e);
 		}
 		return countryList;
 	}
@@ -239,7 +245,8 @@ public class ClientInformationDao {
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
-					logger.fatal("---------------------->>>>>>>>>>>"+e);
+					logger.error(e);
+					logger.fatal(e);
 				}finally{
 					if(connection!=null){
 						connection.close();
@@ -248,7 +255,8 @@ public class ClientInformationDao {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.fatal("------------------>>>>>>>>>"+e);
+			logger.error(e);
+			logger.fatal(e);
 		}
 		return isUpdated;
 	}
@@ -288,7 +296,8 @@ public class ClientInformationDao {
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
-					logger.fatal("------------------>>>>>>>>>"+e);
+					logger.error(e);
+					logger.fatal(e);
 				}finally{
 					if(connection!=null){
 						connection.close();
@@ -297,7 +306,8 @@ public class ClientInformationDao {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.fatal("------------------>>>>>>>>>>"+e);
+			logger.error(e);
+			logger.fatal(e);
 		}
 		return isDeleted;
 	}
@@ -315,7 +325,7 @@ public class ClientInformationDao {
 					   PreparedStatement preparedStatement = null;
 					   try {
 						    preparedStatement = Pstm.createQuery(connection, ClientInformationsql.fetchClientDeatils, null);
-						    logger.info("onLoadClientDeatils - " + preparedStatement.unwrap(PreparedStatement.class));
+						    logger.info("onLoad Client Deatils - " + preparedStatement.unwrap(PreparedStatement.class));
 							ResultSet resultSet = preparedStatement.executeQuery();
 							while (resultSet.next()) {
 								ClientInformationBean bean = new ClientInformationBean();
@@ -341,7 +351,8 @@ public class ClientInformationDao {
 				    }
 				} catch (Exception e) {
 					e.printStackTrace();
-					logger.fatal("-------------------->>>>>>>"+e);
+					logger.error(e);
+					logger.fatal(e);
 				}finally{
 					if(connection!=null){
 						connection.close();
@@ -382,7 +393,8 @@ public class ClientInformationDao {
 				    }
 				} catch (Exception e) {
 					e.printStackTrace();
-					logger.fatal("--------------->>>"+ e);
+					logger.error(e);
+					logger.fatal(e);
 				}finally{
 					if(connection!=null){
 						connection.close();
@@ -391,7 +403,8 @@ public class ClientInformationDao {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.fatal("---------------->>>>" + e);
+			logger.error(e);
+			logger.fatal(e);
 		}
 		return count;	
 	}

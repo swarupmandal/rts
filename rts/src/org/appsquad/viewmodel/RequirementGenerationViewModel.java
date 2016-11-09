@@ -1,6 +1,7 @@
 package org.appsquad.viewmodel;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,6 +11,7 @@ import org.appsquad.bean.ResourceTypeBean;
 import org.appsquad.bean.SkillsetMasterbean;
 import org.appsquad.bean.StatusMasterBean;
 import org.appsquad.dao.RequirementGenerationDao;
+import org.appsquad.service.LogAuditServiceClass;
 import org.appsquad.service.RequirementGenerationService;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
@@ -47,6 +49,7 @@ public class RequirementGenerationViewModel {
 		session = Sessions.getCurrent();
 		userName =  (String) session.getAttribute("userId");
 		reqGenBean.setUserName(userName);
+		reqGenBean.setSessionUserId(userName);
 		clientNameBeanList = RequirementGenerationService.fetchClientNameList();
 		skillSetBeanList = RequirementGenerationService.fetchSkillSetList();
 		statusBeanList = RequirementGenerationService.fetchStatusList();
@@ -107,10 +110,20 @@ public class RequirementGenerationViewModel {
 	@Command
 	@NotifyChange("*")
 	public void onclickSubmit(){
+		boolean flagLogInsert = false;
 		if(RequirementGenerationService.isValid(reqGenBean)){
 			int i = RequirementGenerationService.isertDet(reqGenBean);
 			if(i>0){
 				Messagebox.show("Saved Successfully ", "Information", Messagebox.OK, Messagebox.INFORMATION);
+				reqGenBean.setOperation("INSERT");
+				reqGenBean.setOperationId(1);
+				Calendar calendar = Calendar.getInstance();
+			    java.sql.Date currentDate = new java.sql.Date(calendar.getTime().getTime());
+				System.out.println("CREATION DATE :"+currentDate);
+				flagLogInsert = LogAuditServiceClass.insertIntoLogTable(reqGenBean.getMainScreenName(), reqGenBean.getChileScreenName(), 
+																		reqGenBean.getSessionUserId(), reqGenBean.getOperation(),currentDate,
+																		reqGenBean.getOperationId());
+				System.out.println("Requirement screen flagLogInsert Is:"+flagLogInsert);
 				clear();
 				reqGenBeanList = RequirementGenerationService.loadReqGenMasterData();
 				typeList = RequirementGenerationService.loadTypeList();
@@ -155,6 +168,7 @@ public class RequirementGenerationViewModel {
 		statusBeanList = RequirementGenerationService.fetchStatusList();
 		reqGenBean.setClosureReason(null);
 		reqGenBean.getResourceTypeBean().setResourceTypeName(null);
+		reqGenBean.setTargetDatesql(null);
 	}
 	
 	/***********************************************************************************************************************************************/
@@ -220,11 +234,9 @@ public class RequirementGenerationViewModel {
 	public ArrayList<ResourceTypeBean> getTypeList() {
 		return typeList;
 	}
-
 	public void setTypeList(ArrayList<ResourceTypeBean> typeList) {
 		this.typeList = typeList;
 	}
-
 	public void setReqGenBeanList(
 			ArrayList<RequirementGenerationBean> reqGenBeanList) {
 		this.reqGenBeanList = reqGenBeanList;

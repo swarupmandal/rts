@@ -50,5 +50,5 @@
                              <div align="center">
                                    <button label="Update" width="80px" height="30px" style="font-weight:bold" onClick="@command('onClickUpdateButton')"/>
                             </div>
-</window>
+			</window>
 </zk>

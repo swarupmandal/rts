@@ -2,10 +2,12 @@ package org.appsquad.viewmodel;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 
 import org.appsquad.bean.SkillsetMasterbean;
 import org.appsquad.dao.SkillSetMasterDao;
+import org.appsquad.service.LogAuditServiceClass;
 import org.appsquad.service.SkillSetMasterService;
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.AfterCompose;
@@ -40,6 +42,7 @@ public class SkillsetmasterViewModel {
 		sessions = Sessions.getCurrent();
 		userId = (String) sessions.getAttribute("userId");
 		skillsetMasterbean.setUserId(userId);
+		skillsetMasterbean.setSessionUserId(userId);
 		skillList = SkillSetMasterDao.onLoadSetDeatils();
 	}
 	
@@ -54,12 +57,21 @@ public class SkillsetmasterViewModel {
 	public void onClickSetskillsubmit(){
 		int countNumber = 0;
 		boolean flagInsert = false;
+		boolean flagLogInsert = false;
 		countNumber = SkillSetMasterService.countNumberPresentSkillName(skillsetMasterbean);
 		if(countNumber>0){
 			 Messagebox.show("Please Enter New Skill Name!", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
 		}else{
 			flagInsert = SkillSetMasterService.insertClientMasterData(skillsetMasterbean);
 			if(flagInsert){
+				skillsetMasterbean.setOperation("INSERT");
+				skillsetMasterbean.setOperationId(1);
+				Calendar calendar = Calendar.getInstance();
+			    java.sql.Date currentDate = new java.sql.Date(calendar.getTime().getTime());
+				System.out.println("CREATION DATE :"+currentDate);
+				flagLogInsert = LogAuditServiceClass.insertIntoLogTable(skillsetMasterbean.getMainScreenName(), skillsetMasterbean.getChileScreenName(), 
+						skillsetMasterbean.getSessionUserId(), skillsetMasterbean.getOperation(),currentDate,skillsetMasterbean.getOperationId());
+				System.out.println("flagLogInsert Is:"+flagLogInsert);	
 			   SkillSetMasterService.clearAllField(skillsetMasterbean);  
 			}	
 		}
@@ -87,8 +99,18 @@ public class SkillsetmasterViewModel {
 		    public void onEvent(Event evt) throws InterruptedException {
 		        if (evt.getName().equals("onOK")) {
 		        	boolean flagDelete = false;
+		        	boolean flagLogDelete = false;
 		        	flagDelete = SkillSetMasterService.deleteSkillDetails(masterbean);
 		    		if(flagDelete){
+		    			skillsetMasterbean.setOperation("DELETE");
+		    			skillsetMasterbean.setSessionUserId(userId);
+		    			skillsetMasterbean.setOperationId(3);
+						Calendar calendar = Calendar.getInstance();
+					    java.sql.Date currentDate = new java.sql.Date(calendar.getTime().getTime());
+						System.out.println("CREATION DATE :"+currentDate);
+						flagLogDelete = LogAuditServiceClass.insertIntoLogTable(skillsetMasterbean.getMainScreenName(), skillsetMasterbean.getChileScreenName(), 
+								skillsetMasterbean.getSessionUserId(), skillsetMasterbean.getOperation(),currentDate,skillsetMasterbean.getOperationId());
+						System.out.println("flagLogDelete Is:"+flagLogDelete);	
 		    			BindUtils.postGlobalCommand(null, null, "globalSkillSetDetailsUpdate", null);
 		    		}
 		        } else {
@@ -98,7 +120,7 @@ public class SkillsetmasterViewModel {
 		});
 	}
 	
-	/************************** Getter And Setter Method ************************************/
+	/***************************************************Getter And Setter Method ****************************************************************/
 	
 	public SkillsetMasterbean getSkillsetMasterbean() {
 		return skillsetMasterbean;

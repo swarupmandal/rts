@@ -12,6 +12,7 @@ import org.appsquad.bean.StateBean;
 import org.appsquad.bean.StatusMasterBean;
 import org.appsquad.dao.ClientInformationDao;
 import org.appsquad.dao.ResourceMasterDao;
+import org.appsquad.service.LogAuditServiceClass;
 import org.appsquad.service.ResourceMasterService;
 import org.zkoss.bind.BindContext;
 import org.zkoss.bind.BindUtils;
@@ -63,11 +64,14 @@ public class ResourceInformationUpdateViewModel {
 	private ArrayList<SkillsetMasterbean> skillList = new ArrayList<SkillsetMasterbean>();
 	
 	@AfterCompose
-	public void initSetup(@ContextParam(ContextType.VIEW) Component view,@ExecutionArgParam("resourceIdDetails") ResourceMasterBean bean)
-									throws Exception {
+	public void initSetup(@ContextParam(ContextType.VIEW) Component view,@ExecutionArgParam("resourceIdDetails") ResourceMasterBean bean)throws Exception 
+	{
 		Selectors.wireComponents(view, this, false);
 		sessions = Sessions.getCurrent();
+		userId = (String) sessions.getAttribute("userId");
 		masterBean = bean;
+		masterBean.setUserId(userId);
+		masterBean.setSessionUserId(userId);
 		countryList = ResourceMasterDao.onLoadCountry();
 		statusList = ResourceMasterDao.onLoadStatus();
 		skillList = ResourceMasterDao.onLoadSkill();
@@ -142,9 +146,20 @@ public class ResourceInformationUpdateViewModel {
 	@Command
 	@NotifyChange("*")
 	public void onClickUpdateButton(){
+		boolean flagLogUpdate = false;
 		flag = ResourceMasterService.updateResourceMasterData(masterBean);
 		System.out.println(flag);
 		if(flag){
+			masterBean.setOperation("UPDATE");
+			masterBean.setSessionUserId(userId);
+			masterBean.setOperationId(2);
+			Calendar calendar = Calendar.getInstance();
+		    java.sql.Date currentDate = new java.sql.Date(calendar.getTime().getTime());
+			System.out.println("CREATION DATE :"+currentDate);
+			flagLogUpdate = LogAuditServiceClass.insertIntoLogTable(masterBean.getMainScreenName(), masterBean.getChileScreenName(), 
+																		masterBean.getSessionUserId(), masterBean.getOperation(),currentDate,
+																		   masterBean.getOperationId());
+			System.out.println("flagLogUpdate Is:"+flagLogUpdate);
 			winResourceUpdate.detach();
 			BindUtils.postGlobalCommand(null, null, "globalResourceDetailsUpdate", null);
 		}
@@ -157,7 +172,7 @@ public class ResourceInformationUpdateViewModel {
 		BindUtils.postGlobalCommand(null, null, "globalResourceDetailsUpdate", null);
 	}
 	
-	/*************************************************************************************************************************************************/
+	/***************************************************Getter And Setter Method ****************************************************************/
 	
 	public ResourceMasterBean getBean() {
 		return bean;

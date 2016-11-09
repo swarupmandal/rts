@@ -3,6 +3,7 @@ package org.appsquad.viewmodel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import org.apache.log4j.Logger;
 import org.appsquad.bean.ClientInformationBean;
@@ -13,6 +14,7 @@ import org.appsquad.bean.ResourceTypeBean;
 import org.appsquad.dao.ResourceAllocationDao;
 import org.appsquad.dao.SortCriteriaDao;
 import org.appsquad.database.DbConnection;
+import org.appsquad.service.LogAuditServiceClass;
 import org.appsquad.service.ResourceAllocationService;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
@@ -52,6 +54,7 @@ public class ResourceAllocationViewModel {
 	  		sessions = Sessions.getCurrent();
 	  		userId = (String) sessions.getAttribute("userId");
 	  		resourceAllocationBean.setUserId(userId);
+	  		resourceAllocationBean.setSessionUserId(userId);
 	  		clientList = SortCriteriaDao.onLoadClientDeatils();
 	  		resourceTypeList = ResourceAllocationDao.onLoadResourceTypeDetails();
 	  	}
@@ -72,7 +75,7 @@ public class ResourceAllocationViewModel {
 	    		resourceAllocationBean.setDivVisibility(true);
 	    		resourceAllocationBean.setAssignButtonVisibility(true);	
 	    	}else{
-	    		 Messagebox.show("No Resource Found Wrt Selected Skill Set!", "Information", Messagebox.OK, Messagebox.INFORMATION);
+	    		 Messagebox.show("No Resource Found With Respect To This Skill Set. ", "Information", Messagebox.OK, Messagebox.INFORMATION);
 	    	}
 	    	bandBox.close();
 	    }
@@ -109,7 +112,7 @@ public class ResourceAllocationViewModel {
 	    	}
 	    	remainingNumber = (resourceAllocationBean.getRequiredResourcenumber()-resourceAllocationBean.getAllocatedResourceNumber());
 	    	if(resourceAllocationBean.getAllocatedResourceNumber()>resourceAllocationBean.getRequiredResourcenumber()){
-	    		Messagebox.show("You Have Allocated All Required Resources!", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
+	    		Messagebox.show("You Have Allocated All Required Resources. ", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
 	    		masterBean.setChkSelect(false);
 	    		resourceAllocationBean.setAllocatedResourceNumber(resourceAllocationBean.getAllocatedResourceNumber()-1);
 	    	}
@@ -122,6 +125,7 @@ public class ResourceAllocationViewModel {
 	    	boolean isUpdate = false;
 	    	boolean isInsertMapper = false;
 	    	boolean isInsertTracking = false;
+	    	boolean flagLogInsert = false;
 	    	int statusId = 0;
 	    	for(ResourceMasterBean bean : resourceList){
 	    		if(bean.isChkSelect()){
@@ -154,7 +158,9 @@ public class ResourceAllocationViewModel {
 							  }
 							  
 							  statusId = ResourceAllocationDao.fetchStatusId();
+							  System.out.println("FETCHED STATUS ID IN RESOURCE ALLOCATION SCREEN IS :"+statusId);
 							  resourceAllocationBean.setStatusId(statusId);
+							  System.out.println("afetr FETCHing STATUS ID IN RESOURCE ALLOCATION SCREEN IS :"+resourceAllocationBean.getStatusId());
 							  
 							  //4th SQL block
 							  sql_insert_status_tracking:{
@@ -163,12 +169,20 @@ public class ResourceAllocationViewModel {
 							  
 							  if(isUpdateResource && isUpdate && isInsertMapper && isInsertTracking){
 								  connection.commit();
-								  Messagebox.show("You Have Allocated Resource Wrt RID!", "Information", Messagebox.OK, Messagebox.INFORMATION);
+								  Messagebox.show("You Have Allocated Resource With Respect To This RID ", "Information", Messagebox.OK, Messagebox.INFORMATION);
 								  resourceAllocationBean.setDivVisibility(true);
 							      resourceList = ResourceAllocationDao.onLoadResourceDetails(resourceAllocationBean);
 							      resourceAllocationBean.setAssignButtonVisibility(true);
+							      resourceAllocationBean.setOperation("INSERT");
+							      resourceAllocationBean.setOperationId(1);
+								  Calendar calendar = Calendar.getInstance();
+								  java.sql.Date currentDate = new java.sql.Date(calendar.getTime().getTime());
+								  System.out.println("CREATION DATE :"+currentDate);
+								  flagLogInsert = LogAuditServiceClass.insertIntoLogTable(resourceAllocationBean.getMainScreenName(), resourceAllocationBean.getChileScreenName(), 
+																						  resourceAllocationBean.getSessionUserId(), resourceAllocationBean.getOperation(),currentDate,
+																						  resourceAllocationBean.getOperationId());
+									System.out.println("RESOURCE ALLOCATION SCREEN flagLogInsert Is:"+flagLogInsert);
 							  }
-							
 							} catch (Exception e) {
 								connection.rollback();
 								e.printStackTrace();

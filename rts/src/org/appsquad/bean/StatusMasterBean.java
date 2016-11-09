@@ -1,6 +1,10 @@
 package org.appsquad.bean;
+
+import java.sql.Date;
+
 public class StatusMasterBean {
 	private Integer statusId;
+	private String clearStatus = "-Clear-";
 	private String status;
 	private int ocstatusId;
 	private String ocstatus;
@@ -9,6 +13,15 @@ public class StatusMasterBean {
 	private boolean saveButtonDisable = true;
 	private boolean statusDisabled = true;
 	private Integer oldOcStatusId;
+	
+	/*********Log-Audit Purpose ************/
+	private String mainScreenName = "MASTER";
+	private String chileScreenName = "STATUS MASTER";
+	private Integer userSerialId;
+	private String operation;
+	private Date creationDate;
+	private String sessionUserId;
+	private Integer operationId;
 	
 	/**************************************************************************************************************************************/
 	
@@ -65,5 +78,53 @@ public class StatusMasterBean {
 	}
 	public void setOldOcStatusId(Integer oldOcStatusId) {
 		this.oldOcStatusId = oldOcStatusId;
+	}
+	public String getClearStatus() {
+		return clearStatus;
+	}
+	public void setClearStatus(String clearStatus) {
+		this.clearStatus = clearStatus;
+	}
+	public String getMainScreenName() {
+		return mainScreenName;
+	}
+	public void setMainScreenName(String mainScreenName) {
+		this.mainScreenName = mainScreenName;
+	}
+	public String getChileScreenName() {
+		return chileScreenName;
+	}
+	public void setChileScreenName(String chileScreenName) {
+		this.chileScreenName = chileScreenName;
+	}
+	public Integer getUserSerialId() {
+		return userSerialId;
+	}
+	public void setUserSerialId(Integer userSerialId) {
+		this.userSerialId = userSerialId;
+	}
+	public String getOperation() {
+		return operation;
+	}
+	public void setOperation(String operation) {
+		this.operation = operation;
+	}
+	public Date getCreationDate() {
+		return creationDate;
+	}
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
+	}
+	public String getSessionUserId() {
+		return sessionUserId;
+	}
+	public void setSessionUserId(String sessionUserId) {
+		this.sessionUserId = sessionUserId;
+	}
+	public Integer getOperationId() {
+		return operationId;
+	}
+	public void setOperationId(Integer operationId) {
+		this.operationId = operationId;
 	}
 }

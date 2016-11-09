@@ -2,12 +2,14 @@ package org.appsquad.viewmodel;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import org.appsquad.bean.ClientInformationBean;
 import org.appsquad.bean.CountryBean;
 import org.appsquad.bean.StateBean;
 import org.appsquad.dao.ClientInformationDao;
 import org.appsquad.service.ClientInformationService;
+import org.appsquad.service.LogAuditServiceClass;
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.Command;
@@ -35,6 +37,7 @@ public class ClientInformationUpdateViewModel {
 	@Wire("#winClientDeatilsUpdate")
 	private Window winClientDeatilsUpdate;
 	private boolean flag = false;
+	private boolean flagLogUpdate = false;
 	@Wire("#ad")
 	private Bandbox bandBox;
 	@Wire("#cd")
@@ -43,15 +46,15 @@ public class ClientInformationUpdateViewModel {
 	private ArrayList<StateBean> stateList = new ArrayList<StateBean>();
 	private ArrayList<CountryBean> countryList = new ArrayList<CountryBean>();
 	
-	
 	@AfterCompose
-	public void initSetup(@ContextParam(ContextType.VIEW) Component view,@ExecutionArgParam("clientIdDetails") ClientInformationBean bean)
-			throws Exception {
+	public void initSetup(@ContextParam(ContextType.VIEW) Component view,@ExecutionArgParam("clientIdDetails") ClientInformationBean bean)throws Exception 
+	{
 		Selectors.wireComponents(view, this, false);
-		informationBean = bean;
 		sessions = Sessions.getCurrent();
+		informationBean = bean;
 		userId = (String) sessions.getAttribute("userId");
 		informationBean.setUserId(userId);
+		informationBean.setSessionUserId(userId);
 		countryList = ClientInformationDao.onLoadCountry();
 		informationBean.setCountryDropdownDisable(true);
 		informationBean.setStateDropdownDisable(false);
@@ -64,6 +67,17 @@ public class ClientInformationUpdateViewModel {
 	public void onClickUpdateButton(){
 		flag = ClientInformationService.updateClientMasterData(informationBean);
 		if(flag){
+			informationBean.setOperation("UPDATE");
+			informationBean.setSessionUserId(userId);
+			informationBean.setOperationId(2);
+			Calendar calendar = Calendar.getInstance();
+		    java.sql.Date currentDate = new java.sql.Date(calendar.getTime().getTime());
+			System.out.println("CREATION DATE :"+currentDate);
+			flagLogUpdate = LogAuditServiceClass.insertIntoLogTable(informationBean.getMainScreenName(), informationBean.getChileScreenName(), 
+																		informationBean.getSessionUserId(), informationBean.getOperation(),currentDate,
+																		   informationBean.getOperationId());
+			System.out.println("flag Log Delete Is:"+flagLogUpdate);
+			
 			winClientDeatilsUpdate.detach();
 			BindUtils.postGlobalCommand(null, null, "globalClientDetailsUpdate", null);
 		}
@@ -76,7 +90,7 @@ public class ClientInformationUpdateViewModel {
 		BindUtils.postGlobalCommand(null, null, "globalClientDetailsUpdate", null);
 	}
 	
-	/********************************Getter and Setter Method ************************************************************/
+	/***************************************************Getter And Setter Method ****************************************************************/
 	
 	public ClientInformationBean getClientInformationBean() {
 		return clientInformationBean;
@@ -149,5 +163,11 @@ public class ClientInformationUpdateViewModel {
 	}
 	public void setBandBox1(Bandbox bandBox1) {
 		this.bandBox1 = bandBox1;
+	}
+	public boolean isFlagLogUpdate() {
+		return flagLogUpdate;
+	}
+	public void setFlagLogUpdate(boolean flagLogUpdate) {
+		this.flagLogUpdate = flagLogUpdate;
 	}
 }

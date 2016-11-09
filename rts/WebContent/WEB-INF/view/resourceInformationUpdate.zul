@@ -1,3 +1,4 @@
+
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
 <window title="Resource Information Update" border="none" height="530px" width="600px" apply="org.zkoss.bind.BindComposer"

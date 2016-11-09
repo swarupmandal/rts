@@ -2,10 +2,12 @@ package org.appsquad.viewmodel;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import org.appsquad.bean.RoleMasterBean;
 import org.appsquad.bean.RollDropDownBean;
 import org.appsquad.dao.RoleMasterDao;
+import org.appsquad.service.LogAuditServiceClass;
 import org.appsquad.service.RoleMasterService;
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.AfterCompose;
@@ -38,13 +40,14 @@ public class RoleMasterUpdateViewModel {
 
 	private ArrayList<RollDropDownBean> roleList = new ArrayList<RollDropDownBean>();
 
-	
 	@AfterCompose
-	public void initSetup(@ContextParam(ContextType.VIEW) Component view,@ExecutionArgParam("roleDetails") RoleMasterBean bean)
-			throws Exception {
+	public void initSetup(@ContextParam(ContextType.VIEW) Component view,@ExecutionArgParam("roleDetails") RoleMasterBean bean)throws Exception 
+	{
 		Selectors.wireComponents(view, this, false);
-		masterBean = bean;
 		sessions = Sessions.getCurrent();
+		masterBean = bean;
+		masterBean.setUserid(userId);
+		masterBean.setSessionUserId(userId);
 		roleList = RoleMasterDao.onLoadRoleDropDownDeatilsForUpdateScreen(masterBean);
 		masterBean.setVisibilityUpdateButton(true);
 		uId = masterBean.getUserprofileBean().getId();
@@ -63,8 +66,18 @@ public class RoleMasterUpdateViewModel {
 	@Command
 	@NotifyChange("*")
 	public void onClickUpdateButton(){
+		boolean flagLogUpdate = false;
 		flag = RoleMasterService.updateAssignRoleData(masterBean);
 		if(flag){
+			masterBean.setOperation("UPDATE");
+			masterBean.setOperationId(2);
+			Calendar calendar = Calendar.getInstance();
+		    java.sql.Date currentDate = new java.sql.Date(calendar.getTime().getTime());
+			System.out.println("CREATION DATE :"+currentDate);
+			flagLogUpdate = LogAuditServiceClass.insertIntoLogTable(masterBean.getMainScreenName(), masterBean.getChileScreenName(), 
+																		masterBean.getSessionUserId(), masterBean.getOperation(),currentDate,
+																		  masterBean.getOperationId());
+			System.out.println("flagLogUpdate Is:"+flagLogUpdate);
 			winRoleUpdate.detach();
 			BindUtils.postGlobalCommand(null, null, "globalRoleDetailsUpdate", null);
 		}
@@ -77,7 +90,7 @@ public class RoleMasterUpdateViewModel {
 		BindUtils.postGlobalCommand(null, null, "globalMapingData", null);
 	}
 	
-	/**************************************************************************************************************************************/
+	/***************************************************Getter And Setter Method ****************************************************************/
 	
 	public RoleMasterBean getRoleMasterBean() {
 		return roleMasterBean;
@@ -133,19 +146,15 @@ public class RoleMasterUpdateViewModel {
 	public void setRoleList(ArrayList<RollDropDownBean> roleList) {
 		this.roleList = roleList;
 	}
-
 	public Integer getCount() {
 		return count;
 	}
-
 	public void setCount(Integer count) {
 		this.count = count;
 	}
-
 	public Integer getuId() {
 		return uId;
 	}
-
 	public void setuId(Integer uId) {
 		this.uId = uId;
 	}

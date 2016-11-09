@@ -2,7 +2,6 @@
 <zk>
 <window title="SORT CRITERIA : CLIENT NAME" border="none" apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('org.appsquad.viewmodel.IndividualClientReportViewModel')">
-    		
     		<div>
     			<hlayout spacing="12px">
     				<hlayout>
@@ -36,8 +35,10 @@
     				<bandbox autodrop="true" readonly="true" id="skSt" value="@bind(vm.individualClientReportBean.skillsetMasterbean.skillset)" placeholder="Search by Skill Set" width="160px">
 						<bandpopup>	
 							<hbox>
-								<textbox value="@bind(vm.individualClientReportBean.skillSetSearch)" onChange="@command('onChangeSkillName')" placeholder="Search by Skill Set"></textbox>
+								<textbox value="@bind(vm.individualClientReportBean.skillSetSearch)" onChange="@command('onChangeSkillName')" placeholder="Search by Skill Set"
+								     width="120px"></textbox>
 								<button label="Serach" onClick="@command('onChangeSkillName')"></button>
+								<button label="Clear" onClick="@command('onClearSkillSet')"></button>
 							</hbox>
 							<space></space>
 							<listbox width="280px" model="@bind(vm.skillList)" 
@@ -79,7 +80,7 @@
     		
     		<div visible="@bind(vm.individualClientReportBean.detailsDivVis)">
     			
-    			<grid model="@bind(vm.reportBeanList)" mold="paging" pageSize="10" height="400px">	
+    			<grid model="@bind(vm.reportBeanList)" mold="paging" pageSize="8" height="400px">	
     				
     				<columns sizable="true">
     					<!-- <column width="30px"></column> -->	
@@ -113,7 +114,7 @@
     		
     		<div visible="@bind(vm.individualClientReportBean.summaryDivVis)">
     		
-    			<grid model="@bind(vm.summaryBeanList)" mold="paging" pageSize="10" height="400px">
+    			<grid model="@bind(vm.summaryBeanList)" mold="paging" pageSize="8" height="400px">
     				
     				<columns sizable="true">
     				  <!-- <column width="30px"></column> -->	

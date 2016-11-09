@@ -97,7 +97,7 @@
                    				 <textbox placeholder="User Name" value="@bind(v.userid)" readonly="true" width="90%"></textbox>
                    				 <textbox placeholder="User Id" value="@bind(v.username)" readonly="true" width="90%"></textbox>
                    				 <textbox placeholder="Email" value="@bind(v.email)" readonly="true" width="90%" tooltiptext="@bind(v.email)"></textbox>
-                   				 <textbox placeholder="address" value="@bind(v.address)" readonly="true" width="90%"></textbox>
+                   				 <textbox placeholder="address" value="@bind(v.address)" readonly="true" width="90%" tooltiptext="@bind(v.address)"></textbox>
                    				 <textbox placeholder="Contact no" value="@bind(v.contactno)" readonly="true" width="90%"></textbox>
                    				 <button label="Update" onClick="@command('onClickUpdateButton', bean = v)"></button>
                    				 <button label="Delete" onClick="@command('onClickDeleteButton', bean = v)"></button>

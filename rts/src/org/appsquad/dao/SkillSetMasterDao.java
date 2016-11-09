@@ -29,10 +29,11 @@ public class SkillSetMasterDao {
 					    PreparedStatement preparedStatementInsert = null;
 					    try {
 					    	preparedStatementInsert = Pstm.createQuery(connection, 
-									SkillSetMasterSql.insertSkillSetQuery, Arrays.asList(skillsetMasterbean.getSkillset().toUpperCase(),skillsetMasterbean.getUserId(),skillsetMasterbean.getSkillsetdetails().toUpperCase()));
+									SkillSetMasterSql.insertSkillSetQuery, Arrays.asList(skillsetMasterbean.getSkillset().toUpperCase(),
+																								skillsetMasterbean.getUserId(),
+																										skillsetMasterbean.getSkillsetdetails().toUpperCase()));
 					   
-					    	//logger.info("Login Function - " + preparedStatementInsert.unwrap(PreparedStatement.class));
-					    	
+					    	logger.info("INSERT SKILL DATA INTO TABLE:- " + preparedStatementInsert.unwrap(PreparedStatement.class));
 							int i = preparedStatementInsert.executeUpdate();
 							if(i>0){
 								isSaved = true;	
@@ -51,6 +52,8 @@ public class SkillSetMasterDao {
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
+					logger.fatal(e);
+					logger.error(e);
 				}finally{
 					if(connection!=null){
 						connection.close();
@@ -58,8 +61,9 @@ public class SkillSetMasterDao {
 				}
 			}
 		} catch (Exception e) {
-			//logger.fatal(e);
 			e.printStackTrace();
+			logger.fatal(e);
+			logger.error(e);
 		}
 		return isSaved;
 	}
@@ -77,11 +81,10 @@ public class SkillSetMasterDao {
 					sql_fetch:{
 					   PreparedStatement preparedStatement = null;
 					   try {
-						   preparedStatement = Pstm.createQuery(connection, SkillSetMasterSql.fetchSkillSetDetails, null);
+						    preparedStatement = Pstm.createQuery(connection, SkillSetMasterSql.fetchSkillSetDetails, null);
 							
-						   //logger.info("onLoadSetDeatils - " + preparedStatement.unwrap(PreparedStatement.class));
-						   
-							ResultSet resultSet = preparedStatement.executeQuery();
+						    logger.info("onLoad Set Deatils:- " + preparedStatement.unwrap(PreparedStatement.class));
+						    ResultSet resultSet = preparedStatement.executeQuery();
 							while (resultSet.next()) {
 								SkillsetMasterbean masterbean = new SkillsetMasterbean();
 								masterbean.setId(resultSet.getInt("id"));
@@ -98,6 +101,8 @@ public class SkillSetMasterDao {
 				    }
 				} catch (Exception e) {
 					e.printStackTrace();
+					logger.fatal(e);
+					logger.error(e);
 				}finally{
 					if(connection!=null){
 						connection.close();
@@ -105,8 +110,9 @@ public class SkillSetMasterDao {
 				}
 			}
 		} catch (Exception e) {
-			//logger.fatal(e);
 			e.printStackTrace();
+			logger.fatal(e);
+			logger.error(e);
 		}
 		return skillList;
 	}
@@ -125,7 +131,7 @@ public class SkillSetMasterDao {
 					    try {
 					    	preparedStatementInsert = Pstm.createQuery(connection, 
 									SkillSetMasterSql.updateSkillSetDetails, Arrays.asList(masterbean.getSkillset().toUpperCase(),masterbean.getSkillsetdetails().toUpperCase(),masterbean.getId()));
-					    	//logger.info("updateSkillData - " + preparedStatementInsert.unwrap(PreparedStatement.class));
+					    	logger.info("update Skill Data - " + preparedStatementInsert.unwrap(PreparedStatement.class));
 							int i = preparedStatementInsert.executeUpdate();
 							if(i>0){
 								isUpdated = true;	
@@ -144,6 +150,8 @@ public class SkillSetMasterDao {
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
+					logger.fatal(e);
+					logger.error(e);
 				}finally{
 					if(connection!=null){
 						connection.close();
@@ -151,8 +159,9 @@ public class SkillSetMasterDao {
 				}
 			}
 		} catch (Exception e) {
-			//logger.fatal(e);
 			e.printStackTrace();
+			logger.fatal(e);
+			logger.error(e);
 		}
 		return isUpdated;
 	}
@@ -169,9 +178,9 @@ public class SkillSetMasterDao {
 					sql_insert:{
 					    PreparedStatement preparedStatementInsert = null;
 					    try {
-					    	preparedStatementInsert = Pstm.createQuery(connection, 
-									SkillSetMasterSql.deleteSkillSql, Arrays.asList(masterbean.getId()));
-							int i = preparedStatementInsert.executeUpdate();
+					    	preparedStatementInsert = Pstm.createQuery(connection, SkillSetMasterSql.deleteSkillSql, Arrays.asList(masterbean.getId()));
+					    	logger.info("delete skill data:- " + preparedStatementInsert.unwrap(PreparedStatement.class));
+					    	int i = preparedStatementInsert.executeUpdate();
 							if(i>0){
 								isDeleted = true;	
 							}
@@ -189,6 +198,8 @@ public class SkillSetMasterDao {
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
+					logger.error(e);
+					logger.fatal(e);
 				}finally{
 					if(connection!=null){
 						connection.close();
@@ -196,8 +207,9 @@ public class SkillSetMasterDao {
 				}
 			}
 		} catch (Exception e) {
-			//logger.fatal(e);
 			e.printStackTrace();
+			logger.error(e);
+			logger.fatal(e);
 		}
 		return isDeleted;
 	}
@@ -228,6 +240,8 @@ public class SkillSetMasterDao {
 				    }
 				} catch (Exception e) {
 					e.printStackTrace();
+					logger.error(e);
+					logger.fatal(e);
 				}finally{
 					if(connection!=null){
 						connection.close();
@@ -235,10 +249,10 @@ public class SkillSetMasterDao {
 				}
 			}
 		} catch (Exception e) {
-			logger.fatal(e);
 			e.printStackTrace();
+			logger.error(e);
+			logger.fatal(e);
 		}
 		return count;
 	}
-
 }

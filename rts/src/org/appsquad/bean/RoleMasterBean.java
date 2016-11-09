@@ -1,5 +1,7 @@
 package org.appsquad.bean;
 
+import java.sql.Date;
+
 public class RoleMasterBean {
 	private String rollid;
 	private String roll;
@@ -21,6 +23,14 @@ public class RoleMasterBean {
 	
 	private UserprofileBean userprofileBean = new UserprofileBean(); 
 	private RollDropDownBean downBean = new RollDropDownBean();
+	
+	/*********Log-Audit Purpose ************/
+	private String mainScreenName = "MASTER";
+	private String chileScreenName = "USER ROLE MASTER";
+	private String operation;
+	private Date creationDate;
+	private String sessionUserId;
+	private Integer operationId;
 	
 	/*********************************************************************************************************************************************/
 	
@@ -137,5 +147,41 @@ public class RoleMasterBean {
 	}
 	public void setUserSerialId(Integer userSerialId) {
 		this.userSerialId = userSerialId;
+	}
+	public String getMainScreenName() {
+		return mainScreenName;
+	}
+	public void setMainScreenName(String mainScreenName) {
+		this.mainScreenName = mainScreenName;
+	}
+	public String getChileScreenName() {
+		return chileScreenName;
+	}
+	public void setChileScreenName(String chileScreenName) {
+		this.chileScreenName = chileScreenName;
+	}
+	public String getOperation() {
+		return operation;
+	}
+	public void setOperation(String operation) {
+		this.operation = operation;
+	}
+	public Date getCreationDate() {
+		return creationDate;
+	}
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
+	}
+	public String getSessionUserId() {
+		return sessionUserId;
+	}
+	public void setSessionUserId(String sessionUserId) {
+		this.sessionUserId = sessionUserId;
+	}
+	public Integer getOperationId() {
+		return operationId;
+	}
+	public void setOperationId(Integer operationId) {
+		this.operationId = operationId;
 	}
 }

@@ -277,6 +277,50 @@ public class ResourceMasterDao {
 		return statusList;	
 	}
 	
+	
+	public static ArrayList<StatusMasterBean> onLoadStatusForReport(){
+		ArrayList<StatusMasterBean> statusList = new ArrayList<StatusMasterBean>();
+		Connection connection = null;
+		try {
+			connection = DbConnection.createConnection();
+			sql_connection:{
+				try {
+					
+					//1st SQL block
+					sql_fetch:{
+					   PreparedStatement preparedStatement = null;
+					   try {
+						    preparedStatement = Pstm.createQuery(connection, ClientInformationsql.statusSetQueryForReport, null);
+						    logger.info("onLoadStatus- " + preparedStatement.unwrap(PreparedStatement.class));
+							ResultSet resultSet = preparedStatement.executeQuery();
+							while (resultSet.next()) {
+								StatusMasterBean bean = new StatusMasterBean();
+								bean.setStatusId(resultSet.getInt("id"));
+								bean.setStatus(resultSet.getString("master_status_name"));
+								
+								statusList.add(bean);
+							}  
+						} finally{
+							if(preparedStatement!=null){
+								preparedStatement.close();
+							}
+						}
+				    }
+				} catch (Exception e) {
+					e.printStackTrace();
+				}finally{
+					if(connection!=null){
+						connection.close();
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.fatal(e);
+		}
+		return statusList;	
+	}
+	
 	public static ArrayList<StatusMasterBean> onLoadStatusForTrackingUpdateScreen(ResourceAllocationTrackingBean allocationTrackingBean){
 		ArrayList<StatusMasterBean> statusList = new ArrayList<StatusMasterBean>();
 		Connection connection = null;

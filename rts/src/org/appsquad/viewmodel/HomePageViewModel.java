@@ -45,6 +45,7 @@ public class HomePageViewModel {
 	private boolean individualRequirementRIDReport = false;
 	private boolean skillSetWiseRequirementList = false;
 	private boolean resourceDetailPerRequirementCV = false;
+	private boolean logAuditViewVisibility = false;
 	
 	
 	@AfterCompose
@@ -118,6 +119,8 @@ public class HomePageViewModel {
 										skillSetWiseRequirementList = true;
 									}else if(bean.getMenusId()==18){
 										resourceDetailPerRequirementCV = true;
+									}else if(bean.getMenusId()==19){
+										logAuditViewVisibility = true;
 									}
 								}
 							}
@@ -299,5 +302,13 @@ public class HomePageViewModel {
 	}
 	public void setUser(String user) {
 		this.user = user;
+	}
+
+	public boolean isLogAuditViewVisibility() {
+		return logAuditViewVisibility;
+	}
+
+	public void setLogAuditViewVisibility(boolean logAuditViewVisibility) {
+		this.logAuditViewVisibility = logAuditViewVisibility;
 	}
 }

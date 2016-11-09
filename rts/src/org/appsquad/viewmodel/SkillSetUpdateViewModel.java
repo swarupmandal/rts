@@ -1,8 +1,10 @@
 package org.appsquad.viewmodel;
 
 import java.sql.Connection;
+import java.util.Calendar;
 
 import org.appsquad.bean.SkillsetMasterbean;
+import org.appsquad.service.LogAuditServiceClass;
 import org.appsquad.service.SkillSetMasterService;
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.AfterCompose;
@@ -30,13 +32,17 @@ public class SkillSetUpdateViewModel {
 	@Wire("#winSkillSetUpdateScreen")
 	private Window winSkillSetUpdateScreen;
 	private boolean flag = false;
+	private boolean flagLogUpdate = false;
 	
 	@AfterCompose
 	public void initSetup(@ContextParam(ContextType.VIEW) Component view,@ExecutionArgParam("skillSetDetails") SkillsetMasterbean masterbean)
 			throws Exception {
 		Selectors.wireComponents(view, this, false);
-		bean = masterbean;
 		sessions = Sessions.getCurrent();
+		bean = masterbean;
+		userId = (String) sessions.getAttribute("userId");
+		skillsetMasterbean.setUserId(userId);
+		skillsetMasterbean.setSessionUserId(userId);
 	}
 	
 	@Command
@@ -44,6 +50,14 @@ public class SkillSetUpdateViewModel {
 	public void onClickUpdateButton(){
 		flag = SkillSetMasterService.updateSkillMasterData(bean);
 		if(flag){
+			bean.setOperation("UPDATE");
+			bean.setOperationId(2);
+			Calendar calendar = Calendar.getInstance();
+		    java.sql.Date currentDate = new java.sql.Date(calendar.getTime().getTime());
+			System.out.println("CREATION DATE :"+currentDate);
+			flagLogUpdate = LogAuditServiceClass.insertIntoLogTable(bean.getMainScreenName(), bean.getChileScreenName(), 
+                    												bean.getSessionUserId(), bean.getOperation(),currentDate,bean.getOperationId());
+			System.out.println("flagLogUpdate Is:"+flagLogUpdate);
 			winSkillSetUpdateScreen.detach();
 			BindUtils.postGlobalCommand(null, null, "globalSkillSetDetailsUpdate", null);
 		}
@@ -56,7 +70,7 @@ public class SkillSetUpdateViewModel {
 		BindUtils.postGlobalCommand(null, null, "globalSkillSetDetailsUpdate", null);
 	}
 	
-	/******************************************Getter and setter method ***************************************************************/
+	/***************************************************Getter And Setter Method ****************************************************************/
 	
 	public SkillsetMasterbean getSkillsetMasterbean() {
 		return skillsetMasterbean;
@@ -106,5 +120,10 @@ public class SkillSetUpdateViewModel {
 	public void setWinSkillSetUpdateScreen(Window winSkillSetUpdateScreen) {
 		this.winSkillSetUpdateScreen = winSkillSetUpdateScreen;
 	}
-	
+	public boolean isFlagLogUpdate() {
+		return flagLogUpdate;
+	}
+	public void setFlagLogUpdate(boolean flagLogUpdate) {
+		this.flagLogUpdate = flagLogUpdate;
+	}
 }

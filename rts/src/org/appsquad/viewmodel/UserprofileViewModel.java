@@ -2,10 +2,12 @@ package org.appsquad.viewmodel;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 
 import org.appsquad.bean.UserprofileBean;
 import org.appsquad.dao.UserProfileDao;
+import org.appsquad.service.LogAuditServiceClass;
 import org.appsquad.service.UserProfileService;
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.AfterCompose;
@@ -38,6 +40,8 @@ public class UserprofileViewModel {
 			throws Exception {
 		Selectors.wireComponents(view, this, false);
 		sessions = Sessions.getCurrent();
+		userId = (String) sessions.getAttribute("userId");
+		userprofileBean.setSessionUserId(userId);
 		userList = UserProfileDao.onLoadUserDeatils();
 	}
 	
@@ -55,16 +59,26 @@ public class UserprofileViewModel {
 	
 	@Command
 	@NotifyChange("*")
-	public void onClickuserSubmit(){
+	public void onClickuserSubmit() throws Exception{
 		boolean flagInsert = false;
+		boolean flagLogInsert = false;
 		int countNumber = 0;
 		countNumber = UserProfileService.countUserIdPresentInTable(userprofileBean);
 		System.out.println(countNumber);
 		if(countNumber>0){
-			Messagebox.show("Please Enter New User Name!", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
+			Messagebox.show("Please Enter New User ID. ", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
 		}else{
 			flagInsert = UserProfileService.insertUserMasterData(userprofileBean);
 			if(flagInsert){
+				userprofileBean.setOperation("INSERT");
+				userprofileBean.setOperationId(1);
+				Calendar calendar = Calendar.getInstance();
+			    java.sql.Date currentDate = new java.sql.Date(calendar.getTime().getTime());
+				System.out.println("CREATION DATE :"+currentDate);
+				flagLogInsert = LogAuditServiceClass.insertIntoLogTable(userprofileBean.getMainScreenName(), userprofileBean.getChileScreenName(), 
+                        												userprofileBean.getSessionUserId(), userprofileBean.getOperation(),currentDate,
+                        												userprofileBean.getOperationId());
+				System.out.println("flagLogInsert Is:"+flagLogInsert);
 				UserProfileService.clearAllField(userprofileBean);	
 			}	
 		}
@@ -83,8 +97,19 @@ public class UserprofileViewModel {
 	@NotifyChange("*")
 	public void onClickDeleteButton(@BindingParam("bean") UserprofileBean userprofileBean){
 		boolean flagDelete = false;
+		boolean flagLogDelete = false;
 		flagDelete = UserProfileDao.deleteUserData(userprofileBean);
 		if(flagDelete){
+			userprofileBean.setOperation("DELETE");
+			userprofileBean.setSessionUserId(userId);
+			userprofileBean.setOperationId(3);
+			Calendar calendar = Calendar.getInstance();
+		    java.sql.Date currentDate = new java.sql.Date(calendar.getTime().getTime());
+			System.out.println("CREATION DATE :"+currentDate);
+			flagLogDelete = LogAuditServiceClass.insertIntoLogTable(userprofileBean.getMainScreenName(), userprofileBean.getChileScreenName(), 
+                    												userprofileBean.getSessionUserId(), userprofileBean.getOperation(),currentDate,
+                    												userprofileBean.getOperationId());
+			System.out.println("flagLogDelete Is:"+flagLogDelete);
 			BindUtils.postGlobalCommand(null, null, "globalUserDetailsUpdate", null);
 		}
 	}

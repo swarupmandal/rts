@@ -2,7 +2,7 @@
 <zk>
 <window title="RESOURCE  ALLOCATION  STATUS  TRACKING" border="none" apply="org.zkoss.bind.BindComposer"
 		   viewModel="@id('vm') @init('org.appsquad.viewmodel.ResAllocTrackingUpdateViewModel')" closable="true" height="410px" width="700px"
-		               id="winResAllocTracking">
+		               id="winResAllocTracking" onClose="@command('onCloseOperation')">
 		
 		<div>
 				<grid>
@@ -41,20 +41,17 @@
 						
 						<row>
 						 <label value="Internal Interview Date" style="Font-weight: bold"></label>
-		    				<datebox value="@bind(vm.trackingUpdateBean.internalInterviewDate)" width="200px"
-		    				  disabled="@bind(vm.trackingUpdateBean.internalInterviewDateDisable)"></datebox>	
+		    				<datebox value="@bind(vm.trackingUpdateBean.internalInterviewDate)" width="200px"></datebox>	
 						</row>
 						
 						<row>
 						  <label value="Client Interview Date" style="Font-weight: bold"></label>
-		    				<datebox value="@bind(vm.trackingUpdateBean.clientInterviewDate)" width="200px"
-		    				  disabled="@bind(vm.trackingUpdateBean.clientInterviewDateDisable)"></datebox>	
+		    				<datebox value="@bind(vm.trackingUpdateBean.clientInterviewDate)" width="200px"></datebox>	
 						</row>
 						
 						<row>
 						   <label value="Onboard Date" style="Font-weight: bold"></label>
-		    					<datebox value="@bind(vm.trackingUpdateBean.onboardDate)" width="200px"
-		    					  disabled="@bind(vm.trackingUpdateBean.onboardInterviewDateDisable)"></datebox>	
+		    					<datebox value="@bind(vm.trackingUpdateBean.onboardDate)" width="200px"></datebox>	
 					   </row>
 					   
 					   <row>

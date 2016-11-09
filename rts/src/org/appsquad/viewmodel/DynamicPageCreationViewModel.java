@@ -2,9 +2,11 @@ package org.appsquad.viewmodel;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import org.appsquad.bean.RoleMasterBean;
 import org.appsquad.service.DynamicPageCreationService;
+import org.appsquad.service.LogAuditServiceClass;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
@@ -31,11 +33,12 @@ public class DynamicPageCreationViewModel {
 	private RoleMasterBean roleMasterBean = new RoleMasterBean();
 	
 	@AfterCompose
-	public void initSetup(@ContextParam(ContextType.VIEW) Component view,@ExecutionArgParam("pageDetails") RoleMasterBean bean)
-									throws Exception {
+	public void initSetup(@ContextParam(ContextType.VIEW) Component view,@ExecutionArgParam("pageDetails") RoleMasterBean bean)throws Exception {
 		Selectors.wireComponents(view, this, false);
 		sessions = Sessions.getCurrent();
 		roleMasterBean = bean;
+		roleMasterBean.setUserid(userId);
+		roleMasterBean.setSessionUserId(userId);
 		userId = (String) sessions.getAttribute("userId");
 		roleMasterBean.setRoleAccessUserId(userId);
 		allPageNameFetchWithCheckBoxVm(roleMasterBean);
@@ -55,13 +58,24 @@ public class DynamicPageCreationViewModel {
 	@NotifyChange("*")
 	public void onClickAssign() throws Exception{
 		boolean flag = false;
+		boolean flagLogAssignPage = false;
 		flag = DynamicPageCreationService.insertMappingPageAndUser(roleMasterBean, pagelist);
 		if(flag){
+			roleMasterBean.setOperation("INSERT");
+			roleMasterBean.setSessionUserId(userId);
+			roleMasterBean.setOperationId(1);
+			Calendar calendar = Calendar.getInstance();
+		    java.sql.Date currentDate = new java.sql.Date(calendar.getTime().getTime());
+			System.out.println("CREATION DATE :"+currentDate);
+			flagLogAssignPage = LogAuditServiceClass.insertIntoLogTable(roleMasterBean.getMainScreenName(), roleMasterBean.getChileScreenName(), 
+																			roleMasterBean.getSessionUserId(), roleMasterBean.getOperation(),currentDate,
+																			   roleMasterBean.getOperationId());
+			System.out.println("flagLogAssignPage Is:"+flagLogAssignPage);
 			winDynamicPage.detach();
 		}
 	}
 	
-	/******************************************************************************************************************************************/
+	/***************************************************Getter And Setter Method ****************************************************************/
 	
 	public Connection getConnection() {
 		return connection;

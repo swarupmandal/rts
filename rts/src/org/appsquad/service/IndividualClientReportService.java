@@ -51,9 +51,16 @@ public class IndividualClientReportService {
 		return list;
 	}
 	
-	public static ArrayList<IndividualClientReportBean> loadRidListWithStatusSkillDate(int statusId, int clientId){
+	
+	public static ArrayList<IndividualClientReportBean> loadClientListWithStatusService(int statusId, int clientId){
 		ArrayList<IndividualClientReportBean> list = new ArrayList<IndividualClientReportBean>();
-		list = IndividualClientReportDao.loadRidListWithStatusSkillDate(statusId, clientId);
+		list = IndividualClientReportDao.loadClientListWithStatusDao(statusId, clientId);
+		return list;
+	}
+	
+	public static ArrayList<IndividualClientReportBean> loadRidListWithStatusSkillDate(Date fromDate, Date toDate, int skillId,int statusId, int clientId){
+		ArrayList<IndividualClientReportBean> list = new ArrayList<IndividualClientReportBean>();
+		list = IndividualClientReportDao.loadRidListWithStatusSkillDate(fromDate, toDate, skillId, statusId, clientId);
 		return list;
 	}
 	
@@ -81,9 +88,28 @@ public class IndividualClientReportService {
 		return list;
 	}
 	
+	public static ArrayList<IndividualClientReportBean> loadDateAndStatusInClientReportService(Date fromDate, Date toDate ,int statusId){
+		ArrayList<IndividualClientReportBean> list = new ArrayList<IndividualClientReportBean>();
+		list = IndividualClientReportDao.loadDateAndStatusForClientReportDao(fromDate, toDate, statusId);
+		return list;
+	}
+
+	
+	public static ArrayList<IndividualClientReportBean> loadDateAndCientInClientReportService(Date fromDate, Date toDate ,int clientId){
+		ArrayList<IndividualClientReportBean> list = new ArrayList<IndividualClientReportBean>();
+		list = IndividualClientReportDao.loadDateAndClientForClientReportDao(fromDate, toDate, clientId);
+		return list;
+	}
+	
 	public static ArrayList<IndividualClientReportBean> loadRidSummaryList(ArrayList<IndividualClientReportBean> summaryList){
 		ArrayList<IndividualClientReportBean> list = new ArrayList<IndividualClientReportBean>();
 		list = IndividualClientReportDao.loadRidSummary(summaryList);
+		return list;
+	}
+	
+	public static ArrayList<IndividualClientReportBean> loadRidSummaryListTest(ArrayList<IndividualClientReportBean> summaryList,Integer statusId){
+		ArrayList<IndividualClientReportBean> list = new ArrayList<IndividualClientReportBean>();
+		list = IndividualClientReportDao.loadRidSummaryTest(summaryList,statusId);
 		return list;
 	}
 	
