@@ -1,7 +1,7 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
 <window title="SORT CRITERIA: RID/ STATUS" border="none" apply="org.zkoss.bind.BindComposer"
-												viewModel="@id('vm') @init('org.appsquad.viewmodel.IndividualRequirementReportViewModel')">
+															viewModel="@id('vm') @init('org.appsquad.viewmodel.IndividualRequirementReportViewModel')">
     <div>
        <label value="* " style="font-weight:bold; color:red; font-size:large;" />	
        <label value="Requirement Id" style="font-weight: bold; color: black"></label>

@@ -373,7 +373,7 @@ public class RequirementGenerationDao {
 		PreparedStatement preparedStatement = null;
 		try {
 			connection = DbConnection.createConnection();
-			preparedStatement = Pstm.createQuery(connection, RequirementGenerationSql.loadReqGenMasterData, null);
+			preparedStatement = Pstm.createQuery(connection, RequirementGenerationSql.loadReqGenMasterDataSql, null);
 			logger.info("fetch Req Gen MasterData - " + preparedStatement.unwrap(PreparedStatement.class));
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {

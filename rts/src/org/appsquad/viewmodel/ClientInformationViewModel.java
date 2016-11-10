@@ -79,7 +79,7 @@ public class ClientInformationViewModel {
 	@Command
 	@NotifyChange("*")
 	public void onClickSubmitButton(){
-		flag = ClientInformationService.insertClientMasterData(clientInformationBean, userBeanList);
+		flag = ClientInformationService.insertClientMasterData(clientInformationBean);
 		if(flag){
 			clientInformationBean.setOperation("INSERT");
 			clientInformationBean.setOperationId(1);

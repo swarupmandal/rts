@@ -29,6 +29,8 @@ public class RequirementGenerationSql {
 	
 	public static final String loadReqGenMasterData = "select * from vw_req_generation_details where req_status_id = 1 order by full_name ";
 	
+	public static final String loadReqGenMasterDataSql = "select * from vw_req_generation_details where req_status_id = 1 order by r_id ";
+	
 	public static final String fetchStatusId = "select id from rts_open_close_status_master where status = 'OPEN' ";
 	
 	public static final String FETCHCLIENTEMAILANDCONTACTNO = "select emailid,contactno from rts_clients_master where id = ? ";

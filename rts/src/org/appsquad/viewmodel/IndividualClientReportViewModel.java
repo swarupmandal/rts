@@ -190,6 +190,10 @@ public class IndividualClientReportViewModel {
 		   individualClientReportBean.clientInformationBean.setClientId(null);
 		   
 		   individualClientReportBean.clientInformationBean.setFullName(null);
+		   
+		   individualClientReportBean.setSkillSetSearch(null);
+		   individualClientReportBean.setClientNameSearch(null);
+		   
 		   clientList = ResourceAllocationTrackingService.fetchClientDetails();
 		   individualClientReportBean.setFromDate(null);
 		   individualClientReportBean.setToDate(null);
@@ -308,7 +312,9 @@ public class IndividualClientReportViewModel {
 
 
 		//when nothing selected
-		if(individualClientReportBean.clientInformationBean.getClientId() == null && individualClientReportBean.getFromDate() == null && individualClientReportBean.getToDate() == null && individualClientReportBean.skillsetMasterbean.getId() == null && individualClientReportBean.statusMasterBean.getStatusId() == null){
+		if(individualClientReportBean.clientInformationBean.getClientId() == null && individualClientReportBean.getFromDate() == null && 
+				individualClientReportBean.getToDate() == null && individualClientReportBean.skillsetMasterbean.getId() == null && 
+				   individualClientReportBean.statusMasterBean.getStatusId() == null){
 			Messagebox.show("Select Client ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
 		}
 
@@ -338,6 +344,32 @@ public class IndividualClientReportViewModel {
 				     individualClientReportBean.statusMasterBean.getStatusId() != null){
 							Messagebox.show("Select Client ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
 		}
+		
+		if(individualClientReportBean.clientInformationBean.getClientId() == null && 
+				 individualClientReportBean.getFromDate() != null && 
+				   individualClientReportBean.getToDate() != null && 
+				    individualClientReportBean.skillsetMasterbean.getId() == null && 
+				     individualClientReportBean.statusMasterBean.getStatusId() != null){
+							Messagebox.show("Select Client ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+		}
+		
+		
+		if(individualClientReportBean.clientInformationBean.getClientId() == null && 
+				 individualClientReportBean.getFromDate() != null && 
+				   individualClientReportBean.getToDate() != null && 
+				    individualClientReportBean.skillsetMasterbean.getId() != null && 
+				     individualClientReportBean.statusMasterBean.getStatusId() != null){
+							Messagebox.show("Select Client ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+		}
+		
+		if(individualClientReportBean.clientInformationBean.getClientId() == null && 
+				 individualClientReportBean.getFromDate() == null && 
+				   individualClientReportBean.getToDate() == null && 
+				    individualClientReportBean.skillsetMasterbean.getId() != null && 
+				     individualClientReportBean.statusMasterBean.getStatusId() != null){
+							Messagebox.show("Select Client ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+		}
+		
 	 }
 	
 	 @Command

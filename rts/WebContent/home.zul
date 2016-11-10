@@ -26,6 +26,13 @@
              </treerow>
             </treeitem>
             
+             <!-- <treeitem open="false">
+             <treerow>
+              <treecell label="- User-Client Assign"
+               onClick='inclResults.setSrc("/WEB-INF/view/clientMaster.zul");' visible="@bind(vm.clientLinkVisibility)"/>
+             </treerow>
+            </treeitem> -->
+            
             <treeitem open="false">
             	<treerow>
             	 <treecell label="- Skill Set"
@@ -133,13 +140,13 @@
          	</treecell>
          </treerow>
          </treeitem>
-         <treeitem>  
+         <!-- <treeitem>  
            <treerow>
            	<treecell label="- Current Opportunities"
            		onClick='inclResults.setSrc("/WEB-INF/view/currentOpportunities.zul");'>
            	</treecell>
            </treerow>
-         </treeitem>
+         </treeitem> -->
          <treeitem>
          <treerow>
          	<treecell label="- Log Audit Section" 

@@ -64,7 +64,7 @@
                                 <columns>
                                       <column></column>
                                       <column></column>
-                                     
+                                      <column></column>
                                 </columns>
                                 
                                 <rows>
@@ -85,10 +85,8 @@
 		             					<comboitem value="@bind(p.roll)" label="@bind(p.roll)"/>
 		             					</template>
 		             					</combobox>	
-								   </row>
-								   
-								   <row>
-								          <button label="Save" onClick="@command('onClickAssign')"></button>
+		             					
+		             					<button label="Save" onClick="@command('onClickAssign')"></button>
 								   </row>
 								   
 								 </rows>

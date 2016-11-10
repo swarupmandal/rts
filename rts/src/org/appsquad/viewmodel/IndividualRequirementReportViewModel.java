@@ -109,6 +109,7 @@ public class IndividualRequirementReportViewModel {
 	   reportBeanList.clear();
 	   
 	   requirementGenerationBean.setReq_id(null);
+	   individualRequirementReportBean.setR_idSearch(null);
 	   requirementGenerationBeanList = IndividualRequirementReportDao.fetchReqirmentDetails();
 	   
 	   individualRequirementReportBean.statusMasterBean.setStatus(null);

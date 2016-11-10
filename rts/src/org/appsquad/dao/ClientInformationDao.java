@@ -156,7 +156,8 @@ public class ClientInformationDao {
 		return countryList;
 	}
 	
-	/*public static boolean insertClientData(ClientInformationBean clientInformationBean){
+	
+	public static boolean insertClientData(ClientInformationBean clientInformationBean){
 		boolean isSaved = false;
 		Connection connection = null;
 		try {
@@ -208,9 +209,10 @@ public class ClientInformationDao {
 			logger.error(e);
 		}
 		return isSaved;
-	}*/
+	}
 	
-	public static boolean insertClientData(ClientInformationBean clientInformationBean, ArrayList<UserprofileBean> userProfileBeanList){
+	
+	/*public static boolean insertClientData(ClientInformationBean clientInformationBean, ArrayList<UserprofileBean> userProfileBeanList){
 		boolean isSaved = false;
 		int key =0;
 		Connection connection = null;
@@ -223,12 +225,12 @@ public class ClientInformationDao {
 					sql_insert:{
 					    PreparedStatement preparedStatementInsert = null;
 					    try {
-					    	/*preparedStatementInsert = Pstm.createQuery(connection, 
+					    	preparedStatementInsert = Pstm.createQuery(connection, 
 									ClientInformationsql.insertClientInfo, Arrays.asList(clientInformationBean.getName().toUpperCase(),clientInformationBean.getSurName().toUpperCase(),
 											clientInformationBean.getClientOriginalName().toUpperCase(),clientInformationBean.getAddress().toUpperCase(),
 											clientInformationBean.getState(),clientInformationBean.getCountry(),
 											clientInformationBean.getPinZipCode(),clientInformationBean.getContactNo().toUpperCase(),
-											clientInformationBean.getEmailId(),clientInformationBean.getUserId()));*/
+											clientInformationBean.getEmailId(),clientInformationBean.getUserId()));
 					    			
 					    	preparedStatementInsert = connection.prepareStatement(ClientInformationsql.insertClientInfo, Statement.RETURN_GENERATED_KEYS);
 					    	preparedStatementInsert.setString(1, clientInformationBean.getName());
@@ -298,7 +300,7 @@ public class ClientInformationDao {
 			logger.error(e);
 		}
 		return isSaved;
-	}
+	}*/
 	
 	public static boolean updateClientData(ClientInformationBean clientInformationBean){
 		boolean isUpdated = false;

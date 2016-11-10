@@ -96,8 +96,7 @@ public class SkillSetWiseReportViewModel {
 	@Command
 	@NotifyChange("*")
 	public void onChangeSkillName(){
-		
-		 skillList = RequirementGenerationService.skillSetListSearch(skilWiseReportBean.getSkillSetSearch());
+		skillList = RequirementGenerationService.skillSetListSearch(skilWiseReportBean.getSkillSetSearch());
 		reportBeanList.clear();
 		summaryBeanList.clear();
 	}
@@ -108,16 +107,6 @@ public class SkillSetWiseReportViewModel {
 		summaryBeanList.clear();
 		reportBeanList.clear();
 		clientBandBox.close();
-		if(skilWiseReportBean.getFromDate() != null && skilWiseReportBean.getToDate() != null){
-			if(skilWiseReportBean.statusMasterBean.getStatusId() != null){
-			}else{
-		 }
-		}else {
-			skilWiseReportBean.clientInformationBean.setFullName(null);
-			skilWiseReportBean.clientInformationBean.setClientId(null);
-			clientList = ResourceAllocationTrackingService.fetchClientDetails();
-			Messagebox.show("Select From Date To Date ", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION);
-		}
 	}
 	
 	@Command
@@ -197,6 +186,7 @@ public class SkillSetWiseReportViewModel {
 		summaryBeanList.clear();
 		skilWiseReportBean.skillsetMasterbean.setSkillset(null);
 		skilWiseReportBean.skillsetMasterbean.setId(null);
+		skilWiseReportBean.setSkillSetSearch(null);
 		skillList = RequirementGenerationService.fetchSkillSetList();
 	}
 	
@@ -208,6 +198,7 @@ public class SkillSetWiseReportViewModel {
 		summaryBeanList.clear();
 		skilWiseReportBean.clientInformationBean.setFullName(null);
 		skilWiseReportBean.clientInformationBean.setClientId(null);
+		skilWiseReportBean.setClientNameSearch(null);
 		clientList = ResourceAllocationTrackingService.fetchClientDetails();
 	}
 	
@@ -219,12 +210,14 @@ public class SkillSetWiseReportViewModel {
 		   
 		   skilWiseReportBean.clientInformationBean.setFullName(null);
 		   skilWiseReportBean.clientInformationBean.setClientId(null);
+		   skilWiseReportBean.setClientNameSearch(null);
 		   clientList = ResourceAllocationTrackingService.fetchClientDetails();
 		   
 		   skilWiseReportBean.setFromDate(null);
 		   skilWiseReportBean.setToDate(null);
 		   
 		   skilWiseReportBean.skillsetMasterbean.setSkillset(null);
+		   skilWiseReportBean.setSkillSetSearch(null);
 		   skilWiseReportBean.skillsetMasterbean.setId(null);
 		   skillList = RequirementGenerationService.fetchSkillSetList();
 		   
@@ -272,7 +265,8 @@ public class SkillSetWiseReportViewModel {
 		}
 
 		//when date skill and client selected
-		if(skilWiseReportBean.getFromDate() != null && skilWiseReportBean.getToDate() != null && skilWiseReportBean.skillsetMasterbean.getId() != null && skilWiseReportBean.statusMasterBean.getStatusId() ==null && skilWiseReportBean.clientInformationBean.getClientId()!= null){
+		if(skilWiseReportBean.getFromDate() != null && skilWiseReportBean.getToDate() != null && skilWiseReportBean.skillsetMasterbean.getId() != null && 
+				skilWiseReportBean.statusMasterBean.getStatusId() ==null && skilWiseReportBean.clientInformationBean.getClientId()!= null){
 			reportBeanList = IndividualClientReportService.loadRidListwithDateRangeWithSkill(Dateformatter.sqlDate(skilWiseReportBean.getFromDate()), Dateformatter.sqlDate(skilWiseReportBean.getToDate()), skilWiseReportBean.skillsetMasterbean.getId(), skilWiseReportBean.clientInformationBean.getClientId());
 			
 			if(reportBeanList.size()==0){
@@ -288,7 +282,6 @@ public class SkillSetWiseReportViewModel {
 			
 			reportBeanList = IndividualClientReportService.loadDateAndStatusInClientReportService(Dateformatter.sqlDate(skilWiseReportBean.getFromDate()), Dateformatter.sqlDate(skilWiseReportBean.getToDate()), skilWiseReportBean.statusMasterBean.getStatusId());
 			
-			
 			if(reportBeanList.size()==0){
 				Messagebox.show("No Data Found For This Combination ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
 		    }
@@ -301,7 +294,6 @@ public class SkillSetWiseReportViewModel {
 				     skilWiseReportBean.clientInformationBean.getClientId()!= null){
 			
 			reportBeanList = IndividualClientReportService.loadDateAndCientInClientReportService(Dateformatter.sqlDate(skilWiseReportBean.getFromDate()), Dateformatter.sqlDate(skilWiseReportBean.getToDate()), skilWiseReportBean.clientInformationBean.getClientId());
-			
 			
 			if(reportBeanList.size()==0){
 				Messagebox.show("No Data Found For This Combination ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
@@ -316,7 +308,6 @@ public class SkillSetWiseReportViewModel {
 			
 			reportBeanList = IndividualClientReportService.loadRidListwithDateRangeWithSkill(Dateformatter.sqlDate(skilWiseReportBean.getFromDate()), Dateformatter.sqlDate(skilWiseReportBean.getToDate()), skilWiseReportBean.skillsetMasterbean.getId(),skilWiseReportBean.clientInformationBean.getClientId());
 			
-			
 			if(reportBeanList.size()==0){
 				Messagebox.show("No Data Found For This Combination ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
 		    }
@@ -330,22 +321,76 @@ public class SkillSetWiseReportViewModel {
 			
 			reportBeanList = IndividualClientReportService.loadRidListWithDateSatus(Dateformatter.sqlDate(skilWiseReportBean.getFromDate()), Dateformatter.sqlDate(skilWiseReportBean.getToDate()), skilWiseReportBean.statusMasterBean.getStatusId(),skilWiseReportBean.clientInformationBean.getClientId());
 			
-			
 			if(reportBeanList.size()==0){
 				Messagebox.show("No Data Found For This Combination ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
 		    }
 		}		
 
 		//when nothing selected
-		if(skilWiseReportBean.getFromDate() == null && skilWiseReportBean.getToDate() == null && skilWiseReportBean.skillsetMasterbean.getId() == null && skilWiseReportBean.statusMasterBean.getStatusId() ==null && skilWiseReportBean.clientInformationBean.getClientId()== null){
-			  skilWiseReportBean.setSelectedRadioButton(null);
+		if(skilWiseReportBean.getFromDate() == null && skilWiseReportBean.getToDate() == null && skilWiseReportBean.skillsetMasterbean.getId() == null && 
+				skilWiseReportBean.statusMasterBean.getStatusId() ==null && skilWiseReportBean.clientInformationBean.getClientId()== null){
+			
 			  Messagebox.show("Select From Date ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION); 
+			  
 		}
 
 		//when from date selected
-		if(skilWiseReportBean.getFromDate() != null && skilWiseReportBean.getToDate() == null && skilWiseReportBean.skillsetMasterbean.getId() == null && skilWiseReportBean.statusMasterBean.getStatusId() ==null && skilWiseReportBean.clientInformationBean.getClientId()== null){
-			skilWiseReportBean.setSelectedRadioButton(null);
+		if(skilWiseReportBean.getFromDate() != null && skilWiseReportBean.getToDate() == null && skilWiseReportBean.skillsetMasterbean.getId() == null && 
+				skilWiseReportBean.statusMasterBean.getStatusId() ==null && skilWiseReportBean.clientInformationBean.getClientId()== null){
+			
 			Messagebox.show("Select To Date ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION); 
+			
+		}
+		
+		if(skilWiseReportBean.getFromDate() == null && skilWiseReportBean.getToDate() == null && skilWiseReportBean.skillsetMasterbean.getId() != null && 
+				skilWiseReportBean.statusMasterBean.getStatusId() ==null && skilWiseReportBean.clientInformationBean.getClientId()== null){
+			
+			
+			Messagebox.show("Select From Date ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION); 
+			
+		}
+		
+		if(skilWiseReportBean.getFromDate() == null && skilWiseReportBean.getToDate() == null && skilWiseReportBean.skillsetMasterbean.getId() == null && 
+				skilWiseReportBean.statusMasterBean.getStatusId() !=null && skilWiseReportBean.clientInformationBean.getClientId()== null){
+			
+			Messagebox.show("Select From Date ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION); 
+			
+		}
+		
+		if(skilWiseReportBean.getFromDate() == null && skilWiseReportBean.getToDate() == null && skilWiseReportBean.skillsetMasterbean.getId() == null && 
+				skilWiseReportBean.statusMasterBean.getStatusId() ==null && skilWiseReportBean.clientInformationBean.getClientId()!= null){
+			
+			Messagebox.show("Select From Date ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION); 
+			
+		}
+		
+		if(skilWiseReportBean.getFromDate() == null && skilWiseReportBean.getToDate() == null && skilWiseReportBean.skillsetMasterbean.getId() != null && 
+				skilWiseReportBean.statusMasterBean.getStatusId() !=null && skilWiseReportBean.clientInformationBean.getClientId()!= null){
+			
+			Messagebox.show("Select From Date ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION); 
+			
+		}
+		
+		if(skilWiseReportBean.getFromDate() == null && skilWiseReportBean.getToDate() == null && skilWiseReportBean.skillsetMasterbean.getId() != null && 
+				skilWiseReportBean.statusMasterBean.getStatusId() !=null && skilWiseReportBean.clientInformationBean.getClientId()== null){
+			
+			Messagebox.show("Select From Date ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION); 
+			
+		}
+		
+		if(skilWiseReportBean.getFromDate() == null && skilWiseReportBean.getToDate() == null && skilWiseReportBean.skillsetMasterbean.getId() != null && 
+				skilWiseReportBean.statusMasterBean.getStatusId() ==null && skilWiseReportBean.clientInformationBean.getClientId()!= null){
+			
+			
+			Messagebox.show("Select From Date ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION); 
+			
+		}
+		
+		if(skilWiseReportBean.getFromDate() == null && skilWiseReportBean.getToDate() == null && skilWiseReportBean.skillsetMasterbean.getId() == null && 
+				skilWiseReportBean.statusMasterBean.getStatusId() !=null && skilWiseReportBean.clientInformationBean.getClientId()!= null){
+			
+			Messagebox.show("Select From Date ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION); 
+			
 		}
 	}
 	

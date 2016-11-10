@@ -186,7 +186,6 @@ public class RolemasterViewModel {
 			Messagebox.show("Please Enter New User Name!","Exclamation",Messagebox.OK,Messagebox.EXCLAMATION);
 		}else {
 			RoleMasterService.insertAssignData(roleMasterBean);
-			RoleMasterService.insertClientMasterData(roleMasterBean);
 			roleMasterBean.setOperation("INSERT");
 			roleMasterBean.setSessionUserId(userId);
 			roleMasterBean.setOperationId(1);

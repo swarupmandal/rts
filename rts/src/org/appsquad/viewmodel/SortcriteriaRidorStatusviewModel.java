@@ -150,12 +150,14 @@ public class SortcriteriaRidorStatusviewModel {
 		   
 		   rIdWiseReportBean.clientInformationBean.setFullName(null);
 		   rIdWiseReportBean.clientInformationBean.setClientId(null);
+		   rIdWiseReportBean.setClientNameSearch(null);
 		   clientList = ResourceAllocationTrackingService.fetchClientDetails();
 		   
 		   rIdWiseReportBean.setFromDate(null);
 		   rIdWiseReportBean.setToDate(null);
 		   
 		   requirementGenerationBean.setReq_id(null);
+		   rIdWiseReportBean.setR_idSearch(null);
 		   requirementGenerationBeanList = IndividualRequirementReportDao.fetchReqirmentDetails();
 		   
 		   rIdWiseReportBean.statusMasterBean.setStatus(null);
@@ -328,6 +330,44 @@ public class SortcriteriaRidorStatusviewModel {
 						   rIdWiseReportBean.clientInformationBean.getClientId() == null){
 									Messagebox.show("Select From Date And To Date", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
 				}
+				
+				
+				if(rIdWiseReportBean.getFromDate() == null && rIdWiseReportBean.getToDate() == null && 
+						requirementGenerationBean.getReq_id() !=null && rIdWiseReportBean.statusMasterBean.getStatusId() == null && 
+						   rIdWiseReportBean.clientInformationBean.getClientId() == null){
+									Messagebox.show("Select From Date And To Date", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+				}
+				
+				if(rIdWiseReportBean.getFromDate() == null && rIdWiseReportBean.getToDate() == null && 
+						requirementGenerationBean.getReq_id() ==null && rIdWiseReportBean.statusMasterBean.getStatusId() != null && 
+						   rIdWiseReportBean.clientInformationBean.getClientId() == null){
+									Messagebox.show("Select From Date And To Date", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+				}
+				
+				if(rIdWiseReportBean.getFromDate() == null && rIdWiseReportBean.getToDate() == null && 
+						requirementGenerationBean.getReq_id() ==null && rIdWiseReportBean.statusMasterBean.getStatusId() == null && 
+						   rIdWiseReportBean.clientInformationBean.getClientId() != null){
+									Messagebox.show("Select From Date And To Date", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+				}
+				
+				if(rIdWiseReportBean.getFromDate() == null && rIdWiseReportBean.getToDate() == null && 
+						requirementGenerationBean.getReq_id() !=null && rIdWiseReportBean.statusMasterBean.getStatusId() != null && 
+						   rIdWiseReportBean.clientInformationBean.getClientId() == null){
+									Messagebox.show("Select From Date And To Date", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+				}
+				
+				if(rIdWiseReportBean.getFromDate() == null && rIdWiseReportBean.getToDate() == null && 
+						requirementGenerationBean.getReq_id() !=null && rIdWiseReportBean.statusMasterBean.getStatusId() == null && 
+						   rIdWiseReportBean.clientInformationBean.getClientId() != null){
+									Messagebox.show("Select From Date And To Date", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+				}
+				
+				if(rIdWiseReportBean.getFromDate() == null && rIdWiseReportBean.getToDate() == null && 
+						requirementGenerationBean.getReq_id() !=null && rIdWiseReportBean.statusMasterBean.getStatusId() != null && 
+						   rIdWiseReportBean.clientInformationBean.getClientId() != null){
+									Messagebox.show("Select From Date And To Date", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+				}
+				
 	}
 	
 	@Command
@@ -383,6 +423,7 @@ public class SortcriteriaRidorStatusviewModel {
 	public void onClearReqId(){
 		reqIDdBandBox.close();
 		requirementGenerationBean.setReq_id(null);
+		rIdWiseReportBean.setR_idSearch(null);
 		requirementGenerationBeanList = IndividualRequirementReportDao.fetchReqirmentDetails();
 		summaryBeanList.clear();
 		reportBeanList.clear();
@@ -394,6 +435,7 @@ public class SortcriteriaRidorStatusviewModel {
 		clnBandBox.close();
 		rIdWiseReportBean.clientInformationBean.setFullName(null);
 		rIdWiseReportBean.clientInformationBean.setClientId(null);
+		rIdWiseReportBean.setClientNameSearch(null);
 		clientList = ResourceAllocationTrackingService.fetchClientDetails();
 		summaryBeanList.clear();
 		reportBeanList.clear();
