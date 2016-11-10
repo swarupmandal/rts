@@ -1,0 +1,60 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+ <window title="USER CLIENT ASSIGN SCREEN" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('org.appsquad.viewmodel.ClientUserAssignViewModel')">
+   <div>
+                          <hlayout>
+                            <grid>
+                                <columns>
+                                      <column></column>
+                                      <column></column>
+                                      <column></column>
+                                </columns>
+                                
+                                <rows>
+                                
+								   <row>
+					  					<label value="Client Name" style="font-weight:bold"></label>		
+					  					<bandbox autodrop="true" readonly="true" id="clntBb" value="@bind(vm.rIdWiseReportBean.clientInformationBean.fullName)" placeholder="Search By Client">
+											<bandpopup>	
+												<hbox>
+													<textbox value="@bind(vm.rIdWiseReportBean.clientNameSearch)" onChange="@command('onChangeClientName')" width="120px"></textbox>
+													<button label="Serach" onClick="@command('onChangeClientName')"></button>
+													<button label="Clear" onClick="@command('onClickClientClear')"></button>
+												</hbox>
+												<space></space>
+												<listbox width="280px" model="@bind(vm.clientList)" 
+												     selectedItem="@bind(vm.rIdWiseReportBean.clientInformationBean)" onSelect="@command('onSelctClientName')" mold="paging" pageSize="5">
+													<listhead sizable="true">
+														<listheader label="Client Name"></listheader>
+													</listhead>
+													
+													<template name="model" var = "v">
+													<listitem>
+													  <listcell label="@load(v.fullName)"></listcell>
+													</listitem>
+												   </template>
+												</listbox>
+											</bandpopup>
+									   </bandbox>
+								  
+					  					<label value="Role Name" style="font-weight:bold"></label>		
+					  					<combobox model="@bind(vm.roleList)" selectedItem="@bind(vm.roleMasterBean.downBean)" readonly="true"
+		             						value="@bind(vm.roleMasterBean.downBean.roll)" width="120px" onSelect="@command('onSelectRollName')">
+		             					<template name="model" var="p">
+		             					<comboitem value="@bind(p.roll)" label="@bind(p.roll)"/>
+		             					</template>
+		             					</combobox>	
+		             					
+		             					<button label="Save" onClick="@command('onClickAssign')"></button>
+								   </row>
+								   
+								 </rows>
+                            </grid>
+                            </hlayout>
+                        </div>
+                        
+                        <space></space>
+                        
+                        
+</window>
+</zk>
