@@ -1,0 +1,60 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="Current Opportunities Report Screen" border="normal" apply="org.zkoss.bind.BindComposer" 
+														viewModel="@id('vm') @init('org.appsquad.viewmodel.CurrentOpportunitiesReportGenerationViewModel')">
+
+ <div align="center">
+   <hlayout spacing="12px">
+      				<hlayout>
+    				<label value="* " style="font-weight:bold; color:red; font-size:large;" />
+    				<datebox placeholder="From Date" format="dd-MMM-yyyy" value="@bind(vm.currentOpportunitiesReportGenerationBean.fromDate)" readonly="true"
+    				    onChange="@command('onChangeFromDate')"></datebox>
+    				</hlayout>
+    				
+    				<hlayout>
+    				<label value="* " style="font-weight:bold; color:red; font-size:large;"/>
+    				<datebox placeholder="To Date" format="dd-MMM-yyyy" value="@bind(vm.currentOpportunitiesReportGenerationBean.toDate)"
+    				     onChange="@command('onChangeToDate')" readonly="true"></datebox>
+    				</hlayout>
+    				
+    				<hlayout>
+    				   <button label="Search" style="font-weight:bold; color: black" visible="true" onClick="@command('onClickSearchButton')"></button>
+		               <button label="Clear"  style="font-weight:bold; color: black" visible="true" width="70px" onClick="@command('onClickClear')"></button>
+    				</hlayout>
+   	</hlayout>
+ </div>
+<space></space>
+	<div visible="@bind(vm.divVisibility)">
+    			<grid model="@bind(vm.reportList)" mold="paging" pageSize="8" height="400px">	
+    				<columns sizable="true">
+    					<column width="230px" label="Client Name" style="font-weight:bold; color: black" align="center"></column>
+    					<column width="100px" label="Month" style="font-weight:bold; color: black" align="center"></column>
+    					<column width="170px"  label="Requirement ID" style="font-weight:bold; color: black" align="center"></column>
+    					<column width="100px" label="Bill No" style="font-weight:bold; color: black" align="center"></column>
+    					<column width="100px" label="Skill Set" style="font-weight:bold; color: black" align="center"></column>
+    					<column width="100px" label="Bill Date" style="font-weight:bold; color: black" align="center"></column>
+    					<column width="200px" label="Resource Name" style="font-weight:bold; color: black" align="center"></column>
+    					<column width="150px" label="Bill Amount" style="font-weight:bold; color: black" align="center"></column>
+    					<column width="70px" label="Paid" style="font-weight:bold; color: black" align="center"></column>
+    					<column width="170px" label="Chq Details" style="font-weight:bold; color: black" align="center"></column>
+    				</columns>
+    				<rows>
+    				  <template name="model" var = "v">
+    					<row style="@bind(v.backGround)">
+    				  		<label value="@bind(v.clientInformationBean.fullName)" width="98%"></label>
+    				  		<label value="@bind(v.currentOpportunitiesReportBean.month)" width="98%"></label>
+    				  		<label value="@bind(v.requirementGenerationBean.requirementId)" width="98%"></label>
+    				  		<label value="@bind(v.currentOpportunitiesReportBean.billNoString)" width="98%"></label>
+    				  		<label value="@bind(v.skillsetMasterbean.skillset)" width="98%"></label>
+    				  		<label value="@bind(v.currentOpportunitiesReportBean.billDateSql)" width="98%"></label>
+    				  		<label value="@bind(v.resourceMasterBean.fullName)" width="98%"></label>
+    				  		<label value="@bind(v.currentOpportunitiesReportBean.billAmountString)" width="98%"></label>
+    				  		<label value="@bind(v.currentOpportunitiesReportBean.paid)" width="98%"></label>
+    				  		<label value="@bind(v.currentOpportunitiesReportBean.chqDetails)" width="98%"></label>
+    				  	</row>
+    				  </template>	
+    				</rows>
+    			</grid>
+    		</div>
+	</window>
+</zk>
