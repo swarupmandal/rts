@@ -1,19 +1,19 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
 <window title="LOG AUDIT SECTION" border="none" apply="org.zkoss.bind.BindComposer"
-											viewModel="@id('vm') @init('org.appsquad.viewmodel.LogAuditViewModel')">
-<div>
+																				viewModel="@id('vm') @init('org.appsquad.viewmodel.LogAuditViewModel')">
+<div align="center">
    <hlayout spacing="12px">
       				 <hlayout>
-    				<label value="* " style="font-weight:bold; color:red; font-size:large;" />
-    				<datebox placeholder="From Date" format="dd-MMM-yyyy" value="@bind(vm.logAuditBean.fromDate)" readonly="true"
-    				    onChange="@command('onChangeFromDate')"></datebox>
+    					<label value="* " style="font-weight:bold; color:red; font-size:large;" />
+    					<datebox placeholder="From Date" format="dd-MMM-yyyy" value="@bind(vm.logAuditBean.fromDate)" readonly="true"
+    				    	onChange="@command('onChangeFromDate')"></datebox>
     				</hlayout>
     				
     				<hlayout>
-    				<label value="* " style="font-weight:bold; color:red; font-size:large;"/>
-    				<datebox placeholder="To Date" format="dd-MMM-yyyy" value="@bind(vm.logAuditBean.toDate)"
-    				     onChange="@command('onChangeToDate')" readonly="true"></datebox>
+    					<label value="* " style="font-weight:bold; color:red; font-size:large;"/>
+    					<datebox placeholder="To Date" format="dd-MMM-yyyy" value="@bind(vm.logAuditBean.toDate)"
+    				     	onChange="@command('onChangeToDate')" readonly="true"></datebox>
     				</hlayout>
     				
     				<hlayout>
@@ -22,9 +22,7 @@
     				</hlayout>
    </hlayout>
 </div>
-
    <space></space>
-
 			<div visible="@bind(vm.logAuditBean.logAuditDivVisibility)">
     			<grid model="@bind(vm.logAuditlist)" mold="paging" pageSize="10" height="400px">	
     				<columns sizable="true">
@@ -36,7 +34,6 @@
     					<column width="160px" label="Time Stamp" style="font-weight:bold; color: black" align="center"></column>
     				</columns>
     				<rows>
-    						
     				  <template name="model" var = "v">
     					<row>
     				  		<label value="@bind(v.sessionUserId)"></label>
@@ -50,5 +47,5 @@
     				</rows>
     			</grid>
     		</div>
-</window>
+	</window>
 </zk>

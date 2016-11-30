@@ -227,19 +227,15 @@ public class ClientInformationViewModel {
 	public void setFlagLogInsert(boolean flagLogInsert) {
 		this.flagLogInsert = flagLogInsert;
 	}
-
 	public UserprofileBean getUserprofileBean() {
 		return userprofileBean;
 	}
-
 	public void setUserprofileBean(UserprofileBean userprofileBean) {
 		this.userprofileBean = userprofileBean;
 	}
-
 	public ArrayList<UserprofileBean> getUserBeanList() {
 		return userBeanList;
 	}
-
 	public void setUserBeanList(ArrayList<UserprofileBean> userBeanList) {
 		this.userBeanList = userBeanList;
 	}

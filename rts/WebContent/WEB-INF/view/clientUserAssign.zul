@@ -1,7 +1,8 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
- <window title="USER CLIENT ASSIGN SCREEN" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('org.appsquad.viewmodel.ClientUserAssignViewModel')">
-   <div>
+ <window title="USER CLIENT ASSIGN SCREEN" apply="org.zkoss.bind.BindComposer" 
+ 																		viewModel="@id('vm') @init('org.appsquad.viewmodel.ClientUserAssignViewModel')">
+   			<div>
                           <hlayout>
                             <grid>
                                 <columns>
@@ -11,19 +12,17 @@
                                 </columns>
                                 
                                 <rows>
-                                
-								   <row>
-					  					<label value="Client Name" style="font-weight:bold"></label>		
-					  					<bandbox autodrop="true" readonly="true" id="clntBb" value="@bind(vm.rIdWiseReportBean.clientInformationBean.fullName)" placeholder="Search By Client">
+								   <row>	
+					  					<bandbox autodrop="true" readonly="true" id="clntBb" value="@bind(vm.clientUserAssignBean.clientInformationBean.fullName)" placeholder="Search By Client">
 											<bandpopup>	
 												<hbox>
-													<textbox value="@bind(vm.rIdWiseReportBean.clientNameSearch)" onChange="@command('onChangeClientName')" width="120px"></textbox>
+													<textbox value="@bind(vm.clientUserAssignBean.clientNameSearch)" onChange="@command('onChangeClientName')" width="120px"></textbox>
 													<button label="Serach" onClick="@command('onChangeClientName')"></button>
 													<button label="Clear" onClick="@command('onClickClientClear')"></button>
 												</hbox>
 												<space></space>
 												<listbox width="280px" model="@bind(vm.clientList)" 
-												     selectedItem="@bind(vm.rIdWiseReportBean.clientInformationBean)" onSelect="@command('onSelctClientName')" mold="paging" pageSize="5">
+												     selectedItem="@bind(vm.clientUserAssignBean.clientInformationBean)" onSelect="@command('onSelctClientName')" mold="paging" pageSize="5">
 													<listhead sizable="true">
 														<listheader label="Client Name"></listheader>
 													</listhead>
@@ -37,15 +36,31 @@
 											</bandpopup>
 									   </bandbox>
 								  
-					  					<label value="Role Name" style="font-weight:bold"></label>		
-					  					<combobox model="@bind(vm.roleList)" selectedItem="@bind(vm.roleMasterBean.downBean)" readonly="true"
-		             						value="@bind(vm.roleMasterBean.downBean.roll)" width="120px" onSelect="@command('onSelectRollName')">
-		             					<template name="model" var="p">
-		             					<comboitem value="@bind(p.roll)" label="@bind(p.roll)"/>
-		             					</template>
-		             					</combobox>	
-		             					
-		             					<button label="Save" onClick="@command('onClickAssign')"></button>
+								  
+								      <bandbox autodrop="true" readonly="true" id="userBb" value="@bind(vm.clientUserAssignBean.userprofileBean.userid)" placeholder="Search By User ID">
+											<bandpopup>	
+												<hbox>
+													<textbox value="@bind(vm.clientUserAssignBean.userIdSearch)" onChange="@command('onChangeUserId')" width="120px"></textbox>
+													<button label="Serach" onClick="@command('onChangeUserId')"></button>
+													<button label="Clear" onClick="@command('onClearUserId')"></button>
+												</hbox>
+												<space></space>
+												<listbox width="280px" model="@bind(vm.userList)" 
+												     selectedItem="@bind(vm.clientUserAssignBean.userprofileBean)" onSelect="@command('onSelctUserId')" mold="paging" pageSize="5">
+													<listhead sizable="true">
+														<listheader label="User Id"></listheader>
+													</listhead>
+													
+													<template name="model" var = "v">
+													<listitem>
+													  <listcell label="@load(v.userid)"></listcell>
+													</listitem>
+												   </template>
+												</listbox>
+											</bandpopup>
+									   </bandbox>
+									   
+									  <button label="Save" onClick="@command('onClickSaveButton')"></button>
 								   </row>
 								   
 								 </rows>
@@ -53,8 +68,24 @@
                             </hlayout>
                         </div>
                         
-                        <space></space>
-                        
-                        
-</window>
+                    <space></space>
+                         <div>
+                           <grid model="@bind(vm.assignList)" mold="paging" pageSize="8" sclass="fgrid">
+                               <columns>
+                                    <column label="Client-Name" align="center" width="450px"/>
+                                    <column label="User-ID" align="center" width="300px"/>
+                                    <column label="Operation" align="center"/>
+                               </columns>
+                               <rows>
+                                   <template name="model" var="v">
+                                   <row>
+                                       <textbox value="@bind(v.clientInformationBean.fullName)" readonly="true" width="99%"></textbox>
+                                       <textbox value="@bind(v.userprofileBean.userid)" readonly="true" width="99%"></textbox>
+                                       <button label="Delete" onClick="@command('onClickDelete',bean = v)"/>
+                                   </row>
+                                   </template>
+                               </rows>
+                           </grid>
+                       </div>
+			</window>
 </zk>

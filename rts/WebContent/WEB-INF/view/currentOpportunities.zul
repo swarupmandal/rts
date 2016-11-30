@@ -1,7 +1,7 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
 <window title="CURRENT OPPORTUNITIES" border="none" apply="org.zkoss.bind.BindComposer" 
-   viewModel="@id('vm') @init('org.appsquad.viewmodel.CurrentOpportunitiesViewModel')">
+   																	viewModel="@id('vm') @init('org.appsquad.viewmodel.CurrentOpportunitiesViewModel')">
 	<div>
 	  <grid model="@bind(vm.currentOpportunitiesBeanList)" height="470px" mold="paging" pageSize="9">
 		<columns sizable="true">
@@ -27,28 +27,28 @@
 				<textbox value="@bind(v.skillset)" width="100%" readonly="true"></textbox>
 				<textbox value="@bind(v.resourceName)" width="100%" readonly="true"></textbox>
 				<textbox value="@bind(v.resourceType)" width="100%" readonly="true"></textbox>
-				<textbox value="@bind(v.tenureFromString)" width="100%" readonly="true"></textbox>
-				<textbox value="@bind(v.tenureToString)" width="100%"></textbox>
+				<datebox value="@bind(v.tenureFromsql)" width="100%"></datebox>
+				<datebox value="@bind(v.tenureTosql)" width="100%"></datebox>
 				<doublebox value="@bind(v.chargeoutRate)" width="100%"></doublebox>
 				<doublebox value="@bind(v.resourceSalary)" width="100%"></doublebox>
 				<doublebox value="@bind(v.margin)" width="100%"></doublebox>
 				
-				<combobox value="@bind(v.approval)" disabled="false" width="100%" readonly="true">
+				<combobox value="@bind(v.approval)" disabled="@bind(vm.comboBoxDisable)" width="100%" readonly="true">
 					<comboitem label="Approve"></comboitem>
 					<comboitem label="Reject"></comboitem>
 				</combobox>
 				
-				<combobox model="@bind(v.userClBeanList)" value="@bind(v.bean.userName)" width="100%" selectedItem="@bind(v.bean)" readonly="true">
+				<combobox model="@bind(v.userClBeanList)" value="@bind(v.bean.userID)" width="100%" selectedItem="@bind(v.bean)" readonly="true"
+				  disabled="@bind(vm.approverNameDisable)">
 					<template name="model" var = "p">
-					  <comboitem value="@bind(p.userId)" label="@bind(p.userName)"></comboitem>
+					  <comboitem value="@bind(p.userID)" label="@bind(p.userID)"></comboitem>
 					</template>
 				</combobox>
 				
 				<hlayout spacing="10px" width="100%">
-				  <button label="Send To Approver" visible="true" style="font-weight:bold"></button>
-				  <button label="Create Offer" visible="false" style="font-weight:bold"></button>	
+				  <button label="Send To Approver" visible="@bind(vm.sendToApproverVisibility)" style="font-weight:bold" onClick="@command('onSend', bean = v)"></button>
+				  <button label="Create Offer" visible="@bind(vm.createOfferVisibility)" style="font-weight:bold" onClick="@command('onCreate', bean = v)"></button>	
 				</hlayout>
-				
 			</row>
 		  </template>	
 		</rows>

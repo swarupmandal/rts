@@ -1,7 +1,7 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
 <window title="Resource CV Download Screen" border="normal" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('org.appsquad.viewmodel.demoViewModel')" contentStyle="overflow:scroll">
- <div>
+ <div align="center">
      <hlayout spacing="20px">
     				<hlayout>
     				<label value="* " style="font-weight:bold; color:red; font-size:large;" />
@@ -56,9 +56,9 @@
 					  </template>
 				</grid>			
  		</div>
- <space></space>
- <div align="center">
-   <button label="CV DOWNLOAD" onClick="@command('onClickDownload')" visible="@bind(vm.saveButtonVisibility)"></button>
- </div>
+    <space></space>
+	 <div align="center">
+	   <button label="CV DOWNLOAD" onClick="@command('onClickDownload')" visible="@bind(vm.saveButtonVisibility)"></button>
+	 </div>
 </window>
 </zk> 

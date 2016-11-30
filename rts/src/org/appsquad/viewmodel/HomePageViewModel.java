@@ -29,6 +29,7 @@ public class HomePageViewModel {
 	private boolean masterLinkVisibility = false;
 	private boolean userRoleLinkVisibility = false;
 	private boolean clientLinkVisibility = false;
+	private boolean userClientLinkVisibility = false;
 	private boolean skillSetLinkVisibility = false;
 	private boolean statusLinkVisibility = false;
 	private boolean registeredResourceLinkVisibility = false;
@@ -46,11 +47,11 @@ public class HomePageViewModel {
 	private boolean skillSetWiseRequirementList = false;
 	private boolean resourceDetailPerRequirementCV = false;
 	private boolean logAuditViewVisibility = false;
+	private boolean currentOpportunitiesViewVisibility = false;
 	
 	
 	@AfterCompose
-	public void initSetUp(@ContextParam(ContextType.VIEW) Component view)
-			throws Exception {
+	public void initSetUp(@ContextParam(ContextType.VIEW) Component view)throws Exception {
 		Selectors.wireComponents(view, this, false);
 		session = Sessions.getCurrent();
 		userId = (String) session.getAttribute("userId");
@@ -58,7 +59,7 @@ public class HomePageViewModel {
 			Executions.sendRedirect("/welcome1.zul");
 		}else{
 			user = userId;
-			userId = "Welcome :"+ userId.toUpperCase();
+			userId = "Welcome "+ userId.toUpperCase();
 			setRoleAccessLink(user);
 		}
 	}
@@ -82,45 +83,49 @@ public class HomePageViewModel {
 								bean.setUserId(resultSet.getString("user_id"));
 								bean.setUserSerialId(resultSet.getInt("user_serial_id"));
 								
-								if(bean.getMenusId()>=5 && bean.getMenusId()<=10){
+								if(bean.getMenusId()>=6 && bean.getMenusId()<=13){
 									bean.setMasterLink("Y");
 									masterLinkVisibility = true;
-									if(bean.getMenusId()==5){
+									if(bean.getMenusId()==6){
 										userRoleLinkVisibility = true;
-									}else if(bean.getMenusId()==6){
-										clientLinkVisibility = true;
 									}else if(bean.getMenusId()==7){
-										skillSetLinkVisibility = true;
-									}else if(bean.getMenusId()==8){
-										statusLinkVisibility = true;
-									}else if(bean.getMenusId()==9){
-										registeredResourceLinkVisibility = true;
+										clientLinkVisibility = true;
 									}else if(bean.getMenusId()==10){
-										userrofileLinkVisibility = true;
-									}
-								}else if(bean.getMenusId()>=11 && bean.getMenusId()<=13){
-									tranactionLinkVisibility = true;
-									if(bean.getMenusId()==11){
-										requirementGenerationLinkVisibility = true;
+										skillSetLinkVisibility = true;
+									}else if(bean.getMenusId()==11){
+										statusLinkVisibility = true;
 									}else if(bean.getMenusId()==12){
-										assignResourceToRIdLinkVisibility = true;
+										registeredResourceLinkVisibility = true;
 									}else if(bean.getMenusId()==13){
+										userrofileLinkVisibility = true;
+									}else if(bean.getMenusId()==9){
+										userClientLinkVisibility = true;
+									}
+								}else if(bean.getMenusId()>=14 && bean.getMenusId()<=16){
+									tranactionLinkVisibility = true;
+									if(bean.getMenusId()==14){
+										requirementGenerationLinkVisibility = true;
+									}else if(bean.getMenusId()==15){
+										assignResourceToRIdLinkVisibility = true;
+									}else if(bean.getMenusId()==16){
 										resourceAllocationTrackingLinkVisibility = true;
 									}
-								}else if(bean.getMenusId()>=14 && bean.getMenusId()<=18){
+								}else if(bean.getMenusId()>=18 && bean.getMenusId()<=24){
 									reportLinkVisibility = true;
-									if(bean.getMenusId()==14){
+									if(bean.getMenusId()==18){
 										requirementWiseStatusReport = true;
-									}else if(bean.getMenusId()==15){
-										individualClientReport = true;
-									}else if(bean.getMenusId()==16){
-										individualRequirementRIDReport = true;
-									}else if(bean.getMenusId()==17){
-										skillSetWiseRequirementList = true;
-									}else if(bean.getMenusId()==18){
-										resourceDetailPerRequirementCV = true;
 									}else if(bean.getMenusId()==19){
+										individualClientReport = true;
+									}else if(bean.getMenusId()==20){
+										individualRequirementRIDReport = true;
+									}else if(bean.getMenusId()==21){
+										skillSetWiseRequirementList = true;
+									}else if(bean.getMenusId()==23){
+										resourceDetailPerRequirementCV = true;
+									}else if(bean.getMenusId()==22){
 										logAuditViewVisibility = true;
+									}else if(bean.getMenusId()==24){
+										currentOpportunitiesViewVisibility = true;
 									}
 								}
 							}
@@ -303,12 +308,23 @@ public class HomePageViewModel {
 	public void setUser(String user) {
 		this.user = user;
 	}
-
 	public boolean isLogAuditViewVisibility() {
 		return logAuditViewVisibility;
 	}
-
 	public void setLogAuditViewVisibility(boolean logAuditViewVisibility) {
 		this.logAuditViewVisibility = logAuditViewVisibility;
+	}
+	public boolean isUserClientLinkVisibility() {
+		return userClientLinkVisibility;
+	}
+	public void setUserClientLinkVisibility(boolean userClientLinkVisibility) {
+		this.userClientLinkVisibility = userClientLinkVisibility;
+	}
+	public boolean isCurrentOpportunitiesViewVisibility() {
+		return currentOpportunitiesViewVisibility;
+	}
+	public void setCurrentOpportunitiesViewVisibility(
+			boolean currentOpportunitiesViewVisibility) {
+		this.currentOpportunitiesViewVisibility = currentOpportunitiesViewVisibility;
 	}
 }

@@ -7,6 +7,7 @@ public class UserClientMappingBean {
 	private Integer userId;
 	private String userName;
 	private String userEmil;
+	private String userID;
 	
 	public Integer getResClientMappingId() {
 		return resClientMappingId;
@@ -38,7 +39,10 @@ public class UserClientMappingBean {
 	public void setUserEmil(String userEmil) {
 		this.userEmil = userEmil;
 	}
-	
-	
-	
+	public String getUserID() {
+		return userID;
+	}
+	public void setUserID(String userID) {
+		this.userID = userID;
+	}
 }

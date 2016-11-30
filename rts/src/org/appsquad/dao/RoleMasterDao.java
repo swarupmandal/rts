@@ -395,6 +395,98 @@ public class RoleMasterDao {
 		return userList;
 	}
 	
+	public static ArrayList<UserprofileBean> onLoadUserDeatilsForApprover(){
+		ArrayList<UserprofileBean> userList = new ArrayList<UserprofileBean>();
+		Connection connection = null;
+		try {
+			connection = DbConnection.createConnection();
+			sql_connection:{
+				try {
+					//1st SQL block
+					sql_fetch:{
+					   PreparedStatement preparedStatement = null;
+					   try {
+						    preparedStatement = Pstm.createQuery(connection, RoleMasterSql.fetchUserQueryForApproverSql, null);
+						    logger.info("onLoadUserDeatils- " + preparedStatement.unwrap(PreparedStatement.class));
+							ResultSet resultSet = preparedStatement.executeQuery();
+							while (resultSet.next()) {
+								UserprofileBean bean = new UserprofileBean();
+								bean.setId(resultSet.getInt("id"));
+								bean.setUserid(resultSet.getString("user_id"));
+								bean.setUsername(resultSet.getString("user_name"));
+								
+								userList.add(bean);
+							}  
+						} finally{
+							if(preparedStatement!=null){
+								preparedStatement.close();
+							}
+						}
+				    }
+				} catch (Exception e) {
+					e.printStackTrace();
+					logger.error(e);
+					logger.fatal(e);
+				}finally{
+					if(connection!=null){
+						connection.close();
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(e);
+			logger.fatal(e);
+		}
+		return userList;
+	}
+	
+	public static ArrayList<UserprofileBean> onLoadUserDeatilsWithSearch(String name){
+		ArrayList<UserprofileBean> userList = new ArrayList<UserprofileBean>();
+		Connection connection = null;
+		try {
+			connection = DbConnection.createConnection();
+			sql_connection:{
+				try {
+					//1st SQL block
+					sql_fetch:{
+					   PreparedStatement preparedStatement = null;
+					   try {
+						    preparedStatement = Pstm.createQuery(connection, RoleMasterSql.fetchUserQuerySearchsql, Arrays.asList("%"+name+"%".trim().toUpperCase()));
+						    logger.info("SEARCH USER ID IN USER CLINET MAPPING SCREEN- " + preparedStatement.unwrap(PreparedStatement.class));
+							ResultSet resultSet = preparedStatement.executeQuery();
+							while (resultSet.next()) {
+								UserprofileBean bean = new UserprofileBean();
+								bean.setId(resultSet.getInt("id"));
+								bean.setUserid(resultSet.getString("user_id"));
+								bean.setUsername(resultSet.getString("user_name"));
+								
+								userList.add(bean);
+							}  
+						} finally{
+							if(preparedStatement!=null){
+								preparedStatement.close();
+							}
+						}
+				    }
+				} catch (Exception e) {
+					e.printStackTrace();
+					logger.error(e);
+					logger.fatal(e);
+				}finally{
+					if(connection!=null){
+						connection.close();
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(e);
+			logger.fatal(e);
+		}
+		return userList;
+	}
+	
 	public static ArrayList<RoleMasterBean> onLoadMappingDeatils(){
 		ArrayList<RoleMasterBean> mappingList = new ArrayList<RoleMasterBean>();
 		Connection connection = null;

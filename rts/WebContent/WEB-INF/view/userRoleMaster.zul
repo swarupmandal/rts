@@ -100,7 +100,6 @@
                                     <column label="User-Name" align="center"/>
                                     <column label="Role-Name" align="center"/>
                                     <column label="Update" align="center"/>
-                                    <!-- <column label="Page Access" align="center"/> -->
                                </columns>
                                <rows>
                                    <template name="model" var="v">
@@ -108,7 +107,6 @@
                                        <textbox value="@bind(v.userprofileBean.username)" readonly="true"></textbox>
                                        <textbox value="@bind(v.downBean.roll)" readonly="true" width="220px"></textbox>
                                        <button label="Update" onClick="@command('onClickUpdate', bean = v)"/>
-                                      <!--  <button label="Page Access" onClick="@command('onClickPage', bean = v)"/> -->
                                    </row>
                                    </template>
                                </rows>
