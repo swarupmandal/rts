@@ -147,15 +147,19 @@
          </treeitem>
          <treeitem open="false">  
            <treerow>
-           	<treecell label=" Current Opportunities Operation"
-           													onClick='inclResults.setSrc("/WEB-INF/view/currentOpportunitiesReport.zul");'>
+           	<treecell label=" Current Opportunities Operation" onClick='inclResults.setSrc("/WEB-INF/view/currentOpportunitiesReport.zul");'>
            	</treecell>
            </treerow>
          </treeitem>
          <treeitem open="false">  
            <treerow>
-           	<treecell label=" Current Opportunities Report"
-           													onClick='inclResults.setSrc("/WEB-INF/view/currentOpportunitiesReportScreen.zul");'>
+           	<treecell label=" Current Opportunities Report" onClick='inclResults.setSrc("/WEB-INF/view/currentOpportunitiesReportScreen.zul");'>
+           	</treecell>
+           </treerow>
+         </treeitem>
+         <treeitem open="false">  
+           <treerow>
+           	<treecell label=" Task Name Creation" onClick='inclResults.setSrc("/WEB-INF/view/taskName.zul");'>
            	</treecell>
            </treerow>
          </treeitem>
