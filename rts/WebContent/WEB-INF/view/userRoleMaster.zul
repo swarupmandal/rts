@@ -66,9 +66,7 @@
                                       <column></column>
                                       <column></column>
                                 </columns>
-                                
                                 <rows>
-                                
 								   <row>
 					  					<label value="User Name" style="font-weight:bold"></label>		
 					  					<combobox model="@bind(vm.userList)"  selectedItem="@bind(vm.roleMasterBean.userprofileBean)" readonly="true"

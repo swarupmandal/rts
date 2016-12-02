@@ -1,0 +1,71 @@
+<?page title="Task Name Screen" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="TASK DETAILS SCREEN" apply="org.zkoss.bind.BindComposer" 
+											viewModel="@id('vm') @init('org.appsquad.viewmodel.TaskNameViewModel')">
+   <div>
+             <hlayout>
+                            <grid>
+                                <columns>
+                                      <column></column>
+                                      <column></column>
+                                </columns>
+                                <rows>
+								   <row>
+								        <label value="Task Name:-"></label>
+					  					<textbox placeholder="Task Name" width="170px" value="@bind(vm.taskBean.taskName)"></textbox>
+					  					<label value="Assigned By:-"></label>
+					  					<textbox value="@bind(vm.userId)" readonly="true" width="170px"></textbox>
+								   </row>
+								   <row>
+								     <label value="Assign To:-"></label>
+					  				<bandbox autodrop="true" readonly="true" id="userBb" value="@bind(vm.taskBean.userprofileBean.userid)" placeholder="Search By User ID">
+											<bandpopup>	
+												<hbox>
+													<textbox value="@bind(vm.taskBean.userIdSearch)" onChange="@command('onChangeUserId')" width="170px"></textbox>
+													<button label="Serach" onClick="@command('onChangeUserId')"></button>
+												</hbox>
+												<space></space>
+												<listbox width="280px" model="@bind(vm.userList)" 
+												     selectedItem="@bind(vm.taskBean.userprofileBean)" onSelect="@command('onSelctUserId')" mold="paging" pageSize="5">
+													<listhead sizable="true">
+														<listheader label="User Id"></listheader>
+													</listhead>
+													<template name="model" var = "v">
+													<listitem>
+													  <listcell label="@load(v.userid)"></listcell>
+													</listitem>
+												   </template>
+												</listbox>
+											</bandpopup>
+									   </bandbox>
+					  				 <label value="Assigning Date:-"></label>
+					  				 <textbox width="170px" value="@bind(vm.taskBean.createdDateStr)" readonly="true"></textbox>
+					  				 <button label="Save" width="80px" onClick="@command('onClickSave')"></button>
+								   </row>
+								 </rows>
+                            </grid>
+                            </hlayout>
+                        </div>
+                        <space></space>
+                       <div visible="@bind(vm.taskBean.divVisibility)">
+                           <grid model="@bind(vm.taskDetailsList)" mold="paging" pageSize="11" sclass="fgrid">
+                               <columns>
+                                    <column label="Task Name" align="center" width="230px"/>
+                                    <column label="Assigned By" align="center" width="230px"/>
+                                    <column label="Assigned To" align="center" width="230px"/>
+                                    <column label="Task Creation Date" align="center" width="230px"/>
+                               </columns>
+                               <rows>
+                                   <template name="model" var="v">
+                                   <row>
+                                       <textbox value="@bind(v.taskName)" readonly="true" width="99%"/>
+                                       <textbox value="@bind(v.assignedByUserId)" readonly="true" width="99%"/>
+                                       <textbox value="@bind(v.userprofileBean.userid)" readonly="true" width="99%"/>
+                                       <textbox value="@bind(v.createdDateStr)" readonly="true" width="99%"/>
+                                   </row>
+                                   </template>
+                               </rows>
+                           </grid>
+                       </div>
+			</window>
+</zk>
