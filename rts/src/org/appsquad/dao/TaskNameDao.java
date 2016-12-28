@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import org.appsquad.bean.TaskNameBean;
+import org.appsquad.bean.TaskStatusBean;
 import org.appsquad.database.DbConnection;
 import org.appsquad.utility.MonthPdfComparator;
 import org.appsquad.utility.ScheduleDateComparator;
@@ -93,6 +94,62 @@ public class TaskNameDao {
 						    	    taskNameBean.setScheduledDateStr(resultSet.getString("schedl_date"));
 						    	    taskNameBean.setActualCompletionDateStr(resultSet.getString("completion_date"));
 						    	    
+						    	    detailsList.add(taskNameBean);
+						    	}
+						    }finally{
+						    	if(preparedStatementFetch!=null){
+						    		preparedStatementFetch.close();
+						    	}
+						    }
+					    }
+					} catch (Exception e) {
+						e.printStackTrace();
+					}finally{
+						if(connection!=null){
+							connection.close();
+						}
+					 }
+				  }
+			   } catch (Exception e) {
+				 e.printStackTrace();
+			   }
+		  return detailsList;
+	   }
+	   
+	   public static ArrayList<TaskNameBean> fetchAssignedTaskDeatils(String userId){
+		   ArrayList<TaskNameBean> detailsList = new ArrayList<TaskNameBean>();
+		   try {
+				 Connection connection = DbConnection.createConnection();
+				 sql_connection:{
+					 try {
+						//insert query
+						 sql:{
+						    PreparedStatement preparedStatementFetch = null;
+						    try{
+						    	String sql = "select * from vw_rts_task_details where assigned_to = ?";
+						    	preparedStatementFetch = connection.prepareStatement(sql);
+						    	preparedStatementFetch.setString(1, userId);
+						    	ResultSet resultSet = preparedStatementFetch.executeQuery();
+						    	while(resultSet.next()){
+						    	    TaskNameBean taskNameBean = new TaskNameBean();
+						    	    taskNameBean.setRtsTaskId(resultSet.getInt("rts_task_id"));
+						    	    taskNameBean.setTaskName(resultSet.getString("task_name"));
+						    	    taskNameBean.setAssignedByUserId(resultSet.getString("assigned_by"));
+						    	    taskNameBean.userprofileBean.setUserid(resultSet.getString("assigned_to"));
+						    	    taskNameBean.setAssignedTo(resultSet.getString("assigned_to"));
+						    	    taskNameBean.setCreatedDateStr(resultSet.getString("creation_date"));
+						    	    taskNameBean.setCreatedDate(resultSet.getDate("created_date"));
+						    	    taskNameBean.setScheduledDate(resultSet.getDate("schedl_date"));
+						    	    taskNameBean.setVenue(resultSet.getString("venue"));
+						    	    TaskStatusBean statusBean = new TaskStatusBean();
+						    	    statusBean.setTaskStatusId(resultSet.getInt("task_status_id"));
+						    	    statusBean.setTaskStatusName(resultSet.getString("task_status_name"));
+						    	    taskNameBean.setTaskStatusBean(statusBean);
+						    	    taskNameBean.setStatus(resultSet.getString("status"));
+						    	    taskNameBean.setRemarksOrResults(resultSet.getString("remarks_or_results"));
+						    	    taskNameBean.setScheduledDateStr(resultSet.getString("schedl_date"));
+						    	    taskNameBean.setActualCompletionDateStr(resultSet.getString("completion_date"));
+						    	    taskNameBean.setActualCompletionDate(resultSet.getDate("completion_date"));
 						    	    detailsList.add(taskNameBean);
 						    	}
 						    }finally{

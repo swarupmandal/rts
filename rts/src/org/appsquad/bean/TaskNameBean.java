@@ -1,5 +1,6 @@
 package org.appsquad.bean;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class TaskNameBean {
@@ -39,7 +40,8 @@ public class TaskNameBean {
     private boolean innerRadioGroup = false;
     
     public UserprofileBean userprofileBean = new UserprofileBean();
-   
+    private TaskStatusBean taskStatusBean = new TaskStatusBean();
+    private ArrayList<TaskStatusBean> taskStatusBeanList = new ArrayList<TaskStatusBean>();
     
     /*************************************************************************************************************************************************/
     
@@ -222,5 +224,17 @@ public class TaskNameBean {
 	}
 	public void setMonth(Integer month) {
 		this.month = month;
+	}
+	public TaskStatusBean getTaskStatusBean() {
+		return taskStatusBean;
+	}
+	public void setTaskStatusBean(TaskStatusBean taskStatusBean) {
+		this.taskStatusBean = taskStatusBean;
+	}
+	public ArrayList<TaskStatusBean> getTaskStatusBeanList() {
+		return taskStatusBeanList;
+	}
+	public void setTaskStatusBeanList(ArrayList<TaskStatusBean> taskStatusBeanList) {
+		this.taskStatusBeanList = taskStatusBeanList;
 	}
 }
