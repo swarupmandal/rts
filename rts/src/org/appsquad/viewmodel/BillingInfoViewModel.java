@@ -7,10 +7,8 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
-
 import org.appsquad.bean.CurrentOpportunitiesReportBean;
 import org.appsquad.dao.CurrentOpportunitiesReportDao;
-import org.appsquad.utility.TimeSheetDownloadUtility;
 import org.zkoss.bind.BindContext;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
@@ -240,6 +238,23 @@ public class BillingInfoViewModel {
     		Map<String, Object> parentMap = new HashMap<String, Object>();
 	    	parentMap.put("fetchPath", newPath);
 	    	Window window = (Window) Executions.createComponents("/WEB-INF/view/testingTimesheet.zul", null, parentMap);
+			window.doModal();
+    	}else{
+    		Messagebox.show("No Uploaded File Found.", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
+    	}
+    }
+    
+    @Command
+    @NotifyChange("*")
+    public void downloadInvoice(@BindingParam("bean") CurrentOpportunitiesReportBean currentOpportunitiesReportBean) throws Exception{
+    	String invoicePath = "";
+    	if(currentOpportunitiesReportBean.getSecondFilePath()!=null){
+    		System.out.println(currentOpportunitiesReportBean.getSecondFilePath());
+    		invoicePath=currentOpportunitiesReportBean.getSecondFilePath().replace('\\','/');
+    		System.out.println(invoicePath);
+    		Map<String, Object> invoiceMap = new HashMap<String, Object>();
+    		invoiceMap.put("fetchOnvoice", invoicePath);
+	    	Window window = (Window) Executions.createComponents("/WEB-INF/view/testingInvoice.zul", null, invoiceMap);
 			window.doModal();
     	}else{
     		Messagebox.show("No Uploaded File Found.", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);

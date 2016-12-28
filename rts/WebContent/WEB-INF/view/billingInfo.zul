@@ -81,7 +81,7 @@
 								</button>
 								<label value="@bind(v.secondFileName)"></label>
 							</hlayout>
-							<button></button>
+							<button onClick="@command('downloadInvoice', bean = v)"></button>
 							<doublebox width="98%"
 								value="@bind(v.billNo)" maxlength="8">
 							</doublebox>
