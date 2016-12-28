@@ -98,8 +98,8 @@ public class CurrentOppurtunitiesReportPdf {
 		}
 	 
 	 public void printDetails(ArrayList<CurrentOpportunitiesReportGenerationBean> list) throws DocumentException{
-	 		String[] headerLabes = {"Month", "Bill Number", "Bill Date", "Bill Amount", "Paid", "Cheque Details"};
-	 		float[]	widths = {20f,12f,12f,12f,20f,12f};
+	 		String[] headerLabes = {"Year","Month", "Bill Number", "Bill Date", "Bill Amount", "Paid", "Cheque Details"};
+	 		float[]	widths = {20f,20f,12f,12f,12f,20f,12f};
 	 		PdfPTable headerTable = new PdfPTable(widths);
 	 		headerTable.setWidthPercentage(96);
 	 		
@@ -118,7 +118,24 @@ public class CurrentOppurtunitiesReportPdf {
 	 		}
 	         
 	         for(CurrentOpportunitiesReportGenerationBean bean : list){
-	            cell_1: {
+	        	 
+	        	 cell_1: {
+		 			PdfPCell cell;
+		 				if(bean.getCurrentOpportunitiesReportBean().getYear()!=null && bean.getCurrentOpportunitiesReportBean().getYear().trim().length()>0){
+		 					Paragraph headerParagraph = new Paragraph(bean.getCurrentOpportunitiesReportBean().getYear());
+		 					headerParagraph.getFont().setSize(5f);
+		 					headerParagraph.setAlignment(Element.ALIGN_CENTER);
+		 					headerParagraph.getFont().setStyle(Font.NORMAL);
+
+		 					cell = new PdfPCell(headerParagraph);
+		 					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+
+		 					headerTable.addCell(cell);
+		 				}
+		 		 } 
+	        	 
+	        	 
+	            cell_2: {
 	 			PdfPCell cell;
 	 				if(bean.getCurrentOpportunitiesReportBean().getMonth()!=null && bean.getCurrentOpportunitiesReportBean().getMonth().trim().length()>0){
 	 					Paragraph headerParagraph = new Paragraph(bean.getCurrentOpportunitiesReportBean().getMonth());
@@ -133,9 +150,9 @@ public class CurrentOppurtunitiesReportPdf {
 	 				}
 	 		    }
 	         
-	         	cell_2: {
+	         	cell_3: {
 	 			PdfPCell cell;
-	 				if(bean.getCurrentOpportunitiesReportBean().getBillNoString()!=null){
+	 				if(bean.getCurrentOpportunitiesReportBean().getBillNoString()!=null && bean.getCurrentOpportunitiesReportBean().getBillNoString()!="0"){
 	 					Paragraph headerParagraph = new Paragraph(String.valueOf(bean.getCurrentOpportunitiesReportBean().getBillNoString()));
 	 					headerParagraph.getFont().setSize(5f);
 	 					headerParagraph.setAlignment(Element.ALIGN_CENTER);
@@ -143,10 +160,21 @@ public class CurrentOppurtunitiesReportPdf {
 	 					cell = new PdfPCell(headerParagraph);
 	 					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 	 					headerTable.addCell(cell);
+	 				}else{
+	 					String billNo = "";
+	 					Paragraph headerParagraph = new Paragraph(billNo);
+	 					headerParagraph.getFont().setSize(5f);
+	 					headerParagraph.setAlignment(Element.ALIGN_CENTER);
+	 					headerParagraph.getFont().setStyle(Font.NORMAL);
+
+	 					cell = new PdfPCell(headerParagraph);
+	 					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+
+	 					headerTable.addCell(cell);
 	 				}
 	 			}
 	 		    
-	 		   cell_3: {
+	 		   cell_4: {
 	 	 			PdfPCell cell;
 	 	 				if(bean.getCurrentOpportunitiesReportBean().getBillDateSql()!=null){
 	 	 					Paragraph headerParagraph = new Paragraph(String.valueOf(bean.getCurrentOpportunitiesReportBean().getBillDateSql()));
@@ -157,8 +185,8 @@ public class CurrentOppurtunitiesReportPdf {
 	 	 					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 	 	 					headerTable.addCell(cell);
 	 	 				}else{
-		 					String month = "";
-		 					Paragraph headerParagraph = new Paragraph(month);
+		 					String billDate = "";
+		 					Paragraph headerParagraph = new Paragraph(billDate);
 		 					headerParagraph.getFont().setSize(5f);
 		 					headerParagraph.setAlignment(Element.ALIGN_CENTER);
 		 					headerParagraph.getFont().setStyle(Font.NORMAL);
@@ -170,9 +198,9 @@ public class CurrentOppurtunitiesReportPdf {
 		 				}
 	 	 			}
 	 			
-	 			cell_4: {
+	 			cell_5: {
 	 	 	 			PdfPCell cell;
-	 	 	 				if(bean.getCurrentOpportunitiesReportBean().getBillAmountString()!=null){
+	 	 	 				if(bean.getCurrentOpportunitiesReportBean().getBillAmountString()!=null && bean.getCurrentOpportunitiesReportBean().getBillAmountString()!="0"){
 	 	 	 					Paragraph headerParagraph = new Paragraph(String.valueOf(bean.getCurrentOpportunitiesReportBean().getBillAmountString()));
 	 	 	 					headerParagraph.getFont().setSize(5f);
 	 	 	 					headerParagraph.setAlignment(Element.ALIGN_CENTER);
@@ -180,10 +208,21 @@ public class CurrentOppurtunitiesReportPdf {
 	 	 	 					cell = new PdfPCell(headerParagraph);
 	 	 	 					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 	 	 	 					headerTable.addCell(cell);
+	 	 	 				}else{
+	 	 	 					String billAmount = "";
+			 					Paragraph headerParagraph = new Paragraph(billAmount);
+			 					headerParagraph.getFont().setSize(5f);
+			 					headerParagraph.setAlignment(Element.ALIGN_CENTER);
+			 					headerParagraph.getFont().setStyle(Font.NORMAL);
+
+			 					cell = new PdfPCell(headerParagraph);
+			 					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+
+			 					headerTable.addCell(cell);
 	 	 	 				}
 	 	 	 			}
 	 			
-	 	 			cell_5: {
+	 	 			cell_6: {
 	 	 	 	 			PdfPCell cell;
 	 	 	 	 				if(bean.getCurrentOpportunitiesReportBean().getPaid()!=null && bean.getCurrentOpportunitiesReportBean().getPaid().trim().length()>0){
 	 	 	 	 					Paragraph headerParagraph = new Paragraph(bean.getCurrentOpportunitiesReportBean().getPaid());
@@ -196,7 +235,7 @@ public class CurrentOppurtunitiesReportPdf {
 	 	 	 	 				}
 	 	 	 	 			}
 	 			
-	 	 	 			cell_6: {
+	 	 	 			cell_7: {
 	 	 	 	 	 			PdfPCell cell;
 	 	 	 	 	 				if(bean.getCurrentOpportunitiesReportBean().getChqDetails()!=null && 
 	 	 	 	 	 											bean.getCurrentOpportunitiesReportBean().getChqDetails().trim().length()>0){

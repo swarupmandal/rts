@@ -16,6 +16,12 @@ public class ResourceAllocationTrackingService {
 		list = ResourceAllocationTrackingDao.fetchClientDetails();
 		return list;
 	}
+
+	public static ArrayList<ClientInformationBean> fetchClientDetailsForReport(){
+		ArrayList<ClientInformationBean> list = new ArrayList<ClientInformationBean>();
+		list = ResourceAllocationTrackingDao.fetchClientDetailsForReport();
+		return list;
+	}
 	
 	public static ArrayList<RequirementGenerationBean> fetchReq(int clId){
 		ArrayList<RequirementGenerationBean> list = new ArrayList<RequirementGenerationBean>();

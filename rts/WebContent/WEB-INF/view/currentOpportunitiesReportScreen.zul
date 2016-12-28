@@ -10,7 +10,7 @@
             </tabs>
             <tabpanels>
                   <tabpanel>
-                      <div align="center">
+                    <!--   <div align="center">
    						<hlayout spacing="12px">
 		      				<hlayout>
 		    				<label value="* " style="font-weight:bold; color:red; font-size:large;" />
@@ -30,10 +30,11 @@
 		    				</hlayout>
    				        </hlayout>
  					</div>
-                       <space></space>
+                       <space></space> -->
                       <div visible="@bind(vm.divVisibility)">
-			    			<grid model="@bind(vm.reportList)" mold="paging" pageSize="8" height="350px">	
+			    			<grid model="@bind(vm.reportList)" mold="paging" pageSize="10" height="400px">	
 			    				<columns sizable="true">
+			    				    <column width="300px" label="Year" style="font-weight:bold; color: black" align="center"></column>
 			    					<column width="300px" label="Month" style="font-weight:bold; color: black" align="center"></column>
 			    					<column width="140px" label="Bill No" style="font-weight:bold; color: black" align="center"></column>
 			    					<column width="100px" label="Bill Date" style="font-weight:bold; color: black" align="center"></column>
@@ -44,6 +45,7 @@
 			    				<rows>
 			    				  <template name="model" var = "v">
 			    					<row style="@bind(v.backGround)">
+			    					    <label value="@bind(v.currentOpportunitiesReportBean.year)" width="98%" style="@bind(v.style)"></label>
 			    				  		<label value="@bind(v.currentOpportunitiesReportBean.month)" width="98%" style="@bind(v.style)"></label>
 			    				  		<label value="@bind(v.currentOpportunitiesReportBean.billNoString)" width="98%" style="@bind(v.style)"></label>
 			    				  		<label value="@bind(v.currentOpportunitiesReportBean.billDateSql)" width="98%" style="@bind(v.style)"></label>

@@ -9,7 +9,8 @@
     					<column width="200px" label="Client Name" style="font-weight:bold; color: black" align="center"></column>
     					<column width="200px" label="Resource Name" style="font-weight:bold; color: black" align="center"></column>
     					<column width="160px" label="Charge Out Rate(Monthly)" style="font-weight:bold; color: black" align="center"></column>
-    					<column width="160px" label="Resource Sallary(Monthly)" style="font-weight:bold; color: black" align="center"></column>
+    					<column width="160px" label="Resource Sallary(Monthly)" style="font-weight:bold; color: black" align="center">
+    					</column>
     					<column width="118px" label="Tenture From Date" style="font-weight:bold; color: black" align="center"></column>
     					<column width="100px" label="Tenture To Date" style="font-weight:bold; color: black" align="center"></column>
     					<column width="100px"  label="Operation" style="font-weight:bold; color: black" align="center"></column>

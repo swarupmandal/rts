@@ -11,7 +11,13 @@ public class CurrentOpportunitiesReportGenerationService {
    
 	public static ArrayList<CurrentOpportunitiesReportGenerationBean> loadReportDetails(Date fromDate, Date toDate){
 		ArrayList<CurrentOpportunitiesReportGenerationBean> list = null;
-		list = CurrentOpportunitiesReportGenerationDao.loadReportData(fromDate, toDate);
+		//list = CurrentOpportunitiesReportGenerationDao.loadReportData(fromDate, toDate);
+		return list;
+	}
+	
+	public static ArrayList<CurrentOpportunitiesReportGenerationBean> loadReportDetailsUnpaid(){
+		ArrayList<CurrentOpportunitiesReportGenerationBean> list = null;
+		list = CurrentOpportunitiesReportGenerationDao.loadReportData();
 		return list;
 	}
 	

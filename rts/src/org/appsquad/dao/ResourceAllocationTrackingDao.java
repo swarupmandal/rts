@@ -21,6 +21,47 @@ import org.appsquad.utility.Pstm;
 public class ResourceAllocationTrackingDao {
 	final static Logger logger = Logger.getLogger(ResourceAllocationTrackingDao.class);
 	
+	public static ArrayList<ClientInformationBean> fetchClientDetailsForReport(){
+		ArrayList<ClientInformationBean> list = new ArrayList<ClientInformationBean>();
+		if(list.size()>0){
+			list.clear();	
+		}
+		try {
+			Connection connection = null;
+			PreparedStatement preparedStatement = null;
+			ResultSet resultSet = null;
+			try {
+				connection = DbConnection.createConnection();
+				preparedStatement = Pstm.createQuery(connection, ResourceAllocationTrackingSql.loadClientList, null);
+				logger.info(" fetchClientDetails- " + preparedStatement.unwrap(PreparedStatement.class));
+				resultSet = preparedStatement.executeQuery();
+				while (resultSet.next()) {
+					ClientInformationBean bean = new ClientInformationBean();
+					bean.setClientId(resultSet.getInt("id"));
+					bean.setFullName(resultSet.getString("clientname"));
+					
+					list.add(bean);
+				}
+				ClientInformationBean clientInformationBean = new ClientInformationBean();
+				clientInformationBean.setFullName("-ALL-");
+				list.add(clientInformationBean);
+			} finally {
+				if(preparedStatement != null){
+					preparedStatement.close();
+				}if(resultSet != null){
+					resultSet.close();
+				}if(connection != null){
+					connection.close();
+				}
+			}
+		} catch (Exception e) {
+			logger.fatal(e);
+			logger.error(e);
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
 	public static ArrayList<ClientInformationBean> fetchClientDetails(){
 		ArrayList<ClientInformationBean> list = new ArrayList<ClientInformationBean>();
 		if(list.size()>0){

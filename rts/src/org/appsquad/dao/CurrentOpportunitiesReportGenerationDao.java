@@ -1,28 +1,146 @@
 package org.appsquad.dao;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.appsquad.bean.CurrentOpportunitiesReportGenerationBean;
-import org.appsquad.bean.ResourceAllocationBean;
 import org.appsquad.bean.ResourceMasterBean;
 import org.appsquad.database.DbConnection;
 import org.appsquad.sql.CurrentOpportunitiesReportGenerationSql;
 import org.appsquad.sql.ResourceAllocationSql;
-import org.appsquad.utility.Main;
 import org.appsquad.utility.MonthShowingForReport;
 import org.appsquad.utility.Pstm;
 
 public class CurrentOpportunitiesReportGenerationDao {
 	final static Logger logger = Logger.getLogger(CurrentOpportunitiesReportGenerationDao.class);
 	
-	public static ArrayList<CurrentOpportunitiesReportGenerationBean> loadReportData(Date fromDate, Date toDate) {
+	
+	public static int countForParentRow(int trackingID,Connection connection) throws Exception{
+		int counter = 0;
+		PreparedStatement preparedStatementFetch = null;
+		try{
+			String sql = "select count(*) from rts_current_oppur_report_status where rts_tracking_details_id = ? ";
+			preparedStatementFetch = connection.prepareStatement(sql);
+			preparedStatementFetch.setInt(1, trackingID);
+			ResultSet resultSet = preparedStatementFetch.executeQuery();
+			while(resultSet.next()){
+				counter = resultSet.getInt(1);
+			}
+		}finally{
+			if(preparedStatementFetch!=null){
+				preparedStatementFetch.close();
+			}
+		}
+		return counter;
+	}
+	
+	public static ArrayList<CurrentOpportunitiesReportGenerationBean> loadReportData() {
+		ArrayList<CurrentOpportunitiesReportGenerationBean> list = new ArrayList<CurrentOpportunitiesReportGenerationBean>();
+		if (list.size() > 0) {
+			list.clear();
+		}
+		try {
+			Connection connection = null;
+			PreparedStatement preparedStatement = null;
+			ResultSet resultSet = null;
+			try {
+				connection = DbConnection.createConnection();
+				preparedStatement = Pstm.createQuery(connection,CurrentOpportunitiesReportGenerationSql.reportSql,null);
+				logger.info("load Client List with date range- "+ preparedStatement.unwrap(PreparedStatement.class));
+				resultSet = preparedStatement.executeQuery();
+				while (resultSet.next()) {
+					CurrentOpportunitiesReportGenerationBean bean = new CurrentOpportunitiesReportGenerationBean();
+					
+					bean.setTrackingDetailsId(resultSet.getInt("rts_tracking_details_id"));
+					bean.getCurrentOpportunitiesReportBean().setYear("Client Name: "+resultSet.getString("clientname"));
+					bean.getCurrentOpportunitiesReportBean().setMonth("RequirementID: "+resultSet.getInt("r_id"));
+					bean.getCurrentOpportunitiesReportBean().setBillNoString(null);
+					bean.getCurrentOpportunitiesReportBean().setBillDateSql(null);
+					bean.getCurrentOpportunitiesReportBean().setBillAmountString("Skill Set: "+resultSet.getString("master_skill_set_name"));
+					bean.getCurrentOpportunitiesReportBean().setPaid("Resource Name: "+resultSet.getString("resource_name"));
+					bean.getCurrentOpportunitiesReportBean().setChqDetails(null);
+					bean.setBackGround(bean.getBackGroundpaParent());
+					bean.setStyle(bean.getBoldStyle());
+					
+					int count = countForParentRow(bean.getTrackingDetailsId(), connection);
+					if(count>0){
+						list.add(bean);
+					}
+					
+					sub_sql: {
+						PreparedStatement preparedStatement2 = null;
+						ResultSet resultSet2 = null;
+						try {
+							preparedStatement2 = Pstm.createQuery(connection,CurrentOpportunitiesReportGenerationSql.subReportSql,Arrays.asList(bean.getTrackingDetailsId()));
+							logger.info("Client DETAILS - "+ preparedStatement2.unwrap(PreparedStatement.class));
+							resultSet2 = preparedStatement2.executeQuery();
+							while (resultSet2.next()) {
+								CurrentOpportunitiesReportGenerationBean subBean = new CurrentOpportunitiesReportGenerationBean();
+								
+								subBean.setTrackingDetailsId(resultSet.getInt("rts_tracking_details_id"));
+								subBean.getClientInformationBean().setFullName(null);
+								subBean.getCurrentOpportunitiesReportBean().setYear(resultSet2.getString("year"));
+								subBean.getCurrentOpportunitiesReportBean().setMonth(resultSet2.getString("month"));
+								subBean.getRequirementGenerationBean().setRequirementId(null);
+								if(Integer.valueOf(resultSet2.getString("bill_no"))==0){
+									subBean.getCurrentOpportunitiesReportBean().setBillNoString(null);
+								}else{
+									subBean.getCurrentOpportunitiesReportBean().setBillNoString(resultSet2.getString("bill_no"));
+								}
+								subBean.getSkillsetMasterbean().setSkillset(null);
+								subBean.getCurrentOpportunitiesReportBean().setBillDateSql(resultSet2.getDate("bill_date"));
+								subBean.getResourceMasterBean().setFullName(null);
+								if(Integer.valueOf(resultSet2.getString("bill_amount"))==0){
+									subBean.getCurrentOpportunitiesReportBean().setBillAmountString(null);
+								}else{
+									subBean.getCurrentOpportunitiesReportBean().setBillAmountString(resultSet2.getString("bill_amount"));
+								}
+								subBean.getCurrentOpportunitiesReportBean().setPaid(resultSet2.getString("paid"));
+								if(Integer.valueOf(resultSet2.getString("chq_details"))==0){
+									subBean.getCurrentOpportunitiesReportBean().setChqDetails(null);
+								}else{
+									subBean.getCurrentOpportunitiesReportBean().setChqDetails(resultSet2.getString("chq_details"));
+								}
+								subBean.setStyle(subBean.getLighterStyle());
+								
+                                list.add(subBean);
+							}
+						} finally {
+							if (preparedStatement2 != null) {
+								preparedStatement2.close();
+							}
+							if (resultSet2 != null) {
+								resultSet2.close();
+							}
+						}
+					}
+				}
+			} finally {
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+				if (resultSet != null) {
+					resultSet.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			}
+		} catch (Exception e) {
+			logger.fatal(e);
+			logger.error(e);
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	
+	/*public static ArrayList<CurrentOpportunitiesReportGenerationBean> loadReportData(Date fromDate, Date toDate) {
 		ArrayList<CurrentOpportunitiesReportGenerationBean> list = new ArrayList<CurrentOpportunitiesReportGenerationBean>();
 		if (list.size() > 0) {
 			list.clear();
@@ -102,7 +220,7 @@ public class CurrentOpportunitiesReportGenerationDao {
 			e.printStackTrace();
 		}
 		return list;
-	}
+	}*/
 	
 	public static ArrayList<ResourceMasterBean> onLoadResourceDetails(){
 		ArrayList<ResourceMasterBean> resourceList = new ArrayList<ResourceMasterBean>();

@@ -11,7 +11,6 @@ import org.appsquad.service.CurrentOpportunitiesReportGenerationService;
 import org.appsquad.service.ResourceAllocationTrackingService;
 import org.appsquad.utility.CurrentOppurtunitiesReportPdf;
 import org.appsquad.utility.CurrentOppurtunitiesReportPdfForOppurtunityWise;
-import org.appsquad.utility.Dateformatter;
 import org.appsquad.utility.MonthShowingUtility;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.Command;
@@ -60,8 +59,13 @@ public class CurrentOpportunitiesReportGenerationViewModel {
  		Selectors.wireComponents(view, this, false);
  		sessions = Sessions.getCurrent();
  		userId = (String) sessions.getAttribute("userId");
- 		clientList = ResourceAllocationTrackingService.fetchClientDetails();
+ 		clientList = ResourceAllocationTrackingService.fetchClientDetailsForReport();
  		resourceList = CurrentOpportunitiesReportGenerationDao.onLoadResourceDetails();
+ 		reportList = CurrentOpportunitiesReportGenerationService.loadReportDetailsUnpaid();
+ 		if(reportList.size()>0){
+ 			divVisibility = true;
+ 			pdfDivVisibility = true;
+ 		}
  	}
    
    @Command
@@ -115,7 +119,7 @@ public class CurrentOpportunitiesReportGenerationViewModel {
 	   currentOpportunitiesReportGenerationBean.setToDate(null);
    }
    
-   @Command
+   /*@Command
    @NotifyChange("*")
    public void onClickSearchButton(){
 	 //when to Date not selected
@@ -143,7 +147,7 @@ public class CurrentOpportunitiesReportGenerationViewModel {
 			pdfDivVisibility = false;
 		}
 	  }
-   }
+   }*/
    
    @Command
    @NotifyChange("*")
@@ -151,6 +155,7 @@ public class CurrentOpportunitiesReportGenerationViewModel {
 	   String pdfPath = Executions.getCurrent().getDesktop().getWebApp().getRealPath("/");
 	   CurrentOppurtunitiesReportPdf pdf = new CurrentOppurtunitiesReportPdf();
 	   try {
+		    System.out.println(reportList.size());
 		   	if(reportList.size()>0){
 				pdf.getDetails(pdfPath, currentOpportunitiesReportGenerationBean, reportList, "Current Opportunities Report");
 		   	}else {
@@ -250,7 +255,6 @@ public class CurrentOpportunitiesReportGenerationViewModel {
 		}
 		ArrayList<CurrentOpportunitiesReportGenerationBean> list = null;
 		list = CurrentOpportunitiesReportGenerationDao.loadOppurtunityWiseReportForClientDao(currentOpportunitiesReportGenerationBean);
-	    
 		System.out.println("IN VIEW MODEL FOR CLIENT :"+list.size());
 		
 		if(finalList.size()>0){
@@ -294,11 +298,8 @@ public class CurrentOpportunitiesReportGenerationViewModel {
 		System.out.println("RESOURCE NAME :"+currentOpportunitiesReportGenerationBean.getResourceMasterBean().getFullName());
 		
 		ArrayList<CurrentOpportunitiesReportGenerationBean> resourceList = null;
-		
 		resourceList = CurrentOpportunitiesReportGenerationDao.loadOppurtunityWiseReportForClientDaoForResource(currentOpportunitiesReportGenerationBean);
-	    
 		System.out.println("IN VIEW MODEL FOR RESOURCE :"+resourceList.size());
-		
 		if(resourceFinalList.size()>0){
 			resourceFinalList.clear();
 		}
