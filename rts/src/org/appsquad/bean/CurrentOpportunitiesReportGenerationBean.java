@@ -12,12 +12,25 @@ public class CurrentOpportunitiesReportGenerationBean {
 	private java.sql.Date toDateSql;
 	private String toDateValue;
 	private String toateStr;
+	private boolean innerComboGroup = false;
+	private String monthName;
 	
 	private String backGroundpaParent = "background-color: #ffe6f9";
 	private String backGroundChild = "background-color: #D5D1D3";
+	private String boldStyle = "font-weight: bold; color: black";
+	private String lighterStyle = "font-weight: lighter; color: black";
 	private String backGround;
+	private String style;
 	private Integer trackingDetailsId;
+	private String selectedRadioButton;
+	private String clientNameSearch;
+	private String resourceNameSearch;
+	private boolean innerResourceCombo = false;
+	private boolean innerClientGroup = false;
 	
+	private Integer rtsTrackingDetailsId;
+	
+	private CurrentOpportunitiesBean currentOpportunitiesBean = new CurrentOpportunitiesBean();
 	private CurrentOpportunitiesReportBean currentOpportunitiesReportBean = new CurrentOpportunitiesReportBean();
 	
 	private ClientInformationBean clientInformationBean = new ClientInformationBean();
@@ -25,7 +38,7 @@ public class CurrentOpportunitiesReportGenerationBean {
 	private SkillsetMasterbean skillsetMasterbean = new SkillsetMasterbean();
 	private ResourceMasterBean resourceMasterBean = new ResourceMasterBean();
 	
-    /**************************************** GETTER AND SETTER METHOD *************************************************************************/
+    /******************************************************* GETTER AND SETTER METHOD *******************************************************************/
 	
 	public Date getFromDate() {
 		return fromDate;
@@ -130,5 +143,77 @@ public class CurrentOpportunitiesReportGenerationBean {
 	}
 	public void setBackGroundChild(String backGroundChild) {
 		this.backGroundChild = backGroundChild;
+	}
+	public String getBoldStyle() {
+		return boldStyle;
+	}
+	public void setBoldStyle(String boldStyle) {
+		this.boldStyle = boldStyle;
+	}
+	public String getLighterStyle() {
+		return lighterStyle;
+	}
+	public void setLighterStyle(String lighterStyle) {
+		this.lighterStyle = lighterStyle;
+	}
+	public String getStyle() {
+		return style;
+	}
+	public void setStyle(String style) {
+		this.style = style;
+	}
+	public boolean isInnerComboGroup() {
+		return innerComboGroup;
+	}
+	public void setInnerComboGroup(boolean innerComboGroup) {
+		this.innerComboGroup = innerComboGroup;
+	}
+	public String getSelectedRadioButton() {
+		return selectedRadioButton;
+	}
+	public void setSelectedRadioButton(String selectedRadioButton) {
+		this.selectedRadioButton = selectedRadioButton;
+	}
+	public String getClientNameSearch() {
+		return clientNameSearch;
+	}
+	public void setClientNameSearch(String clientNameSearch) {
+		this.clientNameSearch = clientNameSearch;
+	}
+	public boolean isInnerResourceCombo() {
+		return innerResourceCombo;
+	}
+	public void setInnerResourceCombo(boolean innerResourceCombo) {
+		this.innerResourceCombo = innerResourceCombo;
+	}
+	public boolean isInnerClientGroup() {
+		return innerClientGroup;
+	}
+	public void setInnerClientGroup(boolean innerClientGroup) {
+		this.innerClientGroup = innerClientGroup;
+	}
+	public String getResourceNameSearch() {
+		return resourceNameSearch;
+	}
+	public void setResourceNameSearch(String resourceNameSearch) {
+		this.resourceNameSearch = resourceNameSearch;
+	}
+	public String getMonthName() {
+		return monthName;
+	}
+	public void setMonthName(String monthName) {
+		this.monthName = monthName;
+	}
+	public CurrentOpportunitiesBean getCurrentOpportunitiesBean() {
+		return currentOpportunitiesBean;
+	}
+	public void setCurrentOpportunitiesBean(CurrentOpportunitiesBean currentOpportunitiesBean) {
+		this.currentOpportunitiesBean = currentOpportunitiesBean;
+	}
+	public Integer getRtsTrackingDetailsId() {
+		return rtsTrackingDetailsId;
+	}
+	public void setRtsTrackingDetailsId(Integer rtsTrackingDetailsId) {
+		this.rtsTrackingDetailsId = rtsTrackingDetailsId;
 	}
 }

@@ -133,7 +133,6 @@ public class SortcriteriaRidorStatusviewModel {
 		   summaryBeanList.clear();
 	 }
   
-  
   	@Command
 	@NotifyChange("*")
 	public void onSelctClientName(){

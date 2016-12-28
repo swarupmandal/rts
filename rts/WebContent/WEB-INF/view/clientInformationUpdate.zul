@@ -1,6 +1,6 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="Client Information Update Screen" border="none" height="350px" width="600px" apply="org.zkoss.bind.BindComposer"
+<window title="Client Information Update Screen" border="none" height="380px" width="600px" apply="org.zkoss.bind.BindComposer"
 		    							viewModel="@id('vm') @init('org.appsquad.viewmodel.ClientInformationUpdateViewModel')" closable="true"
 		     																		id="winClientDeatilsUpdate" onClose="@command('onCloseOperation')">
     	<div>
@@ -23,7 +23,7 @@
 					
 					<row>
 					  <label value="Office Address:" style="font-weight:bold"></label>		
-					  <textbox width="45%" value="@bind(vm.informationBean.address)"></textbox>	
+					  <textbox width="45%" value="@bind(vm.informationBean.address)" rows="3" maxlength="100" placeholder="WITHIN 80 WORDS"></textbox>	
 					</row>
 					
 					<row>
@@ -33,7 +33,14 @@
 					
 					<row>
 		             	<label value="State:" style="font-weight:bold"></label>
-		             	<textbox value="@bind(vm.informationBean.state)" width="45%"></textbox>				
+		             	<textbox value="@bind(vm.informationBean.state)" width="45%" maxlength="20" xmlns:w="client"> 
+		             	   <attribute w:name="doKeyPress_">
+							<![CDATA[ function(evt) { if ( (evt.which <
+							  65 || evt.which > 90) && (evt.which < 97 ||
+							  evt.which > 122) && evt.which != 8 &&
+							  evt.which != 32) evt.stop(); } ]]>
+					  		</attribute>
+		             	</textbox>				
 					</row>
 					
 					<row>
@@ -55,7 +62,7 @@
 					
 					<row>
 					  <label value="Email Id:" style="font-weight:bold"></label>		
-					  <textbox width="45%" value="@bind(vm.informationBean.emailId)"></textbox>	
+					  <textbox width="45%" value="@bind(vm.informationBean.emailId)" maxlength="25"></textbox>	
 					</row>
 					
 					<row>

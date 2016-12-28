@@ -376,8 +376,12 @@ public class ResourceMasterDao {
 					sql_insert:{
 					    PreparedStatement preparedStatementInsert = null;
 					    try {
+					    	String name = resourceMasterBean.getName().replaceAll("[, ; .]", " ");
+					    	System.out.println(name);
+					    	String surName = resourceMasterBean.getSurName().replaceAll("[, ; .]", " ");
+					    	System.out.println(surName);
 					    	preparedStatementInsert = Pstm.createQuery(connection, 
-									ResourceMasterSql.insertResourceQuery, Arrays.asList(resourceMasterBean.getName().toUpperCase(),resourceMasterBean.getSurName().toUpperCase(),
+									ResourceMasterSql.insertResourceQuery, Arrays.asList(name.toUpperCase(),surName.toUpperCase(),
 											                                              resourceMasterBean.getYearOfExperience(),resourceMasterBean.getAddress().toUpperCase(),resourceMasterBean.getEmailId(),
 											                                              resourceMasterBean.getUserId(),resourceMasterBean.getSkillsetMasterbean().getId(),
 											                                              resourceMasterBean.getPicCode().toUpperCase(),resourceMasterBean.getContactNumber().toUpperCase(),resourceMasterBean.getStatusMasterBean().getStatusId(),

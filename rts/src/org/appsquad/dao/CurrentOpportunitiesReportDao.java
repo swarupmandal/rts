@@ -30,6 +30,10 @@ public class CurrentOpportunitiesReportDao {
 				ResultSet resultSet = preparedStatement.executeQuery();
 				while (resultSet.next()) {
 					CurrentOpportunitiesReportBean bean = new CurrentOpportunitiesReportBean();
+					bean.setFromDateSql(resultSet.getDate("tenure_from"));
+					bean.setToDateSql(resultSet.getDate("tenure_to"));
+					bean.setChargeOutRate(resultSet.getDouble("charge_out_rate"));
+					bean.setResourceSallary(resultSet.getDouble("resource_salary"));
 					bean.getClientInformationBean().setFullName(resultSet.getString("clientname"));
 					bean.getRequirementGenerationBean().setRequirementId(resultSet.getInt("r_id"));
 					bean.getSkillsetMasterbean().setSkillset(resultSet.getString("master_skill_set_name"));
@@ -84,6 +88,55 @@ public class CurrentOpportunitiesReportDao {
 				preparedStatement.close();
 			}
 		}
+	}
+	
+	
+	public static ArrayList<CurrentOpportunitiesReportBean> fetchBillingDetailsWrtTrackingDetailsId(Integer trackingDetailsId){
+		ArrayList<CurrentOpportunitiesReportBean> list = new ArrayList<CurrentOpportunitiesReportBean>();
+		try {
+			Connection connection = DbConnection.createConnection();
+			PreparedStatement preparedStatement = null;
+			try {
+				preparedStatement = Pstm.createQuery(connection, CurrentOpportunitiesReportSql.fetchBillingDetailsSql, Arrays.asList(trackingDetailsId));
+				logger.info("FETCH TRACKING DETAILS WITH RESPECT TO TRACK-ID >>> >> > "+ preparedStatement.unwrap(PreparedStatement.class));
+				ResultSet resultSet = preparedStatement.executeQuery();
+				while (resultSet.next()) {
+				  CurrentOpportunitiesReportBean bean = new CurrentOpportunitiesReportBean();	
+			      bean.setMonth(resultSet.getString("month"));
+			      bean.setYear(resultSet.getString("year"));
+			      bean.setBillNo(resultSet.getDouble("bill_no"));
+			      bean.setBillDateSql(resultSet.getDate("bill_date"));
+			      bean.setBillAmount(resultSet.getDouble("bill_amount"));
+			      bean.setPaid(resultSet.getString("paid"));  
+			      bean.setChqDetailsValue(resultSet.getFloat("chq_details"));
+			      bean.setFilePath(resultSet.getString("timesheet"));
+			      bean.setSecondFilePath(resultSet.getString("invoice_copy"));
+			      bean.setFileName(resultSet.getString("timesheet_name"));
+			      bean.setSecondFileName(resultSet.getString("invoice_copy_name"));
+			      bean.setSecondButtonDisable(false);
+			      
+			      list.add(bean);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				String msg = e.getMessage();
+				Messagebox.show(msg, "Error", Messagebox.OK, Messagebox.ERROR);
+				logger.fatal(e);
+				logger.error(e);
+			}finally{
+				if(preparedStatement != null){
+					preparedStatement.close();
+				}if(connection != null){
+					connection.close();
+				}
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.fatal(e);
+			logger.error(e);
+		}
+		return list;
 	}
 	
 	public static ArrayList<String> loadAllMonths(){
@@ -211,6 +264,60 @@ public class CurrentOpportunitiesReportDao {
 		return isSaved;
 	}
 	
+	
+	
+	public static int insertBillingDetails(ArrayList<CurrentOpportunitiesReportBean> list,int trackingID){
+		boolean isSaved = false;
+		Connection connection = null;
+		int counter = 0;
+		try {
+			connection = DbConnection.createConnection();
+			sql_connection:{
+				try {
+					
+					//1st SQL block
+					sql_insert:{
+					    PreparedStatement preparedStatementInsert = null;
+					    try {
+					    	
+					    	for(CurrentOpportunitiesReportBean bean: list){
+					    		preparedStatementInsert = Pstm.createQuery(connection, 
+										CurrentOpportunitiesReportSql.insertBillingDetailsSql, Arrays.asList(bean.getMonth(),bean.getYear(),bean.getFilePath(),
+												bean.getSecondFilePath(),bean.getBillNo(),bean.getBillDateSql(),bean.getBillAmount(),bean.getPaid(),bean.getChqDetailsValue(),
+												trackingID,bean.getFileName(),bean.getSecondFileName()));
+						    	logger.info("insertBillingData- " + preparedStatementInsert.unwrap(PreparedStatement.class));
+								int i = preparedStatementInsert.executeUpdate();
+								if(i>0){
+									/*isSaved = true;*/
+									counter++;
+								}
+					    	}
+					    	System.out.println(counter);
+						} finally{
+							if(preparedStatementInsert!=null){
+								preparedStatementInsert.close();
+							}
+						}
+				    }
+				} catch (Exception e) {
+					e.printStackTrace();
+					logger.error(e);
+					logger.fatal(e);
+				}finally{
+					if(connection!=null){
+						connection.close();
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(e);
+			logger.fatal(e);
+		}
+		return counter;
+	}
+	
+	
 	public static int countLastNumber(){
 		int num = 0;
 		int returnNum = 0;
@@ -302,6 +409,49 @@ public class CurrentOpportunitiesReportDao {
 					    try {
 					    	preparedStatementInsert = Pstm.createQuery(connection,CurrentOpportunitiesReportSql.deleteTrackingIdSql, Arrays.asList(opportunitiesBean.getTrackingDetailsId()));
 					    	logger.info("deleteTrackingIdData- " + preparedStatementInsert.unwrap(PreparedStatement.class));
+							int i = preparedStatementInsert.executeUpdate();
+							if(i>0){
+								isDeleted = true;	
+							}
+						} finally{
+							if(preparedStatementInsert!=null){
+								preparedStatementInsert.close();
+							}
+						}
+				    }
+				} catch (Exception e) {
+					e.printStackTrace();
+					logger.error(e);
+					logger.fatal(e);
+				}finally{
+					if(connection!=null){
+						connection.close();
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(e);
+			logger.fatal(e);
+		}
+		return isDeleted;
+	}
+	
+	
+	public static boolean deleteBillingWrtTrackingID(CurrentOpportunitiesReportBean opportunitiesBean){
+		boolean isDeleted= false;
+		Connection connection = null;
+		try {
+			connection = DbConnection.createConnection();
+			sql_connection:{
+				try {
+					
+					//1st SQL block
+					sql_insert:{
+					    PreparedStatement preparedStatementInsert = null;
+					    try {
+					    	preparedStatementInsert = Pstm.createQuery(connection,CurrentOpportunitiesReportSql.deleteBillingForTrackingIdSql, Arrays.asList(opportunitiesBean.getTrackingDetailsId()));
+					    	logger.info("deleteBillingData- " + preparedStatementInsert.unwrap(PreparedStatement.class));
 							int i = preparedStatementInsert.executeUpdate();
 							if(i>0){
 								isDeleted = true;	

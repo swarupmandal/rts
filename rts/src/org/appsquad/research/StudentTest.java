@@ -5,9 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class StudentTest {
-
 	public static void main(String[] args) {
-		
 		double i = 0.0;
 		System.out.println("Int 2 Str " + String.valueOf(i));
 		ArrayList<Student> studentList = new ArrayList<Student>();
@@ -38,27 +36,20 @@ public class StudentTest {
 		
 		
 		Map<Integer, Object> parentMap = new HashMap<Integer, Object>();
-		
 		for (Student st : studentList) {
 			Map<String, Integer> childMap = new HashMap<String, Integer>();	
 			childMap.put(st.name, st.marks);
-			
-			 parentMap.put(st.id, childMap);
-			
+			parentMap.put(st.id, childMap);
 		}
 		
-				for (Map.Entry<Integer, Object> entry : parentMap.entrySet())
-				{
-				    System.out.println(entry.getKey() + "/" + entry.getValue());
-				}
-		
+		for (Map.Entry<Integer, Object> entry : parentMap.entrySet())
+		{
+		     System.out.println(entry.getKey() + "/" + entry.getValue());
+		}
 	}
-	
 }
 
-
 class Student{
-	
 	public int id;
 	public String name;
 	public int marks;
@@ -72,11 +63,9 @@ class Student{
 	public void setId(int id) {
 		this.id = id;
 	}
-
 	public void setName(String name) {
 		this.name = name;
 	}
-
 	public void setMarks(int marks) {
 		this.marks = marks;
 	}

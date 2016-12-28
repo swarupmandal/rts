@@ -10,18 +10,18 @@
                            </columns>
                            <rows>
                                <row>
-                                   <label value="Skill Set"></label>
+                                   <label value="Skill Set-"></label>
                                    <textbox value="@bind(vm.bean.skillset)" readonly="true"></textbox>
                                </row>
                                <row>
-                                  <label value="Skill Set Details"/>
-                                  <textbox rows="5" value="@bind(vm.bean.skillsetdetails)"></textbox>
+                                  <label value="Skill Set Details-"/>
+                                  <textbox rows="5" value="@bind(vm.bean.skillsetdetails)" maxlength="100" placeholder="WITHIN 80 WORDS"></textbox>
                                </row>
                           </rows>
-                    </grid>
+                    </grid> 
                     <space></space>
                     <div align="center">
                        <button  label="Update" onClick="@command('onClickUpdateButton')" style="font-weight: bold;" width="70px" height="40px"></button>
                     </div>
-	</window>
+		</window>
 </zk>

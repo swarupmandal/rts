@@ -1,6 +1,5 @@
 package org.appsquad.utility;
 
-import java.awt.Desktop;
 import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -11,18 +10,13 @@ import java.io.Writer;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-
-import org.apache.commons.io.FileUtils;
 import org.appsquad.bean.IndividualClientReportBean;
 import org.zkoss.util.media.AMedia;
 import org.zkoss.zhtml.Filedownload;
 import org.zkoss.zk.ui.Executions;
 
-import sun.security.mscapi.PRNG;
-
 public class IndividualClientReportExcel {
 
-	
 	public static void printCSV(ArrayList<IndividualClientReportBean> reportBeanList, String rn){
 		File f = null;  boolean bool = false,delBool = false;
 		String printDate = new SimpleDateFormat("dd-MMM-yyyy").format(new Date());
@@ -63,7 +57,7 @@ public class IndividualClientReportExcel {
 	            			+","+reportBeanList.get(i).getIntIntvValue()+","+reportBeanList.get(i).getClntIntvValue()+"\n");
 	            }
 	            w.close();
-	         //  Desktop.getDesktop().open(f);
+	            //  Desktop.getDesktop().open(f);
 	           
 	            FileInputStream fis = new FileInputStream(new File(reportNamewithPath));
 	    		byte[] ba1 = new byte[1024];
@@ -145,10 +139,4 @@ public class IndividualClientReportExcel {
 	         e.printStackTrace();
 	      }
 	}
-	
-	
-	
-	
-	
-	
 }

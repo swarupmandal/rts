@@ -1,6 +1,6 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="REQUIREMENT GENERATION" border="none" apply="org.zkoss.bind.BindComposer"
+<window title="REQUIREMENT GENERATION" border="none" apply="org.zkoss.bind.BindComposer" height="550px"
             								viewModel="@id('vm') @init('org.appsquad.viewmodel.RequirementGenerationViewModel')">
 	<tabbox>
 		<tabs>
@@ -38,12 +38,26 @@
 						
 						<row>
 						  <label value="Job Description:" style="font-weight:bold"></label>		
-						  <textbox value="@bind(vm.reqGenBean.jobType)" width="35%"></textbox>	
+						  <textbox rows="3" value="@bind(vm.reqGenBean.jobType)" width="35%" maxlength="100" placeholder="WITHIN 80 WORDS" xmlns:w="client">
+						       <attribute w:name="doKeyPress_">
+									<![CDATA[ function(evt) { if ( (evt.which <
+							  		65 || evt.which > 90) && (evt.which < 97 ||
+							  		evt.which > 122) && evt.which != 8 &&
+							  		evt.which != 32) evt.stop(); } ]]>
+						      </attribute>
+						  </textbox>	
 						</row>
 						
 						<row>
 						  <label value="Detailed Job:" style="font-weight:bold"></label>		
-						  <textbox multiline="true" value="@bind(vm.reqGenBean.detailedJob)" width="35%"></textbox>	
+						  <textbox rows="3" value="@bind(vm.reqGenBean.detailedJob)" width="35%" maxlength="100" placeholder="WITHIN 80 WORDS" xmlns:w="client">
+						      <attribute w:name="doKeyPress_">
+									<![CDATA[ function(evt) { if ( (evt.which <
+							  		65 || evt.which > 90) && (evt.which < 97 ||
+							  		evt.which > 122) && evt.which != 8 &&
+							  		evt.which != 32) evt.stop(); } ]]>
+						      </attribute>
+						  </textbox>	
 						</row>
 						
 						<row>
@@ -58,7 +72,7 @@
 						
 						<row visible="@bind(vm.reqGenBean.perFieldvisibility)">
 						  <label value="Number of Resource:" style="font-weight:bold"></label>		
-						  <intbox value="@bind(vm.reqGenBean.nofPerResource)" width="35%"></intbox>	
+						  <intbox value="@bind(vm.reqGenBean.nofPerResource)" width="35%" maxlength="4"></intbox>	
 						</row>
 						
 						<row visible="@bind(vm.reqGenBean.conFieldvisibility)">

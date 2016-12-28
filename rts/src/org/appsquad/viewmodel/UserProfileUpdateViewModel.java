@@ -19,6 +19,7 @@ import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
 public class UserProfileUpdateViewModel {
@@ -47,20 +48,34 @@ public class UserProfileUpdateViewModel {
 	@Command
 	@NotifyChange("*")
 	public void onClickUpdateButton(){
-		flag = UserProfileService.updateUserMasterData(bean);
-		if(flag){
-			userprofileBean.setOperation("UPDATE");
-			userprofileBean.setSessionUserId(userId);
-			userprofileBean.setOperationId(2);
-			Calendar calendar = Calendar.getInstance();
-		    java.sql.Date currentDate = new java.sql.Date(calendar.getTime().getTime());
-			System.out.println("CREATION DATE :"+currentDate);
-			flagLogUpdate = LogAuditServiceClass.insertIntoLogTable(userprofileBean.getMainScreenName(), userprofileBean.getChileScreenName(), 
-                    												userprofileBean.getSessionUserId(), userprofileBean.getOperation(),currentDate,
-                    												userprofileBean.getOperationId());
-			System.out.println("flagLogUpdate Is:"+flagLogUpdate);
-			winUserProfile.detach();
-			BindUtils.postGlobalCommand(null, null, "globalUserDetailsUpdate", null);
+		String emailID = "";
+		String address = "";
+		boolean flagForUserUpdate = false;
+		if(bean.getContactno()!=null && bean.getContactno().length()==10){
+			emailID = bean.getEmail().trim();
+			bean.setEmail(emailID);
+			
+			address = bean.getAddress().trim();
+			bean.setAddress(address);
+			
+			flagForUserUpdate = UserProfileService.updateUserMasterData(bean);
+			if(flagForUserUpdate){
+				userprofileBean.setOperation("UPDATE");
+				userprofileBean.setSessionUserId(userId);
+				userprofileBean.setOperationId(2);
+				Calendar calendar = Calendar.getInstance();
+			    java.sql.Date currentDate = new java.sql.Date(calendar.getTime().getTime());
+				System.out.println("CREATION DATE :"+currentDate);
+				flagLogUpdate = LogAuditServiceClass.insertIntoLogTable(userprofileBean.getMainScreenName(), userprofileBean.getChileScreenName(), 
+	                    												userprofileBean.getSessionUserId(), userprofileBean.getOperation(),currentDate,
+	                    												userprofileBean.getOperationId());
+				System.out.println("flagLogUpdate Is:"+flagLogUpdate);
+				winUserProfile.detach();
+				BindUtils.postGlobalCommand(null, null, "globalUserDetailsUpdate", null);
+			}
+		}else{
+			bean.setContactno(null);
+			Messagebox.show("Enter Proper Contact Number ", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
 		}
 	}
 	

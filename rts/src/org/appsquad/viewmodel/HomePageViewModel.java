@@ -48,6 +48,16 @@ public class HomePageViewModel {
 	private boolean resourceDetailPerRequirementCV = false;
 	private boolean logAuditViewVisibility = false;
 	private boolean currentOpportunitiesViewVisibility = false;
+	private boolean currentOpportunitiesViewOperationVisibility = false;
+	private boolean currentOpportunitiesViewReportVisibility = false;
+	private boolean taskNameVisibility = false;
+	private boolean taskUpdateVisibility = false;
+	private boolean firstReportVisibility = false;
+	private boolean secondReportVisibility = false;
+	private boolean thirdReportVisibility = false;
+	private boolean billingSectionVisibility = false;
+	private boolean taskSectionVisibility = false;
+	private boolean taskReportVisibity = false;
 	
 	
 	@AfterCompose
@@ -83,49 +93,72 @@ public class HomePageViewModel {
 								bean.setUserId(resultSet.getString("user_id"));
 								bean.setUserSerialId(resultSet.getInt("user_serial_id"));
 								
-								if(bean.getMenusId()>=6 && bean.getMenusId()<=13){
+								if(bean.getMenusId()>=1 && bean.getMenusId()<=7){
 									bean.setMasterLink("Y");
 									masterLinkVisibility = true;
-									if(bean.getMenusId()==6){
+									if(bean.getMenusId()==1){
 										userRoleLinkVisibility = true;
-									}else if(bean.getMenusId()==7){
+									}else if(bean.getMenusId()==2){
 										clientLinkVisibility = true;
-									}else if(bean.getMenusId()==10){
-										skillSetLinkVisibility = true;
-									}else if(bean.getMenusId()==11){
-										statusLinkVisibility = true;
-									}else if(bean.getMenusId()==12){
-										registeredResourceLinkVisibility = true;
-									}else if(bean.getMenusId()==13){
-										userrofileLinkVisibility = true;
-									}else if(bean.getMenusId()==9){
+									}else if(bean.getMenusId()==3){
 										userClientLinkVisibility = true;
+									}else if(bean.getMenusId()==4){
+										skillSetLinkVisibility = true;
+									}else if(bean.getMenusId()==5){
+										statusLinkVisibility = true;
+									}else if(bean.getMenusId()==6){
+										registeredResourceLinkVisibility = true;
+									}else if(bean.getMenusId()==7){
+										userrofileLinkVisibility = true;
 									}
-								}else if(bean.getMenusId()>=14 && bean.getMenusId()<=16){
+								}else if(bean.getMenusId()>=8 && bean.getMenusId()<=12){
 									tranactionLinkVisibility = true;
-									if(bean.getMenusId()==14){
+									if(bean.getMenusId()==8){
 										requirementGenerationLinkVisibility = true;
-									}else if(bean.getMenusId()==15){
+									}else if(bean.getMenusId()==9){
 										assignResourceToRIdLinkVisibility = true;
-									}else if(bean.getMenusId()==16){
+									}else if(bean.getMenusId()==10){
 										resourceAllocationTrackingLinkVisibility = true;
+									}else if(bean.getMenusId()>=11 && bean.getMenusId()<=13){
+										billingSectionVisibility = true;
+										if(bean.getMenusId()==11){
+											currentOpportunitiesViewVisibility = true;
+										}else if(bean.getMenusId()==12){
+											currentOpportunitiesViewOperationVisibility = true;
+										}
 									}
-								}else if(bean.getMenusId()>=18 && bean.getMenusId()<=24){
+								}else if(bean.getMenusId()>=13 && bean.getMenusId()<=19){
 									reportLinkVisibility = true;
-									if(bean.getMenusId()==18){
+									if(bean.getMenusId()==13){
+										currentOpportunitiesViewReportVisibility = true;
+									}else if(bean.getMenusId()==14){
 										requirementWiseStatusReport = true;
-									}else if(bean.getMenusId()==19){
+									}else if(bean.getMenusId()==15){
 										individualClientReport = true;
-									}else if(bean.getMenusId()==20){
+									}else if(bean.getMenusId()==16){
 										individualRequirementRIDReport = true;
-									}else if(bean.getMenusId()==21){
+									}else if(bean.getMenusId()==17){
 										skillSetWiseRequirementList = true;
-									}else if(bean.getMenusId()==23){
-										resourceDetailPerRequirementCV = true;
-									}else if(bean.getMenusId()==22){
+									}else if(bean.getMenusId()==18){
 										logAuditViewVisibility = true;
-									}else if(bean.getMenusId()==24){
-										currentOpportunitiesViewVisibility = true;
+									}else if(bean.getMenusId()==19){
+										resourceDetailPerRequirementCV = true;
+									}
+								}else if(bean.getMenusId()>=20 && bean.getMenusId()<=24){
+									taskSectionVisibility = true;
+									if(bean.getMenusId()==20){
+										taskNameVisibility = true;
+									}else if(bean.getMenusId()==21){
+										taskUpdateVisibility = true;
+									}else if(bean.getMenusId()>=22 && bean.getMenusId()<=24){
+										taskReportVisibity = true;
+										if(bean.getMenusId()==22){
+										   firstReportVisibility = true;
+										}else if(bean.getMenusId()==23){
+											secondReportVisibility = true;
+										}else if(bean.getMenusId()==24){
+											thirdReportVisibility = true;
+										}
 									}
 								}
 							}
@@ -326,5 +359,67 @@ public class HomePageViewModel {
 	public void setCurrentOpportunitiesViewVisibility(
 			boolean currentOpportunitiesViewVisibility) {
 		this.currentOpportunitiesViewVisibility = currentOpportunitiesViewVisibility;
+	}
+	public boolean isCurrentOpportunitiesViewOperationVisibility() {
+		return currentOpportunitiesViewOperationVisibility;
+	}
+	public void setCurrentOpportunitiesViewOperationVisibility(
+			boolean currentOpportunitiesViewOperationVisibility) {
+		this.currentOpportunitiesViewOperationVisibility = currentOpportunitiesViewOperationVisibility;
+	}
+	public boolean isCurrentOpportunitiesViewReportVisibility() {
+		return currentOpportunitiesViewReportVisibility;
+	}
+	public void setCurrentOpportunitiesViewReportVisibility(
+			boolean currentOpportunitiesViewReportVisibility) {
+		this.currentOpportunitiesViewReportVisibility = currentOpportunitiesViewReportVisibility;
+	}
+	public boolean isTaskNameVisibility() {
+		return taskNameVisibility;
+	}
+	public void setTaskNameVisibility(boolean taskNameVisibility) {
+		this.taskNameVisibility = taskNameVisibility;
+	}
+	public boolean isTaskUpdateVisibility() {
+		return taskUpdateVisibility;
+	}
+	public void setTaskUpdateVisibility(boolean taskUpdateVisibility) {
+		this.taskUpdateVisibility = taskUpdateVisibility;
+	}
+	public boolean isFirstReportVisibility() {
+		return firstReportVisibility;
+	}
+	public void setFirstReportVisibility(boolean firstReportVisibility) {
+		this.firstReportVisibility = firstReportVisibility;
+	}
+	public boolean isSecondReportVisibility() {
+		return secondReportVisibility;
+	}
+	public void setSecondReportVisibility(boolean secondReportVisibility) {
+		this.secondReportVisibility = secondReportVisibility;
+	}
+	public boolean isThirdReportVisibility() {
+		return thirdReportVisibility;
+	}
+	public void setThirdReportVisibility(boolean thirdReportVisibility) {
+		this.thirdReportVisibility = thirdReportVisibility;
+	}
+	public boolean isBillingSectionVisibility() {
+		return billingSectionVisibility;
+	}
+	public void setBillingSectionVisibility(boolean billingSectionVisibility) {
+		this.billingSectionVisibility = billingSectionVisibility;
+	}
+	public boolean isTaskSectionVisibility() {
+		return taskSectionVisibility;
+	}
+	public void setTaskSectionVisibility(boolean taskSectionVisibility) {
+		this.taskSectionVisibility = taskSectionVisibility;
+	}
+	public boolean isTaskReportVisibity() {
+		return taskReportVisibity;
+	}
+	public void setTaskReportVisibity(boolean taskReportVisibity) {
+		this.taskReportVisibity = taskReportVisibity;
 	}
 }

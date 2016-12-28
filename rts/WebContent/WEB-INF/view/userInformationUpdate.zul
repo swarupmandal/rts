@@ -3,13 +3,12 @@
  <window apply="org.zkoss.bind.BindComposer" title="USER PROFILE INFORMATION" 
         viewModel="@id('vm') @init('org.appsquad.viewmodel.UserProfileUpdateViewModel')" id="winUserProfile" closable="true"
           height="350px" width="600px" onClose="@command('onCloseOperation')">
- 
-      <div>
+      			
+      			<div>
                            <grid>
                                <columns>
                                     <column></column>
-                                    <column></column>
-                                    
+                                    <column></column>                    
                                </columns>
                                <rows>
                                     <row>
@@ -26,16 +25,16 @@
                                     </row> 
                                     <row>
                                         <label value="Email Id"/>
-                                        <textbox value="@bind(vm.bean.email)"/>
+                                        <textbox value="@bind(vm.bean.email)" maxlength="25"/>
                                     </row>               
                                     <row>
                                         <label value="Address"/>
-                                        <textbox value="@bind(vm.bean.address)"/>
+                                        <textbox value="@bind(vm.bean.address)" rows="3" maxlength="100" placeholder="WITHIN 80 WORDS"/>
                                     </row>
                                     
                                     <row>
                                         <label value="Contact No"/>
-                                        <textbox value="@bind(vm.bean.contactno)" maxlength="15" xmlns:w="client">
+                                        <textbox value="@bind(vm.bean.contactno)" maxlength="10" xmlns:w="client">
 	                                        <attribute w:name="doKeyPress_">
 	                                          <![CDATA[ function(evt) { if ( (evt.which >
 													31) && (evt.which < 48 ||

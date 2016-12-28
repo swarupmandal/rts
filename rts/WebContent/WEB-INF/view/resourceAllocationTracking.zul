@@ -1,7 +1,7 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
 <window title="RESOURCE ALLOCATION TRACKING" border="none" apply="org.zkoss.bind.BindComposer"
-        viewModel="@id('vm') @init('org.appsquad.viewmodel.ResourceAllocationTrackingViewModel')">
+        														viewModel="@id('vm') @init('org.appsquad.viewmodel.ResourceAllocationTrackingViewModel')">
 	<div>
 		<label value="Client Name" style="font-weight: bold; color: black"></label>
 		<bandbox autodrop="true" readonly="true" id="clname" value="@bind(vm.clientInformationBean.fullName)">

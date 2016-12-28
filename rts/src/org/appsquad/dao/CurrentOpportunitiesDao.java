@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
+
 import org.apache.log4j.Logger;
 import org.appsquad.bean.CurrentOpportunitiesBean;
 import org.appsquad.bean.UserClientMappingBean;
@@ -16,6 +17,52 @@ import org.zkoss.zul.Messagebox;
 
 public class CurrentOpportunitiesDao {
 	final static Logger logger = Logger.getLogger(CurrentOpportunitiesDao.class);
+	
+	public static String getDataEntryOperatorName(Integer trackingId) throws Exception{
+		String name = "";
+		PreparedStatement preparedStatement = null;
+		Connection connection = null;
+		try{
+			connection = DbConnection.createConnection();
+			String sql = "select user_id from rts_req_res_status_tracking_details where rts_req_res_status_tracking_id = ?";
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setInt(1, trackingId);
+			System.out.println(preparedStatement);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while(resultSet.next()){
+				name = resultSet.getString("user_id");
+			}
+		}finally{
+			if(connection!=null){
+				connection.close();
+			}
+			if(preparedStatement!=null){
+				preparedStatement.close();
+			}
+		}
+		return name;
+	}
+	
+	public static String getDataEntryOperatorEmailId(Integer trackingId,Connection connection,String userID) throws Exception{
+		String emailID = "";
+		PreparedStatement preparedStatement = null;
+		try{
+			String sql = "select b.email from rts_req_res_status_tracking_details a,rts_user_master b where a.user_id = b.user_id and rts_tracking_details_id = ? and b.user_id = ?";
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setInt(1, trackingId);
+			preparedStatement.setString(2, userID);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while(resultSet.next()){
+				emailID = resultSet.getString("email");
+			}
+		}finally{
+			if(preparedStatement!=null){
+				preparedStatement.close();
+			}
+		}
+		return emailID;
+	}
+	
 	
 	public static ArrayList<CurrentOpportunitiesBean> loadCurrenOpportunity(){
 		ArrayList<CurrentOpportunitiesBean> list = new ArrayList<CurrentOpportunitiesBean>();
@@ -314,7 +361,8 @@ public class CurrentOpportunitiesDao {
 									CurrentOpportunitiesSql.insertTrackingSql, Arrays.asList(opportunitiesBean.getReqResStatusTrackingId(),opportunitiesBean.getTenureFromsql(),
 											                                     opportunitiesBean.getTenureTosql(),opportunitiesBean.getChargeoutRate(),
 											                                     opportunitiesBean.getResourceSalary(),opportunitiesBean.getMargin(),
-											                                     opportunitiesBean.getApproval(),opportunitiesBean.getBean().getUserID()));
+											                                     opportunitiesBean.getApproval(),opportunitiesBean.getBean().getUserID(),
+											                                     opportunitiesBean.getLoginID()));
 					    	logger.info("insertTrackingData- " + preparedStatementInsert.unwrap(PreparedStatement.class));
 							int i = preparedStatementInsert.executeUpdate();
 							if(i>0){
@@ -328,7 +376,7 @@ public class CurrentOpportunitiesDao {
 				    }
 				
 					if(isSaved && opportunitiesBean.getOnClickButtonValue().equalsIgnoreCase("onSend")){
-						Messagebox.show(" Approval Sent Successfully ","Information",Messagebox.OK,Messagebox.INFORMATION);
+						Messagebox.show(" Approval Request Sent Successfully ","Information",Messagebox.OK,Messagebox.INFORMATION);
 					}
 					
 					if(isSaved && opportunitiesBean.getOnClickButtonValue().equalsIgnoreCase("onCreate")){

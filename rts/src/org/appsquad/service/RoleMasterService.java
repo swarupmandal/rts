@@ -71,11 +71,9 @@ public class RoleMasterService {
 	public static void setFlag(boolean flag) {
 		RoleMasterService.flag = flag;
 	}
-
 	public static int getCountNumber() {
 		return countNumber;
 	}
-
 	public static void setCountNumber(int countNumber) {
 		RoleMasterService.countNumber = countNumber;
 	}

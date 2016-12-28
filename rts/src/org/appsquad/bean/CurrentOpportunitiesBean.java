@@ -20,6 +20,8 @@ public class CurrentOpportunitiesBean {
 	private String tenureFromValue;
 	private Date tenureTo;
 	private java.sql.Date tenureTosql;
+	private java.util.Date tentureToUtil;
+	private java.util.Date tentureFromUtil;
 	private String tenureToStr;
 	private String tenureToValue;
 	private Double chargeoutRate;
@@ -30,13 +32,15 @@ public class CurrentOpportunitiesBean {
 	private String userName;
 	private boolean createOfferDisable = false;
 	private String onClickButtonValue;
+	private String loginID;
+	private String trackLogingID;
 	
 	private UserClientMappingBean bean = new UserClientMappingBean();
 	private ArrayList<UserClientMappingBean> userClBeanList = new ArrayList<UserClientMappingBean>();
 
 	/*********Log-Audit Purpose ************/
-	private String mainScreenName = "REPORT";
-	private String chileScreenName = "CURRENT OPPORTUNITIES SCREEN";
+	private String mainScreenName = "TRANSACTION";
+	private String chileScreenName = "PRE BILLING CONFIRMATION";
 	private String operation;
 	private Date creationDate;
 	private String sessionUserId;
@@ -76,6 +80,18 @@ public class CurrentOpportunitiesBean {
 	}
 	public String getResourceType() {
 		return resourceType;
+	}
+	public java.util.Date getTentureToUtil() {
+		return tentureToUtil;
+	}
+	public void setTentureToUtil(java.util.Date tentureToUtil) {
+		this.tentureToUtil = tentureToUtil;
+	}
+	public java.util.Date getTentureFromUtil() {
+		return tentureFromUtil;
+	}
+	public void setTentureFromUtil(java.util.Date tentureFromUtil) {
+		this.tentureFromUtil = tentureFromUtil;
 	}
 	public void setResourceType(String resourceType) {
 		this.resourceType = resourceType;
@@ -247,5 +263,17 @@ public class CurrentOpportunitiesBean {
 	}
 	public void setOnClickButtonValue(String onClickButtonValue) {
 		this.onClickButtonValue = onClickButtonValue;
+	}
+	public String getLoginID() {
+		return loginID;
+	}
+	public void setLoginID(String loginID) {
+		this.loginID = loginID;
+	}
+	public String getTrackLogingID() {
+		return trackLogingID;
+	}
+	public void setTrackLogingID(String trackLogingID) {
+		this.trackLogingID = trackLogingID;
 	}
 }

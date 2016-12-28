@@ -27,7 +27,15 @@
                                            <label value="Status:" style="font-weight:bold"/>
                                      </hlayout>
                     				
-                    				<textbox value="@bind(vm.statusMasterBean.status)" width="150px" height="30px"/>
+                    				 <textbox value="@bind(vm.statusMasterBean.status)" maxlength="30" width="300px" height="30px" 
+                    				 	placeholder="WITHIN 25 WORDS" rows="2" onChange="@command('status')" xmlns:w="client">
+                    				     <attribute w:name="doKeyPress_">
+											<![CDATA[ function(evt) { if ( (evt.which <
+							  				65 || evt.which > 90) && (evt.which < 97 ||
+							  				evt.which > 122) && evt.which != 8 &&
+							  				evt.which != 32) evt.stop(); } ]]>
+						  				 </attribute>
+                    				 </textbox>
                    					 <button label="Submit" onClick="@command('onClickStatusSave')"/>
                 			        </row>
                               </rows>
@@ -35,15 +43,12 @@
                        </div>
                        <space></space>
                        <div>
-                           <grid model="@bind(vm.statuslist)" mold="paging" pageSize="11" sclass="fgrid" height="430PX">
-                           
+                           <grid model="@bind(vm.statuslist)" mold="paging" pageSize="10" sclass="fgrid" height="390PX">
                            		<auxhead>
                            			<auxheader label="Status-Name" align="center" style="font-weight:bold;" colspan="1"/>
                            			<auxheader colspan="3" label="Action" align="center" style="font-weight:bold;" ></auxheader>		
                            		</auxhead>
-                           
-                               <columns sizable="true">
-								<column width="600px" align="center"/>
+                               <columns sizable="true" visible="false">
 								<column align="center"/>
 								<column align="center"/>
 								<column align="center"/>
@@ -51,8 +56,15 @@
                                <rows>
                                   <template name="model" var="v">
 										<row style="border: 0.01px solid #C0C0C0;">
-											<textbox value="@bind(v.status)" tooltiptext="@bind(v.status)" width="98%"
-											                               readonly="@bind(v.statusDisabled)"/>
+											<textbox value="@bind(v.status)" tooltiptext="@bind(v.status)" width="98%" readonly="@bind(v.statusDisabled)"
+											    maxlength="30" placeholder="WITHIN 25 WORDS" xmlns:w="client">
+											      <attribute w:name="doKeyPress_">
+													<![CDATA[ function(evt) { if ( (evt.which <
+							  						65 || evt.which > 90) && (evt.which < 97 ||
+							  						evt.which > 122) && evt.which != 8 &&
+							  						evt.which != 32) evt.stop(); } ]]>
+						  				 		 </attribute>
+											</textbox>    
 								    		<button label="Edit" onClick="@command('onClickEditButton', bean = v)"
 								    		                           disabled="@bind(v.editButtonDisable)"></button>
 								    		<button label="Save" onClick="@command('onClickSaveButton', bean = v)"

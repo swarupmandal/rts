@@ -13,7 +13,7 @@
                                 
                                 <rows>
 								   <row>	
-					  					<bandbox autodrop="true" readonly="true" id="clntBb" value="@bind(vm.clientUserAssignBean.clientInformationBean.fullName)" placeholder="Search By Client">
+					  					<bandbox autodrop="true" readonly="true" id="clntBb" value="@bind(vm.clientUserAssignBean.clientInformationBean.fullName)" width="300px" placeholder="Search By Client">
 											<bandpopup>	
 												<hbox>
 													<textbox value="@bind(vm.clientUserAssignBean.clientNameSearch)" onChange="@command('onChangeClientName')" width="120px"></textbox>
@@ -21,7 +21,7 @@
 													<button label="Clear" onClick="@command('onClickClientClear')"></button>
 												</hbox>
 												<space></space>
-												<listbox width="280px" model="@bind(vm.clientList)" 
+												<listbox width="290px" model="@bind(vm.clientList)" 
 												     selectedItem="@bind(vm.clientUserAssignBean.clientInformationBean)" onSelect="@command('onSelctClientName')" mold="paging" pageSize="5">
 													<listhead sizable="true">
 														<listheader label="Client Name"></listheader>
@@ -37,7 +37,7 @@
 									   </bandbox>
 								  
 								  
-								      <bandbox autodrop="true" readonly="true" id="userBb" value="@bind(vm.clientUserAssignBean.userprofileBean.userid)" placeholder="Search By User ID">
+								      <bandbox autodrop="true" readonly="true" id="userBb" value="@bind(vm.clientUserAssignBean.userprofileBean.userid)" width="300px" placeholder="Search By User ID">
 											<bandpopup>	
 												<hbox>
 													<textbox value="@bind(vm.clientUserAssignBean.userIdSearch)" onChange="@command('onChangeUserId')" width="120px"></textbox>
@@ -45,7 +45,7 @@
 													<button label="Clear" onClick="@command('onClearUserId')"></button>
 												</hbox>
 												<space></space>
-												<listbox width="280px" model="@bind(vm.userList)" 
+												<listbox width="290px" model="@bind(vm.userList)" 
 												     selectedItem="@bind(vm.clientUserAssignBean.userprofileBean)" onSelect="@command('onSelctUserId')" mold="paging" pageSize="5">
 													<listhead sizable="true">
 														<listheader label="User Id"></listheader>

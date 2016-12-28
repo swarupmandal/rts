@@ -24,7 +24,7 @@ public class RequirementGenerationSql {
 	
 	public static final String updateReqGen =  " UPDATE rts_requirement_master " +
 											   " SET req_no_of_per_res=?, req_no_of_con_res=?,req_raise_date=?, req_close_date=?, " +
-											   " cont_no=?, email_id=?, req_status_id=?,req_closure_reason=?,updated_by=? " +
+											   " cont_no=?, email_id=?, req_status_id=?,req_closure_reason=?,updated_by=?,req_job_details = ? " +
 											   " where r_id = ?";
 	
 	public static final String loadReqGenMasterData = "select * from vw_req_generation_details where req_status_id = 1 order by full_name ";

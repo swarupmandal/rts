@@ -75,7 +75,8 @@ public class RequirementGenerationService {
 				if(bean.getReqSkillId()>0){
 					if(bean.getJobType() != null){
 						if(bean.getDetailedJob() !=null){
-							if(bean.getNofPerResource() !=null || bean.getNofConResource() != null){
+							if(bean.getResourceTypeBean().getResourceTypeName()!=null && bean.getResourceTypeBean().getResourceTypeName().trim().length()>0){
+								if(bean.getNofPerResource() !=null || bean.getNofConResource() != null){
 									if(bean.getRaiseDatesql() != null){
 										if(bean.getContactNo() != null){
 											if(bean.getEmail()!=null && bean.getEmail().trim().length()>0){
@@ -100,6 +101,10 @@ public class RequirementGenerationService {
 									}
 							}else {
 								Messagebox.show("Enter Number of Permanent or Contract Resource ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+								return false;
+							}
+							}else{
+								Messagebox.show("Enter Resource Type", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
 								return false;
 							}
 						}else {

@@ -17,45 +17,105 @@
 					</columns>
 					<rows>
 						<row>
-						  <label value="Name:" style="font-weight:bold"></label>		
-						  <textbox width="65%" value="@bind(vm.resourceMasterBean.name)" maxlength="40"></textbox>	
+						  <hlayout>
+						     <label value="* " style="font-weight:bold; color:red"/>
+						     <label value="FirstName:" style="font-weight:bold"></label>
+						  </hlayout>		
+						  <textbox width="65%" value="@bind(vm.resourceMasterBean.name)" maxlength="20" onChange="@command('name')"
+						    xmlns:w="client">
+						      <attribute w:name="doKeyPress_">
+								<![CDATA[ function(evt) { if ( (evt.which <
+								65 || evt.which > 90) && (evt.which < 97 ||
+								evt.which > 122) && evt.which != 8 &&
+								evt.which != 32) evt.stop(); } ]]>
+							</attribute>
+						  </textbox>	
 						</row>
 						<row>
-						  <label value="Surname:" style="font-weight:bold"></label>		
-						  <textbox width="65%" value="@bind(vm.resourceMasterBean.surName)"></textbox>	
+						  <hlayout>
+						      <label value="* " style="font-weight:bold; color:red"/>
+						      <label value="Surname:" style="font-weight:bold"></label>
+						  </hlayout>		
+						  <textbox width="65%" value="@bind(vm.resourceMasterBean.surName)" maxlength="20" onChange="@command('surName')"
+						   xmlns:w="client">
+						       <attribute w:name="doKeyPress_">
+								<![CDATA[ function(evt) { if ( (evt.which <
+								65 || evt.which > 90) && (evt.which < 97 ||
+								evt.which > 122) && evt.which != 8 &&
+								evt.which != 32) evt.stop(); } ]]>
+							</attribute>
+						   </textbox>	
 						</row>
 						<row>
-						  <label value="Years of Experience:" style="font-weight:bold"></label>		
-						  <doublebox width="15%" value="@bind(vm.resourceMasterBean.yearOfExperience)" maxlength="2"></doublebox>	
+						  <hlayout>
+						      <label value="* " style="font-weight:bold; color:red"/>
+						      <label value="Years of Experience:" style="font-weight:bold"></label>
+						  </hlayout>		
+						  <doublebox width="15%" value="@bind(vm.resourceMasterBean.yearOfExperience)" maxlength="2"
+						     onChange="@command('yearOfExperience')"></doublebox>	
 						</row>
 						<row>
-					  <label value="Skill-Set:" style="font-weight:bold"></label>		
-					  <combobox model="@bind(vm.skillList)" selectedItem="@bind(vm.resourceMasterBean.skillsetMasterbean)" readonly="true"
-		             		value="@bind(vm.resourceMasterBean.skillsetMasterbean.skillset)" width="15%" onSelect="@command('onSelectSkillName')">
-		             		<template name="model" var="p">
-		             			<comboitem value="@bind(p.skillset)" label="@bind(p.skillset)"/>
-		             		</template>
-		             	</combobox>	
+						  <hlayout>
+						     <label value="* " style="font-weight:bold; color:red"/>
+						     <label value="Skill-Set:" style="font-weight:bold"></label>
+						  </hlayout>		
+					  		<combobox model="@bind(vm.skillList)" selectedItem="@bind(vm.resourceMasterBean.skillsetMasterbean)" readonly="true"
+		             				value="@bind(vm.resourceMasterBean.skillsetMasterbean.skillset)" width="15%" onSelect="@command('onSelectSkillName')">
+		             			<template name="model" var="p">
+		             				<comboitem value="@bind(p.skillset)" label="@bind(p.skillset)"/>
+		             			</template>
+		             		</combobox>	
 					</row>
 						<row>
-						  <label value="Address:" style="font-weight:bold"></label>		
-						  <textbox multiline="true" value="@bind(vm.resourceMasterBean.address)" width="65%"></textbox>	
+						 <hlayout>
+						    <label value="* " style="font-weight:bold; color:red"/>
+						    <label value="Address:" style="font-weight:bold"></label>	
+						 </hlayout>	
+						  <textbox multiline="true" value="@bind(vm.resourceMasterBean.address)" maxlength="100" placeholder="WITHIN 80 WORDS" width="65%" 
+						        onChange="@command('address')">
+						  </textbox>	
 						</row>
 					<row>
-		             	<label value="Country:" style="font-weight:bold"></label>
-		             	<textbox value="@bind(vm.resourceMasterBean.country)" width="35%"></textbox>				
+					   <hlayout>
+					      <label value="* " style="font-weight:bold; color:red"/>
+					      <label value="Country:" style="font-weight:bold"></label>
+					   </hlayout>
+		             	<textbox value="@bind(vm.resourceMasterBean.country)" width="35%" maxlength="20" onChange="@command('country')" xmlns:w="client">
+		             	   <attribute w:name="doKeyPress_">
+											<![CDATA[ function(evt) { if ( (evt.which <
+							  				65 || evt.which > 90) && (evt.which < 97 ||
+							  				evt.which > 122) && evt.which != 8 &&
+							  				evt.which != 32) evt.stop(); } ]]>
+						  				 </attribute>
+		             	</textbox>				
 					</row>
 					<row>
-		             	<label value="State:" style="font-weight:bold"></label>
-		             	<textbox value="@bind(vm.resourceMasterBean.state)" width="35%"></textbox>				
+					  <hlayout>
+					     <label value="* " style="font-weight:bold; color:red"/>
+					     <label value="State:" style="font-weight:bold"></label>
+					  </hlayout>
+		             	<textbox value="@bind(vm.resourceMasterBean.state)" maxlength="20" width="35%" onChange="@command('state')" xmlns:w="client">
+		             	   <attribute w:name="doKeyPress_">
+											<![CDATA[ function(evt) { if ( (evt.which <
+							  				65 || evt.which > 90) && (evt.which < 97 ||
+							  				evt.which > 122) && evt.which != 8 &&
+							  				evt.which != 32) evt.stop(); } ]]>
+						  				 </attribute>
+		             	</textbox>				
 					</row>
 						<row>
-						  <label value="Pin/Zip code:" style="font-weight:bold"></label>
+						 <hlayout>
+						    <label value="* " style="font-weight:bold; color:red"/>
+						    <label value="Pin/Zip code:" style="font-weight:bold"></label>
+						 </hlayout>
 						 <intbox width="35%" value="@bind(vm.resourceMasterBean.picCode)" maxlength="6" constraint="no negative,no zero"></intbox>
 						</row>
 						<row>
-						  <label value="Contact no:" style="font-weight:bold"></label>
-						 <textbox width="35%" value="@bind(vm.resourceMasterBean.contactNumber)" maxlength="15"
+						 <hlayout>
+						     <label value="* " style="font-weight:bold; color:red"/>
+						     <label value="Contact no:" style="font-weight:bold"></label>
+						 </hlayout>
+						  <textbox width="35%" value="@bind(vm.resourceMasterBean.contactNumber)" maxlength="10"
 						    xmlns:w="client">
 						    <attribute w:name="doKeyPress_">
 								<![CDATA[ function(evt) { if ( (evt.which >
@@ -65,27 +125,38 @@
 						 </textbox>
 						</row>
 						<row>
-						  <label value="Email Id:" style="font-weight:bold"></label>		
-						  <textbox width="35%" value="@bind(vm.resourceMasterBean.emailId)"></textbox>	
+						  <hlayout>
+						     <label value="* " style="font-weight:bold; color:red"/>
+						     <label value="Email Id:" style="font-weight:bold"></label>
+						  </hlayout>		
+						  <textbox width="35%" value="@bind(vm.resourceMasterBean.emailId)" maxlength="25" onChange="@command('emailID')"></textbox>	
 						</row>
 						<row>
 						<label value="Upload CV"></label>
 							<hlayout spacing="5px">
+							<label></label>
 							<button label="Upload" upload="true" onUpload="@command('onUploadFile', upEvent=event)"></button>
  							<label value="@bind(vm.fileName)"></label>
  							</hlayout>
 						</row>
 					   <row>
 						  <label value="CTC(annual)" style="font-weight:bold"></label>		
-						  <doublebox width="35%" value="@bind(vm.resourceMasterBean.ctc)"></doublebox>	
+						  <doublebox width="35%" value="@bind(vm.resourceMasterBean.ctc)" maxlength="6"></doublebox>	
 					   </row> 
 					   <row>
 						  <label value="Profit(%)" style="font-weight:bold"></label>		
-						  <doublebox width="35%" value="@bind(vm.resourceMasterBean.profit)"></doublebox>	
+						  <doublebox width="35%" value="@bind(vm.resourceMasterBean.profit)" maxlength="3"></doublebox>	
 					   </row> 
 					   <row>
 						  <label value="Other Info" style="font-weight:bold"></label>		
-						  <textbox width="35%" value="@bind(vm.resourceMasterBean.otherInfo)"></textbox>	
+						  <textbox width="35%" value="@bind(vm.resourceMasterBean.otherInfo)" maxlength="20" onChange="@command('otherInfo')" xmlns:w="client">
+						    <attribute w:name="doKeyPress_">
+								<![CDATA[ function(evt) { if ( (evt.which <
+								65 || evt.which > 90) && (evt.which < 97 ||
+								evt.which > 122) && evt.which != 8 &&
+								evt.which != 32) evt.stop(); } ]]>
+							</attribute>
+						  </textbox>	
 					   </row> 
 					   <row>
 					       <label></label>
@@ -96,16 +167,16 @@
 			</div>
 		</tabpanel>
 		 <tabpanel>
-	             <grid height="400px" sclass="fgrid" model="@bind(vm.resourceList)" mold="paging" autopaging="true" pageSize="12">
+	             <grid height="450px" sclass="fgrid" model="@bind(vm.resourceList)" mold="paging" autopaging="true" pageSize="12">
 						<columns sizable="true">
 								<column label="Name" align="center" style="font-weight:bold;" width="300px"/>
-							    <column label="SurName" align="center" style="font-weight:bold;" width="300px"/>
+							    <column label="SurName" align="center" style="font-weight:bold;" width="280px"/>
 								<column label="Experience" align="center" style="font-weight:bold;" width="80px"/>
 								<column label="Skill-Set" align="center" style="font-weight:bold;" width="120px"/>
 								<column label="Address" align="center" style="font-weight:bold;" width="120px"/>
 								<column label="Country" align="center" style="font-weight:bold;" width="140px"/>
 								<column label="State" align="center" style="font-weight:bold;" width="140px"/>
-								<column label="Ctc" align="center" style="font-weight:bold;" width="70px"/>
+								<column label="Ctc" align="center" style="font-weight:bold;" width="90px"/>
 								<column label="Update" align="center" style="font-weight:bold;" width="110px"/>
 								<column label="Delete" align="center" style="font-weight:bold;" width="110px"/>
 						</columns>	

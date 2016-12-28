@@ -52,6 +52,20 @@ public class StatusMasterViewModel {
 	
 	@Command
 	@NotifyChange("*")
+	public void status(){
+		if(statusMasterBean.getStatus()!=null){
+			int size = statusMasterBean.getStatus().length();
+			System.out.println(size);
+			String newName = statusMasterBean.getStatus().trim();
+			System.out.println(newName);
+			int newSize = newName.length();
+			System.out.println(newSize);
+			statusMasterBean.setStatus(newName);
+		}
+	}
+	
+	@Command
+	@NotifyChange("*")
 	public void onClickStatusSave(){
 		boolean flagInsert = false;
 		boolean flagLogInsert = false;
@@ -118,6 +132,11 @@ public class StatusMasterViewModel {
 	public void onClickSaveButton(@BindingParam("bean") StatusMasterBean masterBean){
 		boolean flagUpdate = false;
 		boolean flagLogUpdate = false;
+		String newStatus = "";
+		
+		newStatus = masterBean.getStatus().trim();
+		masterBean.setStatus(newStatus);
+		
 		flagUpdate = StatusMasterService.updateClientMasterData(masterBean);
 		if(flagUpdate){
 			masterBean.setOperation("UPDATE");

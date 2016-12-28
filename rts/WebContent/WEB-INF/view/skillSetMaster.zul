@@ -27,7 +27,15 @@
                                     <label value="Skill Set:" style="font-weight:bold"></label>
                                </hlayout>
                                    
-                                   <textbox value="@bind(vm.skillsetMasterbean.skillset)" width="45%"></textbox>
+                                   <textbox value="@bind(vm.skillsetMasterbean.skillset)" maxlength="20" width="45%" onChange="@command('skillSet')"
+                                       xmlns:w="client">
+                                          <attribute w:name="doKeyPress_">
+											<![CDATA[ function(evt) { if ( (evt.which <
+							  				65 || evt.which > 90) && (evt.which < 97 ||
+							  				evt.which > 122) && evt.which != 8 &&
+							  				evt.which != 32) evt.stop(); } ]]>
+						  				 </attribute>
+                                   </textbox>
                                </row>
                                <row>
                                <hlayout>
@@ -35,7 +43,7 @@
                                     <label value="Skill Set Details:" style="font-weight:bold"/>
                                </hlayout>
                                   
-                                  <textbox rows="5" value="@bind(vm.skillsetMasterbean.skillsetdetails)" width="45%"></textbox>
+                                  <textbox rows="5" value="@bind(vm.skillsetMasterbean.skillsetdetails)" placeholder="WithIn 80 Words" maxlength="100" width="45%" onChange="@command('skillsetdetails')"></textbox>
                                </row>
                                <row>
                                   <label></label>
@@ -45,8 +53,7 @@
                        </grid>
                  </tabpanel>
             <tabpanel>     
-                      <grid height="500px" width="1039px" 
-							style="border:#DADADA 1px solid;" model="@bind(vm.skillList)" mold="paging" 
+                      <grid height="450px" width="1035px" style="border:#DADADA 1px solid;" model="@bind(vm.skillList)" mold="paging" 
 							vflex="true" autopaging="true" pageSize="10">
 						<columns sizable="true">
 								<column label="Skill-Name" align="center" style="font-weight:bold;" width="300px"/>

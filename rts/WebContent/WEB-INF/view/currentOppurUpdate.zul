@@ -1,0 +1,75 @@
+
+<?page title="PRE BILLING CONFIRMATION UPDATE" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="Resource Information Update" border="none" height="370px" width="520px" apply="org.zkoss.bind.BindComposer"
+		    viewModel="@id('vm') @init('org.appsquad.viewmodel.CurrentOppurUpdateViewModel')" id="winCurrOppurUpdate" closable="true"> 
+     		    <div>
+					<grid>
+					<columns>
+						<column width="20%"></column>
+						<column width="70%"></column>
+					</columns>
+					<rows>
+						<row>
+						  <label value="Tenure From:" style="font-weight:bold"></label>		
+						  <datebox width="50%" value="@bind(vm.currentOpportunitiesBean.tenureFromsql)"></datebox>	
+						</row>
+						
+						<row>
+						  <label value="Tenure From:" style="font-weight:bold"></label>		
+						  <datebox width="50%" value="@bind(vm.currentOpportunitiesBean.tenureTosql)"></datebox>	
+						</row>
+						
+						<row>
+						  <label value="Charge Out Rate(Monthly):" style="font-weight:bold"></label>		
+						  <doublebox value="@bind(vm.currentOpportunitiesBean.chargeoutRate)" width="50%" maxlength="6" 
+						           onChange="@command('chargeOut')"/>	
+						</row>	
+						
+						<row>
+						  <label value="Resource Salary(Monthly):" style="font-weight:bold"></label>		
+						 <doublebox value="@bind(vm.currentOpportunitiesBean.resourceSalary)" width="50%" maxlength="6" 
+						          onChange="@command('resourceSalary')">
+						 </doublebox>
+						</row>
+						
+						<row>
+						  <label value="Margin:" style="font-weight:bold"></label>		
+						 <doublebox value="@bind(vm.currentOpportunitiesBean.margin)" width="50%" maxlength="6" readonly="true">
+						 </doublebox>
+						</row>
+						
+						<row>
+						  <label value="Approval:" style="font-weight:bold"></label>		
+						 <combobox value="@bind(vm.currentOpportunitiesBean.approval)" disabled="@bind(vm.comboBoxDisable)" width="50%" readonly="true">
+							<comboitem label="Approve"></comboitem>
+							<comboitem label="Reject"></comboitem>
+						</combobox>
+						</row>	
+						
+						<row>
+						  <label value="Approvar Person:" style="font-weight:bold"></label>		
+						 	<combobox model="@bind(vm.currentOpportunitiesBean.userClBeanList)" value="@bind(vm.currentOpportunitiesBean.bean.userID)" width="50%" selectedItem="@bind(vm.currentOpportunitiesBean.bean)" readonly="true"
+				  					disabled="@bind(vm.approverNameDisable)">
+								<template name="model" var = "p">
+					  			<comboitem value="@bind(p.userID)" label="@bind(p.userID)"></comboitem>
+								</template>
+							</combobox>
+						</row>	
+						
+						<row>
+						    <label></label>
+						    <hlayout spacing="10px" width="70%">
+				  				<button label="Send To Approver" visible="@bind(vm.sendToApproverVisibility)" style="font-weight:bold" 
+				  				        onClick="@command('onSend', bean = v)"></button>
+				  				<button label="Create Offer" visible="@bind(vm.createOfferVisibility)" style="font-weight:bold" 
+				  				        onClick="@command('onCreate', bean = v)"></button>	
+							</hlayout> 
+						
+						</row>
+						
+					</rows>
+				</grid>
+			</div>
+</window>
+</zk>

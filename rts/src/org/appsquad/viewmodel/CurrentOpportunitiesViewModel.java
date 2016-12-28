@@ -3,13 +3,12 @@ package org.appsquad.viewmodel;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.appsquad.bean.CurrentOpportunitiesBean;
 import org.appsquad.bean.UserprofileBean;
-import org.appsquad.dao.CurrentOpportunitiesDao;
 import org.appsquad.service.CurrentOpportunitiesService;
-import org.appsquad.service.LogAuditServiceClass;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
@@ -17,10 +16,11 @@ import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.select.Selectors;
-import org.zkoss.zul.Messagebox;
+import org.zkoss.zul.Window;
 
 public class CurrentOpportunitiesViewModel {
 	CurrentOpportunitiesBean currentOpportunitiesBean = new CurrentOpportunitiesBean(); 
@@ -58,6 +58,7 @@ public class CurrentOpportunitiesViewModel {
 	
 	public void fetchDataWrtDataEntryOrApprover(){
 		roleName = CurrentOpportunitiesService.fetchRoleNameWrtUserId(userId);
+		System.out.println("ROLE NAME :"+roleName);
 		if(roleName.equalsIgnoreCase("DATA ENTRY OPERATOR")){
 			comboBoxDisable = true;
 			sendToApproverVisibility = true;
@@ -84,6 +85,15 @@ public class CurrentOpportunitiesViewModel {
 	}
 	
 	@Command
+	@NotifyChange("*")
+	public void update(@BindingParam("bean") CurrentOpportunitiesBean opportunitiesBean){
+		Map<String, Object> parentMap = new HashMap<String, Object>();
+		parentMap.put("ParentObject", opportunitiesBean);
+		Window window = (Window) Executions.createComponents("/WEB-INF/view/currentOppurUpdate.zul", null, parentMap);
+		window.doModal();
+	}
+	
+	/*@Command
 	@NotifyChange("*")
 	public void onSend(@BindingParam("bean") CurrentOpportunitiesBean currentOpportunitiesBean){
 		currentOpportunitiesBean.setOnClickButtonValue("onSend");

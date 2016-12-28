@@ -109,6 +109,115 @@ public class ResourceMasterViewModel {
 	
 	@Command
 	@NotifyChange("*")
+	public void yearOfExperience(){
+		if(resourceMasterBean.getYearOfExperience()!=null){
+			if(resourceMasterBean.getYearOfExperience()==0){
+				resourceMasterBean.setYearOfExperience(null);
+				Messagebox.show("Year Of Experience Can't Be Zero ", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
+			}
+		}
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void name(){
+		if(resourceMasterBean.getName()!=null){
+			int size = resourceMasterBean.getName().length();
+			System.out.println(size);
+			String newName = resourceMasterBean.getName().trim();
+			System.out.println(newName);
+			int newSize = newName.length();
+			System.out.println(newSize);
+			resourceMasterBean.setName(newName);
+		}
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void surName(){
+		if(resourceMasterBean.getSurName()!=null){
+			int size1 = resourceMasterBean.getSurName().length();
+			System.out.println(size1);
+			String newSurName = resourceMasterBean.getSurName().trim();
+			System.out.println(newSurName);
+			int newSize1 = newSurName.length();
+			System.out.println(newSize1);
+			resourceMasterBean.setSurName(newSurName);
+		}
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void address(){
+		if(resourceMasterBean.getAddress()!=null){
+			int size2 = resourceMasterBean.getAddress().length();
+			System.out.println(size2);
+			String newAddress = resourceMasterBean.getAddress().trim();
+			System.out.println(newAddress);
+			int newSize2 = newAddress.length();
+			System.out.println(newSize2);
+			resourceMasterBean.setAddress(newAddress);
+		}
+	}
+
+	@Command
+	@NotifyChange("*")
+	public void country(){
+		if(resourceMasterBean.getCountry()!=null){
+			int size3 = resourceMasterBean.getCountry().length();
+			System.out.println(size3);
+			String newCountry = resourceMasterBean.getCountry().trim();
+			System.out.println(newCountry);
+			int newSize3 = newCountry.length();
+			System.out.println(newSize3);
+			resourceMasterBean.setCountry(newCountry);
+		}
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void state(){
+		if(resourceMasterBean.getState()!=null){
+			int size4 = resourceMasterBean.getState().length();
+			System.out.println(size4);
+			String newState = resourceMasterBean.getState().trim();
+			System.out.println(newState);
+			int newSize4 = newState.length();
+			System.out.println(newSize4);
+			resourceMasterBean.setState(newState);
+		}
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void emailID(){
+		if(resourceMasterBean.getEmailId()!=null){
+			int size5 = resourceMasterBean.getEmailId().length();
+			System.out.println(size5);
+			String newEmailID = resourceMasterBean.getEmailId().trim();
+			System.out.println(newEmailID);
+			int newSize5 = newEmailID.length();
+			System.out.println(newSize5);
+			resourceMasterBean.setEmailId(newEmailID);
+		}
+	}
+
+	@Command
+	@NotifyChange("*")
+	public void otherInfo(){
+		if(resourceMasterBean.getOtherInfo()!=null){
+			int size6 = resourceMasterBean.getOtherInfo().length();
+			System.out.println(size6);
+			String newOtherInfo = resourceMasterBean.getOtherInfo().trim();
+			System.out.println(newOtherInfo);
+			int newSize6 = newOtherInfo.length();
+			System.out.println(newSize6);
+			resourceMasterBean.setOtherInfo(newOtherInfo);
+		}
+	}
+	
+	@Command
+	@NotifyChange("*")
 	public void onClickSubmitButton(){
 		boolean isInsert = false;
 		boolean flagLogInsert = false;

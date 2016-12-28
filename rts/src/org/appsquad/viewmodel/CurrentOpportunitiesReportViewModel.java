@@ -3,6 +3,9 @@ import java.io.File;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.appsquad.bean.CurrentOpportunitiesReportBean;
 import org.appsquad.dao.CurrentOpportunitiesReportDao;
 import org.appsquad.service.CurrentOpportunitiesReportService;
@@ -23,6 +26,7 @@ import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.event.UploadEvent;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zul.Messagebox;
+import org.zkoss.zul.Window;
 
 public class CurrentOpportunitiesReportViewModel {
 	private Connection connection = null;
@@ -111,79 +115,16 @@ public class CurrentOpportunitiesReportViewModel {
     	}
     }
     
-    @Command
-	@NotifyChange("*")
-	public void onUploadFile(@ContextParam(ContextType.BIND_CONTEXT) BindContext bindContext) throws Exception{
-		UploadEvent uploadEvent = null;
-		Object objUpEvent = bindContext.getTriggerEvent();
-		if (objUpEvent != null && (objUpEvent instanceof UploadEvent)) {
-			 uploadEvent = (UploadEvent) objUpEvent;
-		 }
-		if(uploadEvent != null){
-		 Media media = uploadEvent.getMedia();
-		 Calendar now = Calendar.getInstance();
-		 int year = now.get(Calendar.YEAR);
-         int month = now.get(Calendar.MONTH); // Note: zero based!
-         int day = now.get(Calendar.DAY_OF_MONTH);
-         filePath = Executions.getCurrent().getDesktop().getWebApp().getRealPath("/");
-         String yearPath = "PDFs" + "\\" + year + "\\" + month + "\\" + day + "\\";
-         filePath = filePath + yearPath;
-         File baseDir = new File(filePath);
-         if (!baseDir.exists()) {
-               baseDir.mkdirs();
-          }
-         int number = CurrentOpportunitiesReportDao.countLastNumber();
-         String name = media.getName();
-         String parts[] = name.split("\\.");
-         String n1 = parts[0];
-         String n2 = parts[1];
-         String n3 = n1+"_"+number;
-         String finalName = n3+"."+n2;
-         Files.copy(new File(filePath + finalName), media.getStreamData());
-         Messagebox.show("TimeSheet Uploaded Successfully", "Information", Messagebox.OK, Messagebox.INFORMATION);
-         fileuploaded = true;
-         fileName = media.getName();
-         filePath = filePath + finalName;
-         opportunitiesReportBean.setTimesheetPath(filePath);
-	   }
-	}
     
     @Command
-   	@NotifyChange("*")
-   	public void onUploadSecondFile(@ContextParam(ContextType.BIND_CONTEXT) BindContext bindContext) throws Exception{
-   		UploadEvent uploadEvent = null;
-   		Object objUpEvent = bindContext.getTriggerEvent();
-   		if (objUpEvent != null && (objUpEvent instanceof UploadEvent)) {
-   			 uploadEvent = (UploadEvent) objUpEvent;
-   		 }
-   		if(uploadEvent != null){
-   		 Media media = uploadEvent.getMedia();
-   		 Calendar now = Calendar.getInstance();
-   		 int year = now.get(Calendar.YEAR);
-            int month = now.get(Calendar.MONTH); // Note: zero based!
-            int day = now.get(Calendar.DAY_OF_MONTH);
-            filePath = Executions.getCurrent().getDesktop().getWebApp().getRealPath("/");
-            String yearPath = "PDFs" + "\\" + year + "\\" + month + "\\" + day + "\\";
-            filePath = filePath + yearPath;
-            File baseDir = new File(filePath);
-            if (!baseDir.exists()) {
-                  baseDir.mkdirs();
-             }
-            int number = CurrentOpportunitiesReportDao.countLastNumber();
-            String name = media.getName();
-            String parts[] = name.split("\\.");
-            String n1 = parts[0];
-            String n2 = parts[1];
-            String n3 = n1+"_"+number;
-            String finalName = n3+"."+n2;
-            Files.copy(new File(filePath + finalName), media.getStreamData());
-            Messagebox.show("Invoice Copy Uploaded Successfully", "Information", Messagebox.OK, Messagebox.INFORMATION);
-            fileuploaded = true;
-            fileName = media.getName();
-            filePath = filePath + finalName;
-            opportunitiesReportBean.setInvoiceCopyPath(filePath);
-   	   }
-   	}
+	@NotifyChange("*")
+	public void billingInfoButton(@BindingParam("bean")CurrentOpportunitiesReportBean reportBean)
+    {
+		Map<String, Object> parentMap = new HashMap<String, Object>();
+		parentMap.put("ParentBillingObject", reportBean);
+		Window window = (Window) Executions.createComponents("/WEB-INF/view/billingInfo.zul", null, parentMap);
+		window.doModal();
+	}
     
     /************************************************* GETTER AND SETTER METHOD ************************************************************************/
     

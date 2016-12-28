@@ -5,9 +5,9 @@
      <hlayout spacing="20px">
     				<hlayout>
     				<label value="* " style="font-weight:bold; color:red; font-size:large;" />
-    				<bandbox autodrop="true" readonly="true" id="skSt" value="@bind(vm.bean.skillsetMasterbean.skillset)" placeholder="Search by Skill Set" width="150px">
+    				<bandbox autodrop="true" readonly="true" id="skSt" value="@bind(vm.bean.skillsetMasterbean.skillset)" placeholder="                   Search by Skill Set" width="270px">
 						<bandpopup>
-							<listbox width="150px" model="@bind(vm.skillList)" 
+							<listbox width="270px" model="@bind(vm.skillList)" 
 							     selectedItem="@bind(vm.bean.skillsetMasterbean)" onSelect="@command('onSelctSkillName')" mold="paging" pageSize="5">
 								<listhead sizable="true">
 									<listheader label="Skill Set"></listheader>

@@ -74,7 +74,7 @@ public class ChangePasswordViewModel {
 			newPasswordFieldDisable = true;
 			reTypeNewPasswordDisable = true;
 			changePasswordbean.setPassword(null);
-			Messagebox.show("Wrong Password Wrt This User Id!", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
+			Messagebox.show("Wrong Password With Respect To This User Id", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
 		}
 	}
 	
@@ -86,7 +86,7 @@ public class ChangePasswordViewModel {
 		}else{
 			changePasswordbean.setReTypeNewPassword(null);
 			saveButtonDisable = true;
-			Messagebox.show("New Password And ReType New Password Doesn't Match!", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
+			Messagebox.show("New Password And ReType New Password Doesn't Match", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
 		}
 	}
 	

@@ -14,8 +14,8 @@ public class CurrentOpportunitiesSql {
 	public static final String fetchClientIdSql = "select client_id from rts_user_client_mapper where user_id = ? ";
 	
 	public static final String insertTrackingSql = "INSERT INTO rts_req_res_status_tracking_details(rts_req_res_status_tracking_id, tenure_from, "
-                                                   +"tenure_to, charge_out_rate, resource_salary, margin, approval_status,approvar_person) "
-                                                   +"VALUES (?,?,?, ?, ?, ?, ?,?) ";
+                                                   +"tenure_to, charge_out_rate, resource_salary, margin, approval_status,approvar_person,user_id) "
+                                                   +"VALUES (?,?,?,?,?,?,?,?,?) ";
 
 	public static final String fetchTrackingDetailsWrtTrackingIdSql = "select * from rts_tracking_details where rts_req_res_status_tracking_id = ? ";
 	

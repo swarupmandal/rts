@@ -1,60 +1,158 @@
-<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+	<?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="Current Opportunities Report Screen" border="normal" apply="org.zkoss.bind.BindComposer" 
-														viewModel="@id('vm') @init('org.appsquad.viewmodel.CurrentOpportunitiesReportGenerationViewModel')">
-
- <div align="center">
-   <hlayout spacing="12px">
-      				<hlayout>
-    				<label value="* " style="font-weight:bold; color:red; font-size:large;" />
-    				<datebox placeholder="From Date" format="dd-MMM-yyyy" value="@bind(vm.currentOpportunitiesReportGenerationBean.fromDate)" readonly="true"
-    				    onChange="@command('onChangeFromDate')"></datebox>
-    				</hlayout>
+ <window title="Current Opportunities Report Screen" border="normal" apply="org.zkoss.bind.BindComposer" height="520px"
+													   viewModel="@id('vm') @init('org.appsquad.viewmodel.CurrentOpportunitiesReportGenerationViewModel')">
+   <div>
+       <tabbox>
+            <tabs>
+                <tab label="Total A/R Pending Report" style="font-weight:bold"/>
+                <tab label="Opportunity wise (Client wise And resource wise) A/R visibility for next 12 months (if any) Report" style="font-weight:bold" onClick="@command('secondTabClick')"/>
+            </tabs>
+            <tabpanels>
+                  <tabpanel>
+                      <div align="center">
+   						<hlayout spacing="12px">
+		      				<hlayout>
+		    				<label value="* " style="font-weight:bold; color:red; font-size:large;" />
+		    				<datebox placeholder="From Date" format="dd-MMM-yyyy" value="@bind(vm.currentOpportunitiesReportGenerationBean.fromDate)" readonly="true"
+		    				    onChange="@command('onChangeFromDate')"></datebox>
+		    				</hlayout>
     				
-    				<hlayout>
-    				<label value="* " style="font-weight:bold; color:red; font-size:large;"/>
-    				<datebox placeholder="To Date" format="dd-MMM-yyyy" value="@bind(vm.currentOpportunitiesReportGenerationBean.toDate)"
-    				     onChange="@command('onChangeToDate')" readonly="true"></datebox>
-    				</hlayout>
+		    				<hlayout>
+		    				<label value="* " style="font-weight:bold; color:red; font-size:large;"/>
+		    				<datebox placeholder="To Date" format="dd-MMM-yyyy" value="@bind(vm.currentOpportunitiesReportGenerationBean.toDate)"
+		    				     onChange="@command('onChangeToDate')" readonly="true"></datebox>
+		    				</hlayout>
     				
-    				<hlayout>
-    				   <button label="Search" style="font-weight:bold; color: black" visible="true" onClick="@command('onClickSearchButton')"></button>
-		               <button label="Clear"  style="font-weight:bold; color: black" visible="true" width="70px" onClick="@command('onClickClear')"></button>
-    				</hlayout>
-   	</hlayout>
- </div>
-<space></space>
-	<div visible="@bind(vm.divVisibility)">
-    			<grid model="@bind(vm.reportList)" mold="paging" pageSize="8" height="400px">	
-    				<columns sizable="true">
-    					<column width="230px" label="Client Name" style="font-weight:bold; color: black" align="center"></column>
-    					<column width="100px" label="Month" style="font-weight:bold; color: black" align="center"></column>
-    					<column width="170px"  label="Requirement ID" style="font-weight:bold; color: black" align="center"></column>
-    					<column width="100px" label="Bill No" style="font-weight:bold; color: black" align="center"></column>
-    					<column width="100px" label="Skill Set" style="font-weight:bold; color: black" align="center"></column>
-    					<column width="100px" label="Bill Date" style="font-weight:bold; color: black" align="center"></column>
-    					<column width="200px" label="Resource Name" style="font-weight:bold; color: black" align="center"></column>
-    					<column width="150px" label="Bill Amount" style="font-weight:bold; color: black" align="center"></column>
-    					<column width="70px" label="Paid" style="font-weight:bold; color: black" align="center"></column>
-    					<column width="170px" label="Chq Details" style="font-weight:bold; color: black" align="center"></column>
-    				</columns>
-    				<rows>
-    				  <template name="model" var = "v">
-    					<row style="@bind(v.backGround)">
-    				  		<label value="@bind(v.clientInformationBean.fullName)" width="98%"></label>
-    				  		<label value="@bind(v.currentOpportunitiesReportBean.month)" width="98%"></label>
-    				  		<label value="@bind(v.requirementGenerationBean.requirementId)" width="98%"></label>
-    				  		<label value="@bind(v.currentOpportunitiesReportBean.billNoString)" width="98%"></label>
-    				  		<label value="@bind(v.skillsetMasterbean.skillset)" width="98%"></label>
-    				  		<label value="@bind(v.currentOpportunitiesReportBean.billDateSql)" width="98%"></label>
-    				  		<label value="@bind(v.resourceMasterBean.fullName)" width="98%"></label>
-    				  		<label value="@bind(v.currentOpportunitiesReportBean.billAmountString)" width="98%"></label>
-    				  		<label value="@bind(v.currentOpportunitiesReportBean.paid)" width="98%"></label>
-    				  		<label value="@bind(v.currentOpportunitiesReportBean.chqDetails)" width="98%"></label>
-    				  	</row>
-    				  </template>	
-    				</rows>
-    			</grid>
-    		</div>
-	</window>
+		    				<hlayout>
+		    				   <button label="Search" style="font-weight:bold; color: black" visible="true" onClick="@command('onClickSearchButton')"></button>
+				               <button label="Clear"  style="font-weight:bold; color: black" visible="true" width="70px" onClick="@command('onClickClear')"></button>
+		    				</hlayout>
+   				        </hlayout>
+ 					</div>
+                       <space></space>
+                      <div visible="@bind(vm.divVisibility)">
+			    			<grid model="@bind(vm.reportList)" mold="paging" pageSize="8" height="350px">	
+			    				<columns sizable="true">
+			    					<column width="300px" label="Month" style="font-weight:bold; color: black" align="center"></column>
+			    					<column width="140px" label="Bill No" style="font-weight:bold; color: black" align="center"></column>
+			    					<column width="100px" label="Bill Date" style="font-weight:bold; color: black" align="center"></column>
+			    					<column width="130px" label="Bill Amount" style="font-weight:bold; color: black" align="center"></column>
+			    					<column width="230px" label="Paid" style="font-weight:bold; color: black" align="center"></column>
+			    					<column width="130px" label="Chq Details" style="font-weight:bold; color: black" align="center"></column>
+			    				</columns>
+			    				<rows>
+			    				  <template name="model" var = "v">
+			    					<row style="@bind(v.backGround)">
+			    				  		<label value="@bind(v.currentOpportunitiesReportBean.month)" width="98%" style="@bind(v.style)"></label>
+			    				  		<label value="@bind(v.currentOpportunitiesReportBean.billNoString)" width="98%" style="@bind(v.style)"></label>
+			    				  		<label value="@bind(v.currentOpportunitiesReportBean.billDateSql)" width="98%" style="@bind(v.style)"></label>
+			    				  		<label value="@bind(v.currentOpportunitiesReportBean.billAmountString)" width="98%" style="@bind(v.style)"></label>
+			    				  		<label value="@bind(v.currentOpportunitiesReportBean.paid)" width="98%" style="@bind(v.style)"></label>
+			    				  		<label value="@bind(v.currentOpportunitiesReportBean.chqDetails)" width="98%" style="@bind(v.style)"></label>
+			    				  	</row>
+			    				  </template>	
+			    				</rows>
+			    			</grid>
+    		          </div>
+    		          <div align="center" visible="@bind(vm.pdfDivVisibility)">
+    		              <button label="Generate PDF" style="font-weight:bold" onClick="@command('onClickPdf')"></button> 
+    		          </div>
+                  </tabpanel>
+                  
+                  <tabpanel>
+                     <div align="center">
+                           <hlayout spacing="20px">
+    							<radiogroup onCheck="@command('onCheckDetailSummary')" selectedItem="@bind(vm.currentOpportunitiesReportGenerationBean.selectedRadioButton)">
+									<radio label="Client Wise Report" value="1stReport" style="font-weight:bold; color: black" onCheck="@command('onCheckClient')"/>
+									<space></space>	
+									<radio label="Resource Wise Report" value="2ndReport" style="font-weight:bold; color: black" onCheck="@command('onCheckResource')"/>
+								</radiogroup>
+    				       </hlayout>
+    				      <space></space>
+    				      <hlayout spacing="20px" visible="@bind(vm.currentOpportunitiesReportGenerationBean.innerComboGroup)">
+    							<bandbox autodrop="true" readonly="true" id="clntBb" value="@bind(vm.currentOpportunitiesReportGenerationBean.clientInformationBean.fullName)" placeholder="                    Search By Client"
+    							        visible="@bind(vm.currentOpportunitiesReportGenerationBean.innerClientGroup)" width="245px">
+								<bandpopup width="260px">	
+									<hbox>
+										<textbox value="@bind(vm.currentOpportunitiesReportGenerationBean.clientNameSearch)" onChange="@command('onChangeClientName')" width="120px"></textbox>
+										<button label="Serach" onClick="@command('onChangeClientName')"></button>
+										<button label="Clear" onClick="@command('onClickClientClear')"></button>
+									</hbox>
+									<space></space>
+									<listbox width="280px" model="@bind(vm.clientList)" 
+									     selectedItem="@bind(vm.currentOpportunitiesReportGenerationBean.clientInformationBean)" onSelect="@command('onSelctClientName')" mold="paging" pageSize="5">
+										<listhead sizable="true">
+											<listheader label="Client Name"></listheader>
+										</listhead>
+										
+										<template name="model" var = "v">
+										<listitem>
+										  <listcell label="@load(v.fullName)"></listcell>
+										</listitem>
+									   </template>
+									</listbox>
+								</bandpopup>
+					           </bandbox>
+    							
+    							<bandbox autodrop="true" readonly="true" id="resourceBb" value="@bind(vm.currentOpportunitiesReportGenerationBean.resourceMasterBean.fullName)" placeholder="                  Search By Resource"
+    							        visible="@bind(vm.currentOpportunitiesReportGenerationBean.innerResourceCombo)" width="245px">
+								<bandpopup width="260px">	
+									<hbox>
+										<textbox value="@bind(vm.currentOpportunitiesReportGenerationBean.resourceNameSearch)" onChange="@command('onChangeResourceName')" width="120px"></textbox>
+										<button label="Serach" onClick="@command('onChangeResourceName')"></button>
+										<button label="Clear" onClick="@command('onClickResourceClear')"></button>
+									</hbox>
+									<space></space>
+									<listbox width="280px" model="@bind(vm.resourceList)" 
+									     selectedItem="@bind(vm.currentOpportunitiesReportGenerationBean.resourceMasterBean)" onSelect="@command('onSelctResourceName')" mold="paging" pageSize="5">
+										<listhead sizable="true">
+											<listheader label="Resource Name"></listheader>
+										</listhead>
+										
+										<template name="model" var = "v">
+										<listitem>
+										  <listcell label="@load(v.fullName)"></listcell>
+										</listitem>
+									   </template>
+									</listbox>
+								</bandpopup>
+					           </bandbox>
+    				      </hlayout>
+                       </div>
+                       <space></space>
+                       
+                          <div visible="@bind(vm.secondDivVisibility)">
+			    			<grid model="@bind(vm.secondTabList)" mold="paging" pageSize="8" height="265px">	
+			    				<columns sizable="true">
+			    					<column width="300px" label="Client Name" style="font-weight:bold; color: black" align="center"></column>
+			    					<column width="300px" label="Resource Name" style="font-weight:bold; color: black" align="center"></column>
+			    					<column width="120px" label="Tenure From Date" style="font-weight:bold; color: black" align="center"></column>
+			    					<column width="120px" label="Tenure From Date" style="font-weight:bold; color: black" align="center"></column>
+			    					<column width="160px" label="Month" style="font-weight:bold; color: black" align="center"></column>
+			    				</columns>
+			    				<rows>
+			    				  <template name="model" var = "v">
+			    					<row>
+			    				  		<label value="@bind(v.clientInformationBean.fullName)" width="98%" style="@bind(v.style)"></label>
+			    				  		<label value="@bind(v.resourceMasterBean.fullName)" width="98%" style="@bind(v.style)"></label>
+			    				  		<label value="@bind(v.currentOpportunitiesBean.tentureFromUtil)" width="98%" style="@bind(v.style)"></label>
+			    				  		<label value="@bind(v.currentOpportunitiesBean.tentureToUtil)" width="98%" style="@bind(v.style)"></label>
+			    				  		<label value="@bind(v.currentOpportunitiesReportBean.month)" width="98%" style="@bind(v.style)"></label>
+			    				  	</row>
+			    				  </template>	
+			    				</rows>
+			    			</grid>
+    		          </div>
+                       <space></space>
+                       <div align="center" visible="@bind(vm.buttonVisibility)">
+                           <hlayout>
+    				             <button label="Generate PDF"  style="font-weight:bold" onClick="@command('onClickPdfForOppurtunity')"></button> 
+    				      </hlayout>
+                       </div>
+                  </tabpanel>
+            </tabpanels>
+         </tabbox>
+      </div>
+   </window>
 </zk>

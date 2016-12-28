@@ -178,6 +178,11 @@ public class ResourceAllocationViewModel {
 								  Calendar calendar = Calendar.getInstance();
 								  java.sql.Date currentDate = new java.sql.Date(calendar.getTime().getTime());
 								  System.out.println("CREATION DATE :"+currentDate);
+								  if(resourceList.size()>0){
+									  resourceAllocationBean.setDivVisibility(true);
+								  }else{
+									  resourceAllocationBean.setDivVisibility(false);
+								  }
 								  flagLogInsert = LogAuditServiceClass.insertIntoLogTable(resourceAllocationBean.getMainScreenName(), resourceAllocationBean.getChileScreenName(), 
 																						  resourceAllocationBean.getSessionUserId(), resourceAllocationBean.getOperation(),currentDate,
 																						  resourceAllocationBean.getOperationId());

@@ -97,49 +97,114 @@ public class RequirementGenerationEditViewModel {
 	public void onClickUpdate(){
 		boolean flag = false;
 		boolean flagLogUpdate = false;
-		if(RequirementGenerationService.isValidForUpdate(reqEditGenBean)){
-			int count = RequirementGenerationService.countWrtReqId(reqEditGenBean);
-			System.out.println("COUNT :"+count);
-			if(count>0){
-				if(reqEditGenBean.getResourceTypeBean().getResourceTypeName().equalsIgnoreCase("CONTRACT")){
-					System.out.println("NEW VALUE IS :"+reqEditGenBean.getNofConResource()+"-------------"+reqEditGenBean.getOldValue());
-					if(reqEditGenBean.getNofConResource()<reqEditGenBean.getOldValue()){
-						 Messagebox.show("You Can't Drecrease The Number Of Resources"+reqEditGenBean.getOldValue()+"!", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
-						 reqEditGenBean.setNofConResource(reqEditGenBean.getOldValue());
-						 flag = false;
-					}else{
-						flag = true;
+		
+		if(reqEditGenBean.getResourceTypeBean().getResourceTypeName().equalsIgnoreCase("CONTRACT")){
+			 if(reqEditGenBean.getNofConResource()!=null){
+				 if(reqEditGenBean.getNofConResource()!=0){
+					 if(RequirementGenerationService.isValidForUpdate(reqEditGenBean)){
+							int count = RequirementGenerationService.countWrtReqId(reqEditGenBean);
+							System.out.println("COUNT :"+count);
+							if(count>0){
+								if(reqEditGenBean.getResourceTypeBean().getResourceTypeName().equalsIgnoreCase("CONTRACT")){
+									System.out.println("NEW VALUE IS :"+reqEditGenBean.getNofConResource()+"-------------"+reqEditGenBean.getOldValue());
+									if(reqEditGenBean.getNofConResource()<reqEditGenBean.getOldValue()){
+										 Messagebox.show("You Can't Drecrease The Number Of Resources"+reqEditGenBean.getOldValue()+"!", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
+										 reqEditGenBean.setNofConResource(reqEditGenBean.getOldValue());
+										 flag = false;
+									}else{
+										flag = true;
+									}
+								}else{
+									System.out.println("NEW VALUE IS :"+reqEditGenBean.getNofPerResource()+"-------------"+reqEditGenBean.getOldValue());
+									if(reqEditGenBean.getNofPerResource()<reqEditGenBean.getOldValue()){
+										 Messagebox.show("You Can't Drecrease The Number Of Resources!", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
+										 reqEditGenBean.setNofPerResource(reqEditGenBean.getOldValue());
+										 flag = false;
+									}else{
+										flag = true;
+									}
+								}
+							}else{
+								flag = true;
+							}
+							System.out.println(flag);
+							if(flag){
+								int i = RequirementGenerationService.updateReqGenMaster(reqEditGenBean);	
+								if(i>0){
+									Messagebox.show("Updated Successfully", "Information", Messagebox.OK, Messagebox.INFORMATION);
+									reqEditGenBean.setOperation("UPDATE");
+									reqEditGenBean.setOperationId(2);
+									Calendar calendar = Calendar.getInstance();
+								    java.sql.Date currentDate = new java.sql.Date(calendar.getTime().getTime());
+									System.out.println("CREATION DATE :"+currentDate);
+									flagLogUpdate = LogAuditServiceClass.insertIntoLogTable(reqEditGenBean.getMainScreenName(), reqEditGenBean.getChileScreenName(), 
+																							reqEditGenBean.getSessionUserId(), reqEditGenBean.getOperation(),currentDate,
+																							reqEditGenBean.getOperationId());
+									System.out.println("Requirement screen flagLogUpdate Is:"+flagLogUpdate);
+									winReqGenEdit.detach();
+									BindUtils.postGlobalCommand(null, null, "editReqGen", null);
+								}	
+							}
+						}
+				 }else{
+					 Messagebox.show("Number Of Resource Can't Be Zero", "Warning", Messagebox.OK, Messagebox.EXCLAMATION); 
+				 }
+			 }else{
+				 Messagebox.show("Number Of Resource Can't Be Blank", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
+			 }
+		}else if(reqEditGenBean.getResourceTypeBean().getResourceTypeName().equalsIgnoreCase("PERMANANT")){
+			if(reqEditGenBean.getNofPerResource()!=null){
+				if(reqEditGenBean.getNofPerResource()!=0){
+					if(RequirementGenerationService.isValidForUpdate(reqEditGenBean)){
+						int count = RequirementGenerationService.countWrtReqId(reqEditGenBean);
+						System.out.println("COUNT :"+count);
+						if(count>0){
+							if(reqEditGenBean.getResourceTypeBean().getResourceTypeName().equalsIgnoreCase("CONTRACT")){
+								System.out.println("NEW VALUE IS :"+reqEditGenBean.getNofConResource()+"-------------"+reqEditGenBean.getOldValue());
+								if(reqEditGenBean.getNofConResource()<reqEditGenBean.getOldValue()){
+									 Messagebox.show("You Can't Drecrease The Number Of Resources "+reqEditGenBean.getOldValue()+"", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
+									 reqEditGenBean.setNofConResource(reqEditGenBean.getOldValue());
+									 flag = false;
+								}else{
+									flag = true;
+								}
+							}else{
+								System.out.println("NEW VALUE IS :"+reqEditGenBean.getNofPerResource()+"-------------"+reqEditGenBean.getOldValue());
+								if(reqEditGenBean.getNofPerResource()<reqEditGenBean.getOldValue()){
+									 Messagebox.show("You Can't Drecrease The Number Of Resources!", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
+									 reqEditGenBean.setNofPerResource(reqEditGenBean.getOldValue());
+									 flag = false;
+								}else{
+									flag = true;
+								}
+							}
+						}else{
+							flag = true;
+						}
+						System.out.println(flag);
+						if(flag){
+							int i = RequirementGenerationService.updateReqGenMaster(reqEditGenBean);	
+							if(i>0){
+								Messagebox.show("Updated Successfully", "Information", Messagebox.OK, Messagebox.INFORMATION);
+								reqEditGenBean.setOperation("UPDATE");
+								reqEditGenBean.setOperationId(2);
+								Calendar calendar = Calendar.getInstance();
+							    java.sql.Date currentDate = new java.sql.Date(calendar.getTime().getTime());
+								System.out.println("CREATION DATE :"+currentDate);
+								flagLogUpdate = LogAuditServiceClass.insertIntoLogTable(reqEditGenBean.getMainScreenName(), reqEditGenBean.getChileScreenName(), 
+																						reqEditGenBean.getSessionUserId(), reqEditGenBean.getOperation(),currentDate,
+																						reqEditGenBean.getOperationId());
+								System.out.println("Requirement screen flagLogUpdate Is:"+flagLogUpdate);
+								winReqGenEdit.detach();
+								BindUtils.postGlobalCommand(null, null, "editReqGen", null);
+							}	
+						}
 					}
 				}else{
-					System.out.println("NEW VALUE IS :"+reqEditGenBean.getNofPerResource()+"-------------"+reqEditGenBean.getOldValue());
-					if(reqEditGenBean.getNofPerResource()<reqEditGenBean.getOldValue()){
-						 Messagebox.show("You Can't Drecrease The Number Of Resources!", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
-						 reqEditGenBean.setNofPerResource(reqEditGenBean.getOldValue());
-						 flag = false;
-					}else{
-						flag = true;
-					}
+					Messagebox.show("Number Of Resource Can't Be Zero", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
 				}
 			}else{
-				flag = true;
-			}
-			System.out.println(flag);
-			if(flag){
-				int i = RequirementGenerationService.updateReqGenMaster(reqEditGenBean);	
-				if(i>0){
-					Messagebox.show("Updated Successfully", "Information", Messagebox.OK, Messagebox.INFORMATION);
-					reqEditGenBean.setOperation("UPDATE");
-					reqEditGenBean.setOperationId(2);
-					Calendar calendar = Calendar.getInstance();
-				    java.sql.Date currentDate = new java.sql.Date(calendar.getTime().getTime());
-					System.out.println("CREATION DATE :"+currentDate);
-					flagLogUpdate = LogAuditServiceClass.insertIntoLogTable(reqEditGenBean.getMainScreenName(), reqEditGenBean.getChileScreenName(), 
-																			reqEditGenBean.getSessionUserId(), reqEditGenBean.getOperation(),currentDate,
-																			reqEditGenBean.getOperationId());
-					System.out.println("Requirement screen flagLogUpdate Is:"+flagLogUpdate);
-					winReqGenEdit.detach();
-					BindUtils.postGlobalCommand(null, null, "editReqGen", null);
-				}	
+				 Messagebox.show("Number Of Resource Can't Be Blank", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
 			}
 		}
 	}

@@ -59,6 +59,8 @@
             </treeitem>
         </treechildren>
        </treeitem>
+       
+       
         <treeitem open="false">
          <treerow>
          	<treecell label="Transaction" visible="@bind(vm.tranactionLinkVisibility)">
@@ -79,13 +81,40 @@
             	</treecell>
             	</treerow>
          </treeitem>
-            <treeitem open="false">
+         <treeitem open="false">
             	<treerow>
             	 <treecell label="- Resource Allocation Tracking"
             	  	onClick='inclResults.setSrc("/WEB-INF/view/resourceAllocationTracking.zul");' visible="@bind(vm.resourceAllocationTrackingLinkVisibility)">
             	</treecell>
             	</treerow>
             </treeitem>
+            
+            
+            <treeitem open="false">
+            	<treerow>
+            	 <treecell label="- Billing" visible="@bind(vm.billingSectionVisibility)">
+            	</treecell>
+            	</treerow>
+            	<treechildren>
+            	    <treeitem>  
+           				<treerow>
+           					<treecell label="- Pre Billing Confirmation"
+           								onClick='inclResults.setSrc("/WEB-INF/view/currentOpportunities.zul");' visible="@bind(vm.currentOpportunitiesViewVisibility)">
+           	                </treecell>
+                        </treerow>
+                    </treeitem>
+                    
+                    <treeitem open="false">  
+           				<treerow>
+           					<treecell label="- Billing Confirmation" onClick='inclResults.setSrc("/WEB-INF/view/currentOpportunitiesReport.zul");' 
+           					  visible="@bind(vm.currentOpportunitiesViewOperationVisibility)">
+           					</treecell>
+           				</treerow>
+         			</treeitem>
+         			
+            	</treechildren>
+            </treeitem>
+            
          </treechildren>
          </treeitem>
        <treeitem open="false">
@@ -129,13 +158,6 @@
          	</treecell>
          </treerow>
          </treeitem>
-         <treeitem>  
-           <treerow>
-           	<treecell label="- Current Opportunities"
-           				onClick='inclResults.setSrc("/WEB-INF/view/currentOpportunities.zul");' visible="@bind(vm.currentOpportunitiesViewVisibility)">
-           	</treecell>
-           </treerow>
-         </treeitem>
          <treeitem>
          <treerow>
          <treecell label="- Log Audit Section" 
@@ -143,26 +165,72 @@
          </treecell>
          </treerow>
          </treeitem>
+         <treeitem open="false">  
+           				<treerow>
+           					<treecell label="- Billing Report" onClick='inclResults.setSrc("/WEB-INF/view/currentOpportunitiesReportScreen.zul");'
+           					 visible="@bind(vm.currentOpportunitiesViewReportVisibility)">
+           					</treecell>
+           				</treerow>
+         </treeitem>
          </treechildren>
          </treeitem>
-         <treeitem open="false">  
-           <treerow>
-           	<treecell label=" Current Opportunities Operation" onClick='inclResults.setSrc("/WEB-INF/view/currentOpportunitiesReport.zul");'>
-           	</treecell>
-           </treerow>
+         
+         <treeitem open="false">
+         <treerow>
+         	<treecell label="Task" visible="@bind(vm.taskSectionVisibility)">
+         	</treecell>
+         </treerow>
+         <treechildren>
+         <treeitem>
+         <treerow>
+         	<treecell label="- Task Creation"
+         				onClick='inclResults.setSrc("/WEB-INF/view/taskName.zul");' visible="@bind(vm.taskNameVisibility)">
+         	</treecell>
+         </treerow>
          </treeitem>
-         <treeitem open="false">  
-           <treerow>
-           	<treecell label=" Current Opportunities Report" onClick='inclResults.setSrc("/WEB-INF/view/currentOpportunitiesReportScreen.zul");'>
-           	</treecell>
-           </treerow>
+         <treeitem open="false">
+            	<treerow>
+            	 <treecell label="- Task Update"
+            	  			onClick='inclResults.setSrc("/WEB-INF/view/taskUpdate.zul");' visible="@bind(vm.taskUpdateVisibility)">
+            	</treecell>
+            	</treerow>
          </treeitem>
-         <treeitem open="false">  
-           <treerow>
-           	<treecell label=" Task Name Creation" onClick='inclResults.setSrc("/WEB-INF/view/taskName.zul");'>
-           	</treecell>
-           </treerow>
+            <treeitem open="false">
+            	<treerow>
+            	 <treecell label="- Task Report" visible="@bind(vm.taskReportVisibity)">
+            	</treecell>
+            	</treerow>
+            	<treechildren>
+            	
+            	    <treeitem open="false">
+        				 <treerow>
+         				 <treecell label="- Activity Scheduled For Today And Tomorrow" onClick='inclResults.setSrc("/WEB-INF/view/activity_Scheduled_For_Today_And_Tomorrow.zul");' 
+         				         visible="@bind(vm.firstReportVisibility)">
+        			     </treecell>
+         				</treerow>
+                   </treeitem>
+                   
+                    <treeitem open="false">
+        				 <treerow>
+         				 <treecell label="- Overdue Activities - Weekly, Monthly" onClick='inclResults.setSrc("/WEB-INF/view/overdueActivitiesWeeklyMonthly.zul");' 
+         				         visible="@bind(vm.firstReportVisibility)">
+        			     </treecell>
+         				</treerow>
+                   </treeitem>
+                   
+                    <treeitem open="false">
+        				 <treerow>
+         				 <treecell label="- Schedule Datewise Detail Report" onClick='inclResults.setSrc("/WEB-INF/view/ScheduleDatewiseDetailReport.zul");' 
+         				         visible="@bind(vm.firstReportVisibility)">
+        			     </treecell>
+         				</treerow>
+                   </treeitem>
+            	 
+            	</treechildren>
+            </treeitem>   
+         </treechildren>
          </treeitem>
+         
          <treeitem open="false">
          <treerow>
          <treecell label="Sign-out" onClick="@command('onClickSignOut')">
@@ -178,7 +246,7 @@
       </treechildren>
      </tree>
   </div>
-  <div sclass="outBorder refrm_back" style="width: 78%; float:right; height:90vh; overflow:hidden; float:left; border:2px solid #FFF; color:#FFFFFF; margin-right:10px;">
+   <div sclass="outBorder refrm_back" style="width: 78%; float:right; height:90vh; overflow:hidden; float:left; border:2px solid #FFF; color:#FFFFFF; margin-right:10px;">
 	<include id="inclResults" mode="instant" style="overflow: auto; ">
 	</include>
  </div>

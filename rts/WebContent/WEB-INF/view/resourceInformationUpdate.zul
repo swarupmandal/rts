@@ -28,11 +28,19 @@
 						
 						<row>
 						  <label value="Years of Experience:" style="font-weight:bold"></label>		
-						  <doublebox width="75%" value="@bind(vm.masterBean.yearOfExperience)"></doublebox>	
+						  <doublebox width="75%" value="@bind(vm.masterBean.yearOfExperience)" maxlength="2"
+						     onChange="@command('yearOfExperience')"></doublebox>	
 						</row>		
 						<row>
 						  <label value="Address:" style="font-weight:bold"></label>		
-						  <textbox rows="2" value="@bind(vm.masterBean.address)" width="75%"></textbox>	
+						  <textbox rows="2" value="@bind(vm.masterBean.address)" width="75%" maxlength="100" placeholder="WITHIN 80 WORDS" xmlns:w="client">
+						     <attribute w:name="doKeyPress_">
+											<![CDATA[ function(evt) { if ( (evt.which <
+							  				65 || evt.which > 90) && (evt.which < 97 ||
+							  				evt.which > 122) && evt.which != 8 &&
+							  				evt.which != 32) evt.stop(); } ]]>
+						  				 </attribute>
+						  </textbox>	
 						</row>
 						
 						<row>
@@ -41,7 +49,14 @@
 					    </row>
 					   <row>
 		             	<label value="State:" style="font-weight:bold"></label>
-		                <textbox value="@bind(vm.masterBean.state)" width="75%"></textbox>					
+		                <textbox value="@bind(vm.masterBean.state)" width="75%" maxlength="20" xmlns:w="client">
+		                    <attribute w:name="doKeyPress_">
+											<![CDATA[ function(evt) { if ( (evt.which <
+							  				65 || evt.which > 90) && (evt.which < 97 ||
+							  				evt.which > 122) && evt.which != 8 &&
+							  				evt.which != 32) evt.stop(); } ]]>
+						  				 </attribute>
+		                </textbox>					
 					  </row>
 						<row>
 						  <label value="Pin/Zip code:" style="font-weight:bold"></label>		
@@ -50,7 +65,7 @@
 						
 						<row>
 						  <label value="Contact no:" style="font-weight:bold"></label>		
-						  <textbox width="75%" value="@bind(vm.masterBean.contactNumber)"
+						  <textbox width="75%" value="@bind(vm.masterBean.contactNumber)" maxlength="10"
 						     xmlns:w="client">
 						     <attribute w:name="doKeyPress_">
 								<![CDATA[ function(evt) { if ( (evt.which >
@@ -62,7 +77,7 @@
 						
 						<row>
 						  <label value="Email Id:" style="font-weight:bold"></label>		
-						  <textbox width="75%" value="@bind(vm.masterBean.emailId)">
+						  <textbox width="75%" value="@bind(vm.masterBean.emailId)" maxlength="25">
 						  </textbox>	
 						</row>
 						
@@ -75,17 +90,24 @@
 						</row>
 					   <row>
 						  <label value="CTC(annual)" style="font-weight:bold"></label>		
-						  <doublebox width="75%" value="@bind(vm.masterBean.ctc)"></doublebox>	
+						  <doublebox width="75%" value="@bind(vm.masterBean.ctc)" maxlength="6"></doublebox>	
 					   </row>
 					    
 					    <row>
 						  <label value="Profit(%)" style="font-weight:bold"></label>		
-						  <doublebox width="75%" value="@bind(vm.masterBean.profit)"></doublebox>	
+						  <doublebox width="75%" value="@bind(vm.masterBean.profit)" maxlength="3"></doublebox>	
 					   </row>
 					   
 					   <row>
 						  <label value="Other Info" style="font-weight:bold"></label>		
-						   <textbox width="75%" value="@bind(vm.masterBean.otherInfo)"></textbox>	
+						   <textbox width="75%" value="@bind(vm.masterBean.otherInfo)" maxlength="30" placeholder="WITHIN 20 WORDS" xmlns:w="client">
+						        <attribute w:name="doKeyPress_">
+											<![CDATA[ function(evt) { if ( (evt.which <
+							  				65 || evt.which > 90) && (evt.which < 97 ||
+							  				evt.which > 122) && evt.which != 8 &&
+							  				evt.which != 32) evt.stop(); } ]]>
+						  				 </attribute>
+						   </textbox>	
 					   </row>
 					   <row>
 					     <label></label>

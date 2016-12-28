@@ -22,6 +22,52 @@ public class SendEmail{
 		return isValid;
 	}
 	
+	public static Boolean generateAndSendEmailForApproveOrReject(String emailId,String status) {
+		  Properties mailServerProperties;
+		  Session getMailSession;
+		  MimeMessage generateMailMessage;
+		  String emailBody;
+		  //
+		  mailServerProperties = System.getProperties();
+		  mailServerProperties.put("mail.smtp.port", "587");
+		  mailServerProperties.put("mail.smtp.host", "smtp.gmail.com");
+		  mailServerProperties.put("mail.smtp.auth", "true");
+		  mailServerProperties.put("mail.smtp.user", "sentmail95@gmail.com");
+		  mailServerProperties.put("mail.smtp.password", "sunnydutta123");
+		  mailServerProperties.put("mail.smtp.starttls.enable", "true");
+		  System.out.println("Mail Server Properties have been setup successfully..");
+		 
+		  //
+		  getMailSession = Session.getDefaultInstance(mailServerProperties, null);
+		  generateMailMessage = new MimeMessage(getMailSession);
+		  try {
+		   generateMailMessage.setFrom(new InternetAddress("sentmail95@gmail.com"));
+		   generateMailMessage.addRecipient(Message.RecipientType.TO,new InternetAddress(emailId));
+		   //generateMailMessage.addRecipient(Message.RecipientType.CC,new InternetAddress("prolayjit.dutta@appsquad.in"));
+		   generateMailMessage.setSubject("Approval Request Status");
+		   
+		   if(status.equalsIgnoreCase("Approve")){
+		      emailBody ="Approval Request Approved";
+		   }else{
+			  emailBody ="Approval Request Rejected"; 
+		   }
+		   generateMailMessage.setContent(emailBody, "text/html");
+		   System.out.println("Mail Session has been created successfully..");
+		   
+		   //
+		   Transport transport = getMailSession.getTransport("smtp");
+		   transport.connect("smtp.gmail.com","sentmail95@gmail.com", "sunnydutta123");
+		   transport.sendMessage(generateMailMessage, generateMailMessage.getAllRecipients());
+		   transport.close();
+		   return true;
+		  } catch (AddressException e) {
+			  e.printStackTrace();
+		  } catch (MessagingException e) {
+			  e.printStackTrace();
+		  }
+		  return false;
+		 }
+	
 	public static Boolean generateAndSendEmail(String emailId) {
 	  Properties mailServerProperties;
 	  Session getMailSession;
@@ -42,6 +88,7 @@ public class SendEmail{
 	  try {
 	   generateMailMessage.setFrom(new InternetAddress("sentmail95@gmail.com"));
 	   generateMailMessage.addRecipient(Message.RecipientType.TO,new InternetAddress(emailId));
+	   //generateMailMessage.addRecipient(Message.RecipientType.CC,new InternetAddress("prolayjit.dutta@appsquad.in"));
 	   generateMailMessage.setSubject("Approval Request Sent From Resource Augmentation Tracking System");
 	   String emailBody ="You Have Got An Approval Request.";
 	   generateMailMessage.setContent(emailBody, "text/html");
@@ -61,10 +108,51 @@ public class SendEmail{
 	  return false;
 	 }
 	
-	public static void myLogger(String email, boolean valid) {
-		System.out.println(email + " is " + (valid ? "a" : "not a") + " valid email address\n");
-	}
+	 
+	public static Boolean generateAndSendEmailForTaskCreation(String emailId) {
+		  Properties mailServerProperties;
+		  Session getMailSession;
+		  MimeMessage generateMailMessage;
+		  //
+		  mailServerProperties = System.getProperties();
+		  mailServerProperties.put("mail.smtp.port", "587");
+		  mailServerProperties.put("mail.smtp.host", "smtp.gmail.com");
+		  mailServerProperties.put("mail.smtp.auth", "true");
+		  mailServerProperties.put("mail.smtp.user", "sentmail95@gmail.com");
+		  mailServerProperties.put("mail.smtp.password", "sunnydutta123");
+		  mailServerProperties.put("mail.smtp.starttls.enable", "true");
+		  System.out.println("Mail Server Properties have been setup successfully..");
+		 
+		  //
+		  getMailSession = Session.getDefaultInstance(mailServerProperties, null);
+		  generateMailMessage = new MimeMessage(getMailSession);
+		  try {
+		   generateMailMessage.setFrom(new InternetAddress("sentmail95@gmail.com"));
+		   generateMailMessage.addRecipient(Message.RecipientType.TO,new InternetAddress(emailId));
+		   generateMailMessage.setSubject("Task Description Creation Status Sent From Resource Augmentation Tracking System");
+		   String emailBody ="A New Task Description Has Been Created And Assigned For You. ";
+		   generateMailMessage.setContent(emailBody, "text/html");
+		   System.out.println("Mail Session has been created successfully..");
+		   
+		   //
+		   Transport transport = getMailSession.getTransport("smtp");
+		   transport.connect("smtp.gmail.com","sentmail95@gmail.com", "sunnydutta123");
+		   transport.sendMessage(generateMailMessage, generateMailMessage.getAllRecipients());
+		   transport.close();
+		   return true;
+		  } catch (AddressException e) {
+			  e.printStackTrace();
+		  } catch (MessagingException e) {
+			  e.printStackTrace();
+		  }
+		  return false;
+		 }
 	
-    public static void main(String[] args) {
-	}
+	 public static void myLogger(String email, boolean valid) {
+		System.out.println(email + " is " + (valid ? "a" : "not a") + " valid email address\n");
+	 }
+	
+     public static void main(String[] args) {
+    	 System.out.println("SMS CALLING PAGE");
+	 }
 }

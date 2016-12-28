@@ -59,28 +59,103 @@ public class UserprofileViewModel {
 	
 	@Command
 	@NotifyChange("*")
+	public void username(){
+		if(userprofileBean.getUsername()!=null){
+			int size = userprofileBean.getUsername().length();
+			System.out.println(size);
+			String newName = userprofileBean.getUsername().trim();
+			System.out.println(newName);
+			int newSize = newName.length();
+			System.out.println(newSize);
+			userprofileBean.setUsername(newName);
+		}
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void userid(){
+		if(userprofileBean.getUserid()!=null){
+			int size1 = userprofileBean.getUserid().length();
+			System.out.println(size1);
+			String newUserID = userprofileBean.getUserid().trim();
+			System.out.println(newUserID);
+			int newSize1 = newUserID.length();
+			System.out.println(newSize1);
+			userprofileBean.setUserid(newUserID);
+		}
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void email(){
+		if(userprofileBean.getEmail()!=null){
+			int size2 = userprofileBean.getEmail().length();
+			System.out.println(size2);
+			String newEmail = userprofileBean.getEmail().trim();
+			System.out.println(newEmail);
+			int newSize2 = newEmail.length();
+			System.out.println(newSize2);
+			userprofileBean.setEmail(newEmail);
+		}
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void address(){
+		if(userprofileBean.getAddress()!=null){
+			int size3 = userprofileBean.getAddress().length();
+			System.out.println(size3);
+			String newAddress = userprofileBean.getAddress().trim();
+			System.out.println(newAddress);
+			int newSize3 = newAddress.length();
+			System.out.println(newSize3);
+			userprofileBean.setAddress(newAddress);
+		}
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void contactno(){
+		if(userprofileBean.getContactno()!=null){
+			int size4 = userprofileBean.getContactno().length();
+			System.out.println(size4);
+			String newConatctNo = userprofileBean.getContactno().trim();
+			System.out.println(newConatctNo);
+			int newSize4 = newConatctNo.length();
+			System.out.println(newSize4);
+			userprofileBean.setContactno(newConatctNo);
+		}
+	}
+	
+	@Command
+	@NotifyChange("*")
 	public void onClickuserSubmit() throws Exception{
-		boolean flagInsert = false;
-		boolean flagLogInsert = false;
-		int countNumber = 0;
-		countNumber = UserProfileService.countUserIdPresentInTable(userprofileBean);
-		System.out.println(countNumber);
-		if(countNumber>0){
-			Messagebox.show("Please Enter New User ID. ", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
+		if(userprofileBean.getContactno()!=null && userprofileBean.getContactno().length()==10){
+			boolean flagInsert = false;
+			boolean flagLogInsert = false;
+			int countNumber = 0;
+			countNumber = UserProfileService.countUserIdPresentInTable(userprofileBean);
+			System.out.println(countNumber);
+			if(countNumber>0){
+				Messagebox.show("Please Enter New User ID. ", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
+			}else{
+				flagInsert = UserProfileService.insertUserMasterData(userprofileBean);
+				if(flagInsert){
+					userprofileBean.setOperation("INSERT");
+					userprofileBean.setOperationId(1);
+					Calendar calendar = Calendar.getInstance();
+				    java.sql.Date currentDate = new java.sql.Date(calendar.getTime().getTime());
+					System.out.println("CREATION DATE :"+currentDate);
+					flagLogInsert = LogAuditServiceClass.insertIntoLogTable(userprofileBean.getMainScreenName(), userprofileBean.getChileScreenName(), 
+	                        												userprofileBean.getSessionUserId(), userprofileBean.getOperation(),currentDate,
+	                        												userprofileBean.getOperationId());
+					System.out.println("flagLogInsert Is:"+flagLogInsert);
+					UserProfileService.clearAllField(userprofileBean);	
+				}	
+			}
 		}else{
-			flagInsert = UserProfileService.insertUserMasterData(userprofileBean);
-			if(flagInsert){
-				userprofileBean.setOperation("INSERT");
-				userprofileBean.setOperationId(1);
-				Calendar calendar = Calendar.getInstance();
-			    java.sql.Date currentDate = new java.sql.Date(calendar.getTime().getTime());
-				System.out.println("CREATION DATE :"+currentDate);
-				flagLogInsert = LogAuditServiceClass.insertIntoLogTable(userprofileBean.getMainScreenName(), userprofileBean.getChileScreenName(), 
-                        												userprofileBean.getSessionUserId(), userprofileBean.getOperation(),currentDate,
-                        												userprofileBean.getOperationId());
-				System.out.println("flagLogInsert Is:"+flagLogInsert);
-				UserProfileService.clearAllField(userprofileBean);	
-			}	
+			userprofileBean.setContactno(null);
+			Messagebox.show("Enter Proper Contact Number ", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
 		}
 	}
 	

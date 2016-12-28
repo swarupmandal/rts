@@ -34,7 +34,6 @@ public class ClientInformationViewModel {
 	ClientInformationBean clientInformationBean = new ClientInformationBean();
 	UserprofileBean userprofileBean = new UserprofileBean();
 	
-	
 	private ArrayList<StateBean> stateList = new ArrayList<StateBean>();
 	private ArrayList<CountryBean> countryList = new ArrayList<CountryBean>();
 	private ArrayList<ClientInformationBean> clientDetailsList = new ArrayList<ClientInformationBean>();
@@ -74,6 +73,104 @@ public class ClientInformationViewModel {
 	@NotifyChange("*")
 	public void onClickExistingData(){
 		clientDetailsList = ClientInformationDao.onLoadClientDeatils();
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void clientOriginalName(){
+		if(clientInformationBean.getClientOriginalName()!=null){
+			int size = clientInformationBean.getClientOriginalName().length();
+			System.out.println(size);
+			String newName = clientInformationBean.getClientOriginalName().trim();
+			System.out.println(newName);
+			int newSize = newName.length();
+			System.out.println(newSize);
+			clientInformationBean.setClientOriginalName(newName);
+		}
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void name(){
+		if(clientInformationBean.getName()!=null){
+			int size1 = clientInformationBean.getName().length();
+			System.out.println(size1);
+			String modifyName = clientInformationBean.getName().trim();
+			System.out.println(modifyName);
+			int newSize1 = modifyName.length();
+			System.out.println(newSize1);
+			clientInformationBean.setName(modifyName);
+		}
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void surName(){
+		if(clientInformationBean.getSurName()!=null){
+			int size2 = clientInformationBean.getSurName().length();
+			System.out.println(size2);
+			String modifySurName = clientInformationBean.getSurName().trim();
+			System.out.println(modifySurName);
+			int newSize2 = modifySurName.length();
+			System.out.println(newSize2);
+			clientInformationBean.setSurName(modifySurName);
+		}
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void address(){
+		if(clientInformationBean.getAddress()!=null){
+			int size3 = clientInformationBean.getAddress().length();
+			System.out.println(size3);
+			String modifyAddress = clientInformationBean.getAddress().trim();
+			System.out.println(modifyAddress);
+			int newSize3 = modifyAddress.length();
+			System.out.println(newSize3);
+			clientInformationBean.setAddress(modifyAddress);
+		}
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void country(){
+		if(clientInformationBean.getCountry()!=null){
+			int size4 = clientInformationBean.getCountry().length();
+			System.out.println(size4);
+			String modifyCountry = clientInformationBean.getCountry().trim();
+			System.out.println(modifyCountry);
+			int newSize4 = modifyCountry.length();
+			System.out.println(newSize4);
+			clientInformationBean.setCountry(modifyCountry);
+		}
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void state(){
+		if(clientInformationBean.getState()!=null){
+			int size5 = clientInformationBean.getState().length();
+			System.out.println(size5);
+			String modifyState = clientInformationBean.getState().trim();
+			System.out.println(modifyState);
+			int newSize5 = modifyState.length();
+			System.out.println(newSize5);
+			clientInformationBean.setState(modifyState);
+		}
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void email(){
+		if(clientInformationBean.getEmailId()!=null){
+			int size6 = clientInformationBean.getEmailId().length();
+			System.out.println(size6);
+			String modifyEmail = clientInformationBean.getEmailId().trim();
+			System.out.println(modifyEmail);
+			int newSize6 = modifyEmail.length();
+			System.out.println(newSize6);
+			clientInformationBean.setEmailId(modifyEmail);
+		}
 	}
 	
 	@Command

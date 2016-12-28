@@ -53,6 +53,7 @@ public class ResourceAllocationTrackingDao {
 			}
 		} catch (Exception e) {
 			logger.fatal(e);
+			logger.error(e);
 			e.printStackTrace();
 		}
 		return list;
@@ -84,6 +85,7 @@ public class ResourceAllocationTrackingDao {
 			}
 		} catch (Exception e) {
 			logger.fatal(e);
+			logger.error(e);
 			e.printStackTrace();
 		}
 		return count;
@@ -113,6 +115,7 @@ public class ResourceAllocationTrackingDao {
 			}
 		} catch (Exception e) {
 			logger.fatal(e);
+			logger.error(e);
 			e.printStackTrace();
 		}
 		return typeName;
@@ -153,6 +156,7 @@ public class ResourceAllocationTrackingDao {
 			}
 		} catch (Exception e) {
 			logger.fatal(e);
+			logger.error(e);
 			e.printStackTrace();
 		}
 		return list;
@@ -190,6 +194,7 @@ public class ResourceAllocationTrackingDao {
 			}
 		} catch (Exception e) {
 			logger.fatal(e);
+			logger.error(e);
 			e.printStackTrace();
 		}
 		return list;
@@ -227,6 +232,7 @@ public class ResourceAllocationTrackingDao {
 			}
 		} catch (Exception e) {
 			logger.fatal(e);
+			logger.error(e);
 			e.printStackTrace();
 		}
 		return list;
@@ -265,6 +271,7 @@ public class ResourceAllocationTrackingDao {
 			}
 		} catch (Exception e) {
 			logger.fatal(e);
+			logger.error(e);
 			e.printStackTrace();
 		}
 		return list;
@@ -311,6 +318,7 @@ public class ResourceAllocationTrackingDao {
 			}
 		} catch (Exception e) {
 			logger.fatal(e);
+			logger.error(e);
 			e.printStackTrace();
 		}
 		return list;
@@ -376,6 +384,7 @@ public class ResourceAllocationTrackingDao {
 			}
 		} catch (Exception e) {
 			logger.fatal(e);
+			logger.error(e);
 			e.printStackTrace();
 		}
 		return list;
@@ -440,6 +449,7 @@ public class ResourceAllocationTrackingDao {
 			}
 		} catch (Exception e) {
 			logger.fatal(e);
+			logger.error(e);
 			e.printStackTrace();
 		}
 		return list;
@@ -466,6 +476,7 @@ public class ResourceAllocationTrackingDao {
 			}
 		} catch (Exception e) {
 			logger.fatal(e);
+			logger.error(e);
 			e.printStackTrace();
 		}
 		return i;
@@ -492,6 +503,7 @@ public class ResourceAllocationTrackingDao {
 			}
 		} catch (Exception e) {
 			logger.fatal(e);
+			logger.error(e);
 			e.printStackTrace();
 		}
 		return i;
@@ -534,6 +546,7 @@ public class ResourceAllocationTrackingDao {
 			}
 		} catch (Exception e) {
 			logger.fatal(e);
+			logger.error(e);
 			e.printStackTrace();
 		}
 		return i;
@@ -576,6 +589,7 @@ public class ResourceAllocationTrackingDao {
 			}
 		} catch (Exception e) {
 			logger.fatal(e);
+			logger.error(e);
 			e.printStackTrace();
 		}
 		return j;
@@ -603,6 +617,7 @@ public class ResourceAllocationTrackingDao {
 			}
 		} catch (Exception e) {
 			logger.fatal(e);
+			logger.error(e);
 			e.printStackTrace();
 		}
 		return j;
@@ -633,6 +648,7 @@ public class ResourceAllocationTrackingDao {
 				}
 			} catch (Exception e) {
 				logger.fatal(e);
+				logger.error(e);
 				e.printStackTrace();
 			}
 		}else{
@@ -658,6 +674,7 @@ public class ResourceAllocationTrackingDao {
 				}
 			} catch (Exception e) {
 				logger.fatal(e);
+				logger.error(e);
 				e.printStackTrace();
 			}
 		}
@@ -688,6 +705,7 @@ public class ResourceAllocationTrackingDao {
 				}
 			} catch (Exception e) {
 				logger.fatal(e);
+				logger.error(e);
 				e.printStackTrace();
 			}
 		}else{
@@ -712,6 +730,7 @@ public class ResourceAllocationTrackingDao {
 				}
 			} catch (Exception e) {
 				logger.fatal(e);
+				logger.error(e);
 				e.printStackTrace();
 			}
 		}
@@ -754,6 +773,7 @@ public class ResourceAllocationTrackingDao {
 			}
 		} catch (Exception e) {
 			logger.fatal(e);
+			logger.error(e);
 			e.printStackTrace();
 		}
 		return i;
@@ -795,6 +815,7 @@ public class ResourceAllocationTrackingDao {
 			}
 		} catch (Exception e) {
 			logger.fatal(e);
+			logger.error(e);
 			e.printStackTrace();
 		}
 		return i;
@@ -836,6 +857,7 @@ public class ResourceAllocationTrackingDao {
 			}
 		} catch (Exception e) {
 			logger.fatal(e);
+			logger.error(e);
 			e.printStackTrace();
 		}
 		return i;
@@ -877,6 +899,7 @@ public class ResourceAllocationTrackingDao {
 			}
 		} catch (Exception e) {
 			logger.fatal(e);
+			logger.error(e);
 			e.printStackTrace();
 		}
 		return i;

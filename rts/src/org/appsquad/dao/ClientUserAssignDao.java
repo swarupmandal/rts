@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Arrays;
-
 import org.apache.log4j.Logger;
 import org.appsquad.bean.ClientUserAssignBean;
 import org.appsquad.database.DbConnection;
@@ -29,7 +28,7 @@ public class ClientUserAssignDao {
 					    PreparedStatement preparedStatementInsert = null;
 					    try {
 					    	preparedStatementInsert = Pstm.createQuery(connection, 
-									ClientUserAssignSql.insertUserClientAssignSql, Arrays.asList(userAssignBean.clientInformationBean.getClientId(),userAssignBean.userprofileBean.getUserid()));
+							ClientUserAssignSql.insertUserClientAssignSql, Arrays.asList(userAssignBean.clientInformationBean.getClientId(),userAssignBean.userprofileBean.getUserid()));
 					    	logger.info("insertClientUserAssignData- " + preparedStatementInsert.unwrap(PreparedStatement.class));
 							int i = preparedStatementInsert.executeUpdate();
 							if(i>0){
@@ -41,8 +40,7 @@ public class ClientUserAssignDao {
 							}
 						}
 				    }
-				
-					if( isSaved){
+					if(isSaved){
 						Messagebox.show(" User Saved Successfully For Client ","Information",Messagebox.OK,Messagebox.INFORMATION);
 					}else{
 						Messagebox.show(" User Details failed due to internal error!","ERROR",Messagebox.OK,Messagebox.ERROR);
@@ -90,7 +88,7 @@ public class ClientUserAssignDao {
 						}
 				    }
 				
-					if( isDelete){
+					if(isDelete){
 						Messagebox.show(" User Deleted Successfully For Client ","Information",Messagebox.OK,Messagebox.INFORMATION);
 					}else{
 						Messagebox.show(" User Details failed due to internal error!","ERROR",Messagebox.OK,Messagebox.ERROR);

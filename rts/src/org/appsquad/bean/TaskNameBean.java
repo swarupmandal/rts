@@ -12,12 +12,31 @@ public class TaskNameBean {
     private Integer rtsTaskId;
     
     private String userIdSearch;
+    private String venue;
+    private Integer week;
+    private Integer month;
    
     private Date createdDate;
     private java.sql.Date createdDateSql;
     private String createdDateStr;
     private String createdDateValue;
+    
+    private Date scheduledDate;
+    private java.sql.Date scheduledDateSql;
+    private String scheduledDateStr;
+    private String scheduledDateValue;
+    
+    private Date actualCompletionDate;
+    private java.sql.Date actualCompletionDateSql;
+    private String actualCompletionDateStr;
+    private String actualCompletionDateValue;
+    
     private boolean divVisibility = false;
+    private String status;
+    private String remarksOrResults;
+    private String selectedRadioButton;
+    private String selectedInnerRadioButton;
+    private boolean innerRadioGroup = false;
     
     public UserprofileBean userprofileBean = new UserprofileBean();
    
@@ -107,5 +126,101 @@ public class TaskNameBean {
 	}
 	public void setDivVisibility(boolean divVisibility) {
 		this.divVisibility = divVisibility;
+	}
+	public String getVenue() {
+		return venue;
+	}
+	public void setVenue(String venue) {
+		this.venue = venue;
+	}
+	public Date getScheduledDate() {
+		return scheduledDate;
+	}
+	public void setScheduledDate(Date scheduledDate) {
+		this.scheduledDate = scheduledDate;
+	}
+	public java.sql.Date getScheduledDateSql() {
+		return scheduledDateSql;
+	}
+	public void setScheduledDateSql(java.sql.Date scheduledDateSql) {
+		this.scheduledDateSql = scheduledDateSql;
+	}
+	public String getScheduledDateStr() {
+		return scheduledDateStr;
+	}
+	public void setScheduledDateStr(String scheduledDateStr) {
+		this.scheduledDateStr = scheduledDateStr;
+	}
+	public String getScheduledDateValue() {
+		return scheduledDateValue;
+	}
+	public void setScheduledDateValue(String scheduledDateValue) {
+		this.scheduledDateValue = scheduledDateValue;
+	}
+	public Date getActualCompletionDate() {
+		return actualCompletionDate;
+	}
+	public void setActualCompletionDate(Date actualCompletionDate) {
+		this.actualCompletionDate = actualCompletionDate;
+	}
+	public java.sql.Date getActualCompletionDateSql() {
+		return actualCompletionDateSql;
+	}
+	public void setActualCompletionDateSql(java.sql.Date actualCompletionDateSql) {
+		this.actualCompletionDateSql = actualCompletionDateSql;
+	}
+	public String getActualCompletionDateStr() {
+		return actualCompletionDateStr;
+	}
+	public void setActualCompletionDateStr(String actualCompletionDateStr) {
+		this.actualCompletionDateStr = actualCompletionDateStr;
+	}
+	public String getActualCompletionDateValue() {
+		return actualCompletionDateValue;
+	}
+	public void setActualCompletionDateValue(String actualCompletionDateValue) {
+		this.actualCompletionDateValue = actualCompletionDateValue;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public String getRemarksOrResults() {
+		return remarksOrResults;
+	}
+	public void setRemarksOrResults(String remarksOrResults) {
+		this.remarksOrResults = remarksOrResults;
+	}
+	public String getSelectedRadioButton() {
+		return selectedRadioButton;
+	}
+	public void setSelectedRadioButton(String selectedRadioButton) {
+		this.selectedRadioButton = selectedRadioButton;
+	}
+	public boolean isInnerRadioGroup() {
+		return innerRadioGroup;
+	}
+	public void setInnerRadioGroup(boolean innerRadioGroup) {
+		this.innerRadioGroup = innerRadioGroup;
+	}
+	public String getSelectedInnerRadioButton() {
+		return selectedInnerRadioButton;
+	}
+	public void setSelectedInnerRadioButton(String selectedInnerRadioButton) {
+		this.selectedInnerRadioButton = selectedInnerRadioButton;
+	}
+	public Integer getWeek() {
+		return week;
+	}
+	public void setWeek(Integer week) {
+		this.week = week;
+	}
+	public Integer getMonth() {
+		return month;
+	}
+	public void setMonth(Integer month) {
+		this.month = month;
 	}
 }

@@ -1,11 +1,11 @@
 <?page title="EDIT" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="REQUIREMENT GENERATION EDIT" border="none" height="550px" width="900px" 
+<window title="REQUIREMENT GENERATION EDIT" border="none" height="500px" width="600px" 
 		        apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('org.appsquad.viewmodel.RequirementGenerationEditViewModel')" 
 		                 closable="true" id="winReqGenEdit" onClose="@command('onCloseOperation')">
 		
 		<div>
-					<grid>
+			  <grid>
 					<columns>
 						<column width="20%"></column>
 						<column width="70%"></column>
@@ -19,43 +19,43 @@
 						
 						<row>
 						  <label value="Required Skill:" style="font-weight:bold"></label>		
-						  <textbox width="15%" readonly="true" value="@bind(vm.reqEditGenBean.reqSkill)"></textbox>	
+						  <textbox width="30%" readonly="true" value="@bind(vm.reqEditGenBean.reqSkill)"></textbox>	
 						</row>
 						
 						<row>
 						  <label value="Job Type:" style="font-weight:bold"></label>		
-						  <textbox value="@bind(vm.reqEditGenBean.jobType)" readonly="true"></textbox>	
+						  <textbox value="@bind(vm.reqEditGenBean.jobType)" readonly="true" width="30%"></textbox>	
 						</row>
 						
 						<row>
 						  <label value="Detailed Job:" style="font-weight:bold"></label>		
-						  <textbox multiline="true" value="@bind(vm.reqEditGenBean.detailedJob)"></textbox>	
+						  <textbox rows="3" value="@bind(vm.reqEditGenBean.detailedJob)" width="30%"></textbox>	
 						</row>
 						
 						<row visible="@bind(vm.reqEditGenBean.perFieldvisibility)">
 						  <label value="Number of Resource:" style="font-weight:bold"></label>		
-						  <intbox width="15%" value="@bind(vm.reqEditGenBean.nofPerResource)" onChanging="@command('onChangePer')"></intbox>	
+						  <intbox value="@bind(vm.reqEditGenBean.nofPerResource)" width="30%" onChanging="@command('onChangePer')"></intbox>	
 						</row>
 						
 						<row visible="@bind(vm.reqEditGenBean.conFieldvisibility)">
 						  <label value="Number of Resource:" style="font-weight:bold"></label>		
-						  <intbox width="15%" value="@bind(vm.reqEditGenBean.nofConResource)" onChanging="@command('onChangeCon')"></intbox>	
+						  <intbox value="@bind(vm.reqEditGenBean.nofConResource)" onChanging="@command('onChangeCon')" width="30%"></intbox>	
 						</row>
 						
 						<row>
 						  <label value="Requirement Raise Date:" style="font-weight:bold"></label>		
-						  <datebox width="20%" value="@bind(vm.reqEditGenBean.raiseDate)" disabled="@bind(vm.reqEditGenBean.reqOpenDate)"></datebox>
+						  <datebox value="@bind(vm.reqEditGenBean.raiseDate)" disabled="@bind(vm.reqEditGenBean.reqOpenDate)" width="30%"></datebox>
 						</row>
 						
 						<row>
 						  <label value="Requirement Close Date:" style="font-weight:bold"></label>		
-						  <datebox width="20%" value="@bind(vm.reqEditGenBean.closeDate)" readonly="true"
-						    onChange="@command('onChangeCloseDate')"></datebox>	
+						  <datebox value="@bind(vm.reqEditGenBean.closeDate)" readonly="true"
+						    onChange="@command('onChangeCloseDate')" width="30%"></datebox>	
 						</row>
 						
 						<row>
 						  <label value="Contact no:" style="font-weight:bold"></label>		
-						  <textbox width="20%" value="@bind(vm.reqEditGenBean.contactNo)" readonly="true"
+						  <textbox value="@bind(vm.reqEditGenBean.contactNo)" readonly="true" width="30%"
 						    xmlns:w="client">
 						      <attribute w:name="doKeyPress_">
 									<![CDATA[ function(evt) { if ( (evt.which >
@@ -67,14 +67,14 @@
 						
 						<row>
 						  <label value="Email Id:" style="font-weight:bold"></label>		
-						  <textbox width="30%" value="@bind(vm.reqEditGenBean.email)" readonly="true">
+						  <textbox value="@bind(vm.reqEditGenBean.email)" readonly="true" width="30%">
 						  </textbox>	
 						</row>
 						
 						<row>
 						<label value="Requirement Status:" style="font-weight:bold"></label>
-						<combobox width="15%" model="@bind(vm.statusBeanEditList)" selectedItem="@bind(vm.statusBeanEdit)" onSelect="@command('onSelectOcStatusEdit')"
-							autocomplete="true" autodrop="true" value="@bind(vm.reqEditGenBean.ocStatus)" readonly="true">
+						<combobox model="@bind(vm.statusBeanEditList)" selectedItem="@bind(vm.statusBeanEdit)" onSelect="@command('onSelectOcStatusEdit')"
+							autocomplete="true" autodrop="true" value="@bind(vm.reqEditGenBean.ocStatus)" readonly="true" width="30%">
 							 <template name="model" var ="v">
 							   <comboitem value="@bind(v.ocstatusId)" label="@bind(v.ocstatus)"></comboitem>
 							 </template>
@@ -83,7 +83,12 @@
 						
 						<row>
 						<label value="Closure Reason:" style="font-weight:bold"></label>
-						<textbox multiline="true" value="@bind(vm.reqEditGenBean.closureReason)"></textbox>
+						<textbox rows="3" value="@bind(vm.reqEditGenBean.closureReason)" width="30%"></textbox>
+						</row>
+						
+						<row>
+						<label></label>
+						<button width="80px" height="30px" label="Update" style="font-weight: bold" onClick="@command('onClickUpdate')"></button>
 						</row>
 						
 					</rows>
@@ -92,9 +97,6 @@
 			<space></space>
 			<div align="center">
 				<button width="80px" height="30px" label="Update" style="font-weight: bold" onClick="@command('onClickUpdate')"></button>
-	
 			</div>
-		
-
-</window>
+	</window>
 </zk>

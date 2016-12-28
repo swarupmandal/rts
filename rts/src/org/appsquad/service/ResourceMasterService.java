@@ -1,7 +1,10 @@
 package org.appsquad.service;
 
+import java.util.Arrays;
+
 import org.appsquad.bean.ResourceMasterBean;
 import org.appsquad.dao.ResourceMasterDao;
+import org.appsquad.validator.ValidationClass;
 import org.zkoss.zul.Messagebox;
 
 public class ResourceMasterService {
@@ -130,23 +133,15 @@ public class ResourceMasterService {
 	public static void setEMAIL_REGEX(String eMAIL_REGEX) {
 		EMAIL_REGEX = eMAIL_REGEX;
 	}
-
-
 	public static int getCountNumber() {
 		return countNumber;
 	}
-
-
 	public static void setCountNumber(int countNumber) {
 		ResourceMasterService.countNumber = countNumber;
 	}
-
-
 	public static boolean isFlagDelete() {
 		return flagDelete;
 	}
-
-
 	public static void setFlagDelete(boolean flagDelete) {
 		ResourceMasterService.flagDelete = flagDelete;
 	}

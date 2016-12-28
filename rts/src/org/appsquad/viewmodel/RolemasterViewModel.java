@@ -56,6 +56,21 @@ public class RolemasterViewModel {
 	
 	@Command
 	@NotifyChange("*")
+	public void rollName(){
+		if(roleMasterBean.getRoll()!=null){
+			int size = roleMasterBean.getRoll().length();
+			System.out.println(size);
+			String newName = roleMasterBean.getRoll().trim();
+			System.out.println(newName);
+			int newSize = newName.length();
+			System.out.println(newSize);
+			roleMasterBean.setRoll(newName);
+		}
+	}
+	
+	
+	@Command
+	@NotifyChange("*")
 	public void onClickRoleSave(){
 		boolean flagLogInsert = false;
 		countRole = RoleMasterDao.onLoadRoleNameCountDeatils(roleMasterBean);
@@ -89,6 +104,15 @@ public class RolemasterViewModel {
 	@NotifyChange("*")
 	public void onClickSave(@BindingParam("bean") RoleMasterBean masterBean){
 		boolean flagLogUpdate = false;
+		
+		int size10 = masterBean.getRoll().length();
+		System.out.println(size10);
+		String newGridRoll = masterBean.getRoll().trim();
+		System.out.println(newGridRoll);
+		int newSize10 = newGridRoll.length();
+		System.out.println(newSize10);
+		masterBean.setRoll(newGridRoll);
+		
 		RoleMasterDao.updateRoleData(masterBean);
 		masterBean.setOperation("UPDATE");
 		masterBean.setSessionUserId(userId);

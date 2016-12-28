@@ -1,0 +1,112 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window title="Billing Info Screen" border="normal" width="1300px"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('org.appsquad.viewmodel.BillingInfoViewModel')"
+		closable="true" id="winBillingModal">
+		<div>
+			<grid model="@bind(vm.reportGridList)" mold="paging"
+				pageSize="12" height="470px">
+				<columns sizable="true">
+					<column width="110px" label="Year"
+						style="font-weight:bold; color: black" align="center">
+					</column>
+					<column width="110px" label="Month"
+						style="font-weight:bold; color: black" align="center">
+					</column>
+					<column width="250px" label="Time Sheet"
+						style="font-weight:bold; color: black" align="center">
+					</column>
+					<column width="80px" label="Download"
+						style="font-weight:bold; color: black" align="center">
+					</column>
+					<column width="250px" label="Invoice Copy"
+						style="font-weight:bold; color: black" align="center">
+					</column>
+					<column width="80px" label="Download"
+						style="font-weight:bold; color: black" align="center">
+					</column>
+					<column width="100px" label="Bill No"
+						style="font-weight:bold; color: black" align="center">
+					</column>
+					<column width="100px" label="Bill Date"
+						style="font-weight:bold; color: black" align="center">
+					</column>
+					<column width="100px" label="Bill Amount"
+						style="font-weight:bold; color: black" align="center">
+					</column>
+					<column width="100px" label="Paid(Y/N)"
+						style="font-weight:bold; color: black" align="center">
+					</column>
+					<column width="100px" label="Chq Detail"
+						style="font-weight:bold; color: black" align="center">
+					</column>
+					<column width="100px" label="Operation"
+						style="font-weight:bold; color: black" align="center">
+					</column>
+				</columns>
+				<rows>
+					<template name="model" var="v">
+						<row>
+							<combobox model="@bind(vm.yearList)"
+								autocomplete="true" autodrop="true" value="@bind(v.year)"
+								selectedItem="@bind(v.year)" width="98%" readonly="true">
+								<template name="model" var="v">
+									<comboitem label="@bind(v)"
+										value="@bind(v)">
+									</comboitem>
+								</template>
+							</combobox>
+							<combobox model="@bind(vm.monthList)"
+								autocomplete="true" autodrop="true" value="@bind(v.month)"
+								selectedItem="@bind(v.month)" width="98%" readonly="true">
+								<template name="model" var="v">
+									<comboitem label="@bind(v)"
+										value="@bind(v)">
+									</comboitem>
+								</template>
+							</combobox>
+							<hlayout spacing="5px">
+								<button label="Upload" upload="true"
+									width="98%"
+									onUpload="@command('onUploadFile', upEvent=event,bean=v)">
+								</button>
+								<label value="@bind(v.fileName)"></label>
+							</hlayout>
+							<button onClick="@command('downloadTimesheet', bean = v)"></button>
+							<hlayout spacing="5px">
+								<button label="Upload" upload="true" disabled="@bind(v.secondButtonDisable)"
+									width="98%"
+									onUpload="@command('onUploadSecondFile', upEvent=event,bean = v)">
+								</button>
+								<label value="@bind(v.secondFileName)"></label>
+							</hlayout>
+							<button></button>
+							<doublebox width="98%"
+								value="@bind(v.billNo)" maxlength="8">
+							</doublebox>
+							<datebox width="98%"
+								value="@bind(v.billDateSql)">
+							</datebox>
+							<doublebox width="98%"
+								value="@bind(v.billAmount)" maxlength="9">
+							</doublebox>
+							<combobox width="98%" readonly="true"
+								value="@bind(v.paid)" selectedItem="@bind(v.paid)">
+								<comboitem label="Yes"></comboitem>
+							</combobox>
+							<doublebox width="98%"
+								value="@bind(v.chqDetailsValue)" maxlength="6">
+							</doublebox>
+							<button label="ADD ROW" width="99%" onClick="@command('addRow', bean = v)"></button>
+						</row>
+					</template>
+				</rows>
+			</grid>
+		</div>
+		<space></space>
+		<div align="center">
+		   <button label="Save" width="80px" onClick="@command('saveBillingDetails')"></button>
+		</div>
+	</window>
+</zk>

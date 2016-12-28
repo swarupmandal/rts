@@ -104,6 +104,17 @@ public class ResourceInformationUpdateViewModel {
 	
 	@Command
 	@NotifyChange("*")
+	public void yearOfExperience(){
+		if(masterBean.getYearOfExperience()!=null){
+			if(masterBean.getYearOfExperience()==0){
+				masterBean.setYearOfExperience(null);
+				Messagebox.show("Year Of Experience Can't Be Zero ", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
+			}
+		}
+	}
+	
+	@Command
+	@NotifyChange("*")
 	public void onUploadFileUpload(@ContextParam(ContextType.BIND_CONTEXT) BindContext bindContext) throws Exception{
 		UploadEvent uploadEvent = null;
 		Object objUpEvent = bindContext.getTriggerEvent();
@@ -147,6 +158,23 @@ public class ResourceInformationUpdateViewModel {
 	@NotifyChange("*")
 	public void onClickUpdateButton(){
 		boolean flagLogUpdate = false;
+		String address = "";
+		String state = "";
+		String emailID = "";
+		String otherInfo = "";
+		
+		address = masterBean.getAddress().trim();
+		masterBean.setAddress(address);
+		
+		state = masterBean.getState().trim();
+		masterBean.setState(state);
+		
+		emailID = masterBean.getEmailId().trim();
+		masterBean.setEmailId(emailID);
+		
+		otherInfo = masterBean.getOtherInfo().trim();
+		masterBean.setOtherInfo(otherInfo);
+		
 		flag = ResourceMasterService.updateResourceMasterData(masterBean);
 		System.out.println(flag);
 		if(flag){

@@ -468,7 +468,8 @@ public class RequirementGenerationDao {
 				  preparedStatement.setInt(7,bean.getOcStatusId());
 				  preparedStatement.setString(8, bean.getClosureReason());
 				  preparedStatement.setString(9, bean.getUserName());
-				  preparedStatement.setInt(10, bean.getReq_id());
+				  preparedStatement.setString(10, bean.getDetailedJob());
+				  preparedStatement.setInt(11, bean.getReq_id());
 				  logger.info("onClikUpdate - " + preparedStatement.unwrap(PreparedStatement.class));
 				  i = preparedStatement.executeUpdate();
 			} catch (Exception e) {

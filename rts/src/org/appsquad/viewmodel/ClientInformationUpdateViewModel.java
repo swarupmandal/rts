@@ -65,8 +65,24 @@ public class ClientInformationUpdateViewModel {
 	@Command
 	@NotifyChange("*")
 	public void onClickUpdateButton(){
-		flag = ClientInformationService.updateClientMasterData(informationBean);
-		if(flag){
+		boolean flagForUpdate = false;
+		String modifyAddress = "";
+		String modifyState = "";
+		String modifyEmail = "";
+		
+		modifyAddress = informationBean.getAddress().trim();
+		informationBean.setAddress(modifyAddress);
+		
+		modifyState = informationBean.getState().trim();
+		informationBean.setState(modifyState);
+		
+		modifyEmail = informationBean.getEmailId().trim();
+		informationBean.setEmailId(modifyEmail);
+		
+		flagForUpdate = ClientInformationService.updateClientMasterData(informationBean);
+		System.out.println("IN CLIENT UPDATED SCREEN FLAG IS :"+flagForUpdate);
+		
+		if(flagForUpdate){
 			informationBean.setOperation("UPDATE");
 			informationBean.setSessionUserId(userId);
 			informationBean.setOperationId(2);
