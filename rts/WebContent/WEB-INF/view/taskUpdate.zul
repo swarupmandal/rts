@@ -1,6 +1,37 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="new page title" border="normal">
-New Content Here!
-</window>
+	<window title="Task Assigned List" border="normal"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('org.appsquad.viewmodel.TaskListUpdateViewModel')">
+		<grid model="@bind(vm.taskDetailsList)">
+			<columns sizable="true">
+				<column label="Task Description" align="center" />
+				<column label="Task Status" align="center" />
+				<column label="Assigned by" align="center" />
+				<column label="Task Assigned Date" align="center" />
+				<column label="Task Scheduled Date" align="center" />
+				<column label="Action" align="center" />
+			</columns>
+			<rows>
+				<template name="model" var="v">
+					<row>
+						<textbox readonly="true"
+							value="@bind(v.taskName)" />
+						<textbox readonly="true"
+							value="@bind(v.taskStatusBean.taskStatusName)" />
+						<textbox readonly="true"
+							value="@bind(v.assignedByUserId)" />
+						<datebox format="dd/MM/yyyy"
+							value="@bind(v.createdDate)" readonly="true"
+							buttonVisible="false" />
+						<datebox format="dd/MM/yyyy"
+							value="@bind(v.scheduledDate)" readonly="true"
+							buttonVisible="false" />
+						<button label="Update" onClick="@command('onClickUpdate',bean= v)"/>
+					</row>
+				</template>
+
+			</rows>
+		</grid>
+	</window>
 </zk>

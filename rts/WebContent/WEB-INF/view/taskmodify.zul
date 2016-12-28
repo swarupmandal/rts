@@ -1,0 +1,89 @@
+<?page title="Modify Task" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window title="Modify Task" border="normal" closable="true" id="win"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('org.appsquad.viewmodel.TaskModifyViewModel')" width="80%">
+		<grid>
+			<columns>
+				<column align="center" width="20%" />
+				<column align="left" />
+			</columns>
+			<rows>
+				<row>
+					<label value="Task Description"
+						style="font-weight:bold" />
+					<textbox multiline="true" rows="5" readonly="true"
+						value="@bind(vm.taskBean.taskName)"
+						width="100%" />
+				</row>
+			</rows>
+		</grid>
+		<grid>
+			<columns>
+				<column align="right" />
+				<column align="left" />
+				<column align="right" />
+				<column align="left" />
+				<column align="right" />
+				<column align="left" />
+			</columns>
+			<rows>
+				<row>
+					<label value="Task Assign Date-"
+						style="font-weight:bold">
+					</label>
+					<datebox format="dd/MM/yyyy" width="160px" buttonVisible="false"
+						value="@bind(vm.taskBean.createdDate)" readonly="true">
+					</datebox>
+					<label value="Scheduled Date-"
+						style="font-weight:bold">
+					</label>
+					<datebox  format="dd/MM/yyyy" width="160px" buttonVisible="false"
+						value="@bind(vm.taskBean.scheduledDate)" readonly="true">
+					</datebox>
+				</row>
+				
+				<row>
+					<label value="Status-" style="font-weight:bold"></label>
+					<combobox value="@bind(vm.taskBean.taskStatusBean.taskStatusName)" readonly="true"
+       				          model="@bind(vm.taskBean.taskStatusBeanList)" selectedItem="@bind(vm.taskBean.taskStatusBean)" 
+       				          autocomplete="true" autodrop="true" width="100%">
+							<template name="model" var="v1">
+							 		<comboitem value="@bind(v1.taskStatusId)" label="@bind(v1.taskStatusName)" ></comboitem>
+							</template>	
+					</combobox>
+					<label value="Actual Completion Date-" style="font-weight:bold"></label>
+					<datebox width="160px" format="dd/MM/yyyy" 
+						value="@bind(vm.taskBean.actualCompletionDate)"
+						readonly="true">
+					</datebox>
+					<label value="Remarks/Results-" style="font-weight:bold"></label>
+					<textbox rows="4" width="160px"
+						value="@bind(vm.taskBean.remarksOrResults)" maxlength="100"
+						placeholder="REMARKS" xmlns:w="client">
+						<attribute w:name="doKeyPress_">
+
+							
+							<![CDATA[ function(evt) { if ( (evt.which <
+							65 || evt.which > 90) && (evt.which < 97 ||
+							evt.which > 122) && evt.which != 8 &&
+							evt.which != 32) evt.stop(); } ]]>
+							
+				
+				</attribute>
+					</textbox>
+				</row>
+				<row>
+					<label></label>
+					<textbox visible="false"></textbox>
+					<button label="Update" width="80px" disabled="@bind(vm.updateButtonDisability)"
+						onClick="@command('onClickUpdate')">
+					</button>
+					<label></label>
+					<label></label>
+					<textbox visible="false"></textbox>
+				</row>
+			</rows>
+		</grid>
+	</window>
+</zk>

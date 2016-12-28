@@ -83,12 +83,12 @@ public class TaskNameViewModel {
 		 boolean flagInsert = false; 
 		 boolean flagEmailSend = false;
 		 if(taskBean.getTaskName()!=null && taskBean.getTaskName().trim().length()>0){
-				 if(taskBean.getVenue()!=null && taskBean.getVenue().trim().length()>0){
+				// if(taskBean.getVenue()!=null && taskBean.getVenue().trim().length()>0){
 					 if(taskBean.userprofileBean.getUserid()!=null && taskBean.userprofileBean.getUserid().trim().length()>0){
 					    if(taskBean.getScheduledDateSql()!=null){
-					    	if(taskBean.getStatus()!=null && taskBean.getStatus().trim().length()>0){
-					    		if(taskBean.getActualCompletionDateSql()!=null){
-					    			if(taskBean.getRemarksOrResults()!=null && taskBean.getRemarksOrResults().trim().length()>0){
+					    //	if(taskBean.getStatus()!=null && taskBean.getStatus().trim().length()>0){
+					    	//	if(taskBean.getActualCompletionDateSql()!=null){
+					    			//if(taskBean.getRemarksOrResults()!=null && taskBean.getRemarksOrResults().trim().length()>0){
 					    				flagInsert = TaskNameService.saveTaskDetails(taskBean);
 					   				 	System.out.println(flagInsert);
 					   				 	if(flagInsert){
@@ -121,24 +121,24 @@ public class TaskNameViewModel {
 					   						 }
 					   					  }
 					   				   }
-					    			}else{
+					    			/*}else{
 					    				Messagebox.show("Remarks Or Result Can't Be Blank ", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
 					    			}
 					    		}else{
 					    			Messagebox.show("Actual Completion Date Can't Be Blank ", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
 					    		}
-					    	}else{
+					    	/*}else{
 					    		Messagebox.show("Status Can't Be Blank ", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
-					    	}
+					    	}*/
 					    }else{
 					    	Messagebox.show("Schedule Date Can't Be Blank ", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
 					    }
 				 }else{
 					 Messagebox.show("Select User ID ", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
 				 }
-			 }else{
+			/* }else{
 				 Messagebox.show("Venue Can't Be Blank ", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
-			 }
+			 }*/
 		 }else{
 			 Messagebox.show("Task Name Can't Be Blank ", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
 		 }
