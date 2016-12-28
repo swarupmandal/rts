@@ -1,0 +1,15 @@
+<?page title="Down-Loading Screen" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="Down-Loading Screen" border="normal" closable="true" id="winDemoFlowInvoice" apply="org.appsquad.utility.InvoiceComposer"
+       width="280px" height="200px">
+   <div width="80px" height="80px">
+		     <hbox align="center">
+                <progressmeter id="curr_met" value="100" width="170px"/>
+                <space></space>
+                <label id="progress_label" value="Downloaded!" style="font-weight:bold"></label>
+            </hbox>
+            <space></space>
+			<iframe id="iFrameDemoInvoice" width="80px" height="80px" style="border:#DADADA 1px solid;" visible="false"/>
+		</div>
+</window>
+</zk>
