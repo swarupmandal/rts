@@ -1,6 +1,6 @@
 	<?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
- <window title="Current Opportunities Report Screen" border="normal" apply="org.zkoss.bind.BindComposer" height="520px"
+ <window title="Current Opportunities Report Screen" border="normal" apply="org.zkoss.bind.BindComposer" height="530px"
 													   viewModel="@id('vm') @init('org.appsquad.viewmodel.CurrentOpportunitiesReportGenerationViewModel')">
    <div>
        <tabbox>
@@ -32,7 +32,7 @@
  					</div>
                        <space></space> -->
                       <div visible="@bind(vm.divVisibility)">
-			    			<grid model="@bind(vm.reportList)" mold="paging" pageSize="10" height="400px">	
+			    			<grid model="@bind(vm.reportList)" mold="paging" pageSize="10" height="390px">	
 			    				<columns sizable="true">
 			    				    <column width="300px" label="Year" style="font-weight:bold; color: black" align="center"></column>
 			    					<column width="200px" label="Month" style="font-weight:bold; color: black" align="center"></column>
@@ -57,7 +57,7 @@
 			    				</rows>
 			    			</grid>
     		          </div>
-    		          
+    		          <space></space>
     		          <div align="center" visible="@bind(vm.pdfDivVisibility)">
     		              <button label="Generate PDF" style="font-weight:bold" onClick="@command('onClickPdf')"></button> 
     		          </div>

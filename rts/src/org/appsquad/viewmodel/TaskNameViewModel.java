@@ -104,7 +104,7 @@ public class TaskNameViewModel {
 					   					 flagEmailSend = SendEmail.validator(emailId);
 					   					 System.out.println("flag email send is :"+flagEmailSend);
 					   					 if(flagEmailSend){
-					   						SendEmail.generateAndSendEmailForTaskCreation(emailId);	
+					   						SendEmail.generateAndSendEmailForTaskCreation(emailId,taskBean.getTaskName());	
 					   					 }else{
 					   						System.out.println("APPROVER'S EMAIL ID IS NOT CORRECT. ");
 					   					 }

@@ -109,7 +109,7 @@ public class SendEmail{
 	 }
 	
 	 
-	public static Boolean generateAndSendEmailForTaskCreation(String emailId) {
+	public static Boolean generateAndSendEmailForTaskCreation(String emailId,String msg) {
 		  Properties mailServerProperties;
 		  Session getMailSession;
 		  MimeMessage generateMailMessage;
@@ -129,8 +129,8 @@ public class SendEmail{
 		  try {
 		   generateMailMessage.setFrom(new InternetAddress("sentmail95@gmail.com"));
 		   generateMailMessage.addRecipient(Message.RecipientType.TO,new InternetAddress(emailId));
-		   generateMailMessage.setSubject("Task Description Creation Status Sent From Resource Augmentation Tracking System");
-		   String emailBody ="A New Task Description Has Been Created And Assigned For You. ";
+		   generateMailMessage.setSubject("Task Name Creation Status Sent From Resource Augmentation Tracking System");
+		   String emailBody ="A New Task Assigned For You.\n Task Name:"+msg+" ";
 		   generateMailMessage.setContent(emailBody, "text/html");
 		   System.out.println("Mail Session has been created successfully..");
 		   
@@ -151,7 +151,6 @@ public class SendEmail{
 	 public static void myLogger(String email, boolean valid) {
 		System.out.println(email + " is " + (valid ? "a" : "not a") + " valid email address\n");
 	 }
-	
      public static void main(String[] args) {
     	 System.out.println("SMS CALLING PAGE");
 	 }
