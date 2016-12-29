@@ -204,7 +204,7 @@
             	
             	    <treeitem open="false">
         				 <treerow>
-         				 <treecell label="- Activity Scheduled For Today And Tomorrow" onClick='inclResults.setSrc("/WEB-INF/view/activity_Scheduled_For_Today_And_Tomorrow.zul");' 
+         				 <treecell label="- Scheduled For Today And Tomorrow" onClick='inclResults.setSrc("/WEB-INF/view/activity_Scheduled_For_Today_And_Tomorrow.zul");' 
          				         visible="@bind(vm.firstReportVisibility)">
         			     </treecell>
          				</treerow>
