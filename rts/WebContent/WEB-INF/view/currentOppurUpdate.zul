@@ -12,12 +12,14 @@
 					<rows>
 						<row>
 						  <label value="Tenure From:" style="font-weight:bold"></label>		
-						  <datebox width="50%" value="@bind(vm.currentOpportunitiesBean.tenureFromsql)"></datebox>	
+						  <datebox width="50%" value="@bind(vm.currentOpportunitiesBean.tenureFromsql)" readonly="true"
+						    onChange="@command('onChangeFromDate')"></datebox>	
 						</row>
 						
 						<row>
 						  <label value="Tenure To:" style="font-weight:bold"></label>		
-						  <datebox width="50%" value="@bind(vm.currentOpportunitiesBean.tenureTosql)"></datebox>	
+						  <datebox width="50%" value="@bind(vm.currentOpportunitiesBean.tenureTosql)" readonly="true"
+						    onChange="@command('onChangeToDate')"></datebox>	
 						</row>
 						
 						<row>

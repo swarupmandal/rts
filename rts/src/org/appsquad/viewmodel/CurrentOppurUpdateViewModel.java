@@ -67,6 +67,35 @@ public class CurrentOppurUpdateViewModel {
 		}
 	}
 	
+	@Command
+	@NotifyChange("*")
+	public void onChangeFromDate(){
+		if(currentOpportunitiesBean.getTenureFromsql()!=null){
+			   if(currentOpportunitiesBean.getTenureTosql().after(currentOpportunitiesBean.getTenureFromsql())){
+			     }else {
+			    	 currentOpportunitiesBean.setTenureTosql(null);
+				    Messagebox.show("To Date Should be Grater Than From Date", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION);
+			   }
+		   }else{
+			   System.out.println("nothing.");
+		   }
+	   }
+	
+	@Command
+	@NotifyChange("*")
+	public void onChangeToDate(){
+	 	   if(currentOpportunitiesBean.getTenureFromsql()!= null){
+	 		   if(currentOpportunitiesBean.getTenureTosql().after(currentOpportunitiesBean.getTenureFromsql())){
+	 		     }else {
+	 		    	currentOpportunitiesBean.setTenureTosql(null);
+	 			    Messagebox.show("To Date Should be Grater Than From Date", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION);
+	 		   }
+	 	   }else {
+	 		   currentOpportunitiesBean.setTenureTosql(null);
+	 		   Messagebox.show("Select From Date First", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION);
+	 	   }
+	    }
+	
 	public void loadApproverName() throws Exception{
 		try {
 			connection = DbConnection.createConnection();

@@ -5,7 +5,7 @@
    						<hlayout spacing="12px">
 		      				<hlayout>
 		    				<bandbox autodrop="true" readonly="true" id="userBb" value="@bind(vm.taskBean.userprofileBean.userid)"
-				                placeholder="Search Assign By" width="160px">
+				                placeholder="Created By" width="160px">
 				               <bandpopup>
 								<hbox>
 									<textbox value="@bind(vm.taskBean.userIdSearch)" onChange="@command('onChangeUserId')" width="160px">
@@ -58,13 +58,11 @@
 		    				</hlayout>
 		    				
 		    				<hlayout>
-		    				<label value="* " style="font-weight:bold; color:red; font-size:large;" />
 		    				<datebox placeholder="From Date" format="dd-MMM-yyyy" readonly="true"
 		    				  value="@bind(vm.taskBean.fromDate)" onChange="@command('onChangeFromDate')"></datebox>
 		    				</hlayout>
     				
 		    				<hlayout>
-		    				<label value="* " style="font-weight:bold; color:red; font-size:large;"/>
 		    				<datebox placeholder="To Date" format="dd-MMM-yyyy" readonly="true"
 		    				 value="@bind(vm.taskBean.toDate)" onChange="@command('onChangeToDate')">
 		    				</datebox>

@@ -30,8 +30,8 @@ public class MonthShowingForReport {
 								  bean.getCurrentOpportunitiesBean().setTentureToUtil(generationBean.getCurrentOpportunitiesBean().getTentureToUtil());
 								  bean.getClientInformationBean().setFullName(generationBean.getClientInformationBean().getFullName());
 								  bean.getResourceMasterBean().setFullName(generationBean.getResourceMasterBean().getFullName());
-								  bean.getCurrentOpportunitiesReportBean().setBillNoString(generationBean.getCurrentOpportunitiesReportBean().getBillNoString());
-								  bean.getCurrentOpportunitiesReportBean().setBillAmountString(generationBean.getCurrentOpportunitiesReportBean().getBillAmountString());
+								 // bean.getCurrentOpportunitiesReportBean().setBillNoString(generationBean.getCurrentOpportunitiesReportBean().getBillNoString());
+								 // bean.getCurrentOpportunitiesReportBean().setBillAmountString(generationBean.getCurrentOpportunitiesReportBean().getBillAmountString());
 								  bean.getCurrentOpportunitiesReportBean().setMonth(name);
 								  bean.setRtsTrackingDetailsId(generationBean.getRtsTrackingDetailsId());
 								  
@@ -45,8 +45,8 @@ public class MonthShowingForReport {
 								  bean.getCurrentOpportunitiesBean().setTentureToUtil(generationBean.getCurrentOpportunitiesBean().getTentureToUtil());
 								  bean.getClientInformationBean().setFullName(generationBean.getClientInformationBean().getFullName());
 								  bean.getResourceMasterBean().setFullName(generationBean.getResourceMasterBean().getFullName());
-								  bean.getCurrentOpportunitiesReportBean().setBillNoString(generationBean.getCurrentOpportunitiesReportBean().getBillNoString());
-								  bean.getCurrentOpportunitiesReportBean().setBillAmountString(generationBean.getCurrentOpportunitiesReportBean().getBillAmountString());
+								  //bean.getCurrentOpportunitiesReportBean().setBillNoString(generationBean.getCurrentOpportunitiesReportBean().getBillNoString());
+								  //bean.getCurrentOpportunitiesReportBean().setBillAmountString(generationBean.getCurrentOpportunitiesReportBean().getBillAmountString());
 								  bean.getCurrentOpportunitiesReportBean().setMonth(name);
 								  bean.setRtsTrackingDetailsId(generationBean.getRtsTrackingDetailsId());
 								  
@@ -60,8 +60,8 @@ public class MonthShowingForReport {
 								  bean.getCurrentOpportunitiesBean().setTentureToUtil(generationBean.getCurrentOpportunitiesBean().getTentureToUtil());
 								  bean.getClientInformationBean().setFullName(generationBean.getClientInformationBean().getFullName());
 								  bean.getResourceMasterBean().setFullName(generationBean.getResourceMasterBean().getFullName());
-								  bean.getCurrentOpportunitiesReportBean().setBillNoString(generationBean.getCurrentOpportunitiesReportBean().getBillNoString());
-								  bean.getCurrentOpportunitiesReportBean().setBillAmountString(generationBean.getCurrentOpportunitiesReportBean().getBillAmountString());
+								 // bean.getCurrentOpportunitiesReportBean().setBillNoString(generationBean.getCurrentOpportunitiesReportBean().getBillNoString());
+								  //bean.getCurrentOpportunitiesReportBean().setBillAmountString(generationBean.getCurrentOpportunitiesReportBean().getBillAmountString());
 								  bean.getCurrentOpportunitiesReportBean().setMonth(name);
 								  bean.setRtsTrackingDetailsId(generationBean.getRtsTrackingDetailsId());
 								  
@@ -76,8 +76,8 @@ public class MonthShowingForReport {
 								  bean.getClientInformationBean().setFullName(generationBean.getClientInformationBean().getFullName());
 								  bean.getResourceMasterBean().setFullName(generationBean.getResourceMasterBean().getFullName());
 								  bean.getCurrentOpportunitiesReportBean().setBillNoString(generationBean.getCurrentOpportunitiesReportBean().getBillNoString());
-								  bean.getCurrentOpportunitiesReportBean().setBillAmountString(generationBean.getCurrentOpportunitiesReportBean().getBillAmountString());
-								  bean.getCurrentOpportunitiesReportBean().setMonth(name);
+								  //bean.getCurrentOpportunitiesReportBean().setBillAmountString(generationBean.getCurrentOpportunitiesReportBean().getBillAmountString());
+								  //bean.getCurrentOpportunitiesReportBean().setMonth(name);
 								  bean.setRtsTrackingDetailsId(generationBean.getRtsTrackingDetailsId());
 								  
 								  finalList.add(bean);
@@ -90,8 +90,8 @@ public class MonthShowingForReport {
 								  bean.getCurrentOpportunitiesBean().setTentureToUtil(generationBean.getCurrentOpportunitiesBean().getTentureToUtil());
 								  bean.getClientInformationBean().setFullName(generationBean.getClientInformationBean().getFullName());
 								  bean.getResourceMasterBean().setFullName(generationBean.getResourceMasterBean().getFullName());
-								  bean.getCurrentOpportunitiesReportBean().setBillNoString(generationBean.getCurrentOpportunitiesReportBean().getBillNoString());
-								  bean.getCurrentOpportunitiesReportBean().setBillAmountString(generationBean.getCurrentOpportunitiesReportBean().getBillAmountString());
+								  //bean.getCurrentOpportunitiesReportBean().setBillNoString(generationBean.getCurrentOpportunitiesReportBean().getBillNoString());
+								  //bean.getCurrentOpportunitiesReportBean().setBillAmountString(generationBean.getCurrentOpportunitiesReportBean().getBillAmountString());
 								  bean.getCurrentOpportunitiesReportBean().setMonth(name);
 								  bean.setRtsTrackingDetailsId(generationBean.getRtsTrackingDetailsId());
 								  
@@ -105,8 +105,8 @@ public class MonthShowingForReport {
 								  bean.getCurrentOpportunitiesBean().setTentureToUtil(generationBean.getCurrentOpportunitiesBean().getTentureToUtil());
 								  bean.getClientInformationBean().setFullName(generationBean.getClientInformationBean().getFullName());
 								  bean.getResourceMasterBean().setFullName(generationBean.getResourceMasterBean().getFullName());
-								  bean.getCurrentOpportunitiesReportBean().setBillNoString(generationBean.getCurrentOpportunitiesReportBean().getBillNoString());
-								  bean.getCurrentOpportunitiesReportBean().setBillAmountString(generationBean.getCurrentOpportunitiesReportBean().getBillAmountString());
+								 // bean.getCurrentOpportunitiesReportBean().setBillNoString(generationBean.getCurrentOpportunitiesReportBean().getBillNoString());
+								 // bean.getCurrentOpportunitiesReportBean().setBillAmountString(generationBean.getCurrentOpportunitiesReportBean().getBillAmountString());
 								  bean.getCurrentOpportunitiesReportBean().setMonth(name);
 								  bean.setRtsTrackingDetailsId(generationBean.getRtsTrackingDetailsId());
 								  
@@ -120,8 +120,8 @@ public class MonthShowingForReport {
 								  bean.getCurrentOpportunitiesBean().setTentureToUtil(generationBean.getCurrentOpportunitiesBean().getTentureToUtil());
 								  bean.getClientInformationBean().setFullName(generationBean.getClientInformationBean().getFullName());
 								  bean.getResourceMasterBean().setFullName(generationBean.getResourceMasterBean().getFullName());
-								  bean.getCurrentOpportunitiesReportBean().setBillNoString(generationBean.getCurrentOpportunitiesReportBean().getBillNoString());
-								  bean.getCurrentOpportunitiesReportBean().setBillAmountString(generationBean.getCurrentOpportunitiesReportBean().getBillAmountString());
+								 // bean.getCurrentOpportunitiesReportBean().setBillNoString(generationBean.getCurrentOpportunitiesReportBean().getBillNoString());
+								 // bean.getCurrentOpportunitiesReportBean().setBillAmountString(generationBean.getCurrentOpportunitiesReportBean().getBillAmountString());
 								  bean.getCurrentOpportunitiesReportBean().setMonth(name);
 								  bean.setRtsTrackingDetailsId(generationBean.getRtsTrackingDetailsId());
 								  
@@ -136,8 +136,8 @@ public class MonthShowingForReport {
 								  bean.getClientInformationBean().setFullName(generationBean.getClientInformationBean().getFullName());
 								  bean.getResourceMasterBean().setFullName(generationBean.getResourceMasterBean().getFullName());
 								  bean.getCurrentOpportunitiesReportBean().setBillNoString(generationBean.getCurrentOpportunitiesReportBean().getBillNoString());
-								  bean.getCurrentOpportunitiesReportBean().setBillAmountString(generationBean.getCurrentOpportunitiesReportBean().getBillAmountString());
-								  bean.getCurrentOpportunitiesReportBean().setMonth(name);
+								  //bean.getCurrentOpportunitiesReportBean().setBillAmountString(generationBean.getCurrentOpportunitiesReportBean().getBillAmountString());
+								  //bean.getCurrentOpportunitiesReportBean().setMonth(name);
 								  bean.setRtsTrackingDetailsId(generationBean.getRtsTrackingDetailsId());
 								  
 								  finalList.add(bean);
@@ -151,8 +151,8 @@ public class MonthShowingForReport {
 								  bean.getCurrentOpportunitiesBean().setTentureToUtil(generationBean.getCurrentOpportunitiesBean().getTentureToUtil());
 								  bean.getClientInformationBean().setFullName(generationBean.getClientInformationBean().getFullName());
 								  bean.getResourceMasterBean().setFullName(generationBean.getResourceMasterBean().getFullName());
-								  bean.getCurrentOpportunitiesReportBean().setBillNoString(generationBean.getCurrentOpportunitiesReportBean().getBillNoString());
-								  bean.getCurrentOpportunitiesReportBean().setBillAmountString(generationBean.getCurrentOpportunitiesReportBean().getBillAmountString());
+								  //bean.getCurrentOpportunitiesReportBean().setBillNoString(generationBean.getCurrentOpportunitiesReportBean().getBillNoString());
+								  //bean.getCurrentOpportunitiesReportBean().setBillAmountString(generationBean.getCurrentOpportunitiesReportBean().getBillAmountString());
 								  bean.getCurrentOpportunitiesReportBean().setMonth(name);
 								  bean.setRtsTrackingDetailsId(generationBean.getRtsTrackingDetailsId());
 								  
@@ -167,8 +167,8 @@ public class MonthShowingForReport {
 								  bean.getCurrentOpportunitiesBean().setTentureToUtil(generationBean.getCurrentOpportunitiesBean().getTentureToUtil());
 								  bean.getClientInformationBean().setFullName(generationBean.getClientInformationBean().getFullName());
 								  bean.getResourceMasterBean().setFullName(generationBean.getResourceMasterBean().getFullName());
-								  bean.getCurrentOpportunitiesReportBean().setBillNoString(generationBean.getCurrentOpportunitiesReportBean().getBillNoString());
-								  bean.getCurrentOpportunitiesReportBean().setBillAmountString(generationBean.getCurrentOpportunitiesReportBean().getBillAmountString());
+								  //bean.getCurrentOpportunitiesReportBean().setBillNoString(generationBean.getCurrentOpportunitiesReportBean().getBillNoString());
+								  //bean.getCurrentOpportunitiesReportBean().setBillAmountString(generationBean.getCurrentOpportunitiesReportBean().getBillAmountString());
 								  bean.getCurrentOpportunitiesReportBean().setMonth(name);
 								  bean.setRtsTrackingDetailsId(generationBean.getRtsTrackingDetailsId());
 								  
@@ -183,8 +183,8 @@ public class MonthShowingForReport {
 								  bean.getCurrentOpportunitiesBean().setTentureToUtil(generationBean.getCurrentOpportunitiesBean().getTentureToUtil());
 								  bean.getClientInformationBean().setFullName(generationBean.getClientInformationBean().getFullName());
 								  bean.getResourceMasterBean().setFullName(generationBean.getResourceMasterBean().getFullName());
-								  bean.getCurrentOpportunitiesReportBean().setBillNoString(generationBean.getCurrentOpportunitiesReportBean().getBillNoString());
-								  bean.getCurrentOpportunitiesReportBean().setBillAmountString(generationBean.getCurrentOpportunitiesReportBean().getBillAmountString());
+								  //bean.getCurrentOpportunitiesReportBean().setBillNoString(generationBean.getCurrentOpportunitiesReportBean().getBillNoString());
+								  //bean.getCurrentOpportunitiesReportBean().setBillAmountString(generationBean.getCurrentOpportunitiesReportBean().getBillAmountString());
 								  bean.getCurrentOpportunitiesReportBean().setMonth(name);
 								  bean.setRtsTrackingDetailsId(generationBean.getRtsTrackingDetailsId());
 								  
@@ -200,8 +200,8 @@ public class MonthShowingForReport {
 								  bean.getClientInformationBean().setFullName(generationBean.getClientInformationBean().getFullName());
 								  bean.getResourceMasterBean().setFullName(generationBean.getResourceMasterBean().getFullName());
 								  bean.getCurrentOpportunitiesReportBean().setBillNoString(generationBean.getCurrentOpportunitiesReportBean().getBillNoString());
-								  bean.getCurrentOpportunitiesReportBean().setBillAmountString(generationBean.getCurrentOpportunitiesReportBean().getBillAmountString());
-								  bean.getCurrentOpportunitiesReportBean().setMonth(name);
+								  //bean.getCurrentOpportunitiesReportBean().setBillAmountString(generationBean.getCurrentOpportunitiesReportBean().getBillAmountString());
+								  //bean.getCurrentOpportunitiesReportBean().setMonth(name);
 								  bean.setRtsTrackingDetailsId(generationBean.getRtsTrackingDetailsId());
 								  
 								  finalList.add(bean);
@@ -218,8 +218,8 @@ public class MonthShowingForReport {
 					bean.getCurrentOpportunitiesBean().setTentureToUtil(generationBean.getCurrentOpportunitiesBean().getTentureToUtil());
 					bean.getClientInformationBean().setFullName(generationBean.getClientInformationBean().getFullName());
 					bean.getResourceMasterBean().setFullName(generationBean.getResourceMasterBean().getFullName());
-				    bean.getCurrentOpportunitiesReportBean().setBillNoString(generationBean.getCurrentOpportunitiesReportBean().getBillNoString());
-					bean.getCurrentOpportunitiesReportBean().setBillAmountString(generationBean.getCurrentOpportunitiesReportBean().getBillAmountString());
+				    //bean.getCurrentOpportunitiesReportBean().setBillNoString(generationBean.getCurrentOpportunitiesReportBean().getBillNoString());
+					//bean.getCurrentOpportunitiesReportBean().setBillAmountString(generationBean.getCurrentOpportunitiesReportBean().getBillAmountString());
 					bean.setRtsTrackingDetailsId(generationBean.getRtsTrackingDetailsId());
 					
 					finalList.add(bean);

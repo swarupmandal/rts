@@ -32,10 +32,11 @@ public class MonthShowingUtility {
 	   
 	   public static String monthName(java.util.Date date1,Connection connection,Integer rtsId) throws Exception{
 		   PreparedStatement preparedStatement = null;
-		   String name = "";
+		   String name = null;
 		   try{
 			   String sql = "select to_char(tenure_from, 'month') from rts_opportunitywise_visibility where rts_tracking_details_id = "+ rtsId+"";
 			   preparedStatement = connection.prepareStatement(sql);
+			   System.out.println("LINE NUMBER 422  "+preparedStatement);
 			   ResultSet resultSet = preparedStatement.executeQuery();
 			   while(resultSet.next()){
 				  name = resultSet.getString(1);
@@ -45,7 +46,7 @@ public class MonthShowingUtility {
 				   preparedStatement.close();
 			   }
 		   }
-		 return name;
+		 return name.trim();
 	   }
 	   
 	   public static String fetchresourceName(CurrentOpportunitiesReportGenerationBean bean){
