@@ -41,6 +41,7 @@ public class TaskNameViewModel {
 	private TaskNameBean taskBean = new TaskNameBean();
 	private ArrayList<UserprofileBean> userList = new ArrayList<UserprofileBean>();
 	private ArrayList<TaskNameBean> taskDetailsList = null;
+	private ArrayList<TaskNameBean> newlyCreatedTaskDetailsList = null;
 	private ArrayList<TaskNameBean> reportDetailsList = null;
 	
 	@AfterCompose
@@ -60,8 +61,13 @@ public class TaskNameViewModel {
 	    }else{
 	    	taskBean.setDivVisibility(true);
 	    }
+	    onLoad();
 	}
 
+	public void onLoad(){
+		newlyCreatedTaskDetailsList = TaskNameDao.fetchNewlyCreatedTaskDeatils(userId);
+	}
+	
 	 @Command
 	 @NotifyChange("*")
 	 public void onChangeUserId(){
@@ -92,6 +98,7 @@ public class TaskNameViewModel {
 					    				flagInsert = TaskNameService.saveTaskDetails(taskBean);
 					   				 	System.out.println(flagInsert);
 					   				 	if(flagInsert){
+					   				 		onLoad();
 					   					 String emailId = CurrentOpportunitiesDao.fetchEmailId(taskBean.userprofileBean.getUserid());
 					   					 System.out.println("IN TASK CREATION PAGE :"+emailId);
 					   					 flagEmailSend = SendEmail.validator(emailId);
@@ -277,5 +284,14 @@ public class TaskNameViewModel {
 	}
 	public void setReportDetailsList(ArrayList<TaskNameBean> reportDetailsList) {
 		this.reportDetailsList = reportDetailsList;
+	}
+
+	public ArrayList<TaskNameBean> getNewlyCreatedTaskDetailsList() {
+		return newlyCreatedTaskDetailsList;
+	}
+
+	public void setNewlyCreatedTaskDetailsList(
+			ArrayList<TaskNameBean> newlyCreatedTaskDetailsList) {
+		this.newlyCreatedTaskDetailsList = newlyCreatedTaskDetailsList;
 	}
 }

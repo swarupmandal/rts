@@ -20,11 +20,13 @@
 			</grid>
 			<grid>
 				<columns>
-					<column align="right"/>
+					<column align="right" width="130px"/>
+					<column align="left" width="170px"/>
+					<column align="right" width="120px"/>
 					<column align="left"/>
-					<column align="right"/>
+					<column align="right" width="115px"/>
 					<column align="left"/>
-					<column align="right"/>
+					<column align="right" width="60px"/>
 					<column align="left"/>
 				</columns>
 				<rows>
@@ -64,26 +66,63 @@
 							</bandpopup>
 						</bandbox>
 						<label value="Task Assign Date-" style="font-weight:bold"></label>
-						<textbox width="160px"
+						<textbox width="100%"
 							value="@bind(vm.taskBean.createdDateStr)" readonly="true">
 						</textbox>
 						<label value="Scheduled Date-" style="font-weight:bold"></label>
-						<datebox width="160px" format="dd/MM/yyyy"
+						<datebox width="100%" format="dd/MM/yyyy"
 							value="@bind(vm.taskBean.scheduledDateSql)" readonly="true">
 						</datebox>
+						<label value="Remarks" style="font-weight:bold"></label>
+						<textbox multiline="true" rows="3" width="100%" 
+							value="@bind(vm.taskBean.remarksOrResults)" >
+						</textbox>
 					</row>
 					<row>
-						<label></label>
+						<label></label><label/>
 						<textbox visible="false"></textbox>
 						<button label="Save" width="80px"
 							onClick="@command('onClickSave')">
 						</button>
 						<label></label>
-						<label></label>
+						<label></label><label/>
 						<textbox visible="false"></textbox>
 					</row>
 				</rows>
 			</grid>
+			
+			<grid model="@bind(vm.newlyCreatedTaskDetailsList)" mold="paging"
+			pageSize="5" width="100%">
+			<columns sizable="true">
+				<column label="Task Description" align="center" width="380px"/>
+				<column label="Task Status" align="center" width="120px" />
+				<column label="Assigned To" align="center" width="150px" />
+				<column label="Task Assigned Date" align="center" width="130px" />
+				<column label="Task Scheduled Date" align="center" width="130px" />
+				<column label="Remarks" align="center" width="110px" />
+			</columns>
+			<rows>
+				<template name="model" var="v">
+					<row>
+						<textbox multiline="true" rows="2" readonly="true" width="100%"
+							value="@bind(v.taskName)" />
+						<textbox readonly="true" width="100%"
+							value="@bind(v.taskStatusBean.taskStatusName)" />
+						<textbox readonly="true" width="100%"
+							value="@bind(v.assignedTo)" />
+						<datebox format="dd/MM/yyyy" width="100%"
+							value="@bind(v.createdDate)" readonly="true"
+							buttonVisible="false" />
+						<datebox format="dd/MM/yyyy" width="100%"
+							value="@bind(v.scheduledDate)" readonly="true"
+							buttonVisible="false" />
+						<textbox multiline="true" rows="2"
+						 width="100%" value="@bind(v.remarksOrResults)" readonly="true"/>	
+					</row>
+				</template>
+
+			</rows>
+		</grid>
 			<!-- <tabbox>
 				<tabs>
 				<tab label="Task Description Creation"

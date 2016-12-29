@@ -3,11 +3,12 @@
 	<window title="Task Assigned List" border="normal"
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('org.appsquad.viewmodel.TaskListUpdateViewModel')">
-		<grid model="@bind(vm.taskDetailsList)">
+		<grid model="@bind(vm.taskDetailsList)" mold="paging" pageSize="8">
 			<columns sizable="true">
-				<column label="Task Description" align="center" width="390px"/>
-				<column label="Task Status" align="center" width="120px" />
-				<column label="Assigned by" align="center" width="150px" />
+				<column label="Task Description" align="center" width="350px"/>
+				<column label="Task Status" align="center" width="90px" />
+				<column label="Assigned To" align="center" width="130px" />
+				<column label="Assigned by" align="center" width="130px" />
 				<column label="Task Assigned Date" align="center" width="130px" />
 				<column label="Task Scheduled Date" align="center" width="130px" />
 				<column label="Action" align="center" width="90px" />
@@ -19,6 +20,8 @@
 							value="@bind(v.taskName)" />
 						<textbox readonly="true" width="100%"
 							value="@bind(v.taskStatusBean.taskStatusName)" />
+						<textbox readonly="true" width="100%"
+							value="@bind(v.assignedTo)" />
 						<textbox readonly="true" width="100%"
 							value="@bind(v.assignedByUserId)" />
 						<datebox format="dd/MM/yyyy" width="100%"
