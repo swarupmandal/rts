@@ -68,7 +68,7 @@
 							value="@bind(vm.taskBean.createdDateStr)" readonly="true">
 						</textbox>
 						<label value="Scheduled Date-" style="font-weight:bold"></label>
-						<datebox width="160px"
+						<datebox width="160px" format="dd/MM/yyyy"
 							value="@bind(vm.taskBean.scheduledDateSql)" readonly="true">
 						</datebox>
 					</row>

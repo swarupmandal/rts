@@ -9,7 +9,13 @@ import bsh.ParseException;
 public class Testing {
 
 	public static void main(String[] args) throws Exception{
-		System.out.println("main");
+		String num1 = "326767",num2="326770",chknum="326770";
+		if(Long.parseLong(chknum) >= Long.parseLong(num1) && Long.parseLong(chknum) <= Long.parseLong(num2)){
+			System.out.println("Ok");
+		}else{
+			System.out.println("invalid");
+		}
+		/*System.out.println("main");
         String date1 = "2017-01-12";
         String date2 = "2016-01-12";
 
@@ -26,7 +32,7 @@ public class Testing {
             String date =     formater.format(beginCalendar.getTime()).toUpperCase();
             System.out.println(date);
             beginCalendar.add(Calendar.MONTH, 1);
-        }
+        }*/
     }
 
 }

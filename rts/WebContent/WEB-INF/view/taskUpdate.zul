@@ -5,29 +5,29 @@
 		viewModel="@id('vm') @init('org.appsquad.viewmodel.TaskListUpdateViewModel')">
 		<grid model="@bind(vm.taskDetailsList)">
 			<columns sizable="true">
-				<column label="Task Description" align="center" />
-				<column label="Task Status" align="center" />
-				<column label="Assigned by" align="center" />
-				<column label="Task Assigned Date" align="center" />
-				<column label="Task Scheduled Date" align="center" />
-				<column label="Action" align="center" />
+				<column label="Task Description" align="center" width="390px"/>
+				<column label="Task Status" align="center" width="120px" />
+				<column label="Assigned by" align="center" width="150px" />
+				<column label="Task Assigned Date" align="center" width="130px" />
+				<column label="Task Scheduled Date" align="center" width="130px" />
+				<column label="Action" align="center" width="90px" />
 			</columns>
 			<rows>
 				<template name="model" var="v">
 					<row>
-						<textbox readonly="true"
+						<textbox multiline="true" rows="3" readonly="true" width="100%"
 							value="@bind(v.taskName)" />
-						<textbox readonly="true"
+						<textbox readonly="true" width="100%"
 							value="@bind(v.taskStatusBean.taskStatusName)" />
-						<textbox readonly="true"
+						<textbox readonly="true" width="100%"
 							value="@bind(v.assignedByUserId)" />
-						<datebox format="dd/MM/yyyy"
+						<datebox format="dd/MM/yyyy" width="100%"
 							value="@bind(v.createdDate)" readonly="true"
 							buttonVisible="false" />
-						<datebox format="dd/MM/yyyy"
+						<datebox format="dd/MM/yyyy" width="100%"
 							value="@bind(v.scheduledDate)" readonly="true"
 							buttonVisible="false" />
-						<button label="Update" onClick="@command('onClickUpdate',bean= v)"/>
+						<button label="Update" width="100%" onClick="@command('onClickUpdate',bean= v)"/>
 					</row>
 				</template>
 
