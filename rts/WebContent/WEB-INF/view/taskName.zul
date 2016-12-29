@@ -4,8 +4,14 @@
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('org.appsquad.viewmodel.TaskNameViewModel')">
 		<style>
-			.z-loading { top: 50% !important; left: 45% !important; align:
-		center; vertical-align: middle; font-weight: bold; }
+			.z-loading { 
+				top: 50% !important; left: 45% !important; align:
+			center; vertical-align: middle; font-weight: 900;color: red;   }
+		.z-loading-indicator {  
+			color: red;  
+			border:2px solid; 
+			position:absolute;
+		}  
 		</style>
 		<div>
 			<grid>
