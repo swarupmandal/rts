@@ -17,6 +17,16 @@ public class TaskNameBean {
     private String venue;
     private Integer week;
     private Integer month;
+    
+    private Date fromDate;
+	private java.sql.Date fromDateSql;
+	private String fromDateValue;
+	private String fromDateStr;
+	
+	private Date toDate;
+	private java.sql.Date toDateSql;
+	private String toDateValue;
+	private String toateStr;
    
     private Date createdDate;
     private java.sql.Date createdDateSql;
@@ -250,5 +260,53 @@ public class TaskNameBean {
 	}
 	public void setUserprofileBean2(UserprofileBean userprofileBean2) {
 		this.userprofileBean2 = userprofileBean2;
+	}
+	public Date getFromDate() {
+		return fromDate;
+	}
+	public void setFromDate(Date fromDate) {
+		this.fromDate = fromDate;
+	}
+	public java.sql.Date getFromDateSql() {
+		return fromDateSql;
+	}
+	public void setFromDateSql(java.sql.Date fromDateSql) {
+		this.fromDateSql = fromDateSql;
+	}
+	public String getFromDateValue() {
+		return fromDateValue;
+	}
+	public void setFromDateValue(String fromDateValue) {
+		this.fromDateValue = fromDateValue;
+	}
+	public String getFromDateStr() {
+		return fromDateStr;
+	}
+	public void setFromDateStr(String fromDateStr) {
+		this.fromDateStr = fromDateStr;
+	}
+	public Date getToDate() {
+		return toDate;
+	}
+	public void setToDate(Date toDate) {
+		this.toDate = toDate;
+	}
+	public java.sql.Date getToDateSql() {
+		return toDateSql;
+	}
+	public void setToDateSql(java.sql.Date toDateSql) {
+		this.toDateSql = toDateSql;
+	}
+	public String getToDateValue() {
+		return toDateValue;
+	}
+	public void setToDateValue(String toDateValue) {
+		this.toDateValue = toDateValue;
+	}
+	public String getToateStr() {
+		return toateStr;
+	}
+	public void setToateStr(String toateStr) {
+		this.toateStr = toateStr;
 	}
 }

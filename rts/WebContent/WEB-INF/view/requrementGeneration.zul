@@ -38,25 +38,13 @@
 						
 						<row>
 						  <label value="Job Description:" style="font-weight:bold"></label>		
-						  <textbox rows="3" value="@bind(vm.reqGenBean.jobType)" width="35%" maxlength="100" placeholder="WITHIN 80 WORDS" xmlns:w="client">
-						       <attribute w:name="doKeyPress_">
-									<![CDATA[ function(evt) { if ( (evt.which <
-							  		65 || evt.which > 90) && (evt.which < 97 ||
-							  		evt.which > 122) && evt.which != 8 &&
-							  		evt.which != 32) evt.stop(); } ]]>
-						      </attribute>
+						  <textbox rows="3" value="@bind(vm.reqGenBean.jobType)" width="35%" maxlength="100" placeholder="WITHIN 80 WORDS">
 						  </textbox>	
 						</row>
 						
 						<row>
 						  <label value="Detailed Job:" style="font-weight:bold"></label>		
-						  <textbox rows="3" value="@bind(vm.reqGenBean.detailedJob)" width="35%" maxlength="100" placeholder="WITHIN 80 WORDS" xmlns:w="client">
-						      <attribute w:name="doKeyPress_">
-									<![CDATA[ function(evt) { if ( (evt.which <
-							  		65 || evt.which > 90) && (evt.which < 97 ||
-							  		evt.which > 122) && evt.which != 8 &&
-							  		evt.which != 32) evt.stop(); } ]]>
-						      </attribute>
+						  <textbox rows="3" value="@bind(vm.reqGenBean.detailedJob)" width="35%" maxlength="100" placeholder="WITHIN 80 WORDS">
 						  </textbox>	
 						</row>
 						
