@@ -11,6 +11,7 @@
 				<column label="Assigned by" align="center" width="130px" />
 				<column label="Task Assigned Date" align="center" width="130px" />
 				<column label="Task Scheduled Date" align="center" width="130px" />
+				<column label="Completion Date" align="center" width="130px" />
 				<column label="Action" align="center" width="90px" />
 			</columns>
 			<rows>
@@ -30,6 +31,9 @@
 						<datebox format="dd/MM/yyyy" width="100%"
 							value="@bind(v.scheduledDate)" readonly="true"
 							buttonVisible="false" />
+						<datebox format="dd/MM/yyyy" width="100%"
+							value="@bind(v.actualCompletionDate)" readonly="true"
+							buttonVisible="false" />	
 						<button label="Update" width="100%" onClick="@command('onClickUpdate',bean= v)"/>
 					</row>
 				</template>
