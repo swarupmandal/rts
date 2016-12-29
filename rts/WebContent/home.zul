@@ -213,7 +213,7 @@
                     <treeitem open="false">
         				 <treerow>
          				 <treecell label="- Overdue Activities - Weekly, Monthly" onClick='inclResults.setSrc("/WEB-INF/view/overdueActivitiesWeeklyMonthly.zul");' 
-         				         visible="@bind(vm.firstReportVisibility)">
+         				         visible="@bind(vm.secondReportVisibility)">
         			     </treecell>
          				</treerow>
                    </treeitem>
@@ -221,7 +221,7 @@
                     <treeitem open="false">
         				 <treerow>
          				 <treecell label="- Schedule Datewise Detail Report" onClick='inclResults.setSrc("/WEB-INF/view/ScheduleDatewiseDetailReport.zul");' 
-         				         visible="@bind(vm.firstReportVisibility)">
+         				         visible="@bind(vm.thirdReportVisibility)">
         			     </treecell>
          				</treerow>
                    </treeitem>

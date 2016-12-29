@@ -6,7 +6,7 @@
 	  <grid model="@bind(vm.currentOpportunitiesBeanList)" height="470px" mold="paging" pageSize="9">
 		<columns sizable="true">
 			<column label="Client Name" width="250px" style="font-weight: bold; color:black" align="center"></column>
-			<column label="Req_Id" width="80px" style="font-weight: bold; color:black" align="center"></column>
+			<column label="RID" width="80px" style="font-weight: bold; color:black" align="center"></column>
 			<column label="Skill Set" width="180px" style="font-weight: bold; color:black" align="center"></column>
 			<column label="Resource Name" width="250px" style="font-weight: bold; color:black" align="center"></column>
 			<column label="Type" width="150px" style="font-weight: bold; color:black" align="center"></column>

@@ -349,7 +349,6 @@ public class RoleMasterDao {
 		}
 	}
 	
-	
 	public static ArrayList<UserprofileBean> onLoadUserDeatils(){
 		ArrayList<UserprofileBean> userList = new ArrayList<UserprofileBean>();
 		Connection connection = null;

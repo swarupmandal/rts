@@ -35,11 +35,11 @@
 			    			<grid model="@bind(vm.reportList)" mold="paging" pageSize="10" height="400px">	
 			    				<columns sizable="true">
 			    				    <column width="300px" label="Year" style="font-weight:bold; color: black" align="center"></column>
-			    					<column width="300px" label="Month" style="font-weight:bold; color: black" align="center"></column>
+			    					<column width="200px" label="Month" style="font-weight:bold; color: black" align="center"></column>
 			    					<column width="140px" label="Bill No" style="font-weight:bold; color: black" align="center"></column>
 			    					<column width="100px" label="Bill Date" style="font-weight:bold; color: black" align="center"></column>
-			    					<column width="130px" label="Bill Amount" style="font-weight:bold; color: black" align="center"></column>
-			    					<column width="230px" label="Paid" style="font-weight:bold; color: black" align="center"></column>
+			    					<column width="230px" label="Bill Amount" style="font-weight:bold; color: black" align="center"></column>
+			    					<column width="100px" label="Paid" style="font-weight:bold; color: black" align="center"></column>
 			    					<column width="130px" label="Chq Details" style="font-weight:bold; color: black" align="center"></column>
 			    				</columns>
 			    				<rows>
@@ -57,6 +57,7 @@
 			    				</rows>
 			    			</grid>
     		          </div>
+    		          
     		          <div align="center" visible="@bind(vm.pdfDivVisibility)">
     		              <button label="Generate PDF" style="font-weight:bold" onClick="@command('onClickPdf')"></button> 
     		          </div>

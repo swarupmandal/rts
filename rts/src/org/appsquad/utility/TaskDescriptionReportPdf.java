@@ -134,8 +134,8 @@ public class TaskDescriptionReportPdf {
 	}
 	
     public void printDetails(ArrayList<TaskNameBean> list) throws DocumentException{
- 		String[] headerLabes = {"Task Description", "Venue", "Assigned By", "Task Assign Date", "Person Responsible", "Scheduled Date", "Status", "Actual completion Date", "Remarks / Results"};
- 		float[]	widths = {10f,6f, 12f, 8f, 12f, 12f, 8f, 12f,8f};
+ 		String[] headerLabes = {"Task Name", "Assigned By","Person Responsible", "Creation Date","Schedule Date", "Status"};
+ 		float[]	widths = {25f,10f,10f,10f,10f,10f};
  		PdfPTable headerTable = new PdfPTable(widths);
  		headerTable.setWidthPercentage(96);
  		
@@ -171,8 +171,8 @@ public class TaskDescriptionReportPdf {
          
          	cell_2: {
  			PdfPCell cell;
- 				if(bean.getVenue().length()>0){
- 					Paragraph headerParagraph = new Paragraph(bean.getVenue());
+ 				if(bean.getAssignedByUserId().length()>0){
+ 					Paragraph headerParagraph = new Paragraph(bean.getAssignedByUserId());
  					headerParagraph.getFont().setSize(5f);
  					headerParagraph.setAlignment(Element.ALIGN_CENTER);
  					headerParagraph.getFont().setStyle(Font.NORMAL);
@@ -184,8 +184,8 @@ public class TaskDescriptionReportPdf {
  		    
  		   cell_3: {
  	 			PdfPCell cell;
- 	 				if(bean.getAssignedByUserId()!=null){
- 	 					Paragraph headerParagraph = new Paragraph(bean.getAssignedByUserId());
+ 	 				if(bean.getUserprofileBean().getUserid()!=null){
+ 	 					Paragraph headerParagraph = new Paragraph(bean.getUserprofileBean().getUserid());
  	 					headerParagraph.getFont().setSize(5f);
  	 					headerParagraph.setAlignment(Element.ALIGN_CENTER);
  	 					headerParagraph.getFont().setStyle(Font.NORMAL);
@@ -207,21 +207,9 @@ public class TaskDescriptionReportPdf {
  	 	 					headerTable.addCell(cell);
  	 	 				}
  	 	 			}
+
  			
- 	 			cell_5: {
- 	 	 	 			PdfPCell cell;
- 	 	 	 				if(bean.userprofileBean.getUserid()!=null){
- 	 	 	 					Paragraph headerParagraph = new Paragraph(bean.userprofileBean.getUserid());
- 	 	 	 					headerParagraph.getFont().setSize(5f);
- 	 	 	 					headerParagraph.setAlignment(Element.ALIGN_CENTER);
- 	 	 	 					headerParagraph.getFont().setStyle(Font.NORMAL);
- 	 	 	 					cell = new PdfPCell(headerParagraph);
- 	 	 	 					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
- 	 	 	 					headerTable.addCell(cell);
- 	 	 	 				}
- 	 	 	 			}
- 			
- 	 	 			cell_6: {
+ 	 	 			cell_5: {
  	 	 	 	 			PdfPCell cell;
  	 	 	 	 				if(bean.getScheduledDateStr()!=null){
  	 	 	 	 					Paragraph headerParagraph = new Paragraph(bean.getScheduledDateStr());
@@ -248,39 +236,15 @@ public class TaskDescriptionReportPdf {
  	 	 	 	 	 				}
  	 	 	 	 	 		} 			
  	 	 	 			
- 	 	 	 	 	cell_8: {
- 	 	 	 	 	 			PdfPCell cell;
- 	 	 	 	 	 				if(bean.getActualCompletionDateStr()!=null){
- 	 	 	 	 	 					Paragraph headerParagraph = new Paragraph(bean.getActualCompletionDateStr());
- 	 	 	 	 	 					headerParagraph.getFont().setSize(5f);
- 	 	 	 	 	 					headerParagraph.setAlignment(Element.ALIGN_CENTER);
- 	 	 	 	 	 					headerParagraph.getFont().setStyle(Font.NORMAL);
- 	 	 	 	 	 					cell = new PdfPCell(headerParagraph);
- 	 	 	 	 	 					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
- 	 	 	 	 	 					headerTable.addCell(cell);
- 	 	 	 	 	 				}
- 	 	 	 	 	 		}
- 	 	 	 	 	 		
- 	 	 	 	 	cell_9: {
- 	 	 	 	 	 			PdfPCell cell;
- 	 	 	 	 	 				if(bean.getRemarksOrResults()!=null){
- 	 	 	 	 	 					Paragraph headerParagraph = new Paragraph(bean.getRemarksOrResults());
- 	 	 	 	 	 					headerParagraph.getFont().setSize(5f);
- 	 	 	 	 	 					headerParagraph.setAlignment(Element.ALIGN_CENTER);
- 	 	 	 	 	 					headerParagraph.getFont().setStyle(Font.NORMAL);
- 	 	 	 	 	 					cell = new PdfPCell(headerParagraph);
- 	 	 	 	 	 					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
- 	 	 	 	 	 					headerTable.addCell(cell);
- 	 	 	 	 	 				}
- 	 	 	 	 	 		}	 	 		
+ 	 	 	 	 	 	 		
          }
          document.add(headerTable);
  		
  	}
     
     public void printDetailsForWeekReport(ArrayList<TaskNameBean> list) throws DocumentException{
- 		String[] headerLabes = {"Task Description", "Venue", "Assigned By", "Task Assign Date", "Person Responsible", "Scheduled Date", "Status", "Actual completion Date", "Remarks / Results", "Week"};
- 		float[]	widths = {10f,6f, 12f, 8f, 12f, 12f, 8f, 12f,12f,8f};
+ 		String[] headerLabes = {"Task Name", "assigned By", "Assigned To", "Creation Date", "Scheduled Date", "Status", "Week"};
+ 		float[]	widths = {20f,10f,10f,10f,10f,10f,8f};
  		PdfPTable headerTable = new PdfPTable(widths);
  		headerTable.setWidthPercentage(96);
  		
@@ -316,8 +280,8 @@ public class TaskDescriptionReportPdf {
          
          	cell_2: {
  			PdfPCell cell;
- 				if(bean.getVenue().length()>0){
- 					Paragraph headerParagraph = new Paragraph(bean.getVenue());
+ 				if(bean.getAssignedByUserId().length()>0){
+ 					Paragraph headerParagraph = new Paragraph(bean.getAssignedByUserId());
  					headerParagraph.getFont().setSize(5f);
  					headerParagraph.setAlignment(Element.ALIGN_CENTER);
  					headerParagraph.getFont().setStyle(Font.NORMAL);
@@ -329,8 +293,8 @@ public class TaskDescriptionReportPdf {
  		    
  		   cell_3: {
  	 			PdfPCell cell;
- 	 				if(bean.getAssignedByUserId()!=null){
- 	 					Paragraph headerParagraph = new Paragraph(bean.getAssignedByUserId());
+ 	 				if(bean.getUserprofileBean().getUserid()!=null){
+ 	 					Paragraph headerParagraph = new Paragraph(bean.getUserprofileBean().getUserid());
  	 					headerParagraph.getFont().setSize(5f);
  	 					headerParagraph.setAlignment(Element.ALIGN_CENTER);
  	 					headerParagraph.getFont().setStyle(Font.NORMAL);
@@ -353,20 +317,7 @@ public class TaskDescriptionReportPdf {
  	 	 				}
  	 	 			}
  			
- 	 			cell_5: {
- 	 	 	 			PdfPCell cell;
- 	 	 	 				if(bean.userprofileBean.getUserid()!=null){
- 	 	 	 					Paragraph headerParagraph = new Paragraph(bean.userprofileBean.getUserid());
- 	 	 	 					headerParagraph.getFont().setSize(5f);
- 	 	 	 					headerParagraph.setAlignment(Element.ALIGN_CENTER);
- 	 	 	 					headerParagraph.getFont().setStyle(Font.NORMAL);
- 	 	 	 					cell = new PdfPCell(headerParagraph);
- 	 	 	 					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
- 	 	 	 					headerTable.addCell(cell);
- 	 	 	 				}
- 	 	 	 			}
- 			
- 	 	 			cell_6: {
+ 	 	 			cell_5: {
  	 	 	 	 			PdfPCell cell;
  	 	 	 	 				if(bean.getScheduledDateStr()!=null){
  	 	 	 	 					Paragraph headerParagraph = new Paragraph(bean.getScheduledDateStr());
@@ -380,7 +331,7 @@ public class TaskDescriptionReportPdf {
  	 	 	 	 			}
  	 	 			
  			
- 	 	 	 		cell_7: {
+ 	 	 	 		cell_6: {
  	 	 	 	 	 			PdfPCell cell;
  	 	 	 	 	 				if(bean.getStatus()!=null){
  	 	 	 	 	 					Paragraph headerParagraph = new Paragraph(bean.getStatus());
@@ -392,34 +343,8 @@ public class TaskDescriptionReportPdf {
  	 	 	 	 	 					headerTable.addCell(cell);
  	 	 	 	 	 				}
  	 	 	 	 	 		} 			
- 	 	 	 			
- 	 	 	 	 	cell_8: {
- 	 	 	 	 	 			PdfPCell cell;
- 	 	 	 	 	 				if(bean.getActualCompletionDateStr()!=null){
- 	 	 	 	 	 					Paragraph headerParagraph = new Paragraph(bean.getActualCompletionDateStr());
- 	 	 	 	 	 					headerParagraph.getFont().setSize(5f);
- 	 	 	 	 	 					headerParagraph.setAlignment(Element.ALIGN_CENTER);
- 	 	 	 	 	 					headerParagraph.getFont().setStyle(Font.NORMAL);
- 	 	 	 	 	 					cell = new PdfPCell(headerParagraph);
- 	 	 	 	 	 					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
- 	 	 	 	 	 					headerTable.addCell(cell);
- 	 	 	 	 	 				}
- 	 	 	 	 	 		}
  	 	 	 	 	 		
- 	 	 	 	 	cell_9: {
- 	 	 	 	 	 			PdfPCell cell;
- 	 	 	 	 	 				if(bean.getRemarksOrResults()!=null){
- 	 	 	 	 	 					Paragraph headerParagraph = new Paragraph(bean.getRemarksOrResults());
- 	 	 	 	 	 					headerParagraph.getFont().setSize(5f);
- 	 	 	 	 	 					headerParagraph.setAlignment(Element.ALIGN_CENTER);
- 	 	 	 	 	 					headerParagraph.getFont().setStyle(Font.NORMAL);
- 	 	 	 	 	 					cell = new PdfPCell(headerParagraph);
- 	 	 	 	 	 					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
- 	 	 	 	 	 					headerTable.addCell(cell);
- 	 	 	 	 	 				}
- 	 	 	 	 	 		}
- 	 	 	 	 	 		
- 	 	 	 	 	cell_10: {
+ 	 	 	 	 	cell_7: {
  	 	 	 	 	 			PdfPCell cell;
  	 	 	 	 	 			System.out.println("IN PDF FILE-> WEEK IS: "+bean.getWeek());
  	 	 	 	 	 				if(bean.getWeek()!=null){
@@ -438,8 +363,8 @@ public class TaskDescriptionReportPdf {
  	}
      
     public void printDetailsForMonthReport(ArrayList<TaskNameBean> list) throws DocumentException{
- 		String[] headerLabes = {"Task Description", "Venue", "Assigned By", "Task Assign Date", "Person Responsible", "Scheduled Date", "Status", "Actual completion Date", "Remarks / Results", "Month"};
- 		float[]	widths = {10f,6f, 12f, 8f, 12f, 12f, 8f, 12f,12f,8f};
+    	String[] headerLabes = {"Task Name", "assigned By", "Assigned To", "Creation Date", "Scheduled Date", "Status", "Week"};
+ 		float[]	widths = {20f,10f,10f,10f,10f,10f,8f};
  		PdfPTable headerTable = new PdfPTable(widths);
  		headerTable.setWidthPercentage(96);
  		
@@ -458,140 +383,101 @@ public class TaskDescriptionReportPdf {
  		}
          
          for(TaskNameBean bean : list){
-            cell_1: {
- 			PdfPCell cell;
- 				if(bean.getTaskName().length()>0){
- 					Paragraph headerParagraph = new Paragraph(bean.getTaskName());
- 					headerParagraph.getFont().setSize(5f);
- 					headerParagraph.setAlignment(Element.ALIGN_CENTER);
- 					headerParagraph.getFont().setStyle(Font.NORMAL);
+             cell_1: {
+  			PdfPCell cell;
+  				if(bean.getTaskName().length()>0){
+  					Paragraph headerParagraph = new Paragraph(bean.getTaskName());
+  					headerParagraph.getFont().setSize(5f);
+  					headerParagraph.setAlignment(Element.ALIGN_CENTER);
+  					headerParagraph.getFont().setStyle(Font.NORMAL);
 
- 					cell = new PdfPCell(headerParagraph);
- 					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+  					cell = new PdfPCell(headerParagraph);
+  					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 
- 					headerTable.addCell(cell);
- 				}
- 		    }
-         
-         	cell_2: {
- 			PdfPCell cell;
- 				if(bean.getVenue().length()>0){
- 					Paragraph headerParagraph = new Paragraph(bean.getVenue());
- 					headerParagraph.getFont().setSize(5f);
- 					headerParagraph.setAlignment(Element.ALIGN_CENTER);
- 					headerParagraph.getFont().setStyle(Font.NORMAL);
- 					cell = new PdfPCell(headerParagraph);
- 					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
- 					headerTable.addCell(cell);
- 				}
- 			}
- 		    
- 		   cell_3: {
- 	 			PdfPCell cell;
- 	 				if(bean.getAssignedByUserId()!=null){
- 	 					Paragraph headerParagraph = new Paragraph(bean.getAssignedByUserId());
- 	 					headerParagraph.getFont().setSize(5f);
- 	 					headerParagraph.setAlignment(Element.ALIGN_CENTER);
- 	 					headerParagraph.getFont().setStyle(Font.NORMAL);
- 	 					cell = new PdfPCell(headerParagraph);
- 	 					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
- 	 					headerTable.addCell(cell);
- 	 				}
- 	 			}
- 			
- 			cell_4: {
- 	 	 			PdfPCell cell;
- 	 	 				if(bean.getCreatedDateStr()!=null){
- 	 	 					Paragraph headerParagraph = new Paragraph(bean.getCreatedDateStr());
- 	 	 					headerParagraph.getFont().setSize(5f);
- 	 	 					headerParagraph.setAlignment(Element.ALIGN_CENTER);
- 	 	 					headerParagraph.getFont().setStyle(Font.NORMAL);
- 	 	 					cell = new PdfPCell(headerParagraph);
- 	 	 					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
- 	 	 					headerTable.addCell(cell);
- 	 	 				}
- 	 	 			}
- 			
- 	 			cell_5: {
- 	 	 	 			PdfPCell cell;
- 	 	 	 				if(bean.userprofileBean.getUserid()!=null){
- 	 	 	 					Paragraph headerParagraph = new Paragraph(bean.userprofileBean.getUserid());
- 	 	 	 					headerParagraph.getFont().setSize(5f);
- 	 	 	 					headerParagraph.setAlignment(Element.ALIGN_CENTER);
- 	 	 	 					headerParagraph.getFont().setStyle(Font.NORMAL);
- 	 	 	 					cell = new PdfPCell(headerParagraph);
- 	 	 	 					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
- 	 	 	 					headerTable.addCell(cell);
- 	 	 	 				}
- 	 	 	 			}
- 			
- 	 	 			cell_6: {
- 	 	 	 	 			PdfPCell cell;
- 	 	 	 	 				if(bean.getScheduledDateStr()!=null){
- 	 	 	 	 					Paragraph headerParagraph = new Paragraph(bean.getScheduledDateStr());
- 	 	 	 	 					headerParagraph.getFont().setSize(5f);
- 	 	 	 	 					headerParagraph.setAlignment(Element.ALIGN_CENTER);
- 	 	 	 	 					headerParagraph.getFont().setStyle(Font.NORMAL);
- 	 	 	 	 					cell = new PdfPCell(headerParagraph);
- 	 	 	 	 					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
- 	 	 	 	 					headerTable.addCell(cell);
- 	 	 	 	 				}
- 	 	 	 	 			}
- 	 	 			
- 			
- 	 	 	 		cell_7: {
- 	 	 	 	 	 			PdfPCell cell;
- 	 	 	 	 	 				if(bean.getStatus()!=null){
- 	 	 	 	 	 					Paragraph headerParagraph = new Paragraph(bean.getStatus());
- 	 	 	 	 	 					headerParagraph.getFont().setSize(5f);
- 	 	 	 	 	 					headerParagraph.setAlignment(Element.ALIGN_CENTER);
- 	 	 	 	 	 					headerParagraph.getFont().setStyle(Font.NORMAL);
- 	 	 	 	 	 					cell = new PdfPCell(headerParagraph);
- 	 	 	 	 	 					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
- 	 	 	 	 	 					headerTable.addCell(cell);
- 	 	 	 	 	 				}
- 	 	 	 	 	 		} 			
- 	 	 	 			
- 	 	 	 	 	cell_8: {
- 	 	 	 	 	 			PdfPCell cell;
- 	 	 	 	 	 				if(bean.getActualCompletionDateStr()!=null){
- 	 	 	 	 	 					Paragraph headerParagraph = new Paragraph(bean.getActualCompletionDateStr());
- 	 	 	 	 	 					headerParagraph.getFont().setSize(5f);
- 	 	 	 	 	 					headerParagraph.setAlignment(Element.ALIGN_CENTER);
- 	 	 	 	 	 					headerParagraph.getFont().setStyle(Font.NORMAL);
- 	 	 	 	 	 					cell = new PdfPCell(headerParagraph);
- 	 	 	 	 	 					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
- 	 	 	 	 	 					headerTable.addCell(cell);
- 	 	 	 	 	 				}
- 	 	 	 	 	 		}
- 	 	 	 	 	 		
- 	 	 	 	 	cell_9: {
- 	 	 	 	 	 			PdfPCell cell;
- 	 	 	 	 	 				if(bean.getRemarksOrResults()!=null){
- 	 	 	 	 	 					Paragraph headerParagraph = new Paragraph(bean.getRemarksOrResults());
- 	 	 	 	 	 					headerParagraph.getFont().setSize(5f);
- 	 	 	 	 	 					headerParagraph.setAlignment(Element.ALIGN_CENTER);
- 	 	 	 	 	 					headerParagraph.getFont().setStyle(Font.NORMAL);
- 	 	 	 	 	 					cell = new PdfPCell(headerParagraph);
- 	 	 	 	 	 					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
- 	 	 	 	 	 					headerTable.addCell(cell);
- 	 	 	 	 	 				}
- 	 	 	 	 	 		}
- 	 	 	 	 	 		
- 	 	 	 	 	cell_10: {
- 	 	 	 	 	 			PdfPCell cell;
- 	 	 	 	 	 			System.out.println("IN PDF FILE-> MONTH IS: "+bean.getMonth());
- 	 	 	 	 	 				if(bean.getMonth()!=null){
- 	 	 	 	 	 					Paragraph headerParagraph = new Paragraph(String.valueOf(bean.getMonth()));
- 	 	 	 	 	 					headerParagraph.getFont().setSize(5f);
- 	 	 	 	 	 					headerParagraph.setAlignment(Element.ALIGN_CENTER);
- 	 	 	 	 	 					headerParagraph.getFont().setStyle(Font.NORMAL);
- 	 	 	 	 	 					cell = new PdfPCell(headerParagraph);
- 	 	 	 	 	 					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
- 	 	 	 	 	 					headerTable.addCell(cell);
- 	 	 	 	 	 				}
- 	 	 	 	 	 		} 		
-         }
+  					headerTable.addCell(cell);
+  				}
+  		    }
+          
+          	cell_2: {
+  			PdfPCell cell;
+  				if(bean.getAssignedByUserId().length()>0){
+  					Paragraph headerParagraph = new Paragraph(bean.getAssignedByUserId());
+  					headerParagraph.getFont().setSize(5f);
+  					headerParagraph.setAlignment(Element.ALIGN_CENTER);
+  					headerParagraph.getFont().setStyle(Font.NORMAL);
+  					cell = new PdfPCell(headerParagraph);
+  					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+  					headerTable.addCell(cell);
+  				}
+  			}
+  		    
+  		   cell_3: {
+  	 			PdfPCell cell;
+  	 				if(bean.getUserprofileBean().getUserid()!=null){
+  	 					Paragraph headerParagraph = new Paragraph(bean.getUserprofileBean().getUserid());
+  	 					headerParagraph.getFont().setSize(5f);
+  	 					headerParagraph.setAlignment(Element.ALIGN_CENTER);
+  	 					headerParagraph.getFont().setStyle(Font.NORMAL);
+  	 					cell = new PdfPCell(headerParagraph);
+  	 					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+  	 					headerTable.addCell(cell);
+  	 				}
+  	 			}
+  			
+  			cell_4: {
+  	 	 			PdfPCell cell;
+  	 	 				if(bean.getCreatedDateStr()!=null){
+  	 	 					Paragraph headerParagraph = new Paragraph(bean.getCreatedDateStr());
+  	 	 					headerParagraph.getFont().setSize(5f);
+  	 	 					headerParagraph.setAlignment(Element.ALIGN_CENTER);
+  	 	 					headerParagraph.getFont().setStyle(Font.NORMAL);
+  	 	 					cell = new PdfPCell(headerParagraph);
+  	 	 					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+  	 	 					headerTable.addCell(cell);
+  	 	 				}
+  	 	 			}
+  			
+  	 	 			cell_5: {
+  	 	 	 	 			PdfPCell cell;
+  	 	 	 	 				if(bean.getScheduledDateStr()!=null){
+  	 	 	 	 					Paragraph headerParagraph = new Paragraph(bean.getScheduledDateStr());
+  	 	 	 	 					headerParagraph.getFont().setSize(5f);
+  	 	 	 	 					headerParagraph.setAlignment(Element.ALIGN_CENTER);
+  	 	 	 	 					headerParagraph.getFont().setStyle(Font.NORMAL);
+  	 	 	 	 					cell = new PdfPCell(headerParagraph);
+  	 	 	 	 					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+  	 	 	 	 					headerTable.addCell(cell);
+  	 	 	 	 				}
+  	 	 	 	 			}
+  	 	 			
+  			
+  	 	 	 		cell_6: {
+  	 	 	 	 	 			PdfPCell cell;
+  	 	 	 	 	 				if(bean.getStatus()!=null){
+  	 	 	 	 	 					Paragraph headerParagraph = new Paragraph(bean.getStatus());
+  	 	 	 	 	 					headerParagraph.getFont().setSize(5f);
+  	 	 	 	 	 					headerParagraph.setAlignment(Element.ALIGN_CENTER);
+  	 	 	 	 	 					headerParagraph.getFont().setStyle(Font.NORMAL);
+  	 	 	 	 	 					cell = new PdfPCell(headerParagraph);
+  	 	 	 	 	 					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+  	 	 	 	 	 					headerTable.addCell(cell);
+  	 	 	 	 	 				}
+  	 	 	 	 	 		} 			
+  	 	 	 	 	 		
+  	 	 	 	 	cell_7: {
+  	 	 	 	 	 			PdfPCell cell;
+  	 	 	 	 	 			System.out.println("IN PDF FILE-> MONTH IS: "+bean.getMonth());
+  	 	 	 	 	 				if(bean.getMonth()!=null){
+  	 	 	 	 	 					Paragraph headerParagraph = new Paragraph(String.valueOf(bean.getMonth()));
+  	 	 	 	 	 					headerParagraph.getFont().setSize(5f);
+  	 	 	 	 	 					headerParagraph.setAlignment(Element.ALIGN_CENTER);
+  	 	 	 	 	 					headerParagraph.getFont().setStyle(Font.NORMAL);
+  	 	 	 	 	 					cell = new PdfPCell(headerParagraph);
+  	 	 	 	 	 					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+  	 	 	 	 	 					headerTable.addCell(cell);
+  	 	 	 	 	 				}
+  	 	 	 	 	 	} 		
+          }
          document.add(headerTable);
  		
  	}

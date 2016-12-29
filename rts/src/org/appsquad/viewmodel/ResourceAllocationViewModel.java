@@ -180,8 +180,10 @@ public class ResourceAllocationViewModel {
 								  System.out.println("CREATION DATE :"+currentDate);
 								  if(resourceList.size()>0){
 									  resourceAllocationBean.setDivVisibility(true);
+									  resourceAllocationBean.setAssignButtonVisibility(true);
 								  }else{
 									  resourceAllocationBean.setDivVisibility(false);
+									  resourceAllocationBean.setAssignButtonVisibility(false);
 								  }
 								  flagLogInsert = LogAuditServiceClass.insertIntoLogTable(resourceAllocationBean.getMainScreenName(), resourceAllocationBean.getChileScreenName(), 
 																						  resourceAllocationBean.getSessionUserId(), resourceAllocationBean.getOperation(),currentDate,

@@ -86,7 +86,7 @@ public class MonthShowingForReport {
 								  AprilMonthShowingUtility.aprilMonthShowing(number, generationBean, finalList);
 							  }else if(bean.getCurrentOpportunitiesReportBean().getMonth().startsWith("may")){
 								  
-								   bean.getCurrentOpportunitiesBean().setTentureFromUtil(generationBean.getCurrentOpportunitiesBean().getTentureFromUtil());
+								  bean.getCurrentOpportunitiesBean().setTentureFromUtil(generationBean.getCurrentOpportunitiesBean().getTentureFromUtil());
 								  bean.getCurrentOpportunitiesBean().setTentureToUtil(generationBean.getCurrentOpportunitiesBean().getTentureToUtil());
 								  bean.getClientInformationBean().setFullName(generationBean.getClientInformationBean().getFullName());
 								  bean.getResourceMasterBean().setFullName(generationBean.getResourceMasterBean().getFullName());

@@ -7,6 +7,7 @@ public class UserprofileBean {
 	private String username;
 	private String password;
 	private String userid;
+	private String anotherUserId;
 	private String email;
 	private String address;
 	private String Contactno;
@@ -114,5 +115,11 @@ public class UserprofileBean {
 	}
 	public void setChecked(boolean isChecked) {
 		this.isChecked = isChecked;
+	}
+	public String getAnotherUserId() {
+		return anotherUserId;
+	}
+	public void setAnotherUserId(String anotherUserId) {
+		this.anotherUserId = anotherUserId;
 	}
 }

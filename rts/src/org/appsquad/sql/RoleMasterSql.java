@@ -9,6 +9,8 @@ public class RoleMasterSql {
 	
 	public static final String fetchUserQueryForTaskScreen = "select * from rts_user_master where is_delete = 'N' and user_id !=? order by id ";
 	
+	public static final String fetchUserQueryForreportSql = "select * from rts_user_master where is_delete = 'N' and user_id like ? order by id ";
+	
 	public static final String fetchUserQueryForTask = "select * from rts_user_master where is_delete = 'N' and user_id like ? and user_id !=? order by id ";
 	
 	public static final String fetchUserQueryForApproverSql = "select * from rts_user_role_mapping where master_role_name = 'APPROVER' order by id ";

@@ -13,6 +13,7 @@ public class TaskNameBean {
     private Integer rtsTaskId;
     
     private String userIdSearch;
+    private String anotherUserIdSearch;
     private String venue;
     private Integer week;
     private Integer month;
@@ -40,6 +41,7 @@ public class TaskNameBean {
     private boolean innerRadioGroup = false;
     
     public UserprofileBean userprofileBean = new UserprofileBean();
+    public UserprofileBean userprofileBean2 = new UserprofileBean();
     private TaskStatusBean taskStatusBean = new TaskStatusBean();
     private ArrayList<TaskStatusBean> taskStatusBeanList = new ArrayList<TaskStatusBean>();
     
@@ -236,5 +238,17 @@ public class TaskNameBean {
 	}
 	public void setTaskStatusBeanList(ArrayList<TaskStatusBean> taskStatusBeanList) {
 		this.taskStatusBeanList = taskStatusBeanList;
+	}
+	public String getAnotherUserIdSearch() {
+		return anotherUserIdSearch;
+	}
+	public void setAnotherUserIdSearch(String anotherUserIdSearch) {
+		this.anotherUserIdSearch = anotherUserIdSearch;
+	}
+	public UserprofileBean getUserprofileBean2() {
+		return userprofileBean2;
+	}
+	public void setUserprofileBean2(UserprofileBean userprofileBean2) {
+		this.userprofileBean2 = userprofileBean2;
 	}
 }

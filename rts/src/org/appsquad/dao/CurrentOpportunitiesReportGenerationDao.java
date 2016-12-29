@@ -59,10 +59,10 @@ public class CurrentOpportunitiesReportGenerationDao {
 					bean.setTrackingDetailsId(resultSet.getInt("rts_tracking_details_id"));
 					bean.getCurrentOpportunitiesReportBean().setYear("Client Name: "+resultSet.getString("clientname"));
 					bean.getCurrentOpportunitiesReportBean().setMonth("RequirementID: "+resultSet.getInt("r_id"));
-					bean.getCurrentOpportunitiesReportBean().setBillNoString(null);
+					bean.getCurrentOpportunitiesReportBean().setBillNoString("Skill Set: "+resultSet.getString("master_skill_set_name"));
 					bean.getCurrentOpportunitiesReportBean().setBillDateSql(null);
-					bean.getCurrentOpportunitiesReportBean().setBillAmountString("Skill Set: "+resultSet.getString("master_skill_set_name"));
-					bean.getCurrentOpportunitiesReportBean().setPaid("Resource Name: "+resultSet.getString("resource_name"));
+					bean.getCurrentOpportunitiesReportBean().setBillAmountString("Resource Name: "+resultSet.getString("resource_name"));
+					bean.getCurrentOpportunitiesReportBean().setPaid(null);
 					bean.getCurrentOpportunitiesReportBean().setChqDetails(null);
 					bean.setBackGround(bean.getBackGroundpaParent());
 					bean.setStyle(bean.getBoldStyle());
@@ -87,25 +87,28 @@ public class CurrentOpportunitiesReportGenerationDao {
 								subBean.getCurrentOpportunitiesReportBean().setYear(resultSet2.getString("year"));
 								subBean.getCurrentOpportunitiesReportBean().setMonth(resultSet2.getString("month"));
 								subBean.getRequirementGenerationBean().setRequirementId(null);
-								if(Integer.valueOf(resultSet2.getString("bill_no"))==0){
+								subBean.getCurrentOpportunitiesReportBean().setBillNoString(resultSet2.getString("bill_no"));
+								subBean.getCurrentOpportunitiesReportBean().setBillAmountString(resultSet2.getString("bill_amount"));
+								subBean.getCurrentOpportunitiesReportBean().setChqDetails(resultSet2.getString("chq_details"));
+								/*if(Integer.valueOf(resultSet2.getString("bill_no"))==0){
 									subBean.getCurrentOpportunitiesReportBean().setBillNoString(null);
 								}else{
 									subBean.getCurrentOpportunitiesReportBean().setBillNoString(resultSet2.getString("bill_no"));
-								}
+								}*/
 								subBean.getSkillsetMasterbean().setSkillset(null);
 								subBean.getCurrentOpportunitiesReportBean().setBillDateSql(resultSet2.getDate("bill_date"));
 								subBean.getResourceMasterBean().setFullName(null);
-								if(Integer.valueOf(resultSet2.getString("bill_amount"))==0){
+								/*if(Integer.valueOf(resultSet2.getString("bill_amount"))==0){
 									subBean.getCurrentOpportunitiesReportBean().setBillAmountString(null);
 								}else{
 									subBean.getCurrentOpportunitiesReportBean().setBillAmountString(resultSet2.getString("bill_amount"));
-								}
+								}*/
 								subBean.getCurrentOpportunitiesReportBean().setPaid(resultSet2.getString("paid"));
-								if(Integer.valueOf(resultSet2.getString("chq_details"))==0){
+								/*if(Integer.valueOf(resultSet2.getString("chq_details"))==0){
 									subBean.getCurrentOpportunitiesReportBean().setChqDetails(null);
 								}else{
 									subBean.getCurrentOpportunitiesReportBean().setChqDetails(resultSet2.getString("chq_details"));
-								}
+								}*/
 								subBean.setStyle(subBean.getLighterStyle());
 								
                                 list.add(subBean);
@@ -251,6 +254,9 @@ public class CurrentOpportunitiesReportGenerationDao {
 								
 								resourceList.add(bean);
 							}  
+							ResourceMasterBean resourceMasterBean = new ResourceMasterBean();
+							resourceMasterBean.setFullName("-ALL-");
+							resourceList.add(resourceMasterBean);
 						} finally{
 							if(preparedStatement!=null){
 								preparedStatement.close();

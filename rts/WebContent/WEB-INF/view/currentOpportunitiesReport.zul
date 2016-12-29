@@ -1,35 +1,34 @@
 <?page title="Current Opportunities Report Screen" contentType="text/html;charset=UTF-8"?>
-<zk>
+<zk xmlns:h='http://www.w3.org/1999/xhtml'>
 <window title="BILLING CONFIRMATION SCREEN" border="normal" apply="org.zkoss.bind.BindComposer" 
-																  viewModel="@id('vm') @init('org.appsquad.viewmodel.CurrentOpportunitiesReportViewModel')">
-  	<div>
-  			<grid model="@bind(vm.reportList)" mold="paging" pageSize="8" height="470px">	
-    				<columns sizable="true">
-    				    <column width="100px" label="Requirement ID" style="font-weight:bold; color: black" align="center"></column>
-    					<column width="200px" label="Client Name" style="font-weight:bold; color: black" align="center"></column>
-    					<column width="200px" label="Resource Name" style="font-weight:bold; color: black" align="center"></column>
-    					<column width="160px" label="Charge Out Rate(Monthly)" style="font-weight:bold; color: black" align="center"></column>
-    					<column width="160px" label="Resource Sallary(Monthly)" style="font-weight:bold; color: black" align="center">
-    					</column>
-    					<column width="118px" label="Tenture From Date" style="font-weight:bold; color: black" align="center"></column>
-    					<column width="100px" label="Tenture To Date" style="font-weight:bold; color: black" align="center"></column>
-    					<column width="100px"  label="Operation" style="font-weight:bold; color: black" align="center"></column>
-    				</columns>
-    				<rows>
-    				  <template name="model" var = "v">
-    					<row>
-    					    <label value="@bind(v.requirementGenerationBean.requirementId)" width="98%"></label>
-    				  		<label value="@bind(v.clientInformationBean.fullName)" width="98%"></label>
-    				  		<label value="@bind(v.resourceMasterBean.fullName)" width="98%"></label>
-    				  		<label value="@bind(v.chargeOutRate)" width="98%"></label>
-    				  		<label value="@bind(v.resourceSallary)" width="98%"></label>
-    				  		<label value="@bind(v.fromDateSql)" width="98%"></label>
-    				  		<label value="@bind(v.toDateSql)" width="98%"></label>
-    				  		<button label="Billing Info" width="99%" onClick="@command('billingInfoButton', bean = v)"></button>
-    				  	</row>
-    				  </template>	
-    				</rows>
-    			</grid>
-			</div>    
-	</window>
+                  												viewModel="@id('vm') @init('org.appsquad.viewmodel.CurrentOpportunitiesReportViewModel')">
+   <div>
+     <grid model="@bind(vm.reportList)" mold="paging" pageSize="8" height="470px"> 
+         <columns sizable="true">
+         <column width="60px" label="RID" style="font-weight:bold; color: black" align="center"></column>
+         <column width="200px" label="Client Name" style="font-weight:bold; color: black" align="center"></column>
+         <column width="200px" label="Resource Name" style="font-weight:bold; color: black" align="center"></column>
+         <column width="120px" style="font-weight:bold; color: black" align="center">Charge Out Rate<h:br/>(Monthly)</column>
+         <column width="120px" style="font-weight:bold; color: black" align="center">Resource Salary<h:br/>(Monthly)</column>
+         <column width="118px" label="Tenture From Date" style="font-weight:bold; color: black" align="center"></column>
+         <column width="100px" label="Tenture To Date" style="font-weight:bold; color: black" align="center"></column>
+         <column width="100px"  label="Operation" style="font-weight:bold; color: black" align="center"></column>
+        </columns>
+        <rows>
+          <template name="model" var = "v">
+          <row>
+            <label value="@bind(v.requirementGenerationBean.requirementId)" width="98%"></label>
+            <label value="@bind(v.clientInformationBean.fullName)" width="98%"></label>
+            <label value="@bind(v.resourceMasterBean.fullName)" width="98%"></label>
+            <label value="@bind(v.chargeOutRate)" width="98%"></label>
+            <label value="@bind(v.resourceSallary)" width="98%"></label>
+            <label value="@bind(v.fromDateSql)" width="98%"></label>
+            <label value="@bind(v.toDateSql)" width="98%"></label>
+            <button label="Billing Info" width="99%" onClick="@command('billingInfoButton', bean = v)"></button>
+          </row>
+          </template> 
+        </rows>
+       </grid>
+   </div>    
+ </window>
 </zk>

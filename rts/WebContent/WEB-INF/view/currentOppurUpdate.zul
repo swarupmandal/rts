@@ -1,7 +1,7 @@
 
 <?page title="PRE BILLING CONFIRMATION UPDATE" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="Resource Information Update" border="none" height="370px" width="520px" apply="org.zkoss.bind.BindComposer"
+<window title="PRE BILLING CONFIRMATION UPDATE SCREEN" border="none" height="370px" width="520px" apply="org.zkoss.bind.BindComposer"
 		    viewModel="@id('vm') @init('org.appsquad.viewmodel.CurrentOppurUpdateViewModel')" id="winCurrOppurUpdate" closable="true"> 
      		    <div>
 					<grid>
@@ -62,12 +62,10 @@
 						    <hlayout spacing="10px" width="70%">
 				  				<button label="Send To Approver" visible="@bind(vm.sendToApproverVisibility)" style="font-weight:bold" 
 				  				        onClick="@command('onSend', bean = v)"></button>
-				  				<button label="Create Offer" visible="@bind(vm.createOfferVisibility)" style="font-weight:bold" 
+				  				<button label="Confirm" visible="@bind(vm.createOfferVisibility)" style="font-weight:bold" 
 				  				        onClick="@command('onCreate', bean = v)"></button>	
 							</hlayout> 
-						
 						</row>
-						
 					</rows>
 				</grid>
 			</div>
