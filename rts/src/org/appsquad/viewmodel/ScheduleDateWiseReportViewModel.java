@@ -1,14 +1,13 @@
-
 package org.appsquad.viewmodel;
 
 import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.util.ArrayList;
-
 import org.appsquad.bean.TaskNameBean;
 import org.appsquad.bean.UserprofileBean;
 import org.appsquad.dao.ScheduleDateWiseDetailsDao;
 import org.appsquad.dao.TaskNameDao;
+import org.appsquad.utility.Dateformatter;
 import org.appsquad.utility.TaskDescriptionReportPdf;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.Command;
@@ -23,7 +22,6 @@ import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Bandbox;
 import org.zkoss.zul.Messagebox;
-
 import com.itextpdf.text.DocumentException;
 
 public class ScheduleDateWiseReportViewModel {
@@ -62,6 +60,35 @@ public class ScheduleDateWiseReportViewModel {
 	
 	@Command
 	@NotifyChange("*")
+	public void onChangeFromDate(){
+		   if(taskBean.getToDate()!=null){
+			   if(taskBean.getToDate().after(taskBean.getFromDate())){
+			     }else {
+			    	 taskBean.setToDate(null);
+				    Messagebox.show("To Date Should be Grater Than From Date", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION);
+			   }
+		   }else{
+			   System.out.println("nothing.");
+		   }
+	}
+	
+	 @Command
+	 @NotifyChange("*")
+	 public void onChangeToDate(){
+	 	   if(taskBean.getFromDate() != null){
+	 		   if(taskBean.getToDate().after(taskBean.getFromDate())){
+	 		     }else {
+	 		    	taskBean.setToDate(null);
+	 			    Messagebox.show("To Date Should be Grater Than From Date", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION);
+	 		   }
+	 	   }else {
+	 		  taskBean.setToDate(null);
+	 		   Messagebox.show("Select From Date First", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION);
+	 	   }
+	    }
+	
+	@Command
+	@NotifyChange("*")
 	public void onClickSearchButton(){
 		scheduleDateWiseReportList.clear();
 		divVisibility = false;
@@ -93,11 +120,30 @@ public class ScheduleDateWiseReportViewModel {
 			}else{
 				Messagebox.show("No Data Found", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
 			}
-		}else if(taskBean.userprofileBean2.getAnotherUserId()==null && taskBean.userprofileBean.getUserid()==null){
+		}else if(taskBean.userprofileBean2.getAnotherUserId()==null && taskBean.userprofileBean.getUserid()==null
+				  && taskBean.getFromDate()==null && taskBean.getToDate()==null){
 			divVisibility = true;
 			buttonVisibility = true;
 			scheduleDateWiseReportList = TaskNameDao.fetchTaskDeatilsForScheduleDateWiseReport();
 			Messagebox.show("Please Select DropDown", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
+		}else if(taskBean.getFromDate()!=null && taskBean.getToDate()!=null){
+			scheduleDateWiseReportList = TaskNameDao.fetchTaskDeatilsForScheduleDateWiseReportFordateRange(Dateformatter.sqlDate(taskBean.getFromDate()), 
+																										   Dateformatter.sqlDate(taskBean.getToDate()));
+			if(scheduleDateWiseReportList.size()>0){
+				divVisibility = true;
+				buttonVisibility = true;
+			}else{
+				Messagebox.show("No Data Found", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
+			}
+		}else if(taskBean.getFromDate()!=null && taskBean.getToDate()!=null && taskBean.getUserprofileBean().getUserid()!=null
+				 && taskBean.getUserprofileBean2().getAnotherUserId()!=null){
+			scheduleDateWiseReportList = TaskNameDao.fetchTaskDeatilsForScheduleDateWiseReportFordateRangeWithByTo(Dateformatter.sqlDate(taskBean.getFromDate()), Dateformatter.sqlDate(taskBean.getToDate()), taskBean.getUserprofileBean().getUserid(), taskBean.getUserprofileBean2().getAnotherUserId());
+		    if(scheduleDateWiseReportList.size()>0){
+		    	divVisibility = true;
+		    	buttonVisibility = true;
+		    }else{
+		    	Messagebox.show("No Data Found", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
+		    }
 		}
 	}
 	
@@ -125,6 +171,8 @@ public class ScheduleDateWiseReportViewModel {
 		scheduleDateWiseReportList.clear();
 		taskBean.userprofileBean.setUserid(null);
 		taskBean.userprofileBean2.setAnotherUserId(null);
+		taskBean.setFromDate(null);
+		taskBean.setToDate(null);
 		assignByUserList = ScheduleDateWiseDetailsDao.onLoadUserDeatils();
 		assignToUserList = ScheduleDateWiseDetailsDao.onLoadUserDeatilsForAssignTo();
 		scheduleDateWiseReportList = TaskNameDao.fetchTaskDeatilsForScheduleDateWiseReport();
@@ -244,4 +292,3 @@ public class ScheduleDateWiseReportViewModel {
 		this.buttonVisibility = buttonVisibility;
 	}
 }
-

@@ -358,7 +358,7 @@ public class CurrentOpportunitiesReportGenerationViewModel {
     	secondTabList.clear();
     }
     
-    /****************************************************** GETTER AND SETTER METHOD ***********************************************************/
+    /****************************************************** GETTER AND SETTER METHOD *******************************************************************/
     
     public CurrentOpportunitiesReportGenerationBean getCurrentOpportunitiesReportGenerationBean() {
 		return currentOpportunitiesReportGenerationBean;
