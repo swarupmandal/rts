@@ -119,7 +119,7 @@ public class CurrentOpportunitiesReportGenerationViewModel {
 	   currentOpportunitiesReportGenerationBean.setToDate(null);
    }
    
-  /* @Command
+   /*@Command
    @NotifyChange("*")
    public void onClickSearchButton(){
 	 //when to Date not selected
