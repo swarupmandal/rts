@@ -90,6 +90,39 @@
 					</row>
 				</rows>
 			</grid>	
+			<space/>
+			<grid model="@bind(vm.newlyCreatedTaskDetailsList)" mold="paging"
+			pageSize="5" width="100%">
+			<columns sizable="true">
+				<column label="Task Description" align="center" width="380px"/>
+				<column label="Task Status" align="center" width="120px" />
+				<column label="Assigned To" align="center" width="150px" />
+				<column label="Task Assigned Date" align="center" width="130px" />
+				<column label="Task Scheduled Date" align="center" width="130px" />
+				<column label="Remarks" align="center" width="110px" />
+			</columns>
+			<rows>
+				<template name="model" var="v">
+					<row>
+						<textbox multiline="true" rows="2" readonly="true" width="100%"
+							value="@bind(v.taskName)" />
+						<textbox readonly="true" width="100%"
+							value="@bind(v.taskStatusBean.taskStatusName)" />
+						<textbox readonly="true" width="100%"
+							value="@bind(v.assignedTo)" />
+						<datebox format="dd/MM/yyyy" width="100%"
+							value="@bind(v.createdDate)" readonly="true"
+							buttonVisible="false" />
+						<datebox format="dd/MM/yyyy" width="100%"
+							value="@bind(v.scheduledDate)" readonly="true"
+							buttonVisible="false" />
+						<textbox multiline="true" rows="2"
+						 width="100%" value="@bind(v.remarksOrResults)" readonly="true"/>	
+					</row>
+				</template>
+
+			</rows>
+		</grid>
 			<!-- <tabbox>
 				<tabs>
 				<tab label="Task Description Creation"
