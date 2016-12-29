@@ -32,7 +32,7 @@
     				
 		    				<hlayout>
 		    				<bandbox autodrop="true" readonly="true" id="userBc" value="@bind(vm.taskBean.userprofileBean2.anotherUserId)"
-				                placeholder="Search Assign To" width="160px">
+				                placeholder="Person Responsible" width="160px">
 				               <bandpopup>
 								<hbox>
 									<textbox value="@bind(vm.taskBean.anotherUserIdSearch)" onChange="@command('onChangeAnotherUserId')" width="160px">
@@ -55,6 +55,19 @@
 								</listbox>
 								</bandpopup>
 								</bandbox>
+		    				</hlayout>
+		    				
+		    				<hlayout>
+		    				<label value="* " style="font-weight:bold; color:red; font-size:large;" />
+		    				<datebox placeholder="From Date" format="dd-MMM-yyyy" readonly="true"
+		    				  value="@bind(vm.taskBean.fromDate)" onChange="@command('onChangeFromDate')"></datebox>
+		    				</hlayout>
+    				
+		    				<hlayout>
+		    				<label value="* " style="font-weight:bold; color:red; font-size:large;"/>
+		    				<datebox placeholder="To Date" format="dd-MMM-yyyy" readonly="true"
+		    				 value="@bind(vm.taskBean.toDate)" onChange="@command('onChangeToDate')">
+		    				</datebox>
 		    				</hlayout>
     				
 		    				<hlayout>
