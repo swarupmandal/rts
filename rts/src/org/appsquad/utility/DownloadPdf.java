@@ -11,9 +11,7 @@ import org.zkoss.zul.Messagebox;
 
 public class DownloadPdf {
 	public static void download(String pdfNamewithPath, String fileName) throws IOException{
-		System.out.println("Download method calling..");
 		  String path=pdfNamewithPath.replace('\\','/');
-		  //Messagebox.show(path);
 		  byte[] ba1 = new byte[102400];
 		  File myFile = new File(path );
 		  FileInputStream fis = new FileInputStream(myFile);
@@ -24,7 +22,6 @@ public class DownloadPdf {
 		    while ( (baLength = fis.read(ba1)) != -1) {
 		     bios.write(ba1, 0, baLength);
 		    }
-
 		   } catch (Exception e1) {}  
 		   finally {
 		    fis.close();
@@ -36,10 +33,8 @@ public class DownloadPdf {
 		  } finally {
 		   File xlsFile = new File(path);
 		   if (xlsFile.exists()) {
-		    //FileUtils.forceDelete(xlsFile);
 		    xlsFile.delete();
 		   }
-
-		  }
-		 }
+		}
+	}
 }

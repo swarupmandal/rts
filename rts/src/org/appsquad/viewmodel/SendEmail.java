@@ -22,7 +22,7 @@ public class SendEmail{
 		return isValid;
 	}
 	
-	public static Boolean generateAndSendEmailForApproveOrReject(String emailId,String status) {
+	public static Boolean generateAndSendEmailForApproveOrReject(String emailId,String status,Integer trackingID) {
 		  Properties mailServerProperties;
 		  Session getMailSession;
 		  MimeMessage generateMailMessage;
@@ -43,13 +43,12 @@ public class SendEmail{
 		  try {
 		   generateMailMessage.setFrom(new InternetAddress("sentmail95@gmail.com"));
 		   generateMailMessage.addRecipient(Message.RecipientType.TO,new InternetAddress(emailId));
-		   //generateMailMessage.addRecipient(Message.RecipientType.CC,new InternetAddress("prolayjit.dutta@appsquad.in"));
 		   generateMailMessage.setSubject("Approval Request Status");
 		   
 		   if(status.equalsIgnoreCase("Approve")){
-		      emailBody ="Approval Request Approved";
+		      emailBody =""+trackingID+"Number Approval Request Approved";
 		   }else{
-			  emailBody ="Approval Request Rejected"; 
+			   emailBody =""+trackingID+"Number Approval Request Rejected"; 
 		   }
 		   generateMailMessage.setContent(emailBody, "text/html");
 		   System.out.println("Mail Session has been created successfully..");
@@ -90,7 +89,7 @@ public class SendEmail{
 	   generateMailMessage.addRecipient(Message.RecipientType.TO,new InternetAddress(emailId));
 	   //generateMailMessage.addRecipient(Message.RecipientType.CC,new InternetAddress("prolayjit.dutta@appsquad.in"));
 	   generateMailMessage.setSubject("Approval Request Sent From Resource Augmentation Tracking System");
-	   String emailBody ="You Have Got An Approval Request.";
+	   String emailBody ="Approval Request Sent For You.";
 	   generateMailMessage.setContent(emailBody, "text/html");
 	   System.out.println("Mail Session has been created successfully..");
 	   
