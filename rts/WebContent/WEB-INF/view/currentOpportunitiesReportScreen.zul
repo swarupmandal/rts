@@ -128,36 +128,61 @@
                           <div visible="@bind(vm.secondDivVisibility)">
 			    			<grid model="@bind(vm.monthReportBeanList)" mold="paging" pageSize="8" height="265px">	
 			    				<columns sizable="true">
-			    					<!-- <column width="300px" label="Client Name" style="font-weight:bold; color: black" align="center"></column>
-			    					<column width="300px" label="Resource Name" style="font-weight:bold; color: black" align="center"></column>
-			    					<column width="120px" label="Tenure From Date" style="font-weight:bold; color: black" align="center"></column>
-			    					<column width="120px" label="Tenure From Date" style="font-weight:bold; color: black" align="center"></column> -->
 			    					<column width="160px" label="Month" style="font-weight:bold; color: black" align="center"></column>
-			    					<column width="760px" label="Month" style="font-weight:bold; color: black" align="center"></column>
+			    					<column width="850px" label="Details" style="font-weight:bold; color: black" align="center"></column>
 			    				</columns>
 			    				<rows>
 			    				  <template name="model" var = "v">
 			    					<row>
-			    				  		<!-- <label value="@bind(v.clientInformationBean.fullName)" width="98%" style="@bind(v.style)"></label>
-			    				  		<label value="@bind(v.resourceMasterBean.fullName)" width="98%" style="@bind(v.style)"></label>
-			    				  		<label value="@bind(v.currentOpportunitiesBean.tentureFromUtil)" width="98%" style="@bind(v.style)"></label>
-			    				  		<label value="@bind(v.currentOpportunitiesBean.tentureToUtil)" width="98%" style="@bind(v.style)"></label> -->
 			    				  		<label value="@bind(v.monthName)" width="98%" ></label>
 			    				  		<grid model="@bind(v.currentOpportunitiesReportGenerationBeanList)">
 			    				  			<columns>
-			    				  				<!-- <column width="300px" label="Client Name" style="font-weight:bold; color: black" align="center"></column> -->
-			    								<column width="300px" label="Resource Name" style="font-weight:bold; color: black" align="center"></column>
-			    								<!-- <column width="120px" label="Tenure From Date" style="font-weight:bold; color: black" align="center"></column>
-			    								<column width="120px" label="Tenure From Date" style="font-weight:bold; color: black" align="center"></column> -->
+			    				  				<column width="250px" label="Client Name" style="font-weight:bold; color: black" align="center"></column> 
+			    								<column width="250px" label="Resource Name" style="font-weight:bold; color: black" align="center"></column>
+			    								<column width="160px" label="Charge Out Rate(Monthly)" style="font-weight:bold; color: black" align="center"></column>
+			    								<column width="160px" label="Resource Salary(Monthly)" style="font-weight:bold; color: black" align="center"></column>
 			    				  				</columns>
 			    				  			<rows>
 			    				  				<template name="model" var="v1">
 			    				  				<row>
 			    				  				    <label value="@bind(v1.clientInformationBean.fullName)" width="98%"></label>
-						    				  		<!-- <label value="@bind(v1.resourceMasterBean.fullName)" width="98%"></label> -->
-						    				  		<!-- <label value="@bind(v1.currentOpportunitiesBean.tentureFromUtil)" width="98%" style="@bind(v.style)"></label>
-						    				  		<label value="@bind(v1.currentOpportunitiesBean.tentureToUtil)" width="98%" style="@bind(v.style)"></label> --> -->
-						    				  		
+						    				  		<label value="@bind(v1.resourceMasterBean.fullName)" width="98%"></label>
+						    				  		<label value="@bind(v1.currentOpportunitiesReportBean.chargeOutRate)" width="98%"></label>
+						    				  		<label value="@bind(v1.currentOpportunitiesReportBean.resourceSallary)" width="98%"></label>
+			    				  				</row>
+			    				  				</template>
+			    				  			</rows>
+			    				  		</grid>
+			    				  	</row>
+			    				  </template>	
+			    				</rows>
+			    			</grid>
+    		          </div>
+    		          
+    		          <div visible="@bind(vm.thirdDivVisibility)">
+			    			<grid model="@bind(vm.monthReportBeanList)" mold="paging" pageSize="8" height="265px">	
+			    				<columns sizable="true">
+			    					<column width="160px" label="Month" style="font-weight:bold; color: black" align="center"></column>
+			    					<column width="850px" label="Details" style="font-weight:bold; color: black" align="center"></column>
+			    				</columns>
+			    				<rows>
+			    				  <template name="model" var = "v">
+			    					<row>
+			    				  		<label value="@bind(v.monthName)" width="98%" ></label>
+			    				  		<grid model="@bind(v.currentOpportunitiesReportGenerationBeanList)">
+			    				  			<columns>
+			    				  			    <column width="250px" label="Resource Name" style="font-weight:bold; color: black" align="center"></column>
+			    				  				<column width="250px" label="Client Name" style="font-weight:bold; color: black" align="center"></column>
+			    								<column width="160px" label="Charge Out Rate(Monthly)" style="font-weight:bold; color: black" align="center"></column>
+			    								<column width="160px" label="Resource Salary(Monthly)" style="font-weight:bold; color: black" align="center"></column>
+			    				  				</columns>
+			    				  			<rows>
+			    				  				<template name="model" var="v1">
+			    				  				<row>
+						    				  		<label value="@bind(v1.resourceMasterBean.fullName)" width="98%"></label>
+			    				  				    <label value="@bind(v1.clientInformationBean.fullName)" width="98%"></label>
+						    				  		<label value="@bind(v1.currentOpportunitiesReportBean.chargeOutRate)" width="98%"></label>
+						    				  		<label value="@bind(v1.currentOpportunitiesReportBean.resourceSallary)" width="98%"></label>
 			    				  				</row>
 			    				  				</template>
 			    				  			</rows>

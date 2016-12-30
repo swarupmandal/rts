@@ -130,8 +130,8 @@ public class SendEmail{
 		   generateMailMessage.setFrom(new InternetAddress("sentmail95@gmail.com"));
 		   generateMailMessage.addRecipient(Message.RecipientType.TO,new InternetAddress(emailId));
 		   generateMailMessage.setSubject("Task Name Creation Status Sent From Resource Augmentation Tracking System");
-		   String emailBody ="A New Task Assigned For You.\\n Task Name:"+msg+" ";
-		   generateMailMessage.setContent(emailBody, "text/html");
+		   String emailBody ="A New Task Assigned For You " + "\n" +"Task Name:"+msg+" ";
+		   generateMailMessage.setContent(emailBody, "text/plain");
 		   System.out.println("Mail Session has been created successfully..");
 		   
 		   //

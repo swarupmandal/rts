@@ -93,7 +93,8 @@ public class ScheduleDateWiseReportViewModel {
 		scheduleDateWiseReportList.clear();
 		divVisibility = false;
 		buttonVisibility = false;
-		if(taskBean.userprofileBean.getUserid()!=null && taskBean.userprofileBean2.getAnotherUserId()==null){
+		if(taskBean.userprofileBean.getUserid()!=null && taskBean.userprofileBean2.getAnotherUserId()==null
+				&& taskBean.getFromDate()==null && taskBean.getToDate()==null){
 			System.out.println("1st method");
 			scheduleDateWiseReportList = TaskNameDao.fetchTaskDeatilsForScheduleDateWiseReportForAssignerBy(taskBean.userprofileBean.getUserid());
 			if(scheduleDateWiseReportList.size()>0){
@@ -102,7 +103,8 @@ public class ScheduleDateWiseReportViewModel {
 			}else{
 				Messagebox.show("No Data Found", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
 			}
-		}else if(taskBean.userprofileBean2.getAnotherUserId()!=null && taskBean.userprofileBean.getUserid()==null){
+		}else if(taskBean.userprofileBean2.getAnotherUserId()!=null && taskBean.userprofileBean.getUserid()==null
+				&& taskBean.getFromDate()==null && taskBean.getToDate()==null){
 			System.out.println("2nd method");
 			scheduleDateWiseReportList = TaskNameDao.fetchTaskDeatilsForScheduleDateWiseReportForAssignerTo(taskBean.userprofileBean2.getAnotherUserId());
 			if(scheduleDateWiseReportList.size()>0){
@@ -111,7 +113,8 @@ public class ScheduleDateWiseReportViewModel {
 			}else{
 				Messagebox.show("No Data Found", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
 			}
-		}else if(taskBean.userprofileBean2.getAnotherUserId()!=null && taskBean.userprofileBean.getUserid()!=null){
+		}else if(taskBean.userprofileBean2.getAnotherUserId()!=null && taskBean.userprofileBean.getUserid()!=null
+				&& taskBean.getFromDate()==null && taskBean.getToDate()==null){
 			System.out.println("3rd method");
 			scheduleDateWiseReportList = TaskNameDao.fetchDetailsForByTo(taskBean.userprofileBean2.getAnotherUserId(),taskBean.userprofileBean.getUserid());
 			if(scheduleDateWiseReportList.size()>0){
@@ -144,6 +147,30 @@ public class ScheduleDateWiseReportViewModel {
 		    }else{
 		    	Messagebox.show("No Data Found", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
 		    }
+		}else if(taskBean.getFromDate()!=null && taskBean.getToDate()==null && taskBean.getUserprofileBean().getUserid()==null
+				&& taskBean.getUserprofileBean2().getAnotherUserId()==null){
+			divVisibility = true;
+			buttonVisibility = true;
+			scheduleDateWiseReportList = TaskNameDao.fetchTaskDeatilsForScheduleDateWiseReport();
+			Messagebox.show("Select To Date", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
+		}else if(taskBean.getFromDate()!=null && taskBean.getToDate()==null && taskBean.getUserprofileBean().getUserid()!=null
+				&& taskBean.getUserprofileBean2().getAnotherUserId()==null){
+			divVisibility = true;
+			buttonVisibility = true;
+			scheduleDateWiseReportList = TaskNameDao.fetchTaskDeatilsForScheduleDateWiseReport();
+			Messagebox.show("Select To Date", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
+		}else if(taskBean.getFromDate()!=null && taskBean.getToDate()==null && taskBean.getUserprofileBean().getUserid()==null
+				&& taskBean.getUserprofileBean2().getAnotherUserId()!=null){
+			divVisibility = true;
+			buttonVisibility = true;
+			scheduleDateWiseReportList = TaskNameDao.fetchTaskDeatilsForScheduleDateWiseReport();
+			Messagebox.show("Select To Date", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
+		}else if(taskBean.getFromDate()!=null && taskBean.getToDate()==null && taskBean.getUserprofileBean().getUserid()!=null
+				&& taskBean.getUserprofileBean2().getAnotherUserId()!=null){
+			divVisibility = true;
+			buttonVisibility = true;
+			scheduleDateWiseReportList = TaskNameDao.fetchTaskDeatilsForScheduleDateWiseReport();
+			Messagebox.show("Select To Date", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
 		}
 	}
 	

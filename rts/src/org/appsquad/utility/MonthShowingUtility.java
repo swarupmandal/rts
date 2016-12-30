@@ -120,4 +120,40 @@ public class MonthShowingUtility {
 				e.printStackTrace();
 			}
 	  }
+	   
+	  
+	   public static void MarginSetForTrackingDeatilsID(CurrentOpportunitiesReportGenerationBean bean){
+			Connection connection = null;
+			try {
+				connection = DbConnection.createConnection();
+				sql_connection:{
+					try {
+						//1st SQL block
+						sql_fetch:{
+						   PreparedStatement preparedStatement = null;
+						   try {
+							    preparedStatement = Pstm.createQuery(connection,CurrentOpportunitiesReportGenerationSql.marginSetOppurtunityWiseSql,Arrays.asList(bean.getRtsTrackingDetailsId()));
+								ResultSet resultSet = preparedStatement.executeQuery();
+								while (resultSet.next()) {
+									bean.getCurrentOpportunitiesReportBean().setChargeOutRate(resultSet.getDouble("charge_out_rate"));
+									bean.getCurrentOpportunitiesReportBean().setResourceSallary(resultSet.getDouble("resource_salary"));
+								}  
+							} finally{
+								if(preparedStatement!=null){
+									preparedStatement.close();
+								}
+							}
+					    }
+					} catch (Exception e) {
+						e.printStackTrace();
+					}finally{
+						if(connection!=null){
+							connection.close();
+						}
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+	  } 
 }
