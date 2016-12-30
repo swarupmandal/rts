@@ -70,7 +70,7 @@ public class CurrentOppurUpdateViewModel {
 	@Command
 	@NotifyChange("*")
 	public void onChangeFromDate(){
-		if(currentOpportunitiesBean.getTenureFromsql()!=null){
+		if(currentOpportunitiesBean.getTenureTosql()!=null){
 			   if(currentOpportunitiesBean.getTenureTosql().after(currentOpportunitiesBean.getTenureFromsql())){
 			     }else {
 			    	 currentOpportunitiesBean.setTenureTosql(null);
@@ -235,7 +235,7 @@ public class CurrentOppurUpdateViewModel {
 							emailSend = SendEmail.validator(emailId);
 							System.out.println("flag email send is :"+emailSend);
 							if(emailSend){
-								SendEmail.generateAndSendEmailForApproveOrReject(emailId,currentOpportunitiesBean.getApproval());	
+								SendEmail.generateAndSendEmailForApproveOrReject(emailId, currentOpportunitiesBean.getApproval(), currentOpportunitiesBean.getReqResStatusTrackingId())	;
 							}else{
 								System.out.println("APPROVER'S EMAIL ID IS NOT CORRECT. ");
 							}

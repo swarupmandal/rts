@@ -29,6 +29,8 @@ public class CurrentOpportunitiesReportGenerationBean {
 	private boolean innerClientGroup = false;
 	
 	private Integer rtsTrackingDetailsId;
+	private String resourceFlag = "N";
+	private String clientFlag = "N";
 	
 	private CurrentOpportunitiesBean currentOpportunitiesBean = new CurrentOpportunitiesBean();
 	private CurrentOpportunitiesReportBean currentOpportunitiesReportBean = new CurrentOpportunitiesReportBean();
@@ -215,5 +217,17 @@ public class CurrentOpportunitiesReportGenerationBean {
 	}
 	public void setRtsTrackingDetailsId(Integer rtsTrackingDetailsId) {
 		this.rtsTrackingDetailsId = rtsTrackingDetailsId;
+	}
+	public String getResourceFlag() {
+		return resourceFlag;
+	}
+	public void setResourceFlag(String resourceFlag) {
+		this.resourceFlag = resourceFlag;
+	}
+	public String getClientFlag() {
+		return clientFlag;
+	}
+	public void setClientFlag(String clientFlag) {
+		this.clientFlag = clientFlag;
 	}
 }

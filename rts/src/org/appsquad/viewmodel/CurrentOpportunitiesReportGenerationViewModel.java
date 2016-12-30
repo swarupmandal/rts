@@ -176,7 +176,28 @@ public class CurrentOpportunitiesReportGenerationViewModel {
 	   }
 	}
    
-   @Command
+    @Command
+    @NotifyChange("*")
+    public void onClickPdfForOppurtunity() throws Exception{
+    	String pdfPath = Executions.getCurrent().getDesktop().getWebApp().getRealPath("/");
+    	PdfTestingViewModel pdf = new PdfTestingViewModel();
+ 	   try {
+ 		    System.out.println(currentOpportunitiesReportGenerationBean.getClientFlag()+"------"+currentOpportunitiesReportGenerationBean.getResourceFlag());
+ 		    if(currentOpportunitiesReportGenerationBean.getResourceFlag().contentEquals("Y")){
+ 		    	System.out.println("1st method");
+ 		    	pdf.getDetailsForResource(pdfPath,"Current Opportunities Report",monthReportBeanList);	
+ 		    }else if(currentOpportunitiesReportGenerationBean.getClientFlag().contentEquals("Y")){
+ 		    	System.out.println("2nd method");
+ 		    	pdf.getDetails(pdfPath,"Current Opportunities Report",monthReportBeanList);	
+ 		    }
+ 	   } catch (FileNotFoundException e) {
+ 		   e.printStackTrace();
+ 	   } catch (DocumentException e) {
+ 		   e.printStackTrace();
+ 	   }
+    }
+   
+ /*  @Command
    @NotifyChange("*")
    public void onClickPdfForOppurtunity() throws Exception{
 	   if(currentOpportunitiesReportGenerationBean.getSelectedRadioButton()!=null){
@@ -220,7 +241,7 @@ public class CurrentOpportunitiesReportGenerationViewModel {
 	   }else{
 		   Messagebox.show("Select Any Radio Button ", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
 	   }
-	}
+	}*/
    
     @Command
     @NotifyChange("*")
@@ -260,6 +281,9 @@ public class CurrentOpportunitiesReportGenerationViewModel {
     @Command
 	@NotifyChange("*")
 	public void onSelctClientName(){
+    	
+    	currentOpportunitiesReportGenerationBean.setClientFlag("Y");
+    	currentOpportunitiesReportGenerationBean.setResourceFlag("N");
     	ArrayList<CurrentOpportunitiesReportGenerationBean> list = null;
     	
     	if(currentOpportunitiesReportGenerationBean.getClientInformationBean().getFullName().equalsIgnoreCase("-ALL-")){
@@ -328,7 +352,9 @@ public class CurrentOpportunitiesReportGenerationViewModel {
     			}
     		}
     		reportBean.setCurrentOpportunitiesReportGenerationBeanList(monthClienBeanList);
-    		monthReportBeanList.add(reportBean);
+    		if(reportBean.getCurrentOpportunitiesReportGenerationBeanList().size()>0){
+    			monthReportBeanList.add(reportBean);	
+    		}
     	}
     } 
     
@@ -341,6 +367,10 @@ public class CurrentOpportunitiesReportGenerationViewModel {
     @Command
 	@NotifyChange("*")
 	public void onSelctResourceName(){
+    	
+    	currentOpportunitiesReportGenerationBean.setClientFlag("N");
+    	currentOpportunitiesReportGenerationBean.setResourceFlag("Y");
+    	
 		resourceBandBox.close();
 		if(secondTabList.size()>0){
 			secondTabList.clear();	
@@ -409,7 +439,9 @@ public class CurrentOpportunitiesReportGenerationViewModel {
     			}
     		}
     		reportBean.setCurrentOpportunitiesReportGenerationBeanList(monthClienBeanList);
-    		monthReportBeanList.add(reportBean);
+    		if(reportBean.getCurrentOpportunitiesReportGenerationBeanList().size()>0){
+    			monthReportBeanList.add(reportBean);	
+    		}
     	}
 	}
     
