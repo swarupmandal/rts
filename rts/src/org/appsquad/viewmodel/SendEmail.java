@@ -46,9 +46,9 @@ public class SendEmail{
 		   generateMailMessage.setSubject("Approval Request Status");
 		   
 		   if(status.equalsIgnoreCase("Approve")){
-		      emailBody =""+trackingID+"Number Approval Request Approved";
+		      emailBody =""+trackingID+" Number Approval Request Approved";
 		   }else{
-			   emailBody =""+trackingID+"Number Approval Request Rejected"; 
+			  emailBody =""+trackingID+" Number Approval Request Rejected"; 
 		   }
 		   generateMailMessage.setContent(emailBody, "text/html");
 		   System.out.println("Mail Session has been created successfully..");
