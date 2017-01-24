@@ -1,6 +1,6 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="LOG AUDIT SECTION" border="none" apply="org.zkoss.bind.BindComposer"
+<window title="Log Audit Section" border="none" apply="org.zkoss.bind.BindComposer"
 																				viewModel="@id('vm') @init('org.appsquad.viewmodel.LogAuditViewModel')">
 <div align="center">
    <hlayout spacing="12px">

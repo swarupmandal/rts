@@ -13,9 +13,14 @@ public class RoleMasterSql {
 	
 	public static final String fetchUserQueryForTask = "select * from rts_user_master where is_delete = 'N' and user_id like ? and user_id !=? order by id ";
 	
-	public static final String fetchUserQueryForApproverSql = "select * from rts_user_role_mapping where master_role_name = 'APPROVER' order by id ";
+	/*public static final String fetchUserQueryForApproverSql = "select * from rts_user_role_mapping where master_role_name = 'APPROVER' order by id ";*/
+	
+	public static final String fetchUserQueryForApproverSql = "select * from rts_approver_based_on_page_access ";
+	
+	public static final String fetchUserQuerySearchsql = "select * from rts_approver_based_on_page_access where user_id like ? ";
+	
 	public static final String fetchUserQuerySearch = "select * from rts_user_master where is_delete = 'N' and user_id like ? order by id ";
-	public static final String fetchUserQuerySearchsql = "select * from rts_user_role_mapping where master_role_name = 'APPROVER' and user_id like ? order by id ";
+	/*public static final String fetchUserQuerySearchsql = "select * from rts_user_role_mapping where master_role_name = 'APPROVER' and user_id like ? order by id ";*/
 	public static final String insertMappingQuery = "insert into rts_user_role_mapper (user_id,role_id) values(?,?) ";
 	public static final String fetchMappingQuery =   "select rurm.user_role_mapper_id,rurm.user_id,rurm.role_id,rum.user_name,rrm.master_role_name,rum.id "
 													+"from rts_user_role_mapper rurm,rts_user_master rum,rts_role_master rrm "

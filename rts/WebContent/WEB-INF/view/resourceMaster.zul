@@ -1,7 +1,18 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="RESOURCE INFORMATION" border="none" height="100%" apply="org.zkoss.bind.BindComposer"
-		               														viewModel="@id('vm') @init('org.appsquad.viewmodel.ResourceMasterViewModel')">   
+<window title="Resource Information" border="none" height="100%" apply="org.zkoss.bind.BindComposer"
+		               														viewModel="@id('vm') @init('org.appsquad.viewmodel.ResourceMasterViewModel')"> 
+     <style>
+			.z-loading { 
+				top: 50% !important; left: 45% !important; align:
+			center; vertical-align: middle; font-weight: 900;color: red;   }
+		.z-loading-indicator {  
+			color: red;  
+			border:2px solid; 
+			position:absolute;
+		}  
+	</style>
+    		               														  
   <tabbox>
 	<tabs>
 		<tab>New Entry</tab>
@@ -160,7 +171,7 @@
 					   </row> 
 					   <row>
 					       <label></label>
-					       <button width="80px" height="30px" label="Submit" style="font-weight: bold" onClick="@command('onClickSubmitButton', upEvent=event)"></button>
+					       <button width="80px" height="30px" label="Submit" style="font-weight: bold" onClick="@command('onClickSubmitButton')"></button>
 					   </row>
 					</rows>
 				</grid>

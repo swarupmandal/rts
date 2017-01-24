@@ -1,17 +1,17 @@
 <?page title="Current Opportunities Report Screen" contentType="text/html;charset=UTF-8"?>
 <zk xmlns:h='http://www.w3.org/1999/xhtml'>
-<window title="BILLING CONFIRMATION SCREEN" border="normal" apply="org.zkoss.bind.BindComposer" 
+<window title="Billing Confirmation " border="normal" apply="org.zkoss.bind.BindComposer" 
                  viewModel="@id('vm') @init('org.appsquad.viewmodel.CurrentOpportunitiesReportViewModel')">
                  <style>
-			.z-loading { 
-				top: 50% !important; left: 45% !important; align:
-			center; vertical-align: middle; font-weight: 900;color: red;   }
-		.z-loading-indicator {  
-			color: red;  
-			border:2px solid; 
-			position:absolute;
-		}  
-		</style>
+					.z-loading { 
+						top: 50% !important; left: 45% !important; align:
+						center; vertical-align: middle; font-weight: 900;color: red;   }
+						.z-loading-indicator {  
+						color: red;  
+						border:2px solid; 
+						position:absolute;
+				   }  
+			</style>
    <div>
      <grid model="@bind(vm.reportList)" mold="paging" pageSize="8" height="470px"> 
          <columns sizable="true">

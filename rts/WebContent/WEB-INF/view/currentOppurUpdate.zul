@@ -1,8 +1,9 @@
 
-<?page title="PRE BILLING CONFIRMATION UPDATE" contentType="text/html;charset=UTF-8"?>
+<?page title="PRE BILLING CONFIRMATION UPDATE SCREEN" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="PRE BILLING CONFIRMATION UPDATE SCREEN" border="none" height="370px" width="520px" apply="org.zkoss.bind.BindComposer"
-		    viewModel="@id('vm') @init('org.appsquad.viewmodel.CurrentOppurUpdateViewModel')" id="winCurrOppurUpdate" closable="true"> 
+<window title="Pre Billing Confirmation Update " border="none" height="370px" width="520px" apply="org.zkoss.bind.BindComposer"
+		    					viewModel="@id('vm') @init('org.appsquad.viewmodel.CurrentOppurUpdateViewModel')" id="winCurrOppurUpdate" 
+		    					   closable="true" onClose="@command('onCloseOperationPreBilling')"> 
      		    <div>
 					<grid>
 					<columns>
@@ -52,7 +53,7 @@
 						<row>
 						  <label value="Approvar Person:" style="font-weight:bold"></label>		
 						 	<combobox model="@bind(vm.currentOpportunitiesBean.userClBeanList)" value="@bind(vm.currentOpportunitiesBean.bean.userID)" width="50%" selectedItem="@bind(vm.currentOpportunitiesBean.bean)" readonly="true"
-				  					disabled="@bind(vm.approverNameDisable)">
+				  					disabled="@bind(vm.approverNameDisable)" onSelect="@command('approverPerson')">
 								<template name="model" var = "p">
 					  			<comboitem value="@bind(p.userID)" label="@bind(p.userID)"></comboitem>
 								</template>
@@ -66,10 +67,12 @@
 				  				        onClick="@command('onSend', bean = v)"></button>
 				  				<button label="Confirm" visible="@bind(vm.createOfferVisibility)" style="font-weight:bold" 
 				  				        onClick="@command('onCreate', bean = v)"></button>	
+				  				<button label="Save" visible="@bind(vm.saveButtonVisibility)" style="font-weight:bold"
+				  				  onClick="@command('onSave')"></button>        
 							</hlayout> 
 						</row>
 					</rows>
 				</grid>
 			</div>
-</window>
+	</window>
 </zk>

@@ -2,13 +2,20 @@
 <zk>
 	<window title="Modify Task" border="normal" closable="true" id="win"
 		apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('org.appsquad.viewmodel.TaskModifyViewModel')" width="80%">
+		viewModel="@id('vm') @init('org.appsquad.viewmodel.TaskModifyViewModel')" width="80%" onClose="@command('onCloseModify')">
 		<grid>
 			<columns>
 				<column align="center" width="20%" />
 				<column align="left" />
 			</columns>
 			<rows>
+			    <row>
+					<label value="Task Name"
+						style="font-weight:bold" />
+					<textbox multiline="true" rows="2" readonly="true"
+						value="@bind(vm.taskBean.taskDescription)"
+						width="40%" />
+				</row>
 				<row>
 					<label value="Task Description"
 						style="font-weight:bold" />
@@ -62,14 +69,10 @@
 						value="@bind(vm.taskBean.remarksOrResults)" maxlength="100"
 						placeholder="REMARKS" xmlns:w="client">
 						<attribute w:name="doKeyPress_">
-
-							
 							<![CDATA[ function(evt) { if ( (evt.which <
 							65 || evt.which > 90) && (evt.which < 97 ||
 							evt.which > 122) && evt.which != 8 &&
 							evt.which != 32) evt.stop(); } ]]>
-							
-				
 				</attribute>
 					</textbox>
 				</row>

@@ -15,8 +15,8 @@ public class CurrentOpportunitiesReportSql {
    public static final String updateDetailsTableSql = "update rts_req_res_status_tracking_details set final_processed = 'Y' where rts_tracking_details_id = ? ";
 
    public static final String insertBillingDetailsSql = "INSERT INTO rts_tracking_final_job_details(month, year, timesheet, invoice_copy, bill_no, "
-           									+"bill_date, bill_amount, paid, chq_details,rts_tracking_details_id, timesheet_name, invoice_copy_name) "
-           									+"VALUES (?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?) ";
+           									+"bill_date, bill_amount, paid, chq_details,rts_tracking_details_id, timesheet_name, invoice_copy_name,chq_date) "
+           									+"VALUES (?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?,?) ";
    
    public static final String deleteBillingForTrackingIdSql = "DELETE FROM rts_tracking_final_job_details WHERE rts_tracking_details_id = ? ";
 

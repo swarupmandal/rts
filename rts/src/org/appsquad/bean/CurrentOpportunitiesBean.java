@@ -27,6 +27,8 @@ public class CurrentOpportunitiesBean {
 	private Double chargeoutRate;
 	private Double resourceSalary;
 	private Double margin;
+	private String marginString;
+	private long marginTotal;
 	private String approval;
 	private Integer userId;
 	private String userName;
@@ -275,5 +277,17 @@ public class CurrentOpportunitiesBean {
 	}
 	public void setTrackLogingID(String trackLogingID) {
 		this.trackLogingID = trackLogingID;
+	}
+	public String getMarginString() {
+		return marginString;
+	}
+	public void setMarginString(String marginString) {
+		this.marginString = marginString;
+	}
+	public long getMarginTotal() {
+		return marginTotal;
+	}
+	public void setMarginTotal(long marginTotal) {
+		this.marginTotal = marginTotal;
 	}
 }

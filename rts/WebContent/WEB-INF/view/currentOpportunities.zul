@@ -1,6 +1,6 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="PRE BILLING CONFIRMATION " border="none" apply="org.zkoss.bind.BindComposer" 
+<window title="Pre Billing Confirmation" border="none" apply="org.zkoss.bind.BindComposer" 
    																	   viewModel="@id('vm') @init('org.appsquad.viewmodel.CurrentOpportunitiesViewModel')">
 	<div>
 	  <grid model="@bind(vm.currentOpportunitiesBeanList)" height="470px" mold="paging" pageSize="9">

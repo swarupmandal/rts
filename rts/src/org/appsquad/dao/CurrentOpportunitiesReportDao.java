@@ -91,7 +91,7 @@ public class CurrentOpportunitiesReportDao {
 	}
 	
 	
-	public static ArrayList<CurrentOpportunitiesReportBean> fetchBillingDetailsWrtTrackingDetailsId(Integer trackingDetailsId){
+	public static ArrayList<CurrentOpportunitiesReportBean> fetchBillingDetailsWrtTrackingDetailsId(Integer trackingDetailsId,int arrayIndex){
 		ArrayList<CurrentOpportunitiesReportBean> list = new ArrayList<CurrentOpportunitiesReportBean>();
 		try {
 			Connection connection = DbConnection.createConnection();
@@ -102,10 +102,15 @@ public class CurrentOpportunitiesReportDao {
 				ResultSet resultSet = preparedStatement.executeQuery();
 				while (resultSet.next()) {
 				  CurrentOpportunitiesReportBean bean = new CurrentOpportunitiesReportBean();	
+				  
+				  bean.listIndexOf = arrayIndex;
+				  System.out.println("IN FETCH METHOD ::::"+bean.getListIndexOf());
+				  arrayIndex++;
 			      bean.setMonth(resultSet.getString("month"));
 			      bean.setYear(resultSet.getString("year"));
 			      bean.setBillNo(resultSet.getDouble("bill_no"));
 			      bean.setBillDateSql(resultSet.getDate("bill_date"));
+			      bean.setChequeDateSql(resultSet.getDate("chq_date"));
 			      bean.setBillAmount(resultSet.getDouble("bill_amount"));
 			      bean.setPaid(resultSet.getString("paid"));  
 			      bean.setChqDetailsValue(resultSet.getFloat("chq_details"));
@@ -113,7 +118,12 @@ public class CurrentOpportunitiesReportDao {
 			      bean.setSecondFilePath(resultSet.getString("invoice_copy"));
 			      bean.setFileName(resultSet.getString("timesheet_name"));
 			      bean.setSecondFileName(resultSet.getString("invoice_copy_name"));
-			      bean.setSecondButtonDisable(false);
+			      if(bean.getFilePath()!=null){
+			    	  bean.setSecondButtonDisable(false);
+			      }else{
+			    	  bean.setSecondButtonDisable(true);
+			      }
+	              bean.setIsCheck("Y");
 			      
 			      list.add(bean);
 				}
@@ -284,7 +294,7 @@ public class CurrentOpportunitiesReportDao {
 					    		preparedStatementInsert = Pstm.createQuery(connection, 
 										CurrentOpportunitiesReportSql.insertBillingDetailsSql, Arrays.asList(bean.getMonth(),bean.getYear(),bean.getFilePath(),
 												bean.getSecondFilePath(),bean.getBillNo(),bean.getBillDateSql(),bean.getBillAmount(),bean.getPaid(),bean.getChqDetailsValue(),
-												trackingID,bean.getFileName(),bean.getSecondFileName()));
+												trackingID,bean.getFileName(),bean.getSecondFileName(),bean.getChequeDateSql()));
 						    	logger.info("insertBillingData- " + preparedStatementInsert.unwrap(PreparedStatement.class));
 								int i = preparedStatementInsert.executeUpdate();
 								if(i>0){

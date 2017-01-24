@@ -1,6 +1,6 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
-	<window title="BILLING INFO SCREEN" border="normal" width="1300px"
+	<window title="@bind(vm.opportunitiesReportBean.modalTitle)" border="normal" width="1300px"
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('org.appsquad.viewmodel.BillingInfoViewModel')"
 		closable="true" id="winBillingModal">
@@ -38,7 +38,13 @@
 					<column width="100px" label="Paid(Y/N)"
 						style="font-weight:bold; color: black" align="center">
 					</column>
-					<column width="100px" label="Chq Detail"
+					<column width="100px" label="Chq Number"
+						style="font-weight:bold; color: black" align="center">
+					</column>
+					<column width="100px" label="Chq Date"
+						style="font-weight:bold; color: black" align="center">
+					</column>
+					<column width="100px" label="Operation"
 						style="font-weight:bold; color: black" align="center">
 					</column>
 					<column width="100px" label="Operation"
@@ -91,7 +97,7 @@
 								value="@bind(v.billNo)" maxlength="8">
 							</doublebox>
 							<datebox width="98%"
-								value="@bind(v.billDateSql)">
+								value="@bind(v.billDateSql)" tooltiptext="@bind(v.billDateSql)">
 							</datebox>
 							<doublebox width="98%"
 								value="@bind(v.billAmount)" maxlength="9">
@@ -101,9 +107,13 @@
 								<comboitem label="Yes"></comboitem>
 							</combobox>
 							<doublebox width="98%"
-								value="@bind(v.chqDetailsValue)" maxlength="6">
+								value="@bind(v.chqDetailsValue)" maxlength="6" onChange="@command('checkChequeNumber', bean = v)">
 							</doublebox>
-							<button label="ADD ROW" width="99%" onClick="@command('addRow', bean = v)"></button>
+							<datebox width="98%"
+								value="@bind(v.chequeDateSql)" tooltiptext="@bind(v.chequeDateSql)">
+							</datebox>
+							<image src="images/addRow.jpg" width="50%" onClick="@command('addRow', bean = v)"></image>
+							<image src="images/minus.jpg" width="70%" onClick="@command('removeRow', bean = v)"></image>
 						</row>
 					</template>
 				</rows>
@@ -111,7 +121,7 @@
 		</div>
 		<space></space>
 		<div align="center">
-		   <button label="Save" width="80px" onClick="@command('saveBillingDetails')"></button>
+		   <image src="images/save.jpg" width="50px" onClick="@command('saveBillingDetails')"></image>
 		</div>
 	</window>
 </zk>

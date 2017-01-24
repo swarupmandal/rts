@@ -9,11 +9,13 @@ import java.util.Map;
 import org.appsquad.bean.CurrentOpportunitiesBean;
 import org.appsquad.bean.UserprofileBean;
 import org.appsquad.service.CurrentOpportunitiesService;
+import org.appsquad.utility.RuntimePopulateRoleBasedOnUserId;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
+import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
@@ -56,9 +58,16 @@ public class CurrentOpportunitiesViewModel {
 		fetchDataWrtDataEntryOrApprover();
 	}
 	
+	@GlobalCommand
+	@NotifyChange("*")
+	public void reLoadPreBillingMainPage(){
+		fetchDataWrtDataEntryOrApprover();
+	}
+	
 	public void fetchDataWrtDataEntryOrApprover(){
-		roleName = CurrentOpportunitiesService.fetchRoleNameWrtUserId(userId);
-		System.out.println("ROLE NAME :"+roleName);
+		//roleName = CurrentOpportunitiesService.fetchRoleNameWrtUserId(userId);
+		roleName = RuntimePopulateRoleBasedOnUserId.populateRoleBasedOnUserId(userId);
+		System.out.println("IN MAIN SCREEN ROLE NAME :"+roleName);
 		if(roleName.equalsIgnoreCase("DATA ENTRY OPERATOR")){
 			comboBoxDisable = true;
 			sendToApproverVisibility = true;
@@ -81,6 +90,22 @@ public class CurrentOpportunitiesViewModel {
 			idList = CurrentOpportunitiesService.fetchClientIdList(userId);
 			System.out.println("ID LIST SIZE IS :"+idList.size()+"------"+Arrays.toString(idList.toArray()));
 			currentOpportunitiesBeanList = CurrentOpportunitiesService.loadCurrentOpportunityDetailsForApprover(idList);
+		}else if(roleName.equalsIgnoreCase("APPROVER AND DATA ENTRY OPERATOR")){
+			/*comboBoxDisable = false;
+			createOfferVisibility = true;
+			tenureFromDisable = true;
+			approverNameDisable = true;
+			tenureToDisable = true;
+			chargeoutRateDisable = true;
+			resourceSalaryDisable = true;
+			marginDisable = true;
+			idList = CurrentOpportunitiesService.fetchClientIdList(userId);
+			if(idList.size()>0){
+				System.out.println("ID LIST SIZE IS :"+idList.size()+"------"+Arrays.toString(idList.toArray()));
+				currentOpportunitiesBeanList = CurrentOpportunitiesService.loadCurrentOpportunityDetailsForApprover(idList);	
+			}*/
+			
+			currentOpportunitiesBeanList = CurrentOpportunitiesService.loadCurrentOpportunityDetails();
 		}
 	}
 	
@@ -93,111 +118,6 @@ public class CurrentOpportunitiesViewModel {
 		window.doModal();
 	}
 	
-	/*@Command
-	@NotifyChange("*")
-	public void onSend(@BindingParam("bean") CurrentOpportunitiesBean currentOpportunitiesBean){
-		currentOpportunitiesBean.setOnClickButtonValue("onSend");
-		boolean flagInsert = false;
-		boolean flagDelete = false;
-		boolean flagLogInsert = false;
-		boolean flagEmailSend = false;
-		int count = 0;
-		count = CurrentOpportunitiesService.fetchCountNumberITrackingDetailsTable(currentOpportunitiesBean.getReqResStatusTrackingId());
-		System.out.println("COUNT IS :"+count);
-		if(count==0){
-			if(CurrentOpportunitiesService.validateForDataEntryOperator(currentOpportunitiesBean)){
-				flagInsert = CurrentOpportunitiesService.insertTrackingDetails(currentOpportunitiesBean);	
-			}
-		}else{
-			if(CurrentOpportunitiesService.validateForDataEntryOperator(currentOpportunitiesBean)){
-				flagDelete = CurrentOpportunitiesDao.deleteRoleData(currentOpportunitiesBean);
-				System.out.println(flagDelete);
-				if(flagDelete){
-					flagInsert = CurrentOpportunitiesService.insertTrackingDetails(currentOpportunitiesBean);
-				}	
-			}
-		}
-		System.out.println("FLAG INSERT FOR DATA ENTRY OPERATOR IS :"+flagInsert);
-		if(flagInsert){
-			System.out.println("APPROVER USER ID IS :"+currentOpportunitiesBean.getBean().getUserID());
-			String emailId = CurrentOpportunitiesDao.fetchEmailId(currentOpportunitiesBean.getBean().getUserID());
-			System.out.println(emailId);
-			flagEmailSend = SendEmail.validator(emailId);
-			System.out.println("flag email send is :"+flagEmailSend);
-			if(flagEmailSend){
-				SendEmail.generateAndSendEmail(emailId);	
-			}else{
-				System.out.println("APPROVER'S EMAIL ID IS NOT CORRECT. ");
-			}
-			currentOpportunitiesBean.setOperation("INSERT");
-			currentOpportunitiesBean.setOperationId(1);
-			currentOpportunitiesBean.setSessionUserId(userId);
-			Calendar calendar = Calendar.getInstance();
-		    java.sql.Date currentDate = new java.sql.Date(calendar.getTime().getTime());
-			System.out.println("CREATION DATE :"+currentDate);
-			flagLogInsert = LogAuditServiceClass.insertIntoLogTable(currentOpportunitiesBean.getMainScreenName(), currentOpportunitiesBean.getChileScreenName(), 
-																	currentOpportunitiesBean.getSessionUserId(), currentOpportunitiesBean.getOperation(),currentDate,
-																	currentOpportunitiesBean.getOperationId());
-			System.out.println("flagLogInsert Is:"+flagLogInsert);
-			fetchDataWrtDataEntryOrApprover();
-		}
-	}
-	
-	@Command
-	@NotifyChange("*")
-	public void onCreate(@BindingParam("bean") CurrentOpportunitiesBean opportunitiesBean){
-		opportunitiesBean.setOnClickButtonValue("onCreate");
-		boolean flagCreateInsert = false;
-		boolean flagCreateLogInsert = false;
-		boolean flagCreateUpdate = false;
-		boolean flag1stInsert = false;
-		boolean flag1stDelete = false;
-		
-		String approverName= ""; 
-		if(opportunitiesBean.getBean().getUserID()!=null){
-			System.out.println("TRACKING ID IS :"+opportunitiesBean.getReqResStatusTrackingId());
-			approverName = CurrentOpportunitiesDao.fetchApproverNameDao(opportunitiesBean.getReqResStatusTrackingId());
-			System.out.println(approverName);
-			if(approverName.equalsIgnoreCase(userId)){
-				if(CurrentOpportunitiesService.validateForApprover(opportunitiesBean)){
-					flag1stDelete = CurrentOpportunitiesDao.deleteRoleData(opportunitiesBean);
-					if(flag1stDelete){
-						flag1stInsert = CurrentOpportunitiesService.insertTrackingDetails(opportunitiesBean);
-					}
-					
-					System.out.println("FLAG INSERT FOR APPROVER IS :"+flag1stInsert);
-					
-					if(flag1stInsert){
-						flagCreateInsert = CurrentOpportunitiesService.updateTrackingDetailsService(opportunitiesBean);	
-					}
-					System.out.println(flagCreateInsert);
-					if(flagCreateInsert){
-						flagCreateUpdate = CurrentOpportunitiesService.updateTrackingService(opportunitiesBean);
-						System.out.println(flagCreateUpdate);
-						if(flagCreateUpdate){
-							Messagebox.show(" Approval Request Saved Successfully ","Information",Messagebox.OK,Messagebox.INFORMATION);
-							currentOpportunitiesBean.setOperation("UPDATE");
-							currentOpportunitiesBean.setOperationId(2);
-							currentOpportunitiesBean.setSessionUserId(userId);
-							Calendar calendar = Calendar.getInstance();
-						    java.sql.Date currentDate = new java.sql.Date(calendar.getTime().getTime());
-							System.out.println("CREATION DATE :"+currentDate);
-							flagCreateLogInsert = LogAuditServiceClass.insertIntoLogTable(currentOpportunitiesBean.getMainScreenName(), currentOpportunitiesBean.getChileScreenName(), 
-																						  currentOpportunitiesBean.getSessionUserId(), currentOpportunitiesBean.getOperation(),currentDate,
-																					      currentOpportunitiesBean.getOperationId());
-							System.out.println("flagLogInsert Is:"+flagCreateLogInsert);
-							
-							fetchDataWrtDataEntryOrApprover();
-						}
-					}	
-				}
-			}else{
-				Messagebox.show(" You Are Not The Assigned Approver To Approve This Request. ","Warning", Messagebox.OK, Messagebox.EXCLAMATION);
-			}
-		}else{
-			Messagebox.show(" There Is No Assigned Approver For This Row ","Warning", Messagebox.OK, Messagebox.EXCLAMATION);
-		}
-	}
 	
     /************************************************* GETTER AND SETTER METHOD ************************************************************************/
 	

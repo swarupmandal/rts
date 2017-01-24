@@ -1,6 +1,6 @@
 <?page title="EDIT" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="REQUIREMENT GENERATION EDIT" border="none" height="580px" width="600px" 
+<window title="Requirement Generation Update" border="none" height="580px" width="600px" 
 		        apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('org.appsquad.viewmodel.RequirementGenerationEditViewModel')" 
 		                 closable="true" id="winReqGenEdit" onClose="@command('onCloseOperation')">
 		

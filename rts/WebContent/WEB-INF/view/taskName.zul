@@ -1,6 +1,6 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
-	<window title="TASK CREATION SCREEN"
+	<window title="Task Creation"
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('org.appsquad.viewmodel.TaskNameViewModel')">
 		<style>
@@ -20,11 +20,17 @@
 					<column align="left" />
 				</columns>
 				<rows>
+				    <row>
+						<label value="Task Name"
+							style="font-weight:bold" />
+						<textbox value="@bind(vm.taskBean.taskDescription)"
+							placeholder="Write Task Name Here" width="40%" />
+					</row>
 					<row>
 						<label value="Task Description"
 							style="font-weight:bold" />
 						<textbox multiline="true" rows="5" value="@bind(vm.taskBean.taskName)"
-							placeholder="Write task description here" width="100%" />
+							placeholder="Write Task Description Here" width="100%" />
 					</row>
 				</rows>
 			</grid>
@@ -41,7 +47,7 @@
 				</columns>
 				<rows>
 					<row>
-						<label value="Person Responsible-" style="font-weight:bold"></label>
+						<label value="Person Responsible" style="font-weight:bold"></label>
 						<bandbox autodrop="true" readonly="true"
 							id="userBb" value="@bind(vm.taskBean.userprofileBean.userid)"
 							placeholder="Search By User ID" width="160px">
@@ -75,11 +81,11 @@
 								</listbox>
 							</bandpopup>
 						</bandbox>
-						<label value="Task Assign Date-" style="font-weight:bold"></label>
+						<label value="Task Assign Date" style="font-weight:bold"></label>
 						<textbox width="100%"
 							value="@bind(vm.taskBean.createdDateStr)" readonly="true">
 						</textbox>
-						<label value="Scheduled Date-" style="font-weight:bold"></label>
+						<label value="Scheduled Date" style="font-weight:bold"></label>
 						<datebox width="100%" format="dd/MM/yyyy"
 							value="@bind(vm.taskBean.scheduledDateSql)" readonly="true">
 						</datebox>
@@ -102,9 +108,9 @@
 			</grid>	
 			<space/>
 			<grid model="@bind(vm.newlyCreatedTaskDetailsList)" mold="paging"
-			pageSize="5" width="100%">
+			pageSize="4" width="100%">
 			<columns sizable="true">
-				<column label="Task Description" align="center" width="380px"/>
+				<column label="Task Name" align="center" width="380px"/>
 				<column label="Task Status" align="center" width="120px" />
 				<column label="Assigned To" align="center" width="150px" />
 				<column label="Task Assigned Date" align="center" width="130px" />
@@ -115,7 +121,7 @@
 				<template name="model" var="v">
 					<row>
 						<textbox multiline="true" rows="2" readonly="true" width="100%"
-							value="@bind(v.taskName)" />
+							value="@bind(v.taskDescription)" />
 						<textbox readonly="true" width="100%"
 							value="@bind(v.taskStatusBean.taskStatusName)" />
 						<textbox readonly="true" width="100%"

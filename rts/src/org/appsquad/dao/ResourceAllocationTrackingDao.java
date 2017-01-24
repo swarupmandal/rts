@@ -412,7 +412,13 @@ public class ResourceAllocationTrackingDao {
 					if(bean.getOnboardDateValue() != null){
 						bean.setOnboardDateStr(Dateformatter.toStringDate(bean.getOnboardDateValue()));
 					}	
-					list.add(bean);
+					
+					if(bean.getStatusId()==9){
+						
+					}else{
+						list.add(bean);
+					}
+					
 				}
 			} finally {
 				if(preparedStatement != null){

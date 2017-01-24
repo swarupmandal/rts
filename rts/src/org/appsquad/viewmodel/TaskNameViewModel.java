@@ -88,64 +88,53 @@ public class TaskNameViewModel {
 	 public void onClickSave(){
 		 boolean flagInsert = false; 
 		 boolean flagEmailSend = false;
-		 if(taskBean.getTaskName()!=null && taskBean.getTaskName().trim().length()>0){
-				// if(taskBean.getVenue()!=null && taskBean.getVenue().trim().length()>0){
-					 if(taskBean.userprofileBean.getUserid()!=null && taskBean.userprofileBean.getUserid().trim().length()>0){
-					    if(taskBean.getScheduledDateSql()!=null){
-					    //	if(taskBean.getStatus()!=null && taskBean.getStatus().trim().length()>0){
-					    	//	if(taskBean.getActualCompletionDateSql()!=null){
-					    			//if(taskBean.getRemarksOrResults()!=null && taskBean.getRemarksOrResults().trim().length()>0){
-					    				flagInsert = TaskNameService.saveTaskDetails(taskBean);
-					   				 	System.out.println(flagInsert);
-					   				 	if(flagInsert){
-					   				 		onLoad();
-					   					 String emailId = CurrentOpportunitiesDao.fetchEmailId(taskBean.userprofileBean.getUserid());
-					   					 System.out.println("IN TASK CREATION PAGE :"+emailId);
-					   					 flagEmailSend = SendEmail.validator(emailId);
-					   					 System.out.println("flag email send is :"+flagEmailSend);
-					   					 if(flagEmailSend){
-					   						SendEmail.generateAndSendEmailForTaskCreation(emailId,taskBean.getTaskName());	
-					   					 }else{
-					   						System.out.println("APPROVER'S EMAIL ID IS NOT CORRECT. ");
-					   					 }
-					   					 
-					   					 System.out.println("IN TASK CREATION PAGE :"+flagEmailSend);
-					   					 if(flagEmailSend){
-					   						 taskBean.setTaskName(null);
-					   						 taskBean.userprofileBean.setUserid(null);
-					   						 taskBean.setVenue(null);
-					   						 taskBean.setScheduledDateSql(null);
-					   						 taskBean.setStatus(null);
-					   						 taskBean.setActualCompletionDateSql(null);
-					   						 taskBean.setRemarksOrResults(null);
-					   						 userList = RoleMasterDao.onLoadUserDeatils();
-					   						 
-					   						 taskDetailsList = TaskNameDao.fetchTaskDeatils();
-					   						 if(taskDetailsList.size()>0){
-					   						   taskBean.setDivVisibility(true);
-					   						 }else{
-					   						   taskBean.setDivVisibility(true);
-					   						 }
-					   					  }
-					   				   }
-					    			/*}else{
-					    				Messagebox.show("Remarks Or Result Can't Be Blank ", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
-					    			}
-					    		}else{
-					    			Messagebox.show("Actual Completion Date Can't Be Blank ", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
-					    		}
-					    	/*}else{
-					    		Messagebox.show("Status Can't Be Blank ", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
-					    	}*/
-					    }else{
-					    	Messagebox.show("Schedule Date Can't Be Blank ", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
-					    }
-				 }else{
-					 Messagebox.show("Select User ID ", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
-				 }
-			/* }else{
-				 Messagebox.show("Venue Can't Be Blank ", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
-			 }*/
+		 if(taskBean.getTaskDescription()!=null && taskBean.getTaskDescription().trim().length()>0){
+			 if(taskBean.getTaskName()!=null && taskBean.getTaskName().trim().length()>0){
+				 if(taskBean.userprofileBean.getUserid()!=null && taskBean.userprofileBean.getUserid().trim().length()>0){
+				    if(taskBean.getScheduledDateSql()!=null){
+				    				flagInsert = TaskNameService.saveTaskDetails(taskBean);
+				   				 	System.out.println(flagInsert);
+				   				 	if(flagInsert){
+				   				 	 onLoad();
+				   					 String emailId = CurrentOpportunitiesDao.fetchEmailId(taskBean.userprofileBean.getUserid());
+				   					 System.out.println("IN TASK CREATION PAGE :"+emailId);
+				   					 flagEmailSend = SendEmail.validator(emailId);
+				   					 System.out.println("flag email send is :"+flagEmailSend);
+				   					 if(flagEmailSend){
+				   						SendEmail.generateAndSendEmailForTaskCreation(emailId,taskBean.getTaskName(),taskBean);	
+				   					 }else{
+				   						System.out.println("APPROVER'S EMAIL ID IS NOT CORRECT. ");
+				   					 }
+				   					 
+				   					 System.out.println("IN TASK CREATION PAGE :"+flagEmailSend);
+				   					 if(flagEmailSend){
+				   						 taskBean.setTaskDescription(null);
+				   						 taskBean.setTaskName(null);
+				   						 taskBean.userprofileBean.setUserid(null);
+				   						 taskBean.setVenue(null);
+				   						 taskBean.setScheduledDateSql(null);
+				   						 taskBean.setStatus(null);
+				   						 taskBean.setActualCompletionDateSql(null);
+				   						 taskBean.setRemarksOrResults(null);
+				   						 userList = RoleMasterDao.onLoadUserDeatils();
+				   						 
+				   						 taskDetailsList = TaskNameDao.fetchTaskDeatils();
+				   						 if(taskDetailsList.size()>0){
+				   						   taskBean.setDivVisibility(true);
+				   						 }else{
+				   						   taskBean.setDivVisibility(true);
+				   						 }
+				   					  }
+				   				   }
+				    }else{
+				    	Messagebox.show("Schedule Date Can't Be Blank ", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
+				    }
+			 }else{
+				 Messagebox.show("Select User ID ", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
+			 }
+			 }else{
+				 Messagebox.show("Task Description Can't Be Blank ", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
+			 } 
 		 }else{
 			 Messagebox.show("Task Name Can't Be Blank ", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
 		 }
@@ -285,11 +274,9 @@ public class TaskNameViewModel {
 	public void setReportDetailsList(ArrayList<TaskNameBean> reportDetailsList) {
 		this.reportDetailsList = reportDetailsList;
 	}
-
 	public ArrayList<TaskNameBean> getNewlyCreatedTaskDetailsList() {
 		return newlyCreatedTaskDetailsList;
 	}
-
 	public void setNewlyCreatedTaskDetailsList(
 			ArrayList<TaskNameBean> newlyCreatedTaskDetailsList) {
 		this.newlyCreatedTaskDetailsList = newlyCreatedTaskDetailsList;

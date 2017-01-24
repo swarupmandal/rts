@@ -32,7 +32,7 @@ public class ActivityScheduledTodayTomorrowdao {
 						 sql:{
 						    PreparedStatement preparedStatementFetch = null;
 						    try{
-						    	String sql = "select * from vw_rts_task_details where schedl_date IN  ( "+ getSplitedDateCode(dateCode) +") ";
+						    	String sql = "select * from vw_rts_task_details where schedl_date IN  ( "+ getSplitedDateCode(dateCode) +") order by rts_task_id ";
 						    	System.out.println("SQL FOR TODAY & TOMORROW DATA :"+sql);
 						    	preparedStatementFetch = connection.prepareStatement(sql);
 						    	ResultSet resultSet = preparedStatementFetch.executeQuery();
@@ -49,6 +49,7 @@ public class ActivityScheduledTodayTomorrowdao {
 						    	    taskNameBean.setScheduledDateStr(resultSet.getString("schedl_date"));
 						    	    taskNameBean.setScheduledDateSql(resultSet.getDate("schedl_date"));
 						    	    taskNameBean.setActualCompletionDateStr(resultSet.getString("completion_date"));
+						    	    taskNameBean.setTaskDescription(resultSet.getString("task_details"));
 						    	    
 						    	    detailsList.add(taskNameBean);
 						    	    Collections.sort(detailsList, new ScheduleDateComparator());

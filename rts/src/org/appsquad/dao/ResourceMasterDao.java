@@ -388,7 +388,7 @@ public class ResourceMasterDao {
 											                                              resourceMasterBean.getCtc(),resourceMasterBean.getSkillsetMasterbean().getSkillset().toUpperCase(),
 											                                              resourceMasterBean.getCountry().toUpperCase(),
 											                                              resourceMasterBean.getState().toUpperCase(),resourceMasterBean.getProfit(),resourceMasterBean.getFilePath(),
-											                                              resourceMasterBean.getOtherInfo()));
+											                                              resourceMasterBean.getOtherInfo(),resourceMasterBean.getFileName()));
 					    	
 					    	logger.info("Inserting Resource Data Into Table: "+preparedStatementInsert.unwrap(PreparedStatement.class));
 							int i = preparedStatementInsert.executeUpdate();
@@ -458,6 +458,7 @@ public class ResourceMasterDao {
 								bean.setFilePath(resultSet.getString("res_upcv"));
 								bean.setProfit(resultSet.getDouble("profit"));
 								bean.setOtherInfo(resultSet.getString("other_info"));
+								bean.setFileName(resultSet.getString("file_name"));
 								
 								resourceList.add(bean);
 							}  
@@ -502,7 +503,7 @@ public class ResourceMasterDao {
 											                                              resourceMasterBean.getCtc(),resourceMasterBean.getSkillsetMasterbean().getSkillset().toUpperCase(),
 											                                              resourceMasterBean.getCountry().toUpperCase(),
 											                                              resourceMasterBean.getState().toUpperCase(),resourceMasterBean.getFilePath(),resourceMasterBean.getProfit(),
-											                                              resourceMasterBean.getOtherInfo(),resourceMasterBean.getResourceId()));
+											                                              resourceMasterBean.getOtherInfo(),resourceMasterBean.getFileName(),resourceMasterBean.getResourceId()));
 					    	
 					    	logger.info("Updating Resource Data Into Table: "+preparedStatementInsert.unwrap(PreparedStatement.class));
 							int i = preparedStatementInsert.executeUpdate();

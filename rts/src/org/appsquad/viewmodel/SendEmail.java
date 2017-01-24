@@ -1,6 +1,7 @@
 package org.appsquad.viewmodel;
 
 import java.util.Properties;
+
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
@@ -8,6 +9,8 @@ import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+
+import org.appsquad.bean.TaskNameBean;
 
 public class SendEmail{
 	public static boolean validator(String email) {
@@ -43,12 +46,12 @@ public class SendEmail{
 		  try {
 		   generateMailMessage.setFrom(new InternetAddress("sentmail95@gmail.com"));
 		   generateMailMessage.addRecipient(Message.RecipientType.TO,new InternetAddress(emailId));
-		   generateMailMessage.setSubject("Approval Request Status");
+		   generateMailMessage.setSubject("Approval Request Status From Resource Augmentation Tracking System");
 		   
 		   if(status.equalsIgnoreCase("Approve")){
-		      emailBody =""+trackingID+" Number Approval Request Approved";
+		      emailBody =""+trackingID+" Number Approval Request Approved.";
 		   }else{
-			  emailBody =""+trackingID+" Number Approval Request Rejected"; 
+			  emailBody =""+trackingID+" Number Approval Request Rejected."; 
 		   }
 		   generateMailMessage.setContent(emailBody, "text/html");
 		   System.out.println("Mail Session has been created successfully..");
@@ -89,7 +92,7 @@ public class SendEmail{
 	   generateMailMessage.addRecipient(Message.RecipientType.TO,new InternetAddress(emailId));
 	   //generateMailMessage.addRecipient(Message.RecipientType.CC,new InternetAddress("prolayjit.dutta@appsquad.in"));
 	   generateMailMessage.setSubject("Approval Request Sent From Resource Augmentation Tracking System");
-	   String emailBody ="Approval Request Sent For You.";
+	   String emailBody ="Approval Request Sent To You.";
 	   generateMailMessage.setContent(emailBody, "text/html");
 	   System.out.println("Mail Session has been created successfully..");
 	   
@@ -108,7 +111,7 @@ public class SendEmail{
 	 }
 	
 	 
-	public static Boolean generateAndSendEmailForTaskCreation(String emailId,String msg) {
+	public static Boolean generateAndSendEmailForTaskCreation(String emailId,String msg,TaskNameBean taskNameBean) {
 		  Properties mailServerProperties;
 		  Session getMailSession;
 		  MimeMessage generateMailMessage;
@@ -128,8 +131,10 @@ public class SendEmail{
 		  try {
 		   generateMailMessage.setFrom(new InternetAddress("sentmail95@gmail.com"));
 		   generateMailMessage.addRecipient(Message.RecipientType.TO,new InternetAddress(emailId));
-		   generateMailMessage.setSubject("Task Name Creation Status Sent From Resource Augmentation Tracking System");
-		   String emailBody ="A New Task Assigned For You " + "\n" +"Task Name:"+msg+" ";
+		   generateMailMessage.setSubject("Task assigned from Resource Augmentation Tracking");
+		   
+		   String emailBody = "Hi "+taskNameBean.getUserprofileBean().getUserid()+", \n\n"+"A new task assigned to you, " + "\n\n" +"Task Name: "+msg.toUpperCase()+" "+"\nAssigned By: "+taskNameBean.getAssignedByUserId().toUpperCase()+""+"\nSchedule Date: "+taskNameBean.getScheduledDateSql()+""+"\n\nThanks";
+		   
 		   generateMailMessage.setContent(emailBody, "text/plain");
 		   System.out.println("Mail Session has been created successfully..");
 		   

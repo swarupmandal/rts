@@ -35,7 +35,7 @@
             </treeitem>
             <treeitem open="false">
              <treerow>
-              <treecell label="- User-Client Assign"
+              <treecell label="- Approver Assignment"
                onClick='inclResults.setSrc("/WEB-INF/view/clientUserAssign.zul");' visible="@bind(vm.userClientLinkVisibility)"/>
              </treerow>
             </treeitem>
@@ -200,7 +200,7 @@
          </treeitem>
          <treeitem open="false">
             	<treerow>
-            	 <treecell label="- Task Update"
+            	 <treecell label="- Task View/Update"
             	  			onClick='inclResults.setSrc("/WEB-INF/view/taskUpdate.zul");' visible="@bind(vm.taskUpdateVisibility)">
             	</treecell>
             	</treerow>
@@ -232,6 +232,14 @@
         				 <treerow>
          				 <treecell label="- Schedule Datewise Detail Report" onClick='inclResults.setSrc("/WEB-INF/view/ScheduleDatewiseDetailReport.zul");' 
          				         visible="@bind(vm.thirdReportVisibility)">
+        			     </treecell>
+         				</treerow>
+                   </treeitem>
+                   
+                   <treeitem open="false">
+        				 <treerow>
+         				 <treecell label="- Creation Datewise Detail Report" onClick='inclResults.setSrc("/WEB-INF/view/creationDatewiseDetailReport.zul");' 
+         				         visible="true">
         			     </treecell>
          				</treerow>
                    </treeitem>

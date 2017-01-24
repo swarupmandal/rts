@@ -1,0 +1,22 @@
+<?page title="Modify Task" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window title="Display" border="normal" closable="true" id="winModal"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('org.appsquad.viewmodel.TodayTomorrowModalViewModel')" width="700px" height="150px">
+		<grid>
+			<columns>
+				<column align="center" width="20%" />
+				<column align="left" />
+			</columns>
+			<rows>
+				<row>
+					<label value="Task Description"
+						style="font-weight:bold" />
+					<textbox multiline="true" rows="5" readonly="true"
+						value="@bind(vm.taskNameBean.taskName)"
+						width="100%" />
+				</row>
+			</rows>
+		</grid>
+	</window>
+</zk>

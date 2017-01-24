@@ -1,11 +1,11 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
-	<window title="Task Assigned List" border="normal"
+	<window title="Task View/Update" border="normal"
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('org.appsquad.viewmodel.TaskListUpdateViewModel')">
 		<grid model="@bind(vm.taskDetailsList)" mold="paging" pageSize="8">
 			<columns sizable="true">
-				<column label="Task Description" align="center" width="350px"/>
+				<column label="Task Name" align="center" width="350px"/>
 				<column label="Task Status" align="center" width="90px" />
 				<column label="Assigned To" align="center" width="130px" />
 				<column label="Assigned by" align="center" width="130px" />
@@ -18,7 +18,7 @@
 				<template name="model" var="v">
 					<row>
 						<textbox multiline="true" rows="3" readonly="true" width="100%"
-							value="@bind(v.taskName)" />
+							value="@bind(v.taskDescription)" />
 						<textbox readonly="true" width="100%"
 							value="@bind(v.taskStatusBean.taskStatusName)" />
 						<textbox readonly="true" width="100%"
@@ -37,7 +37,6 @@
 						<button label="Update" width="100%" onClick="@command('onClickUpdate',bean= v)"/>
 					</row>
 				</template>
-
 			</rows>
 		</grid>
 	</window>

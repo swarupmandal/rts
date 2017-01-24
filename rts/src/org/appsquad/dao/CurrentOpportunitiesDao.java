@@ -225,6 +225,38 @@ public class CurrentOpportunitiesDao {
 		return list;
 	}
 	
+	
+	public static int checjCountWhetherTraetDataEntryOrApprover(String userId,String clientName){
+		int count = 0;
+		try {
+			Connection connection = DbConnection.createConnection();
+			PreparedStatement preparedStatement = null;
+			try {
+				preparedStatement = Pstm.createQuery(connection, CurrentOpportunitiesSql.countTreatSql, Arrays.asList(clientName,userId));
+				logger.info("Fetch Client Id List: "+ preparedStatement.unwrap(PreparedStatement.class));
+				ResultSet resultSet = preparedStatement.executeQuery();
+				while (resultSet.next()) {
+					count = resultSet.getInt(1);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				String msg = e.getMessage();
+				Messagebox.show(msg, "Error", Messagebox.OK, Messagebox.ERROR);
+				logger.fatal("Load Current Opportunities - " + e);
+			}finally{
+				if(preparedStatement != null){
+					preparedStatement.close();
+				}if(connection != null){
+					connection.close();
+				}
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return count;
+	}
+	
 	public static ArrayList<UserClientMappingBean> userBeanList(Connection connection, Integer clientId) throws SQLException{
 		ArrayList<UserClientMappingBean> list = new ArrayList<UserClientMappingBean>();
 		if(list.size()>0){
@@ -247,6 +279,26 @@ public class CurrentOpportunitiesDao {
 			}
 		}
 		return list;
+	}
+
+	
+	public static ArrayList<UserClientMappingBean> userBeanListForFirstTime(String userId) throws SQLException{
+		ArrayList<UserClientMappingBean> clList = new ArrayList<UserClientMappingBean>();
+		if(clList.size()>0){
+			clList.clear();
+		}
+		PreparedStatement preparedStatement = null;
+		try {
+			UserClientMappingBean bean = new UserClientMappingBean();
+			bean.setUserID(userId);
+			
+			clList.add(bean);
+		} finally {
+			if(preparedStatement !=null){
+				preparedStatement.close();
+			}
+		}
+		return clList;
 	}
 	
 	public static String fetchRoleNameService(String UserId){
@@ -380,7 +432,11 @@ public class CurrentOpportunitiesDao {
 					}
 					
 					if(isSaved && opportunitiesBean.getOnClickButtonValue().equalsIgnoreCase("onCreate")){
-						System.out.println(" Approval Sent Successfully ");
+						System.out.println(" Approved Successfully ");
+					}
+					
+					if(isSaved && opportunitiesBean.getOnClickButtonValue().equalsIgnoreCase("onSave")){
+						System.out.println(" Approved Successfully ");
 					}
 					
 				} catch (Exception e) {
@@ -558,6 +614,49 @@ public class CurrentOpportunitiesDao {
 			logger.fatal(e);
 		}
 		return approverName;
+	}
+	
+	
+	public static int coutrowForDataEntryAndApproverBoth(CurrentOpportunitiesBean opportunitiesBean){
+		int count = 0;
+		Connection connection = null;
+		try {
+			connection = DbConnection.createConnection();
+			sql_connection:{
+				try {
+					
+					//1st SQL block
+					sql_insert:{
+					    PreparedStatement preparedStatementInsert = null;
+					    try {
+					    	preparedStatementInsert = Pstm.createQuery(connection,CurrentOpportunitiesSql.countTrackingIdSql, Arrays.asList(opportunitiesBean.getReqResStatusTrackingId()));
+					    	logger.info("deleteTrackingIdData- " + preparedStatementInsert.unwrap(PreparedStatement.class));
+							ResultSet resultSet = preparedStatementInsert.executeQuery();
+							while(resultSet.next()){
+								count = resultSet.getInt(1);
+							}
+						} finally{
+							if(preparedStatementInsert!=null){
+								preparedStatementInsert.close();
+							}
+						}
+				    }
+				} catch (Exception e) {
+					e.printStackTrace();
+					logger.error(e);
+					logger.fatal(e);
+				}finally{
+					if(connection!=null){
+						connection.close();
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(e);
+			logger.fatal(e);
+		}
+		return count;
 	}
 	
 }

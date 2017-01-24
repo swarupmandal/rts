@@ -69,74 +69,56 @@ public class TaskListUpdateViewModel {
 	public void onClickUpdate(@BindingParam("bean") TaskNameBean taskNameBean){
 		Map<String, TaskNameBean> modifyEntryDataMap = new HashMap<String, TaskNameBean>();
 		modifyEntryDataMap.put("parentData", taskNameBean);
-		Window win = (Window) Executions.createComponents("WEB-INF/view/taskmodify.zul", null, modifyEntryDataMap);
-		
+		Window win = (Window) Executions.createComponents("WEB-INF/view/taskmodify.zul", null, modifyEntryDataMap);	
 		win.doModal();
 	}
 	
 	public Connection getConnection() {
 		return connection;
 	}
-
 	public void setConnection(Connection connection) {
 		this.connection = connection;
 	}
-
 	public Session getSessions() {
 		return sessions;
 	}
-
 	public void setSessions(Session sessions) {
 		this.sessions = sessions;
 	}
-
 	public String getUserName() {
 		return userName;
 	}
-
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-
 	public String getUserId() {
 		return userId;
 	}
-
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-
 	public String getDateString() {
 		return dateString;
 	}
-
 	public void setDateString(String dateString) {
 		this.dateString = dateString;
 	}
-
 	public TaskNameBean getTaskBean() {
 		return taskBean;
 	}
-
 	public void setTaskBean(TaskNameBean taskBean) {
 		this.taskBean = taskBean;
 	}
-
 	public ArrayList<TaskNameBean> getTaskDetailsList() {
 		return taskDetailsList;
 	}
-
 	public void setTaskDetailsList(ArrayList<TaskNameBean> taskDetailsList) {
 		this.taskDetailsList = taskDetailsList;
 	}
-
 	public ArrayList<UserprofileBean> getUserList() {
 		return userList;
 	}
-
 	public void setUserList(ArrayList<UserprofileBean> userList) {
 		this.userList = userList;
 	}
-	
-	
 }

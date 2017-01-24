@@ -4,6 +4,7 @@ import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedHashSet;
 
 import org.appsquad.bean.CurrentOpportunitiesReportGenerationBean;
 import org.appsquad.bean.MonthReportBean;
@@ -30,9 +31,9 @@ public class PdfTestingViewModel {
 	 private PdfWriter writer = null;
 	 ParagraphBorder border; 
 	 private String printDate = new SimpleDateFormat("dd-MMM-yyyy").format(new Date());
-	 private ArrayList<MonthReportBean> finalList = null;
+	 private LinkedHashSet<MonthReportBean> finalList = null;
 	 
-	 public void getDetails(String realPath,String name,ArrayList<MonthReportBean> list)throws Exception
+	 public void getDetails(String realPath,String name,LinkedHashSet<MonthReportBean> list)throws Exception
 	 {
 		 filePath = realPath+"report.pdf";
 		 String reportName = name;
@@ -50,7 +51,7 @@ public class PdfTestingViewModel {
 	}
 	 
 	 
-	 public void getDetailsForResource(String realPath,String name,ArrayList<MonthReportBean> list)throws Exception
+	 public void getDetailsForResource(String realPath,String name,LinkedHashSet<MonthReportBean> list)throws Exception
 	 {
 		 filePath = realPath+"report.pdf";
 		 String reportName = name;
@@ -119,14 +120,44 @@ public class PdfTestingViewModel {
 			
 		}	 
 	 
-	 public void createPdfHeader(String name, ArrayList<MonthReportBean> list) throws Exception {
+	 public void createPdfHeader(String name, LinkedHashSet<MonthReportBean> list) throws Exception {
 		 System.out.println("INSIDE METHOD list size::: "+list.size() );
 	        PdfPTable table = new PdfPTable(2);
 	        table.setSplitLate(false);
 	        table.setWidths(new int[]{10, 15});
 	        for (MonthReportBean monthReportBean : list) {
-	            table.addCell(monthReportBean.getMonthName().toUpperCase());
-	            table.addCell(createtable(monthReportBean.getCurrentOpportunitiesReportGenerationBeanList()));
+	        	
+	        	cell_1: {
+					PdfPCell cell;
+				
+						if(monthReportBean.getMonthName().equalsIgnoreCase("")){
+							Paragraph headerParagraph = new Paragraph("");
+							headerParagraph.getFont().setSize(10f);
+							headerParagraph.setAlignment(Element.ALIGN_CENTER);
+							headerParagraph.getFont().setStyle(Font.NORMAL);
+							cell = new PdfPCell(headerParagraph);
+							cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+							table.addCell(cell);
+					
+						}else{
+							Paragraph headerParagraph = new Paragraph(monthReportBean.getMonthName().toUpperCase());
+							headerParagraph.getFont().setSize(10f);
+							headerParagraph.setAlignment(Element.ALIGN_CENTER);
+							headerParagraph.getFont().setStyle(Font.NORMAL);
+							cell = new PdfPCell(headerParagraph);
+							cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+							table.addCell(cell);
+				
+						}
+		            }
+	            //table.addCell(monthReportBean.getMonthName().toUpperCase());
+	        
+	        	if(monthReportBean.getMonthName().toUpperCase().equalsIgnoreCase("")){
+	        		 table.addCell(demoCreatetable(monthReportBean.getCurrentOpportunitiesReportGenerationBeanList()));
+	        	}else{
+	        		 table.addCell(createtable(monthReportBean.getCurrentOpportunitiesReportGenerationBeanList()));
+	        	}
+	        
 	        }
 	        document.add(table);
 	 }
@@ -138,9 +169,7 @@ public class PdfTestingViewModel {
 	 		headerTable.setWidthPercentage(96);
 			
 	 		headerTable.getDefaultCell().setBorder(PdfPCell.NO_BORDER);
-	 		//headerTable.setSpacingBefore(10f);
-	        //headerTable.setSpacingAfter(5f);
-
+	 		
 	        for (int index = 0; index < headerLabes.length; index++) {         	
 	 			PdfPCell cell;
 	 			Paragraph headerParagraph = new Paragraph(headerLabes[index]);
@@ -180,20 +209,64 @@ public class PdfTestingViewModel {
 		 		    } 
 	 		 
 	 		 
-	 		 cell_3: {
+	 	    cell_3: {
 			 			PdfPCell cell;
-
-			 			Paragraph headerParagraph = new Paragraph(String.valueOf(bean.getCurrentOpportunitiesReportBean().getResourceSallary()));
-			 			headerParagraph.getFont().setSize(5f);
-			 			headerParagraph.setAlignment(Element.ALIGN_CENTER);
-			 			headerParagraph.getFont().setStyle(Font.NORMAL);
-			 			cell = new PdfPCell(headerParagraph);
-			 			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-			 			headerTable.addCell(cell);
-			 		 }
+                        if(bean.getCurrentOpportunitiesBean().getMargin()!=null){
+                        	Paragraph headerParagraph = new Paragraph(String.valueOf(bean.getCurrentOpportunitiesBean().getMargin()));
+    			 			headerParagraph.getFont().setSize(5f);
+    			 			headerParagraph.setAlignment(Element.ALIGN_CENTER);
+    			 			headerParagraph.getFont().setStyle(Font.NORMAL);
+    			 			cell = new PdfPCell(headerParagraph);
+    			 			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+    			 			headerTable.addCell(cell);
+                        }else{
+                        	Paragraph headerParagraph = new Paragraph("TOATL: "+String.valueOf(bean.getCurrentOpportunitiesBean().getMarginTotal()));
+    			 			headerParagraph.getFont().setSize(5f);
+    			 			headerParagraph.setAlignment(Element.ALIGN_CENTER);
+    			 			headerParagraph.getFont().setStyle(Font.NORMAL);
+    			 			cell = new PdfPCell(headerParagraph);
+    			 			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+    			 			headerTable.addCell(cell);
+                        }
+			 		}
 	          }
 			return headerTable;
 		}
+	 
+	 public static PdfPTable demoCreatetable(ArrayList<CurrentOpportunitiesReportGenerationBean> monthWiseDataList) throws Exception{
+			String[] headerLabes = {""};
+			float[]	widths = {20F};
+	 		PdfPTable headerTable = new PdfPTable(widths);
+	 		headerTable.setWidthPercentage(96);
+			
+	 		headerTable.getDefaultCell().setBorder(PdfPCell.NO_BORDER);
+	 		
+	        for (int index = 0; index < headerLabes.length; index++) {         	
+	 			PdfPCell cell;
+	 			Paragraph headerParagraph = new Paragraph(headerLabes[index]);
+	 			headerParagraph.getFont().setSize(5f);
+	 			headerParagraph.getFont().setStyle(Font.BOLD);
+	 			cell = new PdfPCell(headerParagraph);
+	 			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+	 			headerTable.addCell(cell);
+	 		}
+	 		
+	        for(CurrentOpportunitiesReportGenerationBean bean : monthWiseDataList){
+	 		           cell_1: {
+			 			PdfPCell cell;
+	                    if(bean.getCurrentOpportunitiesBean().getMarginString()!=null){
+	                    	Paragraph headerParagraph = new Paragraph(String.valueOf(bean.getCurrentOpportunitiesBean().getMarginString()));
+				 			headerParagraph.getFont().setSize(10f);
+				 			headerParagraph.setAlignment(Element.ALIGN_CENTER);
+				 			headerParagraph.getFont().setStyle(Font.BOLDITALIC);
+				 			cell = new PdfPCell(headerParagraph);
+				 			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				 			headerTable.addCell(cell);
+	                    }
+			 		}
+	          }
+			return headerTable;
+		} 
 	 
 	public static PdfPTable createtableForResource(ArrayList<CurrentOpportunitiesReportGenerationBean> monthWiseDataList) throws Exception{
 		String[] headerLabes = {"Resource Name","Client Name","Margin"};
@@ -202,9 +275,7 @@ public class PdfTestingViewModel {
  		headerTable.setWidthPercentage(96);
 		
  		headerTable.getDefaultCell().setBorder(PdfPCell.NO_BORDER);
- 		//headerTable.setSpacingBefore(10f);
-        //headerTable.setSpacingAfter(5f);
-
+ 		
         for (int index = 0; index < headerLabes.length; index++) {         	
  			PdfPCell cell;
  			Paragraph headerParagraph = new Paragraph(headerLabes[index]);
@@ -216,6 +287,7 @@ public class PdfTestingViewModel {
  		}
  		
         for(CurrentOpportunitiesReportGenerationBean bean : monthWiseDataList){
+        	
         	 cell_1: {
  					PdfPCell cell;
  				
@@ -244,34 +316,111 @@ public class PdfTestingViewModel {
 	 		    } 
  		 
  		 
- 		 cell_3: {
+ 		cell_3: {
 		 			PdfPCell cell;
-
-		 			Paragraph headerParagraph = new Paragraph(String.valueOf(bean.getCurrentOpportunitiesReportBean().getResourceSallary()));
-		 			headerParagraph.getFont().setSize(5f);
-		 			headerParagraph.setAlignment(Element.ALIGN_CENTER);
-		 			headerParagraph.getFont().setStyle(Font.NORMAL);
-		 			cell = new PdfPCell(headerParagraph);
-		 			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-		 			headerTable.addCell(cell);
-		 		 }
+                    if(bean.getCurrentOpportunitiesBean().getMargin()!=null){
+                    	Paragraph headerParagraph = new Paragraph(String.valueOf(bean.getCurrentOpportunitiesBean().getMargin()));
+			 			headerParagraph.getFont().setSize(5f);
+			 			headerParagraph.setAlignment(Element.ALIGN_CENTER);
+			 			headerParagraph.getFont().setStyle(Font.NORMAL);
+			 			cell = new PdfPCell(headerParagraph);
+			 			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			 			headerTable.addCell(cell);
+                    }else{
+                    	Paragraph headerParagraph = new Paragraph("TOTAL: "+String.valueOf(bean.getCurrentOpportunitiesBean().getMarginTotal()));
+			 			headerParagraph.getFont().setSize(5f);
+			 			headerParagraph.setAlignment(Element.ALIGN_CENTER);
+			 			headerParagraph.getFont().setStyle(Font.NORMAL);
+			 			cell = new PdfPCell(headerParagraph);
+			 			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			 			headerTable.addCell(cell);
+                    }
+		 		}
+          }
+		return headerTable;
+	}
+	
+	
+	public static PdfPTable demoCreatetableForResource(ArrayList<CurrentOpportunitiesReportGenerationBean> monthWiseDataList) throws Exception{
+		String[] headerLabes = {""};
+		float[]	widths = {20F};
+ 		PdfPTable headerTable = new PdfPTable(widths);
+ 		headerTable.setWidthPercentage(96);
+		
+ 		headerTable.getDefaultCell().setBorder(PdfPCell.NO_BORDER);
+ 		
+        for (int index = 0; index < headerLabes.length; index++) {         	
+ 			PdfPCell cell;
+ 			Paragraph headerParagraph = new Paragraph(headerLabes[index]);
+ 			headerParagraph.getFont().setSize(5f);
+ 			headerParagraph.getFont().setStyle(Font.BOLD);
+ 			cell = new PdfPCell(headerParagraph);
+ 			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+ 			headerTable.addCell(cell);
+ 		}
+ 		
+        for(CurrentOpportunitiesReportGenerationBean bean : monthWiseDataList){
+ 		           cell_1: {
+		 			PdfPCell cell;
+                    if(bean.getCurrentOpportunitiesBean().getMarginString()!=null){
+                    	Paragraph headerParagraph = new Paragraph(String.valueOf(bean.getCurrentOpportunitiesBean().getMarginString()));
+			 			headerParagraph.getFont().setSize(10f);
+			 			headerParagraph.setAlignment(Element.ALIGN_CENTER);
+			 			headerParagraph.getFont().setStyle(Font.BOLDITALIC);
+			 			cell = new PdfPCell(headerParagraph);
+			 			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			 			headerTable.addCell(cell);
+                    }
+		 		}
           }
 		return headerTable;
 	}
 	 
-	 public void createPdfHeaderForResource(String name, ArrayList<MonthReportBean> list) throws Exception {
+	 public void createPdfHeaderForResource(String name, LinkedHashSet<MonthReportBean> list) throws Exception {
 		 System.out.println("INSIDE METHOD list size::: "+list.size() );
 	        PdfPTable table = new PdfPTable(2);
 	        table.setSplitLate(false);
 	        table.setWidths(new int[]{10, 15});
 	        for (MonthReportBean monthReportBean : list) {
-	            table.addCell(monthReportBean.getMonthName().toUpperCase());
-	            table.addCell(createtableForResource(monthReportBean.getCurrentOpportunitiesReportGenerationBeanList()));
+	        	cell_1: {
+	        		PdfPCell cell;
+				
+	        		if(monthReportBean.getMonthName().toUpperCase().equalsIgnoreCase("")){
+	        			Paragraph headerParagraph = new Paragraph("");
+	        			headerParagraph.getFont().setSize(10f);
+		        		headerParagraph.setAlignment(Element.ALIGN_CENTER);
+		        		headerParagraph.getFont().setStyle(Font.NORMAL);
+		        		cell = new PdfPCell(headerParagraph);
+		        		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+		        		table.addCell(cell);
+	        		}else{
+	        			Paragraph headerParagraph = new Paragraph(monthReportBean.getMonthName().toUpperCase());
+	        			headerParagraph.getFont().setSize(10f);
+		        		headerParagraph.setAlignment(Element.ALIGN_CENTER);
+		        		headerParagraph.getFont().setStyle(Font.NORMAL);
+		        		cell = new PdfPCell(headerParagraph);
+		        		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+		        		table.addCell(cell);
+	        		}
+	        		//Paragraph headerParagraph = new Paragraph(monthReportBean.getMonthName().toUpperCase());
+	    
+	            }
+	        	
+	            //table.addCell(monthReportBean.getMonthName().toUpperCase());
+	        
+	            if(monthReportBean.getMonthName().toUpperCase().equalsIgnoreCase("")){
+	            	table.addCell(demoCreatetableForResource(monthReportBean.getCurrentOpportunitiesReportGenerationBeanList()));
+	            }else{
+	            	table.addCell(createtableForResource(monthReportBean.getCurrentOpportunitiesReportGenerationBeanList()));
+	            }
+	            
 	        }
 	        document.add(table);
 	 }
 
-
+    
+	/********************************************************** GETTER AND SETTER METHOD ***************************************************************/ 
+	 
 	public String getFilePath() {
 		return filePath;
 	}
@@ -301,5 +450,11 @@ public class PdfTestingViewModel {
 	}
 	public void setPrintDate(String printDate) {
 		this.printDate = printDate;
+	}
+	public LinkedHashSet<MonthReportBean> getFinalList() {
+		return finalList;
+	}
+	public void setFinalList(LinkedHashSet<MonthReportBean> finalList) {
+		this.finalList = finalList;
 	}
 }

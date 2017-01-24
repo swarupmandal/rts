@@ -13,6 +13,11 @@ public class CurrentOpportunitiesSql {
 	
 	public static final String fetchClientIdSql = "select client_id from rts_user_client_mapper where user_id = ? ";
 	
+	public static final String countTreatSql = "select count(*) from rts_user_client_mapper a1,rts_clients_master a2 "
+											  +"where a1.client_id = a2.id "
+											  +"and a2.clientname like ? "
+											  +"and a1.user_id like ? " ;
+	
 	public static final String insertTrackingSql = "INSERT INTO rts_req_res_status_tracking_details(rts_req_res_status_tracking_id, tenure_from, "
                                                    +"tenure_to, charge_out_rate, resource_salary, margin, approval_status,approvar_person,user_id) "
                                                    +"VALUES (?,?,?,?,?,?,?,?,?) ";
@@ -22,6 +27,8 @@ public class CurrentOpportunitiesSql {
 	public static final String fetchCountTrackingIdSql = "select count(*) from rts_tracking_details where rts_req_res_status_tracking_id = ? ";
 	
 	public static final String deleteTrackingIdSql = "delete from rts_req_res_status_tracking_details where rts_req_res_status_tracking_id = ? ";
+	
+	public static final String countTrackingIdSql = "select count(*) from rts_req_res_status_tracking_details where rts_req_res_status_tracking_id = ? ";
 	
 	public static final String updateDetailsTableSql = "update rts_req_res_status_tracking_details set approval_status = ? where rts_req_res_status_tracking_id = ? ";
 	

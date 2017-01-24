@@ -1,6 +1,6 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="REQUIREMENT GENERATION" border="none" apply="org.zkoss.bind.BindComposer" height="550px"
+<window title="Requirement Generation" border="none" apply="org.zkoss.bind.BindComposer" height="550px"
             								viewModel="@id('vm') @init('org.appsquad.viewmodel.RequirementGenerationViewModel')">
 	<tabbox>
 		<tabs>

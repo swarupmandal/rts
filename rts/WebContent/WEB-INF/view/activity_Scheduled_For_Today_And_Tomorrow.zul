@@ -1,25 +1,29 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="ACTIVITY SCHEDULED FOR TODAY TOMORROW REPORT" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('org.appsquad.viewmodel.ActivityScheduledTodayTomorrowViewModel')">
+<window title="Scheduled For Today And Tomorrow Report" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('org.appsquad.viewmodel.ActivityScheduledTodayTomorrowViewModel')">
                          <div visible="@bind(vm.divVisibility)">
                            <grid model="@bind(vm.todayTomorrowList)" mold="paging" pageSize="5" sclass="fgrid" height="460px">
                                <columns>
-                                    <column label="Task Name" align="center" width="300px"/>
+                                    <column label="Task Name" align="center" width="200px"/>
                                     <column label="Assigned By" align="center"/>
-                                    <column label="Person Responsible" align="center"/>
+                                    <column label="Person Responsible" align="center" width="140px"/>
                                     <column label="Creation Date" align="center"/>
                                     <column label="Schedule Date" align="center"/>
+                                    <column label="Completion Date" align="center"/>
                                     <column label="Status" align="center"/>
+                                    <column label="Action" align="center"/>
                                </columns>
                                <rows>
                                    <template name="model" var="v">
                                    <row>
-                                       <textbox rows="4" width="98%" value="@bind(v.taskName)" readonly="true" tooltiptext="@bind(v.taskName)"></textbox>
+                                       <textbox rows="2" width="98%" value="@bind(v.taskDescription)" readonly="true" tooltiptext="@bind(v.taskDescription)"></textbox>
                                        <label width="98%" value="@bind(v.assignedByUserId)" tooltiptext="@bind(v.assignedByUserId)"></label>
                                        <label width="98%" value="@bind(v.userprofileBean.userid)" tooltiptext="@bind(v.userprofileBean.userid)"></label>
                                        <label value="@bind(v.createdDateStr)" width="98%" tooltiptext="@bind(v.createdDateStr)"></label>
                                        <label value="@bind(v.scheduledDateStr)" width="98%" tooltiptext="@bind(v.scheduledDateStr)"></label>
+                                       <label value="@bind(v.actualCompletionDateStr)" width="98%" tooltiptext="@bind(v.actualCompletionDateStr)"></label>
                                        <label value="@bind(v.status)" width="98%" tooltiptext="@bind(v.status)"></label>
+                                       <image src="images/click.jpg" width="60px" onClick="@command('onClickImage', bean = v)"></image>
                                    </row>
                                    </template>
                                </rows>

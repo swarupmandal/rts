@@ -26,7 +26,7 @@ public class TaskNameDao {
 					 sql:{
 					    PreparedStatement preparedStatementInsert = null;
 					    try{
-					    	String sql = "INSERT INTO rts_task_details(task_name,assigned_by,assigned_to,created_date,venue,scheduled_date,actual_completion_date,status,remarks_or_results) VALUES(?,?,?,NOW(),?,?,?,?,?) ";
+					    	String sql = "INSERT INTO rts_task_details(task_name,assigned_by,assigned_to,created_date,venue,scheduled_date,actual_completion_date,status,remarks_or_results,task_details) VALUES(?,?,?,NOW(),?,?,?,?,?,?) ";
 					    	preparedStatementInsert = connection.prepareStatement(sql);
 					    	preparedStatementInsert.setString(1, taskNameBean.getTaskName());
 					    	preparedStatementInsert.setString(2, taskNameBean.getAssignedByUserId());
@@ -36,6 +36,7 @@ public class TaskNameDao {
 					    	preparedStatementInsert.setDate(6, taskNameBean.getActualCompletionDateSql());
 					    	preparedStatementInsert.setString(7, taskNameBean.getStatus());
 					    	preparedStatementInsert.setString(8, taskNameBean.getRemarksOrResults());
+					    	preparedStatementInsert.setString(9, taskNameBean.getTaskDescription());
 					    	int i = preparedStatementInsert.executeUpdate();
 					    	if(i>0){
 					    		isSaved = true;
@@ -94,6 +95,7 @@ public class TaskNameDao {
 						    	    taskNameBean.setRemarksOrResults(resultSet.getString("remarks_or_results"));
 						    	    taskNameBean.setScheduledDateStr(resultSet.getString("schedl_date"));
 						    	    taskNameBean.setActualCompletionDateStr(resultSet.getString("completion_date"));
+						    	    taskNameBean.setTaskDescription(resultSet.getString("task_details"));
 						    	    
 						    	    detailsList.add(taskNameBean);
 						    	}
@@ -128,7 +130,7 @@ public class TaskNameDao {
 						    PreparedStatement preparedStatementFetch = null;
 						    try{
 						    	String sql = "select * from vw_rts_task_details where assigned_to = ?"
-						    			+ " or assigned_by = ? order by rts_task_id desc";
+						    			+ " or assigned_by = ? order by rts_task_id";
 						    	preparedStatementFetch = connection.prepareStatement(sql);
 						    	preparedStatementFetch.setString(1, userId);
 						    	preparedStatementFetch.setString(2, userId);
@@ -153,7 +155,10 @@ public class TaskNameDao {
 						    	    taskNameBean.setScheduledDateStr(resultSet.getString("schedl_date"));
 						    	    taskNameBean.setActualCompletionDateStr(resultSet.getString("completion_date"));
 						    	    taskNameBean.setActualCompletionDate(resultSet.getDate("completion_date"));
-						    	    detailsList.add(taskNameBean);
+						    	    taskNameBean.setTaskDescription(resultSet.getString("task_details"));
+						    	    if(!(statusBean.getTaskStatusId()==4)){
+							    	    detailsList.add(taskNameBean);	
+						    	    }
 						    	}
 						    }finally{
 						    	if(preparedStatementFetch!=null){
@@ -187,9 +192,10 @@ public class TaskNameDao {
 						    PreparedStatement preparedStatementFetch = null;
 						    try{
 						    	String sql = "select * from vw_rts_task_details where assigned_by = ? "
-						    			+ "order by rts_task_id desc";
+						    			+ "order by rts_task_id ";
 						    	preparedStatementFetch = connection.prepareStatement(sql);
 						    	preparedStatementFetch.setString(1, userId);
+						    	System.out.println(preparedStatementFetch.toString());
 						    	ResultSet resultSet = preparedStatementFetch.executeQuery();
 						    	while(resultSet.next()){
 						    	    TaskNameBean taskNameBean = new TaskNameBean();
@@ -211,6 +217,7 @@ public class TaskNameDao {
 						    	    taskNameBean.setScheduledDateStr(resultSet.getString("schedl_date"));
 						    	    taskNameBean.setActualCompletionDateStr(resultSet.getString("completion_date"));
 						    	    taskNameBean.setActualCompletionDate(resultSet.getDate("completion_date"));
+						    	    taskNameBean.setTaskDescription(resultSet.getString("task_details"));
 						    	    detailsList.add(taskNameBean);
 						    	}
 						    }finally{
@@ -305,7 +312,7 @@ public class TaskNameDao {
 						 sql:{
 						    PreparedStatement preparedStatementFetch = null;
 						    try{
-						    	String sql = "select * from vw_rts_task_details ";
+						    	String sql = "select * from vw_rts_task_details order by rts_task_id ";
 						    	System.out.println("SQL FOR Schedule DateWise Report :"+sql);
 						    	preparedStatementFetch = connection.prepareStatement(sql);
 						    	ResultSet resultSet = preparedStatementFetch.executeQuery();
@@ -321,6 +328,7 @@ public class TaskNameDao {
 						    	    taskNameBean.setRemarksOrResults(resultSet.getString("remarks_or_results"));
 						    	    taskNameBean.setScheduledDateStr(resultSet.getString("schedl_date"));
 						    	    taskNameBean.setActualCompletionDateStr(resultSet.getString("completion_date"));
+						    	    taskNameBean.setTaskDescription(resultSet.getString("task_details"));
 						    	    
 						    	    detailsList.add(taskNameBean);
 						    	}
@@ -346,7 +354,7 @@ public class TaskNameDao {
 	   }
 	   
 	   
-	   public static ArrayList<TaskNameBean> fetchTaskDeatilsForScheduleDateWiseReportForAssignerBy(String name){
+	   public static ArrayList<TaskNameBean> fetchTaskDeatilsForScheduleDateWiseReportForAssignerBy(String name,java.sql.Date fromDate, java.sql.Date toDate){
 		   ArrayList<TaskNameBean> detailsList = new ArrayList<TaskNameBean>();
 		   try {
 				 Connection connection = DbConnection.createConnection();
@@ -356,10 +364,12 @@ public class TaskNameDao {
 						 sql:{
 						    PreparedStatement preparedStatementFetch = null;
 						    try{
-						    	String sql = "select * from vw_rts_task_details where assigned_by like ? ";
+						    	String sql = "select * from vw_rts_task_details where assigned_by like ? and scheduled_date >=? and  scheduled_date <=? order by rts_task_id ";
 						    	System.out.println("SQL FOR Schedule DateWise Report :"+sql);
 						    	preparedStatementFetch = connection.prepareStatement(sql);
 						    	preparedStatementFetch.setString(1, "%"+name+"%");
+						    	preparedStatementFetch.setDate(2, fromDate);
+						    	preparedStatementFetch.setDate(3, toDate);
 						    	ResultSet resultSet = preparedStatementFetch.executeQuery();
 						    	while(resultSet.next()){
 						    	    TaskNameBean taskNameBean = new TaskNameBean();
@@ -373,6 +383,7 @@ public class TaskNameDao {
 						    	    taskNameBean.setRemarksOrResults(resultSet.getString("remarks_or_results"));
 						    	    taskNameBean.setScheduledDateStr(resultSet.getString("schedl_date"));
 						    	    taskNameBean.setActualCompletionDateStr(resultSet.getString("completion_date"));
+						    	    taskNameBean.setTaskDescription(resultSet.getString("task_details"));
 						    	    
 						    	    detailsList.add(taskNameBean);
 						    	}
@@ -397,7 +408,7 @@ public class TaskNameDao {
 		  return detailsList;
 	   }
 	   
-	   public static ArrayList<TaskNameBean> fetchTaskDeatilsForScheduleDateWiseReportForAssignerTo(String name){
+	   public static ArrayList<TaskNameBean> fetchTaskDeatilsForScheduleDateWiseReportForAssignerTo(String name,java.sql.Date fromDate, java.sql.Date toDate){
 		   ArrayList<TaskNameBean> detailsList = new ArrayList<TaskNameBean>();
 		   try {
 				 Connection connection = DbConnection.createConnection();
@@ -407,10 +418,12 @@ public class TaskNameDao {
 						 sql:{
 						    PreparedStatement preparedStatementFetch = null;
 						    try{
-						    	String sql = "select * from vw_rts_task_details where assigned_to like ? ";
+						    	String sql = "select * from vw_rts_task_details where assigned_to like ? and scheduled_date >=? and  scheduled_date <=? order by rts_task_id ";
 						    	System.out.println("SQL FOR Schedule DateWise Report :"+sql);
 						    	preparedStatementFetch = connection.prepareStatement(sql);
 						    	preparedStatementFetch.setString(1, "%"+name+"%");
+						    	preparedStatementFetch.setDate(2, fromDate);
+						    	preparedStatementFetch.setDate(3, toDate);
 						    	ResultSet resultSet = preparedStatementFetch.executeQuery();
 						    	while(resultSet.next()){
 						    	    TaskNameBean taskNameBean = new TaskNameBean();
@@ -424,6 +437,7 @@ public class TaskNameDao {
 						    	    taskNameBean.setRemarksOrResults(resultSet.getString("remarks_or_results"));
 						    	    taskNameBean.setScheduledDateStr(resultSet.getString("schedl_date"));
 						    	    taskNameBean.setActualCompletionDateStr(resultSet.getString("completion_date"));
+						    	    taskNameBean.setTaskDescription(resultSet.getString("task_details"));
 						    	    
 						    	    detailsList.add(taskNameBean);
 						    	}
@@ -459,7 +473,7 @@ public class TaskNameDao {
 						 sql:{
 						    PreparedStatement preparedStatementFetch = null;
 						    try{
-						    	String sql = "select * from vw_rts_task_details where creation_date >=? and  creation_date <=? ";
+						    	String sql = "select * from vw_rts_task_details where scheduled_date >=? and  scheduled_date <=? order by rts_task_id ";
 						    	System.out.println("SQL FOR Schedule DateWise Report :"+sql);
 						    	preparedStatementFetch = connection.prepareStatement(sql);
 						    	preparedStatementFetch.setDate(1, fromDate);
@@ -477,6 +491,7 @@ public class TaskNameDao {
 						    	    taskNameBean.setRemarksOrResults(resultSet.getString("remarks_or_results"));
 						    	    taskNameBean.setScheduledDateStr(resultSet.getString("schedl_date"));
 						    	    taskNameBean.setActualCompletionDateStr(resultSet.getString("completion_date"));
+						    	    taskNameBean.setTaskDescription(resultSet.getString("task_details"));
 						    	    
 						    	    detailsList.add(taskNameBean);
 						    	}
@@ -513,13 +528,14 @@ public class TaskNameDao {
 						 sql:{
 						    PreparedStatement preparedStatementFetch = null;
 						    try{
-						    	String sql = "select * from vw_rts_task_details where creation_date >=? and  creation_date <=? and assigned_by like ? and assigned_to like ? ";
+						    	String sql = "select * from vw_rts_task_details where scheduled_date >=? and  scheduled_date <=? and assigned_by like ? and assigned_to like ? order by rts_task_id ";
 						    	System.out.println("SQL FOR Schedule DateWise Report :"+sql);
 						    	preparedStatementFetch = connection.prepareStatement(sql);
 						    	preparedStatementFetch.setDate(1, fromDate);
 						    	preparedStatementFetch.setDate(2, toDate);
 						    	preparedStatementFetch.setString(3, "%"+name+"%");
 						    	preparedStatementFetch.setString(4, "%"+another+"%");
+						    	System.out.println(preparedStatementFetch);
 						    	ResultSet resultSet = preparedStatementFetch.executeQuery();
 						    	while(resultSet.next()){
 						    	    TaskNameBean taskNameBean = new TaskNameBean();
@@ -533,6 +549,7 @@ public class TaskNameDao {
 						    	    taskNameBean.setRemarksOrResults(resultSet.getString("remarks_or_results"));
 						    	    taskNameBean.setScheduledDateStr(resultSet.getString("schedl_date"));
 						    	    taskNameBean.setActualCompletionDateStr(resultSet.getString("completion_date"));
+						    	    taskNameBean.setTaskDescription(resultSet.getString("task_details"));
 						    	    
 						    	    detailsList.add(taskNameBean);
 						    	}
@@ -621,7 +638,7 @@ public class TaskNameDao {
 						 sql:{
 						    PreparedStatement preparedStatementFetch = null;
 						    try{
-						    	String sql = "select * from vw_rts_task_details ";
+						    	String sql = "select * from vw_rts_task_details order by rts_task_id ";
 						    	System.out.println("SQL FOR Schedule DateWise Report :"+sql);
 						    	preparedStatementFetch = connection.prepareStatement(sql);
 						    	ResultSet resultSet = preparedStatementFetch.executeQuery();
@@ -637,6 +654,7 @@ public class TaskNameDao {
 						    	    taskNameBean.setRemarksOrResults(resultSet.getString("remarks_or_results"));
 						    	    taskNameBean.setScheduledDateStr(resultSet.getString("schedl_date"));
 						    	    taskNameBean.setActualCompletionDateStr(resultSet.getString("completion_date"));
+						    	    taskNameBean.setTaskDescription(resultSet.getString("task_details"));
 						    	    System.out.println(taskNameBean.getScheduledDateStr());
 						    	    int week = TaskNameDao.calculateWeekStatusOfTask(connection, taskNameBean.getScheduledDateStr());
 						    	    System.out.println("CALCULATING WEEK IS :"+week);
@@ -700,7 +718,7 @@ public class TaskNameDao {
 						 sql:{
 						    PreparedStatement preparedStatementFetch = null;
 						    try{
-						    	String sql = "select * from vw_rts_task_details ";
+						    	String sql = "select * from vw_rts_task_details order by rts_task_id ";
 						    	System.out.println("SQL FOR Schedule DateWise Report :"+sql);
 						    	preparedStatementFetch = connection.prepareStatement(sql);
 						    	ResultSet resultSet = preparedStatementFetch.executeQuery();
@@ -716,6 +734,7 @@ public class TaskNameDao {
 						    	    taskNameBean.setRemarksOrResults(resultSet.getString("remarks_or_results"));
 						    	    taskNameBean.setScheduledDateStr(resultSet.getString("schedl_date"));
 						    	    taskNameBean.setActualCompletionDateStr(resultSet.getString("completion_date"));
+						    	    taskNameBean.setTaskDescription(resultSet.getString("task_details"));
 						    	    int month = TaskNameDao.calculateMonthStatusOfTask(connection, taskNameBean.getScheduledDateStr());
 						    	    System.out.println("CALCULATING MONTH IS :"+month);
 						    	    if(month<0 || month==0){

@@ -20,13 +20,13 @@ import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.Sessions;
+import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
 public class TaskModifyViewModel {
-
 	private Connection connection = null;
 	private Session sessions = null;
 	private String userName ;
@@ -81,7 +81,6 @@ public class TaskModifyViewModel {
 			win.detach();
 			BindUtils.postGlobalCommand(null, null, "globalReload", null);
 		}
-		
 	}
 	
 	public boolean isValidCompletionData(){
@@ -98,101 +97,86 @@ public class TaskModifyViewModel {
 		}
 	}
 	
+	@Command
+	@NotifyChange("*")
+	public void onCloseModify(@ContextParam(ContextType.TRIGGER_EVENT)Event e){
+		win.detach();
+		BindUtils.postGlobalCommand(null, null, "globalReload", null);
+	}
+	
+	
+	/***************************************************************** GETTER AND SETTER ****************************************************************/
+	
 	public Connection getConnection() {
 		return connection;
 	}
-
 	public void setConnection(Connection connection) {
 		this.connection = connection;
 	}
-
 	public Session getSessions() {
 		return sessions;
 	}
-
 	public void setSessions(Session sessions) {
 		this.sessions = sessions;
 	}
-
 	public String getUserName() {
 		return userName;
 	}
-
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-
 	public String getUserId() {
 		return userId;
 	}
-
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-
 	public String getDateString() {
 		return dateString;
 	}
-
 	public void setDateString(String dateString) {
 		this.dateString = dateString;
 	}
-
 	public TaskNameBean getTaskBean() {
 		return taskBean;
 	}
-
 	public void setTaskBean(TaskNameBean taskBean) {
 		this.taskBean = taskBean;
 	}
-
 	public ArrayList<TaskNameBean> getTaskDetailsList() {
 		return taskDetailsList;
 	}
-
 	public void setTaskDetailsList(ArrayList<TaskNameBean> taskDetailsList) {
 		this.taskDetailsList = taskDetailsList;
 	}
-
 	public ArrayList<UserprofileBean> getUserList() {
 		return userList;
 	}
-
 	public void setUserList(ArrayList<UserprofileBean> userList) {
 		this.userList = userList;
 	}
-
 	public TaskStatusBean getTaskStatusBean() {
 		return taskStatusBean;
 	}
-
 	public void setTaskStatusBean(TaskStatusBean taskStatusBean) {
 		this.taskStatusBean = taskStatusBean;
 	}
-
 	public ArrayList<TaskStatusBean> getTaskStatusBeanList() {
 		return taskStatusBeanList;
 	}
-
 	public void setTaskStatusBeanList(ArrayList<TaskStatusBean> taskStatusBeanList) {
 		this.taskStatusBeanList = taskStatusBeanList;
 	}
-
 	public Window getWin() {
 		return win;
 	}
-
 	public void setWin(Window win) {
 		this.win = win;
 	}
-
 	public boolean isUpdateButtonDisability() {
 		return updateButtonDisability;
 	}
-
 	public void setUpdateButtonDisability(boolean updateButtonDisability) {
 		this.updateButtonDisability = updateButtonDisability;
 	}
-	
-	
 }

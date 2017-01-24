@@ -318,13 +318,14 @@ public class ResourceMasterViewModel {
          fileName = media.getName();
          filePath = filePath + finalName;
          resourceMasterBean.setFilePath(filePath);
+         resourceMasterBean.setFileName(media.getName());
          //resourceMasterBean.setFileContent(media.getByteData());
          //System.out.println("FILE CONTENT IS :"+resourceMasterBean.getFileContent());
 	   }
 	}
 	
 	
-	/***************************************************Getter And Setter Method ****************************************************************/
+	/******************************************************** Getter And Setter Method ****************************************************************/
 	
 	public ResourceMasterBean getResourceMasterBean() {
 		return resourceMasterBean;

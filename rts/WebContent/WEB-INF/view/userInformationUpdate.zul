@@ -1,8 +1,8 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
- <window apply="org.zkoss.bind.BindComposer" title="USER PROFILE INFORMATION" 
-        viewModel="@id('vm') @init('org.appsquad.viewmodel.UserProfileUpdateViewModel')" id="winUserProfile" closable="true"
-          height="350px" width="600px" onClose="@command('onCloseOperation')">
+ <window apply="org.zkoss.bind.BindComposer" title="User Profile Update" 
+        			viewModel="@id('vm') @init('org.appsquad.viewmodel.UserProfileUpdateViewModel')" id="winUserProfile" closable="true"
+          				height="350px" width="600px" onClose="@command('onCloseOperation')">
       			
       			<div>
                            <grid>

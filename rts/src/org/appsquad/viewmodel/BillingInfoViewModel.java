@@ -7,8 +7,10 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+
 import org.appsquad.bean.CurrentOpportunitiesReportBean;
 import org.appsquad.dao.CurrentOpportunitiesReportDao;
+import org.appsquad.service.CurrentOpportunitiesService;
 import org.zkoss.bind.BindContext;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
@@ -45,6 +47,7 @@ public class BillingInfoViewModel {
     
     public ArrayList<String> monthList = null;
     public ArrayList<String> yearList = null;
+    private int arrayIndex = 0;
     
     public CurrentOpportunitiesReportBean  opportunitiesReportBean = null;
     private ArrayList<CurrentOpportunitiesReportBean> reportGridList = new ArrayList<CurrentOpportunitiesReportBean>();
@@ -59,9 +62,12 @@ public class BillingInfoViewModel {
 		Selectors.wireComponents(view, this, false);	
 		sessions = Sessions.getCurrent();
 		opportunitiesReportBean = bean;
-		reportGridList = CurrentOpportunitiesReportDao.fetchBillingDetailsWrtTrackingDetailsId(opportunitiesReportBean.getTrackingDetailsId());
+		opportunitiesReportBean.setModalTitle("Billing Info -( RID: "+opportunitiesReportBean.getRequirementGenerationBean().getRequirementId()+"-"+"Client Name: "+opportunitiesReportBean.getClientInformationBean().getFullName()+"-"+"Resource Name: "+opportunitiesReportBean.getResourceMasterBean().getFullName()+")");
+		reportGridList = CurrentOpportunitiesReportDao.fetchBillingDetailsWrtTrackingDetailsId(opportunitiesReportBean.getTrackingDetailsId(),arrayIndex);
 		if(reportGridList.size()>0){
 			System.out.println("fetched");
+			arrayIndex = (lastIndex(reportGridList)+1);
+			System.out.println("in init method ::::"+arrayIndex);
 		}else{
 			populateGrid();
 		}
@@ -70,16 +76,30 @@ public class BillingInfoViewModel {
 		yearList = CurrentOpportunitiesReportDao.loadAllYears();
 	}
     
+    public int lastIndex(ArrayList<CurrentOpportunitiesReportBean> list){
+    	int id = 0;
+    	for(CurrentOpportunitiesReportBean bean: list){
+    		 id = arrayIndex; 
+			 arrayIndex++;
+    	}
+    	return id;
+    }
+    
     public void populateGrid(){
     	for(int i=1;i<2;i++){
-    		reportGridList.add(new CurrentOpportunitiesReportBean());
+    		CurrentOpportunitiesReportBean bean = new CurrentOpportunitiesReportBean();
+    		bean.listIndexOf = arrayIndex;
+			arrayIndex++;
+			System.out.println("IN ADD ROW METHOD ::::"+bean.getListIndexOf());
+    		reportGridList.add(bean);
     	}
     }
     
     @Command
    	@NotifyChange("*")
    	public void onUploadSecondFile(@ContextParam(ContextType.BIND_CONTEXT) BindContext bindContext,
-   			 @BindingParam("bean") CurrentOpportunitiesReportBean reportBean) throws Exception{
+   			 														@BindingParam("bean") CurrentOpportunitiesReportBean reportBean) throws Exception
+    {
    		UploadEvent uploadEvent = null;
    		Object objUpEvent = bindContext.getTriggerEvent();
    		if (objUpEvent != null && (objUpEvent instanceof UploadEvent)) {
@@ -116,11 +136,23 @@ public class BillingInfoViewModel {
    	   }
    	}
     
+    @Command
+    @NotifyChange("*")
+    public void checkChequeNumber(@BindingParam("bean") CurrentOpportunitiesReportBean reportBean){
+    	if(reportBean.getChqDetailsValue()!=null){
+    		if(reportBean.getChqDetailsValue()>0){
+        		reportBean.setPaid("Yes");
+        	}else{
+        		reportBean.setPaid("No");
+        	}	
+    	}
+    }
     
     @Command
    	@NotifyChange("*")
    	public void onUploadFile(@ContextParam(ContextType.BIND_CONTEXT) BindContext bindContext,
-   							@BindingParam("bean")CurrentOpportunitiesReportBean cBean) throws Exception{
+   																			@BindingParam("bean")CurrentOpportunitiesReportBean cBean) throws Exception
+    {
     	System.out.println("c: "+cBean.getYear());
     	cBean.setSecondButtonDisable(false);
    		UploadEvent uploadEvent = null;
@@ -166,13 +198,13 @@ public class BillingInfoViewModel {
     public void addRow(@BindingParam("bean") CurrentOpportunitiesReportBean reportBean){
     	if(reportBean.getYear()!=null){
     		if(reportBean.getMonth()!=null){
-    			if(reportBean.getFilePath()!=null){
-    					for(int i =0;i<1;i++){
-    			    		reportGridList.add(new CurrentOpportunitiesReportBean());
-    			    	}
-    			}else{
-					Messagebox.show("Upload Time Sheet First", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
-				}
+    			 for(int i =0;i<1;i++){
+    				 CurrentOpportunitiesReportBean opportunitiesReportBean = new CurrentOpportunitiesReportBean();
+    				 System.out.println("IN ADD METHOD ::"+arrayIndex);
+    				 opportunitiesReportBean.setListIndexOf(arrayIndex);
+    				 arrayIndex++;
+    			     reportGridList.add(opportunitiesReportBean);
+    			 }
     		}else{
 				Messagebox.show("Select Month", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
 			}
@@ -180,10 +212,29 @@ public class BillingInfoViewModel {
 			Messagebox.show("Select Year", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
 		}
     }
+
+    @Command
+    @NotifyChange("*")
+    public void removeRow(@BindingParam("bean") CurrentOpportunitiesReportBean opportunitiesReportBean){
+    	if(opportunitiesReportBean.getIsCheck().equalsIgnoreCase("N")){
+    		System.out.println("INDEX OF: "+opportunitiesReportBean.listIndexOf);
+    		reportGridList.remove(opportunitiesReportBean.listIndexOf);
+			arrayIndex = 0;
+			for(CurrentOpportunitiesReportBean detailsBean: reportGridList){
+				detailsBean.listIndexOf = arrayIndex;
+				arrayIndex++;
+			}
+    	}
+    }
     
     public boolean validateDuplicateRow(){
 		int sizeList = 0;
 		int sizeSet = 0;
+		
+		if(reportUniqueSet.size()>0){
+			reportUniqueSet.clear();
+		}
+		
 		reportUniqueSet.addAll(reportGridList);
 		sizeList = reportGridList.size();
 		sizeSet = reportUniqueSet.size();
@@ -191,7 +242,7 @@ public class BillingInfoViewModel {
 		if(sizeList == sizeSet){
 			return true;
 		}else{
-			Messagebox.show("Two Rows Having Same Year And Month.", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
+			Messagebox.show("Two Rows Having Same Year And Month", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
 			return false;
 		}
 	}
@@ -200,29 +251,38 @@ public class BillingInfoViewModel {
     @NotifyChange("*")
     public void saveBillingDetails(){
     	if(validateDuplicateRow()){
-    		int size = 0;
-        	int counter = 0;
-        	boolean isDelete = false;
-        	int checkingCounter = 0;
-        	finalReportGridList.clear();
-        	checkingCounter = CurrentOpportunitiesReportDao.fetchCountTrackingIdService(opportunitiesReportBean.getTrackingDetailsId());
-        	System.out.println("IN BILLING VIEW MODEL COUNTER NUMBER :"+checkingCounter);
-        	if(checkingCounter>0){
-        		isDelete =CurrentOpportunitiesReportDao.deleteBillingWrtTrackingID(opportunitiesReportBean);
-        	}
-        	for(CurrentOpportunitiesReportBean bean: reportGridList){
-        		if(bean.getYear()!=null && bean.getMonth()!=null && bean.getFilePath()!=null){
-        			finalReportGridList.add(bean);
-        		}
-        	}
-        	size = finalReportGridList.size();
-        	counter = CurrentOpportunitiesReportDao.insertBillingDetails(finalReportGridList,opportunitiesReportBean.getTrackingDetailsId());
-        	if(counter==size){
-        		Messagebox.show(" Billing Details Saved Successfully ","Information",Messagebox.OK,Messagebox.INFORMATION);
-        		winBillingModalPage.detach();
-        	}else{
-        		System.out.println("not inserted all");
-        	}		
+    		System.out.println(CurrentOpportunitiesService.validateBillingDataToBeSubmitted(finalReportGridList));
+    		//if(CurrentOpportunitiesService.validateBillingDataToBeSubmitted(reportGridList)){
+    			int size = 0;
+            	int counter = 0;
+            	boolean isDelete = false;
+            	int checkingCounter = 0;
+            	finalReportGridList.clear();
+            	checkingCounter = CurrentOpportunitiesReportDao.fetchCountTrackingIdService(opportunitiesReportBean.getTrackingDetailsId());
+            	System.out.println("IN BILLING VIEW MODEL COUNTER NUMBER :"+checkingCounter);
+            	if(checkingCounter>0){
+            		isDelete =CurrentOpportunitiesReportDao.deleteBillingWrtTrackingID(opportunitiesReportBean);
+            	}
+            	for(CurrentOpportunitiesReportBean bean: reportGridList){
+            		if(bean.getYear()!=null && bean.getMonth()!=null){
+            			finalReportGridList.add(bean);
+            		}
+            	}
+            	//size = finalReportGridList.size();
+            	counter = CurrentOpportunitiesReportDao.insertBillingDetails(finalReportGridList,opportunitiesReportBean.getTrackingDetailsId());
+            	if(counter>0){
+            		Messagebox.show(" Billing Details Saved Successfully ","Information",Messagebox.OK,Messagebox.INFORMATION);
+            		winBillingModalPage.detach();
+            	}
+            	/*if(counter==size){
+            		Messagebox.show(" Billing Details Saved Successfully ","Information",Messagebox.OK,Messagebox.INFORMATION);
+            		winBillingModalPage.detach();
+            	}else{
+            		System.out.println("not inserted all");
+            	}*/	
+    		/*}else{
+    			Messagebox.show("Please Enter All Details", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
+    		}*/
     	}
     }
     
@@ -372,5 +432,11 @@ public class BillingInfoViewModel {
 	}
 	public void setFinalReportGridList(ArrayList<CurrentOpportunitiesReportBean> finalReportGridList) {
 		this.finalReportGridList = finalReportGridList;
+	}
+	public int getArrayIndex() {
+		return arrayIndex;
+	}
+	public void setArrayIndex(int arrayIndex) {
+		this.arrayIndex = arrayIndex;
 	}
 }

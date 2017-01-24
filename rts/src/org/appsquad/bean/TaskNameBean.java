@@ -5,6 +5,7 @@ import java.util.Date;
 
 public class TaskNameBean {
     private String taskName;
+    private String taskDescription;
     private String assignedBy;
     private Integer assignedById;
     private String assignedTo;
@@ -308,5 +309,11 @@ public class TaskNameBean {
 	}
 	public void setToateStr(String toateStr) {
 		this.toateStr = toateStr;
+	}
+	public String getTaskDescription() {
+		return taskDescription;
+	}
+	public void setTaskDescription(String taskDescription) {
+		this.taskDescription = taskDescription;
 	}
 }

@@ -1,6 +1,6 @@
 <?page title="EDIT" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="RESOURCE  ALLOCATION  STATUS  TRACKING" border="none" apply="org.zkoss.bind.BindComposer"
+<window title="Resource Allocation Tracking Update" border="none" apply="org.zkoss.bind.BindComposer"
 		   viewModel="@id('vm') @init('org.appsquad.viewmodel.ResAllocTrackingUpdateViewModel')" closable="true" height="410px" width="700px"
 		               id="winResAllocTracking" onClose="@command('onCloseOperation')">
 		

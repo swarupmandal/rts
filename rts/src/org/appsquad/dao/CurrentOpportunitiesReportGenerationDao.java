@@ -3,12 +3,13 @@ package org.appsquad.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedHashSet;
 
 import org.apache.log4j.Logger;
 import org.appsquad.bean.CurrentOpportunitiesReportGenerationBean;
+import org.appsquad.bean.MonthReportBean;
 import org.appsquad.bean.ResourceMasterBean;
 import org.appsquad.database.DbConnection;
 import org.appsquad.sql.CurrentOpportunitiesReportGenerationSql;
@@ -24,9 +25,10 @@ public class CurrentOpportunitiesReportGenerationDao {
 		int counter = 0;
 		PreparedStatement preparedStatementFetch = null;
 		try{
-			String sql = "select count(*) from rts_current_oppur_report_status where rts_tracking_details_id = ? ";
+			String sql = "select count(*) from rts_unpaid_details_for_report where rts_tracking_details_id = ? ";
 			preparedStatementFetch = connection.prepareStatement(sql);
 			preparedStatementFetch.setInt(1, trackingID);
+			System.out.println("INNER QUERY FOR PARENT ROW ::::"+preparedStatementFetch);
 			ResultSet resultSet = preparedStatementFetch.executeQuery();
 			while(resultSet.next()){
 				counter = resultSet.getInt(1);
@@ -51,7 +53,7 @@ public class CurrentOpportunitiesReportGenerationDao {
 			try {
 				connection = DbConnection.createConnection();
 				preparedStatement = Pstm.createQuery(connection,CurrentOpportunitiesReportGenerationSql.reportSql,null);
-				logger.info("load Client List with date range- "+ preparedStatement.unwrap(PreparedStatement.class));
+				logger.info("load unpaid parent row- "+ preparedStatement.unwrap(PreparedStatement.class));
 				resultSet = preparedStatement.executeQuery();
 				while (resultSet.next()) {
 					CurrentOpportunitiesReportGenerationBean bean = new CurrentOpportunitiesReportGenerationBean();
@@ -77,7 +79,7 @@ public class CurrentOpportunitiesReportGenerationDao {
 						ResultSet resultSet2 = null;
 						try {
 							preparedStatement2 = Pstm.createQuery(connection,CurrentOpportunitiesReportGenerationSql.subReportSql,Arrays.asList(bean.getTrackingDetailsId()));
-							logger.info("Client DETAILS - "+ preparedStatement2.unwrap(PreparedStatement.class));
+							logger.info("load unpaid child row- "+ preparedStatement2.unwrap(PreparedStatement.class));
 							resultSet2 = preparedStatement2.executeQuery();
 							while (resultSet2.next()) {
 								CurrentOpportunitiesReportGenerationBean subBean = new CurrentOpportunitiesReportGenerationBean();
@@ -538,6 +540,31 @@ public class CurrentOpportunitiesReportGenerationDao {
 			e.printStackTrace();
 		}
 		return totalList;
+	}
+	
+	
+	/**
+	 * 
+	 * This function is used for calculating Grand Total:-Prolay
+	 */
+	
+	public static long calculateGrandTotal(LinkedHashSet<MonthReportBean> list)
+	{
+	   	long total = 0;
+	   	
+	   	for(MonthReportBean reportBean: list){
+	   		if(!reportBean.getMonthName().equalsIgnoreCase("")){
+	   			for(CurrentOpportunitiesReportGenerationBean generationBean: reportBean.getCurrentOpportunitiesReportGenerationBeanList()){
+	   				if(generationBean.getResourceMasterBean().getFullName()!=null && 
+	   						generationBean.getResourceMasterBean().getFullName().trim().length()>0){
+	   					
+	   					total+=generationBean.getCurrentOpportunitiesBean().getMargin().longValue();
+	   				}
+	   			}
+	   		}
+	   	}
+	   	System.out.println("IN DAO CLASS GRAND TOTAL IS ::"+total);
+	   	return total;
 	}
 	
 }

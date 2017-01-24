@@ -3,10 +3,14 @@ package org.appsquad.viewmodel;
 import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.util.ArrayList;
-
+import org.appsquad.bean.OverdueMonthBean;
+import org.appsquad.bean.OverdueWeeklyBean;
 import org.appsquad.bean.TaskNameBean;
 import org.appsquad.dao.TaskNameDao;
-import org.appsquad.utility.TaskDescriptionReportPdf;
+import org.appsquad.utility.OverdueMonthPdf;
+import org.appsquad.utility.OverdueMonthUtility;
+import org.appsquad.utility.OverdueWeekPdf;
+import org.appsquad.utility.OverdueWeekUtility;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
@@ -35,7 +39,13 @@ public class OverdueActivitiesWeekMonthViewModel {
 	private boolean divVisibility = false;
 	private boolean buttonVisibility = false;
 	
+	private boolean secondDivVisibility = false;
+	private boolean secondButtonVisibility = false;
+	
 	private ArrayList<TaskNameBean> weekMonthReportList = null;
+	private ArrayList<TaskNameBean> monthWeekReportList = null;
+	private ArrayList<OverdueWeeklyBean> weekFinalList = new ArrayList<OverdueWeeklyBean>();
+	private ArrayList<OverdueMonthBean> monthFinalList = new ArrayList<OverdueMonthBean>();
 	
 	private TaskNameBean taskBean = new TaskNameBean();
 	
@@ -52,55 +62,117 @@ public class OverdueActivitiesWeekMonthViewModel {
 		 if(taskBean.getSelectedInnerRadioButton().equalsIgnoreCase("weekReport")){
 			 weekMonthReportList = TaskNameDao.fetchTaskDeatilsForWeeklyReport();
 			 if(weekMonthReportList.size()>0){
-				 weekColumnVisibility = true;
-				 weekGridVisibility = true;
-				 buttonVisibility = true;
 				 divVisibility = true;
-				 monthColumnVisibility = false;
-				 monthGridVisibility = false;
-			 }else{
+				 buttonVisibility = true;
+				 secondButtonVisibility = false;
+				 secondDivVisibility = false;
+				 if(weekFinalList.size()>0){
+					 weekFinalList.clear();
+				 }
 				 
+				 for(int i =1;i<54;i++){
+					 OverdueWeeklyBean overdueWeeklyBean = new OverdueWeeklyBean();
+					 overdueWeeklyBean.setWeekID(i);
+					 OverdueWeekUtility.populateWeekNumber(overdueWeeklyBean.getWeekID(), overdueWeeklyBean);
+					 
+					 ArrayList<TaskNameBean> weekInnerList = new ArrayList<TaskNameBean>();
+					 
+					 for(TaskNameBean bean: weekMonthReportList){
+						 if(bean.getWeek()==i){
+							 TaskNameBean taskNameBean = new TaskNameBean();
+							 taskNameBean.setTaskName(bean.getTaskName());
+							 taskNameBean.setAssignedByUserId(bean.getAssignedByUserId());
+							 taskNameBean.getUserprofileBean().setUserid(bean.getUserprofileBean().getUserid());
+							 taskNameBean.setCreatedDateStr(bean.getCreatedDateStr());
+							 taskNameBean.setScheduledDateStr(bean.getScheduledDateStr());
+							 taskNameBean.setStatus(bean.getStatus());
+							 taskNameBean.setActualCompletionDateStr(bean.getActualCompletionDateStr());
+							 taskNameBean.setTaskDescription(bean.getTaskDescription());
+							
+							 weekInnerList.add(taskNameBean);
+						 }
+					 }
+					 overdueWeeklyBean.setWeekList(weekInnerList);
+					 if(overdueWeeklyBean.getWeekList().size()>0){
+						 weekFinalList.add(overdueWeeklyBean);
+					 }
+				 }
+			 }else{
+				 Messagebox.show("No Data Found", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
 			 }
 		 }else if(taskBean.getSelectedInnerRadioButton().equalsIgnoreCase("monthReport")){
-			 weekMonthReportList = TaskNameDao.fetchTaskDeatilsForMonthlyReport();
-			 if(weekMonthReportList.size()>0){
-				 weekColumnVisibility = false;
-				 weekGridVisibility = false;
-				 buttonVisibility = true;
-				 divVisibility = true;
-				 monthColumnVisibility = true;
-				 monthGridVisibility = true;
-			 }else{
+			 monthWeekReportList = TaskNameDao.fetchTaskDeatilsForMonthlyReport();
+			 if(monthWeekReportList.size()>0){
+				 divVisibility = false;
+				 buttonVisibility = false;
+				 secondButtonVisibility = true;
+				 secondDivVisibility = true;
+				 if(monthFinalList.size()>0){
+					 monthFinalList.clear();
+				 }
 				 
+				 for(int i =1;i<54;i++){
+					 OverdueMonthBean overdueMonthBean = new OverdueMonthBean();
+					 overdueMonthBean.setMonthID(i);
+					 OverdueMonthUtility.populateMonthNumber(overdueMonthBean.getMonthID(), overdueMonthBean); 
+					 ArrayList<TaskNameBean> monthInnerList = new ArrayList<TaskNameBean>();
+					 
+					 for(TaskNameBean bean: monthWeekReportList){
+						 if(bean.getMonth()==i){
+							 TaskNameBean taskNameBean = new TaskNameBean();
+							 taskNameBean.setTaskName(bean.getTaskName());
+							 taskNameBean.setAssignedByUserId(bean.getAssignedByUserId());
+							 taskNameBean.getUserprofileBean().setUserid(bean.getUserprofileBean().getUserid());
+							 taskNameBean.setCreatedDateStr(bean.getCreatedDateStr());
+							 taskNameBean.setScheduledDateStr(bean.getScheduledDateStr());
+							 taskNameBean.setStatus(bean.getStatus());
+							 taskNameBean.setTaskDescription(bean.getTaskDescription());
+							 taskNameBean.setActualCompletionDateStr(bean.getActualCompletionDateStr());
+							
+							 monthInnerList.add(taskNameBean);
+						 }
+					 }
+					 overdueMonthBean.setYearList(monthInnerList);
+					 if(overdueMonthBean.getYearList().size()>0){
+						 monthFinalList.add(overdueMonthBean);
+					 }
+				 }
+			 }else{
+				 Messagebox.show("No Data Found", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
 			 }
 		 }
 	 }
 	
-	 @Command
-	 @NotifyChange("*")
-	 public void onClickPdf() throws Exception{
-			String pdfPath = Executions.getCurrent().getDesktop().getWebApp().getRealPath("/");
-			TaskDescriptionReportPdf pdf = new TaskDescriptionReportPdf();
-			try {
-					if(taskBean.getSelectedInnerRadioButton().equalsIgnoreCase("weekReport")){
-						if(weekMonthReportList.size()>0){
-							   pdf.getDetailsForWeekReport(pdfPath, taskBean, weekMonthReportList, "Overdue Activities - Weekly Report");
-						}else {
-							Messagebox.show("No Data Found ","Alert",Messagebox.OK,Messagebox.EXCLAMATION);
-						}
-					}else if(taskBean.getSelectedInnerRadioButton().equalsIgnoreCase("monthReport")){
-						if(weekMonthReportList.size()>0){
-							   pdf.getDetailsForMonthReport(pdfPath, taskBean, weekMonthReportList, "Overdue Activities - Monthly Report");
-						}else {
-							Messagebox.show("No Data Found ","Alert",Messagebox.OK,Messagebox.EXCLAMATION);
-						}
-					}
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			} catch (DocumentException e) {
-				e.printStackTrace();
-			}
-	} 
+	@Command
+	@NotifyChange("*")
+	public void onClickPdf() throws Exception{
+		String pdfPath = Executions.getCurrent().getDesktop().getWebApp().getRealPath("/");
+		OverdueWeekPdf overdueWeekPdf = new OverdueWeekPdf();
+		try {
+			overdueWeekPdf.getDetails(pdfPath, "Overdue Weekly Report", weekFinalList);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (DocumentException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void onClickSecondPdf() throws Exception{
+		String pdfPath = Executions.getCurrent().getDesktop().getWebApp().getRealPath("/");
+		OverdueMonthPdf overdueMonthPdf = new OverdueMonthPdf();
+		try {
+			overdueMonthPdf.getDetails(pdfPath, "Overdue Monthly Report", monthFinalList);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (DocumentException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	/***************************************************************************************************************************************************/
 	
 	public Connection getConnection() {
 		return connection;
@@ -173,5 +245,35 @@ public class OverdueActivitiesWeekMonthViewModel {
 	}
 	public void setButtonVisibility(boolean buttonVisibility) {
 		this.buttonVisibility = buttonVisibility;
+	}
+	public ArrayList<OverdueWeeklyBean> getWeekFinalList() {
+		return weekFinalList;
+	}
+	public void setWeekFinalList(ArrayList<OverdueWeeklyBean> weekFinalList) {
+		this.weekFinalList = weekFinalList;
+	}
+	public ArrayList<TaskNameBean> getMonthWeekReportList() {
+		return monthWeekReportList;
+	}
+	public void setMonthWeekReportList(ArrayList<TaskNameBean> monthWeekReportList) {
+		this.monthWeekReportList = monthWeekReportList;
+	}
+	public boolean isSecondDivVisibility() {
+		return secondDivVisibility;
+	}
+	public void setSecondDivVisibility(boolean secondDivVisibility) {
+		this.secondDivVisibility = secondDivVisibility;
+	}
+	public boolean isSecondButtonVisibility() {
+		return secondButtonVisibility;
+	}
+	public void setSecondButtonVisibility(boolean secondButtonVisibility) {
+		this.secondButtonVisibility = secondButtonVisibility;
+	}
+	public ArrayList<OverdueMonthBean> getMonthFinalList() {
+		return monthFinalList;
+	}
+	public void setMonthFinalList(ArrayList<OverdueMonthBean> monthFinalList) {
+		this.monthFinalList = monthFinalList;
 	}
 }

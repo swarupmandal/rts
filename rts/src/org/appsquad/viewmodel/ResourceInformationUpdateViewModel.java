@@ -150,6 +150,7 @@ public class ResourceInformationUpdateViewModel {
          fileName = media.getName();
          filePath = filePath + finalName;
          masterBean.setFilePath(filePath);
+         masterBean.setFileName(media.getName());
 	   }
 	}
 	

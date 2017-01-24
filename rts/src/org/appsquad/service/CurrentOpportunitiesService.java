@@ -3,6 +3,7 @@ package org.appsquad.service;
 import java.util.ArrayList;
 
 import org.appsquad.bean.CurrentOpportunitiesBean;
+import org.appsquad.bean.CurrentOpportunitiesReportBean;
 import org.appsquad.dao.CurrentOpportunitiesDao;
 import org.zkoss.zul.Messagebox;
 
@@ -11,6 +12,31 @@ public class CurrentOpportunitiesService {
 	public static boolean flagDetailsUpdate = false;
 	public static boolean flagTrackingUpdate = false;
 	public static boolean flagValidate = false;
+	
+	
+	public static boolean validateBillingDataToBeSubmitted(ArrayList<CurrentOpportunitiesReportBean> list){
+		boolean flag = false;
+		for(CurrentOpportunitiesReportBean bean: list){
+			if(bean.getMonth()!=null){
+				if(bean.getYear()!=null){
+					if(bean.getFilePath()!=null){
+						flag = true;
+					}else{
+						flag = false;
+						break;
+					}
+				}else{
+					flag = false;
+					break;
+				}
+			}else{
+				flag = false;
+				break;
+			}
+		}
+		return flag;
+	}
+	
 	
 	public static boolean validateForDataEntryOperator(CurrentOpportunitiesBean bean){
 		if(bean.getTenureFromsql()!=null){

@@ -1,6 +1,7 @@
 package org.appsquad.viewmodel;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -10,6 +11,8 @@ import org.appsquad.dao.CurrentOpportunitiesDao;
 import org.appsquad.database.DbConnection;
 import org.appsquad.service.CurrentOpportunitiesService;
 import org.appsquad.service.LogAuditServiceClass;
+import org.appsquad.utility.RuntimePopulateRoleBasedOnUserId;
+import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
@@ -19,6 +22,7 @@ import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.Sessions;
+import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Messagebox;
@@ -36,6 +40,8 @@ public class CurrentOppurUpdateViewModel {
 	private String roleName;
 	private boolean sendToApproverVisibility = false;
 	private boolean createOfferVisibility = false;
+	private boolean saveButtonVisibility = false;
+	private String previousApproverName = "";
 	
 	private CurrentOpportunitiesBean currentOpportunitiesBean = new CurrentOpportunitiesBean();
 	
@@ -49,13 +55,17 @@ public class CurrentOppurUpdateViewModel {
 		currentOpportunitiesBean = bean;
 		userId = (String) sessions.getAttribute("userId");
 		currentOpportunitiesBean.setLoginID(userId);
+		previousApproverName = currentOpportunitiesBean.getBean().getUserID();
 		loadApproverName();
 		fetchDataWrtDataEntryOrApprover();
 	}
 	
-	public void fetchDataWrtDataEntryOrApprover(){
-		roleName = CurrentOpportunitiesService.fetchRoleNameWrtUserId(userId);
-		System.out.println("ROLE NAME :"+roleName);
+	
+	public void fetchDataWrtDataEntryOrApprover() throws Exception{
+		int number = 0;
+		int count = 0;
+		roleName = RuntimePopulateRoleBasedOnUserId.populateRoleBasedOnUserId(userId);
+		System.out.println("IN UPDATE SCREEN ROLE NAME :"+roleName);
 		if(roleName.equalsIgnoreCase("DATA ENTRY OPERATOR")){
 			comboBoxDisable = true;
 			sendToApproverVisibility = true;
@@ -64,6 +74,75 @@ public class CurrentOppurUpdateViewModel {
 			comboBoxDisable = false;
 			createOfferVisibility = true;
 			approverNameDisable = true;
+		}else if(roleName.equalsIgnoreCase("APPROVER AND DATA ENTRY OPERATOR")){
+			
+			number = CurrentOpportunitiesDao.coutrowForDataEntryAndApproverBoth(currentOpportunitiesBean);
+			System.out.println("IN INIT METHOD NUMBER FOR DATA ENTRY AND APPROVER BOTH PERSON::::"+number);
+			
+			if(number==0){
+				count = CurrentOpportunitiesDao.checjCountWhetherTraetDataEntryOrApprover(userId, currentOpportunitiesBean.getClientName());
+				if(count==0){
+					comboBoxDisable = true;
+					approverNameDisable = false;
+					sendToApproverVisibility = true;
+				}else{
+					comboBoxDisable = false;
+					saveButtonVisibility = true;
+					approverNameDisable = false;
+				}
+			}else if(number>0){
+				count = CurrentOpportunitiesDao.checjCountWhetherTraetDataEntryOrApprover(userId, currentOpportunitiesBean.getClientName());
+				
+				if(count==0){
+					comboBoxDisable = true;
+					approverNameDisable = false;
+					sendToApproverVisibility = true;
+				}else{
+					comboBoxDisable = false;
+					approverNameDisable = false;
+					saveButtonVisibility = true;
+				}
+			}
+		}
+	}
+	
+	
+	@Command
+	@NotifyChange("*")
+	public void onCloseOperationPreBilling(@ContextParam(ContextType.TRIGGER_EVENT)Event e){
+		winCurrOppurUpdatePage.detach();
+		BindUtils.postGlobalCommand(null, null, "reLoadPreBillingMainPage", null);
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void approverPerson(){
+		String currentApproverName = "";
+		int num = 0;
+		int countNum = 0;
+		
+		num = CurrentOpportunitiesDao.coutrowForDataEntryAndApproverBoth(currentOpportunitiesBean);
+		if(num==0){
+			countNum = CurrentOpportunitiesDao.checjCountWhetherTraetDataEntryOrApprover(userId, currentOpportunitiesBean.getClientName());
+			if(countNum>0){
+				System.out.println("nothing");
+			}
+		}else{
+			roleName = RuntimePopulateRoleBasedOnUserId.populateRoleBasedOnUserId(userId);
+			System.out.println("IN UPDATE SCREEN ROLE NAME :"+roleName);
+			
+			currentApproverName = currentOpportunitiesBean.getBean().getUserID();
+			
+			if(roleName.equalsIgnoreCase("APPROVER AND DATA ENTRY OPERATOR")){
+				if(previousApproverName.equalsIgnoreCase(currentApproverName)){
+					
+				}else{
+					sendToApproverVisibility = true;
+					saveButtonVisibility = false;
+					currentOpportunitiesBean.setApproval(null);
+					comboBoxDisable = true;
+				}
+			}
 		}
 	}
 	
@@ -258,7 +337,7 @@ public class CurrentOppurUpdateViewModel {
 																					      currentOpportunitiesBean.getOperationId());
 							System.out.println("flagLogInsert Is:"+flagCreateLogInsert);
 							winCurrOppurUpdatePage.detach();
-							//fetchDataWrtDataEntryOrApprover();
+							BindUtils.postGlobalCommand(null, null, "reLoadPreBillingMainPage", null);
 						}
 					}	
 				}
@@ -268,6 +347,118 @@ public class CurrentOppurUpdateViewModel {
 		}else{
 			Messagebox.show(" There Is No Assigned Approver For This Row ","Warning", Messagebox.OK, Messagebox.EXCLAMATION);
 		}
+	}
+	
+	
+	@Command
+	@NotifyChange("*")
+	public void onSave() throws Exception{
+		currentOpportunitiesBean.setOnClickButtonValue("onSave");
+		boolean flagDelete = false;
+		boolean flagInsert = false;
+		boolean email = false;
+		boolean emailSend = false;
+		boolean flagCreateUpdate = false;
+		boolean flagCreateLogInsert = false;
+		int count = 0;
+		String approverName= "";
+		
+		count = CurrentOpportunitiesDao.coutrowForDataEntryAndApproverBoth(currentOpportunitiesBean);
+		System.out.println("COUNT :"+count);
+		
+		if(count>0){
+			System.out.println("METHOD 1 FOR BOTH");
+			approverName = CurrentOpportunitiesDao.fetchApproverNameDao(currentOpportunitiesBean.getReqResStatusTrackingId());
+			System.out.println(approverName);
+			
+			if(approverName.equalsIgnoreCase(userId)){
+				if(CurrentOpportunitiesService.validateForApprover(currentOpportunitiesBean)){
+					flagDelete = CurrentOpportunitiesDao.deleteRoleData(currentOpportunitiesBean);
+					if(flagDelete){
+						flagInsert = CurrentOpportunitiesService.insertTrackingDetails(currentOpportunitiesBean);
+					}
+					if(flagInsert){
+							flagCreateUpdate = CurrentOpportunitiesService.updateTrackingService(currentOpportunitiesBean);
+							System.out.println(flagCreateUpdate);
+							if(flagCreateUpdate){
+								
+								String emailId = CurrentOpportunitiesDao.fetchEmailId(userId);
+								System.out.println(emailId);
+								emailSend = SendEmail.validator(emailId);
+								System.out.println("flag email send is :"+email);
+								if(emailSend){
+									SendEmail.generateAndSendEmailForApproveOrReject(emailId, currentOpportunitiesBean.getApproval(), currentOpportunitiesBean.getReqResStatusTrackingId())	;
+								}else{
+									System.out.println("APPROVER'S EMAIL ID IS NOT CORRECT. ");
+								}
+								
+								System.out.println(currentOpportunitiesBean.getApproval());
+								if(currentOpportunitiesBean.getApproval().equalsIgnoreCase("Approve")){
+									Messagebox.show(" Approved Successfully ","Information",Messagebox.OK,Messagebox.INFORMATION);
+								}else{
+									Messagebox.show(" Rejected Successfully ","Information",Messagebox.OK,Messagebox.INFORMATION);
+								}
+								
+								currentOpportunitiesBean.setOperation("UPDATE");
+								currentOpportunitiesBean.setOperationId(2);
+								currentOpportunitiesBean.setSessionUserId(userId);
+								Calendar calendar = Calendar.getInstance();
+							    java.sql.Date currentDate = new java.sql.Date(calendar.getTime().getTime());
+								System.out.println("CREATION DATE :"+currentDate);
+								flagCreateLogInsert = LogAuditServiceClass.insertIntoLogTable(currentOpportunitiesBean.getMainScreenName(), currentOpportunitiesBean.getChileScreenName(), 
+																							  currentOpportunitiesBean.getSessionUserId(), currentOpportunitiesBean.getOperation(),currentDate,
+																						      currentOpportunitiesBean.getOperationId());
+								System.out.println("flagLogInsert Is:"+flagCreateLogInsert);
+								winCurrOppurUpdatePage.detach();
+								BindUtils.postGlobalCommand(null, null, "reLoadPreBillingMainPage", null);
+							}
+					  }
+				}
+			}else{
+				Messagebox.show(" You Are Not The Assigned Approver To Approve This Request. ","Warning", Messagebox.OK, Messagebox.EXCLAMATION);
+			}
+			
+		}else{
+			System.out.println("METHOD 2 FOR BOTH");
+			
+			flagInsert = CurrentOpportunitiesService.insertTrackingDetails(currentOpportunitiesBean);
+			if(flagInsert){
+				flagCreateUpdate = CurrentOpportunitiesService.updateTrackingService(currentOpportunitiesBean);
+				System.out.println(flagCreateUpdate);
+				if(flagCreateUpdate){
+					
+					String emailId = CurrentOpportunitiesDao.fetchEmailId(userId);
+					System.out.println(emailId);
+					email = SendEmail.validator(emailId);
+					System.out.println("flag email send is :"+email);
+					if(emailSend){
+						SendEmail.generateAndSendEmailForApproveOrReject(emailId, currentOpportunitiesBean.getApproval(), currentOpportunitiesBean.getReqResStatusTrackingId())	;
+					}else{
+						System.out.println("APPROVER'S EMAIL ID IS NOT CORRECT. ");
+					}
+					
+					System.out.println(currentOpportunitiesBean.getApproval());
+					if(currentOpportunitiesBean.getApproval().equalsIgnoreCase("Approve")){
+						Messagebox.show(" Approved Successfully ","Information",Messagebox.OK,Messagebox.INFORMATION);
+					}else{
+						Messagebox.show(" Rejected Successfully ","Information",Messagebox.OK,Messagebox.INFORMATION);
+					}
+					
+					currentOpportunitiesBean.setOperation("UPDATE");
+					currentOpportunitiesBean.setOperationId(2);
+					currentOpportunitiesBean.setSessionUserId(userId);
+					Calendar calendar = Calendar.getInstance();
+				    java.sql.Date currentDate = new java.sql.Date(calendar.getTime().getTime());
+					System.out.println("CREATION DATE :"+currentDate);
+					flagCreateLogInsert = LogAuditServiceClass.insertIntoLogTable(currentOpportunitiesBean.getMainScreenName(), currentOpportunitiesBean.getChileScreenName(), 
+																				  currentOpportunitiesBean.getSessionUserId(), currentOpportunitiesBean.getOperation(),currentDate,
+																			      currentOpportunitiesBean.getOperationId());
+					System.out.println("flagLogInsert Is:"+flagCreateLogInsert);
+					winCurrOppurUpdatePage.detach();
+					BindUtils.postGlobalCommand(null, null, "reLoadPreBillingMainPage", null);
+				}
+			 }
+		 }
 	}
 	
 	/**************************************************************************************************************************************************/
@@ -350,5 +541,18 @@ public class CurrentOppurUpdateViewModel {
 	}
 	public void setCreateOfferVisibility(boolean createOfferVisibility) {
 		this.createOfferVisibility = createOfferVisibility;
+	}
+
+	public boolean isSaveButtonVisibility() {
+		return saveButtonVisibility;
+	}
+	public void setSaveButtonVisibility(boolean saveButtonVisibility) {
+		this.saveButtonVisibility = saveButtonVisibility;
+	}
+	public String getPreviousApproverName() {
+		return previousApproverName;
+	}
+	public void setPreviousApproverName(String previousApproverName) {
+		this.previousApproverName = previousApproverName;
 	}
 }

@@ -8,10 +8,18 @@ public class CurrentOpportunitiesReportBean {
 	private String fromDateValue;
 	private String fromDateStr;
 	
+	private String ModalTitle;
+	
 	private Date toDate;
 	private java.sql.Date toDateSql;
 	private String toDateValue;
 	private String toateStr;
+	
+	public int listIndexOf;
+	
+	private String isCheck = "N";
+	private Boolean minusButtonVisible = true;
+	private int serialId=0;
 	
 	private String month;
 	private String year;
@@ -23,6 +31,7 @@ public class CurrentOpportunitiesReportBean {
 	private String timesheetPath;
 	private String invoiceCopyPath;
 	private java.sql.Date billDateSql;
+	private java.sql.Date chequeDateSql;
 	private Integer trackingId;
 	private Integer trackingDetailsId;
 	private Double chargeOutRate;
@@ -362,5 +371,41 @@ public class CurrentOpportunitiesReportBean {
 	}
 	public void setPaid(String paid) {
 		Paid = paid;
+	}
+	public String getModalTitle() {
+		return ModalTitle;
+	}
+	public void setModalTitle(String modalTitle) {
+		ModalTitle = modalTitle;
+	}
+	public java.sql.Date getChequeDateSql() {
+		return chequeDateSql;
+	}
+	public void setChequeDateSql(java.sql.Date chequeDateSql) {
+		this.chequeDateSql = chequeDateSql;
+	}
+	public String getIsCheck() {
+		return isCheck;
+	}
+	public void setIsCheck(String isCheck) {
+		this.isCheck = isCheck;
+	}
+	public Boolean getMinusButtonVisible() {
+		return minusButtonVisible;
+	}
+	public void setMinusButtonVisible(Boolean minusButtonVisible) {
+		this.minusButtonVisible = minusButtonVisible;
+	}
+	public int getSerialId() {
+		return serialId;
+	}
+	public void setSerialId(int serialId) {
+		this.serialId = serialId;
+	}
+	public int getListIndexOf() {
+		return listIndexOf;
+	}
+	public void setListIndexOf(int listIndexOf) {
+		this.listIndexOf = listIndexOf;
 	}
 }

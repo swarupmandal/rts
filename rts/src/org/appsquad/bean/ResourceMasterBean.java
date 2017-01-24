@@ -25,6 +25,7 @@ public class ResourceMasterBean {
 	private String otherInfo;
 	private String country;
 	private String state;
+	private String fileName;
 	
 	CountryBean countryBean = new CountryBean();
 	StateBean stateBean = new StateBean();	
@@ -241,5 +242,11 @@ public class ResourceMasterBean {
 	}
 	public void setOperationId(Integer operationId) {
 		this.operationId = operationId;
+	}
+	public String getFileName() {
+		return fileName;
+	}
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
 	}
 }

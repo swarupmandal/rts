@@ -3,12 +3,15 @@ package org.appsquad.viewmodel;
 import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.appsquad.bean.TaskNameBean;
 import org.appsquad.dao.ActivityScheduledTodayTomorrowdao;
 import org.appsquad.dao.TaskNameDao;
 import org.appsquad.utility.TaskDescriptionReportPdf;
 import org.zkoss.bind.annotation.AfterCompose;
+import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
@@ -19,6 +22,7 @@ import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zul.Messagebox;
+import org.zkoss.zul.Window;
 
 import com.itextpdf.text.DocumentException;
 
@@ -65,6 +69,15 @@ public class ActivityScheduledTodayTomorrowViewModel {
 				e.printStackTrace();
 			}
 	} 
+	 
+	@Command
+	@NotifyChange("*")
+	public void onClickImage(@BindingParam("bean") TaskNameBean nameBean){
+		Map<String, TaskNameBean> entryDataMap = new HashMap<String, TaskNameBean>();
+	    entryDataMap.put("parentModalData", nameBean);
+		Window win = (Window) Executions.createComponents("WEB-INF/view/activityScheduledForTodayTomorrowModal.zul", null, entryDataMap);	
+		win.doModal();
+	}
 	
 	
 	/***************************************************************************************************************************************************/

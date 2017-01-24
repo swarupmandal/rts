@@ -3,6 +3,7 @@ package org.appsquad.viewmodel;
 import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 
 import org.appsquad.bean.ClientInformationBean;
 import org.appsquad.bean.CurrentOpportunitiesReportGenerationBean;
@@ -12,7 +13,6 @@ import org.appsquad.dao.CurrentOpportunitiesReportGenerationDao;
 import org.appsquad.service.CurrentOpportunitiesReportGenerationService;
 import org.appsquad.service.ResourceAllocationTrackingService;
 import org.appsquad.utility.CurrentOppurtunitiesReportPdf;
-import org.appsquad.utility.CurrentOppurtunitiesReportPdfForOppurtunityWise;
 import org.appsquad.utility.MonthShowingUtility;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.Command;
@@ -44,13 +44,14 @@ public class CurrentOpportunitiesReportGenerationViewModel {
    private boolean thirdDivVisibility = false;
    private boolean pdfDivVisibility = false;
    private boolean buttonVisibility = false;
+   
    private MonthReportBean monthReportBean = new MonthReportBean();
    private ArrayList<MonthReportBean> monthReportBeanList = new ArrayList<MonthReportBean>();
+   LinkedHashSet<MonthReportBean> monthSetList = new LinkedHashSet<MonthReportBean>();
    @Wire("#clntBb")
    private Bandbox clnBandBox;
    @Wire("#resourceBb")
    private Bandbox resourceBandBox;
-   
    
    private ArrayList<CurrentOpportunitiesReportGenerationBean> reportList = new ArrayList<CurrentOpportunitiesReportGenerationBean>();
    private ArrayList<ClientInformationBean> clientList = null;
@@ -75,6 +76,29 @@ public class CurrentOpportunitiesReportGenerationViewModel {
  		}
  	}
    
+   
+   @Command
+   @NotifyChange("*")
+   public void firstTab(){
+	   reportList = CurrentOpportunitiesReportGenerationService.loadReportDetailsUnpaid();
+	   if(reportList.size()>0){
+		  divVisibility = true;
+		  pdfDivVisibility = true;
+	   }
+	   
+	   /************************ THIS IS USED FOR CLEARANCE PURPOSE OF ANOTHER TAB DATA******************************************/
+	   secondDivVisibility= false;
+   	   buttonVisibility=false;
+   	   secondTabList.clear();
+   	   currentOpportunitiesReportGenerationBean.getResourceMasterBean().setFullName(null);
+	   clientList = ResourceAllocationTrackingService.fetchClientDetailsForReport();
+		
+	   thirdDivVisibility= false;
+   	   buttonVisibility=false;
+   	   secondTabList.clear();
+   	   currentOpportunitiesReportGenerationBean.getClientInformationBean().setFullName(null);
+	   resourceList = CurrentOpportunitiesReportGenerationDao.onLoadResourceDetails();
+   }
     
    @Command
    @NotifyChange("*")
@@ -185,10 +209,10 @@ public class CurrentOpportunitiesReportGenerationViewModel {
  		    System.out.println(currentOpportunitiesReportGenerationBean.getClientFlag()+"------"+currentOpportunitiesReportGenerationBean.getResourceFlag());
  		    if(currentOpportunitiesReportGenerationBean.getResourceFlag().contentEquals("Y")){
  		    	System.out.println("1st method");
- 		    	pdf.getDetailsForResource(pdfPath,"Current Opportunities Report",monthReportBeanList);	
+ 		    	pdf.getDetailsForResource(pdfPath,"ResourceWise A/R Visibility Report",monthSetList);
  		    }else if(currentOpportunitiesReportGenerationBean.getClientFlag().contentEquals("Y")){
  		    	System.out.println("2nd method");
- 		    	pdf.getDetails(pdfPath,"Current Opportunities Report",monthReportBeanList);	
+ 		    	pdf.getDetails(pdfPath,"ClientWise A/R Visibility Report",monthSetList);
  		    }
  	   } catch (FileNotFoundException e) {
  		   e.printStackTrace();
@@ -197,52 +221,7 @@ public class CurrentOpportunitiesReportGenerationViewModel {
  	   }
     }
    
- /*  @Command
-   @NotifyChange("*")
-   public void onClickPdfForOppurtunity() throws Exception{
-	   if(currentOpportunitiesReportGenerationBean.getSelectedRadioButton()!=null){
-		   if(currentOpportunitiesReportGenerationBean.getSelectedRadioButton().equalsIgnoreCase("1stReport")){
-			  if(currentOpportunitiesReportGenerationBean.getClientInformationBean().getFullName()!=null){
-				   String pdfPath = Executions.getCurrent().getDesktop().getWebApp().getRealPath("/");
-				   CurrentOppurtunitiesReportPdfForOppurtunityWise pdf = new CurrentOppurtunitiesReportPdfForOppurtunityWise();
-				   try {
-					   	if(finalList.size()>0){
-							pdf.getDetails(pdfPath, currentOpportunitiesReportGenerationBean, finalList, "Current Opportunities Report");
-					   	}else {
-							Messagebox.show("No Data Found ","Alert",Messagebox.OK,Messagebox.EXCLAMATION);
-					   	}
-				   } catch (FileNotFoundException e) {
-					   e.printStackTrace();
-				   } catch (DocumentException e) {
-					   e.printStackTrace();
-				   }   
-			  }else{
-				  Messagebox.show("Select Client Name ", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
-			  }
-		   }else if(currentOpportunitiesReportGenerationBean.getSelectedRadioButton().equalsIgnoreCase("2ndReport")){
-			   if(currentOpportunitiesReportGenerationBean.getResourceMasterBean().getFullName()!=null){
-				   String pdfPath = Executions.getCurrent().getDesktop().getWebApp().getRealPath("/");
-				   CurrentOppurtunitiesReportPdfForOppurtunityWise pdf = new CurrentOppurtunitiesReportPdfForOppurtunityWise();
-				   try {
-					   	if(resourceFinalList.size()>0){
-							pdf.getDetails(pdfPath, currentOpportunitiesReportGenerationBean, resourceFinalList, "Current Opportunities Report");
-					   	}else {
-							Messagebox.show("No Data Found ","Alert",Messagebox.OK,Messagebox.EXCLAMATION);
-					   	}
-				   } catch (FileNotFoundException e) {
-					   e.printStackTrace();
-				   } catch (DocumentException e) {
-					   e.printStackTrace();
-				   }   
-			   }else{
-				   Messagebox.show("Select Resource Name ", "Warning", Messagebox.OK, Messagebox.EXCLAMATION); 
-			   }
-		   }
-	   }else{
-		   Messagebox.show("Select Any Radio Button ", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
-	   }
-	}*/
-   
+    
     @Command
     @NotifyChange("*")
     public void onCheckDetailSummary(){
@@ -284,6 +263,7 @@ public class CurrentOpportunitiesReportGenerationViewModel {
     	
     	currentOpportunitiesReportGenerationBean.setClientFlag("Y");
     	currentOpportunitiesReportGenerationBean.setResourceFlag("N");
+    	long grandTotalClient = 0;
     	ArrayList<CurrentOpportunitiesReportGenerationBean> list = null;
     	
     	if(currentOpportunitiesReportGenerationBean.getClientInformationBean().getFullName().equalsIgnoreCase("-ALL-")){
@@ -303,6 +283,14 @@ public class CurrentOpportunitiesReportGenerationViewModel {
 			monthReportBeanList.clear();
 		}
 		
+		if(monthSetList.size()>0){
+			monthSetList.clear();
+		}
+		
+		if(monthSetList.size()>0){
+			monthSetList.clear();
+		}
+		
 		//ArrayList<CurrentOpportunitiesReportGenerationBean> list = null;
 		//list = CurrentOpportunitiesReportGenerationDao.loadOppurtunityWiseReportForClientDao(currentOpportunitiesReportGenerationBean);
 		
@@ -310,7 +298,8 @@ public class CurrentOpportunitiesReportGenerationViewModel {
 			finalList.clear();
 		}
 		
-	    for(CurrentOpportunitiesReportGenerationBean bean: list){String name = MonthShowingUtility.fetchresourceName(bean);
+	    for(CurrentOpportunitiesReportGenerationBean bean: list){
+	    	String name = MonthShowingUtility.fetchresourceName(bean);
 	    	bean.getResourceMasterBean().setFullName(name);
 	    	MonthShowingUtility.fetchdateWrtRtrackingID(bean);
 	    	finalList.add(bean);
@@ -336,25 +325,79 @@ public class CurrentOpportunitiesReportGenerationViewModel {
     	for(int i=1 ; i<13; i++){
     		MonthReportBean reportBean = new MonthReportBean();
     		reportBean.setMonthId(i);
-    		reportBean.setMonthName(months[i-1]);
+    		reportBean.setMonthName(months[i-1].toUpperCase());
+    		reportBean.setStyle(reportBean.getBoldStyle());
+    		
+    		reportBean.getCurrentOpportunitiesReportGenerationBean().setResourcenameString("Resource Name");
+    		reportBean.getCurrentOpportunitiesReportGenerationBean().setClientNameString("Client Name");
+    		reportBean.getCurrentOpportunitiesReportGenerationBean().setChargeOutString("Charge Out Rate(Monthly)");
+    		reportBean.getCurrentOpportunitiesReportGenerationBean().setMarginString("Margin");
+    		
+    		int counter = 0;
+    		int finalCounter = 0;
+    		finalCounter = MonthShowingUtility.countNumberOfMonthPresentInLoop(secondTabList, months[i-1]);
     	
     		ArrayList<CurrentOpportunitiesReportGenerationBean> monthClienBeanList = new ArrayList<CurrentOpportunitiesReportGenerationBean>();
     		for(CurrentOpportunitiesReportGenerationBean gen : secondTabList){
     			if(gen.getCurrentOpportunitiesReportBean().getMonth().equalsIgnoreCase(reportBean.getMonthName())){
-    
+    				++counter;
+    				
     				CurrentOpportunitiesReportGenerationBean reportGenerationBean = new CurrentOpportunitiesReportGenerationBean();
     				reportGenerationBean.getClientInformationBean().setFullName(gen.getClientInformationBean().getFullName());
     				reportGenerationBean.getResourceMasterBean().setFullName(gen.getResourceMasterBean().getFullName());
     				reportGenerationBean.setRtsTrackingDetailsId(gen.getRtsTrackingDetailsId());
     				MonthShowingUtility.MarginSetForTrackingDeatilsID(reportGenerationBean);
+    				reportGenerationBean.setBackGround(reportGenerationBean.getBackGroundpaParent());
+    				reportGenerationBean.setStyle(reportGenerationBean.getBoldStyle());
     				monthClienBeanList.add(reportGenerationBean);
+    				
+    				System.out.println("IN VIEW MODEL COUNTER NUMBER IS :::::::::::"+counter+"-MONTH-"+reportBean.getMonthName());
+    				System.out.println("IN VIEW MODEL FETCHED COUNTER NUMBER IS :::::::::::"+finalCounter+"--Month--"+months[i-1]);
     				
     			}
     		}
+    		
     		reportBean.setCurrentOpportunitiesReportGenerationBeanList(monthClienBeanList);
     		if(reportBean.getCurrentOpportunitiesReportGenerationBeanList().size()>0){
     			monthReportBeanList.add(reportBean);	
     		}
+    		if(counter>0){
+    			if(counter+1==finalCounter){
+        			CurrentOpportunitiesReportGenerationBean bean = new CurrentOpportunitiesReportGenerationBean();
+        			bean.getClientInformationBean().setFullName(null);
+        			bean.getResourceMasterBean().setFullName(null);
+        			bean.getCurrentOpportunitiesBean().setMarginString("TOTAL: "+MonthShowingUtility.calculateTotalMonthWise(monthClienBeanList));
+        			//bean.getCurrentOpportunitiesBean().setMargin(Double.longBitsToDouble(MonthShowingUtility.calculateTotalMonthWise(monthClienBeanList)));
+        			bean.getCurrentOpportunitiesBean().setMarginTotal(MonthShowingUtility.calculateTotalMonthWise(monthClienBeanList));
+        			bean.setStyle(bean.getLighterStyle());
+        			monthClienBeanList.add(bean);
+        			reportBean.setCurrentOpportunitiesReportGenerationBeanList(monthClienBeanList);
+        			monthReportBeanList.add(reportBean);
+        		}	
+    		}
+    	  LinkedHashSet<MonthReportBean> set1 = new LinkedHashSet<MonthReportBean>(monthReportBeanList);
+    	  monthSetList = set1;
+    	}
+    	
+    	for(int i =0;i<1;i++){
+    		MonthReportBean monthReportBean = new MonthReportBean();
+    		monthReportBean.setMonthName("");
+    		monthReportBean.getCurrentOpportunitiesReportGenerationBean().setResourcenameString("");
+    		monthReportBean.getCurrentOpportunitiesReportGenerationBean().setClientNameString("");
+    		monthReportBean.getCurrentOpportunitiesReportGenerationBean().setChargeOutString("");
+    		monthReportBean.getCurrentOpportunitiesReportGenerationBean().setMarginString("");
+    		
+    		grandTotalClient = CurrentOpportunitiesReportGenerationDao.calculateGrandTotal(monthSetList);
+    		System.out.println("IN VIEW MODEL CLASS GRAND TOTAL IS ::"+grandTotalClient);
+    		
+    		ArrayList<CurrentOpportunitiesReportGenerationBean> list2 = new ArrayList<CurrentOpportunitiesReportGenerationBean>();
+    		CurrentOpportunitiesReportGenerationBean opportunitiesReportGenerationBean = new CurrentOpportunitiesReportGenerationBean();
+    		opportunitiesReportGenerationBean.getCurrentOpportunitiesBean().setMarginString("GRAND TOTAL: "+grandTotalClient);
+    		opportunitiesReportGenerationBean.setStyle(opportunitiesReportGenerationBean.getBoldStyle());
+    		list2.add(opportunitiesReportGenerationBean);
+    		
+    		monthReportBean.setCurrentOpportunitiesReportGenerationBeanList(list2);
+    		monthSetList.add(monthReportBean);
     	}
     } 
     
@@ -371,6 +414,8 @@ public class CurrentOpportunitiesReportGenerationViewModel {
     	currentOpportunitiesReportGenerationBean.setClientFlag("N");
     	currentOpportunitiesReportGenerationBean.setResourceFlag("Y");
     	
+    	long grandTotal = 0;
+    	
 		resourceBandBox.close();
 		if(secondTabList.size()>0){
 			secondTabList.clear();	
@@ -378,6 +423,10 @@ public class CurrentOpportunitiesReportGenerationViewModel {
 		
 		if(monthReportBeanList.size()>0){
 			monthReportBeanList.clear();
+		}
+		
+		if(monthSetList.size()>0){
+			monthSetList.clear();
 		}
 		
 		System.out.println("RESOURCE NAME :"+currentOpportunitiesReportGenerationBean.getResourceMasterBean().getFullName());
@@ -423,18 +472,35 @@ public class CurrentOpportunitiesReportGenerationViewModel {
     	for(int i=1 ; i<13; i++){
     		MonthReportBean reportBean = new MonthReportBean();
     		reportBean.setMonthId(i);
-    		reportBean.setMonthName(months[i-1]);
+    		reportBean.setMonthName(months[i-1].toUpperCase());
+    		reportBean.setStyle(reportBean.getBoldStyle());
+    		
+    		reportBean.getCurrentOpportunitiesReportGenerationBean().setResourcenameString("Resource Name");
+    		reportBean.getCurrentOpportunitiesReportGenerationBean().setClientNameString("Client Name");
+    		reportBean.getCurrentOpportunitiesReportGenerationBean().setChargeOutString("Charge Out Rate(Monthly)");
+    		reportBean.getCurrentOpportunitiesReportGenerationBean().setMarginString("Margin");
     	
+    		int resourceCounter = 0;
+    		int resourceFinalCounter = 0;
+    		resourceFinalCounter = MonthShowingUtility.countNumberOfMonthPresentInLoop(secondTabList, months[i-1]);
+    		
     		ArrayList<CurrentOpportunitiesReportGenerationBean> monthClienBeanList = new ArrayList<CurrentOpportunitiesReportGenerationBean>();
     		for(CurrentOpportunitiesReportGenerationBean gen : secondTabList){
     			if(gen.getCurrentOpportunitiesReportBean().getMonth().equalsIgnoreCase(reportBean.getMonthName())){
     
+    				++resourceCounter;
     				CurrentOpportunitiesReportGenerationBean reportGenerationBean = new CurrentOpportunitiesReportGenerationBean();
+    				
     				reportGenerationBean.getClientInformationBean().setFullName(gen.getClientInformationBean().getFullName());
     				reportGenerationBean.getResourceMasterBean().setFullName(gen.getResourceMasterBean().getFullName());
     				reportGenerationBean.setRtsTrackingDetailsId(gen.getRtsTrackingDetailsId());
     				MonthShowingUtility.MarginSetForTrackingDeatilsID(reportGenerationBean);
+    				reportGenerationBean.setBackGround(reportGenerationBean.getBackGroundpaParent());
+    				reportGenerationBean.setStyle(reportGenerationBean.getBoldStyle());
     				monthClienBeanList.add(reportGenerationBean);
+    				
+    				System.out.println("IN VIEW MODEL COUNTER NUMBER IS :::::::::::"+resourceCounter+"-MONTH-"+reportBean.getMonthName());
+    				System.out.println("IN VIEW MODEL FETCHED COUNTER NUMBER IS :::::::::::"+resourceFinalCounter+"--Month--"+months[i-1]);
     				
     			}
     		}
@@ -442,7 +508,46 @@ public class CurrentOpportunitiesReportGenerationViewModel {
     		if(reportBean.getCurrentOpportunitiesReportGenerationBeanList().size()>0){
     			monthReportBeanList.add(reportBean);	
     		}
+    		
+    		if(resourceCounter>0){
+    			if(resourceCounter+1==resourceFinalCounter){
+        			CurrentOpportunitiesReportGenerationBean bean = new CurrentOpportunitiesReportGenerationBean();
+        			bean.getClientInformationBean().setFullName(null);
+        			bean.getResourceMasterBean().setFullName(null);
+        			bean.getCurrentOpportunitiesBean().setMarginString("TOTAL: "+MonthShowingUtility.calculateTotalMonthWise(monthClienBeanList));
+        			bean.getCurrentOpportunitiesBean().setMarginTotal(MonthShowingUtility.calculateTotalMonthWise(monthClienBeanList));
+        			bean.setStyle(bean.getLighterStyle());
+        			monthClienBeanList.add(bean);
+        			reportBean.setCurrentOpportunitiesReportGenerationBeanList(monthClienBeanList);
+        			monthReportBeanList.add(reportBean);
+        		}	
+    		}
+    	  LinkedHashSet<MonthReportBean> set2 = new LinkedHashSet<MonthReportBean>(monthReportBeanList);
+    	  monthSetList = set2;
     	}
+    	
+    	for(int i =0;i<1;i++){
+    		MonthReportBean monthReportBean = new MonthReportBean();
+    		monthReportBean.setMonthName("");
+		
+    		monthReportBean.getCurrentOpportunitiesReportGenerationBean().setResourcenameString("");
+    		monthReportBean.getCurrentOpportunitiesReportGenerationBean().setClientNameString("");
+    		monthReportBean.getCurrentOpportunitiesReportGenerationBean().setChargeOutString("");
+    		monthReportBean.getCurrentOpportunitiesReportGenerationBean().setMarginString("");
+		
+    		ArrayList<CurrentOpportunitiesReportGenerationBean> list2 = new ArrayList<CurrentOpportunitiesReportGenerationBean>();
+    		CurrentOpportunitiesReportGenerationBean opportunitiesReportGenerationBean = new CurrentOpportunitiesReportGenerationBean();
+		
+    		grandTotal = CurrentOpportunitiesReportGenerationDao.calculateGrandTotal(monthSetList);
+    		System.out.println("IN VIEW MODEL CLASS GRAND TOTAL IS ::"+grandTotal);
+    		
+    		opportunitiesReportGenerationBean.getCurrentOpportunitiesBean().setMarginString("GRAND TOTAL: "+grandTotal);
+    		opportunitiesReportGenerationBean.setStyle(opportunitiesReportGenerationBean.getBoldStyle());
+    		list2.add(opportunitiesReportGenerationBean);
+		
+    		monthReportBean.setCurrentOpportunitiesReportGenerationBeanList(list2);
+    		monthSetList.add(monthReportBean);
+	    }
 	}
     
     @Command
@@ -468,6 +573,8 @@ public class CurrentOpportunitiesReportGenerationViewModel {
     	secondDivVisibility= false;
     	buttonVisibility=false;
     	secondTabList.clear();
+    	currentOpportunitiesReportGenerationBean.getResourceMasterBean().setFullName(null);
+ 		clientList = ResourceAllocationTrackingService.fetchClientDetailsForReport();
     }
     
     @Command
@@ -476,6 +583,8 @@ public class CurrentOpportunitiesReportGenerationViewModel {
     	secondDivVisibility= false;
     	buttonVisibility=false;
     	secondTabList.clear();
+    	currentOpportunitiesReportGenerationBean.getClientInformationBean().setFullName(null);
+ 		resourceList = CurrentOpportunitiesReportGenerationDao.onLoadResourceDetails();
     }
     
     /****************************************************** GETTER AND SETTER METHOD *******************************************************************/
@@ -617,14 +726,13 @@ public class CurrentOpportunitiesReportGenerationViewModel {
 			ArrayList<MonthReportBean> monthReportBeanList) {
 		this.monthReportBeanList = monthReportBeanList;
 	}
-
-
 	public boolean isThirdDivVisibility() {
 		return thirdDivVisibility;
 	}
-
-
 	public void setThirdDivVisibility(boolean thirdDivVisibility) {
 		this.thirdDivVisibility = thirdDivVisibility;
+	}
+	public LinkedHashSet<MonthReportBean> getMonthSetList() {
+		return monthSetList;
 	}
 }

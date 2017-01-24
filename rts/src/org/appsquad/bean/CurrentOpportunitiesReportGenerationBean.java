@@ -28,9 +28,19 @@ public class CurrentOpportunitiesReportGenerationBean {
 	private boolean innerResourceCombo = false;
 	private boolean innerClientGroup = false;
 	
+	private String resourcenameString;
+	private String clientNameString;
+	private String chargeOutString;
+	private String marginString;
+	
 	private Integer rtsTrackingDetailsId;
 	private String resourceFlag = "N";
 	private String clientFlag = "N";
+	
+	private boolean clientNameColumnVisibility = true;
+	private boolean resourceNameColumnVisibility = true;
+	private boolean chargeOutRateColumnVisibility = true;
+	private boolean marginColumnVisibility = true;
 	
 	private CurrentOpportunitiesBean currentOpportunitiesBean = new CurrentOpportunitiesBean();
 	private CurrentOpportunitiesReportBean currentOpportunitiesReportBean = new CurrentOpportunitiesReportBean();
@@ -229,5 +239,54 @@ public class CurrentOpportunitiesReportGenerationBean {
 	}
 	public void setClientFlag(String clientFlag) {
 		this.clientFlag = clientFlag;
+	}
+	public boolean isClientNameColumnVisibility() {
+		return clientNameColumnVisibility;
+	}
+	public void setClientNameColumnVisibility(boolean clientNameColumnVisibility) {
+		this.clientNameColumnVisibility = clientNameColumnVisibility;
+	}
+	public boolean isResourceNameColumnVisibility() {
+		return resourceNameColumnVisibility;
+	}
+	public void setResourceNameColumnVisibility(boolean resourceNameColumnVisibility) {
+		this.resourceNameColumnVisibility = resourceNameColumnVisibility;
+	}
+	public boolean isChargeOutRateColumnVisibility() {
+		return chargeOutRateColumnVisibility;
+	}
+	public void setChargeOutRateColumnVisibility(
+			boolean chargeOutRateColumnVisibility) {
+		this.chargeOutRateColumnVisibility = chargeOutRateColumnVisibility;
+	}
+	public boolean isMarginColumnVisibility() {
+		return marginColumnVisibility;
+	}
+	public void setMarginColumnVisibility(boolean marginColumnVisibility) {
+		this.marginColumnVisibility = marginColumnVisibility;
+	}
+	public String getResourcenameString() {
+		return resourcenameString;
+	}
+	public void setResourcenameString(String resourcenameString) {
+		this.resourcenameString = resourcenameString;
+	}
+	public String getClientNameString() {
+		return clientNameString;
+	}
+	public void setClientNameString(String clientNameString) {
+		this.clientNameString = clientNameString;
+	}
+	public String getChargeOutString() {
+		return chargeOutString;
+	}
+	public void setChargeOutString(String chargeOutString) {
+		this.chargeOutString = chargeOutString;
+	}
+	public String getMarginString() {
+		return marginString;
+	}
+	public void setMarginString(String marginString) {
+		this.marginString = marginString;
 	}
 }
