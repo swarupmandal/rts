@@ -54,6 +54,7 @@ public class ResAllocTrackingUpdateViewModel {
 		clientId = clId;
 		trackingUpdateBean = bean;
 		trackingUpdateBean.setSessionUserId(userId);
+		trackingUpdateBean.setModalScreen("Resource Allocation Tracking Update -( Resource Name: "+trackingUpdateBean.getResourceMasterBean().getFullName()+")");
 		System.out.println("FETCHED STATUS IS :"+trackingUpdateBean.getStatus()+"--------"+"FETCHED STATUS ID IS :"+trackingUpdateBean.getStatusId());
 		trackingUpdateBean.setOldStatus(trackingUpdateBean.getStatus());
 		trackingUpdateBean.setOldStatusId(trackingUpdateBean.getStatusId());
@@ -85,14 +86,14 @@ public class ResAllocTrackingUpdateViewModel {
 		trackingUpdateBean.setStatus(statusBean.getStatus());
 		System.out.println("SELECTED STATUS NAME IS :"+trackingUpdateBean.getStatus()+"-----------"+"ID IS :"+trackingUpdateBean.getStatusId());
 		System.out.println("OLD STATUS NAME IS :"+trackingUpdateBean.getOldStatus()+"-------"+trackingUpdateBean.getOldStatusId());
-		if(trackingUpdateBean.getStatusId()<trackingUpdateBean.getOldStatusId()){
+		/*if(trackingUpdateBean.getStatusId()<trackingUpdateBean.getOldStatusId()){
 			statusBean.setStatus(trackingUpdateBean.getOldStatus());
 			statusBean.setStatusId(trackingUpdateBean.getOldStatusId());
 			trackingUpdateBean.setStatus(trackingUpdateBean.getOldStatus());
 			trackingUpdateBean.setStatusId(trackingUpdateBean.getOldStatusId());
 			statusBeanList = ResourceMasterDao.onLoadStatusForTrackingUpdateScreen(trackingUpdateBean);
 			Messagebox.show("You Can't Select Status Backward!", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
-		}
+		}*/
 	}
 	
 	@Command

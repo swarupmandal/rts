@@ -416,6 +416,14 @@ public class RequirementGenerationDao {
 				bean.setEmail(resultSet.getString("email_id"));
 				bean.getResourceTypeBean().setResourceTypeId(resultSet.getInt("type_id"));
 				bean.getResourceTypeBean().setResourceTypeName(resultSet.getString("type_name"));
+				System.out.println(bean.getResourceTypeBean().getResourceTypeId());
+				if(bean.getResourceTypeBean().getResourceTypeId()==1){
+					bean.setNofPerResource(resultSet.getInt("req_no_of_con_res"));
+					bean.setRequiredResourceNumber(bean.getNofPerResource());
+				}else if(bean.getResourceTypeBean().getResourceTypeId()==2){
+					bean.setNofConResource(resultSet.getInt("req_no_of_per_res"));
+					bean.setRequiredResourceNumber(bean.getNofConResource());
+				}
 				
 				list.add(bean);	
 			}

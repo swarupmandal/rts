@@ -16,6 +16,7 @@ public class RequirementGenerationBean {
   private String detailedJob;  
   private Integer nofPerResource;
   private Integer nofConResource;
+  private Integer requiredResourceNumber;
   private Integer oldValue;
   
   private Date raiseDate;
@@ -64,7 +65,7 @@ public class RequirementGenerationBean {
   
   StatusMasterBean statusMasterBean = new StatusMasterBean();
   
-  /*********Log-Audit Purpose ************/
+  /********* Log-Audit Purpose ************/
 	private String mainScreenName = "TRANSACTION";
 	private String chileScreenName = "REQUIREEMNT GENERATION SCREEN";
 	private Integer userSerialId;
@@ -404,6 +405,12 @@ public class RequirementGenerationBean {
 	}
 	public void setChileScreenName(String chileScreenName) {
 		this.chileScreenName = chileScreenName;
+	}
+	public Integer getRequiredResourceNumber() {
+		return requiredResourceNumber;
+	}
+	public void setRequiredResourceNumber(Integer requiredResourceNumber) {
+		this.requiredResourceNumber = requiredResourceNumber;
 	}
 	
 }

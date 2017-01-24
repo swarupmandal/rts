@@ -17,6 +17,7 @@ public class ResourceAllocationTrackingBean {
 	private Integer r_idSearch;
 	
 	private String skillSet;
+	private String modalScreen = "";
    
 	private Date internalInterviewDate;
 	private Date previousInternalInterviewDate;
@@ -314,5 +315,11 @@ public class ResourceAllocationTrackingBean {
 	}
 	public void setOperationId(Integer operationId) {
 		this.operationId = operationId;
+	}
+	public String getModalScreen() {
+		return modalScreen;
+	}
+	public void setModalScreen(String modalScreen) {
+		this.modalScreen = modalScreen;
 	}
 }
