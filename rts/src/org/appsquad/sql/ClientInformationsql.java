@@ -11,7 +11,8 @@ public class ClientInformationsql {
                                            +" VALUES (?, ?, ?, ?, ?, ?, ?,?, ?, ?) ";
 	
 	public static final String fetchClientDeatils = "select * from rts_clients_master where is_delete = 'N' order by id ";
-	public static final String clientDetailsUpdate = "UPDATE rts_clients_master set officeaddress = ?,state = ?,zipcode = ?,"
+	public static final String clientDetailsUpdate = "UPDATE rts_clients_master set clientname=?,name=?,"
+												   + "	surname=?,officeaddress = ?,state = ?,zipcode = ?,"
 			                                       + "contactno = ?,emailid = ?,updated_by = ? "
 			                                       + "where id = ? ";
 	

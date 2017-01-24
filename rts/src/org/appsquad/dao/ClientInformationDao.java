@@ -315,7 +315,11 @@ public class ClientInformationDao {
 					    PreparedStatement preparedStatementInsert = null;
 					    try {
 					    	preparedStatementInsert = Pstm.createQuery(connection, 
-									ClientInformationsql.clientDetailsUpdate, Arrays.asList(clientInformationBean.getAddress().toUpperCase(),
+									ClientInformationsql.clientDetailsUpdate, Arrays.asList(
+											clientInformationBean.getClientOriginalName().toUpperCase(),
+											clientInformationBean.getName().toUpperCase(),
+											clientInformationBean.getSurName().toUpperCase(),
+											clientInformationBean.getAddress().toUpperCase(),
 											clientInformationBean.getState().toUpperCase(),
 											clientInformationBean.getPinZipCode(),clientInformationBean.getContactNo().toUpperCase(),
 											clientInformationBean.getEmailId(),clientInformationBean.getUserId(),
