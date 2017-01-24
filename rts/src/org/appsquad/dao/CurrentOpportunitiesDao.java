@@ -74,7 +74,7 @@ public class CurrentOpportunitiesDao {
 			PreparedStatement preparedStatement = null;
 			try {
 				preparedStatement = Pstm.createQuery(connection, CurrentOpportunitiesSql.loadOpportumityDetailsQuery, null);
-				logger.info("Current Opportunities Load >>> >> > "+ preparedStatement.unwrap(PreparedStatement.class));
+				logger.info("IN PRE BILLING SCREEN LOAD QUERY :::: "+ preparedStatement.unwrap(PreparedStatement.class));
 				ResultSet resultSet = preparedStatement.executeQuery();
 				while (resultSet.next()) {
 					CurrentOpportunitiesBean bean = new CurrentOpportunitiesBean();
