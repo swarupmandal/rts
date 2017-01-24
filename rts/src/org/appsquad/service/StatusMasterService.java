@@ -1,8 +1,12 @@
 package org.appsquad.service;
 
+import java.util.ArrayList;
+
 import org.appsquad.bean.StatusMasterBean;
 import org.appsquad.dao.StatusMasterDao;
 import org.zkoss.zul.Messagebox;
+
+import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
 
 public class StatusMasterService {
 	private static boolean flag = false;
@@ -23,6 +27,26 @@ public class StatusMasterService {
 			flagUpdate = StatusMasterDao.updateStatusData(statusMasterBean);
 		}
 		return flagUpdate;
+	}
+	
+	public static void updateOtherStatus(StatusMasterBean statusMasterBean){
+		StatusMasterDao.updateOthersStatus(statusMasterBean);
+	}
+	
+	public static boolean setForPreBill(ArrayList<StatusMasterBean> statusMasterBeanList){
+		boolean isPreBillAppliciable =  false;
+		int countStatus = 0 ;
+		for(StatusMasterBean statusMasterBean : statusMasterBeanList){
+			if(statusMasterBean.isPreBilled()){
+				countStatus ++;
+			}
+		}
+		if(countStatus > 0){
+			isPreBillAppliciable = true;
+		}else{
+			isPreBillAppliciable = false;
+		}
+		return isPreBillAppliciable;
 	}
 	
 	public static boolean insertClientMasterData(StatusMasterBean statusMasterBean){

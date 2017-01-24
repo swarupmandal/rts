@@ -16,9 +16,10 @@
                        <div>
                           <grid >
                               <columns>
+                                    <column width="90px"></column>
+                                    <column width="290px"/>
                                     <column></column>
-                                    <column></column>
-                                    <column></column>
+                                     <column></column>
                               </columns>
                               <rows>
                                      <row>
@@ -27,7 +28,7 @@
                                            <label value="Status:" style="font-weight:bold"/>
                                      </hlayout>
                     				
-                    				 <textbox value="@bind(vm.statusMasterBean.status)" maxlength="30" width="300px" height="30px" 
+                    				 <textbox value="@bind(vm.statusMasterBean.status)" maxlength="30" width="100%" height="30px" 
                     				 	placeholder="WITHIN 25 WORDS" rows="2" onChange="@command('status')" xmlns:w="client">
                     				     <attribute w:name="doKeyPress_">
 											<![CDATA[ function(evt) { if ( (evt.which <
@@ -36,6 +37,10 @@
 							  				evt.which != 32) evt.stop(); } ]]>
 						  				 </attribute>
                     				 </textbox>
+                    				 <hlayout>
+                    				 	<label value="Set for prebill ?" style="font-weight:bold"/>
+                    				 	<checkbox checked="@bind(vm.statusMasterBean.preBilled)" disabled="@bind(vm.statusMasterBean.chkbxDisable)"/>
+                    				 </hlayout>
                    					 <button label="Submit" onClick="@command('onClickStatusSave')"/>
                 			        </row>
                               </rows>
@@ -46,9 +51,11 @@
                            <grid model="@bind(vm.statuslist)" mold="paging" pageSize="10" sclass="fgrid" height="390PX">
                            		<auxhead>
                            			<auxheader label="Status-Name" align="center" style="font-weight:bold;" colspan="1"/>
+                           			<auxheader label="Prebill?" align="center" style="font-weight:bold;" />
                            			<auxheader colspan="3" label="Action" align="center" style="font-weight:bold;" ></auxheader>		
                            		</auxhead>
                                <columns sizable="true" visible="false">
+								<column align="center"/>
 								<column align="center"/>
 								<column align="center"/>
 								<column align="center"/>
@@ -64,7 +71,8 @@
 							  						evt.which > 122) && evt.which != 8 &&
 							  						evt.which != 32) evt.stop(); } ]]>
 						  				 		 </attribute>
-											</textbox>    
+											</textbox> 
+											<checkbox checked="@bind(v.preBilled)" disabled="@bind(v.chkbxDisable)"/>   
 								    		<button label="Edit" onClick="@command('onClickEditButton', bean = v)"
 								    		                           disabled="@bind(v.editButtonDisable)"></button>
 								    		<button label="Save" onClick="@command('onClickSaveButton', bean = v)"

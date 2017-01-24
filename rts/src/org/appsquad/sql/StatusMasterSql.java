@@ -5,5 +5,6 @@ public class StatusMasterSql {
     public static final String fetchStatusQuery = "select * from rts_status_master where is_delete = 'N' order by id ";
     public static final String deleteStatusQuery = "update rts_status_master set is_delete = 'D' where id = ? ";
     public static final String countStatusSql = "select count(*) from rts_status_master where master_status_name = ? and is_delete = 'N' ";
-    public static final String updateStatusSql = "update rts_status_master set master_status_name = ? where id = ? ";
+    public static final String updateStatusSql = "update rts_status_master set master_status_name = ?,is_pre_bill = ? where id = ? ";
+    public static final String updateOtherStatusSql = "update rts_status_master set is_pre_bill = 'N' where id <> ?";
 }

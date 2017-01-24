@@ -9,7 +9,7 @@ public class StatusMasterBean {
 	private int ocstatusId;
 	private String ocstatus;
 	private String userId;
-	private boolean editButtonDisable = false;
+	private boolean editButtonDisable = false,isPreBilled = false,chkbxDisable = true;
 	private boolean saveButtonDisable = true;
 	private boolean statusDisabled = true;
 	private Integer oldOcStatusId;
@@ -126,5 +126,17 @@ public class StatusMasterBean {
 	}
 	public void setOperationId(Integer operationId) {
 		this.operationId = operationId;
+	}
+	public boolean isPreBilled() {
+		return isPreBilled;
+	}
+	public void setPreBilled(boolean isPreBilled) {
+		this.isPreBilled = isPreBilled;
+	}
+	public boolean isChkbxDisable() {
+		return chkbxDisable;
+	}
+	public void setChkbxDisable(boolean chkbxDisable) {
+		this.chkbxDisable = chkbxDisable;
 	}
 }

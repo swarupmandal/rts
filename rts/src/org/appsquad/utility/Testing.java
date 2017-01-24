@@ -64,21 +64,14 @@ public class Testing {
 			beginCalendar.setTime(formater.parse(fromDate));
 			finishCalendar.setTime(formater.parse(toDate));
 		} catch (java.text.ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		while (beginCalendar.before(finishCalendar)) {
-            // add one month to date per loop
-            String date =     formater.format(beginCalendar.getTime()).toUpperCase();
-           // System.out.println(date);
-            String[] month = date.split("-");
-          //  System.out.println("Year: "+month[0]+" Month :"+month[1]);
-            returningMonthList.add(month[1]);
-            beginCalendar.add(Calendar.MONTH, 1);
+          String[] month = formater.format(beginCalendar.getTime()).toUpperCase().split("-");
+          returningMonthList.add(month[1]);
+          beginCalendar.add(Calendar.MONTH, 1);
         }
-		for(String month : returningMonthList)
-			System.out.println(month);
 		return returningMonthList;
 	}
 
