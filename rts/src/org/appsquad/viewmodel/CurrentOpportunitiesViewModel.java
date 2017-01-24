@@ -89,7 +89,9 @@ public class CurrentOpportunitiesViewModel {
 			marginDisable = true;
 			idList = CurrentOpportunitiesService.fetchClientIdList(userId);
 			System.out.println("ID LIST SIZE IS :"+idList.size()+"------"+Arrays.toString(idList.toArray()));
-			currentOpportunitiesBeanList = CurrentOpportunitiesService.loadCurrentOpportunityDetailsForApprover(idList);
+			if(idList.size()>0){
+			   currentOpportunitiesBeanList = CurrentOpportunitiesService.loadCurrentOpportunityDetailsForApprover(idList);	
+			}
 		}else if(roleName.equalsIgnoreCase("APPROVER AND DATA ENTRY OPERATOR")){
 			/*comboBoxDisable = false;
 			createOfferVisibility = true;

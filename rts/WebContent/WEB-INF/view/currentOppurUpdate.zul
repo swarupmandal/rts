@@ -1,7 +1,7 @@
 
 <?page title="PRE BILLING CONFIRMATION UPDATE SCREEN" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="Pre Billing Confirmation Update " border="none" height="370px" width="520px" apply="org.zkoss.bind.BindComposer"
+<window title="Pre Billing Confirmation Update " border="none" height="390px" width="520px" apply="org.zkoss.bind.BindComposer"
 		    					viewModel="@id('vm') @init('org.appsquad.viewmodel.CurrentOppurUpdateViewModel')" id="winCurrOppurUpdate" 
 		    					   closable="true" onClose="@command('onCloseOperationPreBilling')"> 
      		    <div>
@@ -43,6 +43,12 @@
 						</row>
 						
 						<row>
+						  <label value="Percentage:" style="font-weight:bold"></label>		
+						 <doublebox value="@bind(vm.currentOpportunitiesBean.margin)" width="50%" maxlength="6" readonly="true">
+						 </doublebox>
+						</row>
+						
+						<row>
 						  <label value="Approval:" style="font-weight:bold"></label>		
 						 <combobox value="@bind(vm.currentOpportunitiesBean.approval)" disabled="@bind(vm.comboBoxDisable)" width="50%" readonly="true">
 							<comboitem label="Approve"></comboitem>
@@ -68,7 +74,7 @@
 				  				<button label="Confirm" visible="@bind(vm.createOfferVisibility)" style="font-weight:bold" 
 				  				        onClick="@command('onCreate', bean = v)"></button>	
 				  				<button label="Save" visible="@bind(vm.saveButtonVisibility)" style="font-weight:bold"
-				  				  onClick="@command('onSave')"></button>        
+				  				  onClick="@command('onSave')"></button> 
 							</hlayout> 
 						</row>
 					</rows>

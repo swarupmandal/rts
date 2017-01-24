@@ -152,7 +152,7 @@ public class CurrentOpportunitiesDao {
 			Connection connection = DbConnection.createConnection();
 			PreparedStatement preparedStatement = null;
 			try {
-				String sql = "select * from vw_opportunity_details where status_id = 9 and client_id IN ( "+ getSplitedId(idList) +") ";
+				String sql = "select * from vw_opportunity_details where status_id = (select id from rts_status_master where is_pre_bill = 'Y') and client_id IN ( "+ getSplitedId(idList) +") ";
 				preparedStatement = connection.prepareStatement(sql);
 				logger.info("Current Opportunities Load For Approver>>> >> > "+ preparedStatement.unwrap(PreparedStatement.class));
 				ResultSet resultSet = preparedStatement.executeQuery();
