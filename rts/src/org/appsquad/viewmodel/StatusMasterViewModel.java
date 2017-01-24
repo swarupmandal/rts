@@ -42,12 +42,14 @@ public class StatusMasterViewModel {
 		statusMasterBean.setUserId(userId);
 		statusMasterBean.setSessionUserId(userId);
 		statuslist = StatusMasterDao.onLoadStatusDeatils();
+		statusMasterBean.setChkbxDisable(StatusMasterService.setForPreBill(statuslist)); 
 	}
 	
 	@GlobalCommand
 	@NotifyChange("*")
 	public void globalStatusDetailsUpdate(){
 		statuslist = StatusMasterDao.onLoadStatusDeatils();
+		statusMasterBean.setChkbxDisable(StatusMasterService.setForPreBill(statuslist)); 
 	}
 	
 	@Command
@@ -88,6 +90,7 @@ public class StatusMasterViewModel {
 				System.out.println("flagLogInsert Is:"+flagLogInsert);
 				StatusMasterService.clearAllField(statusMasterBean);
 				statuslist = StatusMasterDao.onLoadStatusDeatils();
+				statusMasterBean.setChkbxDisable(StatusMasterService.setForPreBill(statuslist)); 
 			}	
 		}
 	}
@@ -125,6 +128,7 @@ public class StatusMasterViewModel {
 		masterBean.setStatusDisabled(false);
 		masterBean.setEditButtonDisable(true);
 		masterBean.setSaveButtonDisable(false);
+		masterBean.setChkbxDisable(false);
 	}
 	
 	@Command
@@ -139,6 +143,7 @@ public class StatusMasterViewModel {
 		
 		flagUpdate = StatusMasterService.updateClientMasterData(masterBean);
 		if(flagUpdate){
+			StatusMasterService.updateOtherStatus(masterBean);
 			masterBean.setOperation("UPDATE");
 			masterBean.setSessionUserId(userId);
 			masterBean.setOperationId(2);
@@ -154,6 +159,7 @@ public class StatusMasterViewModel {
 			masterBean.setStatusDisabled(true);
 			System.out.println(masterBean.isStatusDisabled());
 			statuslist = StatusMasterDao.onLoadStatusDeatils();
+			statusMasterBean.setChkbxDisable(StatusMasterService.setForPreBill(statuslist)); 
 		}
 	}
 	
@@ -161,6 +167,7 @@ public class StatusMasterViewModel {
 	@NotifyChange("*")
 	public void onClickExistingStatus(){
 		statuslist = StatusMasterDao.onLoadStatusDeatils();
+		statusMasterBean.setChkbxDisable(StatusMasterService.setForPreBill(statuslist)); 
 	}
 	
 	/***************************************************Getter And Setter Method ****************************************************************/
