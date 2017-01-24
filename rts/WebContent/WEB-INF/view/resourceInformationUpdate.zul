@@ -18,12 +18,12 @@
 					<rows>
 						<row>
 						  <label value="Name:" style="font-weight:bold"></label>		
-						  <textbox width="75%" value="@bind(vm.masterBean.name)" readonly="true"></textbox>	
+						  <textbox width="75%" value="@bind(vm.masterBean.name)" ></textbox>	
 						</row>
 						
 						<row>
 						  <label value="Surname:" style="font-weight:bold"></label>		
-						  <textbox width="75%" value="@bind(vm.masterBean.surName)" readonly="true"></textbox>	
+						  <textbox width="75%" value="@bind(vm.masterBean.surName)" ></textbox>	
 						</row>
 						
 						<row>
