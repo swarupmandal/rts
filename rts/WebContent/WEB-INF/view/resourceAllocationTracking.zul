@@ -62,15 +62,15 @@
 				<column width="50px" style="font-weight:bold; color: black;" align="center" visible="false">Check</column>
 				<column width="220px" style="font-weight:bold; color: black;" align="center" label="Resource"></column>
 				<column width="180px" style="font-weight:bold; color: black;" align="center" label="Status"></column>
-				<column width="100px" style="font-weight:bold; color: black;" align="center" label="Year of Exp"></column>
+				<!-- <column width="100px" style="font-weight:bold; color: black;" align="center" label="Year of Exp"></column> -->
 				<column width="120px" style="font-weight:bold; color: black;" align="center" label="Resource Type"></column>
-				<column width="140px" style="font-weight:bold; color: black;" align="center" label="Ph number"></column>
+				<!-- <column width="140px" style="font-weight:bold; color: black;" align="center" label="Ph number"></column>
 				<column width="200px" style="font-weight:bold; color: black;" align="center" label="E-mail"></column>
-				<column width="200px" style="font-weight:bold; color: black;" align="center" label="Addreass"></column>
-				<column width="130px" style="font-weight:bold; color: black;" align="center" label="Iternal Interview Date"></column>
+				<column width="200px" style="font-weight:bold; color: black;" align="center" label="Addreass"></column> -->
+				<column width="140px" style="font-weight:bold; color: black;" align="center" label="Internal Interview Date"></column>
 				<column width="130px" style="font-weight:bold; color: black;" align="center" label="Client Interview Date"></column>
 				<column width="130px" style="font-weight:bold; color: black;" align="center" label="On-board Date"></column>
-				<column width="130px" style="font-weight:bold; color: black;" align="center" label="Update"></column>
+				<column width="120px" style="font-weight:bold; color: black;" align="center" label="Action"></column>
 			</columns>
 	
 			<rows>
@@ -79,15 +79,16 @@
 				  <checkbox value="@bind(v.check)"></checkbox>
 				  <textbox width="98%"  readonly="true" value="@bind(v.resourceMasterBean.fullName)"></textbox>
 				  <textbox width="98%"  readonly="true" value="@bind(v.status)"></textbox>
-				  <doublebox width="98%" readonly="true" value="@bind(v.resourceMasterBean.yearOfExperience)"></doublebox>
+				 <!--  <doublebox width="98%" readonly="true" value="@bind(v.resourceMasterBean.yearOfExperience)"></doublebox> -->
 				  <textbox width="98%"  readonly="true" value="@bind(v.resourceType)"></textbox>
-				  <textbox width="98%"  readonly="true" value="@bind(v.resourceMasterBean.contactNumber)"></textbox>
+				 <!--  <textbox width="98%"  readonly="true" value="@bind(v.resourceMasterBean.contactNumber)"></textbox>
 				  <textbox width="98%"  readonly="true" value="@bind(v.resourceMasterBean.emailId)"></textbox>
-				  <textbox width="98%"  readonly="true" value="@bind(v.resourceMasterBean.address)"></textbox>
+				  <textbox width="98%"  readonly="true" value="@bind(v.resourceMasterBean.address)"></textbox> -->
 				  <textbox width="98%"  readonly="true" value="@bind(v.internalInterviewDateStr)"></textbox>
 				  <textbox width="98%"  readonly="true" value="@bind(v.clientInterviewDateStr)"></textbox>
 				  <textbox width="98%"  readonly="true" value="@bind(v.onboardDateStr)"></textbox>
-				  <button width="90%" label="Update" onClick="@command('onClickUpdate', bean =v)"></button>	
+				 <!--  <button width="90%" label="Update" onClick="@command('onClickUpdate', bean =v)"></button>	 -->
+				 <image src="images/interact.png" width="40%" onClick="@command('onClickUpdate', bean =v)"></image>
 				</row>
 			  </template>	
 			</rows>

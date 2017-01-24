@@ -3,7 +3,6 @@ package org.appsquad.viewmodel;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.appsquad.bean.ClientInformationBean;
 import org.appsquad.bean.RequirementGenerationBean;
 import org.appsquad.bean.ResourceAllocationTrackingBean;
