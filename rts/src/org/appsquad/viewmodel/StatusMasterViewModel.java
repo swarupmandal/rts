@@ -90,6 +90,7 @@ public class StatusMasterViewModel {
 				System.out.println("flagLogInsert Is:"+flagLogInsert);
 				StatusMasterService.clearAllField(statusMasterBean);
 				statuslist = StatusMasterDao.onLoadStatusDeatils();
+				statusMasterBean.setPreBilled(false);
 				statusMasterBean.setChkbxDisable(StatusMasterService.setForPreBill(statuslist)); 
 			}	
 		}
