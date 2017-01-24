@@ -3,12 +3,12 @@
  <style>
 			.z-loading { 
 				top: 50% !important; left: 45% !important; align:
-			center; vertical-align: middle; font-weight: 900;color: red;   }
-		.z-loading-indicator {  
-			color: red;  
-			border:2px solid; 
-			position:absolute;
-		}  
+				center; vertical-align: middle; font-weight: 900;color: red;   }
+				.z-loading-indicator {  
+				color: red;  
+				border:2px solid; 
+				position:absolute;
+			}  
 		</style>
 <div apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('org.appsquad.viewmodel.HomePageViewModel')">
 <include src="inc/header.zul"></include>
