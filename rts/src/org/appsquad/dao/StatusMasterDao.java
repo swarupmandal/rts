@@ -13,6 +13,8 @@ import org.appsquad.sql.StatusMasterSql;
 import org.appsquad.utility.Pstm;
 import org.zkoss.zul.Messagebox;
 
+import sun.print.PeekGraphics;
+
 public class StatusMasterDao {
 	final static Logger logger = Logger.getLogger(StatusMasterDao.class);
 	
@@ -28,8 +30,14 @@ public class StatusMasterDao {
 					sql_insert:{
 					    PreparedStatement preparedStatementInsert = null;
 					    try {
+					    	String preBilledStatus = "N";
+					    	if(statusMasterBean.isPreBilled()){
+					    		preBilledStatus = "Y";
+					    	}
 					    	preparedStatementInsert = Pstm.createQuery(connection, 
-									StatusMasterSql.insertStatusQuery, Arrays.asList(statusMasterBean.getUserId(),statusMasterBean.getStatus().toUpperCase()));
+									StatusMasterSql.insertStatusQuery, Arrays.asList(statusMasterBean.getUserId(),
+											statusMasterBean.getStatus().toUpperCase(),preBilledStatus));
+					    	
 					    	logger.info(" insertStatusData- " + preparedStatementInsert.unwrap(PreparedStatement.class));
 							int i = preparedStatementInsert.executeUpdate();
 							if(i>0){
