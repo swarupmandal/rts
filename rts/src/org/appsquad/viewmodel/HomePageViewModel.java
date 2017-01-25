@@ -3,7 +3,6 @@ package org.appsquad.viewmodel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-
 import org.apache.log4j.Logger;
 import org.appsquad.bean.RoleMenusBean;
 import org.appsquad.database.DbConnection;
@@ -18,7 +17,6 @@ import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.select.Selectors;
-import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
@@ -136,19 +134,19 @@ public class HomePageViewModel {
 								}else if(bean.getMenusId()>=14 && bean.getMenusId()<=20){
 									reportLinkVisibility = true;
 									if(bean.getMenusId()==14){
-										currentOpportunitiesViewReportVisibility = true;
-									}else if(bean.getMenusId()==15){
 										requirementWiseStatusReport = true;
-									}else if(bean.getMenusId()==16){
+									}else if(bean.getMenusId()==15){
 										individualClientReport = true;
-									}else if(bean.getMenusId()==17){
+									}else if(bean.getMenusId()==16){
 										individualRequirementRIDReport = true;
-									}else if(bean.getMenusId()==19){
+									}else if(bean.getMenusId()==17){
 										skillSetWiseRequirementList = true;
-									}else if(bean.getMenusId()==19){
+									}else if(bean.getMenusId()==18){
 										logAuditViewVisibility = true;
-									}else if(bean.getMenusId()==20){
+									}else if(bean.getMenusId()==19){
 										resourceDetailPerRequirementCV = true;
+									}else if(bean.getMenusId()==20){
+										currentOpportunitiesViewReportVisibility = true;
 									}
 								}else if(bean.getMenusId()>=21 && bean.getMenusId()<=27){
 									taskSectionVisibility = true;
