@@ -239,7 +239,7 @@
                    <treeitem open="false">
         				 <treerow>
          				 <treecell label="- Creation Datewise Detail Report" onClick='inclResults.setSrc("/WEB-INF/view/creationDatewiseDetailReport.zul");' 
-         				         visible="true">
+         				         visible="@bind(vm.fourthReportVisibility)">
         			     </treecell>
          				</treerow>
                    </treeitem>

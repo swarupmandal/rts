@@ -57,6 +57,7 @@ public class HomePageViewModel {
 	private boolean firstReportVisibility = false;
 	private boolean secondReportVisibility = false;
 	private boolean thirdReportVisibility = false;
+	private boolean fourthReportVisibility = false;
 	private boolean billingSectionVisibility = false;
 	private boolean taskSectionVisibility = false;
 	private boolean taskReportVisibity = false;
@@ -149,13 +150,13 @@ public class HomePageViewModel {
 									}else if(bean.getMenusId()==20){
 										resourceDetailPerRequirementCV = true;
 									}
-								}else if(bean.getMenusId()>=21 && bean.getMenusId()<=25){
+								}else if(bean.getMenusId()>=21 && bean.getMenusId()<=27){
 									taskSectionVisibility = true;
 									if(bean.getMenusId()==21){
 										taskNameVisibility = true;
 									}else if(bean.getMenusId()==22){
 										taskUpdateVisibility = true;
-									}else if(bean.getMenusId()>=23 && bean.getMenusId()<=25){
+									}else if(bean.getMenusId()>=23 && bean.getMenusId()<=27){
 										taskReportVisibity = true;
 										if(bean.getMenusId()==23){
 										   firstReportVisibility = true;
@@ -163,6 +164,8 @@ public class HomePageViewModel {
 											secondReportVisibility = true;
 										}else if(bean.getMenusId()==25){
 											thirdReportVisibility = true;
+										}else if(bean.getMenusId()==27){
+											fourthReportVisibility = true;
 										}
 									}
 								}
@@ -427,5 +430,11 @@ public class HomePageViewModel {
 	}
 	public void setTaskReportVisibity(boolean taskReportVisibity) {
 		this.taskReportVisibity = taskReportVisibity;
+	}
+	public boolean isFourthReportVisibility() {
+		return fourthReportVisibility;
+	}
+	public void setFourthReportVisibility(boolean fourthReportVisibility) {
+		this.fourthReportVisibility = fourthReportVisibility;
 	}
 }
