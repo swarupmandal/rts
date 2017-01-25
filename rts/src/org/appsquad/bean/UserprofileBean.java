@@ -5,7 +5,7 @@ import java.sql.Date;
 public class UserprofileBean {
 
 	private String username;
-	private String password;
+	private String password,textType = "password";
 	private String userid;
 	private String anotherUserId;
 	private String email;
@@ -13,7 +13,7 @@ public class UserprofileBean {
 	private String Contactno;
 	private int id;
 	
-	private boolean isChecked;
+	private boolean isChecked,passwordReadOnly = true;
 	
 	/*********Log-Audit Purpose ************/
 	private String mainScreenName = "MASTER";
@@ -121,5 +121,17 @@ public class UserprofileBean {
 	}
 	public void setAnotherUserId(String anotherUserId) {
 		this.anotherUserId = anotherUserId;
+	}
+	public boolean isPasswordReadOnly() {
+		return passwordReadOnly;
+	}
+	public void setPasswordReadOnly(boolean passwordReadOnly) {
+		this.passwordReadOnly = passwordReadOnly;
+	}
+	public String getTextType() {
+		return textType;
+	}
+	public void setTextType(String textType) {
+		this.textType = textType;
 	}
 }

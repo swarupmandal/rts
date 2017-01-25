@@ -43,7 +43,7 @@
                                    <template name="model" var="v">
                                    <row>
                                        <textbox value="@bind(v.roll)" readonly="@bind(v.visibilityRoleTextBox)"
-                                          width="350px" tooltiptext="@bind(v.roll)"/>
+                                          maxlength="50" width="350px" tooltiptext="@bind(v.roll)"/>
                                        <button label="Edit" onClick="@command('onclickedit', bean = v)" disabled="@bind(v.visibilityEditButton)"/>
                                        <button label="Save" onClick="@command('onClickSave', bean = v)" disabled="@bind(v.visibilitySaveButton)"/>
                                        <button label="Delete" onClick="@command('onClickDelete', bean = v)" disabled="@bind(v.visibilityDeleteButton)"/>

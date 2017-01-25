@@ -27,7 +27,7 @@
                                     <label value="Skill Set:" style="font-weight:bold"></label>
                                </hlayout>
                                    
-                                   <textbox value="@bind(vm.skillsetMasterbean.skillset)" maxlength="20" width="45%" onChange="@command('skillSet')"
+                                   <textbox value="@bind(vm.skillsetMasterbean.skillset)" maxlength="50" width="45%" onChange="@command('skillSet')"
                                        xmlns:w="client">
                                           <attribute w:name="doKeyPress_">
 											<![CDATA[ function(evt) { if ( (evt.which <

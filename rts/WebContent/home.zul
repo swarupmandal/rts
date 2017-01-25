@@ -18,7 +18,7 @@
       <treechildren>
        <treeitem open="false">
         <treerow>
-         <treecell label="Master" visible="@bind(vm.masterLinkVisibility)"/>
+         <treecell label="Master" style="font-weight:bold;color:green" visible="@bind(vm.masterLinkVisibility)"/>
         </treerow>
           <treechildren>
             <treeitem open="false">
@@ -73,7 +73,7 @@
        
         <treeitem open="false">
          <treerow>
-         	<treecell label="Transaction" visible="@bind(vm.tranactionLinkVisibility)">
+         	<treecell label="Transaction" style="font-weight:bold;color:green" visible="@bind(vm.tranactionLinkVisibility)">
          	</treecell>
          </treerow>
          <treechildren>
@@ -129,7 +129,7 @@
          </treeitem>
        <treeitem open="false">
          <treerow>
-         	<treecell label="Report" visible="@bind(vm.reportLinkVisibility)">
+         	<treecell label="Report" style="font-weight:bold;color:green" visible="@bind(vm.reportLinkVisibility)">
          	</treecell>
          </treerow>
          <treechildren>
@@ -187,7 +187,7 @@
          
          <treeitem open="false">
          <treerow>
-         	<treecell label="Task" visible="@bind(vm.taskSectionVisibility)">
+         	<treecell label="Task" style="font-weight:bold;color:green" visible="@bind(vm.taskSectionVisibility)">
          	</treecell>
          </treerow>
          <treechildren>
@@ -251,13 +251,13 @@
          
          <treeitem open="false">
          <treerow>
-         <treecell label="Sign-out" onClick="@command('onClickSignOut')">
+         <treecell label="Sign-out" style="font-weight:bold;color:green" onClick="@command('onClickSignOut')">
          </treecell>
          </treerow>
          </treeitem>
          <treeitem open="false">
          <treerow>
-         <treecell label="Change Password" onClick="@command('onClickChangePassword')">
+         <treecell label="Change Password" style="font-weight:bold;color:green" onClick="@command('onClickChangePassword')">
          </treecell>
          </treerow>
          </treeitem>

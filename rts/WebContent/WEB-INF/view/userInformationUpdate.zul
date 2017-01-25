@@ -21,7 +21,7 @@
                                     </row>   
                                     <row>
                                         <label value="Password"/>
-                                        <textbox value="@bind(vm.bean.password)" type="password" readonly="true"/>
+                                        <textbox value="@bind(vm.bean.password)" type="@bind(vm.bean.textType)" readonly="@bind(vm.bean.passwordReadOnly)"/>
                                     </row> 
                                     <row>
                                         <label value="Email Id"/>
@@ -48,6 +48,7 @@
                        <space></space>
                              <div align="center">
                                    <button label="Update" width="80px" height="30px" style="font-weight:bold" onClick="@command('onClickUpdateButton')"/>
+                                   <button label="Show Password"  height="30px" style="font-weight:bold" onClick="@command('onClickReset')"/>
                             </div>
 			</window>
 </zk>

@@ -82,6 +82,7 @@
                                     <row>
                                       <label></label>
                                       <button label="Submit" width="80px" height="30px" style="font-weight:bold" onClick="@command('onClickuserSubmit')"/>
+                                      
                                     </row>
                                  </rows>
                                </grid>
