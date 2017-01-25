@@ -3,7 +3,6 @@ package org.appsquad.viewmodel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-
 import org.apache.log4j.Logger;
 import org.appsquad.bean.RoleMenusBean;
 import org.appsquad.database.DbConnection;
@@ -18,7 +17,6 @@ import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.select.Selectors;
-import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
@@ -57,6 +55,7 @@ public class HomePageViewModel {
 	private boolean firstReportVisibility = false;
 	private boolean secondReportVisibility = false;
 	private boolean thirdReportVisibility = false;
+	private boolean fourthReportVisibility = false;
 	private boolean billingSectionVisibility = false;
 	private boolean taskSectionVisibility = false;
 	private boolean taskReportVisibity = false;
@@ -135,27 +134,27 @@ public class HomePageViewModel {
 								}else if(bean.getMenusId()>=14 && bean.getMenusId()<=20){
 									reportLinkVisibility = true;
 									if(bean.getMenusId()==14){
-										currentOpportunitiesViewReportVisibility = true;
-									}else if(bean.getMenusId()==15){
 										requirementWiseStatusReport = true;
-									}else if(bean.getMenusId()==16){
+									}else if(bean.getMenusId()==15){
 										individualClientReport = true;
-									}else if(bean.getMenusId()==17){
+									}else if(bean.getMenusId()==16){
 										individualRequirementRIDReport = true;
-									}else if(bean.getMenusId()==19){
+									}else if(bean.getMenusId()==17){
 										skillSetWiseRequirementList = true;
-									}else if(bean.getMenusId()==19){
+									}else if(bean.getMenusId()==18){
 										logAuditViewVisibility = true;
-									}else if(bean.getMenusId()==20){
+									}else if(bean.getMenusId()==19){
 										resourceDetailPerRequirementCV = true;
+									}else if(bean.getMenusId()==20){
+										currentOpportunitiesViewReportVisibility = true;
 									}
-								}else if(bean.getMenusId()>=21 && bean.getMenusId()<=25){
+								}else if(bean.getMenusId()>=21 && bean.getMenusId()<=27){
 									taskSectionVisibility = true;
 									if(bean.getMenusId()==21){
 										taskNameVisibility = true;
 									}else if(bean.getMenusId()==22){
 										taskUpdateVisibility = true;
-									}else if(bean.getMenusId()>=23 && bean.getMenusId()<=25){
+									}else if(bean.getMenusId()>=23 && bean.getMenusId()<=27){
 										taskReportVisibity = true;
 										if(bean.getMenusId()==23){
 										   firstReportVisibility = true;
@@ -163,6 +162,8 @@ public class HomePageViewModel {
 											secondReportVisibility = true;
 										}else if(bean.getMenusId()==25){
 											thirdReportVisibility = true;
+										}else if(bean.getMenusId()==27){
+											fourthReportVisibility = true;
 										}
 									}
 								}
@@ -427,5 +428,11 @@ public class HomePageViewModel {
 	}
 	public void setTaskReportVisibity(boolean taskReportVisibity) {
 		this.taskReportVisibity = taskReportVisibity;
+	}
+	public boolean isFourthReportVisibility() {
+		return fourthReportVisibility;
+	}
+	public void setFourthReportVisibility(boolean fourthReportVisibility) {
+		this.fourthReportVisibility = fourthReportVisibility;
 	}
 }
