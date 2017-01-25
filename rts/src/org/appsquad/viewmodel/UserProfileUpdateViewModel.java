@@ -81,6 +81,13 @@ public class UserProfileUpdateViewModel {
 	
 	@Command
 	@NotifyChange("*")
+	public void onClickReset(){
+		bean.setPasswordReadOnly(false);
+		bean.setTextType("text");
+	}
+	
+	@Command
+	@NotifyChange("*")
 	public void onCloseOperation(@ContextParam(ContextType.TRIGGER_EVENT)Event e){
 		winUserProfile.detach();
 		BindUtils.postGlobalCommand(null, null, "globalUserDetailsUpdate", null);

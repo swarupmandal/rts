@@ -159,6 +159,8 @@ public class UserprofileViewModel {
 		}
 	}
 	
+	
+	
 	@Command
 	@NotifyChange("*")
 	public void onClickUpdateButton(@BindingParam("bean") UserprofileBean userprofileBean){
