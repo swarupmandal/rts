@@ -38,11 +38,12 @@ public class CurrentOpportunitiesBean {
 	private String trackLogingID;
 	
 	private Integer percentage;
+	private String modalTitle;
 	
 	private UserClientMappingBean bean = new UserClientMappingBean();
 	private ArrayList<UserClientMappingBean> userClBeanList = new ArrayList<UserClientMappingBean>();
 
-	/*********Log-Audit Purpose ************/
+	/************ Log-Audit Purpose ************/
 	private String mainScreenName = "TRANSACTION";
 	private String chileScreenName = "PRE BILLING CONFIRMATION";
 	private String operation;
@@ -297,5 +298,11 @@ public class CurrentOpportunitiesBean {
 	}
 	public void setPercentage(Integer percentage) {
 		this.percentage = percentage;
+	}
+	public String getModalTitle() {
+		return modalTitle;
+	}
+	public void setModalTitle(String modalTitle) {
+		this.modalTitle = modalTitle;
 	}
 }

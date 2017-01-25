@@ -56,6 +56,7 @@ public class CurrentOppurUpdateViewModel {
 		userId = (String) sessions.getAttribute("userId");
 		currentOpportunitiesBean.setLoginID(userId);
 		previousApproverName = currentOpportunitiesBean.getBean().getUserID();
+		currentOpportunitiesBean.setModalTitle("Pre Billing Confirmation Update - ( RID: "+currentOpportunitiesBean.getRid()+" - "+"Resource Name: "+currentOpportunitiesBean.getResourceName()+")");
 		loadApproverName();
 		fetchDataWrtDataEntryOrApprover();
 	}
