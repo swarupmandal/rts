@@ -60,7 +60,7 @@
 		<grid mold="paging" pageSize="10"  model="@bind(vm.trackingBeanList)" height="450px">
 			<columns sizable="true">
 				<column width="50px" style="font-weight:bold; color: black;" align="center" visible="false">Check</column>
-				<column width="220px" style="font-weight:bold; color: black;" align="center" label="Resource"></column>
+				<column width="220px" style="font-weight:bold; color: black;" align="center" label="Resource Name"></column>
 				<column width="180px" style="font-weight:bold; color: black;" align="center" label="Status"></column>
 				<!-- <column width="100px" style="font-weight:bold; color: black;" align="center" label="Year of Exp"></column> -->
 				<column width="120px" style="font-weight:bold; color: black;" align="center" label="Resource Type"></column>

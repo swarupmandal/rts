@@ -14,18 +14,18 @@
 					<rows>
 						<row>
 			  				<label value="Resource Name" style="font-weight: bold"></label>
-			  					<textbox value="@bind(vm.trackingUpdateBean.resourceMasterBean.fullName)" width="250px" readonly="true"></textbox>			
-						  	
+			  					<textbox value="@bind(vm.trackingUpdateBean.resourceMasterBean.fullName)" width="200px" readonly="true"
+			  					   tooltiptext="@bind(vm.trackingUpdateBean.resourceMasterBean.fullName)">
+			  					</textbox>			
 						</row>
 						
 						<row>
 						  <label value="Resource Type" style="Font-weight: bold"></label>
-		   					<textbox value="@bind(vm.trackingUpdateBean.resourceType)" readonly="true" width="200px"></textbox>
+		   				  <textbox value="@bind(vm.trackingUpdateBean.resourceType)" readonly="true" width="200px"></textbox>
 						</row>
 						
 						<row>
 						   <label value="Current Status" style="Font-weight: bold"></label>
-		   	
 						   	<combobox value="@bind(vm.trackingUpdateBean.status)" selectedItem="@bind(vm.statusBean)" 
 						   	  model="@bind(vm.statusBeanList)" readonly="true" width="200px" onSelect="@command('onSelectStatus')">
 						   	  <template name="model" var="v">
@@ -46,12 +46,12 @@
 						
 						<row>
 						  <label value="Client Interview Date" style="Font-weight: bold"></label>
-		    				<datebox value="@bind(vm.trackingUpdateBean.clientInterviewDate)" width="200px"></datebox>	
+		    			  <datebox value="@bind(vm.trackingUpdateBean.clientInterviewDate)" width="200px"></datebox>	
 						</row>
 						
 						<row>
 						   <label value="Onboard Date" style="Font-weight: bold"></label>
-		    					<datebox value="@bind(vm.trackingUpdateBean.onboardDate)" width="200px"></datebox>	
+		    			   <datebox value="@bind(vm.trackingUpdateBean.onboardDate)" width="200px"></datebox>	
 					   </row>
 					   
 					   <row>
