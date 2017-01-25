@@ -37,6 +37,8 @@ public class CurrentOpportunitiesBean {
 	private String loginID;
 	private String trackLogingID;
 	
+	private Integer percentage;
+	
 	private UserClientMappingBean bean = new UserClientMappingBean();
 	private ArrayList<UserClientMappingBean> userClBeanList = new ArrayList<UserClientMappingBean>();
 
@@ -289,5 +291,11 @@ public class CurrentOpportunitiesBean {
 	}
 	public void setMarginTotal(long marginTotal) {
 		this.marginTotal = marginTotal;
+	}
+	public Integer getPercentage() {
+		return percentage;
+	}
+	public void setPercentage(Integer percentage) {
+		this.percentage = percentage;
 	}
 }

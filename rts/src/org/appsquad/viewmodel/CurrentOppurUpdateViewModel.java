@@ -192,9 +192,7 @@ public class CurrentOppurUpdateViewModel {
 	@NotifyChange("*")
 	public void chargeOut(){
 		if(currentOpportunitiesBean.getChargeoutRate()!=null && currentOpportunitiesBean.getChargeoutRate()>0){
-			if(currentOpportunitiesBean.getResourceSalary()!=null && currentOpportunitiesBean.getResourceSalary()>0){
-				currentOpportunitiesBean.setMargin((currentOpportunitiesBean.getChargeoutRate()-currentOpportunitiesBean.getResourceSalary()));
-			}
+			currentOpportunitiesBean.setMargin(null);
 		}else{
 			Messagebox.show(" Please Enter Charge Out Rate ","Warning", Messagebox.OK, Messagebox.EXCLAMATION);
 		}
@@ -203,19 +201,39 @@ public class CurrentOppurUpdateViewModel {
 	@Command
 	@NotifyChange("*")
 	public void resourceSalary(){
-		if(currentOpportunitiesBean.getChargeoutRate()<currentOpportunitiesBean.getResourceSalary()){
-			currentOpportunitiesBean.setResourceSalary(null);
-			Messagebox.show(" Resource Sallary Can't Be Greater Than The Charge Out Rate ","Warning", Messagebox.OK, Messagebox.EXCLAMATION);
+		if(currentOpportunitiesBean.getResourceSalary()!=null && currentOpportunitiesBean.getResourceSalary()>0){
+			currentOpportunitiesBean.setMargin(null);
 		}else{
-			if(currentOpportunitiesBean.getChargeoutRate()!=null && currentOpportunitiesBean.getChargeoutRate()>0){
-				if(currentOpportunitiesBean.getResourceSalary()!=null && currentOpportunitiesBean.getResourceSalary()>0){
-					currentOpportunitiesBean.setMargin((currentOpportunitiesBean.getChargeoutRate()-currentOpportunitiesBean.getResourceSalary()));
+			Messagebox.show(" Please Enter Resource Salary ","Warning", Messagebox.OK, Messagebox.EXCLAMATION);
+		}
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void createMargin(){
+		if(currentOpportunitiesBean.getChargeoutRate()!=null && currentOpportunitiesBean.getChargeoutRate()>0){
+			if(currentOpportunitiesBean.getResourceSalary()!=null && currentOpportunitiesBean.getResourceSalary()>0){
+				if(currentOpportunitiesBean.getChargeoutRate()<currentOpportunitiesBean.getResourceSalary()){
+					currentOpportunitiesBean.setResourceSalary(null);
+					currentOpportunitiesBean.setMargin(null);
+					Messagebox.show(" Resource Sallary Can't Be Greater Than The Charge Out Rate ","Warning", Messagebox.OK, Messagebox.EXCLAMATION);
 				}else{
-					Messagebox.show(" Please Enter Resource Salary ","Warning", Messagebox.OK, Messagebox.EXCLAMATION);
-				}
+					if(currentOpportunitiesBean.getChargeoutRate()!=null && currentOpportunitiesBean.getChargeoutRate()>0){
+						if(currentOpportunitiesBean.getResourceSalary()!=null && currentOpportunitiesBean.getResourceSalary()>0){
+							currentOpportunitiesBean.setMargin((currentOpportunitiesBean.getChargeoutRate()-currentOpportunitiesBean.getResourceSalary()));
+						    
+						}else{
+							Messagebox.show(" Please Enter Resource Salary ","Warning", Messagebox.OK, Messagebox.EXCLAMATION);
+						}
+					}else{
+						Messagebox.show(" Please Enter Charge Out Rate ","Warning", Messagebox.OK, Messagebox.EXCLAMATION);
+					}	
+				}		
 			}else{
-				Messagebox.show(" Please Enter Charge Out Rate ","Warning", Messagebox.OK, Messagebox.EXCLAMATION);
-			}	
+				Messagebox.show(" Resource Salary Can't Be Blank ","Warning", Messagebox.OK, Messagebox.EXCLAMATION);
+			}
+		}else{
+			Messagebox.show(" Charge Out Rate Can't Be Blank ","Warning", Messagebox.OK, Messagebox.EXCLAMATION);
 		}
 	}
 	
@@ -364,7 +382,7 @@ public class CurrentOppurUpdateViewModel {
 		String approverName= "";
 		
 		count = CurrentOpportunitiesDao.coutrowForDataEntryAndApproverBoth(currentOpportunitiesBean);
-		System.out.println("COUNT :"+count);
+		System.out.println(" SUPER ADMIN -> COUNT :"+count);
 		
 		if(count>0){
 			System.out.println("METHOD 1 FOR BOTH");
@@ -420,8 +438,9 @@ public class CurrentOppurUpdateViewModel {
 			
 		}else{
 			System.out.println("METHOD 2 FOR BOTH");
-			
-			flagInsert = CurrentOpportunitiesService.insertTrackingDetails(currentOpportunitiesBean);
+			if(CurrentOpportunitiesService.validateForApprover(currentOpportunitiesBean)){
+				flagInsert = CurrentOpportunitiesService.insertTrackingDetails(currentOpportunitiesBean);	
+			}
 			if(flagInsert){
 				flagCreateUpdate = CurrentOpportunitiesService.updateTrackingService(currentOpportunitiesBean);
 				System.out.println(flagCreateUpdate);
