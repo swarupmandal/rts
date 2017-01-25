@@ -106,6 +106,7 @@ public class CurrentOpportunitiesService {
 		}
 	}
 	
+	
 	public static boolean insertTrackingDetails(CurrentOpportunitiesBean bean){
 		return flagInsert = CurrentOpportunitiesDao.insertTrackingData(bean);
 	}

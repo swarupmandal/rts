@@ -7,50 +7,52 @@
      		    <div>
 					<grid>
 					<columns>
-						<column width="20%"></column>
-						<column width="70%"></column>
+						<column width="150px"/>
+						<column width="240px"/>
+						<column width="110px"/>
 					</columns>
 					<rows>
 						<row>
 						  <label value="Tenure From:" style="font-weight:bold"></label>		
-						  <datebox width="50%" value="@bind(vm.currentOpportunitiesBean.tenureFromsql)" readonly="true"
+						  <datebox width="60%" value="@bind(vm.currentOpportunitiesBean.tenureFromsql)" readonly="true"
 						    onChange="@command('onChangeFromDate')"></datebox>	
 						</row>
 						
 						<row>
 						  <label value="Tenure To:" style="font-weight:bold"></label>		
-						  <datebox width="50%" value="@bind(vm.currentOpportunitiesBean.tenureTosql)" readonly="true"
+						  <datebox width="60%" value="@bind(vm.currentOpportunitiesBean.tenureTosql)" readonly="true"
 						    onChange="@command('onChangeToDate')"></datebox>	
 						</row>
 						
 						<row>
 						  <label value="Charge Out Rate(Monthly):" style="font-weight:bold"></label>		
-						  <doublebox value="@bind(vm.currentOpportunitiesBean.chargeoutRate)" width="50%" maxlength="6" 
+						  <doublebox value="@bind(vm.currentOpportunitiesBean.chargeoutRate)" width="60%" maxlength="6" 
 						           onChange="@command('chargeOut')"/>	
 						</row>	
 						
 						<row>
-						  <label value="Resource Salary(Monthly):" style="font-weight:bold"></label>		
-						 <doublebox value="@bind(vm.currentOpportunitiesBean.resourceSalary)" width="50%" maxlength="6" 
-						          onChange="@command('resourceSalary')">
-						 </doublebox>
+						      <label value="Resource Salary(Monthly):" style="font-weight:bold"></label>
+						      <doublebox width="60%" value="@bind(vm.currentOpportunitiesBean.resourceSalary)" maxlength="6"
+						        onChange="@command('resourceSalary')">
+						 	  </doublebox>
+						 	  <button label="Create Margin" onClick="@command('createMargin')"></button>
 						</row>
 						
 						<row>
-						  <label value="Margin:" style="font-weight:bold"></label>		
-						 <doublebox value="@bind(vm.currentOpportunitiesBean.margin)" width="50%" maxlength="6" readonly="true">
+						 <label value="Margin:" style="font-weight:bold"></label>		
+						 <doublebox value="@bind(vm.currentOpportunitiesBean.margin)" width="60%" maxlength="6" readonly="true">
 						 </doublebox>
 						</row>
 						
 						<row>
 						  <label value="Percentage:" style="font-weight:bold"></label>		
-						 <doublebox value="@bind(vm.currentOpportunitiesBean.margin)" width="50%" maxlength="6" readonly="true">
+						 <doublebox value="@bind(vm.currentOpportunitiesBean.margin)" width="60%" maxlength="6" readonly="true">
 						 </doublebox>
 						</row>
 						
 						<row>
 						  <label value="Approval:" style="font-weight:bold"></label>		
-						 <combobox value="@bind(vm.currentOpportunitiesBean.approval)" disabled="@bind(vm.comboBoxDisable)" width="50%" readonly="true">
+						 <combobox value="@bind(vm.currentOpportunitiesBean.approval)" disabled="@bind(vm.comboBoxDisable)" width="60%" readonly="true">
 							<comboitem label="Approve"></comboitem>
 							<comboitem label="Reject"></comboitem>
 						</combobox>
@@ -58,7 +60,7 @@
 						
 						<row>
 						  <label value="Approvar Person:" style="font-weight:bold"></label>		
-						 	<combobox model="@bind(vm.currentOpportunitiesBean.userClBeanList)" value="@bind(vm.currentOpportunitiesBean.bean.userID)" width="50%" selectedItem="@bind(vm.currentOpportunitiesBean.bean)" readonly="true"
+						 	<combobox model="@bind(vm.currentOpportunitiesBean.userClBeanList)" value="@bind(vm.currentOpportunitiesBean.bean.userID)" width="60%" selectedItem="@bind(vm.currentOpportunitiesBean.bean)" readonly="true"
 				  					disabled="@bind(vm.approverNameDisable)" onSelect="@command('approverPerson')">
 								<template name="model" var = "p">
 					  			<comboitem value="@bind(p.userID)" label="@bind(p.userID)"></comboitem>
