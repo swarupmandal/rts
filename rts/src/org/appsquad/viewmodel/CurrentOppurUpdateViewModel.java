@@ -382,7 +382,7 @@ public class CurrentOppurUpdateViewModel {
 		String approverName= "";
 		
 		count = CurrentOpportunitiesDao.coutrowForDataEntryAndApproverBoth(currentOpportunitiesBean);
-		System.out.println("COUNT :"+count);
+		System.out.println(" SUPER ADMIN -> COUNT :"+count);
 		
 		if(count>0){
 			System.out.println("METHOD 1 FOR BOTH");
@@ -438,8 +438,9 @@ public class CurrentOppurUpdateViewModel {
 			
 		}else{
 			System.out.println("METHOD 2 FOR BOTH");
-			
-			flagInsert = CurrentOpportunitiesService.insertTrackingDetails(currentOpportunitiesBean);
+			if(CurrentOpportunitiesService.validateForApprover(currentOpportunitiesBean)){
+				flagInsert = CurrentOpportunitiesService.insertTrackingDetails(currentOpportunitiesBean);	
+			}
 			if(flagInsert){
 				flagCreateUpdate = CurrentOpportunitiesService.updateTrackingService(currentOpportunitiesBean);
 				System.out.println(flagCreateUpdate);
