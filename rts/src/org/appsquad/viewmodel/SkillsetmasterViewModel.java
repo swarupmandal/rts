@@ -68,10 +68,9 @@ public class SkillsetmasterViewModel {
 				skillsetMasterbean.setOperationId(1);
 				Calendar calendar = Calendar.getInstance();
 			    java.sql.Date currentDate = new java.sql.Date(calendar.getTime().getTime());
-				System.out.println("CREATION DATE :"+currentDate);
 				flagLogInsert = LogAuditServiceClass.insertIntoLogTable(skillsetMasterbean.getMainScreenName(), skillsetMasterbean.getChileScreenName(), 
 						skillsetMasterbean.getSessionUserId(), skillsetMasterbean.getOperation(),currentDate,skillsetMasterbean.getOperationId());
-				System.out.println("flagLogInsert Is:"+flagLogInsert);	
+				
 			   SkillSetMasterService.clearAllField(skillsetMasterbean);  
 			}	
 		}
@@ -97,11 +96,8 @@ public class SkillsetmasterViewModel {
 	public void skillSet(){
 		if(skillsetMasterbean.getSkillset()!=null){
 			int size = skillsetMasterbean.getSkillset().length();
-			System.out.println(size);
 			String newName = skillsetMasterbean.getSkillset().trim();
-			System.out.println(newName);
 			int newSize = newName.length();
-			System.out.println(newSize);
 			skillsetMasterbean.setSkillset(newName);
 		}
 	}
@@ -111,11 +107,8 @@ public class SkillsetmasterViewModel {
 	public void skillsetdetails(){
 		if(skillsetMasterbean.getSkillsetdetails()!=null){
 			int size1 = skillsetMasterbean.getSkillsetdetails().length();
-			System.out.println(size1);
 			String newSkill = skillsetMasterbean.getSkillsetdetails().trim();
-			System.out.println(newSkill);
 			int newSize1 = newSkill.length();
-			System.out.println(newSize1);
 			skillsetMasterbean.setSkillsetdetails(newSkill);
 		}
 	}
@@ -135,10 +128,9 @@ public class SkillsetmasterViewModel {
 		    			skillsetMasterbean.setOperationId(3);
 						Calendar calendar = Calendar.getInstance();
 					    java.sql.Date currentDate = new java.sql.Date(calendar.getTime().getTime());
-						System.out.println("CREATION DATE :"+currentDate);
 						flagLogDelete = LogAuditServiceClass.insertIntoLogTable(skillsetMasterbean.getMainScreenName(), skillsetMasterbean.getChileScreenName(), 
 								skillsetMasterbean.getSessionUserId(), skillsetMasterbean.getOperation(),currentDate,skillsetMasterbean.getOperationId());
-						System.out.println("flagLogDelete Is:"+flagLogDelete);	
+						
 		    			BindUtils.postGlobalCommand(null, null, "globalSkillSetDetailsUpdate", null);
 		    		}
 		        } else {

@@ -46,7 +46,6 @@ public class DynamicPageCreationViewModel {
 	
 	public void allPageNameFetchWithCheckBoxVm(RoleMasterBean masterBean){
 		pagelist = DynamicPageCreationService.allPageNameFetchWithCheckBoxSe(masterBean);
-		System.out.println(pagelist.size());
 	}
 	
 	
@@ -57,7 +56,7 @@ public class DynamicPageCreationViewModel {
 			if(allChecked)
 			page.setChkSelect(true);
 			else
-				page.setChkSelect(false);
+			page.setChkSelect(false);
 		}
 	}
 	
@@ -78,11 +77,9 @@ public class DynamicPageCreationViewModel {
 			roleMasterBean.setOperationId(1);
 			Calendar calendar = Calendar.getInstance();
 		    java.sql.Date currentDate = new java.sql.Date(calendar.getTime().getTime());
-			System.out.println("CREATION DATE :"+currentDate);
 			flagLogAssignPage = LogAuditServiceClass.insertIntoLogTable(roleMasterBean.getMainScreenName(), roleMasterBean.getChileScreenName(), 
 																			roleMasterBean.getSessionUserId(), roleMasterBean.getOperation(),currentDate,
 																			   roleMasterBean.getOperationId());
-			System.out.println("flagLogAssignPage Is:"+flagLogAssignPage);
 			winDynamicPage.detach();
 		}
 	}
@@ -131,11 +128,9 @@ public class DynamicPageCreationViewModel {
 	public void setRoleMasterBean(RoleMasterBean roleMasterBean) {
 		this.roleMasterBean = roleMasterBean;
 	}
-
 	public boolean isAllChecked() {
 		return allChecked;
 	}
-
 	public void setAllChecked(boolean allChecked) {
 		this.allChecked = allChecked;
 	}

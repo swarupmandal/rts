@@ -52,14 +52,11 @@ public class RoleMasterUpdateViewModel {
 		masterBean.setVisibilityUpdateButton(true);
 		uId = masterBean.getUserprofileBean().getId();
 		masterBean.setuId(uId);
-		System.out.println(masterBean.getuId());
 	}
 	
 	@Command
 	@NotifyChange("*")
 	public void onSelectRollName(){
-		System.out.println("ROLE ID IS :"+masterBean.getDownBean().getRollId());
-		System.out.println("MAPPER ID IS :"+masterBean.getMapperId());
 		masterBean.setVisibilityUpdateButton(false);
 	}
 	
@@ -73,11 +70,9 @@ public class RoleMasterUpdateViewModel {
 			masterBean.setOperationId(2);
 			Calendar calendar = Calendar.getInstance();
 		    java.sql.Date currentDate = new java.sql.Date(calendar.getTime().getTime());
-			System.out.println("CREATION DATE :"+currentDate);
 			flagLogUpdate = LogAuditServiceClass.insertIntoLogTable(masterBean.getMainScreenName(), masterBean.getChileScreenName(), 
 																		masterBean.getSessionUserId(), masterBean.getOperation(),currentDate,
 																		  masterBean.getOperationId());
-			System.out.println("flagLogUpdate Is:"+flagLogUpdate);
 			winRoleUpdate.detach();
 			BindUtils.postGlobalCommand(null, null, "globalRoleDetailsUpdate", null);
 		}

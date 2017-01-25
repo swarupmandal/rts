@@ -108,7 +108,6 @@ public class ClientUserAssignViewModel {
 		 if(clientUserAssignBean.clientInformationBean.getFullName()!=null && clientUserAssignBean.clientInformationBean.getFullName().trim().length()>0){
 			 if(clientUserAssignBean.userprofileBean.getUserid()!=null && clientUserAssignBean.userprofileBean.getUserid().trim().length()>0){
 				 count = ClientUserAssignService.countClientUserAssignData(clientUserAssignBean);
-				 System.out.println("COUNT USER CLINET COUNT NUMBER IS :"+count);
 				 if(count==0){
 					 isInsert = ClientUserAssignService.insertClientUserAssignData(clientUserAssignBean);
 					 if(isInsert){
@@ -116,11 +115,9 @@ public class ClientUserAssignViewModel {
 						 clientUserAssignBean.setOperationId(1);
 						 Calendar calendar = Calendar.getInstance();
 						 java.sql.Date currentDate = new java.sql.Date(calendar.getTime().getTime());
-						 System.out.println("CREATION DATE :"+currentDate);
 						 flagLogInsert = LogAuditServiceClass.insertIntoLogTable(clientUserAssignBean.getMainScreenName(), clientUserAssignBean.getChileScreenName(), 
 																				clientUserAssignBean.getSessionUserId(), clientUserAssignBean.getOperation(),currentDate,
 																				clientUserAssignBean.getOperationId());
-							System.out.println("flagLogInsert Is:"+flagLogInsert);
 							
 							clientUserAssignBean.clientInformationBean.setFullName(null);
 							clientUserAssignBean.clientInformationBean.setClientId(null);
@@ -149,19 +146,16 @@ public class ClientUserAssignViewModel {
 		 boolean isDelete = false;
 		 boolean flagLogDelete = false;
 		 isDelete = ClientUserAssignService.deleteClientUserAssignData(userAssignBean);
-		 System.out.println("IS DELETE IS :"+isDelete);
 		 if(isDelete){
 			 userAssignBean.setOperation("DELETE");
 			 userAssignBean.setOperationId(3);
 			 userAssignBean.setSessionUserId(userId);
 			 Calendar calendar = Calendar.getInstance();
 			 java.sql.Date currentDate = new java.sql.Date(calendar.getTime().getTime());
-			 System.out.println("CREATION DATE :"+currentDate);
 			 flagLogDelete = LogAuditServiceClass.insertIntoLogTable(userAssignBean.getMainScreenName(), userAssignBean.getChileScreenName(), 
 					 												 userAssignBean.getSessionUserId(), userAssignBean.getOperation(),
 																	 currentDate,userAssignBean.getOperationId());
-			 System.out.println("flagLogDelete Is:"+flagLogDelete);
-				
+			 
 			 assignList = ClientUserAssignDao.onLoadAssignDeatils();	
 		 }
 	 }

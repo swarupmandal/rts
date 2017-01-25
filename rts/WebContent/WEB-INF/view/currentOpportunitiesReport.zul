@@ -2,7 +2,7 @@
 <zk xmlns:h='http://www.w3.org/1999/xhtml'>
 <window title="Billing Confirmation " border="normal" apply="org.zkoss.bind.BindComposer" 
                  viewModel="@id('vm') @init('org.appsquad.viewmodel.CurrentOpportunitiesReportViewModel')">
-                 <style>
+                <!--  <style>
 					.z-loading { 
 						top: 50% !important; left: 45% !important; align:
 						center; vertical-align: middle; font-weight: 900;color: red;   }
@@ -11,7 +11,7 @@
 						border:2px solid; 
 						position:absolute;
 				   }  
-			</style>
+			</style> -->
    <div>
      <grid model="@bind(vm.reportList)" mold="paging" pageSize="8" height="470px"> 
          <columns sizable="true">

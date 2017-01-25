@@ -80,11 +80,8 @@ public class ClientInformationViewModel {
 	public void clientOriginalName(){
 		if(clientInformationBean.getClientOriginalName()!=null){
 			int size = clientInformationBean.getClientOriginalName().length();
-			System.out.println(size);
 			String newName = clientInformationBean.getClientOriginalName().trim();
-			System.out.println(newName);
 			int newSize = newName.length();
-			System.out.println(newSize);
 			clientInformationBean.setClientOriginalName(newName);
 		}
 	}
@@ -94,11 +91,8 @@ public class ClientInformationViewModel {
 	public void name(){
 		if(clientInformationBean.getName()!=null){
 			int size1 = clientInformationBean.getName().length();
-			System.out.println(size1);
 			String modifyName = clientInformationBean.getName().trim();
-			System.out.println(modifyName);
 			int newSize1 = modifyName.length();
-			System.out.println(newSize1);
 			clientInformationBean.setName(modifyName);
 		}
 	}
@@ -108,11 +102,8 @@ public class ClientInformationViewModel {
 	public void surName(){
 		if(clientInformationBean.getSurName()!=null){
 			int size2 = clientInformationBean.getSurName().length();
-			System.out.println(size2);
 			String modifySurName = clientInformationBean.getSurName().trim();
-			System.out.println(modifySurName);
 			int newSize2 = modifySurName.length();
-			System.out.println(newSize2);
 			clientInformationBean.setSurName(modifySurName);
 		}
 	}
@@ -122,11 +113,8 @@ public class ClientInformationViewModel {
 	public void address(){
 		if(clientInformationBean.getAddress()!=null){
 			int size3 = clientInformationBean.getAddress().length();
-			System.out.println(size3);
 			String modifyAddress = clientInformationBean.getAddress().trim();
-			System.out.println(modifyAddress);
 			int newSize3 = modifyAddress.length();
-			System.out.println(newSize3);
 			clientInformationBean.setAddress(modifyAddress);
 		}
 	}
@@ -136,11 +124,8 @@ public class ClientInformationViewModel {
 	public void country(){
 		if(clientInformationBean.getCountry()!=null){
 			int size4 = clientInformationBean.getCountry().length();
-			System.out.println(size4);
 			String modifyCountry = clientInformationBean.getCountry().trim();
-			System.out.println(modifyCountry);
 			int newSize4 = modifyCountry.length();
-			System.out.println(newSize4);
 			clientInformationBean.setCountry(modifyCountry);
 		}
 	}
@@ -150,11 +135,8 @@ public class ClientInformationViewModel {
 	public void state(){
 		if(clientInformationBean.getState()!=null){
 			int size5 = clientInformationBean.getState().length();
-			System.out.println(size5);
 			String modifyState = clientInformationBean.getState().trim();
-			System.out.println(modifyState);
 			int newSize5 = modifyState.length();
-			System.out.println(newSize5);
 			clientInformationBean.setState(modifyState);
 		}
 	}
@@ -164,11 +146,8 @@ public class ClientInformationViewModel {
 	public void email(){
 		if(clientInformationBean.getEmailId()!=null){
 			int size6 = clientInformationBean.getEmailId().length();
-			System.out.println(size6);
 			String modifyEmail = clientInformationBean.getEmailId().trim();
-			System.out.println(modifyEmail);
 			int newSize6 = modifyEmail.length();
-			System.out.println(newSize6);
 			clientInformationBean.setEmailId(modifyEmail);
 		}
 	}
@@ -182,13 +161,10 @@ public class ClientInformationViewModel {
 			clientInformationBean.setOperationId(1);
 			Calendar calendar = Calendar.getInstance();
 		    java.sql.Date currentDate = new java.sql.Date(calendar.getTime().getTime());
-			System.out.println("CREATION DATE :"+currentDate);
 			flagLogInsert = LogAuditServiceClass.insertIntoLogTable(clientInformationBean.getMainScreenName(), clientInformationBean.getChileScreenName(), 
 																	clientInformationBean.getSessionUserId(), clientInformationBean.getOperation(),currentDate,
 																	clientInformationBean.getOperationId());
-			System.out.println("flagLogInsert Is:"+flagLogInsert);
 			ClientInformationService.clearAllField(clientInformationBean);
-			
 			userBeanList.clear();
 			userBeanList = ClientInformationService.loadUser(connection);
 		}
@@ -232,11 +208,9 @@ public class ClientInformationViewModel {
 				clientInformationBean.setSessionUserId(userId);
 				Calendar calendar = Calendar.getInstance();
 			    java.sql.Date currentDate = new java.sql.Date(calendar.getTime().getTime());
-				System.out.println("CREATION DATE :"+currentDate);
 				flagLogDelete = LogAuditServiceClass.insertIntoLogTable(clientInformationBean.getMainScreenName(), clientInformationBean.getChileScreenName(), 
 																		clientInformationBean.getSessionUserId(), clientInformationBean.getOperation(),currentDate,
 																		clientInformationBean.getOperationId());
-				System.out.println("flagLogDelete Is:"+flagLogDelete);
 				
 				BindUtils.postGlobalCommand(null, null, "globalClientDetailsUpdate", null);
 			}	

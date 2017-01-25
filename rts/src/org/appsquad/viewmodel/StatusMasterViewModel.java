@@ -57,11 +57,8 @@ public class StatusMasterViewModel {
 	public void status(){
 		if(statusMasterBean.getStatus()!=null){
 			int size = statusMasterBean.getStatus().length();
-			System.out.println(size);
 			String newName = statusMasterBean.getStatus().trim();
-			System.out.println(newName);
 			int newSize = newName.length();
-			System.out.println(newSize);
 			statusMasterBean.setStatus(newName);
 		}
 	}
@@ -83,11 +80,10 @@ public class StatusMasterViewModel {
 				statusMasterBean.setOperationId(1);
 				Calendar calendar = Calendar.getInstance();
 			    java.sql.Date currentDate = new java.sql.Date(calendar.getTime().getTime());
-				System.out.println("CREATION DATE :"+currentDate);
 				flagLogInsert = LogAuditServiceClass.insertIntoLogTable(statusMasterBean.getMainScreenName(), statusMasterBean.getChileScreenName(), 
 																		statusMasterBean.getSessionUserId(), statusMasterBean.getOperation(),currentDate,
 																		statusMasterBean.getOperationId());
-				System.out.println("flagLogInsert Is:"+flagLogInsert);
+				//System.out.println("flagLogInsert Is:"+flagLogInsert);
 				StatusMasterService.clearAllField(statusMasterBean);
 				statuslist = StatusMasterDao.onLoadStatusDeatils();
 				statusMasterBean.setPreBilled(false);
@@ -109,11 +105,11 @@ public class StatusMasterViewModel {
 		    			masterBean.setOperationId(3);
 						Calendar calendar = Calendar.getInstance();
 					    java.sql.Date currentDate = new java.sql.Date(calendar.getTime().getTime());
-						System.out.println("CREATION DATE :"+currentDate);
+						//System.out.println("CREATION DATE :"+currentDate);
 						flagLogDelete = LogAuditServiceClass.insertIntoLogTable(masterBean.getMainScreenName(), masterBean.getChileScreenName(), 
 																					masterBean.getSessionUserId(), masterBean.getOperation(),currentDate,
 																					   masterBean.getOperationId());
-						System.out.println("flagLogDelete Is:"+flagLogDelete);
+						//System.out.println("flagLogDelete Is:"+flagLogDelete);
 		    			BindUtils.postGlobalCommand(null, null, "globalStatusDetailsUpdate", null);
 		    		}
 		        } else {
@@ -150,15 +146,15 @@ public class StatusMasterViewModel {
 			masterBean.setOperationId(2);
 			Calendar calendar = Calendar.getInstance();
 		    java.sql.Date currentDate = new java.sql.Date(calendar.getTime().getTime());
-			System.out.println("CREATION DATE :"+currentDate);
+			//System.out.println("CREATION DATE :"+currentDate);
 			flagLogUpdate = LogAuditServiceClass.insertIntoLogTable(masterBean.getMainScreenName(), masterBean.getChileScreenName(), 
 																		masterBean.getSessionUserId(), masterBean.getOperation(),currentDate,
 																		   masterBean.getOperationId());
-			System.out.println("flagLogUpdate Is:"+flagLogUpdate);
+			//System.out.println("flagLogUpdate Is:"+flagLogUpdate);
 			masterBean.setEditButtonDisable(false);
 			masterBean.setSaveButtonDisable(true);
 			masterBean.setStatusDisabled(true);
-			System.out.println(masterBean.isStatusDisabled());
+			//System.out.println(masterBean.isStatusDisabled());
 			statuslist = StatusMasterDao.onLoadStatusDeatils();
 			statusMasterBean.setChkbxDisable(StatusMasterService.setForPreBill(statuslist)); 
 		}
