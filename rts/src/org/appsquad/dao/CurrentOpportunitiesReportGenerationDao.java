@@ -453,19 +453,19 @@ public class CurrentOpportunitiesReportGenerationDao {
 					CurrentOpportunitiesReportGenerationBean firstBean = new CurrentOpportunitiesReportGenerationBean();
 					
 					firstBean.getCurrentOpportunitiesBean().setTentureFromUtil(resultSet.getDate("tenure_from"));
-					System.out.println(firstBean.getCurrentOpportunitiesBean().getTentureFromUtil());
+					//System.out.println(firstBean.getCurrentOpportunitiesBean().getTentureFromUtil());
 					firstBean.getCurrentOpportunitiesBean().setTentureToUtil(resultSet.getDate("tenure_to"));
 					firstBean.getClientInformationBean().setFullName(resultSet.getString("clientname"));
 					firstBean.getResourceMasterBean().setFullName(resultSet.getString("resource_name"));
 					firstBean.setRtsTrackingDetailsId(resultSet.getInt("rts_tracking_details_id"));
 					
 					list = MonthShowingForReport.calculation(firstBean);
-					System.out.println("IN DAO CLASS SIZE:"+list.size());
-					for(CurrentOpportunitiesReportGenerationBean bean1: list){
+					//System.out.println("IN DAO CLASS SIZE:"+list.size());
+					/*for(CurrentOpportunitiesReportGenerationBean bean1: list){
 						System.out.println("MONTH :"+bean1.getCurrentOpportunitiesReportBean().getMonth()+"----"+bean1.getCurrentOpportunitiesBean().getTentureFromUtil());
-					}
+					}*/
 					totalList.addAll(list);
-					System.out.println("INDAO CLASS TOTAL LIST :"+totalList.size());
+					//System.out.println("INDAO CLASS TOTAL LIST :"+totalList.size());
 				}
 			} finally {
 				if (preparedStatement != null) {
@@ -509,19 +509,19 @@ public class CurrentOpportunitiesReportGenerationDao {
 					CurrentOpportunitiesReportGenerationBean firstBean = new CurrentOpportunitiesReportGenerationBean();
 					
 					firstBean.getCurrentOpportunitiesBean().setTentureFromUtil(resultSet.getDate("tenure_from"));
-					System.out.println(firstBean.getCurrentOpportunitiesBean().getTentureFromUtil());
+					//System.out.println(firstBean.getCurrentOpportunitiesBean().getTentureFromUtil());
 					firstBean.getCurrentOpportunitiesBean().setTentureToUtil(resultSet.getDate("tenure_to"));
 					firstBean.getClientInformationBean().setFullName(resultSet.getString("clientname"));
 					firstBean.getResourceMasterBean().setFullName(resultSet.getString("resource_name"));
 					firstBean.setRtsTrackingDetailsId(resultSet.getInt("rts_tracking_details_id"));
 					
 					list = MonthShowingForReport.calculation(firstBean);
-					System.out.println("IN DAO CLASS SIZE:"+list.size());
-					for(CurrentOpportunitiesReportGenerationBean bean1: list){
+					//System.out.println("IN DAO CLASS SIZE:"+list.size());
+					/*for(CurrentOpportunitiesReportGenerationBean bean1: list){
 						System.out.println("MONTH :"+bean1.getCurrentOpportunitiesReportBean().getMonth()+"----"+bean1.getCurrentOpportunitiesBean().getTentureFromUtil());
-					}
+					}*/
 					totalList.addAll(list);
-					System.out.println("INDAO CLASS TOTAL LIST :"+totalList.size());
+					//System.out.println("INDAO CLASS TOTAL LIST :"+totalList.size());
 				}
 			} finally {
 				if (preparedStatement != null) {
@@ -563,7 +563,7 @@ public class CurrentOpportunitiesReportGenerationDao {
 	   			}
 	   		}
 	   	}
-	   	System.out.println("IN DAO CLASS GRAND TOTAL IS ::"+total);
+	   	//System.out.println("IN DAO CLASS GRAND TOTAL IS ::"+total);
 	   	return total;
 	}
 	

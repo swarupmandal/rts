@@ -135,7 +135,6 @@ public class CurrentOpportunitiesReportGenerationViewModel {
 			    Messagebox.show("To Date Should be Grater Than From Date", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION);
 		   }
 	   }else{
-		   System.out.println("nothing.");
 	   }
    }
    
@@ -187,7 +186,6 @@ public class CurrentOpportunitiesReportGenerationViewModel {
 	   String pdfPath = Executions.getCurrent().getDesktop().getWebApp().getRealPath("/");
 	   CurrentOppurtunitiesReportPdf pdf = new CurrentOppurtunitiesReportPdf();
 	   try {
-		    System.out.println(reportList.size());
 		   	if(reportList.size()>0){
 				pdf.getDetails(pdfPath, currentOpportunitiesReportGenerationBean, reportList, "Current Opportunities Report");
 		   	}else {
@@ -206,7 +204,6 @@ public class CurrentOpportunitiesReportGenerationViewModel {
     	String pdfPath = Executions.getCurrent().getDesktop().getWebApp().getRealPath("/");
     	PdfTestingViewModel pdf = new PdfTestingViewModel();
  	   try {
- 		    System.out.println(currentOpportunitiesReportGenerationBean.getClientFlag()+"------"+currentOpportunitiesReportGenerationBean.getResourceFlag());
  		    if(currentOpportunitiesReportGenerationBean.getResourceFlag().contentEquals("Y")){
  		    	System.out.println("1st method");
  		    	pdf.getDetailsForResource(pdfPath,"ResourceWise A/R Visibility Report",monthSetList);
@@ -267,10 +264,8 @@ public class CurrentOpportunitiesReportGenerationViewModel {
     	ArrayList<CurrentOpportunitiesReportGenerationBean> list = null;
     	
     	if(currentOpportunitiesReportGenerationBean.getClientInformationBean().getFullName().equalsIgnoreCase("-ALL-")){
-    		System.out.println("1st method");
     		list = CurrentOpportunitiesReportGenerationDao.loadOppurtunityWiseReportForClientDaoForAll(currentOpportunitiesReportGenerationBean);
     	}else{
-    		System.out.println("2nd method");
     		list = CurrentOpportunitiesReportGenerationDao.loadOppurtunityWiseReportForClientDao(currentOpportunitiesReportGenerationBean);
     	}
     	
@@ -305,9 +300,9 @@ public class CurrentOpportunitiesReportGenerationViewModel {
 	    	finalList.add(bean);
 	    }
 	    
-	    for(CurrentOpportunitiesReportGenerationBean bean: finalList){
+	    /*for(CurrentOpportunitiesReportGenerationBean bean: finalList){
 	    	System.out.println(bean.getCurrentOpportunitiesBean().getTentureFromUtil()+"---"+bean.getRtsTrackingDetailsId()+"----"+bean.getCurrentOpportunitiesReportBean().getMonth()+"----"+bean.getResourceMasterBean().getFullName());
-	    }
+	    }*/
 	    
 	    secondTabList = finalList;
 	    
@@ -351,9 +346,6 @@ public class CurrentOpportunitiesReportGenerationViewModel {
     				reportGenerationBean.setStyle(reportGenerationBean.getBoldStyle());
     				monthClienBeanList.add(reportGenerationBean);
     				
-    				System.out.println("IN VIEW MODEL COUNTER NUMBER IS :::::::::::"+counter+"-MONTH-"+reportBean.getMonthName());
-    				System.out.println("IN VIEW MODEL FETCHED COUNTER NUMBER IS :::::::::::"+finalCounter+"--Month--"+months[i-1]);
-    				
     			}
     		}
     		
@@ -388,7 +380,7 @@ public class CurrentOpportunitiesReportGenerationViewModel {
     		monthReportBean.getCurrentOpportunitiesReportGenerationBean().setMarginString("");
     		
     		grandTotalClient = CurrentOpportunitiesReportGenerationDao.calculateGrandTotal(monthSetList);
-    		System.out.println("IN VIEW MODEL CLASS GRAND TOTAL IS ::"+grandTotalClient);
+    		
     		
     		ArrayList<CurrentOpportunitiesReportGenerationBean> list2 = new ArrayList<CurrentOpportunitiesReportGenerationBean>();
     		CurrentOpportunitiesReportGenerationBean opportunitiesReportGenerationBean = new CurrentOpportunitiesReportGenerationBean();
@@ -429,35 +421,35 @@ public class CurrentOpportunitiesReportGenerationViewModel {
 			monthSetList.clear();
 		}
 		
-		System.out.println("RESOURCE NAME :"+currentOpportunitiesReportGenerationBean.getResourceMasterBean().getFullName());
+		//System.out.println("RESOURCE NAME :"+currentOpportunitiesReportGenerationBean.getResourceMasterBean().getFullName());
 		ArrayList<CurrentOpportunitiesReportGenerationBean> resourceList = null;
 		if(currentOpportunitiesReportGenerationBean.getResourceMasterBean().getFullName().equalsIgnoreCase("-ALL-")){
-			System.out.println("1st method");
+			//System.out.println("1st method");
 			resourceList = CurrentOpportunitiesReportGenerationDao.loadOppurtunityWiseReportForClientDaoForResourceAll(currentOpportunitiesReportGenerationBean);
 		}else{
-			System.out.println("2nd method");
+			//System.out.println("2nd method");
 			resourceList = CurrentOpportunitiesReportGenerationDao.loadOppurtunityWiseReportForClientDaoForResource(currentOpportunitiesReportGenerationBean);
 		}
 	
 		/*ArrayList<CurrentOpportunitiesReportGenerationBean> resourceList = null;*/
 		/*resourceList = CurrentOpportunitiesReportGenerationDao.loadOppurtunityWiseReportForClientDaoForResource(currentOpportunitiesReportGenerationBean);*/
 		
-		System.out.println("IN VIEW MODEL FOR RESOURCE :"+resourceList.size());
+		//System.out.println("IN VIEW MODEL FOR RESOURCE :"+resourceList.size());
 		if(resourceFinalList.size()>0){
 			resourceFinalList.clear();
 		}
 		
 	    for(CurrentOpportunitiesReportGenerationBean bean1: resourceList){
-	    	System.out.println(bean1.getRtsTrackingDetailsId()+"----"+bean1.getCurrentOpportunitiesReportBean().getMonth()+"---"+bean1.getCurrentOpportunitiesBean().getTentureFromUtil());
+	    	//System.out.println(bean1.getRtsTrackingDetailsId()+"----"+bean1.getCurrentOpportunitiesReportBean().getMonth()+"---"+bean1.getCurrentOpportunitiesBean().getTentureFromUtil());
 	    	String name = MonthShowingUtility.fetchresourceName(bean1);
 	    	bean1.getResourceMasterBean().setFullName(name);
 	    	MonthShowingUtility.fetchdateWrtRtrackingID(bean1);
 	    	resourceFinalList.add(bean1);
 	    }
 	    
-	    for(CurrentOpportunitiesReportGenerationBean bean: resourceFinalList){
+	    /*for(CurrentOpportunitiesReportGenerationBean bean: resourceFinalList){
 	    	System.out.println(bean.getCurrentOpportunitiesBean().getTentureFromUtil()+"---"+bean.getRtsTrackingDetailsId()+"----"+bean.getCurrentOpportunitiesReportBean().getMonth()+"----"+bean.getResourceMasterBean().getFullName());
-	    }
+	    }*/
 	    
 	    secondTabList = resourceFinalList;
 	    if(secondTabList.size()>0){
@@ -499,8 +491,8 @@ public class CurrentOpportunitiesReportGenerationViewModel {
     				reportGenerationBean.setStyle(reportGenerationBean.getBoldStyle());
     				monthClienBeanList.add(reportGenerationBean);
     				
-    				System.out.println("IN VIEW MODEL COUNTER NUMBER IS :::::::::::"+resourceCounter+"-MONTH-"+reportBean.getMonthName());
-    				System.out.println("IN VIEW MODEL FETCHED COUNTER NUMBER IS :::::::::::"+resourceFinalCounter+"--Month--"+months[i-1]);
+    				/*System.out.println("IN VIEW MODEL COUNTER NUMBER IS :::::::::::"+resourceCounter+"-MONTH-"+reportBean.getMonthName());
+    				System.out.println("IN VIEW MODEL FETCHED COUNTER NUMBER IS :::::::::::"+resourceFinalCounter+"--Month--"+months[i-1]);*/
     				
     			}
     		}
@@ -539,7 +531,7 @@ public class CurrentOpportunitiesReportGenerationViewModel {
     		CurrentOpportunitiesReportGenerationBean opportunitiesReportGenerationBean = new CurrentOpportunitiesReportGenerationBean();
 		
     		grandTotal = CurrentOpportunitiesReportGenerationDao.calculateGrandTotal(monthSetList);
-    		System.out.println("IN VIEW MODEL CLASS GRAND TOTAL IS ::"+grandTotal);
+    		//System.out.println("IN VIEW MODEL CLASS GRAND TOTAL IS ::"+grandTotal);
     		
     		opportunitiesReportGenerationBean.getCurrentOpportunitiesBean().setMarginString("GRAND TOTAL: "+grandTotal);
     		opportunitiesReportGenerationBean.setStyle(opportunitiesReportGenerationBean.getBoldStyle());
