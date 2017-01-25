@@ -61,9 +61,7 @@ public class RolemasterViewModel {
 			int size = roleMasterBean.getRoll().length();
 			System.out.println(size);
 			String newName = roleMasterBean.getRoll().trim();
-			System.out.println(newName);
 			int newSize = newName.length();
-			System.out.println(newSize);
 			roleMasterBean.setRoll(newName);
 		}
 	}
@@ -83,11 +81,9 @@ public class RolemasterViewModel {
 			roleMasterBean.setOperationId(1);
 			Calendar calendar = Calendar.getInstance();
 		    java.sql.Date currentDate = new java.sql.Date(calendar.getTime().getTime());
-			System.out.println("CREATION DATE :"+currentDate);
 			flagLogInsert = LogAuditServiceClass.insertIntoLogTable(roleMasterBean.getMainScreenName(), roleMasterBean.getChileScreenName(), 
 																			roleMasterBean.getSessionUserId(), roleMasterBean.getOperation(),currentDate,
 																			   roleMasterBean.getOperationId());
-			System.out.println("flagLogInsert Is:"+flagLogInsert);
 			RoleMasterService.clearAllField(roleMasterBean);
 			rolebeanlist = RoleMasterDao.onLoadRoleDeatils();	
 		}
@@ -106,11 +102,8 @@ public class RolemasterViewModel {
 		boolean flagLogUpdate = false;
 		
 		int size10 = masterBean.getRoll().length();
-		System.out.println(size10);
 		String newGridRoll = masterBean.getRoll().trim();
-		System.out.println(newGridRoll);
 		int newSize10 = newGridRoll.length();
-		System.out.println(newSize10);
 		masterBean.setRoll(newGridRoll);
 		
 		RoleMasterDao.updateRoleData(masterBean);
@@ -119,11 +112,9 @@ public class RolemasterViewModel {
 		masterBean.setOperationId(2);
 		Calendar calendar = Calendar.getInstance();
 	    java.sql.Date currentDate = new java.sql.Date(calendar.getTime().getTime());
-		System.out.println("CREATION DATE :"+currentDate);
 		flagLogUpdate = LogAuditServiceClass.insertIntoLogTable(masterBean.getMainScreenName(), masterBean.getChileScreenName(), 
 																	masterBean.getSessionUserId(), masterBean.getOperation(),currentDate,
 																	masterBean.getOperationId());
-		System.out.println("flagLogUpdate Is:"+flagLogUpdate);
 		masterBean.setVisibilityEditButton(false);
 		masterBean.setVisibilitySaveButton(false);
 		masterBean.setVisibilityDeleteButton(false);
@@ -136,7 +127,6 @@ public class RolemasterViewModel {
 	public void onClickDelete(@BindingParam("bean") RoleMasterBean masterBean){
 		int count = 0;
 		count = RoleMasterService.getCountUserPresentWrtRole(masterBean);
-		System.out.println("ROLE MASTER SCREEN COUNT IS :"+count);
 		if(count<1){
 			Messagebox.show("Are you sure to delete ? ", "Confirm Dialog", Messagebox.OK |  Messagebox.CANCEL, 
 					Messagebox.QUESTION, new org.zkoss.zk.ui.event.EventListener(){
@@ -149,11 +139,9 @@ public class RolemasterViewModel {
 								masterBean.setOperationId(3);
 								Calendar calendar = Calendar.getInstance();
 							    java.sql.Date currentDate = new java.sql.Date(calendar.getTime().getTime());
-								System.out.println("CREATION DATE :"+currentDate);
 								flagLogDelete = LogAuditServiceClass.insertIntoLogTable(masterBean.getMainScreenName(), masterBean.getChileScreenName(), 
 																							masterBean.getSessionUserId(), masterBean.getOperation(),currentDate,
 																							   masterBean.getOperationId());
-								System.out.println("flagLogDelete Is:"+flagLogDelete);
 								BindUtils.postGlobalCommand(null, null, "refresh", null);
 							}
 					}
@@ -214,8 +202,7 @@ public class RolemasterViewModel {
 			roleMasterBean.setSessionUserId(userId);
 			roleMasterBean.setOperationId(1);
 			Calendar calendar = Calendar.getInstance();
-		    java.sql.Date currentDate = new java.sql.Date(calendar.getTime().getTime());
-			System.out.println("CREATION DATE :"+currentDate);
+		    java.sql.Date currentDate = new java.sql.Date(calendar.getTime().getTime());			
 			flagAssignLogInsert = LogAuditServiceClass.insertIntoLogTable(roleMasterBean.getMainScreenName(), roleMasterBean.getChileScreenName(), 
 																			roleMasterBean.getSessionUserId(), roleMasterBean.getOperation(),currentDate,
 																			 roleMasterBean.getOperationId());
