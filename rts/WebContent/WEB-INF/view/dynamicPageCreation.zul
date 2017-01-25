@@ -5,7 +5,9 @@
     				 <div>
                            <grid model="@bind(vm.pagelist)" mold="paging" pageSize="11" sclass="fgrid">
                                <columns>
-                                    <column align="center" width="40px"/>
+                                    <column align="center" width="40px">
+                                    	<checkbox checked="@bind(vm.allChecked)" onCheck="@command('onCheckAll')"/><label value="All" style="font-weight:bold"/> 
+                                    </column>
                                     <column label="Screen Name" align="center" width="350px"/>
                                </columns>
                                <rows>

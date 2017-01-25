@@ -29,7 +29,7 @@ public class DynamicPageCreationViewModel {
 	@Wire("#winDynamicPage")
 	private Window winDynamicPage;
 	private ArrayList<RoleMasterBean> pagelist = new ArrayList<RoleMasterBean>();
-	
+	private boolean allChecked = false;
 	private RoleMasterBean roleMasterBean = new RoleMasterBean();
 	
 	@AfterCompose
@@ -47,6 +47,18 @@ public class DynamicPageCreationViewModel {
 	public void allPageNameFetchWithCheckBoxVm(RoleMasterBean masterBean){
 		pagelist = DynamicPageCreationService.allPageNameFetchWithCheckBoxSe(masterBean);
 		System.out.println(pagelist.size());
+	}
+	
+	
+	@Command
+	@NotifyChange("*")
+	public void onCheckAll(){
+		for(RoleMasterBean page: pagelist){
+			if(allChecked)
+			page.setChkSelect(true);
+			else
+				page.setChkSelect(false);
+		}
 	}
 	
 	@Command
@@ -118,5 +130,13 @@ public class DynamicPageCreationViewModel {
 	}
 	public void setRoleMasterBean(RoleMasterBean roleMasterBean) {
 		this.roleMasterBean = roleMasterBean;
+	}
+
+	public boolean isAllChecked() {
+		return allChecked;
+	}
+
+	public void setAllChecked(boolean allChecked) {
+		this.allChecked = allChecked;
 	}
 }
