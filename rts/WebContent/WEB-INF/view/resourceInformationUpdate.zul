@@ -18,12 +18,12 @@
 					<rows>
 						<row>
 						  <label value="Name:" style="font-weight:bold"></label>		
-						  <textbox width="75%" value="@bind(vm.masterBean.name)" ></textbox>	
+						  <textbox width="75%" value="@bind(vm.masterBean.name)" maxlength="50"></textbox>	
 						</row>
 						
 						<row>
 						  <label value="Surname:" style="font-weight:bold"></label>		
-						  <textbox width="75%" value="@bind(vm.masterBean.surName)" ></textbox>	
+						  <textbox width="75%" value="@bind(vm.masterBean.surName)" maxlength="50"></textbox>	
 						</row>
 						
 						<row>
@@ -45,11 +45,11 @@
 						
 						<row>
 		             	   <label value="Country:" style="font-weight:bold"></label>
-		             	   <textbox value="@bind(vm.masterBean.country)" width="75%" readonly="true"></textbox>				
+		             	   <textbox value="@bind(vm.masterBean.country)" width="75%" readonly="true" maxlength="50"></textbox>				
 					    </row>
 					   <row>
 		             	<label value="State:" style="font-weight:bold"></label>
-		                <textbox value="@bind(vm.masterBean.state)" width="75%" maxlength="20" xmlns:w="client">
+		                <textbox value="@bind(vm.masterBean.state)" width="75%" maxlength="50" xmlns:w="client">
 		                    <attribute w:name="doKeyPress_">
 											<![CDATA[ function(evt) { if ( (evt.which <
 							  				65 || evt.which > 90) && (evt.which < 97 ||
@@ -77,7 +77,7 @@
 						
 						<row>
 						  <label value="Email Id:" style="font-weight:bold"></label>		
-						  <textbox width="75%" value="@bind(vm.masterBean.emailId)" maxlength="25">
+						  <textbox width="75%" value="@bind(vm.masterBean.emailId)" maxlength="50">
 						  </textbox>	
 						</row>
 						
@@ -100,7 +100,7 @@
 					   
 					   <row>
 						  <label value="Other Info" style="font-weight:bold"></label>		
-						   <textbox width="75%" value="@bind(vm.masterBean.otherInfo)" maxlength="30" placeholder="WITHIN 20 WORDS" xmlns:w="client">
+						   <textbox width="75%" value="@bind(vm.masterBean.otherInfo)" maxlength="20" placeholder="WITHIN 20 WORDS" xmlns:w="client">
 						        <attribute w:name="doKeyPress_">
 											<![CDATA[ function(evt) { if ( (evt.which <
 							  				65 || evt.which > 90) && (evt.which < 97 ||

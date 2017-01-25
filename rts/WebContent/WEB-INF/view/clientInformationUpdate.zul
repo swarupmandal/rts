@@ -13,19 +13,19 @@
 				
 				    <row>
 					  <label value="Client Name:" style="font-weight:bold"></label>		
-					  <textbox width="100%" value="@bind(vm.informationBean.clientOriginalName)" ></textbox>	
+					  <textbox width="100%" value="@bind(vm.informationBean.clientOriginalName)" maxlength="50"></textbox>	
 					</row>
 
 				    <row>
 				    	<label value="Name:" style="font-weight:bold" />
 				    	<textbox width="100%"
-				    		value="@bind(vm.informationBean.name)" />
+				    		value="@bind(vm.informationBean.name)" maxlength="50"/>
 				    </row>
 				    <row>
 				    	<label value="Sur Name:"
 				    		style="font-weight:bold" />
 				    	<textbox width="100%"
-				    		value="@bind(vm.informationBean.surName)" />
+				    		value="@bind(vm.informationBean.surName)" maxlength="50"/>
 				    </row>
 				    <row>
 					  <label value="Office Address:" style="font-weight:bold"></label>		
@@ -34,12 +34,12 @@
 					
 					<row>
 		             	<label value="Country:" style="font-weight:bold"></label>
-		             	<textbox value="@bind(vm.informationBean.country)" width="100%" readonly="true"></textbox>				
+		             	<textbox value="@bind(vm.informationBean.country)" width="100%" readonly="true" maxlength="50"></textbox>				
 					</row>
 					
 					<row>
 		             	<label value="State:" style="font-weight:bold"></label>
-		             	<textbox value="@bind(vm.informationBean.state)" width="100%" maxlength="20" xmlns:w="client"> 
+		             	<textbox value="@bind(vm.informationBean.state)" width="100%" maxlength="50" xmlns:w="client"> 
 		             	   <attribute w:name="doKeyPress_">
 							<![CDATA[ function(evt) { if ( (evt.which <
 							  65 || evt.which > 90) && (evt.which < 97 ||
@@ -68,7 +68,7 @@
 					
 					<row>
 					  <label value="Email Id:" style="font-weight:bold"></label>		
-					  <textbox width="100%" value="@bind(vm.informationBean.emailId)" maxlength="25"></textbox>	
+					  <textbox width="100%" value="@bind(vm.informationBean.emailId)" maxlength="50"></textbox>	
 					</row>
 					
 					<row>

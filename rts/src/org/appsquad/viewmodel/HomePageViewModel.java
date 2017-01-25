@@ -18,6 +18,8 @@ import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.select.Selectors;
+import org.zkoss.zk.ui.util.Clients;
+import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
 public class HomePageViewModel {
@@ -196,6 +198,7 @@ public class HomePageViewModel {
 			session.removeAttribute("userId");
 			session=null;
 			Executions.sendRedirect("/welcome1.zul");
+			Messagebox.show("Signing out!","Information",Messagebox.OK,Messagebox.INFORMATION);
 			System.out.println("--- -- - >>> >> >");
 		}
 	}
