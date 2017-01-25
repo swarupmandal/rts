@@ -25,8 +25,9 @@ import org.zkoss.zul.Messagebox;
 
 public class LogingViewModel {
 	LoginBean loginBean = new LoginBean();
-  Connection connection =null; 
+    Connection connection =null; 
 	Session session = null;
+	private String txtType = "password";
 	
 	final static Logger logger = Logger.getLogger(LogingViewModel.class);
 	
@@ -65,6 +66,15 @@ public class LogingViewModel {
 		onClickLogin();
 	}
 	
+	@Command
+	@NotifyChange("*")
+	public void onCheckShowPassword(){
+		if(txtType.equals("text")){
+			txtType = "password";
+		}else{
+			txtType = "text";
+		}
+	}
 	
 	@Command
 	@NotifyChange("*")
@@ -86,6 +96,7 @@ public class LogingViewModel {
 							String userId = resultSet.getString("user_id");
 							session.setAttribute("userId", userId);
 							Executions.sendRedirect("/home.zul");
+							Messagebox.show("Hello "+loginBean.getUserId()+"! Welcome to RTS ","Information",Messagebox.OK,Messagebox.INFORMATION);
 						}else {
 							 Messagebox.show("Wrong User Id And Password!", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
 						}
@@ -144,5 +155,13 @@ public class LogingViewModel {
 	}
 	public void setSession(Session session) {
 		this.session = session;
+	}
+
+	public String getTxtType() {
+		return txtType;
+	}
+
+	public void setTxtType(String txtType) {
+		this.txtType = txtType;
 	}
 }

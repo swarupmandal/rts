@@ -87,11 +87,14 @@
 												onOK="@command('onChangeUserName')" 
 													onBlur="@command('onChangeUserName')"/>
 										
-										<textbox sclass="mytextbox" type="password" placeholder="ENTER PASSWORD" 
+										<textbox sclass="mytextbox" type="@bind(vm.txtType)" placeholder="ENTER PASSWORD" 
 											value="@bind(vm.loginBean.password)" 
 												focus="@bind(vm.loginBean.passwordFocus)"
 												onOK="@command('onChangePassword')"/>
-									
+										<hlayout>
+										<checkbox onCheck="@command('onCheckShowPassword')"/><label value="Show password" style="font-weight:bold"/>
+										</hlayout>
+										
 										<button  sclass="mybutton" label="LOGIN" width="100%" height="35px" style="border-radius:0;" onClick="@command('onClickLogin')"/>
 										<button sclass="mybutton" label="FORGOT PASSWORD" width="100%" height="35px" onClick="@command('onOkChangePassword')" visible="false"/>
 									</vbox>
