@@ -125,6 +125,7 @@ public class CurrentOpportunitiesDao {
 		       currentOpportunitiesBean.setMargin(resultSet.getDouble("margin"));
 		       currentOpportunitiesBean.setApproval(resultSet.getString("approval_status"));
 		       currentOpportunitiesBean.getBean().setUserID(resultSet.getString("approvar_person"));
+		       currentOpportunitiesBean.setPercentage(resultSet.getDouble("percentage"));
 		       
 			}
 		} finally {
@@ -414,7 +415,7 @@ public class CurrentOpportunitiesDao {
 											                                     opportunitiesBean.getTenureTosql(),opportunitiesBean.getChargeoutRate(),
 											                                     opportunitiesBean.getResourceSalary(),opportunitiesBean.getMargin(),
 											                                     opportunitiesBean.getApproval(),opportunitiesBean.getBean().getUserID(),
-											                                     opportunitiesBean.getLoginID()));
+											                                     opportunitiesBean.getLoginID(),opportunitiesBean.getPercentage()));
 					    	logger.info("insertTrackingData- " + preparedStatementInsert.unwrap(PreparedStatement.class));
 							int i = preparedStatementInsert.executeUpdate();
 							if(i>0){

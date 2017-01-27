@@ -10,7 +10,7 @@
 			<column label="Skill Set" width="180px" style="font-weight: bold; color:black" align="center"></column>
 			<column label="Resource Name" width="250px" style="font-weight: bold; color:black" align="center"></column>
 			<column label="Type" width="150px" style="font-weight: bold; color:black" align="center"></column>
-			<column label="Action" width="200px" style="font-weight: bold; color:black" align="center"></column>
+			<column label="Action" width="130px" style="font-weight: bold; color:black" align="center"></column>
 		</columns>
 		<rows>
 		  <template name="model" var = "v">	
@@ -20,7 +20,7 @@
 				<textbox value="@bind(v.skillset)" width="100%" readonly="true"></textbox>
 				<textbox value="@bind(v.resourceName)" width="100%" readonly="true"></textbox>
 				<textbox value="@bind(v.resourceType)" width="100%" readonly="true"></textbox>
-				<image src="images/edit.png" style="cursor:pointer" width="100%" onClick="@command('update', bean = v)"></image>
+				<image src="images/edit.png" style="cursor:pointer" width="40px" onClick="@command('update', bean = v)"></image>
 			</row>
 		  </template>	
 		</rows>
