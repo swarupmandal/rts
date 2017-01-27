@@ -28,6 +28,7 @@ public class LogingViewModel {
     Connection connection =null; 
 	Session session = null;
 	private String txtType = "password";
+	private String message = "";
 	
 	final static Logger logger = Logger.getLogger(LogingViewModel.class);
 	
@@ -79,7 +80,7 @@ public class LogingViewModel {
 	@Command
 	@NotifyChange("*")
 	public void onClickLogin(){
-		
+		message = "";
 		if(isFieldValidate()){
 			connection = DbConnection.createConnection();
 			try {
@@ -97,9 +98,11 @@ public class LogingViewModel {
 							String userId = resultSet.getString("user_id");
 							session.setAttribute("userId", userId);
 							Executions.sendRedirect("/home.zul");
+							
 							Messagebox.show("Hello "+loginBean.getUserId()+" ! Welcome to RTS ","Information",Messagebox.OK,Messagebox.INFORMATION);
 						}else {
-							 Messagebox.show("Wrong User Id And Password!", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
+							 message = "User Name or Password Invalid!";
+							// Messagebox.show("Wrong User Id And Password!", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
 						}
 					} finally{
 						if(preparedStatement!=null){
@@ -164,5 +167,17 @@ public class LogingViewModel {
 
 	public void setTxtType(String txtType) {
 		this.txtType = txtType;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	public static Logger getLogger() {
+		return logger;
 	}
 }

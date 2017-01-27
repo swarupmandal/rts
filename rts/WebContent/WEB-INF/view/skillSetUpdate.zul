@@ -1,27 +1,28 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
- <window title="Skill Set Update " border="none" height="280px" width="400px" apply="org.zkoss.bind.BindComposer"
+ <window title="Skill Set Update " border="none" height="220px" width="400px" apply="org.zkoss.bind.BindComposer"
 		    viewModel="@id('vm') @init('org.appsquad.viewmodel.SkillSetUpdateViewModel')" id="winSkillSetUpdateScreen" closable="true"
-		       onClose="@command('onCloseOperation')"> 
+		       onClose="@command('onCloseOperation')"
+		        action="show:slideDown;hide:slideUp"> 
      				<grid>
                            <columns>
-                                <column></column>
-                                <column></column>
+                                <column width="30%"/>
+                                <column width="70%"/>
                            </columns>
                            <rows>
                                <row>
-                                   <label value="Skill Set-"></label>
-                                   <textbox value="@bind(vm.bean.skillset)" readonly="true"></textbox>
+                                   <label value="Skill Set-" style="font-weight:bolder"></label>
+                                   <textbox width="100%" value="@bind(vm.bean.skillset)" readonly="true"></textbox>
                                </row>
                                <row>
-                                  <label value="Skill Set Details-"/>
-                                  <textbox rows="5" value="@bind(vm.bean.skillsetdetails)" maxlength="100" placeholder="WITHIN 80 WORDS"></textbox>
+                                  <label value="Skill Set Details-" style="font-weight:bolder"/>
+                                  <textbox width="100%" rows="5" value="@bind(vm.bean.skillsetdetails)" maxlength="100" placeholder="WITHIN 80 WORDS"></textbox>
                                </row>
                           </rows>
                     </grid> 
                     <space></space>
                     <div align="center">
-                       <button  label="Update" onClick="@command('onClickUpdateButton')" style="font-weight: bold;" width="70px" height="40px"></button>
+                       <button  label="Update" onClick="@command('onClickUpdateButton')" style="font-weight: bold;" ></button>
                     </div>
 		</window>
 </zk>

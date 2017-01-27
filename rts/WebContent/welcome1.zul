@@ -67,7 +67,8 @@
 				<div align="center" width="100%" class="login_sec">
 					<div class="login_inr">
 					<grid sclass="loginGrid" width="32%" height="350px" apply="org.zkoss.bind.BindComposer"
-			                  viewModel="@id('vm') @init('org.appsquad.viewmodel.LogingViewModel')">
+			                  viewModel="@id('vm') @init('org.appsquad.viewmodel.LogingViewModel')"
+			                  action="show: slideDown;hide: slideUp">
 						<columns>
 							<column></column>
 						</columns>
@@ -97,6 +98,7 @@
 										
 										<button  sclass="mybutton" label="LOGIN" width="100%" height="35px" style="border-radius:0;" onClick="@command('onClickLogin')"/>
 										<button sclass="mybutton" label="FORGOT PASSWORD" width="100%" height="35px" onClick="@command('onOkChangePassword')" visible="false"/>
+										<label value="@bind(vm.message)" style="color: red;font-style: italic;"/>
 									</vbox>
 								</div>
 							</row>

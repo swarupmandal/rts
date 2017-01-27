@@ -10,7 +10,7 @@
 	    <tabpanels>
 	       <tabpanel>
 	        <div>
-			<grid>
+			<grid action="show:slideDown;hide:slideUp">
 				<columns>
 					<column width="20%"></column>
 					<column width="70%"></column>
@@ -151,7 +151,9 @@
 	       </tabpanel>
 	       
 	       <tabpanel>
-	             <grid sclass="fgrid" height="400px" model="@bind(vm.clientDetailsList)" mold="paging" vflex="true" autopaging="true" pageSize="10">
+	             <grid sclass="fgrid" height="400px" model="@bind(vm.clientDetailsList)" mold="paging" 
+	             vflex="true" autopaging="true" pageSize="10"
+	             action="show:slideDown;hide:slideUp">
 						<columns sizable="true">
 						        <column label="Client-Name" align="center" style="font-weight:bold;" width="300px"/>
 								<column label="Name" align="center" style="font-weight:bold;" width="300px"/>
