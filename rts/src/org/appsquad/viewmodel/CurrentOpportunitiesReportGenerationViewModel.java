@@ -53,7 +53,7 @@ public class CurrentOpportunitiesReportGenerationViewModel {
    @Wire("#resourceBb")
    private Bandbox resourceBandBox;
    
-   private ArrayList<CurrentOpportunitiesReportGenerationBean> reportList = new ArrayList<CurrentOpportunitiesReportGenerationBean>();
+   private ArrayList<CurrentOpportunitiesReportGenerationBean> reportList = null;
    private ArrayList<ClientInformationBean> clientList = null;
    private ArrayList<ResourceMasterBean> resourceList = null;
    
@@ -630,13 +630,6 @@ public class CurrentOpportunitiesReportGenerationViewModel {
 	public void setDivVisibility(boolean divVisibility) {
 		this.divVisibility = divVisibility;
 	}
-	public ArrayList<CurrentOpportunitiesReportGenerationBean> getReportList() {
-		return reportList;
-	}
-	public void setReportList(
-	    ArrayList<CurrentOpportunitiesReportGenerationBean> reportList) {
-		this.reportList = reportList;
-	}
 	public boolean isPdfDivVisibility() {
 		return pdfDivVisibility;
 	}
@@ -726,5 +719,15 @@ public class CurrentOpportunitiesReportGenerationViewModel {
 	}
 	public LinkedHashSet<MonthReportBean> getMonthSetList() {
 		return monthSetList;
+	}
+	public ArrayList<CurrentOpportunitiesReportGenerationBean> getReportList() {
+		return reportList;
+	}
+	public void setReportList(
+			ArrayList<CurrentOpportunitiesReportGenerationBean> reportList) {
+		this.reportList = reportList;
+	}
+	public void setMonthSetList(LinkedHashSet<MonthReportBean> monthSetList) {
+		this.monthSetList = monthSetList;
 	}
 }

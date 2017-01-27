@@ -232,6 +232,15 @@ public class CurrentOppurtunitiesReportPdf {
 	 	 	 	 					cell = new PdfPCell(headerParagraph);
 	 	 	 	 					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 	 	 	 	 					headerTable.addCell(cell);
+	 	 	 	 				}else{
+	 	 	 	 					String paid = "";
+	 	 	 	 					Paragraph headerParagraph = new Paragraph(paid);
+	 	 	 	 					headerParagraph.getFont().setSize(5f);
+	 	 	 	 					headerParagraph.setAlignment(Element.ALIGN_CENTER);
+	 	 	 	 					headerParagraph.getFont().setStyle(Font.NORMAL);
+	 	 	 	 					cell = new PdfPCell(headerParagraph);
+	 	 	 	 					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+	 	 	 	 					headerTable.addCell(cell);
 	 	 	 	 				}
 	 	 	 	 			}
 	 			
