@@ -15,26 +15,27 @@
     				</hlayout>
     				<hlayout>
     				<label/>
-    				   <bandbox autodrop="true" readonly="true" id="reqIdb" value="@bind(vm.requirementGenerationBean.req_id)" placeholder="Requirement Id" width="180px">
-						<bandpopup>	
+    				   <bandbox autodrop="true" readonly="true" id="reqIdb" value="@bind(vm.requirementGenerationBean.req_id)" 
+    				   placeholder="Requirement Id">
+						<bandpopup width="600px">	
 							<hbox>
 								<intbox value="@bind(vm.rIdWiseReportBean.r_idSearch)" onChange="@command('onChangeReqId')" placeholder="Search By Req Id" width="120px"></intbox>
 								<button label="Serach" onClick="@command('onChangeReqId')"></button>
 								<button label="Clear" onClick="@command('onClearReqId')"></button>
 							</hbox>
 							<space></space>
-							<listbox width="400px" model="@bind(vm.requirementGenerationBeanList)" 
+							<listbox model="@bind(vm.requirementGenerationBeanList)" width="100%"
 							     selectedItem="@bind(vm.requirementGenerationBean)" onSelect="@command('onSelctReqId')" mold="paging" pageSize="5">
 								<listhead sizable="true">
-									<listheader label="RID" width="30px"></listheader>
-									<listheader label="Skill"></listheader>
-									<listheader label="Creation Date" width="90px"></listheader>
-									<listheader label="Type"></listheader>
-									<listheader label="ClientName"></listheader>
+									<listheader label="RID" align="center" width="30px"></listheader>
+									<listheader label="Skill" align="center" width="110px"></listheader>
+									<listheader label="Creation Date" align="center" width="90px"></listheader>
+									<listheader label="Type" align="center" width="90px"/>
+									<listheader label="ClientName" align="center" width="250px"/>
 								</listhead>
 								
 								<template name="model" var = "v">
-								<listitem>
+								<listitem width="100%">
 									<listcell label="@load(v.req_id)"></listcell>
 									<listcell label="@load(v.reqSkill)"></listcell>
 									<listcell label="@load(v.createdDateStr)"></listcell>
@@ -66,7 +67,7 @@
 							<listbox width="280px" model="@bind(vm.clientList)" 
 							     selectedItem="@bind(vm.rIdWiseReportBean.clientInformationBean)" onSelect="@command('onSelctClientName')" mold="paging" pageSize="5">
 								<listhead sizable="true">
-									<listheader label="Client Name"></listheader>
+									<listheader label="Client Name" align="center"></listheader>
 								</listhead>
 								
 								<template name="model" var = "v">
