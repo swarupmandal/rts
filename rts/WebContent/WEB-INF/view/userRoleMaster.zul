@@ -1,6 +1,8 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
-  <window title="User Role" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('org.appsquad.viewmodel.RolemasterViewModel')">
+  <window title="User Role" apply="org.zkoss.bind.BindComposer" 
+  viewModel="@id('vm') @init('org.appsquad.viewmodel.RolemasterViewModel')"
+  action="show: slideDown;hide: slideUp"  position="center,center">
    <div>
        <tabbox>
             <tabs>
@@ -8,7 +10,7 @@
                 <tab label="Assign Role" style="font-weight:bold" onClick="@command('onClickAssignRole')"/>
             </tabs>
             <tabpanels>
-                  <tabpanel>
+                  <tabpanel action="show: slideDown;hide: slideUp">
                        <div>
                           <grid >
                               <columns>
@@ -55,7 +57,7 @@
                        </div>
                   </tabpanel>
                   
-                  <tabpanel>
+                  <tabpanel action="show: slideDown;hide: slideUp">
                         <div>
                           <hlayout>
                             <grid>
