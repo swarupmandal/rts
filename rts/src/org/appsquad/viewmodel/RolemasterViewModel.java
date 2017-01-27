@@ -88,11 +88,6 @@ public class RolemasterViewModel {
 	public void onClickSave(@BindingParam("bean") RoleMasterBean masterBean){
 		boolean flagLogUpdate = false;
 		
-		int size10 = masterBean.getRoll().length();
-		String newGridRoll = masterBean.getRoll().trim();
-		int newSize10 = newGridRoll.length();
-		masterBean.setRoll(newGridRoll);
-		
 		RoleMasterDao.updateRoleData(masterBean);
 		masterBean.setOperation("UPDATE");
 		masterBean.setSessionUserId(userId);
@@ -193,7 +188,6 @@ public class RolemasterViewModel {
 			flagAssignLogInsert = LogAuditServiceClass.insertIntoLogTable(roleMasterBean.getMainScreenName(), roleMasterBean.getChileScreenName(), 
 																			roleMasterBean.getSessionUserId(), roleMasterBean.getOperation(),currentDate,
 																			 roleMasterBean.getOperationId());
-			System.out.println("flagAssignLogInsert Is:"+flagAssignLogInsert);
 			RoleMasterService.clearAllFieldAssign(roleMasterBean);
 			userList = RoleMasterDao.onLoadUserDeatils();
 			roleList = RoleMasterDao.onLoadRoleDropDownDeatils();
