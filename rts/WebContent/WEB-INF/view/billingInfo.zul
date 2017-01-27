@@ -1,7 +1,7 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
-	<window title="@bind(vm.opportunitiesReportBean.modalTitle)" border="normal" width="1300px"
-		apply="org.zkoss.bind.BindComposer"
+	<window title="@bind(vm.opportunitiesReportBean.modalTitle)" border="normal"
+		apply="org.zkoss.bind.BindComposer" width="90%"
 		viewModel="@id('vm') @init('org.appsquad.viewmodel.BillingInfoViewModel')"
 		closable="true" id="winBillingModal"
 		action="show:slideDown;hide:slideUp">
@@ -9,7 +9,7 @@
 			<grid model="@bind(vm.reportGridList)" mold="paging"
 				pageSize="12" height="470px">
 				<columns sizable="true">
-					<column width="110px" label="Year"
+					<column width="75px" label="Year"
 						style="font-weight:bold; color: black" align="center">
 					</column>
 					<column width="110px" label="Month"
@@ -18,19 +18,19 @@
 					<column width="200px" label="Time Sheet"
 						style="font-weight:bold; color: black" align="center">
 					</column>
-					<column width="80px" label="Download"
+					<column width="70px" label="Download"
 						style="font-weight:bold; color: black" align="center">
 					</column>
 					<column width="200px" label="Invoice Copy"
 						style="font-weight:bold; color: black" align="center">
 					</column>
-					<column width="80px" label="Download"
+					<column width="70px" label="Download"
 						style="font-weight:bold; color: black" align="center">
 					</column>
 					<column width="100px" label="Bill No"
 						style="font-weight:bold; color: black" align="center">
 					</column>
-					<column width="100px" label="Bill Date"
+					<column width="110px" label="Bill Date"
 						style="font-weight:bold; color: black" align="center">
 					</column>
 					<column width="100px" label="Bill Amount"
@@ -42,7 +42,7 @@
 					<column width="100px" label="Chq Number"
 						style="font-weight:bold; color: black" align="center">
 					</column>
-					<column width="100px" label="Chq Date"
+					<column width="110px" label="Chq Date"
 						style="font-weight:bold; color: black" align="center">
 					</column>
 					<column width="100px" label="Operation"
@@ -57,7 +57,7 @@
 						<row>
 							<combobox model="@bind(vm.yearList)"
 								autocomplete="true" autodrop="true" value="@bind(v.year)"
-								selectedItem="@bind(v.year)" width="98%" readonly="true">
+								selectedItem="@bind(v.year)" width="100%" readonly="true">
 								<template name="model" var="v">
 									<comboitem label="@bind(v)"
 										value="@bind(v)">
@@ -66,7 +66,7 @@
 							</combobox>
 							<combobox model="@bind(vm.monthList)"
 								autocomplete="true" autodrop="true" value="@bind(v.month)"
-								selectedItem="@bind(v.month)" width="98%" readonly="true">
+								selectedItem="@bind(v.month)" width="100%" readonly="true">
 								<template name="model" var="v">
 									<comboitem label="@bind(v)"
 										value="@bind(v)">
@@ -75,46 +75,49 @@
 							</combobox>
 							<div style="border:0px solid">
 								<div align="center" style="border:0px solid">
-									<button label="Upload" upload="true"
+									<button label="Upload" upload="true" style="font-weight:bold" image="images/upload.png"
 									onUpload="@command('onUploadFile', upEvent=event,bean=v)"/>
 								</div>
 								<div style="border:0px solid">
 								<label value="@bind(v.fileName)"/>
 								</div>
 							</div>
-							<image src="images/download.png" width="30px" onClick="@command('downloadTimesheet', bean = v)"></image>
+							<image src="images/cvdownload.png" style="cursor:pointer"
+							onClick="@command('downloadTimesheet', bean = v)"/>
 							
 							<div style="border:0px solid">
 								<div align="center" style="border:0px solid">
-									<button label="Upload" upload="true" disabled="@bind(v.secondButtonDisable)"
+									<button label="Upload" style="font-weight:bold" image="images/upload.png" upload="true" disabled="@bind(v.secondButtonDisable)"
 									onUpload="@command('onUploadSecondFile', upEvent=event,bean = v)"/>
 								</div>
 								<div style="border:0px solid">
 								<label value="@bind(v.secondFileName)"/>
 								</div>
 							</div>
-							<image src="images/download.png" width="30px" onClick="@command('downloadInvoice', bean = v)"></image>
-							<doublebox width="98%"
+							<image src="images/cvdownload.png" style="cursor:pointer"
+							onClick="@command('downloadInvoice', bean = v)"></image>
+							<doublebox  width="100%"
 								value="@bind(v.billNo)" maxlength="8">
 							</doublebox>
-							<datebox width="98%"
+							<datebox width="100%" format="dd-MM-yyyy"
 								value="@bind(v.billDateSql)" tooltiptext="@bind(v.billDateSql)">
 							</datebox>
-							<doublebox width="98%"
+							<doublebox width="100%"
 								value="@bind(v.billAmount)" maxlength="9">
 							</doublebox>
-							<combobox width="98%" readonly="true"
+							<combobox width="100%" readonly="true"
 								value="@bind(v.paid)" selectedItem="@bind(v.paid)">
 								<comboitem label="Yes"></comboitem>
 							</combobox>
-							<doublebox width="98%"
+							<doublebox width="100%"
 								value="@bind(v.chqDetailsValue)" maxlength="6" onChange="@command('checkChequeNumber', bean = v)">
 							</doublebox>
-							<datebox width="98%"
+							<datebox width="100%" format="dd-MM-yyyy"
 								value="@bind(v.chequeDateSql)" tooltiptext="@bind(v.chequeDateSql)">
 							</datebox>
-							<image src="images/add.png" style="cursor:pointer" onClick="@command('addRow', bean = v)"></image>
-							<image src="images/remove.png" style="cursor:pointer" onClick="@command('removeRow', bean = v)"></image>
+							<image tooltiptext="Add new row" src="images/add.png" style="cursor:pointer" onClick="@command('addRow', bean = v)"></image>
+							
+							<image tooltiptext="Remove this row" src="images/remove.png" style="cursor:pointer" onClick="@command('removeRow', bean = v)"></image>
 						</row>
 					</template>
 				</rows>
@@ -122,7 +125,8 @@
 		</div>
 		<space></space>
 		<div align="center">
-		   <image src="images/save.png" style="cursor:pointer" width="50px" onClick="@command('saveBillingDetails')"></image>
+		   <button tooltiptext="Save" image="images/save.png" label="Save" style="font-weight:bold"
+		   onClick="@command('saveBillingDetails')"/>
 		</div>
 	</window>
 </zk>

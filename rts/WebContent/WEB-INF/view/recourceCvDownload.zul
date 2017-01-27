@@ -58,7 +58,9 @@
  		</div>
     <space></space>
 	 <div align="center">
-	   <button label="CV DOWNLOAD" onClick="@command('onClickDownload')" visible="@bind(vm.saveButtonVisibility)"></button>
+	   <button label="CV DOWNLOAD" image="images/cvdownload.png"
+ 							style="font-weight:bold" 
+	   onClick="@command('onClickDownload')" visible="@bind(vm.saveButtonVisibility)"></button>
 	 </div>
 </window>
 </zk> 
