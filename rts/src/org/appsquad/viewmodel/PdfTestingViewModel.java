@@ -360,7 +360,7 @@ public class PdfTestingViewModel {
  		}
  		
         for(CurrentOpportunitiesReportGenerationBean bean : monthWiseDataList){
- 		           cell_1: {
+ 		            cell_1: {
 		 			PdfPCell cell;
                     if(bean.getCurrentOpportunitiesBean().getMarginString()!=null){
                     	Paragraph headerParagraph = new Paragraph(String.valueOf(bean.getCurrentOpportunitiesBean().getMarginString()));
