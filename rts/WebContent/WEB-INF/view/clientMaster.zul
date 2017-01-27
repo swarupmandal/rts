@@ -22,8 +22,7 @@
 						<label value="Client Name:" style="font-weight:bold"></label>
 					</hlayout>
 					  		
-					  <textbox width="36%" value="@bind(vm.clientInformationBean.clientOriginalName)" maxlength="50"
-					         onChange="@command('clientOriginalName')" xmlns:w="client">
+					  <textbox width="36%" value="@bind(vm.clientInformationBean.clientOriginalName)" maxlength="50" xmlns:w="client">
 					      <attribute w:name="doKeyPress_">
 							<![CDATA[ function(evt) { if ( (evt.which <
 							  65 || evt.which > 90) && (evt.which < 97 ||
@@ -39,7 +38,7 @@
 					     <label value="Name:" style="font-weight:bold"></label>
 					</hlayout>
 					
-					  <textbox width="36%" value="@bind(vm.clientInformationBean.name)" maxlength="50" onChange="@command('name')" xmlns:w="client">
+					  <textbox width="36%" value="@bind(vm.clientInformationBean.name)" maxlength="50" xmlns:w="client">
 					      <attribute w:name="doKeyPress_">
 							<![CDATA[ function(evt) { if ( (evt.which <
 							  65 || evt.which > 90) && (evt.which < 97 ||
@@ -55,7 +54,7 @@
 					       <label value="Surname:" style="font-weight:bold"></label>		
 					  </hlayout>
 					  
-					  <textbox width="36%" value="@bind(vm.clientInformationBean.surName)" maxlength="50" onChange="@command('surName')" xmlns:w="client">
+					  <textbox width="36%" value="@bind(vm.clientInformationBean.surName)" maxlength="50" xmlns:w="client">
 					     <attribute w:name="doKeyPress_">
 							<![CDATA[ function(evt) { if ( (evt.which <
 							  65 || evt.which > 90) && (evt.which < 97 ||
@@ -71,7 +70,7 @@
 					     <label value="Office Address:" style="font-weight:bold"></label>
 					</hlayout>
 					  		
-					  <textbox width="36%" value="@bind(vm.clientInformationBean.address)" onChange="@command('address')" rows="3" 
+					  <textbox width="36%" value="@bind(vm.clientInformationBean.address)" rows="3" 
 					  placeholder="WithIn 100 Words">
 					  </textbox>	
 					</row>
@@ -81,7 +80,7 @@
 							<label value="* " style="font-weight:bold; color:red"/>
 							<label value="Country:" style="font-weight:bold"></label>
 					</hlayout>
-		            <textbox value="@bind(vm.clientInformationBean.country)" maxlength="20" width="36%" onChange="@command('country')" xmlns:w="client">
+		            <textbox value="@bind(vm.clientInformationBean.country)" maxlength="20" width="36%" xmlns:w="client">
 		              <attribute w:name="doKeyPress_">
 							<![CDATA[ function(evt) { if ( (evt.which <
 							  65 || evt.which > 90) && (evt.which < 97 ||
@@ -97,7 +96,7 @@
 					     <label value="State:" style="font-weight:bold"></label>
 					</hlayout>
 					
-					<textbox value="@bind(vm.clientInformationBean.state)" maxlength="50" width="36%" onChange="@command('state')" xmlns:w="client">
+					<textbox value="@bind(vm.clientInformationBean.state)" maxlength="50" width="36%" xmlns:w="client">
 					  <attribute w:name="doKeyPress_">
 							<![CDATA[ function(evt) { if ( (evt.which <
 							  65 || evt.which > 90) && (evt.which < 97 ||
@@ -138,8 +137,7 @@
 					     <label value="* " style="font-weight:bold; color:red"/>
 					     <label value="Email Id:" style="font-weight:bold"></label>
 					  </hlayout>		
-					  <textbox width="36%" value="@bind(vm.clientInformationBean.emailId)" maxlength="50" 
-					  onChange="@command('email')" placeholder="e.g.some@some.com"/>	
+					  <textbox width="36%" value="@bind(vm.clientInformationBean.emailId)" maxlength="50" placeholder="e.g.some@some.com"/>	
 					</row>
 					
 					<row>

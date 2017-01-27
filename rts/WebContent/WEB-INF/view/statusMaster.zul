@@ -29,7 +29,7 @@
                                      </hlayout>
                     				
                     				 <textbox value="@bind(vm.statusMasterBean.status)" maxlength="30" width="100%" height="30px" 
-                    				 	placeholder="WITHIN 25 WORDS" rows="2" onChange="@command('status')" xmlns:w="client">
+                    				 	placeholder="WITHIN 25 WORDS" rows="2" xmlns:w="client">
                     				     <attribute w:name="doKeyPress_">
 											<![CDATA[ function(evt) { if ( (evt.which <
 							  				65 || evt.which > 90) && (evt.which < 97 ||

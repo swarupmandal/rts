@@ -135,9 +135,6 @@ public class StatusMasterViewModel {
 		boolean flagLogUpdate = false;
 		String newStatus = "";
 		
-		newStatus = masterBean.getStatus().trim();
-		masterBean.setStatus(newStatus);
-		
 		flagUpdate = StatusMasterService.updateClientMasterData(masterBean);
 		if(flagUpdate){
 			StatusMasterService.updateOtherStatus(masterBean);

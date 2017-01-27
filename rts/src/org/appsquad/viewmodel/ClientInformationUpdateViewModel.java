@@ -65,18 +65,6 @@ public class ClientInformationUpdateViewModel {
 	@NotifyChange("*")
 	public void onClickUpdateButton(){
 		boolean flagForUpdate = false;
-		String modifyAddress = "";
-		String modifyState = "";
-		String modifyEmail = "";
-		
-		modifyAddress = informationBean.getAddress().trim();
-		informationBean.setAddress(modifyAddress);
-		
-		modifyState = informationBean.getState().trim();
-		informationBean.setState(modifyState);
-		
-		modifyEmail = informationBean.getEmailId().trim();
-		informationBean.setEmailId(modifyEmail);
 		
 		flagForUpdate = ClientInformationService.updateClientMasterData(informationBean);
 		

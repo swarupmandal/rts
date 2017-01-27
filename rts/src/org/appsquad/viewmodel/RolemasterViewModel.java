@@ -56,19 +56,6 @@ public class RolemasterViewModel {
 	
 	@Command
 	@NotifyChange("*")
-	public void rollName(){
-		if(roleMasterBean.getRoll()!=null){
-			int size = roleMasterBean.getRoll().length();
-			System.out.println(size);
-			String newName = roleMasterBean.getRoll().trim();
-			int newSize = newName.length();
-			roleMasterBean.setRoll(newName);
-		}
-	}
-	
-	
-	@Command
-	@NotifyChange("*")
 	public void onClickRoleSave(){
 		boolean flagLogInsert = false;
 		countRole = RoleMasterDao.onLoadRoleNameCountDeatils(roleMasterBean);
