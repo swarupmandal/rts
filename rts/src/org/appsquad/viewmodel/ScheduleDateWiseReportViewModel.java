@@ -203,14 +203,12 @@ public class ScheduleDateWiseReportViewModel {
 	@NotifyChange("*")
 	public void onSelctAssignBy(){
 		 userBandBox.close();
-		 System.out.println(taskBean.userprofileBean.getUserid());
 	 }
 	
 	@Command
 	@NotifyChange("*")
 	public void AnotherUserId(){
 		 anotherBandBox.close();
-		 System.out.println(taskBean.userprofileBean2.getAnotherUserId());
 	 }
 	
 	@Command

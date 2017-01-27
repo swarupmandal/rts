@@ -195,7 +195,7 @@ public class TaskNameDao {
 						    			+ "order by rts_task_id ";
 						    	preparedStatementFetch = connection.prepareStatement(sql);
 						    	preparedStatementFetch.setString(1, userId);
-						    	System.out.println(preparedStatementFetch.toString());
+						    	
 						    	ResultSet resultSet = preparedStatementFetch.executeQuery();
 						    	while(resultSet.next()){
 						    	    TaskNameBean taskNameBean = new TaskNameBean();
@@ -261,7 +261,7 @@ public class TaskNameDao {
 						    PreparedStatement preparedStatementFetch = null;
 						    try{
 						    	String sql = "select * from vw_rts_task_details where schedl_date IN  ( "+ getSplitedDateCode(dateCode) +") ";
-						    	System.out.println("SQL FOR TODAY & TOMORROW DATA :"+sql);
+						    	
 						    	preparedStatementFetch = connection.prepareStatement(sql);
 						    	ResultSet resultSet = preparedStatementFetch.executeQuery();
 						    	while(resultSet.next()){
@@ -287,7 +287,7 @@ public class TaskNameDao {
 						    	}
 						    }
 					    }
-					 System.out.println(detailsList.size());
+					
 					} catch (Exception e) {
 						e.printStackTrace();
 					}finally{
@@ -313,7 +313,7 @@ public class TaskNameDao {
 						    PreparedStatement preparedStatementFetch = null;
 						    try{
 						    	String sql = "select * from vw_rts_task_details order by rts_task_id ";
-						    	System.out.println("SQL FOR Schedule DateWise Report :"+sql);
+						    	
 						    	preparedStatementFetch = connection.prepareStatement(sql);
 						    	ResultSet resultSet = preparedStatementFetch.executeQuery();
 						    	while(resultSet.next()){
@@ -338,7 +338,7 @@ public class TaskNameDao {
 						    	}
 						    }
 					    }
-					 System.out.println(detailsList.size());
+					 
 					} catch (Exception e) {
 						e.printStackTrace();
 					}finally{
@@ -365,7 +365,7 @@ public class TaskNameDao {
 						    PreparedStatement preparedStatementFetch = null;
 						    try{
 						    	String sql = "select * from vw_rts_task_details where assigned_by like ? and scheduled_date >=? and  scheduled_date <=? order by rts_task_id ";
-						    	System.out.println("SQL FOR Schedule DateWise Report :"+sql);
+						    	
 						    	preparedStatementFetch = connection.prepareStatement(sql);
 						    	preparedStatementFetch.setString(1, "%"+name+"%");
 						    	preparedStatementFetch.setDate(2, fromDate);
@@ -393,7 +393,7 @@ public class TaskNameDao {
 						    	}
 						    }
 					    }
-					 System.out.println(detailsList.size());
+					
 					} catch (Exception e) {
 						e.printStackTrace();
 					}finally{
@@ -419,7 +419,7 @@ public class TaskNameDao {
 						    PreparedStatement preparedStatementFetch = null;
 						    try{
 						    	String sql = "select * from vw_rts_task_details where assigned_to like ? and scheduled_date >=? and  scheduled_date <=? order by rts_task_id ";
-						    	System.out.println("SQL FOR Schedule DateWise Report :"+sql);
+						    	
 						    	preparedStatementFetch = connection.prepareStatement(sql);
 						    	preparedStatementFetch.setString(1, "%"+name+"%");
 						    	preparedStatementFetch.setDate(2, fromDate);
@@ -447,7 +447,7 @@ public class TaskNameDao {
 						    	}
 						    }
 					    }
-					 System.out.println(detailsList.size());
+					 
 					} catch (Exception e) {
 						e.printStackTrace();
 					}finally{
@@ -474,7 +474,7 @@ public class TaskNameDao {
 						    PreparedStatement preparedStatementFetch = null;
 						    try{
 						    	String sql = "select * from vw_rts_task_details where scheduled_date >=? and  scheduled_date <=? order by rts_task_id ";
-						    	System.out.println("SQL FOR Schedule DateWise Report :"+sql);
+						    	
 						    	preparedStatementFetch = connection.prepareStatement(sql);
 						    	preparedStatementFetch.setDate(1, fromDate);
 						    	preparedStatementFetch.setDate(2, toDate);
@@ -501,7 +501,7 @@ public class TaskNameDao {
 						    	}
 						    }
 					    }
-					 System.out.println(detailsList.size());
+					
 					} catch (Exception e) {
 						e.printStackTrace();
 					}finally{
@@ -529,7 +529,7 @@ public class TaskNameDao {
 						    PreparedStatement preparedStatementFetch = null;
 						    try{
 						    	String sql = "select * from vw_rts_task_details where scheduled_date >=? and  scheduled_date <=? and assigned_by like ? and assigned_to like ? order by rts_task_id ";
-						    	System.out.println("SQL FOR Schedule DateWise Report :"+sql);
+						    	
 						    	preparedStatementFetch = connection.prepareStatement(sql);
 						    	preparedStatementFetch.setDate(1, fromDate);
 						    	preparedStatementFetch.setDate(2, toDate);
@@ -559,7 +559,7 @@ public class TaskNameDao {
 						    	}
 						    }
 					    }
-					 System.out.println(detailsList.size());
+					 
 					} catch (Exception e) {
 						e.printStackTrace();
 					}finally{
@@ -586,7 +586,7 @@ public class TaskNameDao {
 						    PreparedStatement preparedStatementFetch = null;
 						    try{
 						    	String sql = "select * from vw_rts_task_details where assigned_to like ? and assigned_by like ? ";
-						    	System.out.println("SQL FOR Schedule DateWise Report :"+sql);
+						    	
 						    	preparedStatementFetch = connection.prepareStatement(sql);
 						    	preparedStatementFetch.setString(1, "%"+name+"%");
 						    	preparedStatementFetch.setString(2, "%"+another+"%");
@@ -639,7 +639,7 @@ public class TaskNameDao {
 						    PreparedStatement preparedStatementFetch = null;
 						    try{
 						    	String sql = "select * from vw_rts_task_details order by rts_task_id ";
-						    	System.out.println("SQL FOR Schedule DateWise Report :"+sql);
+						    	
 						    	preparedStatementFetch = connection.prepareStatement(sql);
 						    	ResultSet resultSet = preparedStatementFetch.executeQuery();
 						    	while(resultSet.next()){
@@ -674,7 +674,7 @@ public class TaskNameDao {
 						    	}
 						    }
 					    }
-					 System.out.println(detailsList.size());
+					 
 					} catch (Exception e) {
 						e.printStackTrace();
 					}finally{
@@ -694,7 +694,7 @@ public class TaskNameDao {
 		   PreparedStatement preparedStatement = null;
 		   try{
 			   String sql = "SELECT (EXTRACT(days FROM (now() - '"+date+"')) / 7)::int ";
-			   System.out.println("WEEK REPORT SQL :"+sql);
+			   
 			   preparedStatement = connection.prepareStatement(sql);
 			   ResultSet resultSet = preparedStatement.executeQuery();
 			   while(resultSet.next()){
@@ -719,7 +719,7 @@ public class TaskNameDao {
 						    PreparedStatement preparedStatementFetch = null;
 						    try{
 						    	String sql = "select * from vw_rts_task_details order by rts_task_id ";
-						    	System.out.println("SQL FOR Schedule DateWise Report :"+sql);
+						    	
 						    	preparedStatementFetch = connection.prepareStatement(sql);
 						    	ResultSet resultSet = preparedStatementFetch.executeQuery();
 						    	while(resultSet.next()){
@@ -752,7 +752,7 @@ public class TaskNameDao {
 						    	}
 						    }
 					    }
-					 System.out.println(detailsList.size());
+					 
 					} catch (Exception e) {
 						e.printStackTrace();
 					}finally{
@@ -772,7 +772,7 @@ public class TaskNameDao {
 		   PreparedStatement preparedStatement = null;
 		   try{
 			   String sql = "SELECT (EXTRACT(days FROM (now() - '"+date+"')) / 30)::int ";
-			   System.out.println("WEEK REPORT SQL :"+sql);
+			  
 			   preparedStatement = connection.prepareStatement(sql);
 			   ResultSet resultSet = preparedStatement.executeQuery();
 			   while(resultSet.next()){
@@ -799,7 +799,7 @@ public class TaskNameDao {
 						    	String sql = "select date(TIMESTAMP 'today') "
 						    			    +"UNION ALL "
 						    			    +"select date(TIMESTAMP 'tomorrow') ";
-						    	System.out.println("TODAY AND TOMORROW DATE SQL :"+sql);
+						    	
 						    	preparedStatementFetch = connection.prepareStatement(sql);
 						    	ResultSet resultSet = preparedStatementFetch.executeQuery();
 						    	while(resultSet.next()){

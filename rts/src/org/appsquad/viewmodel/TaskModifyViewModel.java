@@ -63,11 +63,6 @@ public class TaskModifyViewModel {
 	@Command
 	@NotifyChange("*")
 	public void onClickUpdate(){
-		System.out.println("task status id:"+taskBean.getTaskStatusBean().getTaskStatusId());
-		System.out.println("completion date:: "+taskBean.getActualCompletionDate());
-		System.out.println(taskBean.getRemarksOrResults());
-		System.out.println("c"+taskBean.getAssignedTo());
-		System.out.println("s"+taskBean.getRtsTaskId());
 		if(taskBean.getTaskStatusBean().getTaskStatusId() == 3){
 		   if(	isValidCompletionData() ){
 			   TaskModifyDao.updateTask(taskBean);

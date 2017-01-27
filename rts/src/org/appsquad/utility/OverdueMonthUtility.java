@@ -1,7 +1,6 @@
 package org.appsquad.utility;
 
 import org.appsquad.bean.OverdueMonthBean;
-import org.appsquad.bean.OverdueWeeklyBean;
 
 public class OverdueMonthUtility {
 	public static void populateMonthNumber(Integer monthID,OverdueMonthBean bean){
@@ -56,7 +55,6 @@ public class OverdueMonthUtility {
 			break;
 			
 		default:
-            System.out.println("Unknown Data");
             break;	
 		
 		}

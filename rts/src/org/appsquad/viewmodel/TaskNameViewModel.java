@@ -80,7 +80,6 @@ public class TaskNameViewModel {
 	 @NotifyChange("*")
 	 public void onSelctUserId(){
 		 userBandBox.close();
-		 System.out.println(taskBean.userprofileBean.getUserid());
 	 }
 	 
 	 @Command
@@ -97,16 +96,16 @@ public class TaskNameViewModel {
 				   				 	if(flagInsert){
 				   				 	 onLoad();
 				   					 String emailId = CurrentOpportunitiesDao.fetchEmailId(taskBean.userprofileBean.getUserid());
-				   					 System.out.println("IN TASK CREATION PAGE :"+emailId);
+				   					
 				   					 flagEmailSend = SendEmail.validator(emailId);
-				   					 System.out.println("flag email send is :"+flagEmailSend);
+				   					
 				   					 if(flagEmailSend){
 				   						SendEmail.generateAndSendEmailForTaskCreation(emailId,taskBean.getTaskName(),taskBean);	
 				   					 }else{
 				   						System.out.println("APPROVER'S EMAIL ID IS NOT CORRECT. ");
 				   					 }
 				   					 
-				   					 System.out.println("IN TASK CREATION PAGE :"+flagEmailSend);
+				   					 
 				   					 if(flagEmailSend){
 				   						 taskBean.setTaskDescription(null);
 				   						 taskBean.setTaskName(null);
@@ -144,7 +143,6 @@ public class TaskNameViewModel {
 	 @NotifyChange("*")
 	 public void onClickTaskDescriptionReport(){
 		dateString = TaskNameDao.createdDateString();
-		System.out.println(dateString);
 	 }
 	 
 	 @Command

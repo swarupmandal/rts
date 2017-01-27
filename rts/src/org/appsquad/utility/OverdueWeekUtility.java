@@ -218,7 +218,6 @@ public class OverdueWeekUtility {
     			break;	
     	
     		default:
-                System.out.println("Unknown Data");
                 break;	
     	}
     }
