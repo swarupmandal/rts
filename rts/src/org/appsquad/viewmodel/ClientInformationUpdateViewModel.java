@@ -59,28 +59,14 @@ public class ClientInformationUpdateViewModel {
 		informationBean.setCountryDropdownDisable(true);
 		informationBean.setStateDropdownDisable(false);
 		stateList = ClientInformationDao.onLoadState(informationBean);
-		System.out.println("USER ID IS ->"+informationBean.getUserId());
 	}
 	
 	@Command
 	@NotifyChange("*")
 	public void onClickUpdateButton(){
 		boolean flagForUpdate = false;
-		String modifyAddress = "";
-		String modifyState = "";
-		String modifyEmail = "";
-		
-		modifyAddress = informationBean.getAddress().trim();
-		informationBean.setAddress(modifyAddress);
-		
-		modifyState = informationBean.getState().trim();
-		informationBean.setState(modifyState);
-		
-		modifyEmail = informationBean.getEmailId().trim();
-		informationBean.setEmailId(modifyEmail);
 		
 		flagForUpdate = ClientInformationService.updateClientMasterData(informationBean);
-		System.out.println("IN CLIENT UPDATED SCREEN FLAG IS :"+flagForUpdate);
 		
 		if(flagForUpdate){
 			informationBean.setOperation("UPDATE");
@@ -88,11 +74,9 @@ public class ClientInformationUpdateViewModel {
 			informationBean.setOperationId(2);
 			Calendar calendar = Calendar.getInstance();
 		    java.sql.Date currentDate = new java.sql.Date(calendar.getTime().getTime());
-			System.out.println("CREATION DATE :"+currentDate);
 			flagLogUpdate = LogAuditServiceClass.insertIntoLogTable(informationBean.getMainScreenName(), informationBean.getChileScreenName(), 
 																		informationBean.getSessionUserId(), informationBean.getOperation(),currentDate,
 																		   informationBean.getOperationId());
-			System.out.println("flag Log Delete Is:"+flagLogUpdate);
 			
 			winClientDeatilsUpdate.detach();
 			BindUtils.postGlobalCommand(null, null, "globalClientDetailsUpdate", null);

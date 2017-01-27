@@ -75,7 +75,7 @@ public class ResourceAllocationViewModel {
 	    		resourceAllocationBean.setDivVisibility(true);
 	    		resourceAllocationBean.setAssignButtonVisibility(true);	
 	    	}else{
-	    		 Messagebox.show("No Resource Found With Respect To This Skill Set. ", "Information", Messagebox.OK, Messagebox.INFORMATION);
+	    		 Messagebox.show("No Resource Found With Respect To This Skill Set. ", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
 	    	}
 	    	bandBox.close();
 	    }

@@ -27,8 +27,7 @@
                                     <label value="Skill Set:" style="font-weight:bold"></label>
                                </hlayout>
                                    
-                                   <textbox value="@bind(vm.skillsetMasterbean.skillset)" maxlength="50" width="45%" onChange="@command('skillSet')"
-                                       xmlns:w="client">
+                                   <textbox value="@bind(vm.skillsetMasterbean.skillset)" maxlength="50" width="45%" xmlns:w="client">
                                           <attribute w:name="doKeyPress_">
 											<![CDATA[ function(evt) { if ( (evt.which <
 							  				65 || evt.which > 90) && (evt.which < 97 ||
@@ -43,7 +42,7 @@
                                     <label value="Skill Set Details:" style="font-weight:bold"/>
                                </hlayout>
                                   
-                                  <textbox rows="5" value="@bind(vm.skillsetMasterbean.skillsetdetails)" placeholder="WithIn 80 Words" maxlength="100" width="45%" onChange="@command('skillsetdetails')"></textbox>
+                                  <textbox rows="5" value="@bind(vm.skillsetMasterbean.skillsetdetails)" placeholder="WithIn 80 Words" maxlength="100" width="45%"></textbox>
                                </row>
                                <row>
                                   <label></label>

@@ -36,7 +36,7 @@ public class StatusMasterDao {
 					    	}
 					    	preparedStatementInsert = Pstm.createQuery(connection, 
 									StatusMasterSql.insertStatusQuery, Arrays.asList(statusMasterBean.getUserId(),
-											statusMasterBean.getStatus().toUpperCase(),preBilledStatus));
+											statusMasterBean.getStatus().toUpperCase().trim(),preBilledStatus));
 					    	
 					    	logger.info(" insertStatusData- " + preparedStatementInsert.unwrap(PreparedStatement.class));
 							int i = preparedStatementInsert.executeUpdate();
@@ -90,7 +90,7 @@ public class StatusMasterDao {
 									StatusMasterSql.updateStatusSql, Arrays.asList(statusMasterBean.getStatus().toUpperCase(),statusMasterBean.getStatusId()));*/
 					    
 					    	preparedStatementInsert = connection.prepareStatement(StatusMasterSql.updateStatusSql);
-					    	preparedStatementInsert.setString(1, statusMasterBean.getStatus());
+					    	preparedStatementInsert.setString(1, statusMasterBean.getStatus().trim());
 					    	if(statusMasterBean.isPreBilled()){
 					    		preparedStatementInsert.setString(2, "Y");
 					    	}else{

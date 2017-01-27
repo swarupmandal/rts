@@ -178,7 +178,7 @@ public class MonthShowingUtility {
 		  double total = 0d;
 		  long totalMargin;
 		  for(CurrentOpportunitiesReportGenerationBean bean: list){
-			      System.out.println("MARGIN :::::"+bean.getCurrentOpportunitiesBean().getMargin());
+			      //System.out.println("MARGIN :::::"+bean.getCurrentOpportunitiesBean().getMargin());
 				  total+=bean.getCurrentOpportunitiesBean().getMargin();
 		  }	 
 		  totalMargin = (new Double(total)).longValue();

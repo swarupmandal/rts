@@ -54,10 +54,9 @@ public class SkillSetUpdateViewModel {
 			bean.setOperationId(2);
 			Calendar calendar = Calendar.getInstance();
 		    java.sql.Date currentDate = new java.sql.Date(calendar.getTime().getTime());
-			System.out.println("CREATION DATE :"+currentDate);
 			flagLogUpdate = LogAuditServiceClass.insertIntoLogTable(bean.getMainScreenName(), bean.getChileScreenName(), 
                     												bean.getSessionUserId(), bean.getOperation(),currentDate,bean.getOperationId());
-			System.out.println("flagLogUpdate Is:"+flagLogUpdate);
+			
 			winSkillSetUpdateScreen.detach();
 			BindUtils.postGlobalCommand(null, null, "globalSkillSetDetailsUpdate", null);
 		}

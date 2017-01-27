@@ -17,11 +17,11 @@ public class MonthShowingForReport {
 			  try {
 				//1st block
 			   	count = MonthShowingUtility.countTotal(generationBean.getCurrentOpportunitiesBean().getTentureFromUtil(),generationBean.getCurrentOpportunitiesBean().getTentureToUtil(),connection);
-			   	System.out.println("COUNT :"+count);
+			   
 			   	if(count>0){
 				   		CurrentOpportunitiesReportGenerationBean bean = new CurrentOpportunitiesReportGenerationBean();
 						String name = MonthShowingUtility.monthName(generationBean.getCurrentOpportunitiesBean().getTentureFromUtil(), connection,generationBean.getRtsTrackingDetailsId());
-						System.out.println(name);
+						
 						if(counter==0){
 							  bean.getCurrentOpportunitiesReportBean().setMonth(name);
 							  if(bean.getCurrentOpportunitiesReportBean().getMonth().startsWith("january")){

@@ -22,7 +22,7 @@
                                   		<label value="* " style="font-weight:bold; color:red;"/>
                                        <label value="Role" style="font-weight:bold"/>
                                   </hlayout>
-                                     <textbox value="@bind(vm.roleMasterBean.roll)" onChange="@command('rollName')" width="300px" rows="3"
+                                     <textbox value="@bind(vm.roleMasterBean.roll)" width="300px" rows="3"
                                         placeholder="WITHIN 50 WORDS" maxlength="50"/>
                                      <button label="Save" onClick="@command('onClickRoleSave')"/>
                                   </row>
