@@ -79,6 +79,7 @@ public class LogingViewModel {
 	@Command
 	@NotifyChange("*")
 	public void onClickLogin(){
+		
 		if(isFieldValidate()){
 			connection = DbConnection.createConnection();
 			try {
@@ -96,7 +97,7 @@ public class LogingViewModel {
 							String userId = resultSet.getString("user_id");
 							session.setAttribute("userId", userId);
 							Executions.sendRedirect("/home.zul");
-							Messagebox.show("Hello "+loginBean.getUserId()+"! Welcome to RTS ","Information",Messagebox.OK,Messagebox.INFORMATION);
+							Messagebox.show("Hello "+loginBean.getUserId()+" ! Welcome to RTS ","Information",Messagebox.OK,Messagebox.INFORMATION);
 						}else {
 							 Messagebox.show("Wrong User Id And Password!", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
 						}
@@ -127,11 +128,11 @@ public class LogingViewModel {
 			if(loginBean.getPassword()!=null){
 				return true;
 			}else{
-				Messagebox.show("Enter Password");
+				Messagebox.show("Password required!","Password missing",Messagebox.OK,Messagebox.EXCLAMATION);
 				return false;
 			}
 		}else{
-			Messagebox.show("Enter User Id");
+			Messagebox.show("User Id required!","User id missing",Messagebox.OK,Messagebox.EXCLAMATION);
 			return false;
 		}
 	}
