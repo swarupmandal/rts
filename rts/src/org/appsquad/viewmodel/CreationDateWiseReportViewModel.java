@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.appsquad.bean.TaskNameBean;
 import org.appsquad.bean.UserprofileBean;
+import org.appsquad.dao.CreationDateWiseReportDao;
 import org.appsquad.dao.ScheduleDateWiseDetailsDao;
 import org.appsquad.dao.TaskNameDao;
 import org.appsquad.utility.Dateformatter;
@@ -102,21 +103,18 @@ public class CreationDateWiseReportViewModel {
 		if(taskBean.getFromDate()==null && taskBean.getToDate()==null){
 			divVisibility = true;
 			buttonVisibility = true;
-			scheduleDateWiseReportList = TaskNameDao.fetchTaskDeatilsForScheduleDateWiseReport();
 			Messagebox.show("Select Creation From Date & To Date", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
 		}else if(taskBean.getFromDate()!=null && taskBean.getToDate()==null){
 			divVisibility = true;
 			buttonVisibility = true;
-			scheduleDateWiseReportList = TaskNameDao.fetchTaskDeatilsForScheduleDateWiseReport();
 			Messagebox.show("Select Creation To Date", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
 		}else if(taskBean.getFromDate()==null && taskBean.getToDate()!=null){
 			divVisibility = true;
 			buttonVisibility = true;
-			scheduleDateWiseReportList = TaskNameDao.fetchTaskDeatilsForScheduleDateWiseReport();
 			Messagebox.show("Select Creation From Date", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
 		}else if(taskBean.getFromDate()!=null && taskBean.getToDate()!=null && 
 				taskBean.userprofileBean2.getAnotherUserId()==null && taskBean.userprofileBean.getUserid()==null){
-			scheduleDateWiseReportList = TaskNameDao.fetchTaskDeatilsForScheduleDateWiseReportFordateRange(Dateformatter.sqlDate(taskBean.getFromDate()), 
+			scheduleDateWiseReportList = CreationDateWiseReportDao.fetchTaskDeatilsForCreationDateWiseReportFordateRange(Dateformatter.sqlDate(taskBean.getFromDate()), 
 					   																					   Dateformatter.sqlDate(taskBean.getToDate()));
 				if(scheduleDateWiseReportList.size()>0){
 					divVisibility = true;
@@ -126,7 +124,7 @@ public class CreationDateWiseReportViewModel {
 				}
 		}else if(taskBean.getFromDate()!=null && taskBean.getToDate()!=null && taskBean.getUserprofileBean().getUserid()!=null
 				 && taskBean.getUserprofileBean2().getAnotherUserId()!=null){
-			scheduleDateWiseReportList = TaskNameDao.fetchTaskDeatilsForScheduleDateWiseReportFordateRangeWithByTo(Dateformatter.sqlDate(taskBean.getFromDate()), Dateformatter.sqlDate(taskBean.getToDate()), taskBean.getUserprofileBean().getUserid(), taskBean.getUserprofileBean2().getAnotherUserId());
+			scheduleDateWiseReportList = CreationDateWiseReportDao.fetchTaskDeatilsForCreationDateWiseReportFordateRangeWithByTo(Dateformatter.sqlDate(taskBean.getFromDate()), Dateformatter.sqlDate(taskBean.getToDate()), taskBean.getUserprofileBean().getUserid(), taskBean.getUserprofileBean2().getAnotherUserId());
 		    if(scheduleDateWiseReportList.size()>0){
 		    	divVisibility = true;
 		    	buttonVisibility = true;
@@ -136,7 +134,7 @@ public class CreationDateWiseReportViewModel {
 		}else if(taskBean.userprofileBean.getUserid()!=null && taskBean.userprofileBean2.getAnotherUserId()==null
 				&& taskBean.getFromDate()!=null && taskBean.getToDate()!=null){
 			System.out.println("1st method");
-			scheduleDateWiseReportList = TaskNameDao.fetchTaskDeatilsForScheduleDateWiseReportForAssignerBy(taskBean.userprofileBean.getUserid(),Dateformatter.sqlDate(taskBean.getFromDate()),Dateformatter.sqlDate(taskBean.getToDate()));
+			scheduleDateWiseReportList = CreationDateWiseReportDao.fetchTaskDeatilsForCreationDateWiseReportForAssignerBy(taskBean.userprofileBean.getUserid(),Dateformatter.sqlDate(taskBean.getFromDate()),Dateformatter.sqlDate(taskBean.getToDate()));
 			if(scheduleDateWiseReportList.size()>0){
 				divVisibility = true;
 				buttonVisibility = true;
@@ -146,7 +144,7 @@ public class CreationDateWiseReportViewModel {
 		}else if(taskBean.userprofileBean2.getAnotherUserId()!=null && taskBean.userprofileBean.getUserid()==null
 				&& taskBean.getFromDate()!=null && taskBean.getToDate()!=null){
 			System.out.println("2nd method");
-			scheduleDateWiseReportList = TaskNameDao.fetchTaskDeatilsForScheduleDateWiseReportForAssignerTo(taskBean.userprofileBean2.getAnotherUserId(),Dateformatter.sqlDate(taskBean.getFromDate()),Dateformatter.sqlDate(taskBean.getToDate()));
+			scheduleDateWiseReportList = CreationDateWiseReportDao.fetchTaskDeatilsForCreationDateWiseReportForAssignerTo(taskBean.userprofileBean2.getAnotherUserId(),Dateformatter.sqlDate(taskBean.getFromDate()),Dateformatter.sqlDate(taskBean.getToDate()));
 			if(scheduleDateWiseReportList.size()>0){
 				divVisibility = true;
 				buttonVisibility = true;
