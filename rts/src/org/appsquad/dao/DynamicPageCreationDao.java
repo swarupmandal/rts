@@ -3,14 +3,11 @@ package org.appsquad.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
-
 import org.appsquad.bean.RoleMasterBean;
 import org.appsquad.database.DbConnection;
 import org.appsquad.sql.DynamicPageCreationSql;
-import org.appsquad.sql.RoleMasterSql;
 import org.appsquad.utility.Pstm;
 import org.zkoss.zul.Messagebox;
 
@@ -112,7 +109,7 @@ public class DynamicPageCreationDao {
 						   PreparedStatement preparedStatement = null;
 						   try {
 							   preparedStatement = Pstm.createQuery(connection, DynamicPageCreationSql.COUNTWRTUSERIDANDSQL, Arrays.asList(roleId));
-							   System.out.println(preparedStatement);
+							  
 							   ResultSet resultSet = preparedStatement.executeQuery();
 							   while (resultSet.next()) {
 								   count = resultSet.getInt(1);
@@ -147,12 +144,9 @@ public class DynamicPageCreationDao {
 			connection.setAutoCommit(false);
 			sql_connection:{
 				 try {
-					 
 					 countPresent = countWrtUserId(bean.getRollId());
-					 System.out.println("COUNT PRESENT NUMBER IS :"+countPresent);
-					 
 					 if(countPresent>0){
-						System.out.println("IF CONDIOTION"); 
+						
 						//1st sql block
 						 sql_delete:{
 						   PreparedStatement preparedStatementDelete = null;
@@ -160,7 +154,6 @@ public class DynamicPageCreationDao {
 							   preparedStatementDelete = Pstm.createQuery(connection, 
 										DynamicPageCreationSql.DELETEAPPPAGEWRTUSERSERIALID, Arrays.asList(bean.getRollId()));
 						    	
-						    	System.out.println("DELETE QUERY:"+preparedStatementDelete);
 								int i = preparedStatementDelete.executeUpdate();
 								if(i>0){
 									isDelete = true;	
@@ -172,7 +165,7 @@ public class DynamicPageCreationDao {
 							}
 					     }
 					 }else{
-						 System.out.println("ELSE CONDIOTION"); 
+						
 						 for(RoleMasterBean masterBean: pagelist){
 					    		if(masterBean.isChkSelect()){
 					    			sql_insert:{
@@ -180,7 +173,7 @@ public class DynamicPageCreationDao {
 							    	 try {
 							    		 preparedStatementInsert = Pstm.createQuery(connection, 
 													DynamicPageCreationSql.INSERTINTOPAGEUSERMAPPERTABLE, Arrays.asList(bean.getRollId(),masterBean.getPageNameId()));
-									     System.out.println("INSERT QUERY:"+preparedStatementInsert);
+									    
 							    		 int i = preparedStatementInsert.executeUpdate();
 										 if(i>0){
 											isInsert = true;	
@@ -189,14 +182,12 @@ public class DynamicPageCreationDao {
 										if(preparedStatementInsert!=null){
 											preparedStatementInsert.close();
 										}
-									 }
+									  }
 							       }
-					    		}
-					    	}
+					    	   }
+					      }
 					 }
 					 
-				    System.out.println("DYNAMIC CREATION PAGE SCREEN -> IS DELETE :"+isDelete);
-				    
 				    if(isDelete){
 				    	//2nd SQL block
 				    	for(RoleMasterBean masterBean: pagelist){
@@ -206,7 +197,7 @@ public class DynamicPageCreationDao {
 						    	 try {
 						    		 preparedStatementInsert = Pstm.createQuery(connection, 
 												DynamicPageCreationSql.INSERTINTOPAGEUSERMAPPERTABLE, Arrays.asList(bean.getRollId(),masterBean.getPageNameId()));
-								     System.out.println("INSERT QUERY:"+preparedStatementInsert);
+								    
 						    		 int i = preparedStatementInsert.executeUpdate();
 									 if(i>0){
 										isInsert = true;	
@@ -220,8 +211,6 @@ public class DynamicPageCreationDao {
 				    		}
 				    	}
 				    }
-				    
-				    System.out.println("DYNAMIC CREATION PAGE SCREEN -> IS INSERT :"+isInsert);
 				    
 				    if(isInsert){
 				    	Messagebox.show("Page Assigned For The User!", "Information", Messagebox.OK, Messagebox.INFORMATION);

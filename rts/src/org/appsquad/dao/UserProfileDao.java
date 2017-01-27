@@ -29,9 +29,9 @@ public class UserProfileDao {
 					    PreparedStatement preparedStatementInsert = null;
 					    try {
 					    	preparedStatementInsert = Pstm.createQuery(connection, 
-									UserProfileSql.insertUserData, Arrays.asList(userprofileBean.getUserid(),userprofileBean.getUsername(),
-																userprofileBean.getPassword(),userprofileBean.getAddress().toUpperCase(),
-																userprofileBean.getContactno().toUpperCase(),userprofileBean.getEmail(),
+									UserProfileSql.insertUserData, Arrays.asList(userprofileBean.getUserid().trim(),userprofileBean.getUsername().trim(),
+																userprofileBean.getPassword(),userprofileBean.getAddress().toUpperCase().trim(),
+																userprofileBean.getContactno().toUpperCase(),userprofileBean.getEmail().trim(),
 																userprofileBean.getSessionUserId()));
 					    
 					    	logger.info(" Inserting Data Into User Profile Table:- " + preparedStatementInsert.unwrap(PreparedStatement.class));
@@ -174,9 +174,9 @@ public class UserProfileDao {
 					    PreparedStatement preparedStatementInsert = null;
 					    try {
 					    	preparedStatementInsert = Pstm.createQuery(connection, 
-									UserProfileSql.updateUserDetails, Arrays.asList(userprofileBean.getUserid(),userprofileBean.getUsername(),
-											  userprofileBean.getPassword(),userprofileBean.getAddress(),userprofileBean.getContactno(),
-											  userprofileBean.getEmail(),userprofileBean.getId()));
+									UserProfileSql.updateUserDetails, Arrays.asList(userprofileBean.getUserid(),userprofileBean.getUsername().trim(),
+											  userprofileBean.getPassword(),userprofileBean.getAddress().trim(),userprofileBean.getContactno(),
+											  userprofileBean.getEmail().trim(),userprofileBean.getId()));
 					    	
 					    	logger.info(" UPDATE USER PROFILE DATA:- " + preparedStatementInsert.unwrap(PreparedStatement.class));
 							int i = preparedStatementInsert.executeUpdate();

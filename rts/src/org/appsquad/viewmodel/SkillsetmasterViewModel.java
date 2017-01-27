@@ -93,28 +93,6 @@ public class SkillsetmasterViewModel {
 	
 	@Command
 	@NotifyChange("*")
-	public void skillSet(){
-		if(skillsetMasterbean.getSkillset()!=null){
-			int size = skillsetMasterbean.getSkillset().length();
-			String newName = skillsetMasterbean.getSkillset().trim();
-			int newSize = newName.length();
-			skillsetMasterbean.setSkillset(newName);
-		}
-	}
-	
-	@Command
-	@NotifyChange("*")
-	public void skillsetdetails(){
-		if(skillsetMasterbean.getSkillsetdetails()!=null){
-			int size1 = skillsetMasterbean.getSkillsetdetails().length();
-			String newSkill = skillsetMasterbean.getSkillsetdetails().trim();
-			int newSize1 = newSkill.length();
-			skillsetMasterbean.setSkillsetdetails(newSkill);
-		}
-	}
-	
-	@Command
-	@NotifyChange("*")
 	public void onClickDeleteButton(@BindingParam("bean") SkillsetMasterbean masterbean){
 		Messagebox.show("Are you sure to delete?", "Confirm Dialog", Messagebox.OK | Messagebox.CANCEL, Messagebox.QUESTION, new org.zkoss.zk.ui.event.EventListener() {
 		    public void onEvent(Event evt) throws InterruptedException {
