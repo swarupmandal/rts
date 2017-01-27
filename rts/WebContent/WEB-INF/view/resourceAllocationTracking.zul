@@ -88,7 +88,7 @@
 				  <textbox width="98%"  readonly="true" value="@bind(v.clientInterviewDateStr)"></textbox>
 				  <textbox width="98%"  readonly="true" value="@bind(v.onboardDateStr)"></textbox>
 				 <!--  <button width="90%" label="Update" onClick="@command('onClickUpdate', bean =v)"></button>	 -->
-				 <image src="images/interact.png" width="40%" onClick="@command('onClickUpdate', bean =v)"></image>
+				 <image src="images/edit.png" style="cursor:pointer" width="40%" onClick="@command('onClickUpdate', bean =v)"></image>
 				</row>
 			  </template>	
 			</rows>

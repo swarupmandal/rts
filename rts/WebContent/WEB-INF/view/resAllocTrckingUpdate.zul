@@ -2,7 +2,8 @@
 <zk>
 <window title="@bind(vm.trackingUpdateBean.modalScreen)" border="none" apply="org.zkoss.bind.BindComposer"
 		   viewModel="@id('vm') @init('org.appsquad.viewmodel.ResAllocTrackingUpdateViewModel')" closable="true" height="410px" width="700px"
-		               id="winResAllocTracking" onClose="@command('onCloseOperation')">
+		               id="winResAllocTracking" onClose="@command('onCloseOperation')"
+		               action="show:slideDown;hide:slideUp">
 		
 		<div>
 				<grid>

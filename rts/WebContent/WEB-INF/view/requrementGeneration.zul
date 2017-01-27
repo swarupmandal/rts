@@ -112,7 +112,8 @@
 			</tabpanel>
 		<tabpanel>		
 			  <div>	
-				<grid  mold="paging" pageSize="8" model="@bind(vm.reqGenBeanList)">
+				<grid  mold="paging" pageSize="8" model="@bind(vm.reqGenBeanList)"
+				action="show:slideDown">
 					<columns>
 						<column label="RID" width="50px"></column>
 						<column label="Client Name" align="center" width="280px"></column>
@@ -135,7 +136,8 @@
 							<textbox readonly="true" value="@bind(v.raiseDateStr)" width="99%"></textbox>
 							<textbox readonly="true" value="@bind(v.targetDateStr)" width="99%"></textbox>
 							<textbox readonly="true" width="99%" value="@bind(v.ocStatus)"></textbox>
-							<image src="images/edit.jpg" width="40px" onClick="@command('onClickUpdate', bean = v)"></image>
+							<image src="images/edit.png" style="cursor:pointer" 
+							onClick="@command('onClickUpdate', bean = v)"/>
 						</row>
 					  </template>	
 					</rows>
