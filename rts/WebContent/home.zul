@@ -13,7 +13,7 @@
 <div apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('org.appsquad.viewmodel.HomePageViewModel')">
 <include src="inc/header.zul"></include>
 <div sclass="container" >
-  <div sclass="outBorder" style="width: 20%; float:left; height:80vh; overflow:hidden; float:left; border:2px solid #FFF; color:#FFFFFF; margin-right:10px;" >   
+  <div sclass="outBorder" style="width: 20%; float:left; height:90vh; overflow:hidden; float:left; border:2px solid #FFF; color:#FFFFFF; margin-right:10px;" >   
     <tree vflex="1">
       <treechildren>
        <treeitem open="false">
