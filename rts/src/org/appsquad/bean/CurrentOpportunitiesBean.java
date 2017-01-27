@@ -37,7 +37,7 @@ public class CurrentOpportunitiesBean {
 	private String loginID;
 	private String trackLogingID;
 	
-	private Integer percentage;
+	private Float percentage;
 	private String modalTitle;
 	
 	private UserClientMappingBean bean = new UserClientMappingBean();
@@ -293,16 +293,16 @@ public class CurrentOpportunitiesBean {
 	public void setMarginTotal(long marginTotal) {
 		this.marginTotal = marginTotal;
 	}
-	public Integer getPercentage() {
-		return percentage;
-	}
-	public void setPercentage(Integer percentage) {
-		this.percentage = percentage;
-	}
 	public String getModalTitle() {
 		return modalTitle;
 	}
 	public void setModalTitle(String modalTitle) {
 		this.modalTitle = modalTitle;
+	}
+	public Float getPercentage() {
+		return percentage;
+	}
+	public void setPercentage(Float percentage) {
+		this.percentage = percentage;
 	}
 }

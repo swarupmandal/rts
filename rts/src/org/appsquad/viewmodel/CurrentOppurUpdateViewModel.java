@@ -217,12 +217,14 @@ public class CurrentOppurUpdateViewModel {
 				if(currentOpportunitiesBean.getChargeoutRate()<currentOpportunitiesBean.getResourceSalary()){
 					currentOpportunitiesBean.setResourceSalary(null);
 					currentOpportunitiesBean.setMargin(null);
+					currentOpportunitiesBean.setPercentage(null);
 					Messagebox.show(" Resource Sallary Can't Be Greater Than The Charge Out Rate ","Warning", Messagebox.OK, Messagebox.EXCLAMATION);
 				}else{
 					if(currentOpportunitiesBean.getChargeoutRate()!=null && currentOpportunitiesBean.getChargeoutRate()>0){
 						if(currentOpportunitiesBean.getResourceSalary()!=null && currentOpportunitiesBean.getResourceSalary()>0){
 							currentOpportunitiesBean.setMargin((currentOpportunitiesBean.getChargeoutRate()-currentOpportunitiesBean.getResourceSalary()));
-						    
+						    System.out.println(((currentOpportunitiesBean.getChargeoutRate()-currentOpportunitiesBean.getResourceSalary())/(currentOpportunitiesBean.getResourceSalary()*100)));
+							currentOpportunitiesBean.setPercentage((float)((currentOpportunitiesBean.getChargeoutRate()-currentOpportunitiesBean.getResourceSalary())/(currentOpportunitiesBean.getResourceSalary()*100)));
 						}else{
 							Messagebox.show(" Please Enter Resource Salary ","Warning", Messagebox.OK, Messagebox.EXCLAMATION);
 						}

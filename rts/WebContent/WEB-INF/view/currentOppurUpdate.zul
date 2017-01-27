@@ -46,7 +46,7 @@
 						
 						<row>
 						  <label value="Percentage:" style="font-weight:bold"></label>		
-						 <doublebox value="@bind(vm.currentOpportunitiesBean.margin)" width="60%" maxlength="6" readonly="true">
+						 <doublebox value="@bind(vm.currentOpportunitiesBean.percentage)" width="60%" maxlength="6" readonly="true">
 						 </doublebox>
 						</row>
 						
