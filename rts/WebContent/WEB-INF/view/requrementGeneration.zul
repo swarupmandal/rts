@@ -5,7 +5,7 @@
 	<tabbox>
 		<tabs>
 			<tab>New Entry</tab>
-			<tab>Existing Requirements</tab>
+			<tab onClick="@command('onClickExistingReq')">Existing Requirements</tab>
 		</tabs>
 		<tabpanels>
 			<tabpanel>
@@ -113,7 +113,7 @@
 		<tabpanel>		
 			  <div>	
 				<grid  mold="paging" pageSize="8" model="@bind(vm.reqGenBeanList)"
-				action="show:slideDown">
+				>
 					<columns>
 						<column label="RID" width="50px"></column>
 						<column label="Client Name" align="center" width="280px"></column>

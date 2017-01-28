@@ -40,7 +40,7 @@ public class RequirementGenerationViewModel {
 	private ArrayList<ClientInformationBean> clientNameBeanList = new ArrayList<ClientInformationBean>();
 	private ArrayList<SkillsetMasterbean> skillSetBeanList = new ArrayList<SkillsetMasterbean>(); 
 	private ArrayList<StatusMasterBean> statusBeanList = new ArrayList<StatusMasterBean>();
-	private ArrayList<RequirementGenerationBean> reqGenBeanList = new ArrayList<RequirementGenerationBean>();
+	private ArrayList<RequirementGenerationBean> reqGenBeanList = null;
 	private ArrayList<ResourceTypeBean> typeList = null;
 	
 	@AfterCompose
@@ -53,11 +53,21 @@ public class RequirementGenerationViewModel {
 		clientNameBeanList = RequirementGenerationService.fetchClientNameList();
 		skillSetBeanList = RequirementGenerationService.fetchSkillSetList();
 		statusBeanList = RequirementGenerationService.fetchStatusList();
-		reqGenBeanList = RequirementGenerationService.loadReqGenMasterData();
+		
 		reqGenBean.setReqStatusId(RequirementGenerationDao.fetchOverallStatusId());
 		typeList = RequirementGenerationService.loadTypeList();
 	}
 
+	public void loadExistingRequirements(){
+		reqGenBeanList = RequirementGenerationService.loadReqGenMasterData();
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void onClickExistingReq(){
+		loadExistingRequirements();
+	}
+	
 	@Command
 	@NotifyChange("*")
 	public void onSelectName(){		
@@ -125,7 +135,6 @@ public class RequirementGenerationViewModel {
 																		reqGenBean.getOperationId());
 				System.out.println("Requirement screen flagLogInsert Is:"+flagLogInsert);
 				clear();
-				reqGenBeanList = RequirementGenerationService.loadReqGenMasterData();
 				typeList = RequirementGenerationService.loadTypeList();
 			}
 		}

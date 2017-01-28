@@ -59,27 +59,29 @@ public class ClientInformationViewModel {
 		clientInformationBean.setUserId(userId);
 		clientInformationBean.setSessionUserId(userId);
 		countryList = ClientInformationDao.onLoadCountry();
-		clientDetailsList = ClientInformationDao.onLoadClientDeatils();
 		userBeanList = ClientInformationDao.onLoadUserProfile(connection);
+	}
+	
+	public void loadExistingClients(){
+		clientDetailsList = ClientInformationDao.onLoadClientDeatils();
 	}
 	
 	@GlobalCommand
 	@NotifyChange("*")
 	public void globalClientDetailsUpdate(){
-		clientDetailsList = ClientInformationDao.onLoadClientDeatils();
+		loadExistingClients();
 	}
 	
 	@Command
 	@NotifyChange("*")
 	public void onClickExistingData(){
-		clientDetailsList = ClientInformationDao.onLoadClientDeatils();
+		loadExistingClients();
 	}
 	
 	@Command
 	@NotifyChange("*")
 	public void onClickSubmitButton(){
-		flag = ClientInformationService.insertClientMasterData(clientInformationBean);
-		if(flag){
+		if(ClientInformationService.insertClientMasterData(clientInformationBean)){
 			clientInformationBean.setOperation("INSERT");
 			clientInformationBean.setOperationId(1);
 			Calendar calendar = Calendar.getInstance();

@@ -69,6 +69,7 @@ public class ClientInformationService {
 	}
 	
 	public static boolean insertClientMasterData(ClientInformationBean clientInformationBean){
+		boolean flag = false;
 		if(isValid(clientInformationBean)){
 			flag = ClientInformationDao.insertClientData(clientInformationBean);
 		}
@@ -76,6 +77,7 @@ public class ClientInformationService {
 	}
 	
 	public static boolean updateClientMasterData(ClientInformationBean clientInformationBean){
+		boolean flag = false;
 		if(isValid(clientInformationBean)){
 			 flag = ClientInformationDao.updateClientData(clientInformationBean);
 		}
@@ -83,17 +85,15 @@ public class ClientInformationService {
 	}
 	
 	public static boolean deleteClientMasterData(ClientInformationBean clientInformationBean){
-		return flagDelete = ClientInformationDao.deleteClientData(clientInformationBean);
+		return ClientInformationDao.deleteClientData(clientInformationBean);
 	}
 	
 	public static int countClientPresentWrtRequirementService(ClientInformationBean clientInformationBean){
-		return countNumber = ClientInformationDao.countClientPresentWrtRequirementDao(clientInformationBean);
+		return ClientInformationDao.countClientPresentWrtRequirementDao(clientInformationBean);
 	}
 	
 	public static ArrayList<UserprofileBean> loadUser(Connection connection){
-		ArrayList<UserprofileBean> list = new ArrayList<UserprofileBean>();
-		list= ClientInformationDao.onLoadUserProfile(connection);
-		return list;
+		return ClientInformationDao.onLoadUserProfile(connection);
 	}
 	
 	public static void clearAllField(ClientInformationBean bean){

@@ -42,19 +42,23 @@ public class UserprofileViewModel {
 		sessions = Sessions.getCurrent();
 		userId = (String) sessions.getAttribute("userId");
 		userprofileBean.setSessionUserId(userId);
+		
+	}
+	
+	public void loadExistingUser(){
 		userList = UserProfileDao.onLoadUserDeatils();
 	}
 	
 	@GlobalCommand
 	@NotifyChange("*")
 	public void globalUserDetailsUpdate(){
-		userList = UserProfileDao.onLoadUserDeatils();
+		loadExistingUser();
 	}
 	
 	@Command
 	@NotifyChange("*")
 	public void onClickExisting(){
-		userList = UserProfileDao.onLoadUserDeatils();
+		loadExistingUser();
 	}
 	
 	@Command

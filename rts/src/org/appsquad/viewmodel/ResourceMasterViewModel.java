@@ -40,11 +40,11 @@ import org.zkoss.zul.Window;
 public class ResourceMasterViewModel {
    ResourceMasterBean resourceMasterBean = new ResourceMasterBean();
    
-   private ArrayList<StateBean> stateList = new ArrayList<StateBean>();
-   private ArrayList<CountryBean> countryList = new ArrayList<CountryBean>();
-   private ArrayList<SkillsetMasterbean> skillList = new ArrayList<SkillsetMasterbean>();
-   private ArrayList<StatusMasterBean> statusList = new ArrayList<StatusMasterBean>();
-   private ArrayList<ResourceMasterBean> resourceList = new ArrayList<ResourceMasterBean>();
+   private ArrayList<StateBean> stateList = null;
+   private ArrayList<CountryBean> countryList = null;
+   private ArrayList<SkillsetMasterbean> skillList = null;
+   private ArrayList<StatusMasterBean> statusList = null;
+   private ArrayList<ResourceMasterBean> resourceList = null;
    
    private String fileName;
    private Connection connection = null;
@@ -68,19 +68,23 @@ public class ResourceMasterViewModel {
 		resourceMasterBean.setSessionUserId(userId);
 		countryList = ResourceMasterDao.onLoadCountry();
 		skillList = ResourceMasterDao.onLoadSkill();
-		resourceList = ResourceMasterDao.onLoadResourceDeatils();
+		
 	}
+   
+   public void loadExistingResources(){
+	   resourceList = ResourceMasterDao.onLoadResourceDeatils();
+   }
    
    @GlobalCommand
    @NotifyChange("*")
    public void globalResourceDetailsUpdate(){
-	   resourceList = ResourceMasterDao.onLoadResourceDeatils();
+	   loadExistingResources();
 	}
    
    @Command
    @NotifyChange("*")
    public void onClickExistingData(){
-	   resourceList = ResourceMasterDao.onLoadResourceDeatils();
+	   loadExistingResources();
    }
    
    @Command

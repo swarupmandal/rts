@@ -43,13 +43,17 @@ public class SkillsetmasterViewModel {
 		userId = (String) sessions.getAttribute("userId");
 		skillsetMasterbean.setUserId(userId);
 		skillsetMasterbean.setSessionUserId(userId);
+		
+	}
+	
+	public void loadExistingSkillSet(){
 		skillList = SkillSetMasterDao.onLoadSetDeatils();
 	}
 	
 	@GlobalCommand
 	@NotifyChange("*")
 	public void globalSkillSetDetailsUpdate(){
-		skillList = SkillSetMasterDao.onLoadSetDeatils();
+		loadExistingSkillSet();
 	}
 	
 	@Command
@@ -88,7 +92,7 @@ public class SkillsetmasterViewModel {
 	@Command
 	@NotifyChange("*")
 	public void onClickExistingSkill(){
-		skillList = SkillSetMasterDao.onLoadSetDeatils();
+		loadExistingSkillSet();
 	}
 	
 	@Command
