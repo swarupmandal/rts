@@ -14,25 +14,25 @@ public class RequirementGenerationService {
 	private static String EMAIL_REGEX = "^[\\w-_\\.+]*[\\w-_\\.]@([\\w]+\\.)+[\\w]+[\\w]$";
 	
 	public static ArrayList<ClientInformationBean> fetchClientNameList(){
-		ArrayList<ClientInformationBean> list = new ArrayList<ClientInformationBean>();
+		ArrayList<ClientInformationBean> list = null;
 		list = RequirementGenerationDao.fetchClientNameList();
 		return list;
 	}
 	
 	public static ArrayList<SkillsetMasterbean> fetchSkillSetList(){
-		ArrayList<SkillsetMasterbean> list = new ArrayList<SkillsetMasterbean>();
+		ArrayList<SkillsetMasterbean> list = null;
 		list = RequirementGenerationDao.fetchSkillSetList();
 		return list;
 	}
 	
 	public static ArrayList<SkillsetMasterbean> skillSetListSearch(String name){
-		ArrayList<SkillsetMasterbean> list = new ArrayList<SkillsetMasterbean>();
+		ArrayList<SkillsetMasterbean> list = null;
 		list = RequirementGenerationDao.skillSetSearch(name);
 		return list;
 	}
 	
 	public static ArrayList<StatusMasterBean> fetchStatusList(){
-		ArrayList<StatusMasterBean> list = new ArrayList<StatusMasterBean>();
+		ArrayList<StatusMasterBean> list = null;
 		list = RequirementGenerationDao.fetchStatusList();
 		return list;
 	}
@@ -43,13 +43,13 @@ public class RequirementGenerationService {
 	}
 	
 	public static ArrayList<RequirementGenerationBean> loadReqGenMasterData(){
-		ArrayList<RequirementGenerationBean> list = new ArrayList<RequirementGenerationBean>();
+		ArrayList<RequirementGenerationBean> list = null;
 		list = RequirementGenerationDao.fetchReqGenMasterData();
 		return list;
 	}
 	
 	public static ArrayList<ResourceTypeBean> loadTypeList(){
-		ArrayList<ResourceTypeBean> list = new ArrayList<ResourceTypeBean>();
+		ArrayList<ResourceTypeBean> list = null;
 		list = RequirementGenerationDao.onLoadType();
 		return list;
 	}
@@ -135,7 +135,7 @@ public class RequirementGenerationService {
 										if(bean.getContactNo() != null){
 											if(bean.getEmail()!=null && bean.getEmail().trim().length()>0){
 												   if(bean.getEmail().matches(EMAIL_REGEX)){
-												return true;
+												     return true;
 											}else {
 												Messagebox.show("Enter Proper Email Id ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
 												return false;

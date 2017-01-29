@@ -34,7 +34,8 @@ public class SkillSetMasterService {
 	
 	public static boolean deleteSkillDetails(SkillsetMasterbean skillsetMasterbean){
 		 boolean flagDelete = false;
-	     return flagDelete = SkillSetMasterDao.deleteSkillDetails(skillsetMasterbean);
+	     flagDelete = SkillSetMasterDao.deleteSkillDetails(skillsetMasterbean);
+	     return flagDelete;
 	}
 	
 	public static void clearAllField(SkillsetMasterbean bean){
@@ -49,7 +50,5 @@ public class SkillSetMasterService {
 		}
 		return flagUpdate;
 	}
-	
-	/***********************************************************************************************************************************************/
 	
 }

@@ -14,7 +14,7 @@ public class LogAuditServiceClass {
 	}
 	
 	public static ArrayList<LogAuditBean> fetchLogDetails(Date fromDate, Date toDate){
-		ArrayList<LogAuditBean> list = new ArrayList<LogAuditBean>();
+		ArrayList<LogAuditBean> list = null;
 		list = LogAuditDaoClass.fetchLogDetailsDao(fromDate, toDate);
 		return list;
 	}

@@ -67,7 +67,8 @@ public class UserProfileService {
 	
 	public static int countUserIdPresentInTable(UserprofileBean userprofileBean){
 		    int count = 0;
-	    	return count = UserProfileDao.countPresentUserDetails(userprofileBean);
+	    	count = UserProfileDao.countPresentUserDetails(userprofileBean);
+	    	return count;
 	}
 	
 	public static boolean updateUserMasterData(UserprofileBean userprofileBean){

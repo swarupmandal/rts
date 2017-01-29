@@ -121,13 +121,13 @@ public class CurrentOpportunitiesService {
 	}
 	
 	public static ArrayList<CurrentOpportunitiesBean> loadCurrentOpportunityDetails(){
-		ArrayList<CurrentOpportunitiesBean> list = new ArrayList<CurrentOpportunitiesBean>();
+		ArrayList<CurrentOpportunitiesBean> list = null;
 		list = CurrentOpportunitiesDao.loadCurrenOpportunity();
 		return list;
 	}
 	
 	public static ArrayList<CurrentOpportunitiesBean> loadCurrentOpportunityDetailsForApprover(ArrayList<Integer> idList){
-		ArrayList<CurrentOpportunitiesBean> list = new ArrayList<CurrentOpportunitiesBean>();
+		ArrayList<CurrentOpportunitiesBean> list = null;
 		list = CurrentOpportunitiesDao.loadCurrenOpportunityForApprover(idList);
 		return list;
 	}
@@ -145,11 +145,9 @@ public class CurrentOpportunitiesService {
 	}
 	
 	public static ArrayList<Integer> fetchClientIdList(String userId){
-		ArrayList<Integer> clientIdList = new ArrayList<Integer>();
+		ArrayList<Integer> clientIdList = null;
 		clientIdList = CurrentOpportunitiesDao.fetchClientIdListWrtUserId(userId);
 		return clientIdList;
 	}
 
-	/**********************************************************************************************************************************************/
-	
 }

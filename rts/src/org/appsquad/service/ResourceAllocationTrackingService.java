@@ -12,55 +12,55 @@ import org.zkoss.zul.Messagebox;
 public class ResourceAllocationTrackingService {
 	
 	public static ArrayList<ClientInformationBean> fetchClientDetails(){
-		ArrayList<ClientInformationBean> list = new ArrayList<ClientInformationBean>();
+		ArrayList<ClientInformationBean> list = null;
 		list = ResourceAllocationTrackingDao.fetchClientDetails();
 		return list;
 	}
 
 	public static ArrayList<ClientInformationBean> fetchClientDetailsForReport(){
-		ArrayList<ClientInformationBean> list = new ArrayList<ClientInformationBean>();
+		ArrayList<ClientInformationBean> list = null;
 		list = ResourceAllocationTrackingDao.fetchClientDetailsForReport();
 		return list;
 	}
 	
 	public static ArrayList<RequirementGenerationBean> fetchReq(int clId){
-		ArrayList<RequirementGenerationBean> list = new ArrayList<RequirementGenerationBean>();
+		ArrayList<RequirementGenerationBean> list = null;
 		list = ResourceAllocationTrackingDao.fetchReqirmentDetails(clId);
 		return list;
 	}
 	
 	public static ArrayList<ClientInformationBean> fetchClientDetailsSearch(String name){
-		ArrayList<ClientInformationBean> list = new ArrayList<ClientInformationBean>();
+		ArrayList<ClientInformationBean> list = null;
 		list = ResourceAllocationTrackingDao.fetchClientDetailsSearch(name);
 		return list;
 	}
 	
 	public static ArrayList<ClientInformationBean> fetchClientDetailsSearchClient(String name){
-		ArrayList<ClientInformationBean> list = new ArrayList<ClientInformationBean>();
+		ArrayList<ClientInformationBean> list = null;
 		list = ResourceAllocationTrackingDao.fetchClientDetailsSearchClient(name);
 		return list;
 	}
 	
 	public static ArrayList<RequirementGenerationBean> fetchReqSearch(int clId, int id){
-		ArrayList<RequirementGenerationBean> list = new ArrayList<RequirementGenerationBean>();
+		ArrayList<RequirementGenerationBean> list = null;
 		list = ResourceAllocationTrackingDao.fetchReqirmentDetailsSearch(clId, id);
 		return list;
 	}
 	
 	public static ArrayList<RequirementGenerationBean> fetchReqSearch(int id){
-		ArrayList<RequirementGenerationBean> list = new ArrayList<RequirementGenerationBean>();
+		ArrayList<RequirementGenerationBean> list = null;
 		list = ResourceAllocationTrackingDao.fetchReqirmentDetailsSearch(id);
 		return list;
 	}
 	
 	public static ArrayList<ResourceAllocationTrackingBean> loadTrackingBeanList(int clId, Integer r_id){
-		ArrayList<ResourceAllocationTrackingBean> list = new ArrayList<ResourceAllocationTrackingBean>();
+		ArrayList<ResourceAllocationTrackingBean> list = null;
 		list = ResourceAllocationTrackingDao.fetchResAllTrackingDetails(clId, r_id);
 		return list;
 	}
 	
 	public static ArrayList<ResourceAllocationTrackingBean> loadTrackingBeanSearch(int clId, Integer r_id, String name){
-		ArrayList<ResourceAllocationTrackingBean> list = new ArrayList<ResourceAllocationTrackingBean>();
+		ArrayList<ResourceAllocationTrackingBean> list = null;
 		list = ResourceAllocationTrackingDao.fetchResAllTrackingSearch(clId, r_id, name);
 		return list;
 	}

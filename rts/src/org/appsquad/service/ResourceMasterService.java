@@ -102,12 +102,14 @@ public class ResourceMasterService {
 	
 	public static int countResourceNumberInMapperTable(ResourceMasterBean resourceMasterBean){
 		int countNumber = 0;
-		return countNumber = ResourceMasterDao.countLastNumberOfResource(resourceMasterBean);
+		countNumber = ResourceMasterDao.countLastNumberOfResource(resourceMasterBean);
+		return countNumber;
 	}
 	
 	public static boolean deleteResourceMasterData(ResourceMasterBean resourceMasterBean){
 		 boolean flagDelete = false;
-	     return flagDelete = ResourceMasterDao.deleteResourceData(resourceMasterBean);
+	     flagDelete = ResourceMasterDao.deleteResourceData(resourceMasterBean);
+	     return flagDelete;
 	}
 
 
