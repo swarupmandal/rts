@@ -112,8 +112,7 @@
 			</tabpanel>
 		<tabpanel>		
 			  <div>	
-				<grid  mold="paging" pageSize="8" model="@bind(vm.reqGenBeanList)"
-				>
+				<grid  mold="paging" pageSize="8" model="@bind(vm.reqGenBeanList)">
 					<columns>
 						<column label="RID" width="50px"></column>
 						<column label="Client Name" align="center" width="280px"></column>

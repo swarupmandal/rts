@@ -14,7 +14,7 @@
 					<rows>
 						<row>
 						  <label value="Client Name:" style="font-weight:bold"></label>
-						  <textbox width="50%" value="@bind(vm.reqEditGenBean.clientName)" readonly="true"></textbox>		
+						  <textbox width="50%" value="@bind(vm.reqEditGenBean.clientOriginalName)" readonly="true"></textbox>		
 						  	
 						</row>
 						
