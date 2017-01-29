@@ -2,8 +2,6 @@ package org.appsquad.viewmodel;
 
 import java.sql.Connection;
 import java.util.ArrayList;
-
-import org.appsquad.bean.AssignedClientNameForResourceBean;
 import org.appsquad.bean.DemoBean;
 import org.appsquad.service.AssignedClientNameForResourceService;
 import org.zkoss.bind.annotation.AfterCompose;
@@ -67,11 +65,9 @@ public class AssignedClientNameForResourceViewModel {
 	public void setDemoBean(DemoBean demoBean) {
 		this.demoBean = demoBean;
 	}
-
 	public ArrayList<DemoBean> getClientDetailsWrtResource() {
 		return clientDetailsWrtResource;
 	}
-
 	public void setClientDetailsWrtResource(
 			ArrayList<DemoBean> clientDetailsWrtResource) {
 		this.clientDetailsWrtResource = clientDetailsWrtResource;
