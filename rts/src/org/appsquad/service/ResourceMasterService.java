@@ -1,17 +1,10 @@
 package org.appsquad.service;
 
-import java.util.Arrays;
-
 import org.appsquad.bean.ResourceMasterBean;
 import org.appsquad.dao.ResourceMasterDao;
-import org.appsquad.validator.ValidationClass;
 import org.zkoss.zul.Messagebox;
 
 public class ResourceMasterService {
-	private static boolean flag = false;
-	private static boolean flagInsert = false;
-	private static boolean flagDelete = false;
-	private static int countNumber = 0;
 	private static String EMAIL_REGEX = "^[\\w-_\\.+]*[\\w-_\\.]@([\\w]+\\.)+[\\w]+[\\w]$";
 		
 	public static boolean isValid(ResourceMasterBean resourceMasterBean){
@@ -75,17 +68,19 @@ public class ResourceMasterService {
 	
 
 	public static boolean insertClientMasterData(ResourceMasterBean resourceMasterBean){
+		boolean flag = false;
 		if(isValid(resourceMasterBean)){
-			flagInsert = ResourceMasterDao.insertClientData(resourceMasterBean);
+			flag = ResourceMasterDao.insertClientData(resourceMasterBean);
 		}
-		return flagInsert;
+		return flag;
 	}
 	
 	public static boolean updateResourceMasterData(ResourceMasterBean resourceMasterBean){
+		boolean flagUpdate = false;
 		if(isValid(resourceMasterBean)){
-			 flag = ResourceMasterDao.updateResourceData(resourceMasterBean);
+			flagUpdate = ResourceMasterDao.updateResourceData(resourceMasterBean);
 		}
-		return flag;
+		return flagUpdate;
 	}
 	
 	public static void clearAllField(ResourceMasterBean bean){
@@ -106,43 +101,23 @@ public class ResourceMasterService {
 	}
 	
 	public static int countResourceNumberInMapperTable(ResourceMasterBean resourceMasterBean){
+		int countNumber = 0;
 		return countNumber = ResourceMasterDao.countLastNumberOfResource(resourceMasterBean);
 	}
 	
 	public static boolean deleteResourceMasterData(ResourceMasterBean resourceMasterBean){
+		 boolean flagDelete = false;
 	     return flagDelete = ResourceMasterDao.deleteResourceData(resourceMasterBean);
 	}
-	
+
+
 	/*******************************************************************************************************************************************/
 	
-	public static boolean isFlag() {
-		return flag;
-	}
-	public static void setFlag(boolean flag) {
-		ResourceMasterService.flag = flag;
-	}
-	public static boolean isFlagInsert() {
-		return flagInsert;
-	}
-	public static void setFlagInsert(boolean flagInsert) {
-		ResourceMasterService.flagInsert = flagInsert;
-	}
 	public static String getEMAIL_REGEX() {
 		return EMAIL_REGEX;
 	}
 	public static void setEMAIL_REGEX(String eMAIL_REGEX) {
 		EMAIL_REGEX = eMAIL_REGEX;
 	}
-	public static int getCountNumber() {
-		return countNumber;
-	}
-	public static void setCountNumber(int countNumber) {
-		ResourceMasterService.countNumber = countNumber;
-	}
-	public static boolean isFlagDelete() {
-		return flagDelete;
-	}
-	public static void setFlagDelete(boolean flagDelete) {
-		ResourceMasterService.flagDelete = flagDelete;
-	}
+	
 }

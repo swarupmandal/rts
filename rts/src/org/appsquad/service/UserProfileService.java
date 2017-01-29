@@ -5,11 +5,7 @@ import org.appsquad.dao.UserProfileDao;
 import org.zkoss.zul.Messagebox;
 
 public class UserProfileService {
-	private static boolean flag = false;
-	private static boolean flagInsert = false;
-	private static boolean flagCount = false;
 	private static String EMAIL_REGEX = "^[\\w-_\\.+]*[\\w-_\\.]@([\\w]+\\.)+[\\w]+[\\w]$";
-	private static Integer count = 0;
 	
 	public static boolean isValid(UserprofileBean userprofileBean){
 				if(userprofileBean.getUsername()!=null && userprofileBean.getUsername().trim().length()>0){
@@ -52,6 +48,7 @@ public class UserProfileService {
 	
 			
 	public static boolean insertUserMasterData(UserprofileBean userprofileBean){
+		boolean flagInsert = false;
 		if(isValid(userprofileBean)){
 			flagInsert = UserProfileDao.insertUserData(userprofileBean);
 		}
@@ -69,50 +66,24 @@ public class UserProfileService {
 	}
 	
 	public static int countUserIdPresentInTable(UserprofileBean userprofileBean){
+		    int count = 0;
 	    	return count = UserProfileDao.countPresentUserDetails(userprofileBean);
 	}
 	
 	public static boolean updateUserMasterData(UserprofileBean userprofileBean){
+		boolean flagUpdate = false;
 		if(isValid(userprofileBean)){
-			 flag = UserProfileDao.updateUserData(userprofileBean);
+			flagUpdate = UserProfileDao.updateUserData(userprofileBean);
 		}
-		return flag;
+		return flagUpdate;
 	}
 
 	/********************************************************************************************************************************/
 	
-	public static boolean isFlag() {
-		return flag;
-	}
-	public static void setFlag(boolean flag) {
-		UserProfileService.flag = flag;
-	}
-	public static boolean isFlagInsert() {
-		return flagInsert;
-	}
-	public static void setFlagInsert(boolean flagInsert) {
-		UserProfileService.flagInsert = flagInsert;
-	}
-	public static boolean isFlagCount() {
-		return flagCount;
-	}
-	public static void setFlagCount(boolean flagCount) {
-		UserProfileService.flagCount = flagCount;
-	}
 	public static String getEMAIL_REGEX() {
 		return EMAIL_REGEX;
 	}
 	public static void setEMAIL_REGEX(String eMAIL_REGEX) {
 		EMAIL_REGEX = eMAIL_REGEX;
-	}
-
-
-	public static Integer getCount() {
-		return count;
-	}
-
-
-	public static void setCount(Integer count) {
-		UserProfileService.count = count;
 	}
 }

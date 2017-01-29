@@ -107,14 +107,15 @@
 						    <label value="* " style="font-weight:bold; color:red"/>
 						    <label value="Pin/Zip code:" style="font-weight:bold"></label>
 						 </hlayout>
-						 <intbox width="35%" value="@bind(vm.resourceMasterBean.picCode)" maxlength="6" constraint="no negative,no zero"></intbox>
+						 <intbox width="35%" value="@bind(vm.resourceMasterBean.picCode)" maxlength="6" constraint="no negative,no zero"
+						   placeholder="e.g.700156"></intbox>
 						</row>
 						<row>
 						 <hlayout>
 						     <label value="* " style="font-weight:bold; color:red"/>
 						     <label value="Contact no:" style="font-weight:bold"></label>
 						 </hlayout>
-						  <textbox width="35%" value="@bind(vm.resourceMasterBean.contactNumber)" maxlength="10"
+						  <textbox width="35%" value="@bind(vm.resourceMasterBean.contactNumber)" maxlength="10" placeholder="e.g.9812345678"
 						    xmlns:w="client">
 						    <attribute w:name="doKeyPress_">
 								<![CDATA[ function(evt) { if ( (evt.which >
@@ -128,7 +129,8 @@
 						     <label value="* " style="font-weight:bold; color:red"/>
 						     <label value="Email Id:" style="font-weight:bold"></label>
 						  </hlayout>		
-						  <textbox width="35%" value="@bind(vm.resourceMasterBean.emailId)" maxlength="50"></textbox>	
+						  <textbox width="35%" value="@bind(vm.resourceMasterBean.emailId)" maxlength="50"
+						  placeholder="e.g.some@some.com"></textbox>	
 						</row>
 						<row>
 						<label value="Upload CV"></label>

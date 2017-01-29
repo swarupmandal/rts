@@ -5,9 +5,6 @@ import org.appsquad.dao.SkillSetMasterDao;
 import org.zkoss.zul.Messagebox;
 
 public class SkillSetMasterService {
-	private static boolean flag = false;
-	private static boolean flagInsert = false;
-	private static boolean flagDelete = false;
 	
 	public static boolean isValid(SkillsetMasterbean bean){
 		if(bean.getSkillset()!=null && bean.getSkillset().trim().length()>0){
@@ -24,6 +21,7 @@ public class SkillSetMasterService {
 	}
 	
 	public static boolean insertClientMasterData(SkillsetMasterbean skillsetMasterbean){
+		boolean flagInsert = false;
 		if(isValid(skillsetMasterbean)){
 			flagInsert = SkillSetMasterDao.insertSkillData(skillsetMasterbean);
 		}
@@ -35,6 +33,7 @@ public class SkillSetMasterService {
 	}
 	
 	public static boolean deleteSkillDetails(SkillsetMasterbean skillsetMasterbean){
+		 boolean flagDelete = false;
 	     return flagDelete = SkillSetMasterDao.deleteSkillDetails(skillsetMasterbean);
 	}
 	
@@ -44,30 +43,13 @@ public class SkillSetMasterService {
 	}
 	
 	public static boolean updateSkillMasterData(SkillsetMasterbean masterbean){
+		boolean flagUpdate = false;
 		if(isValid(masterbean)){
-			 flag = SkillSetMasterDao.updateSkillData(masterbean);
+			flagUpdate = SkillSetMasterDao.updateSkillData(masterbean);
 		}
-		return flag;
+		return flagUpdate;
 	}
 	
 	/***********************************************************************************************************************************************/
 	
-	public static boolean isFlag() {
-		return flag;
-	}
-	public static void setFlag(boolean flag) {
-		SkillSetMasterService.flag = flag;
-	}
-	public static boolean isFlagInsert() {
-		return flagInsert;
-	}
-	public static void setFlagInsert(boolean flagInsert) {
-		SkillSetMasterService.flagInsert = flagInsert;
-	}
-	public static boolean isFlagDelete() {
-		return flagDelete;
-	}
-	public static void setFlagDelete(boolean flagDelete) {
-		SkillSetMasterService.flagDelete = flagDelete;
-	}
 }

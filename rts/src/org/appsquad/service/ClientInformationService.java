@@ -9,7 +9,6 @@ import org.appsquad.dao.ClientInformationDao;
 import org.zkoss.zul.Messagebox;
 
 public class ClientInformationService {
-	private static boolean flag = false;
 	private static boolean flagDelete = false;
 	private static int countNumber = 0;
 	private static String EMAIL_REGEX = "^[\\w-_\\.+]*[\\w-_\\.]@([\\w]+\\.)+[\\w]+[\\w]$";
@@ -111,12 +110,6 @@ public class ClientInformationService {
 
 	/*************************************************************************************************************************************************/
 	
-	public boolean isFlag() {
-		return flag;
-	}
-	public void setFlag(boolean flag) {
-		this.flag = flag;
-	}
 	public static boolean isFlagDelete() {
 		return flagDelete;
 	}
