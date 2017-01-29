@@ -57,7 +57,9 @@
     		          </div>
     		          <space></space>
     		          <div align="center">
-      						<button label="CREATE WEEKLY PDF" width="160PX" visible="@bind(vm.buttonVisibility)" onClick="@command('onClickPdf')"></button>
+      						<button label="CREATE WEEKLY PDF" image="images/pdf.png" style="font-weight:bold" visible="@bind(vm.buttonVisibility)" 
+      						   onClick="@command('onClickPdf')">
+      						</button>
   					 </div>
   					 
   					 <div visible="@bind(vm.secondDivVisibility)">
@@ -105,7 +107,9 @@
     		          </div>
     		          <space></space>
     		          <div align="center">
-      						<button label="CREATE MONTHLY PDF" width="160PX" visible="@bind(vm.secondButtonVisibility)" onClick="@command('onClickSecondPdf')"></button>
+      						<button label="CREATE MONTHLY PDF" image="images/pdf.png" style="font-weight:bold" visible="@bind(vm.secondButtonVisibility)" 
+      						  onClick="@command('onClickSecondPdf')">
+      						</button>
   					 </div>			 
 		</window>
 </zk>

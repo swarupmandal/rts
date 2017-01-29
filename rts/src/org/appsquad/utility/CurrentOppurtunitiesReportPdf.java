@@ -99,7 +99,7 @@ public class CurrentOppurtunitiesReportPdf {
 	 
 	 public void printDetails(ArrayList<CurrentOpportunitiesReportGenerationBean> list) throws DocumentException{
 	 		String[] headerLabes = {"Year","Month", "Bill Number", "Bill Date", "Bill Amount", "Paid", "Cheque Details"};
-	 		float[]	widths = {20f,20f,12f,12f,12f,20f,12f};
+	 		float[]	widths = {30f,15f,12f,12f,25f,12f,12f};
 	 		PdfPTable headerTable = new PdfPTable(widths);
 	 		headerTable.setWidthPercentage(96);
 	 		

@@ -118,7 +118,9 @@
                        </div>
                        <space></space>
                        <div align="center">
-                          <button label="CREATE PDF" width="100px" onClick="@command('onClickPdf')" visible="@bind(vm.buttonVisibility)"></button>
+                          <button label="Generate PDF" image="images/pdf.png" style="font-weight:bold" onClick="@command('onClickPdf')"
+                            visible="@bind(vm.buttonVisibility)">
+ 						  </button>
                        </div>
 		</window>
 </zk>

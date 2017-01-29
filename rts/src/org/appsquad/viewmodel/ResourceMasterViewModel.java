@@ -142,8 +142,6 @@ public class ResourceMasterViewModel {
 			fileName = null;
 			fileContent =null;
 			skillList = ResourceMasterDao.onLoadSkill();
-			countryList = ResourceMasterDao.onLoadCountry();
-			stateList.clear();
 		}
 	}
 	

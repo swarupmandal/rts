@@ -7,12 +7,7 @@ import org.appsquad.bean.CurrentOpportunitiesReportBean;
 import org.appsquad.dao.CurrentOpportunitiesDao;
 import org.zkoss.zul.Messagebox;
 
-public class CurrentOpportunitiesService {	
-	public static boolean flagInsert = false;
-	public static boolean flagDetailsUpdate = false;
-	public static boolean flagTrackingUpdate = false;
-	public static boolean flagValidate = false;
-	
+public class CurrentOpportunitiesService {
 	
 	public static boolean validateBillingDataToBeSubmitted(ArrayList<CurrentOpportunitiesReportBean> list){
 		boolean flag = false;
@@ -51,7 +46,7 @@ public class CurrentOpportunitiesService {
 								return false;
 							}
 						}else{
-							Messagebox.show("Select Margin ", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
+							Messagebox.show("Create Margin ", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
 							return false;
 						}
 					}else{
@@ -85,7 +80,7 @@ public class CurrentOpportunitiesService {
 								return false;
 							}
 						}else{
-							Messagebox.show("Select Margin ", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
+							Messagebox.show("Create Margin ", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
 							return false;
 						}
 					}else{
@@ -108,15 +103,21 @@ public class CurrentOpportunitiesService {
 	
 	
 	public static boolean insertTrackingDetails(CurrentOpportunitiesBean bean){
-		return flagInsert = CurrentOpportunitiesDao.insertTrackingData(bean);
+		boolean flagInsert = false;
+		flagInsert = CurrentOpportunitiesDao.insertTrackingData(bean);
+		return flagInsert;
 	}
 	
 	public static boolean updateTrackingDetailsService(CurrentOpportunitiesBean bean){
-		return flagDetailsUpdate = CurrentOpportunitiesDao.updateDetailsTableDao(bean);
+		boolean flagDetailsUpdate = false;
+		flagDetailsUpdate = CurrentOpportunitiesDao.updateDetailsTableDao(bean);
+		return flagDetailsUpdate;
 	}
 	
 	public static boolean updateTrackingService(CurrentOpportunitiesBean bean){
-		return flagTrackingUpdate = CurrentOpportunitiesDao.updateTrackingTableDao(bean);
+		boolean flagTrackingUpdate = false;
+		flagTrackingUpdate = CurrentOpportunitiesDao.updateTrackingTableDao(bean);
+		return flagTrackingUpdate;
 	}
 	
 	public static ArrayList<CurrentOpportunitiesBean> loadCurrentOpportunityDetails(){
@@ -133,12 +134,14 @@ public class CurrentOpportunitiesService {
 	
 	public static String fetchRoleNameWrtUserId(String userId){
 		String roleName = "";
-		return roleName = CurrentOpportunitiesDao.fetchRoleNameService(userId);
+		roleName = CurrentOpportunitiesDao.fetchRoleNameService(userId);
+		return roleName;
 	}
 	
 	public static Integer fetchCountNumberITrackingDetailsTable(Integer trackingId){
 		int count = 0;
-		return count = CurrentOpportunitiesDao.fetchCountTrackingIdService(trackingId);
+		count = CurrentOpportunitiesDao.fetchCountTrackingIdService(trackingId);
+		return count;
 	}
 	
 	public static ArrayList<Integer> fetchClientIdList(String userId){
@@ -149,28 +152,4 @@ public class CurrentOpportunitiesService {
 
 	/**********************************************************************************************************************************************/
 	
-	public static boolean isFlagInsert() {
-		return flagInsert;
-	}
-	public static void setFlagInsert(boolean flagInsert) {
-		CurrentOpportunitiesService.flagInsert = flagInsert;
-	}
-	public static boolean isFlagDetailsUpdate() {
-		return flagDetailsUpdate;
-	}
-	public static void setFlagDetailsUpdate(boolean flagDetailsUpdate) {
-		CurrentOpportunitiesService.flagDetailsUpdate = flagDetailsUpdate;
-	}
-	public static boolean isFlagTrackingUpdate() {
-		return flagTrackingUpdate;
-	}
-	public static void setFlagTrackingUpdate(boolean flagTrackingUpdate) {
-		CurrentOpportunitiesService.flagTrackingUpdate = flagTrackingUpdate;
-	}
-	public static boolean isFlagValidate() {
-		return flagValidate;
-	}
-	public static void setFlagValidate(boolean flagValidate) {
-		CurrentOpportunitiesService.flagValidate = flagValidate;
-	}
 }

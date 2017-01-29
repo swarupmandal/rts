@@ -53,7 +53,7 @@
                                          <label value="EmailId:" style="font-weight:bold"/>
                                     </hlayout>
                                         
-                                        <textbox value="@bind(vm.userprofileBean.email)" width="300px" maxlength="50"/>
+                                        <textbox value="@bind(vm.userprofileBean.email)" width="300px" maxlength="50" placeholder="e.g.some@some.com"/>
                                     </row>               
                                     <row>
                                     <hlayout>
@@ -70,7 +70,7 @@
                                          <label value="ContactNo:" style="font-weight:bold"/>
                                     </hlayout>
                                         
-                                        <textbox value="@bind(vm.userprofileBean.contactno)" width="300px" maxlength="10"
+                                        <textbox value="@bind(vm.userprofileBean.contactno)" width="300px" maxlength="10" placeholder="e.g.9812345678"
                                            xmlns:w="client">
                                             <attribute w:name="doKeyPress_">
 												<![CDATA[ function(evt) { if ( (evt.which >

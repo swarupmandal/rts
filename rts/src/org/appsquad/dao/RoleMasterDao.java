@@ -31,7 +31,7 @@ public class RoleMasterDao {
 					    PreparedStatement preparedStatementInsert = null;
 					    try {
 					    	preparedStatementInsert = Pstm.createQuery(connection, 
-									RoleMasterSql.insertRoleQuery, Arrays.asList(roleMasterBean.getRoll().toUpperCase().trim(),roleMasterBean.getUserid()));
+									RoleMasterSql.insertRoleQuery, Arrays.asList(roleMasterBean.getRoll().trim(),roleMasterBean.getUserid()));
 					    	logger.info("insertSkillData- " + preparedStatementInsert.unwrap(PreparedStatement.class));
 							int i = preparedStatementInsert.executeUpdate();
 							if(i>0){
@@ -268,7 +268,7 @@ public class RoleMasterDao {
 					    PreparedStatement preparedStatementInsert = null;
 					    try {
 					    	preparedStatementInsert = Pstm.createQuery(connection, 
-									RoleMasterSql.updateRoleQuery, Arrays.asList(roleMasterBean.getRoll().toUpperCase(),roleMasterBean.getRollId()));
+									RoleMasterSql.updateRoleQuery, Arrays.asList(roleMasterBean.getRoll().trim(),roleMasterBean.getRollId()));
 					    	logger.info("updateRoleData- " + preparedStatementInsert.unwrap(PreparedStatement.class));
 							int i = preparedStatementInsert.executeUpdate();
 							if(i>0){
