@@ -26,4 +26,5 @@ public class ResourceAllocationSql {
                                                                      + "rts_skill_name from rts_resource_master where is_delete = 'N' order by id ";
     
     public static final String fetchResourceDetailsForCurOppurScreenForSerach = "select * from rts_resource_details where resource_full_name like ? order by id ";
+
 }
