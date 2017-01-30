@@ -15,11 +15,16 @@ public class ResourceMasterService {
 						if(resourceMasterBean.getAddress()!=null && resourceMasterBean.getAddress().trim().length()>0){
 							if(resourceMasterBean.getCountry()!=null && resourceMasterBean.getCountry().trim().length()>0){
 								if(resourceMasterBean.getState()!=null && resourceMasterBean.getState().trim().length()>0){
-									if(resourceMasterBean.getPicCode()!=null && resourceMasterBean.getPicCode().trim().length()>0){
-										if(resourceMasterBean.getContactNumber()!=null && resourceMasterBean.getContactNumber().trim().length()>0){
+									if(resourceMasterBean.getPicCode()!=null && resourceMasterBean.getPicCode().trim().length()==6){
+										if(resourceMasterBean.getContactNumber()!=null && resourceMasterBean.getContactNumber().trim().length()==10){
 											if(resourceMasterBean.getEmailId()!=null && resourceMasterBean.getEmailId().trim().length()>0){
 												if(resourceMasterBean.getEmailId().matches(EMAIL_REGEX)){
-													return true;
+													if(resourceMasterBean.getFileName()!=null){
+														return true;
+													}else{
+														Messagebox.show("Please upload cv to proceed","Informtion", Messagebox.OK, Messagebox.EXCLAMATION);
+														return false;
+													}
 												}else {
 													Messagebox.show("Enter Proper Email Id","Informtion", Messagebox.OK, Messagebox.EXCLAMATION);
 													return false;

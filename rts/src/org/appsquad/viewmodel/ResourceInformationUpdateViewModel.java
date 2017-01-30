@@ -113,9 +113,11 @@ public class ResourceInformationUpdateViewModel {
 		}
 	}
 	
+	
 	@Command
 	@NotifyChange("*")
 	public void onUploadFileUpload(@ContextParam(ContextType.BIND_CONTEXT) BindContext bindContext) throws Exception{
+		
 		UploadEvent uploadEvent = null;
 		Object objUpEvent = bindContext.getTriggerEvent();
 		if (objUpEvent != null && (objUpEvent instanceof UploadEvent)) {
@@ -145,7 +147,7 @@ public class ResourceInformationUpdateViewModel {
          String n3 = n1+"_"+number;
          String finalName = n3+"."+n2;
          Files.copy(new File(filePath + finalName), media.getStreamData());
-         Messagebox.show("Uploaded Successfully", "Information", Messagebox.OK, Messagebox.INFORMATION);
+         Messagebox.show("CV Uploaded Successfully", "Information", Messagebox.OK, Messagebox.INFORMATION);
          fileuploaded = true;
          fileName = media.getName();
          filePath = filePath + finalName;

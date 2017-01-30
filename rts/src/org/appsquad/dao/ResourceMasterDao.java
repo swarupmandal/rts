@@ -377,9 +377,11 @@ public class ResourceMasterDao {
 					    PreparedStatement preparedStatementInsert = null;
 					    try {
 					    	String name = resourceMasterBean.getName().replaceAll("[, ; .]", " ");
-					    	System.out.println(name);
 					    	String surName = resourceMasterBean.getSurName().replaceAll("[, ; .]", " ");
-					    	System.out.println(surName);
+					    	String otherInfo = "";
+					    	if( resourceMasterBean.getOtherInfo()!=null){
+					    		otherInfo =  resourceMasterBean.getOtherInfo();
+					    	}
 					    	preparedStatementInsert = Pstm.createQuery(connection, 
 							ResourceMasterSql.insertResourceQuery, Arrays.asList(name.toUpperCase().trim(),surName.toUpperCase().trim(),
 											                                     resourceMasterBean.getYearOfExperience(),resourceMasterBean.getAddress().toUpperCase().trim(),resourceMasterBean.getEmailId().trim(),
@@ -388,7 +390,7 @@ public class ResourceMasterDao {
 											                                     resourceMasterBean.getCtc(),resourceMasterBean.getSkillsetMasterbean().getSkillset().toUpperCase(),
 											                                     resourceMasterBean.getCountry().toUpperCase().trim(),
 											                                     resourceMasterBean.getState().toUpperCase().trim(),resourceMasterBean.getProfit(),resourceMasterBean.getFilePath(),
-											                                     resourceMasterBean.getOtherInfo().trim(),resourceMasterBean.getFileName()));
+											                                     otherInfo.trim(),resourceMasterBean.getFileName()));
 					    	
 					    	logger.info("Inserting Resource Data Into Table: "+preparedStatementInsert.unwrap(PreparedStatement.class));
 							int i = preparedStatementInsert.executeUpdate();

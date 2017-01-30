@@ -133,7 +133,11 @@
 						  placeholder="e.g.some@some.com"></textbox>	
 						</row>
 						<row>
+						<hbox>
+						<label value="* " style="font-weight:bold; color:red"/>
 						<label value="Upload CV"></label>
+						</hbox>
+						
 							<hlayout spacing="5px">
 							<label></label>
 							<button label="Upload" upload="true" onUpload="@command('onUploadFile', upEvent=event)"></button>

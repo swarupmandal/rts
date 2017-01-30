@@ -215,7 +215,7 @@ public class ResourceMasterViewModel {
          String finalName = n3+"."+n2;
          //System.out.println("FINAL NAME:"+finalName);
          Files.copy(new File(filePath + finalName), media.getStreamData());
-         Messagebox.show("Uploaded Successfully", "Information", Messagebox.OK, Messagebox.INFORMATION);
+         Messagebox.show("CV Uploaded Successfully", "Information", Messagebox.OK, Messagebox.INFORMATION);
          fileuploaded = true;
          fileName = media.getName();
          filePath = filePath + finalName;

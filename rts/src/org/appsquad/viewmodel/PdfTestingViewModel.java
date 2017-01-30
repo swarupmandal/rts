@@ -220,7 +220,7 @@ public class PdfTestingViewModel {
     			 			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
     			 			headerTable.addCell(cell);
                         }else{
-                        	Paragraph headerParagraph = new Paragraph("TOATL: "+String.valueOf(bean.getCurrentOpportunitiesBean().getMarginTotal()));
+                        	Paragraph headerParagraph = new Paragraph("TOTAL: "+String.valueOf(bean.getCurrentOpportunitiesBean().getMarginTotal()));
     			 			headerParagraph.getFont().setSize(5f);
     			 			headerParagraph.setAlignment(Element.ALIGN_CENTER);
     			 			headerParagraph.getFont().setStyle(Font.NORMAL);
