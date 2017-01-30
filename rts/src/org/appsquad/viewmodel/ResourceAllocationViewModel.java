@@ -56,7 +56,7 @@ public class ResourceAllocationViewModel {
 	  		resourceAllocationBean.setUserId(userId);
 	  		resourceAllocationBean.setSessionUserId(userId);
 	  		clientList = SortCriteriaDao.onLoadClientDeatils();
-	  		//resourceTypeList = ResourceAllocationDao.onLoadResourceTypeDetails();
+	  		
 	  	}
 	    
 	    @Command
@@ -66,9 +66,7 @@ public class ResourceAllocationViewModel {
 	    	resourceAllocationBean.setRequiredResourcenumber(null);
 	    	resourceAllocationBean.setAllocatedResourceNumber(null);
 	    	resourceAllocationBean.setDivVisibility(false);
-	    	//if(resourceTypeList.size()>0){
-	    	//	resourceTypeList.clear();
-	    //	}
+	    	
 	    	ResourceAllocationService.getAllData(resourceAllocationBean);
 	    	resourceList = ResourceAllocationDao.onLoadResourceDetails(resourceAllocationBean);
 	    	if(resourceList.size()>0){
