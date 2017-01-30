@@ -116,7 +116,7 @@ public class IndividualClientReportViewModel {
 	   public void onSelectStatusName(){
 		   summaryBeanList.clear();
 		   reportBeanList.clear();
-		   if(individualClientReportBean.statusMasterBean.getStatusId()==13){
+		   if(individualClientReportBean.statusMasterBean.getStatus().equalsIgnoreCase("-CLEAR-")){
 			   individualClientReportBean.statusMasterBean.setStatus(null);
 			   individualClientReportBean.statusMasterBean.setStatusId(null);
 			   statusList = ResourceMasterDao.onLoadStatusForReport();

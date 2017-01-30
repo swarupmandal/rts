@@ -170,7 +170,7 @@ public class SkillSetWiseReportViewModel {
 		summaryBeanList.clear();
 		reportBeanList.clear();
 		
-		if(skilWiseReportBean.statusMasterBean.getStatusId()==13){
+		if(skilWiseReportBean.statusMasterBean.getStatus().equalsIgnoreCase("-CLEAR-")){
 			 skilWiseReportBean.statusMasterBean.setStatus(null);
 			 skilWiseReportBean.statusMasterBean.setStatusId(null);
 			 statusList = ResourceMasterDao.onLoadStatusForReport();
