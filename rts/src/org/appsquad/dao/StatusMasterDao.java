@@ -30,13 +30,19 @@ public class StatusMasterDao {
 					sql_insert:{
 					    PreparedStatement preparedStatementInsert = null;
 					    try {
-					    	String preBilledStatus = "N";
+					    	String initialStage = "N",preBilledStatus = "N",finalStage="N";
 					    	if(statusMasterBean.isPreBilled()){
 					    		preBilledStatus = "Y";
 					    	}
+					    	if(statusMasterBean.isInitial()){
+					    		initialStage = "Y";
+					    	}
+					    	if(statusMasterBean.isFinalStage()){
+					    		finalStage = "Y";
+					    	}
 					    	preparedStatementInsert = Pstm.createQuery(connection, 
 									StatusMasterSql.insertStatusQuery, Arrays.asList(statusMasterBean.getUserId(),
-											statusMasterBean.getStatus().toUpperCase().trim(),preBilledStatus));
+											statusMasterBean.getStatus().toUpperCase().trim(),preBilledStatus,initialStage,finalStage));
 					    	
 					    	logger.info(" insertStatusData- " + preparedStatementInsert.unwrap(PreparedStatement.class));
 							int i = preparedStatementInsert.executeUpdate();
@@ -96,7 +102,17 @@ public class StatusMasterDao {
 					    	}else{
 					    		preparedStatementInsert.setString(2, "N");
 					    	}
-					    	preparedStatementInsert.setInt(3, statusMasterBean.getStatusId());
+					    	if(statusMasterBean.isInitial()){
+					    		preparedStatementInsert.setString(3, "Y");
+					    	}else{
+					    		preparedStatementInsert.setString(3, "N");
+					    	}
+					    	if(statusMasterBean.isFinalStage()){
+					    		preparedStatementInsert.setString(4, "Y");
+					    	}else{
+					    		preparedStatementInsert.setString(4, "N");
+					    	}
+					    	preparedStatementInsert.setInt(5, statusMasterBean.getStatusId());
 					    	logger.info(" updateStatusData- " + preparedStatementInsert.unwrap(PreparedStatement.class));
 							int i = preparedStatementInsert.executeUpdate();
 							if(i>0){
@@ -180,6 +196,102 @@ public class StatusMasterDao {
 		}
 	}
 	
+	/**
+	 * @author somnathd
+	 * Update others prebill
+	 * @return
+	 */
+	public static void updateOthersFinalStatus(StatusMasterBean statusMasterBean){
+		boolean isUpdate = false;
+		Connection connection = null;
+		try {
+			connection = DbConnection.createConnection();
+			sql_connection:{
+				try {
+					
+					//1st SQL block
+					sql_insert:{
+					    PreparedStatement preparedStatementInsert = null;
+					    try {
+					    	preparedStatementInsert = Pstm.createQuery(connection, 
+									StatusMasterSql.updateOtherFinalStatusSql, Arrays.asList(statusMasterBean.getStatusId()));
+					    	int i = preparedStatementInsert.executeUpdate();
+							if(i>0){
+								isUpdate = true;	
+								System.out.println("Others final status updated succesfully!");
+							}
+						} finally{
+							if(preparedStatementInsert!=null){
+								preparedStatementInsert.close();
+							}
+						}
+				    }
+				
+				} catch (Exception e) {
+					e.printStackTrace();
+					logger.error(e);
+					logger.fatal(e);
+				}finally{
+					if(connection!=null){
+						connection.close();
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(e);
+			logger.fatal(e);
+		}
+	}
+	
+	/**
+	 * @author somnathd
+	 * Update others prebill
+	 * @return
+	 */
+	public static void updateOthersInitalStatus(StatusMasterBean statusMasterBean){
+		boolean isUpdate = false;
+		Connection connection = null;
+		try {
+			connection = DbConnection.createConnection();
+			sql_connection:{
+				try {
+					
+					//1st SQL block
+					sql_insert:{
+					    PreparedStatement preparedStatementInsert = null;
+					    try {
+					    	preparedStatementInsert = Pstm.createQuery(connection, 
+									StatusMasterSql.updateOtherInitialStatusSql, Arrays.asList(statusMasterBean.getStatusId()));
+					    	int i = preparedStatementInsert.executeUpdate();
+							if(i>0){
+								isUpdate = true;	
+								System.out.println("Others initial status updated succesfully!");
+							}
+						} finally{
+							if(preparedStatementInsert!=null){
+								preparedStatementInsert.close();
+							}
+						}
+				    }
+				
+				} catch (Exception e) {
+					e.printStackTrace();
+					logger.error(e);
+					logger.fatal(e);
+				}finally{
+					if(connection!=null){
+						connection.close();
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(e);
+			logger.fatal(e);
+		}
+	}
+	
 	
 	public static ArrayList<StatusMasterBean> onLoadStatusDeatils(){
 		ArrayList<StatusMasterBean> statusList = new ArrayList<StatusMasterBean>();
@@ -201,12 +313,20 @@ public class StatusMasterDao {
 								bean.setStatusId(resultSet.getInt("id"));
 								bean.setStatus(resultSet.getString("master_status_name"));
 								bean.setStatusDisabled(true);
+								if(resultSet.getString("is_initial").equals("Y")){
+							    	bean.setInitial(true);
+							    }else{
+							    	bean.setInitial(false);
+							    }
 							    if(resultSet.getString("is_pre_bill").equals("Y")){
 							    	bean.setPreBilled(true);
-							    	
 							    }else{
-							    	
 							    	bean.setPreBilled(false);
+							    }
+							    if(resultSet.getString("is_final").equals("Y")){
+							    	bean.setFinalStage(true);
+							    }else{
+							    	bean.setFinalStage(false);
 							    }
 								statusList.add(bean);
 							}  

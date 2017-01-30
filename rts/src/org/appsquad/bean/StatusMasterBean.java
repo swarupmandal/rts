@@ -9,7 +9,8 @@ public class StatusMasterBean {
 	private int ocstatusId;
 	private String ocstatus;
 	private String userId;
-	private boolean editButtonDisable = false,isPreBilled = false,chkbxDisable = true;
+	private boolean editButtonDisable = false,isPreBilled = false,chkbxDisable = true,
+			isInitial = false,isFinalStage = false,initChkbxDisable = true,finalChkbxDisable = true;
 	private boolean saveButtonDisable = true;
 	private boolean statusDisabled = true;
 	private Integer oldOcStatusId;
@@ -138,5 +139,30 @@ public class StatusMasterBean {
 	}
 	public void setChkbxDisable(boolean chkbxDisable) {
 		this.chkbxDisable = chkbxDisable;
+	}
+	public boolean isInitial() {
+		return isInitial;
+	}
+	public void setInitial(boolean isInitial) {
+		this.isInitial = isInitial;
+	}
+	
+	public boolean isInitChkbxDisable() {
+		return initChkbxDisable;
+	}
+	public void setInitChkbxDisable(boolean initChkbxDisable) {
+		this.initChkbxDisable = initChkbxDisable;
+	}
+	public boolean isFinalChkbxDisable() {
+		return finalChkbxDisable;
+	}
+	public void setFinalChkbxDisable(boolean finalChkbxDisable) {
+		this.finalChkbxDisable = finalChkbxDisable;
+	}
+	public boolean isFinalStage() {
+		return isFinalStage;
+	}
+	public void setFinalStage(boolean isFinalStage) {
+		this.isFinalStage = isFinalStage;
 	}
 }

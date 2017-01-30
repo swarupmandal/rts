@@ -43,13 +43,17 @@ public class StatusMasterViewModel {
 		statusMasterBean.setSessionUserId(userId);
 		statuslist = StatusMasterDao.onLoadStatusDeatils();
 		statusMasterBean.setChkbxDisable(StatusMasterService.setForPreBill(statuslist)); 
+		statusMasterBean.setInitChkbxDisable(StatusMasterService.setForInitialStage(statuslist));
+		statusMasterBean.setFinalChkbxDisable(StatusMasterService.setForFinalStage(statuslist));
 	}
 	
 	@GlobalCommand
 	@NotifyChange("*")
 	public void globalStatusDetailsUpdate(){
 		statuslist = StatusMasterDao.onLoadStatusDeatils();
-		statusMasterBean.setChkbxDisable(StatusMasterService.setForPreBill(statuslist)); 
+		statusMasterBean.setInitChkbxDisable(StatusMasterService.setForInitialStage(statuslist));
+		statusMasterBean.setChkbxDisable(StatusMasterService.setForPreBill(statuslist));
+		statusMasterBean.setFinalChkbxDisable(StatusMasterService.setForFinalStage(statuslist));
 	}
 	
 	@Command
@@ -83,13 +87,29 @@ public class StatusMasterViewModel {
 				flagLogInsert = LogAuditServiceClass.insertIntoLogTable(statusMasterBean.getMainScreenName(), statusMasterBean.getChileScreenName(), 
 																		statusMasterBean.getSessionUserId(), statusMasterBean.getOperation(),currentDate,
 																		statusMasterBean.getOperationId());
+				clearScreen();
 				//System.out.println("flagLogInsert Is:"+flagLogInsert);
-				StatusMasterService.clearAllField(statusMasterBean);
+				/*StatusMasterService.clearAllField(statusMasterBean);
 				statuslist = StatusMasterDao.onLoadStatusDeatils();
 				statusMasterBean.setPreBilled(false);
+				statusMasterBean.setInitial(false);
+				statusMasterBean.setFinalStage(false);
 				statusMasterBean.setChkbxDisable(StatusMasterService.setForPreBill(statuslist)); 
+				statusMasterBean.setInitChkbxDisable(StatusMasterService.setForInitialStage(statuslist));
+				statusMasterBean.setFinalChkbxDisable(StatusMasterService.setForFinalStage(statuslist));*/
 			}	
 		}
+	}
+	
+	public void clearScreen(){
+		StatusMasterService.clearAllField(statusMasterBean);
+		statuslist = StatusMasterDao.onLoadStatusDeatils();
+		statusMasterBean.setPreBilled(false);
+		statusMasterBean.setInitial(false);
+		statusMasterBean.setFinalStage(false);
+		statusMasterBean.setChkbxDisable(StatusMasterService.setForPreBill(statuslist)); 
+		statusMasterBean.setInitChkbxDisable(StatusMasterService.setForInitialStage(statuslist));
+		statusMasterBean.setFinalChkbxDisable(StatusMasterService.setForFinalStage(statuslist));
 	}
 	
 	@Command
@@ -126,6 +146,8 @@ public class StatusMasterViewModel {
 		masterBean.setEditButtonDisable(true);
 		masterBean.setSaveButtonDisable(false);
 		masterBean.setChkbxDisable(false);
+		masterBean.setInitChkbxDisable(false);
+		masterBean.setFinalChkbxDisable(false);
 	}
 	
 	@Command
@@ -137,7 +159,16 @@ public class StatusMasterViewModel {
 		
 		flagUpdate = StatusMasterService.updateClientMasterData(masterBean);
 		if(flagUpdate){
-			StatusMasterService.updateOtherStatus(masterBean);
+			if(masterBean.isInitial()){
+				StatusMasterService.updateOthersInitialStatus(masterBean);
+			}
+			if(masterBean.isPreBilled()){
+				StatusMasterService.updateOtherStatus(masterBean);
+			}
+			if(masterBean.isFinalStage()){
+				StatusMasterService.updateOthersFinalStatus(masterBean);
+			}
+			
 			masterBean.setOperation("UPDATE");
 			masterBean.setSessionUserId(userId);
 			masterBean.setOperationId(2);
@@ -154,6 +185,8 @@ public class StatusMasterViewModel {
 			//System.out.println(masterBean.isStatusDisabled());
 			statuslist = StatusMasterDao.onLoadStatusDeatils();
 			statusMasterBean.setChkbxDisable(StatusMasterService.setForPreBill(statuslist)); 
+			statusMasterBean.setInitChkbxDisable(StatusMasterService.setForInitialStage(statuslist));
+			statusMasterBean.setFinalChkbxDisable(StatusMasterService.setForFinalStage(statuslist));
 		}
 	}
 	
@@ -162,6 +195,43 @@ public class StatusMasterViewModel {
 	public void onClickExistingStatus(){
 		statuslist = StatusMasterDao.onLoadStatusDeatils();
 		statusMasterBean.setChkbxDisable(StatusMasterService.setForPreBill(statuslist)); 
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void onChkInit(@BindingParam("bean")StatusMasterBean statusbean){
+		if(statusbean.isInitial()){
+			statusbean.setChkbxDisable(true);
+			statusbean.setFinalChkbxDisable(true);
+		}else{
+			statusbean.setChkbxDisable(false);
+			statusbean.setFinalChkbxDisable(false);
+		}
+		
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void onChkPreBill(@BindingParam("bean")StatusMasterBean statusbean){
+		if(statusbean.isPreBilled()){
+			statusbean.setInitChkbxDisable(true);
+			statusbean.setFinalChkbxDisable(true);
+		}else{
+			statusbean.setInitChkbxDisable(false);
+			statusbean.setFinalChkbxDisable(false);
+		}
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void onChkFinal(@BindingParam("bean")StatusMasterBean statusbean){
+		if(statusbean.isFinalStage()){
+			statusbean.setChkbxDisable(true);
+			statusbean.setInitChkbxDisable(true);
+		}else{
+			statusbean.setChkbxDisable(false);
+			statusbean.setInitChkbxDisable(false);
+		}
 	}
 	
 	/***************************************************Getter And Setter Method ****************************************************************/
