@@ -14,27 +14,19 @@ public class RequirementGenerationService {
 	private static String EMAIL_REGEX = "^[\\w-_\\.+]*[\\w-_\\.]@([\\w]+\\.)+[\\w]+[\\w]$";
 	
 	public static ArrayList<ClientInformationBean> fetchClientNameList(){
-		ArrayList<ClientInformationBean> list = null;
-		list = RequirementGenerationDao.fetchClientNameList();
-		return list;
+		return RequirementGenerationDao.fetchClientNameList();
 	}
 	
 	public static ArrayList<SkillsetMasterbean> fetchSkillSetList(){
-		ArrayList<SkillsetMasterbean> list = null;
-		list = RequirementGenerationDao.fetchSkillSetList();
-		return list;
+		return RequirementGenerationDao.fetchSkillSetList();
 	}
 	
 	public static ArrayList<SkillsetMasterbean> skillSetListSearch(String name){
-		ArrayList<SkillsetMasterbean> list = null;
-		list = RequirementGenerationDao.skillSetSearch(name);
-		return list;
+		return RequirementGenerationDao.skillSetSearch(name);
 	}
 	
 	public static ArrayList<StatusMasterBean> fetchStatusList(){
-		ArrayList<StatusMasterBean> list = null;
-		list = RequirementGenerationDao.fetchStatusList();
-		return list;
+		return RequirementGenerationDao.fetchStatusList();
 	}
 	
 	public static int isertDet(RequirementGenerationBean bean){
@@ -43,25 +35,19 @@ public class RequirementGenerationService {
 	}
 	
 	public static ArrayList<RequirementGenerationBean> loadReqGenMasterData(){
-		ArrayList<RequirementGenerationBean> list = null;
-		list = RequirementGenerationDao.fetchReqGenMasterData();
-		return list;
+		return RequirementGenerationDao.fetchReqGenMasterData();
 	}
 	
 	public static ArrayList<ResourceTypeBean> loadTypeList(){
-		ArrayList<ResourceTypeBean> list = null;
-		list = RequirementGenerationDao.onLoadType();
-		return list;
+		return RequirementGenerationDao.onLoadType();
 	}
 	
 	public static int updateReqGenMaster(RequirementGenerationBean bean){
-		int i = RequirementGenerationDao.onClikUpdate(bean);
-		return i;
+		return RequirementGenerationDao.onClikUpdate(bean); 
 	}
 	
 	public static int countWrtReqId(RequirementGenerationBean bean){
-		int count = RequirementGenerationDao.countWrtRequirementId(bean);
-		return count;
+		return  RequirementGenerationDao.countWrtRequirementId(bean);
 	}
 	
 	public static boolean getReqAllEqual(int rId){

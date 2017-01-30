@@ -37,9 +37,9 @@ public class RequirementGenerationViewModel {
 	SkillsetMasterbean skillsetMasterbean = new SkillsetMasterbean();
 	StatusMasterBean statusBean = new StatusMasterBean(); 	
 	
-	private ArrayList<ClientInformationBean> clientNameBeanList = new ArrayList<ClientInformationBean>();
-	private ArrayList<SkillsetMasterbean> skillSetBeanList = new ArrayList<SkillsetMasterbean>(); 
-	private ArrayList<StatusMasterBean> statusBeanList = new ArrayList<StatusMasterBean>();
+	private ArrayList<ClientInformationBean> clientNameBeanList = null;
+	private ArrayList<SkillsetMasterbean> skillSetBeanList = null; 
+	private ArrayList<StatusMasterBean> statusBeanList = null;
 	private ArrayList<RequirementGenerationBean> reqGenBeanList = null;
 	private ArrayList<ResourceTypeBean> typeList = null;
 	
@@ -52,14 +52,13 @@ public class RequirementGenerationViewModel {
 		reqGenBean.setSessionUserId(userName);
 		clientNameBeanList = RequirementGenerationService.fetchClientNameList();
 		skillSetBeanList = RequirementGenerationService.fetchSkillSetList();
-		statusBeanList = RequirementGenerationService.fetchStatusList();
-		
-		reqGenBean.setReqStatusId(RequirementGenerationDao.fetchOverallStatusId());
 		typeList = RequirementGenerationService.loadTypeList();
 	}
 
 	public void loadExistingRequirements(){
 		reqGenBeanList = RequirementGenerationService.loadReqGenMasterData();
+		statusBeanList = RequirementGenerationService.fetchStatusList();
+		reqGenBean.setReqStatusId(RequirementGenerationDao.fetchOverallStatusId());
 	}
 	
 	@Command
