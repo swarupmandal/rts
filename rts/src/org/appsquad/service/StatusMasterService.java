@@ -24,8 +24,32 @@ public class StatusMasterService {
 		return flagUpdate;
 	}
 	
+	public static void updateOthersInitialStatus(StatusMasterBean statusMasterBean){
+		StatusMasterDao.updateOthersInitalStatus(statusMasterBean);
+	}
+	
 	public static void updateOtherStatus(StatusMasterBean statusMasterBean){
 		StatusMasterDao.updateOthersStatus(statusMasterBean);
+	}
+	
+	public static void updateOthersFinalStatus(StatusMasterBean statusMasterBean){
+		StatusMasterDao.updateOthersFinalStatus(statusMasterBean);
+	}
+	
+	public static boolean setForInitialStage(ArrayList<StatusMasterBean> statusMasterBeanList){
+		boolean isInitalAppliciable =  false;
+		int countStatus = 0 ;
+		for(StatusMasterBean statusMasterBean : statusMasterBeanList){
+			if(statusMasterBean.isInitial()){
+				countStatus ++;
+			}
+		}
+		if(countStatus > 0){
+			isInitalAppliciable = true;
+		}else{
+			isInitalAppliciable = false;
+		}
+		return isInitalAppliciable;
 	}
 	
 	public static boolean setForPreBill(ArrayList<StatusMasterBean> statusMasterBeanList){
@@ -42,6 +66,22 @@ public class StatusMasterService {
 			isPreBillAppliciable = false;
 		}
 		return isPreBillAppliciable;
+	}
+	
+	public static boolean setForFinalStage(ArrayList<StatusMasterBean> statusMasterBeanList){
+		boolean isFinalStageApplicable =  false;
+		int countStatus = 0 ;
+		for(StatusMasterBean statusMasterBean : statusMasterBeanList){
+			if(statusMasterBean.isFinalStage()){
+				countStatus ++;
+			}
+		}
+		if(countStatus > 0){
+			isFinalStageApplicable = true;
+		}else{
+			isFinalStageApplicable = false;
+		}
+		return isFinalStageApplicable;
 	}
 	
 	public static boolean insertClientMasterData(StatusMasterBean statusMasterBean){

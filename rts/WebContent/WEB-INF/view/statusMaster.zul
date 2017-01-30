@@ -38,8 +38,15 @@
 						  				 </attribute>
                     				 </textbox>
                     				 <hlayout>
+                    				 	<label value="Set as Initial?" style="font-weight:bold"/>
+                    				 	<checkbox checked="@bind(vm.statusMasterBean.initial)" 
+                    				 	disabled="@bind(vm.statusMasterBean.initChkbxDisable)"/>
                     				 	<label value="Set for prebill ?" style="font-weight:bold"/>
-                    				 	<checkbox checked="@bind(vm.statusMasterBean.preBilled)" disabled="@bind(vm.statusMasterBean.chkbxDisable)"/>
+                    				 	<checkbox checked="@bind(vm.statusMasterBean.preBilled)"  
+                    				 	disabled="@bind(vm.statusMasterBean.chkbxDisable)"/>
+                    				 	<label value="Set as Final?" style="font-weight:bold"/>
+                    				 	<checkbox checked="@bind(vm.statusMasterBean.finalStage)"  
+                    				 	disabled="@bind(vm.statusMasterBean.finalChkbxDisable)"/>
                     				 </hlayout>
                    					 <button label="Submit" onClick="@command('onClickStatusSave')"/>
                 			        </row>
@@ -51,10 +58,14 @@
                            <grid model="@bind(vm.statuslist)" mold="paging" pageSize="10" sclass="fgrid" height="390PX">
                            		<auxhead>
                            			<auxheader label="Status-Name" align="center" style="font-weight:bold;" colspan="1"/>
+                           			<auxheader label="Initial?" align="center" style="font-weight:bold;" />
                            			<auxheader label="Prebill?" align="center" style="font-weight:bold;" />
+                           			<auxheader label="Final?" align="center" style="font-weight:bold;" />
                            			<auxheader colspan="3" label="Action" align="center" style="font-weight:bold;" ></auxheader>		
                            		</auxhead>
                                <columns sizable="true" visible="false">
+								<column align="center"/>
+								<column align="center"/>
 								<column align="center"/>
 								<column align="center"/>
 								<column align="center"/>
@@ -72,7 +83,9 @@
 							  						evt.which != 32) evt.stop(); } ]]>
 						  				 		 </attribute>
 											</textbox> 
-											<checkbox checked="@bind(v.preBilled)" disabled="@bind(v.chkbxDisable)"/>   
+											<checkbox checked="@bind(v.initial)" onCheck="@command('onChkInit', bean = v)" disabled="@bind(v.initChkbxDisable)"/>
+											<checkbox checked="@bind(v.preBilled)" onCheck="@command('onChkPreBill', bean = v)" disabled="@bind(v.chkbxDisable)"/>   
+											<checkbox checked="@bind(v.finalStage)" onCheck="@command('onChkFinal', bean = v)" disabled="@bind(v.finalChkbxDisable)"/>
 								    		<button label="Edit" onClick="@command('onClickEditButton', bean = v)"
 								    		                           disabled="@bind(v.editButtonDisable)"></button>
 								    		<button label="Save" onClick="@command('onClickSaveButton', bean = v)"
