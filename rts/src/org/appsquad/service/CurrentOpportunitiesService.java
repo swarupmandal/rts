@@ -103,51 +103,35 @@ public class CurrentOpportunitiesService {
 	
 	
 	public static boolean insertTrackingDetails(CurrentOpportunitiesBean bean){
-		boolean flagInsert = false;
-		flagInsert = CurrentOpportunitiesDao.insertTrackingData(bean);
-		return flagInsert;
+		return CurrentOpportunitiesDao.insertTrackingData(bean);
 	}
 	
 	public static boolean updateTrackingDetailsService(CurrentOpportunitiesBean bean){
-		boolean flagDetailsUpdate = false;
-		flagDetailsUpdate = CurrentOpportunitiesDao.updateDetailsTableDao(bean);
-		return flagDetailsUpdate;
+		return CurrentOpportunitiesDao.updateDetailsTableDao(bean);
 	}
 	
 	public static boolean updateTrackingService(CurrentOpportunitiesBean bean){
-		boolean flagTrackingUpdate = false;
-		flagTrackingUpdate = CurrentOpportunitiesDao.updateTrackingTableDao(bean);
-		return flagTrackingUpdate;
+		return CurrentOpportunitiesDao.updateTrackingTableDao(bean);
 	}
 	
 	public static ArrayList<CurrentOpportunitiesBean> loadCurrentOpportunityDetails(){
-		ArrayList<CurrentOpportunitiesBean> list = null;
-		list = CurrentOpportunitiesDao.loadCurrenOpportunity();
-		return list;
+		return CurrentOpportunitiesDao.loadCurrenOpportunity();
 	}
 	
 	public static ArrayList<CurrentOpportunitiesBean> loadCurrentOpportunityDetailsForApprover(ArrayList<Integer> idList){
-		ArrayList<CurrentOpportunitiesBean> list = null;
-		list = CurrentOpportunitiesDao.loadCurrenOpportunityForApprover(idList);
-		return list;
+		return CurrentOpportunitiesDao.loadCurrenOpportunityForApprover(idList);
 	}
 	
 	public static String fetchRoleNameWrtUserId(String userId){
-		String roleName = "";
-		roleName = CurrentOpportunitiesDao.fetchRoleNameService(userId);
-		return roleName;
+		return CurrentOpportunitiesDao.fetchRoleNameService(userId);
 	}
 	
 	public static Integer fetchCountNumberITrackingDetailsTable(Integer trackingId){
-		int count = 0;
-		count = CurrentOpportunitiesDao.fetchCountTrackingIdService(trackingId);
-		return count;
+		return CurrentOpportunitiesDao.fetchCountTrackingIdService(trackingId);
 	}
 	
 	public static ArrayList<Integer> fetchClientIdList(String userId){
-		ArrayList<Integer> clientIdList = null;
-		clientIdList = CurrentOpportunitiesDao.fetchClientIdListWrtUserId(userId);
-		return clientIdList;
+		return CurrentOpportunitiesDao.fetchClientIdListWrtUserId(userId);
 	}
 
 }
