@@ -41,13 +41,14 @@
 							placeholder="Search By User ID" width="160px">
 							<bandpopup>
 								<hbox>
-									<textbox
+									<textbox placeholder="Enter user Id"
 										value="@bind(vm.taskBean.userIdSearch)"
-										onChange="@command('onChangeUserId')" width="160px">
-									</textbox>
+										onChange="@command('onChangeUserId')" width="160px"/>
+									
 									<button label="Serach"
-										onClick="@command('onChangeUserId')">
-									</button>
+										onClick="@command('onChangeUserId')"/>
+								    <button label="Clear"
+										onClick="@command('onClickClear')"/>
 								</hbox>
 								<space></space>
 								<listbox width="280px"
@@ -74,7 +75,7 @@
 							value="@bind(vm.taskBean.createdDateStr)" readonly="true">
 						</textbox>
 						<label value="Scheduled Date" style="font-weight:bold"></label>
-						<datebox width="100%" format="dd/MM/yyyy"
+						<datebox width="100%" format="yyyy-MM-dd"
 							value="@bind(vm.taskBean.scheduledDateSql)" readonly="true">
 						</datebox>
 						<label value="Remarks" style="font-weight:bold"></label>

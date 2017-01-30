@@ -54,13 +54,14 @@ public class TaskNameViewModel {
 		long millis=System.currentTimeMillis();  
 	    java.sql.Date date=new java.sql.Date(millis);
 	    taskBean.setCreatedDateStr(sdf.format(date));
-	    userList = RoleMasterDao.onLoadUserDeatils();
+	    
 	    taskDetailsList = TaskNameDao.fetchTaskDeatils();
 	    if(taskDetailsList.size()>0){
 	    	taskBean.setDivVisibility(true);
 	    }else{
 	    	taskBean.setDivVisibility(true);
 	    }
+	    loadUserIdList();
 	    onLoad();
 	}
 
@@ -68,14 +69,28 @@ public class TaskNameViewModel {
 		newlyCreatedTaskDetailsList = TaskNameDao.fetchNewlyCreatedTaskDeatils(userId);
 	}
 	
+	public void loadUserIdList(){
+		userList = RoleMasterDao.onLoadUserDeatils();
+	}
+	
 	 @Command
 	 @NotifyChange("*")
 	 public void onChangeUserId(){
 		 if(taskBean.getUserIdSearch()!=null){
-			 userList = RoleMasterDao.onLoadUserDeatilsWithSearch(taskBean.getUserIdSearch());
+			 //userList = RoleMasterDao.onLoadUserDeatilsWithSearch(taskBean.getUserIdSearch());
+			 userList = TaskNameService.loadSearchedUserId(taskBean.getUserIdSearch(), userList);
 		 }
 	 }
 	
+	 
+	 @Command
+	 @NotifyChange("*")
+	 public void onClickClear(){
+		 taskBean.setUserIdSearch(null);
+		 loadUserIdList();
+		 taskBean.userprofileBean.setUserid(null);
+	 }
+	 
 	 @Command
 	 @NotifyChange("*")
 	 public void onSelctUserId(){
