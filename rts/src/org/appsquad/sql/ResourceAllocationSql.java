@@ -1,6 +1,7 @@
 package org.appsquad.sql;
 
 public class ResourceAllocationSql {
+	
     public static final String fetchRequirementSql = "select * from vw_req_skill_details where req_client_id = ? and overall_status_name!='CLOSE' order by r_id ";
     public static final String fetchTypeSql = "select * from rts_type_master where is_delete = 'N' ";
     public static final String fetchSkillName = "select master_skill_set_name from vw_req_skill_details where req_client_id = ? and r_id = ? ";
@@ -25,4 +26,5 @@ public class ResourceAllocationSql {
                                                                      + "rts_skill_name from rts_resource_master where is_delete = 'N' order by id ";
     
     public static final String fetchResourceDetailsForCurOppurScreenForSerach = "select * from rts_resource_details where resource_full_name like ? order by id ";
+
 }

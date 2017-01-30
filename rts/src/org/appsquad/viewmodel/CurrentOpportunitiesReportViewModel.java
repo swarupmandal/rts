@@ -39,10 +39,7 @@ public class CurrentOpportunitiesReportViewModel {
     private String fileName;
     
     public CurrentOpportunitiesReportBean  opportunitiesReportBean = new CurrentOpportunitiesReportBean();
-    
     public ArrayList<CurrentOpportunitiesReportBean> reportList = null;
-    public ArrayList<String> monthList = null;
-    public ArrayList<String> yearList = null;
     
     @AfterCompose
 	public void initSetUp(@ContextParam(ContextType.VIEW) Component view) throws Exception{
@@ -51,70 +48,7 @@ public class CurrentOpportunitiesReportViewModel {
 		userId = (String) sessions.getAttribute("userId");
 		System.out.println("USER ID IS :"+userId.toUpperCase());
 		reportList = CurrentOpportunitiesReportDao.loadTrackingDetails();
-		monthList = CurrentOpportunitiesReportDao.loadAllMonths();
-		yearList = CurrentOpportunitiesReportDao.loadAllYears();
 	}
-    
-    @Command
-    @NotifyChange("*")
-    public void onSelectYear(){
-    	System.out.println("CLICKED YEAR IS :"+opportunitiesReportBean.getYear());
-    }
-    
-    @Command
-    @NotifyChange("*")
-    public void onSelectMonth(){
-    	System.out.println("CLICKED Month IS :"+opportunitiesReportBean.getMonth());
-    }
-    
-    @Command
-    @NotifyChange("*")
-    public void save(@BindingParam("bean") CurrentOpportunitiesReportBean reportBean){
-    	boolean flagInsert = false;
-    	boolean flagupdate = false;
-    	boolean flagLogInsert = false;
-    	boolean flagDelete = false;
-    	int count = 0;
-    	count = CurrentOpportunitiesReportService.fetchCountNumberITrackingDetailsTable(reportBean.getTrackingDetailsId());
-    	System.out.println(count);
-    	if(reportBean.getPaid()!=null){
-    		if(count==0){
-    			reportBean.setTimesheetPath(opportunitiesReportBean.getTimesheetPath());
-    			reportBean.setInvoiceCopyPath(opportunitiesReportBean.getInvoiceCopyPath());
-    			flagInsert = CurrentOpportunitiesReportService.insertTrackingDetails(reportBean);
-    			if(flagInsert && reportBean.getPaid().equalsIgnoreCase("Yes")){
-    				flagupdate = CurrentOpportunitiesReportService.updateTrackingDetails(reportBean);
-    			}
-    			System.out.println(flagupdate);
-    		}else{
-    			flagDelete =CurrentOpportunitiesReportDao.deleteRoleData(reportBean);
-    			if(flagDelete){
-    				flagInsert = CurrentOpportunitiesReportService.insertTrackingDetails(reportBean);
-    				if(flagInsert && reportBean.getPaid().equalsIgnoreCase("Yes")){
-        				flagupdate = CurrentOpportunitiesReportService.updateTrackingDetails(reportBean);
-        			}
-    				System.out.println(flagupdate);
-    			}
-    		}
-    		System.out.println(flagInsert);	
-    		if(flagInsert){
-    			reportBean.setOperation("INSERT");
-    			reportBean.setOperationId(1);
-    			reportBean.setSessionUserId(userId);
-    			Calendar calendar = Calendar.getInstance();
-    		    java.sql.Date currentDate = new java.sql.Date(calendar.getTime().getTime());
-    			System.out.println("CREATION DATE :"+currentDate);
-    			flagLogInsert = LogAuditServiceClass.insertIntoLogTable(reportBean.getMainScreenName(), reportBean.getChileScreenName(), 
-												    					reportBean.getSessionUserId(), reportBean.getOperation(),currentDate,
-												    					reportBean.getOperationId());
-    			System.out.println("flagLogInsert Is:"+flagLogInsert);
-    			reportList = CurrentOpportunitiesReportDao.loadTrackingDetails();
-    		}
-    	}else{
-    		Messagebox.show("Select Paid Status ", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
-    	}
-    }
-    
     
     @Command
 	@NotifyChange("*")
@@ -170,18 +104,6 @@ public class CurrentOpportunitiesReportViewModel {
 	}
 	public void setReportList(ArrayList<CurrentOpportunitiesReportBean> reportList) {
 		this.reportList = reportList;
-	}
-	public ArrayList<String> getMonthList() {
-		return monthList;
-	}
-	public void setMonthList(ArrayList<String> monthList) {
-		this.monthList = monthList;
-	}
-	public ArrayList<String> getYearList() {
-		return yearList;
-	}
-	public void setYearList(ArrayList<String> yearList) {
-		this.yearList = yearList;
 	}
 	public String getFilePath() {
 		return filePath;

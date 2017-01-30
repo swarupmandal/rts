@@ -28,6 +28,7 @@ public class RoleMasterSql {
 													+"and rurm.role_id = rrm.id "
 													+"and rum.is_delete = 'N' "
 													+"and rrm.is_delete = 'N' order by user_id ";
+	
 	public static final String updateMappingQuery = "update rts_user_role_mapper set role_id = ? where user_role_mapper_id = ? ";
 	public static final String countSqlQuery = "select count(*) from rts_user_role_mapper where user_id = ? ";
 	public static final String countRoleSqlQuery = "select count(*) from rts_role_master where master_role_name = ? ";

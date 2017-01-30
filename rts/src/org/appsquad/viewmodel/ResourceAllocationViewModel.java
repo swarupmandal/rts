@@ -43,7 +43,7 @@ public class ResourceAllocationViewModel {
 	    private int remainingNumber = 0;
 	    final static Logger logger=Logger.getLogger(ResourceAllocationViewModel.class);
 	    
-	    private ArrayList<ClientInformationBean> clientList = new ArrayList<ClientInformationBean>();
+	    private ArrayList<ClientInformationBean> clientList = null;
 	    private ArrayList<RequirementGenerationBean> requirementDetailsList = new ArrayList<RequirementGenerationBean>();
 	    private ArrayList<ResourceTypeBean> resourceTypeList = new ArrayList<ResourceTypeBean>();
 	    private ArrayList<ResourceMasterBean> resourceList = new ArrayList<ResourceMasterBean>();
@@ -158,9 +158,9 @@ public class ResourceAllocationViewModel {
 							  }
 							  
 							  statusId = ResourceAllocationDao.fetchStatusId();
-							  System.out.println("FETCHED STATUS ID IN RESOURCE ALLOCATION SCREEN IS :"+statusId);
+							 
 							  resourceAllocationBean.setStatusId(statusId);
-							  System.out.println("afetr FETCHing STATUS ID IN RESOURCE ALLOCATION SCREEN IS :"+resourceAllocationBean.getStatusId());
+							 
 							  
 							  //4th SQL block
 							  sql_insert_status_tracking:{
@@ -177,7 +177,7 @@ public class ResourceAllocationViewModel {
 							      resourceAllocationBean.setOperationId(1);
 								  Calendar calendar = Calendar.getInstance();
 								  java.sql.Date currentDate = new java.sql.Date(calendar.getTime().getTime());
-								  System.out.println("CREATION DATE :"+currentDate);
+								 
 								  if(resourceList.size()>0){
 									  resourceAllocationBean.setDivVisibility(true);
 									  resourceAllocationBean.setAssignButtonVisibility(true);
@@ -188,8 +188,8 @@ public class ResourceAllocationViewModel {
 								  flagLogInsert = LogAuditServiceClass.insertIntoLogTable(resourceAllocationBean.getMainScreenName(), resourceAllocationBean.getChileScreenName(), 
 																						  resourceAllocationBean.getSessionUserId(), resourceAllocationBean.getOperation(),currentDate,
 																						  resourceAllocationBean.getOperationId());
-									System.out.println("RESOURCE ALLOCATION SCREEN flagLogInsert Is:"+flagLogInsert);
-							  }
+									
+							   }
 							} catch (Exception e) {
 								connection.rollback();
 								e.printStackTrace();
@@ -244,12 +244,6 @@ public class ResourceAllocationViewModel {
 		public void setUserId(String userId) {
 			this.userId = userId;
 		}
-		public ArrayList<ClientInformationBean> getClientList() {
-			return clientList;
-		}
-		public void setClientList(ArrayList<ClientInformationBean> clientList) {
-			this.clientList = clientList;
-		}
 		public ArrayList<RequirementGenerationBean> getRequirementDetailsList() {
 			return requirementDetailsList;
 		}
@@ -286,5 +280,11 @@ public class ResourceAllocationViewModel {
 		}
 		public void setCountAllocatedNumber(int countAllocatedNumber) {
 			this.countAllocatedNumber = countAllocatedNumber;
+		}
+		public ArrayList<ClientInformationBean> getClientList() {
+			return clientList;
+		}
+		public void setClientList(ArrayList<ClientInformationBean> clientList) {
+			this.clientList = clientList;
 		}	  
 }

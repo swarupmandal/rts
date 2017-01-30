@@ -3,8 +3,10 @@ package org.appsquad.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
+
 import org.apache.log4j.Logger;
 import org.appsquad.bean.RequirementGenerationBean;
 import org.appsquad.bean.ResourceAllocationBean;
@@ -358,6 +360,7 @@ public class ResourceAllocationDao {
 		Connection connection = null;
 		int count = 0;
 		int countNumber = 0;
+		int presentForPreBillResource = 0;
 		try {
 			connection = DbConnection.createConnection();
 			sql_connection:{
@@ -383,7 +386,10 @@ public class ResourceAllocationDao {
 								if((countNumber>0)){
 										
 								}else{
-									resourceList.add(bean);
+									presentForPreBillResource = presentInTrackingTableForPreBill(bean.getResourceId(), connection);
+									if(!(presentForPreBillResource>0)){
+										resourceList.add(bean);
+									}
 								}
 							}  
 						} finally{
@@ -405,6 +411,26 @@ public class ResourceAllocationDao {
 			e.printStackTrace();
 		}
 		return resourceList;	
+	}
+	
+	public static Integer presentInTrackingTableForPreBill(Integer resId,Connection connection) throws Exception{
+		int count = 0;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		try{
+			String sql = "select count(*) from rts_req_res_status_tracking where resource_id = ? and status_id = (select id from rts_status_master where is_pre_bill = 'Y ')";
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setInt(1, resId);
+			resultSet = preparedStatement.executeQuery();
+			while(resultSet.next()){
+				count = resultSet.getInt(1);
+			}
+		}finally{
+			if(preparedStatement!=null){
+				preparedStatement.close();
+			}
+		}
+		return count;
 	}
 	
 	public static Integer presentInMapperTable(Integer reqId, Integer resId){

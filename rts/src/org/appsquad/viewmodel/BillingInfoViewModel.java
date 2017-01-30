@@ -251,7 +251,6 @@ public class BillingInfoViewModel {
     @NotifyChange("*")
     public void saveBillingDetails(){
     	if(validateDuplicateRow()){
-    		System.out.println(CurrentOpportunitiesService.validateBillingDataToBeSubmitted(finalReportGridList));
     		//if(CurrentOpportunitiesService.validateBillingDataToBeSubmitted(reportGridList)){
     			int size = 0;
             	int counter = 0;

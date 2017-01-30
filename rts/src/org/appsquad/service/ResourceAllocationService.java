@@ -9,27 +9,19 @@ import org.appsquad.dao.ResourceAllocationDao;
 public class ResourceAllocationService {
 	
 	public static boolean isUpdateResourceTable(ArrayList<ResourceMasterBean> resourceList){
-		boolean isUpdateResource = false;
-		isUpdateResource = ResourceAllocationDao.updateResourceTable(resourceList);
-		return isUpdateResource;
+		return ResourceAllocationDao.updateResourceTable(resourceList);
 	}
 
 	public static boolean isUpdateNumberInResourceTable(Integer clientId,Integer reqId,String type,Integer number){
-		boolean isUpdate = false;
-		isUpdate = ResourceAllocationDao.updateResourceTableNumber(clientId,reqId,type,number);
-		return isUpdate;
+		return ResourceAllocationDao.updateResourceTableNumber(clientId,reqId,type,number);
 	}
 	
 	public static boolean isInsertMapperTable(ArrayList<ResourceMasterBean> resourceList,ResourceAllocationBean bean){
-		boolean isInsertMapper = false;
-		isInsertMapper = ResourceAllocationDao.insertIntoMapper(resourceList, bean);
-		return isInsertMapper;
+		return ResourceAllocationDao.insertIntoMapper(resourceList, bean);
 	}
 	
 	public static boolean isInsertStatusTrackingTable(ArrayList<ResourceMasterBean> resourceList,ResourceAllocationBean bean){
-		boolean isInsertTracking = false;
-		isInsertTracking = ResourceAllocationDao.insertIntoStatus(resourceList, bean);
-		return isInsertTracking;
+		return ResourceAllocationDao.insertIntoStatus(resourceList, bean);
 	}
 	
 	public static void getAllData(ResourceAllocationBean resourceAllocationBean){
