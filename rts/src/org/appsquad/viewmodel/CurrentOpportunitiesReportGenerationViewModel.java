@@ -251,7 +251,7 @@ public class CurrentOpportunitiesReportGenerationViewModel {
 		currentOpportunitiesReportGenerationBean.getClientInformationBean().setFullName(null);
 		currentOpportunitiesReportGenerationBean.getClientInformationBean().setClientId(null);
 		currentOpportunitiesReportGenerationBean.setClientNameSearch(null);
-		clientList = ResourceAllocationTrackingService.fetchClientDetails();
+		clientList = ResourceAllocationTrackingService.fetchClientDetailsForReport();
 	}
     
     @Command

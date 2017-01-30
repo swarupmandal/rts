@@ -80,7 +80,7 @@
     			<space></space>
     			<hlayout spacing="20px">
     				<radiogroup onCheck="@command('onCheckDetailSummary')" selectedItem="@bind(vm.skilWiseReportBean.selectedRadioButton)">
-						<radio label="Deatil" value="detail" style="font-weight:bold; color: black"/>
+						<radio label="Detail" value="detail" style="font-weight:bold; color: black"/>
 						<space></space>	
 						<radio label="Summary" value="summary" style="font-weight:bold; color: black"/>
 					</radiogroup>
