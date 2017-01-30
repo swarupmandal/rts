@@ -299,7 +299,10 @@ public class ResourceMasterDao {
 								bean.setStatus(resultSet.getString("master_status_name"));
 								
 								statusList.add(bean);
-							}  
+							}
+							StatusMasterBean masterBean = new StatusMasterBean();
+							masterBean.setStatus("-CLEAR-");
+							statusList.add(masterBean);
 						} finally{
 							if(preparedStatement!=null){
 								preparedStatement.close();

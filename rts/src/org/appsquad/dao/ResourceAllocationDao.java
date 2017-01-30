@@ -3,10 +3,8 @@ package org.appsquad.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
-
 import org.apache.log4j.Logger;
 import org.appsquad.bean.RequirementGenerationBean;
 import org.appsquad.bean.ResourceAllocationBean;
@@ -60,7 +58,6 @@ public class ResourceAllocationDao {
 				}
 			}
 		} catch (Exception e) {
-			logger.fatal("--------------------->>>>>"+e);
 			e.printStackTrace();
 		}
 		return requirementList;	
@@ -101,7 +98,6 @@ public class ResourceAllocationDao {
 				}
 			}
 		} catch (Exception e) {
-			logger.fatal("-------------------->>>>>>>>"+e);
 			e.printStackTrace();
 		}
 		return skillName;	
@@ -190,7 +186,6 @@ public class ResourceAllocationDao {
 					}
 				}
 			} catch (Exception e) {
-				logger.fatal("--------------->>>>>>>>>"+e);
 				e.printStackTrace();
 			}
 		}else if (type.startsWith("PERMANANT")){
@@ -224,7 +219,6 @@ public class ResourceAllocationDao {
 					}
 				}
 			} catch (Exception e) {
-				logger.fatal("----------------------->>>>>"+e);
 				e.printStackTrace();
 			}
 		}
@@ -267,7 +261,6 @@ public class ResourceAllocationDao {
 					}
 				}
 			} catch (Exception e) {
-				logger.fatal("-------------->>>>>>>>"+e);
 				e.printStackTrace();
 			}
 		}else if (type.startsWith("PERMANANT")){
@@ -303,7 +296,6 @@ public class ResourceAllocationDao {
 					}
 				}
 			} catch (Exception e) {
-				logger.fatal("----------------->>>>>>>>>"+e);
 				e.printStackTrace();
 			}
 		}
@@ -407,7 +399,6 @@ public class ResourceAllocationDao {
 				}
 			}
 		} catch (Exception e) {
-			logger.fatal("---------------->>>>>>"+e);
 			e.printStackTrace();
 		}
 		return resourceList;	
@@ -550,7 +541,6 @@ public class ResourceAllocationDao {
 				}
 			}
 		} catch (Exception e) {
-			logger.fatal("------------------>>>>>>>>>>>"+e);
 			e.printStackTrace();
 		}
 		return isUpdated;
@@ -590,7 +580,6 @@ public class ResourceAllocationDao {
 						}
 					}
 				} catch (Exception e) {
-					logger.fatal("--------------->>>>>>>>>>>>"+e);
 					e.printStackTrace();
 				}finally{
 					if(connection!=null){
@@ -619,9 +608,9 @@ public class ResourceAllocationDao {
 							    PreparedStatement preparedStatementInsert = null;
 							    try {
 							    	preparedStatementInsert = Pstm.createQuery(connection, 
-											ResourceAllocationSql.insertIntoTrackingHistoryTableSql, Arrays.asList(allocationBean.getRequirementGenerationBean().getRequirementId(),
-													                                 									bean.getResourceId(),allocationBean.getStatusId(),
-													                                 											allocationBean.getUserId()));
+									ResourceAllocationSql.insertIntoTrackingHistoryTableSql, Arrays.asList(allocationBean.getRequirementGenerationBean().getRequirementId(),
+													                                 					   bean.getResourceId(),allocationBean.getStatusId(),
+													                                 					   allocationBean.getUserId()));
 							    	
 							    	logger.info(" INSERT INTO STATUS TRACKING TABLE FROM RESOURCE ALLOCATION SCREEN- " + preparedStatementInsert.unwrap(PreparedStatement.class));
 									int i = preparedStatementInsert.executeUpdate();
@@ -645,7 +634,6 @@ public class ResourceAllocationDao {
 				}
 			}
 		} catch (Exception e) {
-			logger.fatal("-------------------------->>>>>>>>>>>>>>"+e);
 			e.printStackTrace();
 		}
 		return isInsertedStatus;
@@ -684,7 +672,6 @@ public class ResourceAllocationDao {
 				}
 			}
 		} catch (Exception e) {
-			logger.fatal("-------------------->>>>>>>>>>>>"+e);
 			e.printStackTrace();
 		}
 		return statusId;	

@@ -410,7 +410,7 @@ public class SortcriteriaRidorStatusviewModel {
 		summaryBeanList.clear();
 		reportBeanList.clear();
 		
-		if(rIdWiseReportBean.statusMasterBean.getStatusId()==13){
+		if(rIdWiseReportBean.statusMasterBean.getStatus().equalsIgnoreCase("-CLEAR-")){
 			rIdWiseReportBean.statusMasterBean.setStatus(null);
 			rIdWiseReportBean.statusMasterBean.setStatusId(null);
 			statusList = ResourceMasterDao.onLoadStatusForReport();

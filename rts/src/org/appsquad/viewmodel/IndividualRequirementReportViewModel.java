@@ -82,7 +82,7 @@ public class IndividualRequirementReportViewModel {
 	   summaryBeanList.clear();
 	   reportBeanList.clear();
 	   
-	   if(individualRequirementReportBean.statusMasterBean.getStatusId()==13){
+	   if(individualRequirementReportBean.statusMasterBean.getStatus().equalsIgnoreCase("-CLEAR-")){
 		   individualRequirementReportBean.statusMasterBean.setStatus(null);
 		   individualRequirementReportBean.statusMasterBean.setStatusId(null);
 		   statusBeanList = ResourceMasterDao.onLoadStatusForReport();

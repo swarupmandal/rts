@@ -38,7 +38,7 @@ public class ResAllocTrackingUpdateViewModel {
 	   ResourceAllocationTrackingBean trackingUpdateBean = new ResourceAllocationTrackingBean();
 	   StatusMasterBean statusBean = new StatusMasterBean();
 	   
-	   ArrayList<StatusMasterBean> statusBeanList = new ArrayList<StatusMasterBean>();
+	   ArrayList<StatusMasterBean> statusBeanList = null;
 	   
 	   @AfterCompose
 	   public void initSetUp(@ContextParam(ContextType.VIEW) Component view,
@@ -95,7 +95,7 @@ public class ResAllocTrackingUpdateViewModel {
 			trackingUpdateBean.setStatus(trackingUpdateBean.getOldStatus());
 			trackingUpdateBean.setStatusId(trackingUpdateBean.getOldStatusId());
 			statusBeanList = ResourceMasterDao.onLoadStatusForTrackingUpdateScreen(trackingUpdateBean);
-			Messagebox.show("Same Combination", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
+			Messagebox.show("This status is already used, please select another one. ", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
 		}
 	}
 	
@@ -257,12 +257,6 @@ public class ResAllocTrackingUpdateViewModel {
 	public void setStatusBean(StatusMasterBean statusBean) {
 		this.statusBean = statusBean;
 	}
-	public ArrayList<StatusMasterBean> getStatusBeanList() {
-		return statusBeanList;
-	}
-	public void setStatusBeanList(ArrayList<StatusMasterBean> statusBeanList) {
-		this.statusBeanList = statusBeanList;
-	}
 	public Integer getReq_id() {
 		return req_id;
 	}
@@ -292,5 +286,11 @@ public class ResAllocTrackingUpdateViewModel {
 	}
 	public void setTypeName(String typeName) {
 		this.typeName = typeName;
+	}
+	public ArrayList<StatusMasterBean> getStatusBeanList() {
+		return statusBeanList;
+	}
+	public void setStatusBeanList(ArrayList<StatusMasterBean> statusBeanList) {
+		this.statusBeanList = statusBeanList;
 	}
 }
