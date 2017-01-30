@@ -295,7 +295,7 @@ public class CurrentOpportunitiesReportGenerationDao {
 					sql_fetch:{
 					   PreparedStatement preparedStatement = null;
 					   try {
-						    preparedStatement = Pstm.createQuery(connection, ResourceAllocationSql.fetchResourceDetailsForCurOppurScreenForSerach,Arrays.asList("%"+name.toUpperCase()+"%"));
+						    preparedStatement = Pstm.createQuery(connection, ResourceAllocationSql.fetchResourceDetailsForCurOppurScreenForSerach,Arrays.asList(name.toUpperCase()+"%"));
 						    System.out.println("RESOURCE DETAILS SEARCH QUERY IN CURRENT OPPURTUNITIES SCREEN :"+preparedStatement);
 							ResultSet resultSet = preparedStatement.executeQuery();
 							while (resultSet.next()) {

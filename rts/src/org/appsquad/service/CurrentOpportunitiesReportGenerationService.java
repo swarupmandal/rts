@@ -16,15 +16,11 @@ public class CurrentOpportunitiesReportGenerationService {
 	}
 	
 	public static ArrayList<CurrentOpportunitiesReportGenerationBean> loadReportDetailsUnpaid(){
-		ArrayList<CurrentOpportunitiesReportGenerationBean> list = null;
-		list = CurrentOpportunitiesReportGenerationDao.loadReportData();
-		return list;
+		return CurrentOpportunitiesReportGenerationDao.loadReportData();
 	}
 	
 	public static ArrayList<ResourceMasterBean> loadResourceDetails(String name){
-		ArrayList<ResourceMasterBean> resourceList = null;
-		resourceList = CurrentOpportunitiesReportGenerationDao.onLoadResourceDetailsForSearch(name);
-		return resourceList;
+		return CurrentOpportunitiesReportGenerationDao.onLoadResourceDetailsForSearch(name);
 	}
 	
 	/*public static ArrayList<CurrentOpportunitiesReportGenerationBean> loadOppurtunityWiseReportForClient(CurrentOpportunitiesReportGenerationBean bean){
