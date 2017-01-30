@@ -413,7 +413,11 @@ public class ResourceAllocationTrackingDao {
 						bean.setOnboardDateStr(Dateformatter.toStringDate(bean.getOnboardDateValue()));
 					}	
 					
-					list.add(bean);
+					bean.setFinalFlag(resultSet.getString("is_final_flag"));
+					
+					if(!(bean.getFinalFlag().equalsIgnoreCase("Y"))){
+						list.add(bean);
+					}
 				}
 			} finally {
 				if(preparedStatement != null){
@@ -523,7 +527,29 @@ public class ResourceAllocationTrackingDao {
 		}
 		return i;
 	}
-
+    
+	public static int allowed(int clientId,int resId,Connection connection) throws Exception{
+		int id = 0;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		try{
+			String sql = "select count(*) from rts_status_allowed where client_id = ? and resource_id = ? and is_pre_bill = 'Y' ";
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setInt(1, clientId);
+			preparedStatement.setInt(2, resId);
+			System.out.println(preparedStatement.toString());
+			resultSet = preparedStatement.executeQuery();
+			while(resultSet.next()){
+				id = resultSet.getInt(1);
+			}
+		}finally{
+			if(preparedStatement!=null){
+				preparedStatement.close();
+			}
+		}
+		return id;
+	}
+	
 	public static int inSertRejectStatus(Integer rId, Integer resId, Integer clientId,String userId){
 		int i = 0;
 		try {

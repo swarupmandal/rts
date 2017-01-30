@@ -12,117 +12,79 @@ import org.zkoss.zul.Messagebox;
 public class ResourceAllocationTrackingService {
 	
 	public static ArrayList<ClientInformationBean> fetchClientDetails(){
-		ArrayList<ClientInformationBean> list = null;
-		list = ResourceAllocationTrackingDao.fetchClientDetails();
-		return list;
+		return ResourceAllocationTrackingDao.fetchClientDetails();
 	}
 
 	public static ArrayList<ClientInformationBean> fetchClientDetailsForReport(){
-		ArrayList<ClientInformationBean> list = null;
-		list = ResourceAllocationTrackingDao.fetchClientDetailsForReport();
-		return list;
+		return ResourceAllocationTrackingDao.fetchClientDetailsForReport();
 	}
 	
 	public static ArrayList<RequirementGenerationBean> fetchReq(int clId){
-		ArrayList<RequirementGenerationBean> list = null;
-		list = ResourceAllocationTrackingDao.fetchReqirmentDetails(clId);
-		return list;
+		return ResourceAllocationTrackingDao.fetchReqirmentDetails(clId);
 	}
 	
 	public static ArrayList<ClientInformationBean> fetchClientDetailsSearch(String name){
-		ArrayList<ClientInformationBean> list = null;
-		list = ResourceAllocationTrackingDao.fetchClientDetailsSearch(name);
-		return list;
+		return ResourceAllocationTrackingDao.fetchClientDetailsSearch(name);
 	}
 	
 	public static ArrayList<ClientInformationBean> fetchClientDetailsSearchClient(String name){
-		ArrayList<ClientInformationBean> list = null;
-		list = ResourceAllocationTrackingDao.fetchClientDetailsSearchClient(name);
-		return list;
+		return ResourceAllocationTrackingDao.fetchClientDetailsSearchClient(name);
 	}
 	
 	public static ArrayList<RequirementGenerationBean> fetchReqSearch(int clId, int id){
-		ArrayList<RequirementGenerationBean> list = null;
-		list = ResourceAllocationTrackingDao.fetchReqirmentDetailsSearch(clId, id);
-		return list;
+		return ResourceAllocationTrackingDao.fetchReqirmentDetailsSearch(clId, id);
 	}
 	
 	public static ArrayList<RequirementGenerationBean> fetchReqSearch(int id){
-		ArrayList<RequirementGenerationBean> list = null;
-		list = ResourceAllocationTrackingDao.fetchReqirmentDetailsSearch(id);
-		return list;
+		return ResourceAllocationTrackingDao.fetchReqirmentDetailsSearch(id);
 	}
 	
 	public static ArrayList<ResourceAllocationTrackingBean> loadTrackingBeanList(int clId, Integer r_id){
-		ArrayList<ResourceAllocationTrackingBean> list = null;
-		list = ResourceAllocationTrackingDao.fetchResAllTrackingDetails(clId, r_id);
-		return list;
+		return ResourceAllocationTrackingDao.fetchResAllTrackingDetails(clId, r_id);
 	}
 	
 	public static ArrayList<ResourceAllocationTrackingBean> loadTrackingBeanSearch(int clId, Integer r_id, String name){
-		ArrayList<ResourceAllocationTrackingBean> list = null;
-		list = ResourceAllocationTrackingDao.fetchResAllTrackingSearch(clId, r_id, name);
-		return list;
+		return ResourceAllocationTrackingDao.fetchResAllTrackingSearch(clId, r_id, name);
 	}
 	
 	public static int insertFinalStatus(Integer rId, int resId, int statusId, String userId){
-		int i =0;
-		i = ResourceAllocationTrackingDao.inSertFinalStatus(rId, resId, statusId,userId);
-		return i;
+		return ResourceAllocationTrackingDao.inSertFinalStatus(rId, resId, statusId,userId);
 	}
 	
 	public static int insertRejectStatusIntoMapper(Integer rId, Integer resId, Integer clientId, String userId){
-		int q =0;
-		q = ResourceAllocationTrackingDao.inSertRejectStatus(rId, resId,clientId,userId);
-		return q;
+		return ResourceAllocationTrackingDao.inSertRejectStatus(rId, resId,clientId,userId);
 	}
 	
 	public static int insertInternalIntDate(Integer rId, int resId,int clientId, Date date, String userId, String otherComments){
-		int i = 0;
-		i = ResourceAllocationTrackingDao.intInterviewDate(rId, resId, clientId, date, userId, otherComments);
-		return i;
+		return ResourceAllocationTrackingDao.intInterviewDate(rId, resId, clientId, date, userId, otherComments);
 	}
 	
 	public static int updateInternalIntDate(Integer rId, int resId,int clientId, Date date, String userId, String otherComments){
-		int j = 0;
-		j = ResourceAllocationTrackingDao.updateInterviewDate(rId, resId, clientId, date, userId, otherComments);
-		return j;
+		return ResourceAllocationTrackingDao.updateInterviewDate(rId, resId, clientId, date, userId, otherComments);
 	}
 	
 	public static int updateResourceTable(Integer resId){
-		int j = 0;
-		j = ResourceAllocationTrackingDao.updateResourceTable(resId);
-		return j;
+		return ResourceAllocationTrackingDao.updateResourceTable(resId);
 	}
 	
 	public static int updateRejectedStatus(Integer rId, int resId,int clientId,String typeName){
-		int p = 0;
-		p = ResourceAllocationTrackingDao.updateRejectedStatus(rId, resId, clientId, typeName);
-		return p;
+		return ResourceAllocationTrackingDao.updateRejectedStatus(rId, resId, clientId, typeName);
 	}
 	
 	public static int insertClientIntDate(Integer rId, int resId,int clientId, Date date, String userId, String otherComment){
-		int i = 0;
-		i = ResourceAllocationTrackingDao.clientInterviewDate(rId, resId, clientId, date, userId, otherComment);
-		return i;
+		return ResourceAllocationTrackingDao.clientInterviewDate(rId, resId, clientId, date, userId, otherComment);
 	}
 	
 	public static int updateClientIntDate(Integer rId, int resId,int clientId, Date date, String userId, String otherComments){
-		int q = 0;
-		q = ResourceAllocationTrackingDao.updateClientInterviewDate(rId, resId, clientId, date, userId, otherComments);
-		return q;
+		return ResourceAllocationTrackingDao.updateClientInterviewDate(rId, resId, clientId, date, userId, otherComments);
 	}
 	
 	public static int insertOnboardDate(Integer rId, int resId,int clientId, Date date, String userId, String otherComments){
-		int i = 0;
-		i = ResourceAllocationTrackingDao.onboardDate(rId, resId, clientId, date, userId, otherComments);
-		return i;
+		return ResourceAllocationTrackingDao.onboardDate(rId, resId, clientId, date, userId, otherComments);
 	}
 	
 	public static int updateOnboardDate(Integer rId, int resId,int clientId, Date date, String userId, String other_comments){
-		int s = 0;
-		s = ResourceAllocationTrackingDao.updateOnboardDate(rId, resId, clientId, date, userId, other_comments);
-		return s;
+		return ResourceAllocationTrackingDao.updateOnboardDate(rId, resId, clientId, date, userId, other_comments);
 	}
 	
 	public static boolean isValidate(Integer clid, Integer r_id){

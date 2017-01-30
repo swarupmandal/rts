@@ -16,6 +16,8 @@ public class ResourceAllocationTrackingBean {
 	private Integer reqId;
 	private Integer r_idSearch;
 	
+	private String finalFlag;
+	
 	private String skillSet;
 	private String modalScreen = "";
    
@@ -321,5 +323,11 @@ public class ResourceAllocationTrackingBean {
 	}
 	public void setModalScreen(String modalScreen) {
 		this.modalScreen = modalScreen;
+	}
+	public String getFinalFlag() {
+		return finalFlag;
+	}
+	public void setFinalFlag(String finalFlag) {
+		this.finalFlag = finalFlag;
 	}
 }

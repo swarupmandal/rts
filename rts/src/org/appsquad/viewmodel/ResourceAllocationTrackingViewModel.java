@@ -9,6 +9,7 @@ import org.appsquad.bean.ClientInformationBean;
 import org.appsquad.bean.RequirementGenerationBean;
 import org.appsquad.bean.ResourceAllocationTrackingBean;
 import org.appsquad.dao.ResourceAllocationDao;
+import org.appsquad.dao.ResourceAllocationTrackingDao;
 import org.appsquad.database.DbConnection;
 import org.appsquad.service.ResourceAllocationTrackingService;
 import org.zkoss.bind.annotation.AfterCompose;
@@ -117,12 +118,26 @@ public class ResourceAllocationTrackingViewModel {
 	@NotifyChange("*")
 	public void onClickUpdate(@BindingParam("bean") ResourceAllocationTrackingBean bean){
 		int count = 0;
+		int firstCount = 0;
 		try {
 			Connection connection = DbConnection.createConnection();
 			sql_connection:{
 				try {
-					count = ResourceAllocationDao.presentInTrackingTableForPreBill(bean.getResourceMasterBean().getResourceId(), connection);
-					if(count==0){
+					firstCount = ResourceAllocationDao.presentInTrackingTableForPreBill(bean.getResourceMasterBean().getResourceId(), connection);
+					if(firstCount>0){
+						count = ResourceAllocationTrackingDao.allowed(clientInformationBean.getClientId(), bean.getResourceMasterBean().getResourceId(), connection);
+						if(count>0){
+							Map<String, Object> trackingMap = new HashMap<String, Object>();
+							trackingMap.put("trackingMap", bean);
+							trackingMap.put("userId", userName);
+							trackingMap.put("req_id", requirementGenerationBean.getReq_id());
+							trackingMap.put("clId", clientInformationBean.getClientId());
+							Window window = (Window) Executions.createComponents("/WEB-INF/view/resAllocTrckingUpdate.zul", null, trackingMap);
+							window.doModal();
+						}else{
+							Messagebox.show("This resource is already selected by another client, you can't modify. ", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
+						}
+					}else{
 						Map<String, Object> trackingMap = new HashMap<String, Object>();
 						trackingMap.put("trackingMap", bean);
 						trackingMap.put("userId", userName);
@@ -130,8 +145,6 @@ public class ResourceAllocationTrackingViewModel {
 						trackingMap.put("clId", clientInformationBean.getClientId());
 						Window window = (Window) Executions.createComponents("/WEB-INF/view/resAllocTrckingUpdate.zul", null, trackingMap);
 						window.doModal();
-					}else{
-						Messagebox.show("This resource is already selected by another client, you can't modify. ", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
