@@ -6,10 +6,13 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import javax.crypto.SecretKey;
+
 import org.apache.log4j.Logger;
 import org.appsquad.bean.UserprofileBean;
 import org.appsquad.database.DbConnection;
 import org.appsquad.sql.UserProfileSql;
+import org.appsquad.utility.PasswordEncryption;
 import org.appsquad.utility.Pstm;
 import org.zkoss.zul.Messagebox;
 
@@ -23,15 +26,15 @@ public class UserProfileDao {
 			connection = DbConnection.createConnection();
 			sql_connection:{
 				try {
-					
+					String encryptedPasssword = PasswordEncryption.easeyEncrypt(userprofileBean.getPassword());
 					//1st SQL block
 					sql_insert:{
 					    PreparedStatement preparedStatementInsert = null;
 					    try {
 					    	preparedStatementInsert = Pstm.createQuery(connection, 
 									UserProfileSql.insertUserData, Arrays.asList(userprofileBean.getUserid().trim(),userprofileBean.getUsername().trim(),
-																userprofileBean.getPassword(),userprofileBean.getAddress().toUpperCase().trim(),
-																userprofileBean.getContactno().toUpperCase(),userprofileBean.getEmail().trim(),
+																encryptedPasssword,userprofileBean.getAddress().trim(),
+																userprofileBean.getContactno(),userprofileBean.getEmail().trim(),
 																userprofileBean.getSessionUserId()));
 					    
 					    	logger.info(" Inserting Data Into User Profile Table:- " + preparedStatementInsert.unwrap(PreparedStatement.class));
