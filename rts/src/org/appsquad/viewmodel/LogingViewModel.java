@@ -99,7 +99,7 @@ public class LogingViewModel {
 				Window window = (Window) Executions.createComponents("/WEB-INF/view/forgotPassword.zul", null, map);
 				window.doModal();
 			}else{
-				Messagebox.show("Oops!No email id found with the given user id","Alert Information",Messagebox.OK,Messagebox.EXCLAMATION);
+				Messagebox.show("Oops! No email id found with the given user id!","Alert Information",Messagebox.OK,Messagebox.EXCLAMATION);
 			}
 		}else{
 			Messagebox.show("UserId is required","Alert Information",Messagebox.OK,Messagebox.EXCLAMATION);
