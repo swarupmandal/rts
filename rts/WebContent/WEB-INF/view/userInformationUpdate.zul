@@ -48,7 +48,7 @@
                            </div>
                        <space></space>
                              <div align="center">
-                                   <button label="Update" width="80px" height="30px" style="font-weight:bold" onClick="@command('onClickUpdateButton')"/>
+                                   <button image="images/update.png" label="Update" style="font-weight:bold" onClick="@command('onClickUpdateButton')"/>
                                    <button label="Show Password" visible="false"  height="30px" style="font-weight:bold" onClick="@command('onClickReset')"/>
                             </div>
 			</window>

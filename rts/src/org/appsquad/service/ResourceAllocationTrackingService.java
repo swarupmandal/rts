@@ -100,4 +100,17 @@ public class ResourceAllocationTrackingService {
 			return false;
 		}
 	}
+	
+	public static ArrayList<ClientInformationBean> fetchSearchedClient(String clientName,ArrayList<ClientInformationBean> clientList){
+		ArrayList<ClientInformationBean> searchedClient = new ArrayList<ClientInformationBean>();
+		for(ClientInformationBean client : clientList){
+			if(client.getFullName().toLowerCase().startsWith(clientName.toLowerCase())){
+				ClientInformationBean clientBean = new ClientInformationBean();
+				clientBean.setClientId(client.getClientId());
+				clientBean.setFullName(client.getFullName());
+				searchedClient.add(clientBean);
+			}
+		}
+		return searchedClient;
+	}
 }

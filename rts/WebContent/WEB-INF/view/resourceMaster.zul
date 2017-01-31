@@ -140,7 +140,7 @@
 						
 							<hlayout spacing="5px">
 							<label></label>
-							<button label="Upload" upload="true" onUpload="@command('onUploadFile', upEvent=event)"></button>
+							<button image="images/upload.png"  label="Upload" upload="true" onUpload="@command('onUploadFile', upEvent=event)"></button>
  							<label value="@bind(vm.fileName)"></label>
  							</hlayout>
 						</row>
@@ -165,7 +165,7 @@
 					   </row> 
 					   <row>
 					       <label></label>
-					       <button width="80px" height="30px" label="Submit" style="font-weight: bold" onClick="@command('onClickSubmitButton')"></button>
+					       <button image="images/save.png" label="Submit" style="font-weight: bold" onClick="@command('onClickSubmitButton')"></button>
 					   </row>
 					</rows>
 				</grid>
@@ -196,8 +196,8 @@
 									<textbox value="@bind(v.country)" readonly="true" width="90%" tooltiptext="@bind(v.country)"/>
 									<textbox value="@bind(v.state)" readonly="true" width="90%" tooltiptext="@bind(v.state)"/>
 									<textbox value="@bind(v.ctc)" readonly="true" width="90%" tooltiptext="@bind(v.ctc)"/>
-								    <button label="Update" width="90%" onClick="@command('onClickUpdate', bean = v)"></button>
-								    <button label="Delete" width="90%" onClick="@command('onClickDelete', bean = v)"></button>
+								    <button image="images/update.png" label="Update" width="90%" onClick="@command('onClickUpdate', bean = v)"></button>
+								    <button image="images/delete.png" label="Delete" width="90%" onClick="@command('onClickDelete', bean = v)"></button>
 								</row>
 					  </template>
 				</grid>			

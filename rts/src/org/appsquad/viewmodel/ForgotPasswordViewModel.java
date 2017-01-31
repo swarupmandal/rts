@@ -46,6 +46,9 @@ public class ForgotPasswordViewModel {
 					Messagebox.OK,Messagebox.INFORMATION);
 			winForgetPassword.detach();
 			btnDisabled = false;
+		}else{
+			Messagebox.show("Mail sending failed,try again later!","Information",
+					Messagebox.OK,Messagebox.EXCLAMATION);
 		}
 	}
 	

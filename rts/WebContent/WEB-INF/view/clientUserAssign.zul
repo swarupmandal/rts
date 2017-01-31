@@ -13,7 +13,8 @@
                                 
                                 <rows>
 								   <row>	
-					  					<bandbox autodrop="true" readonly="true" id="clntBb" value="@bind(vm.clientUserAssignBean.clientInformationBean.fullName)" width="300px" placeholder="Search By Client">
+					  					<bandbox autodrop="true" readonly="true" id="clntBb" 
+					  					value="@bind(vm.clientUserAssignBean.clientInformationBean.fullName)" width="300px" placeholder="Search By Client">
 											<bandpopup>	
 												<hbox>
 													<textbox value="@bind(vm.clientUserAssignBean.clientNameSearch)" onChange="@command('onChangeClientName')" width="120px"></textbox>
@@ -60,7 +61,7 @@
 											</bandpopup>
 									   </bandbox>
 									   
-									  <button label="Save" onClick="@command('onClickSaveButton')"></button>
+									  <button image="images/save.png" label="Save" onClick="@command('onClickSaveButton')"></button>
 								   </row>
 								   
 								 </rows>
@@ -81,7 +82,7 @@
                                    <row>
                                        <textbox value="@bind(v.clientInformationBean.fullName)" readonly="true" width="99%"></textbox>
                                        <textbox value="@bind(v.userprofileBean.userid)" readonly="true" width="99%"></textbox>
-                                       <button label="Delete" onClick="@command('onClickDelete',bean = v)"/>
+                                       <button image="images/delete.png" label="Delete" onClick="@command('onClickDelete',bean = v)"/>
                                    </row>
                                    </template>
                                </rows>

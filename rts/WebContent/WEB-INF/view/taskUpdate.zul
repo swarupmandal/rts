@@ -1,18 +1,18 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
-	<window title="Task View/Update" border="normal"
-		apply="org.zkoss.bind.BindComposer"
+	<window title="Task View/Update" border="none" contentStyle="overflow:auto"
+		apply="org.zkoss.bind.BindComposer" height="350px"
 		viewModel="@id('vm') @init('org.appsquad.viewmodel.TaskListUpdateViewModel')">
 		<grid model="@bind(vm.taskDetailsList)" mold="paging" pageSize="8">
 			<columns sizable="true">
-				<column label="Task Name" align="center" width="350px"/>
+				<column label="Task Name" align="center" width="190px"/>
 				<column label="Task Status" align="center" width="90px" />
 				<column label="Assigned To" align="center" width="130px" />
 				<column label="Assigned by" align="center" width="130px" />
 				<column label="Task Assigned Date" align="center" width="130px" />
 				<column label="Task Scheduled Date" align="center" width="130px" />
 				<column label="Completion Date" align="center" width="130px" />
-				<column label="Action" align="center" width="90px" />
+				<column label="Action" align="center" width="110px" />
 			</columns>
 			<rows>
 				<template name="model" var="v">
@@ -34,7 +34,7 @@
 						<datebox format="dd/MM/yyyy" width="100%"
 							value="@bind(v.actualCompletionDate)" readonly="true"
 							buttonVisible="false" />	
-						<button label="Update" width="100%" onClick="@command('onClickUpdate',bean= v)"/>
+						<button image="images/update.png" label="Update" width="100%" onClick="@command('onClickUpdate',bean= v)"/>
 					</row>
 				</template>
 			</rows>

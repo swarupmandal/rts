@@ -1,11 +1,11 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
   <window title="Status Master" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('org.appsquad.viewmodel.StatusMasterViewModel')">
-    <style>
+   <!--  <style>
 		.z-textbox{
 			text-transform:uppercase;
 		}
-	</style>
+	</style> -->
    <div>
        <tabbox>
             <tabs>
@@ -37,7 +37,7 @@
 							  				evt.which != 32) evt.stop(); } ]]>
 						  				 </attribute>
                     				 </textbox>
-                    				 <hlayout>
+                    				
                     				 	<radiogroup id="rdgrp">
                     				 		<radio radiogroup="rdgrp" label="Initial" checked="@bind(vm.statusMasterBean.initial)" 
                     				 		style="font-weight:bold" disabled="@bind(vm.statusMasterBean.initChkbxDisable)"
@@ -58,8 +58,8 @@
                     				 	<label value="Set as Final?" style="font-weight:bold"/>
                     				 	<checkbox checked="@bind(vm.statusMasterBean.finalStage)"  
                     				 	disabled="@bind(vm.statusMasterBean.finalChkbxDisable)"/> -->
-                    				 </hlayout>
-                   					 <button label="Submit" onClick="@command('onClickStatusSave')"/>
+                    				
+                   					 <button image="images/save.png" label="Submit" onClick="@command('onClickStatusSave')"/>
                 			        </row>
                               </rows>
                           </grid>
@@ -100,9 +100,9 @@
 											<checkbox checked="@bind(v.finalStage)" onCheck="@command('onChkFinal', bean = v)" disabled="@bind(v.finalChkbxDisable)"/>
 								    		<button label="Edit" onClick="@command('onClickEditButton', bean = v)"
 								    		                           disabled="@bind(v.editButtonDisable)"></button>
-								    		<button label="Save" onClick="@command('onClickSaveButton', bean = v)"
+								    		<button image="images/update.png" label="Save" onClick="@command('onClickSaveButton', bean = v)"
 								    		                            disabled="@bind(v.saveButtonDisable)"></button>
-								    		<button label="Delete" onClick="@command('onClickDelete', bean = v)"></button>
+								    		<button image="images/delete.png" label="Delete" onClick="@command('onClickDelete', bean = v)"></button>
 										</row>
 								</template> 
                                </rows>

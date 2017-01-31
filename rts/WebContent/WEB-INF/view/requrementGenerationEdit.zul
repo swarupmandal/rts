@@ -103,7 +103,7 @@
 						
 						<row>
 						<label></label>
-						<button width="80px" height="20px" label="Update" style="font-weight: bold" onClick="@command('onClickUpdate')"></button>
+						<button image="images/update.png"  label="Update" style="font-weight: bold" onClick="@command('onClickUpdate')"></button>
 						</row>
 					</rows>
 				</grid>

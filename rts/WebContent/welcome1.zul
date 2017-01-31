@@ -97,8 +97,9 @@
 										<hbox>
 											<checkbox onCheck="@command('onCheckShowPassword')"/>
 											<label value="Show password" style="font-weight:bold"/>
-											<space width="120px"/>
-											<a  label="Forgot Password?" onClick="@command('onClickForgotPassword')"/>
+											<space width="50px"/>
+											<label value="Forgot Password?" style="font-weight:bold"/>
+											<a image="images/click.gif" onClick="@command('onClickForgotPassword')"/>
 										</hbox>
 										
 											

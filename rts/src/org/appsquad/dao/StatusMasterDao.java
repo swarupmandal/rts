@@ -42,7 +42,7 @@ public class StatusMasterDao {
 					    	}
 					    	preparedStatementInsert = Pstm.createQuery(connection, 
 									StatusMasterSql.insertStatusQuery, Arrays.asList(statusMasterBean.getUserId(),
-											statusMasterBean.getStatus().toUpperCase().trim(),preBilledStatus,initialStage,finalStage));
+											statusMasterBean.getStatus().trim(),preBilledStatus,initialStage,finalStage));
 					    	
 					    	logger.info(" insertStatusData- " + preparedStatementInsert.unwrap(PreparedStatement.class));
 							int i = preparedStatementInsert.executeUpdate();

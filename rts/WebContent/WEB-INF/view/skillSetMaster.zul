@@ -3,11 +3,11 @@
   <window title="Skill Set Information" border="none" height="100%" apply="org.zkoss.bind.BindComposer" 
                     													viewModel="@id('vm') @init('org.appsquad.viewmodel.SkillsetmasterViewModel')"> 
    <div>
-    <style>
+    <!-- <style>
 			.z-textbox{
 			   	text-transform:uppercase;
 			   }
-	</style>
+	</style> -->
        <tabbox>
             <tabs>
                 <tab label="New Skill"/>
@@ -46,7 +46,8 @@
                                </row>
                                <row>
                                   <label></label>
-                                  <button  label="Submit" onClick="@command('onClickSetskillsubmit')" style="font-weight: bold;" width="70px" height="40px"></button>
+                                  <button image="images/save.png" label="Submit" 
+                                  onClick="@command('onClickSetskillsubmit')" style="font-weight: bold;" />
                                </row>
                           </rows>
                        </grid>
@@ -65,8 +66,8 @@
 								<row style="border: 0.01px solid #C0C0C0;">
 									<textbox value="@bind(v.skillset)" readonly="true" width="90%" tooltiptext="@bind(v.skillset)"/>
 									<textbox value="@bind(v.skillsetdetails)" readonly="true" width="90%" tooltiptext="@bind(v.skillsetdetails)"/>
-								    <button label="Update" width="90%" onClick="@command('onClickUpdateButton', bean = v)"></button>
-								    <button label="Delete" width="90%" onClick="@command('onClickDeleteButton', bean = v)"></button>
+								    <button image="images/update.png" label="Update" width="90%" onClick="@command('onClickUpdateButton', bean = v)"></button>
+								    <button image="images/delete.png" label="Delete" width="90%" onClick="@command('onClickDeleteButton', bean = v)"></button>
 								</row>
 							</template>
 				     </grid>

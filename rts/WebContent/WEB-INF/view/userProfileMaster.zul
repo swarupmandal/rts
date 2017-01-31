@@ -81,7 +81,7 @@
                                     </row>
                                     <row>
                                       <label></label>
-                                      <button label="Submit" width="80px" height="30px" style="font-weight:bold" onClick="@command('onClickuserSubmit')"/>
+                                      <button image="images/save.png" label="Submit" style="font-weight:bold" onClick="@command('onClickuserSubmit')"/>
                                       
                                     </row>
                                  </rows>
@@ -108,8 +108,8 @@
                    				 <textbox placeholder="Email" value="@bind(v.email)" readonly="true" width="90%" tooltiptext="@bind(v.email)"></textbox>
                    				 <textbox placeholder="address" value="@bind(v.address)" readonly="true" width="90%" tooltiptext="@bind(v.address)"></textbox>
                    				 <textbox placeholder="Contact no" value="@bind(v.contactno)" readonly="true" width="90%"></textbox>
-                   				 <button label="Update" onClick="@command('onClickUpdateButton', bean = v)"></button>
-                   				 <button label="Delete" onClick="@command('onClickDeleteButton', bean = v)"></button>
+                   				 <button image="images/update.png" label="Update" onClick="@command('onClickUpdateButton', bean = v)"></button>
+                   				 <button image="images/delete.png" label="Delete" onClick="@command('onClickDeleteButton', bean = v)"></button>
                    				</row>
                    			  </template>
                    			</rows>

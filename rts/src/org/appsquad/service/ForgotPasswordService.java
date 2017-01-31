@@ -6,6 +6,7 @@ import java.util.Arrays;
 
 import org.appsquad.database.DbConnection;
 import org.appsquad.sql.LoginSql;
+import org.appsquad.utility.PasswordEncryption;
 import org.appsquad.utility.Pstm;
 import org.appsquad.viewmodel.SendEmail;
 
@@ -21,8 +22,9 @@ public class ForgotPasswordService {
 					Connection connection = DbConnection.createConnection();
 					PreparedStatement preparedStatement = null;	
 					try {
+						String encryptedPasssword = PasswordEncryption.easeyEncrypt(password);
 						preparedStatement = Pstm.createQuery(connection, LoginSql.updatePassword, 
-								Arrays.asList(password, userId));
+								Arrays.asList(encryptedPasssword, userId));
 						int count = preparedStatement.executeUpdate();
 						if(count > 0)
 							System.out.println("New Password updated by system. . .");

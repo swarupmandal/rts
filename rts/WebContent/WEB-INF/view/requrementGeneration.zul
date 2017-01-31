@@ -103,7 +103,7 @@
 						
 						<row>
 						  <label></label>
-						  <button width="80px" height="30px" label="Submit" style="font-weight: bold" onClick="@command('onclickSubmit')"></button>
+						  <button image="images/save.png" label="Submit" style="font-weight: bold" onClick="@command('onclickSubmit')"></button>
 						</row>
 						
 					</rows>
@@ -113,8 +113,8 @@
 		<tabpanel>		
 			  <div>	
 				<grid  mold="paging" pageSize="8" model="@bind(vm.reqGenBeanList)">
-					<columns>
-						<column label="RID" width="50px"></column>
+					<columns sizable="true">
+						<column label="RID" width="45px"></column>
 						<column label="Client Name" align="center" width="280px"></column>
 						<column label="Type Name" align="center" width="120px"></column>
 						<column label="Skill Name" align="center" width="120px"></column>
@@ -122,7 +122,7 @@
 						<column label="Raise Date" align="center"></column>
 						<column label="Target Date" align="center"></column>
 						<column label="Status" align="center" width="80px"></column>
-						<column label="Action" align="center"></column>
+						<column label="Update" align="center"></column>
 					</columns>
 					<rows>
 					  <template name="model" var = "v">
@@ -135,7 +135,7 @@
 							<textbox readonly="true" value="@bind(v.raiseDateStr)" width="99%"></textbox>
 							<textbox readonly="true" value="@bind(v.targetDateStr)" width="99%"></textbox>
 							<textbox readonly="true" width="99%" value="@bind(v.ocStatus)"></textbox>
-							<image src="images/edit.png" style="cursor:pointer" 
+							<button image="images/update.png" label="Update"
 							onClick="@command('onClickUpdate', bean = v)"/>
 						</row>
 					  </template>	

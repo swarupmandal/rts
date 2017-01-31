@@ -1,11 +1,17 @@
 package org.appsquad.utility;
 
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import org.appsquad.bean.CurrentOpportunitiesReportGenerationBean;
 
@@ -91,8 +97,8 @@ public class Main {
 	}
 	
     public static void main(String[] args) {
-        convert();
-
+        //convert();
+    	encryption("somnath");
     }
     
     public static void convert(){
@@ -102,4 +108,33 @@ public class Main {
         String s = decim.format(price);
         System.out.println("Converted output is :"+s);
     }
+    
+    public static String encryption(String password)
+    {
+    	SecureRandom random = new SecureRandom();
+    	MessageDigest encrypt=null;
+    	try {
+    		encrypt = MessageDigest.getInstance("SHA1");
+    		encrypt.reset();
+    		encrypt.update(password.getBytes("UTF-8"));
+    	} catch (NoSuchAlgorithmException e) {
+    		// TODO Auto-generated catch block
+    		e.printStackTrace();
+    	} catch (UnsupportedEncodingException e) {
+    		// TODO Auto-generated catch block
+    		e.printStackTrace();
+    	}
+    	String salt = "";
+    	for(int i=0;i<4;i++)
+    	{salt=salt+(char)(random.nextInt(255)+1);
+    	}
+    	byte[] digest = encrypt.digest();
+    	String encryptPass = "";
+    	for (int i = 0; i < digest.length; i++) {
+    		encryptPass +=  Integer.toString( ( digest[i] & 0xff ) + 0x100, 16).substring( 1 );
+    	}
+    	System.out.println(encryptPass);
+    	return encryptPass;	
+    }
+    
 }

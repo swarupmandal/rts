@@ -170,10 +170,12 @@ public class ClientInformationDao {
 					    PreparedStatement preparedStatementInsert = null;
 					    try {
 					    	preparedStatementInsert = Pstm.createQuery(connection, 
-									ClientInformationsql.insertClientInfo, Arrays.asList(clientInformationBean.getName().toUpperCase().trim(),clientInformationBean.getSurName().toUpperCase().trim(),
-											clientInformationBean.getClientOriginalName().toUpperCase().trim(),clientInformationBean.getAddress().toUpperCase().trim(),
+									ClientInformationsql.insertClientInfo, Arrays.asList(clientInformationBean.getName().trim(),
+											clientInformationBean.getSurName().trim(),
+											clientInformationBean.getClientOriginalName().trim(),
+											clientInformationBean.getAddress().trim(),
 											clientInformationBean.getState().trim(),clientInformationBean.getCountry().trim(),
-											clientInformationBean.getPinZipCode(),clientInformationBean.getContactNo().toUpperCase(),
+											clientInformationBean.getPinZipCode(),clientInformationBean.getContactNo(),
 											clientInformationBean.getEmailId().trim(),clientInformationBean.getUserId()));
 					    	
 					    	logger.info("Inserting Client Data Into Table: "+preparedStatementInsert.unwrap(PreparedStatement.class));
@@ -316,12 +318,12 @@ public class ClientInformationDao {
 					    try {
 					    	preparedStatementInsert = Pstm.createQuery(connection, 
 									ClientInformationsql.clientDetailsUpdate, Arrays.asList(
-											clientInformationBean.getClientOriginalName().toUpperCase().trim(),
-											clientInformationBean.getName().toUpperCase().trim(),
-											clientInformationBean.getSurName().toUpperCase().trim(),
-											clientInformationBean.getAddress().toUpperCase().trim(),
-											clientInformationBean.getState().toUpperCase().trim(),
-											clientInformationBean.getPinZipCode(),clientInformationBean.getContactNo().toUpperCase(),
+											clientInformationBean.getClientOriginalName().trim(),
+											clientInformationBean.getName().trim(),
+											clientInformationBean.getSurName().trim(),
+											clientInformationBean.getAddress().trim(),
+											clientInformationBean.getState().trim(),
+											clientInformationBean.getPinZipCode(),clientInformationBean.getContactNo(),
 											clientInformationBean.getEmailId().trim(),clientInformationBean.getUserId(),
 											clientInformationBean.getClientId()));
 					    	logger.info("Updating Client Data Into Table: "+preparedStatementInsert.unwrap(PreparedStatement.class));

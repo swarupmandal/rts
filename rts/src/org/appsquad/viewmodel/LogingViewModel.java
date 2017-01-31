@@ -7,12 +7,15 @@ import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.HashMap;
 
+import javax.crypto.SecretKey;
+
 import org.apache.log4j.Logger;
 import org.appsquad.bean.LoginBean;
 import org.appsquad.bean.UserprofileBean;
 import org.appsquad.database.DbConnection;
 import org.appsquad.service.LoginService;
 import org.appsquad.sql.LoginSql;
+import org.appsquad.utility.PasswordEncryption;
 import org.appsquad.utility.Pstm;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.Command;
@@ -96,7 +99,7 @@ public class LogingViewModel {
 				Window window = (Window) Executions.createComponents("/WEB-INF/view/forgotPassword.zul", null, map);
 				window.doModal();
 			}else{
-				Messagebox.show("Oops!No email id found with the given user id","Alert Information",Messagebox.OK,Messagebox.EXCLAMATION);
+				Messagebox.show("Oops! No email id found with the given user id!","Alert Information",Messagebox.OK,Messagebox.EXCLAMATION);
 			}
 		}else{
 			Messagebox.show("UserId is required","Alert Information",Messagebox.OK,Messagebox.EXCLAMATION);
@@ -114,9 +117,10 @@ public class LogingViewModel {
 				sql:{    
 				     PreparedStatement preparedStatement = null;
 				     ResultSet resultSet = null;
+				     String encryptedPassword = PasswordEncryption.easeyEncrypt(loginBean.getPassword());
 				     try {
 						preparedStatement = Pstm.createQuery(connection, LoginSql.loginQuery, 
-								Arrays.asList(loginBean.getUserId(),loginBean.getPassword()));
+								Arrays.asList(loginBean.getUserId(),encryptedPassword));
 												
 						logger.info("Login Function - " + preparedStatement.unwrap(PreparedStatement.class));
 						

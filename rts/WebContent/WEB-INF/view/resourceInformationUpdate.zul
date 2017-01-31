@@ -79,7 +79,7 @@
 						<row>
 						  <label value="Upload CV"></label>
 							<hlayout spacing="5px">
-							<button label="Upload" upload="true" onUpload="@command('onUploadFileUpload', upEvent=event)"/>
+							<button image="images/upload.png"  label="Upload" upload="true" onUpload="@command('onUploadFileUpload', upEvent=event)"/>
  							<label value="@bind(vm.masterBean.fileName)"></label>
  							</hlayout>
 						</row>
@@ -106,7 +106,7 @@
 					   </row>
 					   <row>
 					     <label></label>
-					     <button width="80px" height="30px" label="Update" style="font-weight: bold" onClick="@command('onClickUpdateButton')"></button>
+					     <button image="images/update.png" label="Update" style="font-weight: bold" onClick="@command('onClickUpdateButton')"></button>
 					   </row>
 					 
 					</rows>

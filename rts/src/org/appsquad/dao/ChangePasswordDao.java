@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 import org.appsquad.bean.ChangePasswordbean;
 import org.appsquad.database.DbConnection;
 import org.appsquad.sql.ChangePasswordsql;
+import org.appsquad.utility.PasswordEncryption;
 import org.appsquad.utility.Pstm;
 
 
@@ -22,7 +23,9 @@ public class ChangePasswordDao {
 			Connection connection=DbConnection.createConnection();
 			PreparedStatement preparedStatement=null;
 			try {
-				preparedStatement= Pstm.createQuery(connection, ChangePasswordsql.pssswordchangequery, Arrays.asList(password, userId));
+				String encryptedPasssword = PasswordEncryption.easeyEncrypt(password);
+				preparedStatement= Pstm.createQuery(connection, ChangePasswordsql.pssswordchangequery,
+						Arrays.asList(encryptedPasssword, userId));
 				logger.info("change password - " + preparedStatement.unwrap(PreparedStatement.class));
 				count = preparedStatement.executeUpdate();
 				if (count>0) {
@@ -46,7 +49,9 @@ public class ChangePasswordDao {
 			Connection connection=DbConnection.createConnection();
 			PreparedStatement preparedStatement=null;
 			try {
-				preparedStatement= Pstm.createQuery(connection, ChangePasswordsql.countNumberWrtUserAndPassword, Arrays.asList(changePasswordbean.getUserId(), changePasswordbean.getPassword()));
+				String encryptedPasssword = PasswordEncryption.easeyEncrypt(changePasswordbean.getPassword());
+				preparedStatement= Pstm.createQuery(connection, ChangePasswordsql.countNumberWrtUserAndPassword, 
+						Arrays.asList(changePasswordbean.getUserId(), encryptedPasssword));
 				logger.info("change password - " + preparedStatement.unwrap(PreparedStatement.class));
 				ResultSet resultSet = preparedStatement.executeQuery();
 				while(resultSet.next()){
