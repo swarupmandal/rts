@@ -10,7 +10,7 @@ import javax.xml.bind.DatatypeConverter;
 public class PasswordEncryption {
 	
 	public static void main(String[] args) {
-		easeyEncrypt("r0xvydzm");
+		easeyEncrypt("admin");
 	}
 	
     public static String easeyEncrypt(String ip) {
