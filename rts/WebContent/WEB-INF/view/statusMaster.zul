@@ -38,7 +38,18 @@
 						  				 </attribute>
                     				 </textbox>
                     				 <hlayout>
-                    				 	<label value="Set as Initial?" style="font-weight:bold"/>
+                    				 	<radiogroup id="rdgrp">
+                    				 		<radio radiogroup="rdgrp" label="Initial" checked="@bind(vm.statusMasterBean.initial)" 
+                    				 		style="font-weight:bold" disabled="@bind(vm.statusMasterBean.initChkbxDisable)"
+                    				 		onCheck="@command('onCheckInitial')"/>
+                    				 		<radio radiogroup="rdgrp" label="Pre bill" checked="@bind(vm.statusMasterBean.preBilled)" 
+                    				 		style="font-weight:bold" disabled="@bind(vm.statusMasterBean.chkbxDisable)"
+                    				 		onCheck="@command('onCheckPreBill')"/>
+                    				 		<radio radiogroup="rdgrp" label="Final" checked="@bind(vm.statusMasterBean.finalStage)" 
+                    				 		style="font-weight:bold" disabled="@bind(vm.statusMasterBean.finalChkbxDisable)"
+                    				 		onCheck="@command('onCheckFinal')"/>
+                    				 	</radiogroup>
+                    				 	<!-- <label value="Set as Initial?" style="font-weight:bold"/>
                     				 	<checkbox checked="@bind(vm.statusMasterBean.initial)" 
                     				 	disabled="@bind(vm.statusMasterBean.initChkbxDisable)"/>
                     				 	<label value="Set for prebill ?" style="font-weight:bold"/>
@@ -46,7 +57,7 @@
                     				 	disabled="@bind(vm.statusMasterBean.chkbxDisable)"/>
                     				 	<label value="Set as Final?" style="font-weight:bold"/>
                     				 	<checkbox checked="@bind(vm.statusMasterBean.finalStage)"  
-                    				 	disabled="@bind(vm.statusMasterBean.finalChkbxDisable)"/>
+                    				 	disabled="@bind(vm.statusMasterBean.finalChkbxDisable)"/> -->
                     				 </hlayout>
                    					 <button label="Submit" onClick="@command('onClickStatusSave')"/>
                 			        </row>
@@ -56,20 +67,21 @@
                        <space></space>
                        <div>
                            <grid model="@bind(vm.statuslist)" mold="paging" pageSize="10" sclass="fgrid" height="390PX">
-                           		<auxhead>
+                           		<!-- <auxhead>
                            			<auxheader label="Status-Name" align="center" style="font-weight:bold;" colspan="1"/>
                            			<auxheader label="Initial?" align="center" style="font-weight:bold;" />
                            			<auxheader label="Prebill?" align="center" style="font-weight:bold;" />
                            			<auxheader label="Final?" align="center" style="font-weight:bold;" />
                            			<auxheader colspan="3" label="Action" align="center" style="font-weight:bold;" ></auxheader>		
-                           		</auxhead>
-                               <columns sizable="true" visible="false">
-								<column align="center"/>
-								<column align="center"/>
-								<column align="center"/>
-								<column align="center"/>
-								<column align="center"/>
-								<column align="center"/>
+                           		</auxhead> -->
+                               <columns sizable="true">
+								<column label="Status-Name" align="center" style="font-weight:bold;" />
+								<column label="Initial?" align="center" style="font-weight:bold;" />
+								<column label="Prebill?" align="center" style="font-weight:bold;" />
+								<column label="Final?" align="center" style="font-weight:bold;"/>
+								<column label="Edit" align="center" style="font-weight:bold;"/>
+								<column label="Save" align="center" style="font-weight:bold;"/>
+								<column label="Delete" align="center" style="font-weight:bold;"/>
 						       </columns>
                                <rows>
                                   <template name="model" var="v">

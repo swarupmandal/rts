@@ -69,10 +69,38 @@ public class StatusMasterViewModel {
 	
 	@Command
 	@NotifyChange("*")
+	public void onCheckInitial(){
+		if(statusMasterBean.isInitial()){
+			statusMasterBean.setPreBilled(false);
+			statusMasterBean.setFinalStage(false);
+		}
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void onCheckPreBill(){
+		if(statusMasterBean.isPreBilled()){
+			statusMasterBean.setInitial(false);
+			statusMasterBean.setFinalStage(false);
+		}
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void onCheckFinal(){
+		if(statusMasterBean.isFinalStage()){
+			statusMasterBean.setPreBilled(false);
+			statusMasterBean.setInitial(false);
+		}
+	}
+	
+	@Command
+	@NotifyChange("*")
 	public void onClickStatusSave(){
 		boolean flagInsert = false;
 		boolean flagLogInsert = false;
 		int count = 0;
+		
 		count = StatusMasterDao.countStatusNumber(statusMasterBean);
 		if(count>0){
 			Messagebox.show("Please Enter New Status Name!", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
@@ -89,14 +117,14 @@ public class StatusMasterViewModel {
 																		statusMasterBean.getOperationId());
 				clearScreen();
 				//System.out.println("flagLogInsert Is:"+flagLogInsert);
-				/*StatusMasterService.clearAllField(statusMasterBean);
+				StatusMasterService.clearAllField(statusMasterBean);
 				statuslist = StatusMasterDao.onLoadStatusDeatils();
 				statusMasterBean.setPreBilled(false);
 				statusMasterBean.setInitial(false);
 				statusMasterBean.setFinalStage(false);
 				statusMasterBean.setChkbxDisable(StatusMasterService.setForPreBill(statuslist)); 
 				statusMasterBean.setInitChkbxDisable(StatusMasterService.setForInitialStage(statuslist));
-				statusMasterBean.setFinalChkbxDisable(StatusMasterService.setForFinalStage(statuslist));*/
+				statusMasterBean.setFinalChkbxDisable(StatusMasterService.setForFinalStage(statuslist));
 			}	
 		}
 	}
