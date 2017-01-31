@@ -49,7 +49,7 @@
                        <space></space>
                              <div align="center">
                                    <button label="Update" width="80px" height="30px" style="font-weight:bold" onClick="@command('onClickUpdateButton')"/>
-                                   <button label="Show Password"  height="30px" style="font-weight:bold" onClick="@command('onClickReset')"/>
+                                   <button label="Show Password" visible="false"  height="30px" style="font-weight:bold" onClick="@command('onClickReset')"/>
                             </div>
 			</window>
 </zk>

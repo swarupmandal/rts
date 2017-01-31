@@ -1,6 +1,7 @@
 package org.appsquad.utility;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -90,7 +91,15 @@ public class Main {
 	}
 	
     public static void main(String[] args) {
-        
+        convert();
 
+    }
+    
+    public static void convert(){
+    	Double price = 32.0;
+        DecimalFormat decim = new DecimalFormat("0.00");
+        Double price2 = Double.parseDouble(decim.format(price));
+        String s = decim.format(price);
+        System.out.println("Converted output is :"+s);
     }
 }

@@ -5,10 +5,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Arrays;
+import java.util.HashMap;
 
 import org.apache.log4j.Logger;
 import org.appsquad.bean.LoginBean;
+import org.appsquad.bean.UserprofileBean;
 import org.appsquad.database.DbConnection;
+import org.appsquad.service.LoginService;
 import org.appsquad.sql.LoginSql;
 import org.appsquad.utility.Pstm;
 import org.zkoss.bind.annotation.AfterCompose;
@@ -21,7 +24,9 @@ import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.select.Selectors;
+import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Messagebox;
+import org.zkoss.zul.Window;
 
 public class LogingViewModel {
 	LoginBean loginBean = new LoginBean();
@@ -75,6 +80,28 @@ public class LogingViewModel {
 		}else{
 			txtType = "text";
 		}
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void onClickForgotPassword(){
+		if(loginBean.getUserId()!=null){
+			String emailId = LoginService.getEmailIdOfUser(loginBean.getUserId());
+			if( emailId!= null){
+				UserprofileBean userBean = new UserprofileBean();
+				userBean.setUserid(loginBean.getUserId());
+				userBean.setEmail(emailId);
+				HashMap<String, Object> map = new HashMap<String, Object>();
+				map.put("userDetails", userBean);
+				Window window = (Window) Executions.createComponents("/WEB-INF/view/forgotPassword.zul", null, map);
+				window.doModal();
+			}else{
+				Messagebox.show("Oops!No email id found with the given user id","Alert Information",Messagebox.OK,Messagebox.EXCLAMATION);
+			}
+		}else{
+			Messagebox.show("UserId is required","Alert Information",Messagebox.OK,Messagebox.EXCLAMATION);
+		}
+		
 	}
 	
 	@Command

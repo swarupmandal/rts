@@ -152,6 +152,47 @@ public class SendEmail{
 		  return false;
 		 }
 	
+	public static Boolean sendPasswordInEmail(String emailId,String emailBody) {
+		  Properties mailServerProperties;
+		  Session getMailSession;
+		  MimeMessage generateMailMessage;
+		 
+		  mailServerProperties = System.getProperties();
+		  mailServerProperties.put("mail.smtp.port", "587");
+		  mailServerProperties.put("mail.smtp.host", "smtp.gmail.com");
+		  mailServerProperties.put("mail.smtp.auth", "true");
+		  mailServerProperties.put("mail.smtp.user", "sentmail95@gmail.com");
+		  mailServerProperties.put("mail.smtp.password", "sunnydutta123");
+		  mailServerProperties.put("mail.smtp.starttls.enable", "true");
+		  System.out.println("Mail Server Properties have been setup successfully..");
+		 
+		  //
+		  getMailSession = Session.getDefaultInstance(mailServerProperties, null);
+		  generateMailMessage = new MimeMessage(getMailSession);
+		  try {
+		   generateMailMessage.setFrom(new InternetAddress("sentmail95@gmail.com"));
+		   generateMailMessage.addRecipient(Message.RecipientType.TO,new InternetAddress(emailId));
+		   generateMailMessage.setSubject("Forgot Password From Resource Augmentation Tracking System");
+		   
+		   generateMailMessage.setContent(emailBody, "text/html");
+		   
+		   System.out.println("Mail Session has been created successfully..");
+		   
+		   //
+		   Transport transport = getMailSession.getTransport("smtp");
+		   transport.connect("smtp.gmail.com","sentmail95@gmail.com", "sunnydutta123");
+		   transport.sendMessage(generateMailMessage, generateMailMessage.getAllRecipients());
+		   transport.close();
+		   return true;
+		  } catch (AddressException e) {
+			  e.printStackTrace();
+		  } catch (MessagingException e) {
+			  e.printStackTrace();
+		  }
+		  return false;
+		 }
+	
+	
 	 public static void myLogger(String email, boolean valid) {
 		System.out.println(email + " is " + (valid ? "a" : "not a") + " valid email address\n");
 	 }

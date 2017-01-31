@@ -3,7 +3,7 @@
 <window title="Scheduled For Today And Tomorrow Report" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('org.appsquad.viewmodel.ActivityScheduledTodayTomorrowViewModel')">
                          <div visible="@bind(vm.divVisibility)">
                            <grid model="@bind(vm.todayTomorrowList)" mold="paging" pageSize="5" sclass="fgrid" height="460px">
-                               <columns>
+                               <columns sizable="true">
                                     <column label="Task Name" align="center" width="200px"/>
                                     <column label="Assigned By" align="center"/>
                                     <column label="Person Responsible" align="center" width="140px"/>
@@ -23,7 +23,7 @@
                                        <label value="@bind(v.scheduledDateStr)" width="98%" tooltiptext="@bind(v.scheduledDateStr)"></label>
                                        <label value="@bind(v.actualCompletionDateStr)" width="98%" tooltiptext="@bind(v.actualCompletionDateStr)"></label>
                                        <label value="@bind(v.status)" width="98%" tooltiptext="@bind(v.status)"></label>
-                                       <image src="images/click.jpg" width="60px" onClick="@command('onClickImage', bean = v)"></image>
+                                       <button label="Task info" style="font-weight:bold" image="images/info.png" onClick="@command('onClickImage', bean = v)"/>
                                    </row>
                                    </template>
                                </rows>

@@ -110,7 +110,7 @@
                                        <label value="@bind(v.scheduledDateStr)" width="98%" tooltiptext="@bind(v.scheduledDateStr)"></label>
                                        <label value="@bind(v.actualCompletionDateStr)" width="98%" tooltiptext="@bind(v.actualCompletionDateStr)"></label>
                                        <label value="@bind(v.status)" width="98%" tooltiptext="@bind(v.status)"></label>
-                                       <image src="images/click.jpg" width="60px" onClick="@command('onClickToShowDescription', bean = v)"></image>
+                                       <button label="Task info" style="font-weight:bold" image="images/info.png" onClick="@command('onClickToShowDescription', bean = v)"/>
                                    </row>
                                    </template>
                                </rows>
