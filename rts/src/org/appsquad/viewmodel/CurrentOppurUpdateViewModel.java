@@ -233,7 +233,7 @@ public class CurrentOppurUpdateViewModel {
 				
 							currentOpportunitiesBean.setMargin((currentOpportunitiesBean.getChargeoutRate()-currentOpportunitiesBean.getResourceSalary()));
 						    
-							currentOpportunitiesBean.setPercentage(CustomDecimalFormat.doubleFormat((((currentOpportunitiesBean.getChargeoutRate()-currentOpportunitiesBean.getResourceSalary())/(currentOpportunitiesBean.getResourceSalary()))*100)));
+							currentOpportunitiesBean.setPercentage(CustomDecimalFormat.doubleFormat((((currentOpportunitiesBean.getChargeoutRate()-currentOpportunitiesBean.getResourceSalary())/(currentOpportunitiesBean.getChargeoutRate()))*100)));
 						}else{
 							Messagebox.show(" Please Enter Resource Salary ","Warning", Messagebox.OK, Messagebox.EXCLAMATION);
 						}

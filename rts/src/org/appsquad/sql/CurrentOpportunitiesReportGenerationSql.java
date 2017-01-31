@@ -22,5 +22,5 @@ public class CurrentOpportunitiesReportGenerationSql {
    public static final String oppurtunityWisereportForAllSql = "select * from rts_tracking_details_based_on_approve_reject where approval_status = 'Approve'";
 
    
-   public static final String marginSetOppurtunityWiseSql = "select charge_out_rate,resource_salary,margin from rts_req_res_status_tracking_details where rts_tracking_details_id = ? ";
+   public static final String marginSetOppurtunityWiseSql = "select charge_out_rate,resource_salary,margin,percentage from rts_req_res_status_tracking_details where rts_tracking_details_id = ? ";
 }

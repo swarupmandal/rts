@@ -26,4 +26,12 @@ public class CustomDecimalFormat {
 			return null;
 		}
 	}
+	
+	public static Double reqWiseDouble(Double value){
+		if(value != null){
+			return Double.valueOf(new DecimalFormat("######.##").format(value) );
+		}else{
+			return null;
+		}
+	}
 }

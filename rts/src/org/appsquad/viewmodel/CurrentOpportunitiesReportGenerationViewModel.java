@@ -300,7 +300,7 @@ public class CurrentOpportunitiesReportGenerationViewModel {
 	    	finalList.add(bean);
 	    }
 	    
-	    /*for(CurrentOpportunitiesReportGenerationBean bean: finalList){
+	   /* for(CurrentOpportunitiesReportGenerationBean bean: finalList){
 	    	System.out.println(bean.getCurrentOpportunitiesBean().getTentureFromUtil()+"---"+bean.getRtsTrackingDetailsId()+"----"+bean.getCurrentOpportunitiesReportBean().getMonth()+"----"+bean.getResourceMasterBean().getFullName());
 	    }*/
 	    
@@ -311,11 +311,12 @@ public class CurrentOpportunitiesReportGenerationViewModel {
 	    	thirdDivVisibility = false;
 		    buttonVisibility = true;	
 	    }else{
+	    	secondDivVisibility=false;
+	    	thirdDivVisibility = false;
+		    buttonVisibility = false;
 	    	Messagebox.show("No Data Found ","Alert",Messagebox.OK,Messagebox.EXCLAMATION);
 	    }
 	    
-	    
-	    System.out.println(secondTabList.size());
 	    String[] months  = {"january","february","march","april","may","june","july","august","september","october","november","december"};
     	for(int i=1 ; i<13; i++){
     		MonthReportBean reportBean = new MonthReportBean();
@@ -327,6 +328,7 @@ public class CurrentOpportunitiesReportGenerationViewModel {
     		reportBean.getCurrentOpportunitiesReportGenerationBean().setClientNameString("Client Name");
     		reportBean.getCurrentOpportunitiesReportGenerationBean().setChargeOutString("Charge Out Rate(Monthly)");
     		reportBean.getCurrentOpportunitiesReportGenerationBean().setMarginString("Margin");
+    		reportBean.getCurrentOpportunitiesReportGenerationBean().setPercentage("Percentage(%)");
     		
     		int counter = 0;
     		int finalCounter = 0;
@@ -344,6 +346,7 @@ public class CurrentOpportunitiesReportGenerationViewModel {
     				MonthShowingUtility.MarginSetForTrackingDeatilsID(reportGenerationBean);
     				reportGenerationBean.setBackGround(reportGenerationBean.getBackGroundpaParent());
     				reportGenerationBean.setStyle(reportGenerationBean.getBoldStyle());
+    				
     				monthClienBeanList.add(reportGenerationBean);
     				
     			}
@@ -358,6 +361,7 @@ public class CurrentOpportunitiesReportGenerationViewModel {
         			CurrentOpportunitiesReportGenerationBean bean = new CurrentOpportunitiesReportGenerationBean();
         			bean.getClientInformationBean().setFullName(null);
         			bean.getResourceMasterBean().setFullName(null);
+        			bean.setPercentage(null);
         			bean.getCurrentOpportunitiesBean().setMarginString("TOTAL: "+MonthShowingUtility.calculateTotalMonthWise(monthClienBeanList));
         			//bean.getCurrentOpportunitiesBean().setMargin(Double.longBitsToDouble(MonthShowingUtility.calculateTotalMonthWise(monthClienBeanList)));
         			bean.getCurrentOpportunitiesBean().setMarginTotal(MonthShowingUtility.calculateTotalMonthWise(monthClienBeanList));
@@ -378,6 +382,7 @@ public class CurrentOpportunitiesReportGenerationViewModel {
     		monthReportBean.getCurrentOpportunitiesReportGenerationBean().setClientNameString("");
     		monthReportBean.getCurrentOpportunitiesReportGenerationBean().setChargeOutString("");
     		monthReportBean.getCurrentOpportunitiesReportGenerationBean().setMarginString("");
+    		monthReportBean.getCurrentOpportunitiesReportGenerationBean().setPercentage("");
     		
     		grandTotalClient = CurrentOpportunitiesReportGenerationDao.calculateGrandTotal(monthSetList);
     		
@@ -457,6 +462,9 @@ public class CurrentOpportunitiesReportGenerationViewModel {
 	    	secondDivVisibility = false;
 		    buttonVisibility = true;
 	    }else{
+	    	thirdDivVisibility=false;
+	    	secondDivVisibility = false;
+		    buttonVisibility = false;
 	    	Messagebox.show("No Data Found ","Alert",Messagebox.OK,Messagebox.EXCLAMATION);
 	    }
 	    
@@ -471,6 +479,7 @@ public class CurrentOpportunitiesReportGenerationViewModel {
     		reportBean.getCurrentOpportunitiesReportGenerationBean().setClientNameString("Client Name");
     		reportBean.getCurrentOpportunitiesReportGenerationBean().setChargeOutString("Charge Out Rate(Monthly)");
     		reportBean.getCurrentOpportunitiesReportGenerationBean().setMarginString("Margin");
+    		reportBean.getCurrentOpportunitiesReportGenerationBean().setPercentage("Percentage(%)");
     	
     		int resourceCounter = 0;
     		int resourceFinalCounter = 0;
@@ -491,9 +500,6 @@ public class CurrentOpportunitiesReportGenerationViewModel {
     				reportGenerationBean.setStyle(reportGenerationBean.getBoldStyle());
     				monthClienBeanList.add(reportGenerationBean);
     				
-    				/*System.out.println("IN VIEW MODEL COUNTER NUMBER IS :::::::::::"+resourceCounter+"-MONTH-"+reportBean.getMonthName());
-    				System.out.println("IN VIEW MODEL FETCHED COUNTER NUMBER IS :::::::::::"+resourceFinalCounter+"--Month--"+months[i-1]);*/
-    				
     			}
     		}
     		reportBean.setCurrentOpportunitiesReportGenerationBeanList(monthClienBeanList);
@@ -506,6 +512,7 @@ public class CurrentOpportunitiesReportGenerationViewModel {
         			CurrentOpportunitiesReportGenerationBean bean = new CurrentOpportunitiesReportGenerationBean();
         			bean.getClientInformationBean().setFullName(null);
         			bean.getResourceMasterBean().setFullName(null);
+        			bean.setPercentage(null);
         			bean.getCurrentOpportunitiesBean().setMarginString("TOTAL: "+MonthShowingUtility.calculateTotalMonthWise(monthClienBeanList));
         			bean.getCurrentOpportunitiesBean().setMarginTotal(MonthShowingUtility.calculateTotalMonthWise(monthClienBeanList));
         			bean.setStyle(bean.getLighterStyle());
@@ -526,6 +533,7 @@ public class CurrentOpportunitiesReportGenerationViewModel {
     		monthReportBean.getCurrentOpportunitiesReportGenerationBean().setClientNameString("");
     		monthReportBean.getCurrentOpportunitiesReportGenerationBean().setChargeOutString("");
     		monthReportBean.getCurrentOpportunitiesReportGenerationBean().setMarginString("");
+    		monthReportBean.getCurrentOpportunitiesReportGenerationBean().setPercentage("");
 		
     		ArrayList<CurrentOpportunitiesReportGenerationBean> list2 = new ArrayList<CurrentOpportunitiesReportGenerationBean>();
     		CurrentOpportunitiesReportGenerationBean opportunitiesReportGenerationBean = new CurrentOpportunitiesReportGenerationBean();

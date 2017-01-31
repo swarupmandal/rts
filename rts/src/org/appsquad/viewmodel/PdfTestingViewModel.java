@@ -124,7 +124,7 @@ public class PdfTestingViewModel {
 		 System.out.println("INSIDE METHOD list size::: "+list.size() );
 	        PdfPTable table = new PdfPTable(2);
 	        table.setSplitLate(false);
-	        table.setWidths(new int[]{10, 15});
+	        table.setWidths(new int[]{8, 30});
 	        for (MonthReportBean monthReportBean : list) {
 	        	
 	        	cell_1: {
@@ -163,8 +163,8 @@ public class PdfTestingViewModel {
 	 }
 	 
 	 public static PdfPTable createtable(ArrayList<CurrentOpportunitiesReportGenerationBean> monthWiseDataList) throws Exception{
-			String[] headerLabes = {"Client Name","Resource Name","Margin"};
-			float[]	widths = {20F,20F,10F};
+			String[] headerLabes = {"Client Name","Resource Name","Charge Out Rate(Monthly)","Percentage(%)","Margin"};
+			float[]	widths = {30F,20F,20F,15F,10F};
 	 		PdfPTable headerTable = new PdfPTable(widths);
 	 		headerTable.setWidthPercentage(96);
 			
@@ -208,11 +208,57 @@ public class PdfTestingViewModel {
 		 			
 		 		    } 
 	 		 
+	 		
+	 		cell_3:{
+		 		    	PdfPCell cell;
+		 		    	if(bean.getCurrentOpportunitiesReportBean().getChargeOutRate()!=null){
+		 		    		Paragraph headerParagraph = new Paragraph(bean.getCurrentOpportunitiesReportBean().getChargeOutRateString());
+				 			headerParagraph.getFont().setSize(5f);
+				 			headerParagraph.setAlignment(Element.ALIGN_CENTER);
+				 			headerParagraph.getFont().setStyle(Font.NORMAL);
+				 			cell = new PdfPCell(headerParagraph);
+				 			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				 			headerTable.addCell(cell);	
+		 		    	}else{
+		 		    		String chargerate = "";
+		 		    		Paragraph headerParagraph = new Paragraph(chargerate);
+				 			headerParagraph.getFont().setSize(5f);
+				 			headerParagraph.setAlignment(Element.ALIGN_CENTER);
+				 			headerParagraph.getFont().setStyle(Font.NORMAL);
+				 			cell = new PdfPCell(headerParagraph);
+				 			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				 			headerTable.addCell(cell);	
+		 		    	}
+		 		   }
+		 		    
+		 		   cell_4:{
+		 		    	PdfPCell cell;
+		 		    	if(bean.getCurrentOpportunitiesBean().getPercentage()!=null){
+		 		    		Paragraph headerParagraph = new Paragraph(String.valueOf(bean.getCurrentOpportunitiesBean().getPercentage()));
+				 			headerParagraph.getFont().setSize(5f);
+				 			headerParagraph.setAlignment(Element.ALIGN_CENTER);
+				 			headerParagraph.getFont().setStyle(Font.NORMAL);
+				 			cell = new PdfPCell(headerParagraph);
+				 			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				 			headerTable.addCell(cell);
+		 		    	}else{
+		 		    		String percentage = "";
+		 		    		Paragraph headerParagraph = new Paragraph(percentage);
+				 			headerParagraph.getFont().setSize(5f);
+				 			headerParagraph.setAlignment(Element.ALIGN_CENTER);
+				 			headerParagraph.getFont().setStyle(Font.NORMAL);
+				 			cell = new PdfPCell(headerParagraph);
+				 			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				 			headerTable.addCell(cell);
+		 		    	}
+		 		    	
+		 		   }	    
+	 		            
 	 		 
-	 	    cell_3: {
+	 	    cell_5: {
 			 			PdfPCell cell;
                         if(bean.getCurrentOpportunitiesBean().getMargin()!=null){
-                        	Paragraph headerParagraph = new Paragraph(String.valueOf(bean.getCurrentOpportunitiesBean().getMargin()));
+                        	Paragraph headerParagraph = new Paragraph(bean.getCurrentOpportunitiesBean().getMarginString());
     			 			headerParagraph.getFont().setSize(5f);
     			 			headerParagraph.setAlignment(Element.ALIGN_CENTER);
     			 			headerParagraph.getFont().setStyle(Font.NORMAL);
@@ -269,8 +315,8 @@ public class PdfTestingViewModel {
 		} 
 	 
 	public static PdfPTable createtableForResource(ArrayList<CurrentOpportunitiesReportGenerationBean> monthWiseDataList) throws Exception{
-		String[] headerLabes = {"Resource Name","Client Name","Margin"};
-		float[]	widths = {20F,20F,10F};
+		String[] headerLabes = {"Resource Name","Client Name","Charge Out Rate(Monthly)","Percentage(%)","Margin"};
+		float[]	widths = {20F,30F,20F,15F,10F};
  		PdfPTable headerTable = new PdfPTable(widths);
  		headerTable.setWidthPercentage(96);
 		
@@ -315,11 +361,56 @@ public class PdfTestingViewModel {
 	 			
 	 		    } 
  		 
+ 		 cell_3:{
+	 		    	PdfPCell cell;
+	 		    	if(bean.getCurrentOpportunitiesReportBean().getChargeOutRate()!=null){
+	 		    		Paragraph headerParagraph = new Paragraph(bean.getCurrentOpportunitiesReportBean().getChargeOutRateString());
+			 			headerParagraph.getFont().setSize(5f);
+			 			headerParagraph.setAlignment(Element.ALIGN_CENTER);
+			 			headerParagraph.getFont().setStyle(Font.NORMAL);
+			 			cell = new PdfPCell(headerParagraph);
+			 			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			 			headerTable.addCell(cell);	
+	 		    	}else{
+	 		    		String chargerate = "";
+	 		    		Paragraph headerParagraph = new Paragraph(chargerate);
+			 			headerParagraph.getFont().setSize(5f);
+			 			headerParagraph.setAlignment(Element.ALIGN_CENTER);
+			 			headerParagraph.getFont().setStyle(Font.NORMAL);
+			 			cell = new PdfPCell(headerParagraph);
+			 			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			 			headerTable.addCell(cell);	
+	 		    	}
+	 		   }
+	 		    
+	 	   cell_4:{
+	 		    	PdfPCell cell;
+	 		    	if(bean.getCurrentOpportunitiesBean().getPercentage()!=null){
+	 		    		Paragraph headerParagraph = new Paragraph(String.valueOf(bean.getCurrentOpportunitiesBean().getPercentage()));
+			 			headerParagraph.getFont().setSize(5f);
+			 			headerParagraph.setAlignment(Element.ALIGN_CENTER);
+			 			headerParagraph.getFont().setStyle(Font.NORMAL);
+			 			cell = new PdfPCell(headerParagraph);
+			 			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			 			headerTable.addCell(cell);
+	 		    	}else{
+	 		    		String percentage = "";
+	 		    		Paragraph headerParagraph = new Paragraph(percentage);
+			 			headerParagraph.getFont().setSize(5f);
+			 			headerParagraph.setAlignment(Element.ALIGN_CENTER);
+			 			headerParagraph.getFont().setStyle(Font.NORMAL);
+			 			cell = new PdfPCell(headerParagraph);
+			 			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			 			headerTable.addCell(cell);
+	 		    	}
+	 		    	
+	 		   }	    
+ 		            
  		 
- 		cell_3: {
+ 	    cell_5: {
 		 			PdfPCell cell;
                     if(bean.getCurrentOpportunitiesBean().getMargin()!=null){
-                    	Paragraph headerParagraph = new Paragraph(String.valueOf(bean.getCurrentOpportunitiesBean().getMargin()));
+                    	Paragraph headerParagraph = new Paragraph(bean.getCurrentOpportunitiesBean().getMarginString());
 			 			headerParagraph.getFont().setSize(5f);
 			 			headerParagraph.setAlignment(Element.ALIGN_CENTER);
 			 			headerParagraph.getFont().setStyle(Font.NORMAL);
@@ -380,7 +471,7 @@ public class PdfTestingViewModel {
 		 System.out.println("INSIDE METHOD list size::: "+list.size() );
 	        PdfPTable table = new PdfPTable(2);
 	        table.setSplitLate(false);
-	        table.setWidths(new int[]{10, 15});
+	        table.setWidths(new int[]{8, 30});
 	        for (MonthReportBean monthReportBean : list) {
 	        	cell_1: {
 	        		PdfPCell cell;

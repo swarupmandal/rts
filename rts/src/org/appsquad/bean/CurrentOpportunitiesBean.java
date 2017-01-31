@@ -38,6 +38,7 @@ public class CurrentOpportunitiesBean {
 	private String trackLogingID;
 	
 	private Double percentage;
+	private String percentageData; 
 	private String modalTitle;
 	
 	private UserClientMappingBean bean = new UserClientMappingBean();
@@ -304,5 +305,11 @@ public class CurrentOpportunitiesBean {
 	}
 	public void setPercentage(Double percentage) {
 		this.percentage = percentage;
+	}
+	public String getPercentageData() {
+		return percentageData;
+	}
+	public void setPercentageData(String percentageData) {
+		this.percentageData = percentageData;
 	}
 }

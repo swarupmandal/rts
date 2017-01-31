@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
-
 import org.apache.log4j.Logger;
 import org.appsquad.bean.CurrentOpportunitiesReportGenerationBean;
 import org.appsquad.bean.MonthReportBean;
@@ -20,7 +19,6 @@ import org.appsquad.utility.Pstm;
 public class CurrentOpportunitiesReportGenerationDao {
 	final static Logger logger = Logger.getLogger(CurrentOpportunitiesReportGenerationDao.class);
 	
-	
 	public static int countForParentRow(int trackingID,Connection connection) throws Exception{
 		int counter = 0;
 		PreparedStatement preparedStatementFetch = null;
@@ -28,7 +26,7 @@ public class CurrentOpportunitiesReportGenerationDao {
 			String sql = "select count(*) from rts_unpaid_details_for_report where rts_tracking_details_id = ? ";
 			preparedStatementFetch = connection.prepareStatement(sql);
 			preparedStatementFetch.setInt(1, trackingID);
-			System.out.println("INNER QUERY FOR PARENT ROW ::::"+preparedStatementFetch);
+			
 			ResultSet resultSet = preparedStatementFetch.executeQuery();
 			while(resultSet.next()){
 				counter = resultSet.getInt(1);
@@ -243,7 +241,7 @@ public class CurrentOpportunitiesReportGenerationDao {
 					   PreparedStatement preparedStatement = null;
 					   try {
 						    preparedStatement = Pstm.createQuery(connection, ResourceAllocationSql.fetchResourceDetailsForCurOppurScreen,null);
-						    System.out.println("RESOURCE DETAILS QUERY :"+preparedStatement);
+						   
 							ResultSet resultSet = preparedStatement.executeQuery();
 							while (resultSet.next()) {
 								ResourceMasterBean bean = new ResourceMasterBean();
@@ -274,7 +272,6 @@ public class CurrentOpportunitiesReportGenerationDao {
 				}
 			}
 		} catch (Exception e) {
-			logger.fatal("---------------->>>>>>"+e);
 			e.printStackTrace();
 		}
 		return resourceList;	
@@ -296,7 +293,7 @@ public class CurrentOpportunitiesReportGenerationDao {
 					   PreparedStatement preparedStatement = null;
 					   try {
 						    preparedStatement = Pstm.createQuery(connection, ResourceAllocationSql.fetchResourceDetailsForCurOppurScreenForSerach,Arrays.asList(name.toUpperCase()+"%"));
-						    System.out.println("RESOURCE DETAILS SEARCH QUERY IN CURRENT OPPURTUNITIES SCREEN :"+preparedStatement);
+						   
 							ResultSet resultSet = preparedStatement.executeQuery();
 							while (resultSet.next()) {
 								ResourceMasterBean bean = new ResourceMasterBean();
@@ -324,7 +321,6 @@ public class CurrentOpportunitiesReportGenerationDao {
 				}
 			}
 		} catch (Exception e) {
-			logger.fatal("---------------->>>>>>"+e);
 			e.printStackTrace();
 		}
 		return resourceList;	

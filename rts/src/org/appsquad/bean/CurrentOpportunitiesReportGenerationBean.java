@@ -32,6 +32,8 @@ public class CurrentOpportunitiesReportGenerationBean {
 	private String clientNameString;
 	private String chargeOutString;
 	private String marginString;
+	private String percentage;
+	private Double percenatgeValue;
 	
 	private Integer rtsTrackingDetailsId;
 	private String resourceFlag = "N";
@@ -288,5 +290,17 @@ public class CurrentOpportunitiesReportGenerationBean {
 	}
 	public void setMarginString(String marginString) {
 		this.marginString = marginString;
+	}
+	public String getPercentage() {
+		return percentage;
+	}
+	public void setPercentage(String percentage) {
+		this.percentage = percentage;
+	}
+	public Double getPercenatgeValue() {
+		return percenatgeValue;
+	}
+	public void setPercenatgeValue(Double percenatgeValue) {
+		this.percenatgeValue = percenatgeValue;
 	}
 }

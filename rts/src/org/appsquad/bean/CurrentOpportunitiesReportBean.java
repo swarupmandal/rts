@@ -35,6 +35,7 @@ public class CurrentOpportunitiesReportBean {
 	private Integer trackingId;
 	private Integer trackingDetailsId;
 	private Double chargeOutRate;
+	private String chargeOutRateString;
 	private Double resourceSallary;
 	private String fileName;
 	private String secondFileName;
@@ -407,5 +408,11 @@ public class CurrentOpportunitiesReportBean {
 	}
 	public void setListIndexOf(int listIndexOf) {
 		this.listIndexOf = listIndexOf;
+	}
+	public String getChargeOutRateString() {
+		return chargeOutRateString;
+	}
+	public void setChargeOutRateString(String chargeOutRateString) {
+		this.chargeOutRateString = chargeOutRateString;
 	}
 }
