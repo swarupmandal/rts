@@ -79,7 +79,7 @@
 				<row>
 					<label></label>
 					<textbox visible="false"></textbox>
-					<button label="Update" width="80px" disabled="@bind(vm.updateButtonDisability)"
+					<button image="images/update.png" label="Update" width="80px" disabled="@bind(vm.updateButtonDisability)"
 						onClick="@command('onClickUpdate')">
 					</button>
 					<label></label>

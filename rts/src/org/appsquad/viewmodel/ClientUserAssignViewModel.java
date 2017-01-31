@@ -68,7 +68,8 @@ public class ClientUserAssignViewModel {
 	 @NotifyChange("*")
 	 public void onChangeClientName(){
 		   if(clientUserAssignBean.getClientNameSearch() != null){
-			   clientList = ResourceAllocationTrackingService.fetchClientDetailsSearchClient(clientUserAssignBean.getClientNameSearch());
+			  // clientList = ResourceAllocationTrackingService.fetchClientDetailsSearchClient(clientUserAssignBean.getClientNameSearch());
+			   clientList = ResourceAllocationTrackingService.fetchSearchedClient(clientUserAssignBean.getClientNameSearch(), clientList);
 		   }
 	 }
 	 
@@ -83,7 +84,7 @@ public class ClientUserAssignViewModel {
 	 @Command
 	 @NotifyChange("*")
 	 public void onClickClientClear(){
-			clnBandBox.close();
+			//clnBandBox.close();
 			clientUserAssignBean.clientInformationBean.setFullName(null);
 			clientUserAssignBean.clientInformationBean.setClientId(null);
 			clientUserAssignBean.setClientNameSearch(null);

@@ -501,13 +501,18 @@ public class ResourceMasterDao {
 					    PreparedStatement preparedStatementInsert = null;
 					    try {
 					    	preparedStatementInsert = Pstm.createQuery(connection, 
-									ResourceMasterSql.updateResourceQuery, Arrays.asList( resourceMasterBean.getName().toUpperCase(),resourceMasterBean.getSurName().toUpperCase(),
-											                                              resourceMasterBean.getYearOfExperience(),resourceMasterBean.getAddress().toUpperCase(),resourceMasterBean.getEmailId(),
+									ResourceMasterSql.updateResourceQuery, Arrays.asList( resourceMasterBean.getName().trim(),
+											resourceMasterBean.getSurName().trim(),
+											                                              resourceMasterBean.getYearOfExperience(),resourceMasterBean.getAddress().trim(),
+											                                              resourceMasterBean.getEmailId(),
 											                                              resourceMasterBean.getSkillsetMasterbean().getId(),
-											                                              resourceMasterBean.getPicCode().toUpperCase(),resourceMasterBean.getContactNumber().toUpperCase(),resourceMasterBean.getStatusMasterBean().getStatusId(),
-											                                              resourceMasterBean.getCtc(),resourceMasterBean.getSkillsetMasterbean().getSkillset().toUpperCase(),
-											                                              resourceMasterBean.getCountry().toUpperCase(),
-											                                              resourceMasterBean.getState().toUpperCase(),resourceMasterBean.getFilePath(),resourceMasterBean.getProfit(),
+											                                              resourceMasterBean.getPicCode().trim(),resourceMasterBean.getContactNumber().trim(),
+											                                              resourceMasterBean.getStatusMasterBean().getStatusId(),
+											                                              resourceMasterBean.getCtc(),resourceMasterBean.getSkillsetMasterbean().getSkillset().trim(),
+											                                              resourceMasterBean.getCountry().trim(),
+											                                              resourceMasterBean.getState().trim(),
+											                                              resourceMasterBean.getFilePath(),
+											                                              resourceMasterBean.getProfit(),
 											                                              resourceMasterBean.getOtherInfo(),resourceMasterBean.getFileName(),resourceMasterBean.getResourceId()));
 					    	
 					    	logger.info("Updating Resource Data Into Table: "+preparedStatementInsert.unwrap(PreparedStatement.class));

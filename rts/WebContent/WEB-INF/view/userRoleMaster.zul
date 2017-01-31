@@ -26,7 +26,7 @@
                                   </hlayout>
                                      <textbox value="@bind(vm.roleMasterBean.roll)" width="300px" rows="3"
                                         placeholder="WITHIN 50 WORDS" maxlength="50"/>
-                                     <button label="Save" onClick="@command('onClickRoleSave')"/>
+                                     <button image="images/save.png" label="Save" onClick="@command('onClickRoleSave')"/>
                                   </row>
                               </rows>
                           </grid>
@@ -36,8 +36,8 @@
                            <grid model="@bind(vm.rolebeanlist)" mold="paging" pageSize="11" sclass="fgrid">
                                <columns>
                                     <column label="Role" align="center" width="400px"/>
+                                    <column label="Edit" align="center"/>
                                     <column label="Update" align="center"/>
-                                    <column label="Save" align="center"/>
                                     <column label="Delete" align="center"/>
                                     <column label="Page Access" align="center"/>
                                </columns>
@@ -46,9 +46,9 @@
                                    <row>
                                        <textbox value="@bind(v.roll)" readonly="@bind(v.visibilityRoleTextBox)"
                                           maxlength="50" width="350px" tooltiptext="@bind(v.roll)"/>
-                                       <button label="Edit" onClick="@command('onclickedit', bean = v)" disabled="@bind(v.visibilityEditButton)"/>
-                                       <button label="Save" onClick="@command('onClickSave', bean = v)" disabled="@bind(v.visibilitySaveButton)"/>
-                                       <button label="Delete" onClick="@command('onClickDelete', bean = v)" disabled="@bind(v.visibilityDeleteButton)"/>
+                                       <button image="images/edit.png" label="Edit" onClick="@command('onclickedit', bean = v)" disabled="@bind(v.visibilityEditButton)"/>
+                                       <button image="images/update.png" label="Save" onClick="@command('onClickSave', bean = v)" disabled="@bind(v.visibilitySaveButton)"/>
+                                       <button image="images/delete.png" label="Delete" onClick="@command('onClickDelete', bean = v)" disabled="@bind(v.visibilityDeleteButton)"/>
                                        <button label="Page Access" onClick="@command('onClickPage', bean = v)"/>
                                    </row>
                                    </template>
@@ -84,7 +84,7 @@
 		             					</template>
 		             					</combobox>	
 		             					
-		             					<button label="Save" onClick="@command('onClickAssign')"></button>
+		             					<button image="images/save.png" label="Save" onClick="@command('onClickAssign')"></button>
 								   </row>
 								   
 								 </rows>
@@ -104,7 +104,7 @@
                                    <row>
                                        <textbox value="@bind(v.userprofileBean.username)" readonly="true"></textbox>
                                        <textbox value="@bind(v.downBean.roll)" readonly="true" width="300px" tooltiptext="@bind(v.downBean.roll)"></textbox>
-                                       <button label="Update" onClick="@command('onClickUpdate', bean = v)"/>
+                                       <button image="images/update.png" label="Update" onClick="@command('onClickUpdate', bean = v)"/>
                                    </row>
                                    </template>
                                </rows>

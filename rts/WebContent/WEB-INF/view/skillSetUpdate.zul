@@ -22,7 +22,7 @@
                     </grid> 
                     <space></space>
                     <div align="center">
-                       <button  label="Update" onClick="@command('onClickUpdateButton')" style="font-weight: bold;" ></button>
+                       <button  image="images/update.png" label="Update" onClick="@command('onClickUpdateButton')" style="font-weight: bold;" ></button>
                     </div>
 		</window>
 </zk>

@@ -86,7 +86,7 @@
 					<row>
 						<label></label><label/>
 						<textbox visible="false"></textbox>
-						<button label="Save" width="80px"
+						<button image="images/save.png" label="Save" width="80px"
 							onClick="@command('onClickSave')">
 						</button>
 						<label></label>

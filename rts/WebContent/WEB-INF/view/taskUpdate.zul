@@ -34,7 +34,7 @@
 						<datebox format="dd/MM/yyyy" width="100%"
 							value="@bind(v.actualCompletionDate)" readonly="true"
 							buttonVisible="false" />	
-						<button label="Update" width="100%" onClick="@command('onClickUpdate',bean= v)"/>
+						<button image="images/update.png" label="Update" width="100%" onClick="@command('onClickUpdate',bean= v)"/>
 					</row>
 				</template>
 			</rows>

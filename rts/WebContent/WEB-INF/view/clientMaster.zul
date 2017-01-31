@@ -142,7 +142,7 @@
 					
 					<row>
 					 <label></label>
-					 <button width="80px" height="30px" label="Submit" style="font-weight: bold" onClick="@command('onClickSubmitButton')"></button>
+					 <button image="images/save.png" label="Submit" style="font-weight: bold" onClick="@command('onClickSubmitButton')"></button>
 					</row>
 					
 				</rows>
@@ -174,8 +174,8 @@
 									<textbox value="@bind(v.pinZipCode)" readonly="true" width="90%" tooltiptext="@bind(v.pinZipCode)"/>
 									<textbox value="@bind(v.contactNo)" readonly="true" width="90%" tooltiptext="@bind(v.contactNo)"/>
 									<textbox value="@bind(v.emailId)" readonly="true" width="99%" tooltiptext="@bind(v.emailId)"/>
-								    <button label="Update" width="90%" onClick="@command('onClickUpdate', bean = v)"></button>
-								    <button label="Delete" width="90%" onClick="@command('onClickDelete', bean = v)"></button>
+								    <button image="images/update.png" label="Update" width="90%" onClick="@command('onClickUpdate', bean = v)"></button>
+								    <button image="images/delete.png" label="Delete" width="90%" onClick="@command('onClickDelete', bean = v)"></button>
 								</row>
 							</template>
 				      </grid>		

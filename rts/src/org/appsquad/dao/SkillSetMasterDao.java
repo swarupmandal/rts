@@ -29,9 +29,9 @@ public class SkillSetMasterDao {
 					    PreparedStatement preparedStatementInsert = null;
 					    try {
 					    	preparedStatementInsert = Pstm.createQuery(connection, 
-									SkillSetMasterSql.insertSkillSetQuery, Arrays.asList(skillsetMasterbean.getSkillset().toUpperCase().trim(),
+									SkillSetMasterSql.insertSkillSetQuery, Arrays.asList(skillsetMasterbean.getSkillset().trim(),
 																								skillsetMasterbean.getUserId(),
-																										skillsetMasterbean.getSkillsetdetails().toUpperCase().trim()));
+																										skillsetMasterbean.getSkillsetdetails().trim()));
 					   
 					    	logger.info("INSERT SKILL DATA INTO TABLE:- " + preparedStatementInsert.unwrap(PreparedStatement.class));
 							int i = preparedStatementInsert.executeUpdate();
@@ -130,7 +130,8 @@ public class SkillSetMasterDao {
 					    PreparedStatement preparedStatementInsert = null;
 					    try {
 					    	preparedStatementInsert = Pstm.createQuery(connection, 
-									SkillSetMasterSql.updateSkillSetDetails, Arrays.asList(masterbean.getSkillset().toUpperCase().trim(),masterbean.getSkillsetdetails().toUpperCase().trim(),masterbean.getId()));
+									SkillSetMasterSql.updateSkillSetDetails, Arrays.asList(masterbean.getSkillset().trim(),
+											masterbean.getSkillsetdetails().trim(),masterbean.getId()));
 					    	logger.info("update Skill Data - " + preparedStatementInsert.unwrap(PreparedStatement.class));
 							int i = preparedStatementInsert.executeUpdate();
 							if(i>0){
