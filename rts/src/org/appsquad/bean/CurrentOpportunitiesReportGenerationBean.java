@@ -12,8 +12,11 @@ public class CurrentOpportunitiesReportGenerationBean {
 	private java.sql.Date toDateSql;
 	private String toDateValue;
 	private String toateStr;
+	
 	private boolean innerComboGroup = false;
 	private String monthName;
+	
+	private String billingStatus;
 	
 	private String backGroundpaParent = "background-color: #ffe6f9";
 	private String backGroundChild = "background-color: #D5D1D3";
@@ -24,6 +27,7 @@ public class CurrentOpportunitiesReportGenerationBean {
 	private Integer trackingDetailsId;
 	private String selectedRadioButton;
 	private String clientNameSearch;
+	private String firstClientNameSearch;
 	private String resourceNameSearch;
 	private boolean innerResourceCombo = false;
 	private boolean innerClientGroup = false;
@@ -51,6 +55,8 @@ public class CurrentOpportunitiesReportGenerationBean {
 	private RequirementGenerationBean requirementGenerationBean = new RequirementGenerationBean();
 	private SkillsetMasterbean skillsetMasterbean = new SkillsetMasterbean();
 	private ResourceMasterBean resourceMasterBean = new ResourceMasterBean();
+	
+	private ClientInformationBean clientBean = new ClientInformationBean();
 	
     /******************************************************* GETTER AND SETTER METHOD *******************************************************************/
 	
@@ -302,5 +308,23 @@ public class CurrentOpportunitiesReportGenerationBean {
 	}
 	public void setPercenatgeValue(Double percenatgeValue) {
 		this.percenatgeValue = percenatgeValue;
+	}
+	public ClientInformationBean getClientBean() {
+		return clientBean;
+	}
+	public void setClientBean(ClientInformationBean clientBean) {
+		this.clientBean = clientBean;
+	}
+	public String getBillingStatus() {
+		return billingStatus;
+	}
+	public void setBillingStatus(String billingStatus) {
+		this.billingStatus = billingStatus;
+	}
+	public String getFirstClientNameSearch() {
+		return firstClientNameSearch;
+	}
+	public void setFirstClientNameSearch(String firstClientNameSearch) {
+		this.firstClientNameSearch = firstClientNameSearch;
 	}
 }

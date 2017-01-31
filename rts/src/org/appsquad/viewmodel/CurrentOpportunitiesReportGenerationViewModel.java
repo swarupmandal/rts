@@ -9,10 +9,12 @@ import org.appsquad.bean.ClientInformationBean;
 import org.appsquad.bean.CurrentOpportunitiesReportGenerationBean;
 import org.appsquad.bean.MonthReportBean;
 import org.appsquad.bean.ResourceMasterBean;
+import org.appsquad.dao.BillingReportDashBoardDao;
 import org.appsquad.dao.CurrentOpportunitiesReportGenerationDao;
 import org.appsquad.service.CurrentOpportunitiesReportGenerationService;
 import org.appsquad.service.ResourceAllocationTrackingService;
 import org.appsquad.utility.CurrentOppurtunitiesReportPdf;
+import org.appsquad.utility.Dateformatter;
 import org.appsquad.utility.MonthShowingUtility;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.Command;
@@ -47,14 +49,18 @@ public class CurrentOpportunitiesReportGenerationViewModel {
    
    private MonthReportBean monthReportBean = new MonthReportBean();
    private ArrayList<MonthReportBean> monthReportBeanList = new ArrayList<MonthReportBean>();
+   private ArrayList<String> billingStatusList = new ArrayList<String>();
    LinkedHashSet<MonthReportBean> monthSetList = new LinkedHashSet<MonthReportBean>();
    @Wire("#clntBb")
    private Bandbox clnBandBox;
+   @Wire("#frstCln")
+   private Bandbox firstBandBox;
    @Wire("#resourceBb")
    private Bandbox resourceBandBox;
    
    private ArrayList<CurrentOpportunitiesReportGenerationBean> reportList = null;
    private ArrayList<ClientInformationBean> clientList = null;
+   private ArrayList<ClientInformationBean> firstTabClientList = null;
    private ArrayList<ResourceMasterBean> resourceList = null;
    
    private ArrayList<CurrentOpportunitiesReportGenerationBean> finalList = new ArrayList<CurrentOpportunitiesReportGenerationBean>();
@@ -67,24 +73,31 @@ public class CurrentOpportunitiesReportGenerationViewModel {
  		Selectors.wireComponents(view, this, false);
  		sessions = Sessions.getCurrent();
  		userId = (String) sessions.getAttribute("userId");
- 		clientList = ResourceAllocationTrackingService.fetchClientDetailsForReport();
- 		resourceList = CurrentOpportunitiesReportGenerationDao.onLoadResourceDetails();
- 		reportList = CurrentOpportunitiesReportGenerationService.loadReportDetailsUnpaid();
- 		if(reportList.size()>0){
- 			divVisibility = true;
- 			pdfDivVisibility = true;
- 		}
+ 		firstTabClientList = ResourceAllocationTrackingService.fetchClientDetailsForReport();
+ 		divVisibility = false;
+		pdfDivVisibility = false;
+		billingStatusList.add("Yes");
+		billingStatusList.add("No");
+		billingStatusList.add("All");
  	}
    
    
    @Command
    @NotifyChange("*")
    public void firstTab(){
-	   reportList = CurrentOpportunitiesReportGenerationService.loadReportDetailsUnpaid();
-	   if(reportList.size()>0){
-		  divVisibility = true;
-		  pdfDivVisibility = true;
+	   
+	   divVisibility = false;
+	   pdfDivVisibility = false;
+	   if(reportList !=null & reportList.size()>0){
+		   reportList.clear();
 	   }
+	   
+	   currentOpportunitiesReportGenerationBean.setFromDate(null);
+	   currentOpportunitiesReportGenerationBean.setToDate(null);
+	   currentOpportunitiesReportGenerationBean.getClientBean().setFullName(null);
+	   currentOpportunitiesReportGenerationBean.setBillingStatus(null);
+	   
+	   firstTabClientList = ResourceAllocationTrackingService.fetchClientDetailsForReport();
 	   
 	   /************************ THIS IS USED FOR CLEARANCE PURPOSE OF ANOTHER TAB DATA******************************************/
 	   secondDivVisibility= false;
@@ -99,15 +112,21 @@ public class CurrentOpportunitiesReportGenerationViewModel {
    	   currentOpportunitiesReportGenerationBean.getClientInformationBean().setFullName(null);
 	   resourceList = CurrentOpportunitiesReportGenerationDao.onLoadResourceDetails();
    }
+   
+   @Command
+   @NotifyChange("*")
+   public void secondTabClick(){
+   	 divVisibility = false;
+   	 clientList = ResourceAllocationTrackingService.fetchClientDetailsForReport();
+	 resourceList = CurrentOpportunitiesReportGenerationDao.onLoadResourceDetails();
+   }
     
    @Command
    @NotifyChange("*")
    public void onChangeToDate(){
-	   if(reportList.size()>0){
-		   reportList.clear();
-		   divVisibility = false;
-		   pdfDivVisibility = false;
-	   }
+	   divVisibility = false;
+	   pdfDivVisibility = false;
+	  
  	   if(currentOpportunitiesReportGenerationBean.getFromDate() != null){
  		   if(currentOpportunitiesReportGenerationBean.getToDate().after(currentOpportunitiesReportGenerationBean.getFromDate())){
  		     }else {
@@ -123,11 +142,9 @@ public class CurrentOpportunitiesReportGenerationViewModel {
    @Command
    @NotifyChange("*")
    public void onChangeFromDate(){
-	   if(reportList.size()>0){
-		   reportList.clear();
-		   divVisibility = false;
-		   pdfDivVisibility = false;
-	   }
+		divVisibility = false;
+		pdfDivVisibility = false;
+	
 	   if(currentOpportunitiesReportGenerationBean.getToDate()!=null){
 		   if(currentOpportunitiesReportGenerationBean.getToDate().after(currentOpportunitiesReportGenerationBean.getFromDate())){
 		     }else {
@@ -150,35 +167,180 @@ public class CurrentOpportunitiesReportGenerationViewModel {
 	   currentOpportunitiesReportGenerationBean.setToDate(null);
    }
    
-   /*@Command
+   @Command
    @NotifyChange("*")
    public void onClickSearchButton(){
+	   
+	 System.out.println(currentOpportunitiesReportGenerationBean.getBillingStatus());
+	   
 	 //when to Date not selected
 	 if(currentOpportunitiesReportGenerationBean.getFromDate() != null && currentOpportunitiesReportGenerationBean.getToDate() == null){
 	 	Messagebox.show("Select To Date!!", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
 	 }
 	 		
-	 //when no date selected
-	 if(currentOpportunitiesReportGenerationBean.getFromDate() == null && currentOpportunitiesReportGenerationBean.getToDate() == null){
-	 	Messagebox.show("Select From Date And To Date", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+	 //case 1
+	 if(currentOpportunitiesReportGenerationBean.getFromDate() == null && currentOpportunitiesReportGenerationBean.getToDate() == null
+			 && currentOpportunitiesReportGenerationBean.getClientBean().getFullName()==null
+			   && currentOpportunitiesReportGenerationBean.getBillingStatus()==null){
+		 
+		 reportList = BillingReportDashBoardDao.loadReportAllData();
+		 if(reportList.size()>0){
+				divVisibility = true;
+				pdfDivVisibility = true;
+		 }else{
+				Messagebox.show("No Data Found ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+				divVisibility = false;
+				pdfDivVisibility = false;
+		 }
 	 }
 	 
-	 //when two date are given
-	 if(currentOpportunitiesReportGenerationBean.getFromDate() != null && currentOpportunitiesReportGenerationBean.getToDate() != null){
-		 reportList = CurrentOpportunitiesReportGenerationService.loadReportDetails(Dateformatter.sqlDate(currentOpportunitiesReportGenerationBean.getFromDate()), 
-				 																	Dateformatter.sqlDate(currentOpportunitiesReportGenerationBean.getToDate()));
-	     
-		 System.out.println("REPORT LIST SIZE IS :"+reportList.size());
+	 //case 2
+	 if(currentOpportunitiesReportGenerationBean.getFromDate() != null && currentOpportunitiesReportGenerationBean.getToDate() != null
+			 && currentOpportunitiesReportGenerationBean.getClientBean().getFullName()==null
+			   && currentOpportunitiesReportGenerationBean.getBillingStatus()==null){
+		 
+		 reportList = BillingReportDashBoardDao.loadReportBillDateData(Dateformatter.sqlDate(currentOpportunitiesReportGenerationBean.getFromDate()),
+				 													   Dateformatter.sqlDate(currentOpportunitiesReportGenerationBean.getToDate()));
 		 if(reportList.size()>0){
-			divVisibility = true;
-			pdfDivVisibility = true;
+				divVisibility = true;
+				pdfDivVisibility = true;
 		 }else{
-			Messagebox.show("No Data Found For This Date Combination ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
-			divVisibility = false;
-			pdfDivVisibility = false;
-		}
-	  }
-   }*/
+				Messagebox.show("No Data Found ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+				divVisibility = false;
+				pdfDivVisibility = false;
+		 }
+	 }
+	 
+	 //case 3
+	 if(currentOpportunitiesReportGenerationBean.getFromDate() == null && currentOpportunitiesReportGenerationBean.getToDate() == null
+			 && currentOpportunitiesReportGenerationBean.getClientBean().getFullName()!=null
+			   && currentOpportunitiesReportGenerationBean.getBillingStatus()==null){
+		 
+		 reportList = BillingReportDashBoardDao.loadReportDataForClient(currentOpportunitiesReportGenerationBean.getClientBean().getClientId());
+		 if(reportList.size()>0){
+				divVisibility = true;
+				pdfDivVisibility = true;
+		 }else{
+				Messagebox.show("No Data Found ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+				divVisibility = false;
+				pdfDivVisibility = false;
+		 }
+	 }
+	 
+	 //case 4
+	 if(currentOpportunitiesReportGenerationBean.getFromDate() == null && currentOpportunitiesReportGenerationBean.getToDate() == null
+			 && currentOpportunitiesReportGenerationBean.getClientBean().getFullName()==null
+			   && currentOpportunitiesReportGenerationBean.getBillingStatus()!=null){
+		 
+		 if(currentOpportunitiesReportGenerationBean.getBillingStatus().equalsIgnoreCase("All")){
+			 reportList = BillingReportDashBoardDao.loadReportAllData(); 
+		 }else{
+			 reportList = BillingReportDashBoardDao.loadReportBillSelectionData(currentOpportunitiesReportGenerationBean.getBillingStatus()); 
+		 }
+		 
+		 if(reportList.size()>0){
+				divVisibility = true;
+				pdfDivVisibility = true;
+		 }else{
+				Messagebox.show("No Data Found ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+				divVisibility = false;
+				pdfDivVisibility = false;
+		 }
+	 }
+	 
+	     //case 5
+		 if(currentOpportunitiesReportGenerationBean.getFromDate() != null && currentOpportunitiesReportGenerationBean.getToDate() != null
+				 && currentOpportunitiesReportGenerationBean.getClientBean().getFullName()!=null
+				   && currentOpportunitiesReportGenerationBean.getBillingStatus()==null){
+			 
+			 reportList = BillingReportDashBoardDao.loadReportWrtDateAndClient(Dateformatter.sqlDate(currentOpportunitiesReportGenerationBean.getFromDate()),
+					   													       Dateformatter.sqlDate(currentOpportunitiesReportGenerationBean.getToDate()),
+					   													       currentOpportunitiesReportGenerationBean.getClientBean().getClientId());
+			 
+			 if(reportList.size()>0){
+					divVisibility = true;
+					pdfDivVisibility = true;
+			 }else{
+					Messagebox.show("No Data Found ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+					divVisibility = false;
+					pdfDivVisibility = false;
+			 }
+		 }
+	 
+		 
+		//case 6
+		 if(currentOpportunitiesReportGenerationBean.getFromDate() != null && currentOpportunitiesReportGenerationBean.getToDate() != null
+				 && currentOpportunitiesReportGenerationBean.getClientBean().getFullName()==null
+				   && currentOpportunitiesReportGenerationBean.getBillingStatus()!=null){
+			 
+			 if(currentOpportunitiesReportGenerationBean.getBillingStatus().equalsIgnoreCase("All")){
+				reportList = BillingReportDashBoardDao.loadReportBillDateData(Dateformatter.sqlDate(currentOpportunitiesReportGenerationBean.getFromDate()),
+					   													       Dateformatter.sqlDate(currentOpportunitiesReportGenerationBean.getToDate())); 
+			 }else{
+				reportList = BillingReportDashBoardDao.loadReportWrtBillAndDateTotal(Dateformatter.sqlDate(currentOpportunitiesReportGenerationBean.getFromDate()),
+						       														 Dateformatter.sqlDate(currentOpportunitiesReportGenerationBean.getToDate()),
+						       														 currentOpportunitiesReportGenerationBean.getBillingStatus()); 
+			 }
+			 
+			 if(reportList.size()>0){
+					divVisibility = true;
+					pdfDivVisibility = true;
+			 }else{
+					Messagebox.show("No Data Found ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+					divVisibility = false;
+					pdfDivVisibility = false;
+			 }
+		 }
+		 
+		//case 7
+		 if(currentOpportunitiesReportGenerationBean.getFromDate() == null && currentOpportunitiesReportGenerationBean.getToDate() == null
+				 && currentOpportunitiesReportGenerationBean.getClientBean().getFullName()!=null
+				   && currentOpportunitiesReportGenerationBean.getBillingStatus()!=null){
+			 
+			 if(currentOpportunitiesReportGenerationBean.getBillingStatus().equalsIgnoreCase("All")){
+				 reportList = BillingReportDashBoardDao.loadReportDataForClient(currentOpportunitiesReportGenerationBean.getClientBean().getClientId());
+			 }else{
+				reportList = BillingReportDashBoardDao.loadReportDataForClientAndStatusCombination(currentOpportunitiesReportGenerationBean.getClientBean().getClientId(),
+						                                                                           currentOpportunitiesReportGenerationBean.getBillingStatus()); 
+			 }
+			 
+			 if(reportList.size()>0){
+					divVisibility = true;
+					pdfDivVisibility = true;
+			 }else{
+					Messagebox.show("No Data Found ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+					divVisibility = false;
+					pdfDivVisibility = false;
+			 }
+		 }
+
+		 
+		 //case 8
+		 if(currentOpportunitiesReportGenerationBean.getFromDate() != null && currentOpportunitiesReportGenerationBean.getToDate() != null
+				 && currentOpportunitiesReportGenerationBean.getClientBean().getFullName()!=null
+				   && currentOpportunitiesReportGenerationBean.getBillingStatus()!=null){
+			 
+			 if(currentOpportunitiesReportGenerationBean.getBillingStatus().equalsIgnoreCase("All")){
+				 reportList = BillingReportDashBoardDao.loadReportWrtDateAndClient(Dateformatter.sqlDate(currentOpportunitiesReportGenerationBean.getFromDate()),
+						       													   Dateformatter.sqlDate(currentOpportunitiesReportGenerationBean.getToDate()),
+						       													   currentOpportunitiesReportGenerationBean.getClientBean().getClientId());
+			 }else{
+				 reportList = BillingReportDashBoardDao.loadReportDataForAllCombination(currentOpportunitiesReportGenerationBean.getClientBean().getClientId(), currentOpportunitiesReportGenerationBean.getBillingStatus(), 
+																						Dateformatter.sqlDate(currentOpportunitiesReportGenerationBean.getFromDate()),
+																						Dateformatter.sqlDate(currentOpportunitiesReportGenerationBean.getToDate()));
+ 
+			 }
+			 
+			 if(reportList.size()>0){
+					divVisibility = true;
+					pdfDivVisibility = true;
+			 }else{
+					Messagebox.show("No Data Found ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+					divVisibility = false;
+					pdfDivVisibility = false;
+			 }
+		 }
+   }
    
    @Command
    @NotifyChange("*")
@@ -246,6 +408,14 @@ public class CurrentOpportunitiesReportGenerationViewModel {
     
     @Command
 	@NotifyChange("*")
+	public void onChangeFirstClientName(){
+	   if(currentOpportunitiesReportGenerationBean.getFirstClientNameSearch() != null){
+		  setFirstTabClientList(ResourceAllocationTrackingService.fetchClientDetailsSearchClient(currentOpportunitiesReportGenerationBean.getFirstClientNameSearch()));
+	   }
+	}
+    
+    @Command
+	@NotifyChange("*")
 	public void onClickClientClear(){
 		clnBandBox.close();
 		currentOpportunitiesReportGenerationBean.getClientInformationBean().setFullName(null);
@@ -253,6 +423,22 @@ public class CurrentOpportunitiesReportGenerationViewModel {
 		currentOpportunitiesReportGenerationBean.setClientNameSearch(null);
 		clientList = ResourceAllocationTrackingService.fetchClientDetailsForReport();
 	}
+    
+    @Command
+   	@NotifyChange("*")
+   	public void onClickFirstClientClear(){
+   		firstBandBox.close();
+   		currentOpportunitiesReportGenerationBean.getClientBean().setFullName(null);
+   		currentOpportunitiesReportGenerationBean.getClientBean().setClientId(null);
+   		currentOpportunitiesReportGenerationBean.setFirstClientNameSearch(null);
+   		firstTabClientList = ResourceAllocationTrackingService.fetchClientDetailsForReport();
+   	}
+    
+    @Command
+    @NotifyChange("*")
+    public void onSelctFirstClientName(){
+    	System.out.println(currentOpportunitiesReportGenerationBean.getClientBean().getFullName()+"----"+currentOpportunitiesReportGenerationBean.getClientBean().getClientId());
+    }
     
     @Command
 	@NotifyChange("*")
@@ -398,11 +584,6 @@ public class CurrentOpportunitiesReportGenerationViewModel {
     	}
     } 
     
-    @Command
-    @NotifyChange("*")
-    public void secondTabClick(){
-    	divVisibility = false;
-    }
     
     @Command
 	@NotifyChange("*")
@@ -426,35 +607,25 @@ public class CurrentOpportunitiesReportGenerationViewModel {
 			monthSetList.clear();
 		}
 		
-		//System.out.println("RESOURCE NAME :"+currentOpportunitiesReportGenerationBean.getResourceMasterBean().getFullName());
+		
 		ArrayList<CurrentOpportunitiesReportGenerationBean> resourceList = null;
 		if(currentOpportunitiesReportGenerationBean.getResourceMasterBean().getFullName().equalsIgnoreCase("-ALL-")){
-			//System.out.println("1st method");
 			resourceList = CurrentOpportunitiesReportGenerationDao.loadOppurtunityWiseReportForClientDaoForResourceAll(currentOpportunitiesReportGenerationBean);
 		}else{
-			//System.out.println("2nd method");
 			resourceList = CurrentOpportunitiesReportGenerationDao.loadOppurtunityWiseReportForClientDaoForResource(currentOpportunitiesReportGenerationBean);
 		}
 	
-		/*ArrayList<CurrentOpportunitiesReportGenerationBean> resourceList = null;*/
-		/*resourceList = CurrentOpportunitiesReportGenerationDao.loadOppurtunityWiseReportForClientDaoForResource(currentOpportunitiesReportGenerationBean);*/
 		
-		//System.out.println("IN VIEW MODEL FOR RESOURCE :"+resourceList.size());
 		if(resourceFinalList.size()>0){
 			resourceFinalList.clear();
 		}
 		
 	    for(CurrentOpportunitiesReportGenerationBean bean1: resourceList){
-	    	//System.out.println(bean1.getRtsTrackingDetailsId()+"----"+bean1.getCurrentOpportunitiesReportBean().getMonth()+"---"+bean1.getCurrentOpportunitiesBean().getTentureFromUtil());
 	    	String name = MonthShowingUtility.fetchresourceName(bean1);
 	    	bean1.getResourceMasterBean().setFullName(name);
 	    	MonthShowingUtility.fetchdateWrtRtrackingID(bean1);
 	    	resourceFinalList.add(bean1);
 	    }
-	    
-	    /*for(CurrentOpportunitiesReportGenerationBean bean: resourceFinalList){
-	    	System.out.println(bean.getCurrentOpportunitiesBean().getTentureFromUtil()+"---"+bean.getRtsTrackingDetailsId()+"----"+bean.getCurrentOpportunitiesReportBean().getMonth()+"----"+bean.getResourceMasterBean().getFullName());
-	    }*/
 	    
 	    secondTabList = resourceFinalList;
 	    if(secondTabList.size()>0){
@@ -539,7 +710,6 @@ public class CurrentOpportunitiesReportGenerationViewModel {
     		CurrentOpportunitiesReportGenerationBean opportunitiesReportGenerationBean = new CurrentOpportunitiesReportGenerationBean();
 		
     		grandTotal = CurrentOpportunitiesReportGenerationDao.calculateGrandTotal(monthSetList);
-    		//System.out.println("IN VIEW MODEL CLASS GRAND TOTAL IS ::"+grandTotal);
     		
     		opportunitiesReportGenerationBean.getCurrentOpportunitiesBean().setMarginString("GRAND TOTAL: "+grandTotal);
     		opportunitiesReportGenerationBean.setStyle(opportunitiesReportGenerationBean.getBoldStyle());
@@ -586,6 +756,25 @@ public class CurrentOpportunitiesReportGenerationViewModel {
     	currentOpportunitiesReportGenerationBean.getClientInformationBean().setFullName(null);
  		resourceList = CurrentOpportunitiesReportGenerationDao.onLoadResourceDetails();
     }
+    
+    @Command
+    @NotifyChange("*")
+    public void onClickFirstTabClear(){
+    	currentOpportunitiesReportGenerationBean.setFromDate(null);
+    	currentOpportunitiesReportGenerationBean.setToDate(null);
+    	currentOpportunitiesReportGenerationBean.getClientBean().setFullName(null);
+    	currentOpportunitiesReportGenerationBean.setBillingStatus(null);
+    	
+    	firstTabClientList = ResourceAllocationTrackingService.fetchClientDetailsForReport();
+    	
+    	if(reportList !=null && reportList.size()>0){
+    		reportList.clear();
+    	}
+    	
+    	divVisibility = false;
+    	pdfDivVisibility = false;
+    }
+    
     
     /****************************************************** GETTER AND SETTER METHOD *******************************************************************/
     
@@ -737,5 +926,23 @@ public class CurrentOpportunitiesReportGenerationViewModel {
 	}
 	public void setMonthSetList(LinkedHashSet<MonthReportBean> monthSetList) {
 		this.monthSetList = monthSetList;
+	}
+	public ArrayList<ClientInformationBean> getFirstTabClientList() {
+		return firstTabClientList;
+	}
+	public void setFirstTabClientList(ArrayList<ClientInformationBean> firstTabClientList) {
+		this.firstTabClientList = firstTabClientList;
+	}
+	public Bandbox getFirstBandBox() {
+		return firstBandBox;
+	}
+	public void setFirstBandBox(Bandbox firstBandBox) {
+		this.firstBandBox = firstBandBox;
+	}
+	public ArrayList<String> getBillingStatusList() {
+		return billingStatusList;
+    }
+    public void setBillingStatusList(ArrayList<String> billingStatusList) {
+		this.billingStatusList = billingStatusList;
 	}
 }

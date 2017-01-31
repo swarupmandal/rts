@@ -15,9 +15,92 @@
  			</tabs>
  			<tabpanels>
  				<tabpanel>
+ 				   <div>
+                          <hlayout>
+                            <grid>
+                                <columns>
+                                      <column></column>
+                                      <column></column>
+                                      <column></column>
+                                </columns>
+                                <rows>
+                                  
+								  <row>
+								      <label value=" Bill From Date-" style="font-weight:bold; color: black"></label>
+                                      <datebox placeholder="From Date" format="dd-MMM-yyyy" readonly="true"
+		    				                       value="@bind(vm.currentOpportunitiesReportGenerationBean.fromDate)" onChange="@command('onChangeFromDate')" width="100%"></datebox>
+						
+								      <label value=" Bill To Date-" style="font-weight:bold; color: black"></label>
+								      <datebox placeholder="To Date" format="dd-MMM-yyyy" readonly="true"
+		    				                      value="@bind(vm.currentOpportunitiesReportGenerationBean.toDate)" onChange="@command('onChangeToDate')" width="90%"></datebox>
+								      
+								   </row> 
+								   
+								   <row>
+                                       <label value="Client Name-" style="font-weight:bold; color: black"></label>
+                                      <bandbox autodrop="true" readonly="true" id="frstCln"
+ 											value="@bind(vm.currentOpportunitiesReportGenerationBean.clientBean.fullName)"
+ 											placeholder="Search By Client"  width="100%">
+ 									<bandpopup>
+ 									<hbox>
+ 										<textbox
+ 											value="@bind(vm.currentOpportunitiesReportGenerationBean.firstClientNameSearch)"
+ 											onChange="@command('onChangeFirstClientName')" width="160px">
+ 										</textbox>
+ 										<button label="Serach" onClick="@command('onChangeFirstClientName')">
+ 										</button>
+ 										<button label="Clear" onClick="@command('onClickFirstClientClear')">
+ 										</button>
+ 									</hbox>
+ 									<space></space>
+ 									<listbox width="280px" model="@bind(vm.firstTabClientList)"
+ 											selectedItem="@bind(vm.currentOpportunitiesReportGenerationBean.clientBean)"
+ 											onSelect="@command('onSelctFirstClientName')" mold="paging" pageSize="5">
+ 										<listhead sizable="true">
+ 											<listheader
+ 												label="Client Name">
+ 											</listheader>
+ 										</listhead>
+
+ 										<template name="model"
+ 											var="v">
+ 											<listitem>
+ 												<listcell
+ 													label="@load(v.fullName)">
+ 												</listcell>
+ 											</listitem>
+ 										</template>
+ 									</listbox>
+ 								</bandpopup>
+ 							</bandbox>
+ 							
+ 							<label value="Paid Status-" style="font-weight:bold; color: black"></label>
+                            <combobox width="90%" readonly="true" model="@bind(vm.billingStatusList)"
+								value="@bind(vm.currentOpportunitiesReportGenerationBean.billingStatus)" 
+								selectedItem="@bind(vm.currentOpportunitiesReportGenerationBean.billingStatus)"
+								placeholder="Billing Status">
+								<template name="model" var="v">
+									<comboitem label="@bind(v)" value="@bind(v)"/>
+								</template>
+							</combobox>        
+		             					
+							<hlayout>
+							       <button label="Search" style="font-weight:bold; color: black" visible="true" onClick="@command('onClickSearchButton')"></button>
+				                   <button label="Clear"  style="font-weight:bold; color: black" visible="true" width="70px" onClick="@command('onClickFirstTabClear')">
+				                   </button>       
+						   </hlayout>
+							    
+                        </row>
+						
+						</rows>
+                            </grid>
+                            </hlayout>
+                        </div>
+ 				    <space></space>
+ 				    
  					<div visible="@bind(vm.divVisibility)">
  						<grid model="@bind(vm.reportList)"
- 							mold="paging" pageSize="10" height="390px">
+ 							mold="paging" pageSize="7" height="310px">
  							<columns sizable="true">
  								<column width="300px" label="Year"
  									style="font-weight:bold; color: black" align="center">
