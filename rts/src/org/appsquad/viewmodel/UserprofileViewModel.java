@@ -7,6 +7,7 @@ import java.util.HashMap;
 
 import org.appsquad.bean.UserprofileBean;
 import org.appsquad.dao.UserProfileDao;
+import org.appsquad.database.DbConstants;
 import org.appsquad.service.LogAuditServiceClass;
 import org.appsquad.service.UserProfileService;
 import org.zkoss.bind.BindUtils;
@@ -75,6 +76,16 @@ public class UserprofileViewModel {
 			}else{
 				flagInsert = UserProfileService.insertUserMasterData(userprofileBean);
 				if(flagInsert){
+					String emailBody = "Hello "+userprofileBean.getUsername()+". \nYou are "
+							+ "registered with Resource Augmentation Tracking System.\n"
+							+ " Your userid is: "+userprofileBean.getUserid()
+							+"\n And password is: "+userprofileBean.getPassword()
+							+"\n Kindly go to the following link for login with your given credentials.\n "
+							+ DbConstants.SERVERURL;
+					if(SendEmail.sendUserDetailsInEmail(userprofileBean.getEmail(), emailBody)){
+						Messagebox.show("A mail regarding new user registration is send to the newly created user.",
+								"Information",Messagebox.OK,Messagebox.INFORMATION);
+					}
 					userprofileBean.setOperation("INSERT");
 					userprofileBean.setOperationId(1);
 					Calendar calendar = Calendar.getInstance();
