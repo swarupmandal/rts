@@ -142,11 +142,10 @@ public class MonthShowingUtility {
 							    preparedStatement = Pstm.createQuery(connection,CurrentOpportunitiesReportGenerationSql.marginSetOppurtunityWiseSql,Arrays.asList(bean.getRtsTrackingDetailsId()));
 								ResultSet resultSet = preparedStatement.executeQuery();
 								while (resultSet.next()) {
-									bean.getCurrentOpportunitiesReportBean().setChargeOutRateString(resultSet.getString("charge_out_rate"));
+									bean.getCurrentOpportunitiesReportBean().setChargeOutRateString(Main.convert(resultSet.getDouble("charge_out_rate")));
 									bean.getCurrentOpportunitiesReportBean().setChargeOutRate(resultSet.getDouble("charge_out_rate"));
 									bean.getCurrentOpportunitiesReportBean().setResourceSallary(resultSet.getDouble("resource_salary"));
-									bean.getCurrentOpportunitiesBean().setMarginString(resultSet.getString("margin"));
-									//bean.getCurrentOpportunitiesBean().setMarginString(String.format("%.2f", margin));
+									bean.getCurrentOpportunitiesBean().setMarginString(Main.convert(resultSet.getDouble("margin")));
 									bean.getCurrentOpportunitiesBean().setMargin(resultSet.getDouble("margin"));
 									bean.getCurrentOpportunitiesBean().setPercentage(CustomDecimalFormat.reqWiseDouble(resultSet.getDouble("percentage")));
 									bean.getCurrentOpportunitiesBean().setPercentageData(resultSet.getString("percentage"));
@@ -191,4 +190,13 @@ public class MonthShowingUtility {
 		  totalMargin = (new Double(total)).longValue();
 		  return totalMargin;
 	  }
+	  
+	  public static Double calculateTotalMonthWiseDouble(ArrayList<CurrentOpportunitiesReportGenerationBean> list){
+		  Double total = 0d;
+		  for(CurrentOpportunitiesReportGenerationBean bean: list){
+			   total+=bean.getCurrentOpportunitiesBean().getMargin();
+		  }	 
+		  return total;
+	  }
+	  
 }

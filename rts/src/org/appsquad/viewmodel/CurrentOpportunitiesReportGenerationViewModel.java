@@ -15,6 +15,7 @@ import org.appsquad.service.CurrentOpportunitiesReportGenerationService;
 import org.appsquad.service.ResourceAllocationTrackingService;
 import org.appsquad.utility.CurrentOppurtunitiesReportPdf;
 import org.appsquad.utility.Dateformatter;
+import org.appsquad.utility.Main;
 import org.appsquad.utility.MonthShowingUtility;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.Command;
@@ -456,7 +457,7 @@ public class CurrentOpportunitiesReportGenerationViewModel {
     	
     	currentOpportunitiesReportGenerationBean.setClientFlag("Y");
     	currentOpportunitiesReportGenerationBean.setResourceFlag("N");
-    	long grandTotalClient = 0;
+    	Double grandTotalClient = 0d;
     	ArrayList<CurrentOpportunitiesReportGenerationBean> list = null;
     	
     	if(currentOpportunitiesReportGenerationBean.getClientInformationBean().getFullName().equalsIgnoreCase("-ALL-")){
@@ -551,9 +552,10 @@ public class CurrentOpportunitiesReportGenerationViewModel {
         			bean.getClientInformationBean().setFullName(null);
         			bean.getResourceMasterBean().setFullName(null);
         			bean.setPercentage(null);
-        			bean.getCurrentOpportunitiesBean().setMarginString("TOTAL: "+MonthShowingUtility.calculateTotalMonthWise(monthClienBeanList));
+        			/*bean.getCurrentOpportunitiesBean().setMarginString("TOTAL: "+MonthShowingUtility.calculateTotalMonthWise(monthClienBeanList));*/
+        			bean.getCurrentOpportunitiesBean().setMarginString("TOTAL: "+Main.convert(MonthShowingUtility.calculateTotalMonthWiseDouble(monthClienBeanList)));
         			//bean.getCurrentOpportunitiesBean().setMargin(Double.longBitsToDouble(MonthShowingUtility.calculateTotalMonthWise(monthClienBeanList)));
-        			bean.getCurrentOpportunitiesBean().setMarginTotal(MonthShowingUtility.calculateTotalMonthWise(monthClienBeanList));
+        			bean.getCurrentOpportunitiesBean().setMarginTotal(MonthShowingUtility.calculateTotalMonthWiseDouble(monthClienBeanList));
         			bean.setStyle(bean.getLighterStyle());
         			monthClienBeanList.add(bean);
         			reportBean.setCurrentOpportunitiesReportGenerationBeanList(monthClienBeanList);
@@ -578,7 +580,7 @@ public class CurrentOpportunitiesReportGenerationViewModel {
     		
     		ArrayList<CurrentOpportunitiesReportGenerationBean> list2 = new ArrayList<CurrentOpportunitiesReportGenerationBean>();
     		CurrentOpportunitiesReportGenerationBean opportunitiesReportGenerationBean = new CurrentOpportunitiesReportGenerationBean();
-    		opportunitiesReportGenerationBean.getCurrentOpportunitiesBean().setMarginString("GRAND TOTAL: "+grandTotalClient);
+    		opportunitiesReportGenerationBean.getCurrentOpportunitiesBean().setMarginString("GRAND TOTAL: "+Main.convert(grandTotalClient));
     		opportunitiesReportGenerationBean.setStyle(opportunitiesReportGenerationBean.getBoldStyle());
     		list2.add(opportunitiesReportGenerationBean);
     		
@@ -595,7 +597,7 @@ public class CurrentOpportunitiesReportGenerationViewModel {
     	currentOpportunitiesReportGenerationBean.setClientFlag("N");
     	currentOpportunitiesReportGenerationBean.setResourceFlag("Y");
     	
-    	long grandTotal = 0;
+    	Double grandTotal = 0d;
     	
 		resourceBandBox.close();
 		if(secondTabList.size()>0){
@@ -687,8 +689,13 @@ public class CurrentOpportunitiesReportGenerationViewModel {
         			bean.getClientInformationBean().setFullName(null);
         			bean.getResourceMasterBean().setFullName(null);
         			bean.setPercentage(null);
-        			bean.getCurrentOpportunitiesBean().setMarginString("TOTAL: "+MonthShowingUtility.calculateTotalMonthWise(monthClienBeanList));
-        			bean.getCurrentOpportunitiesBean().setMarginTotal(MonthShowingUtility.calculateTotalMonthWise(monthClienBeanList));
+        			
+        			
+        			bean.getCurrentOpportunitiesBean().setMarginString("TOTAL: "+Main.convert(MonthShowingUtility.calculateTotalMonthWiseDouble(monthClienBeanList)));
+        			bean.getCurrentOpportunitiesBean().setMarginTotal(MonthShowingUtility.calculateTotalMonthWiseDouble(monthClienBeanList));
+        			
+        			//bean.getCurrentOpportunitiesBean().setMarginString("TOTAL: "+MonthShowingUtility.calculateTotalMonthWise(monthClienBeanList));
+        			//bean.getCurrentOpportunitiesBean().setMarginTotal(MonthShowingUtility.calculateTotalMonthWise(monthClienBeanList));
         			bean.setStyle(bean.getLighterStyle());
         			monthClienBeanList.add(bean);
         			reportBean.setCurrentOpportunitiesReportGenerationBeanList(monthClienBeanList);
@@ -714,7 +721,7 @@ public class CurrentOpportunitiesReportGenerationViewModel {
 		
     		grandTotal = CurrentOpportunitiesReportGenerationDao.calculateGrandTotal(monthSetList);
     		
-    		opportunitiesReportGenerationBean.getCurrentOpportunitiesBean().setMarginString("GRAND TOTAL: "+grandTotal);
+    		opportunitiesReportGenerationBean.getCurrentOpportunitiesBean().setMarginString("GRAND TOTAL: "+Main.convert(grandTotal));
     		opportunitiesReportGenerationBean.setStyle(opportunitiesReportGenerationBean.getBoldStyle());
     		list2.add(opportunitiesReportGenerationBean);
 		

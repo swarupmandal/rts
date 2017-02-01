@@ -28,7 +28,7 @@ public class CurrentOpportunitiesBean {
 	private Double resourceSalary;
 	private Double margin;
 	private String marginString;
-	private long marginTotal;
+	private Double marginTotal;
 	private String approval;
 	private Integer userId;
 	private String userName;
@@ -288,12 +288,6 @@ public class CurrentOpportunitiesBean {
 	public void setMarginString(String marginString) {
 		this.marginString = marginString;
 	}
-	public long getMarginTotal() {
-		return marginTotal;
-	}
-	public void setMarginTotal(long marginTotal) {
-		this.marginTotal = marginTotal;
-	}
 	public String getModalTitle() {
 		return modalTitle;
 	}
@@ -311,5 +305,11 @@ public class CurrentOpportunitiesBean {
 	}
 	public void setPercentageData(String percentageData) {
 		this.percentageData = percentageData;
+	}
+	public Double getMarginTotal() {
+		return marginTotal;
+	}
+	public void setMarginTotal(Double marginTotal) {
+		this.marginTotal = marginTotal;
 	}
 }

@@ -544,22 +544,19 @@ public class CurrentOpportunitiesReportGenerationDao {
 	 * This function is used for calculating Grand Total:-Prolay
 	 */
 	
-	public static long calculateGrandTotal(LinkedHashSet<MonthReportBean> list)
+	public static Double calculateGrandTotal(LinkedHashSet<MonthReportBean> list)
 	{
-	   	long total = 0;
-	   	
+	   	Double total = 0d;
 	   	for(MonthReportBean reportBean: list){
 	   		if(!reportBean.getMonthName().equalsIgnoreCase("")){
 	   			for(CurrentOpportunitiesReportGenerationBean generationBean: reportBean.getCurrentOpportunitiesReportGenerationBeanList()){
 	   				if(generationBean.getResourceMasterBean().getFullName()!=null && 
 	   						generationBean.getResourceMasterBean().getFullName().trim().length()>0){
-	   					
-	   					total+=generationBean.getCurrentOpportunitiesBean().getMargin().longValue();
+	   							total+=generationBean.getCurrentOpportunitiesBean().getMargin().longValue();
 	   				}
 	   			}
 	   		}
 	   	}
-	   	//System.out.println("IN DAO CLASS GRAND TOTAL IS ::"+total);
 	   	return total;
 	}
 	
