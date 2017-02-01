@@ -23,8 +23,8 @@
             <label value="@bind(v.resourceMasterBean.fullName)" width="100%"></label>
             <label value="@bind(v.chargeOutRate)" width="100%"></label>
             <label value="@bind(v.resourceSallary)" width="100%"></label>
-            <label value="@bind(v.fromDateSql)" width="100%"></label>
-            <label value="@bind(v.toDateSql)" width="100%"></label>
+            <datebox format="dd-MM-yyyy" buttonVisible="false" readonly="true" value="@bind(v.fromDateSql)" width="100%"/>
+            <datebox format="dd-MM-yyyy" buttonVisible="false" readonly="true" value="@bind(v.toDateSql)" width="100%"/>
             <button image="images/info.png" label="Billing Info" onClick="@command('billingInfoButton', bean = v)"/>
           </row>
           </template> 

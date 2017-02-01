@@ -9,18 +9,20 @@
 					<columns>
 						<column width="150px"/>
 						<column width="240px"/>
-						<column width="110px"/>
+						
 					</columns>
 					<rows>
 						<row>
 						  <label value="Tenure From:" style="font-weight:bold"></label>		
-						  <datebox width="60%" value="@bind(vm.currentOpportunitiesBean.tenureFromsql)" readonly="true"
+						  <datebox width="60%" format="dd-MM-yyyy"
+						  value="@bind(vm.currentOpportunitiesBean.tenureFromsql)" readonly="true"
 						    onChange="@command('onChangeFromDate')"></datebox>	
 						</row>
 						
 						<row>
 						  <label value="Tenure To:" style="font-weight:bold"></label>		
-						  <datebox width="60%" value="@bind(vm.currentOpportunitiesBean.tenureTosql)" readonly="true"
+						  <datebox width="60%" format="dd-MM-yyyy"
+						  value="@bind(vm.currentOpportunitiesBean.tenureTosql)" readonly="true"
 						    onChange="@command('onChangeToDate')"></datebox>	
 						</row>
 						
@@ -39,9 +41,13 @@
 						
 						<row>
 						 <label value="Margin:" style="font-weight:bold"></label>		
-						 <doublebox value="@bind(vm.currentOpportunitiesBean.margin)" width="60%" maxlength="6" readonly="true">
-						 </doublebox>
-						 <button label="Calculate" onClick="@command('createMargin')"></button>
+						<hlayout>
+							<doublebox value="@bind(vm.currentOpportunitiesBean.margin)" 
+							 maxlength="6" readonly="true"/>
+						 
+						 <button image="images/calculate.png" style="font-weight:bold" label="Calculate" onClick="@command('createMargin')"/>
+						</hlayout>
+						 
 						</row>
 						
 						<row>
