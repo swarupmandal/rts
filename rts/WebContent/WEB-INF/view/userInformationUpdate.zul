@@ -2,39 +2,39 @@
 <zk>
  <window apply="org.zkoss.bind.BindComposer" title="User Profile Update" 
         			viewModel="@id('vm') @init('org.appsquad.viewmodel.UserProfileUpdateViewModel')" id="winUserProfile" closable="true"
-          				height="350px" width="600px" onClose="@command('onCloseOperation')"
+          				height="50%" width="35%" onClose="@command('onCloseOperation')"
           				action="show: slideDown;hide: slideUp"  position="center,center">
       			
       			<div>
                            <grid>
                                <columns>
-                                    <column></column>
-                                    <column></column>                    
+                                    <column align="right"></column>
+                                    <column align="left"></column>                    
                                </columns>
                                <rows>
                                     <row>
-                                        <label value="User Name"/>
-                                        <textbox value="@bind(vm.bean.username)" readonly="true"/>
+                                        <label value="User Name" style="font-weight:bold"/>
+                                        <textbox value="@bind(vm.bean.username)" />
                                     </row> 
                                     <row>
-                                       <label value="User Id"/>
+                                       <label value="User Id" style="font-weight:bold"/>
                                        <textbox value="@bind(vm.bean.userid)" readonly="true"/>
                                     </row>   
-                                    <row>
+                                    <row visible="false">
                                         <label value="Password"/>
                                         <textbox value="@bind(vm.bean.password)" type="@bind(vm.bean.textType)" readonly="@bind(vm.bean.passwordReadOnly)"/>
                                     </row> 
                                     <row>
-                                        <label value="Email Id"/>
+                                        <label value="Email Id" style="font-weight:bold"/>
                                         <textbox value="@bind(vm.bean.email)" maxlength="25"/>
                                     </row>               
                                     <row>
-                                        <label value="Address"/>
+                                        <label value="Address" style="font-weight:bold"/>
                                         <textbox value="@bind(vm.bean.address)" rows="3" maxlength="100" placeholder="WITHIN 80 WORDS"/>
                                     </row>
                                     
                                     <row>
-                                        <label value="Contact No"/>
+                                        <label value="Contact No" style="font-weight:bold"/>
                                         <textbox value="@bind(vm.bean.contactno)" maxlength="10" xmlns:w="client">
 	                                        <attribute w:name="doKeyPress_">
 	                                          <![CDATA[ function(evt) { if ( (evt.which >

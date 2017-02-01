@@ -13,7 +13,7 @@ public class UserProfileService {
 						if(userprofileBean.getPassword()!=null && userprofileBean.getPassword().trim().length()>0){
 							if(userprofileBean.getEmail()!=null && userprofileBean.getEmail().trim().length()>0){
 								   if(userprofileBean.getEmail().matches(EMAIL_REGEX)){
-									   if(userprofileBean.getAddress()!=null && userprofileBean.getAddress().trim().length()>0){
+									   if(userprofileBean.getAddress()!=null ){
 										   if(userprofileBean.getContactno()!=null && userprofileBean.getContactno().trim().length()>0){
 											   return true;
 										   }else {

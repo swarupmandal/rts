@@ -52,11 +52,11 @@ public class UserProfileUpdateViewModel {
 		String address = "";
 		boolean flagForUserUpdate = false;
 		if(bean.getContactno()!=null && bean.getContactno().length()==10){
-			emailID = bean.getEmail().trim();
-			bean.setEmail(emailID);
+			//emailID = bean.getEmail().trim();
+		//	bean.setEmail(emailID);
 			
-			address = bean.getAddress().trim();
-			bean.setAddress(address);
+			//address = bean.getAddress().trim();
+		//	bean.setAddress(address);
 			
 			flagForUserUpdate = UserProfileService.updateUserMasterData(bean);
 			if(flagForUserUpdate){
