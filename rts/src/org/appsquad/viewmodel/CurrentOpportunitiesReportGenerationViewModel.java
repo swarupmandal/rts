@@ -73,7 +73,7 @@ public class CurrentOpportunitiesReportGenerationViewModel {
  		Selectors.wireComponents(view, this, false);
  		sessions = Sessions.getCurrent();
  		userId = (String) sessions.getAttribute("userId");
- 		firstTabClientList = ResourceAllocationTrackingService.fetchClientDetailsForReport();
+ 		firstTabClientList = ResourceAllocationTrackingService.fetchClientDetailsForReportFirstTab();
  		divVisibility = false;
 		pdfDivVisibility = false;
 		billingStatusList.add("Yes");
@@ -88,7 +88,7 @@ public class CurrentOpportunitiesReportGenerationViewModel {
 	   
 	   divVisibility = false;
 	   pdfDivVisibility = false;
-	   if(reportList !=null & reportList.size()>0){
+	   if(reportList !=null){
 		   reportList.clear();
 	   }
 	   
@@ -472,9 +472,6 @@ public class CurrentOpportunitiesReportGenerationViewModel {
 			monthSetList.clear();
 		}
 		
-		//ArrayList<CurrentOpportunitiesReportGenerationBean> list = null;
-		//list = CurrentOpportunitiesReportGenerationDao.loadOppurtunityWiseReportForClientDao(currentOpportunitiesReportGenerationBean);
-		
 		if(finalList.size()>0){
 			finalList.clear();
 		}
@@ -485,10 +482,6 @@ public class CurrentOpportunitiesReportGenerationViewModel {
 	    	MonthShowingUtility.fetchdateWrtRtrackingID(bean);
 	    	finalList.add(bean);
 	    }
-	    
-	   /* for(CurrentOpportunitiesReportGenerationBean bean: finalList){
-	    	System.out.println(bean.getCurrentOpportunitiesBean().getTentureFromUtil()+"---"+bean.getRtsTrackingDetailsId()+"----"+bean.getCurrentOpportunitiesReportBean().getMonth()+"----"+bean.getResourceMasterBean().getFullName());
-	    }*/
 	    
 	    secondTabList = finalList;
 	    
@@ -765,9 +758,9 @@ public class CurrentOpportunitiesReportGenerationViewModel {
     	currentOpportunitiesReportGenerationBean.getClientBean().setFullName(null);
     	currentOpportunitiesReportGenerationBean.setBillingStatus(null);
     	
-    	firstTabClientList = ResourceAllocationTrackingService.fetchClientDetailsForReport();
+    	firstTabClientList = ResourceAllocationTrackingService.fetchClientDetailsForReportFirstTab();
     	
-    	if(reportList !=null && reportList.size()>0){
+    	if(reportList !=null){
     		reportList.clear();
     	}
     	

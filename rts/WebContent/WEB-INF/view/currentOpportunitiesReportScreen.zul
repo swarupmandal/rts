@@ -1,7 +1,7 @@
 	<?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
  <window border="normal"
- 	apply="org.zkoss.bind.BindComposer" height="550px"
+ 	apply="org.zkoss.bind.BindComposer" height="580px"
  	viewModel="@id('vm') @init('org.appsquad.viewmodel.CurrentOpportunitiesReportGenerationViewModel')">
  	<caption label="Billing Report" style="font-weight:bold"/>
  	<div>
@@ -40,7 +40,7 @@
                                        <label value="Client Name-" style="font-weight:bold; color: black"></label>
                                       <bandbox autodrop="true" readonly="true" id="frstCln"
  											value="@bind(vm.currentOpportunitiesReportGenerationBean.clientBean.fullName)"
- 											placeholder="Search By Client"  width="100%">
+ 											placeholder="Search By Client Name"  width="100%">
  									<bandpopup>
  									<hbox>
  										<textbox
@@ -100,7 +100,7 @@
  				    
  					<div visible="@bind(vm.divVisibility)">
  						<grid model="@bind(vm.reportList)"
- 							mold="paging" pageSize="7" height="310px">
+ 							mold="paging" pageSize="8" height="310px">
  							<columns sizable="true">
  								<column width="300px" label="Year"
  									style="font-weight:bold; color: black" align="center">
