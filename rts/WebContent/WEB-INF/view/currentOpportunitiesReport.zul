@@ -1,6 +1,6 @@
 <?page title="Current Opportunities Report Screen" contentType="text/html;charset=UTF-8"?>
 <zk xmlns:h='http://www.w3.org/1999/xhtml'>
-<window title="Billing Confirmation " border="normal" apply="org.zkoss.bind.BindComposer" 
+<window title="Billing Confirmation" border="none" apply="org.zkoss.bind.BindComposer" 
                  viewModel="@id('vm') @init('org.appsquad.viewmodel.CurrentOpportunitiesReportViewModel')">
            
    <div>
@@ -25,7 +25,7 @@
             <label value="@bind(v.resourceSallary)" width="100%"></label>
             <datebox format="dd-MM-yyyy" buttonVisible="false" readonly="true" value="@bind(v.fromDateSql)" width="100%"/>
             <datebox format="dd-MM-yyyy" buttonVisible="false" readonly="true" value="@bind(v.toDateSql)" width="100%"/>
-            <button image="images/info.png" label="Billing Info" onClick="@command('billingInfoButton', bean = v)"/>
+            <button image="images/info.png" label="Billing Info" style="font-weight:bold" onClick="@command('billingInfoButton', bean = v)"/>
           </row>
           </template> 
         </rows>
