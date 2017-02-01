@@ -16,7 +16,7 @@
  			<tabpanels>
  				<tabpanel>
  				   <div>
-                          <hlayout>
+                          <hlayout style="border:5px solid">
                             <grid>
                                 <columns>
                                       <column></column>

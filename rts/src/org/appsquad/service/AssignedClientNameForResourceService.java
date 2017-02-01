@@ -8,17 +8,11 @@ import org.appsquad.dao.AssignedClientNameForResourceDao;
 public class AssignedClientNameForResourceService {
     
     public static ArrayList<DemoBean> fetchResourceDetailsListService(DemoBean demoBean){
-       ArrayList<DemoBean> list = null;	
-	   list = AssignedClientNameForResourceDao.fetchResourceDetailsListDao(demoBean);
-	   return list;
+	   return AssignedClientNameForResourceDao.fetchResourceDetailsListDao(demoBean);
     }
     
     public static Integer fetchUserPresentWrtResourceService(DemoBean demoBean){
-       int countNumber = 0;
-       countNumber = AssignedClientNameForResourceDao.fetchUserPresentWrtResourceDao(demoBean);	
-       return countNumber;
+       return AssignedClientNameForResourceDao.fetchUserPresentWrtResourceDao(demoBean);	
     }
-    
-    /*****************************************************************************************************************************************/
    
 }
