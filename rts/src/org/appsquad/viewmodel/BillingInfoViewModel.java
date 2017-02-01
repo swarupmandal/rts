@@ -2,6 +2,7 @@ package org.appsquad.viewmodel;
 
 import java.io.File;
 import java.sql.Connection;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -142,6 +143,7 @@ public class BillingInfoViewModel {
     	if(reportBean.getChqDetailsValue()!=null){
     		if(reportBean.getChqDetailsValue()>0){
         		reportBean.setPaid("Yes");
+        		reportBean.setChequeDateSql(new java.sql.Date(new java.util.Date().getTime()));
         	}else{
         		reportBean.setPaid("No");
         	}	
@@ -198,13 +200,15 @@ public class BillingInfoViewModel {
     public void addRow(@BindingParam("bean") CurrentOpportunitiesReportBean reportBean){
     	if(reportBean.getYear()!=null){
     		if(reportBean.getMonth()!=null){
-    			 for(int i =0;i<1;i++){
-    				 CurrentOpportunitiesReportBean opportunitiesReportBean = new CurrentOpportunitiesReportBean();
-    				 System.out.println("IN ADD METHOD ::"+arrayIndex);
-    				 opportunitiesReportBean.setListIndexOf(arrayIndex);
-    				 arrayIndex++;
-    			     reportGridList.add(opportunitiesReportBean);
-    			 }
+    			
+    				for(int i =0;i<1;i++){
+       				 CurrentOpportunitiesReportBean opportunitiesReportBean = new CurrentOpportunitiesReportBean();
+       				 System.out.println("IN ADD METHOD ::"+arrayIndex);
+       				 opportunitiesReportBean.setListIndexOf(arrayIndex);
+       				 arrayIndex++;
+       			     reportGridList.add(opportunitiesReportBean);
+       			 }
+    			
     		}else{
 				Messagebox.show("Select Month", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
 			}

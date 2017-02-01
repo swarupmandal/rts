@@ -64,11 +64,11 @@
 		    </div>
 			
 			<div >
-				<div align="center" width="100%" class="login_sec" >
-					<div class="login_inr" >
-					<grid sclass="loginGrid" width="32%" height="350px" apply="org.zkoss.bind.BindComposer"
+				<div align="center" width="100%">
+					<!-- <div class="login_inr" > -->
+					<grid sclass="loginGrid" width="32%"  apply="org.zkoss.bind.BindComposer"
 			                  viewModel="@id('vm') @init('org.appsquad.viewmodel.LogingViewModel')"
-			                  action="show: slideDown;hide: slideUp"
+			                
 			                 >
 						<columns>
 							<column></column>
@@ -77,7 +77,6 @@
 							<row>
 								<div align="center" class="user" style="margin-top:20px;">
 									 <image src="/images/user.png"/>
-									
 								</div>	
 							</row>
 							<row>
@@ -97,12 +96,10 @@
 										<hbox>
 											<checkbox onCheck="@command('onCheckShowPassword')"/>
 											<label value="Show password" style="font-weight:bold"/>
-											<space width="50px"/>
-											<label value="Forgot Password?" style="font-weight:bold"/>
-											<a image="images/click.gif" onClick="@command('onClickForgotPassword')"/>
-										</hbox>
-										
+											<space />
 											
+											<a label="Forgot Password?" style="font-weight:bold" onClick="@command('onClickForgotPassword')"/>
+										</hbox>
 										
 										<button  sclass="mybutton" label="LOGIN" width="100%" height="35px" style="border-radius:0;border: 1px solid #00c800" onClick="@command('onClickLogin')"/>
 										<button sclass="mybutton" label="FORGOT PASSWORD" width="100%" height="35px" onClick="@command('onOkChangePassword')" visible="false"/>
@@ -112,7 +109,7 @@
 							</row>
 						</rows>
 					</grid>
-					</div>
+					<!-- </div> -->
 				</div>
 			</div>
 			<separator/>			
