@@ -103,7 +103,8 @@
 						
 						<row>
 						  <label></label>
-						  <button image="images/save.png" label="Submit" style="font-weight: bold" onClick="@command('onclickSubmit')"></button>
+						  <button image="images/save.png" label="Submit" disabled="@bind(vm.saveBtnDisabled)"
+						  style="font-weight: bold" onClick="@command('onclickSubmit')"></button>
 						</row>
 						
 					</rows>

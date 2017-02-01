@@ -1,8 +1,15 @@
 package org.appsquad.service;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
+
 import org.appsquad.bean.StatusMasterBean;
 import org.appsquad.dao.StatusMasterDao;
+import org.appsquad.database.DbConnection;
+import org.appsquad.sql.StatusMasterSql;
+import org.appsquad.utility.Pstm;
 import org.zkoss.zul.Messagebox;
 
 public class StatusMasterService {
@@ -102,4 +109,37 @@ public class StatusMasterService {
 		bean.setStatus(null);
 	}
 	
+	public static boolean isAllStatusSaved(){
+		int count = 0;
+		try {
+			SQL:{
+					Connection connection = DbConnection.createConnection();
+					PreparedStatement preparedStatement = null;
+					ResultSet resultSet = null;
+					try {
+						preparedStatement = Pstm.createQuery(connection, StatusMasterSql.statusCountSql, null);
+						System.out.println(preparedStatement);
+						resultSet = preparedStatement.executeQuery();
+						while (resultSet.next()) {
+							count++;
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+					}finally{
+						if(connection!=null){
+							connection.close();
+						}
+					}
+				}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		System.out.println("Count : "+count);
+		if(count == 3){
+			return true;
+		}else{
+			return false;
+		}
+		
+	}
 }

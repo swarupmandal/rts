@@ -11,4 +11,7 @@ public class StatusMasterSql {
     public static final String updateOtherStatusSql = "update rts_status_master set is_pre_bill = 'N' where id <> ?";
     public static final String updateOtherInitialStatusSql = "update rts_status_master set is_initial = 'N' where id <> ?";
     public static final String updateOtherFinalStatusSql = "update rts_status_master set is_final = 'N' where id <> ?";
+    
+    public static final String statusCountSql = "select is_pre_bill,is_initial,is_final from rts_status_master where is_pre_bill='Y' "
+    					+"or is_initial='Y' or is_final='Y'";
 }

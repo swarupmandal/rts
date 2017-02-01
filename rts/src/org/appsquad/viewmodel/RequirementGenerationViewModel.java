@@ -13,6 +13,7 @@ import org.appsquad.bean.StatusMasterBean;
 import org.appsquad.dao.RequirementGenerationDao;
 import org.appsquad.service.LogAuditServiceClass;
 import org.appsquad.service.RequirementGenerationService;
+import org.appsquad.service.StatusMasterService;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
@@ -31,7 +32,7 @@ import org.zkoss.zul.Window;
 public class RequirementGenerationViewModel {
 	private Session session = null;
 	private String userName;
-	
+	private boolean saveBtnDisabled = false;
 	RequirementGenerationBean reqGenBean = new RequirementGenerationBean();
 	ClientInformationBean clientInfoBean = new ClientInformationBean();
 	SkillsetMasterbean skillsetMasterbean = new SkillsetMasterbean();
@@ -53,6 +54,11 @@ public class RequirementGenerationViewModel {
 		clientNameBeanList = RequirementGenerationService.fetchClientNameList();
 		skillSetBeanList = RequirementGenerationService.fetchSkillSetList();
 		typeList = RequirementGenerationService.loadTypeList();
+		if(!StatusMasterService.isAllStatusSaved()){
+			saveBtnDisabled = true;
+			Messagebox.show("Please first create status with flags from master module and then generate requirement from here!",
+					"Status with flags required",Messagebox.OK,Messagebox.EXCLAMATION);
+		}
 	}
 
 	public void loadExistingRequirements(){
@@ -248,5 +254,13 @@ public class RequirementGenerationViewModel {
 	public void setReqGenBeanList(
 			ArrayList<RequirementGenerationBean> reqGenBeanList) {
 		this.reqGenBeanList = reqGenBeanList;
+	}
+
+	public boolean isSaveBtnDisabled() {
+		return saveBtnDisabled;
+	}
+
+	public void setSaveBtnDisabled(boolean saveBtnDisabled) {
+		this.saveBtnDisabled = saveBtnDisabled;
 	}
 }
