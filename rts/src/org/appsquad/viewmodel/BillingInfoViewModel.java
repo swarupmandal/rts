@@ -45,6 +45,7 @@ public class BillingInfoViewModel {
     @Wire("#winBillingModal")
 	private Window winBillingModalPage;
     private String checkFileName = null;
+    private boolean chkDateDisabled = true;
     
     public ArrayList<String> monthList = null;
     public ArrayList<String> yearList = null;
@@ -143,10 +144,15 @@ public class BillingInfoViewModel {
     	if(reportBean.getChqDetailsValue()!=null){
     		if(reportBean.getChqDetailsValue()>0){
         		reportBean.setPaid("Yes");
+        		chkDateDisabled = false;
         		reportBean.setChequeDateSql(new java.sql.Date(new java.util.Date().getTime()));
         	}else{
         		reportBean.setPaid("No");
         	}	
+    	}else{
+    		reportBean.setPaid("No");
+    		chkDateDisabled = true;
+    		reportBean.setChequeDateSql(null);
     	}
     }
     
@@ -441,5 +447,13 @@ public class BillingInfoViewModel {
 	}
 	public void setArrayIndex(int arrayIndex) {
 		this.arrayIndex = arrayIndex;
+	}
+
+	public boolean isChkDateDisabled() {
+		return chkDateDisabled;
+	}
+
+	public void setChkDateDisabled(boolean chkDateDisabled) {
+		this.chkDateDisabled = chkDateDisabled;
 	}
 }
