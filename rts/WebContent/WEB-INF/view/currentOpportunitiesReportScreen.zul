@@ -280,7 +280,7 @@
 
  					<div visible="@bind(vm.secondDivVisibility)">
  						<grid model="@bind(vm.monthSetList)"
- 							mold="paging" pageSize="8" height="350px">
+ 							mold="paging" pageSize="7" height="350px">
  							<columns sizable="true">
  								<column width="90px" label="Month"
  									style="font-weight:bold; color: black" align="center">
@@ -358,7 +358,7 @@
 
  					<div visible="@bind(vm.thirdDivVisibility)">
  						<grid model="@bind(vm.monthSetList)"
- 							mold="paging" pageSize="8" height="340px">
+ 							mold="paging" pageSize="7" height="340px">
  							<columns sizable="true">
  								<column width="90px" label="Month"
  									style="font-weight:bold; color: black" align="center">
