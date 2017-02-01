@@ -1,7 +1,7 @@
 	<?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
  <window border="normal"
- 	apply="org.zkoss.bind.BindComposer" height="580px"
+ 	apply="org.zkoss.bind.BindComposer" height="100%"
  	viewModel="@id('vm') @init('org.appsquad.viewmodel.CurrentOpportunitiesReportGenerationViewModel')">
  	<caption label="Billing Report" style="font-weight:bold"/>
  	<div>
@@ -280,12 +280,12 @@
 
  					<div visible="@bind(vm.secondDivVisibility)">
  						<grid model="@bind(vm.monthSetList)"
- 							mold="paging" pageSize="8" height="286px">
+ 							mold="paging" pageSize="8" height="350px">
  							<columns sizable="true">
- 								<column width="160px" label="Month"
+ 								<column width="90px" label="Month"
  									style="font-weight:bold; color: black" align="center">
  								</column>
- 								<column width="1000px"
+ 								<column width="990px"
  									label="Next 12 Months Visibility Details"
  									style="font-weight:bold; color: black" align="center">
  								</column>
@@ -310,7 +310,7 @@
  													label="@bind(v.currentOpportunitiesReportGenerationBean.chargeOutString)"
  													style="font-weight:bold; color: black" align="center">
  												</column>
- 												<column width="120px"
+ 												<column width="100px"
  													label="@bind(v.currentOpportunitiesReportGenerationBean.percentage)"
  													style="font-weight:bold; color: black" align="center">
  												</column>
@@ -358,12 +358,12 @@
 
  					<div visible="@bind(vm.thirdDivVisibility)">
  						<grid model="@bind(vm.monthSetList)"
- 							mold="paging" pageSize="8" height="286px">
+ 							mold="paging" pageSize="8" height="340px">
  							<columns sizable="true">
- 								<column width="160px" label="Month"
+ 								<column width="90px" label="Month"
  									style="font-weight:bold; color: black" align="center">
  								</column>
- 								<column width="1000px"
+ 								<column width="990px"
  									label="Next 12 Months Visibility Details"
  									style="font-weight:bold; color: black" align="center">
  								</column>
@@ -390,7 +390,7 @@
  													label="@bind(v.currentOpportunitiesReportGenerationBean.chargeOutString)"
  													style="font-weight:bold; color: black" align="center">
  												</column>
- 												<column width="120px"
+ 												<column width="100px"
  													label="@bind(v.currentOpportunitiesReportGenerationBean.percentage)"
  													style="font-weight:bold; color: black" align="center">
  												</column>
