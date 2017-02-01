@@ -100,7 +100,7 @@
  				    
  					<div visible="@bind(vm.divVisibility)">
  						<grid model="@bind(vm.reportList)"
- 							mold="paging" pageSize="8" height="310px">
+ 							mold="paging" pageSize="7" height="310px">
  							<columns sizable="true">
  								<column width="300px" label="Year"
  									style="font-weight:bold; color: black" align="center">
