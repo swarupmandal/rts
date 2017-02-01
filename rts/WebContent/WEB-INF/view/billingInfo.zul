@@ -112,7 +112,7 @@
 							<doublebox width="100%"
 								value="@bind(v.chqDetailsValue)" maxlength="6" onChange="@command('checkChequeNumber', bean = v)">
 							</doublebox>
-							<datebox width="100%" format="dd-MM-yyyy"
+							<datebox width="100%" format="dd-MM-yyyy" disabled="@bind(vm.chkDateDisabled)"
 								value="@bind(v.chequeDateSql)" tooltiptext="@bind(v.chequeDateSql)">
 							</datebox>
 							<image tooltiptext="Add new row" src="images/add.png" style="cursor:pointer" onClick="@command('addRow', bean = v)"></image>
