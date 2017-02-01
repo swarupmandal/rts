@@ -17,9 +17,15 @@ public class CurrentOpportunitiesReportBean {
 	
 	public int listIndexOf;
 	
+	public String chqDate;
+	public String chqDateString;
+	
 	private String isCheck = "N";
 	private Boolean minusButtonVisible = true;
 	private int serialId=0;
+	
+	private String billDate;
+	private String billDateString;
 	
 	private String month;
 	private String year;
@@ -414,5 +420,29 @@ public class CurrentOpportunitiesReportBean {
 	}
 	public void setChargeOutRateString(String chargeOutRateString) {
 		this.chargeOutRateString = chargeOutRateString;
+	}
+	public String getBillDate() {
+		return billDate;
+	}
+	public void setBillDate(String billDate) {
+		this.billDate = billDate;
+	}
+	public String getBillDateString() {
+		return billDateString;
+	}
+	public void setBillDateString(String billDateString) {
+		this.billDateString = billDateString;
+	}
+	public String getChqDate() {
+		return chqDate;
+	}
+	public void setChqDate(String chqDate) {
+		this.chqDate = chqDate;
+	}
+	public String getChqDateString() {
+		return chqDateString;
+	}
+	public void setChqDateString(String chqDateString) {
+		this.chqDateString = chqDateString;
 	}
 }

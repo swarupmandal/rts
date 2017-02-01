@@ -6,10 +6,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Arrays;
-
 import org.appsquad.bean.CurrentOpportunitiesReportGenerationBean;
 import org.appsquad.database.DbConnection;
 import org.appsquad.sql.CurrentOpportunitiesReportGenerationSql;
+import org.appsquad.utility.Dateformatter;
 import org.appsquad.utility.Main;
 import org.appsquad.utility.Pstm;
 
@@ -123,6 +123,7 @@ public class BillingReportDashBoardDao {
 					bean.getCurrentOpportunitiesReportBean().setMonth("RequirementID: "+resultSet.getInt("r_id"));
 					bean.getCurrentOpportunitiesReportBean().setBillNoString("Skill Set: "+resultSet.getString("master_skill_set_name"));
 					bean.getCurrentOpportunitiesReportBean().setBillDateSql(null);
+					bean.getCurrentOpportunitiesReportBean().setBillDate(null);
 					bean.getCurrentOpportunitiesReportBean().setBillAmountString("Resource Name: "+resultSet.getString("resource_name"));
 					bean.getCurrentOpportunitiesReportBean().setPaid(null);
 					bean.getCurrentOpportunitiesReportBean().setChqDetails(null);
@@ -151,15 +152,23 @@ public class BillingReportDashBoardDao {
 								subBean.getRequirementGenerationBean().setRequirementId(null);
 								subBean.getCurrentOpportunitiesReportBean().setBillNoString(resultSet2.getString("bill_no"));
 								subBean.getCurrentOpportunitiesReportBean().setBillAmountString(Main.convert(resultSet2.getDouble("bill_amount")));
-								String chqDeatils = resultSet2.getString("chq_details")+"/"+resultSet2.getDate("bill_date");
-								subBean.getCurrentOpportunitiesReportBean().setChqDetails(chqDeatils);
 								
 								subBean.getSkillsetMasterbean().setSkillset(null);
 								subBean.getCurrentOpportunitiesReportBean().setBillDateSql(resultSet2.getDate("bill_date"));
+								
+								subBean.getCurrentOpportunitiesReportBean().setBillDateSql(resultSet2.getDate("bill_date"));
+								subBean.getCurrentOpportunitiesReportBean().setBillDateString(resultSet2.getString("bill_date"));
+								subBean.getCurrentOpportunitiesReportBean().setBillDate(Dateformatter.toStringDate(subBean.getCurrentOpportunitiesReportBean().getBillDateString()));
+								
+								subBean.getCurrentOpportunitiesReportBean().setChqDate(resultSet2.getString("chq_date"));
+								
+								if(subBean.getCurrentOpportunitiesReportBean().getChqDate()!=null){
+									subBean.getCurrentOpportunitiesReportBean().setChqDateString(Dateformatter.toStringDate(subBean.getCurrentOpportunitiesReportBean().getChqDate()));
+									subBean.getCurrentOpportunitiesReportBean().setChqDetails(resultSet2.getString("chq_details")+"/"+subBean.getCurrentOpportunitiesReportBean().getChqDateString());
+								}
+								
 								subBean.getResourceMasterBean().setFullName(null);
-								
 								subBean.getCurrentOpportunitiesReportBean().setPaid(resultSet2.getString("paid"));
-								
 								subBean.setStyle(subBean.getLighterStyle());
 								
                                 list.add(subBean);
@@ -213,6 +222,7 @@ public class BillingReportDashBoardDao {
 					bean.getCurrentOpportunitiesReportBean().setMonth("RequirementID: "+resultSet.getInt("r_id"));
 					bean.getCurrentOpportunitiesReportBean().setBillNoString("Skill Set: "+resultSet.getString("master_skill_set_name"));
 					bean.getCurrentOpportunitiesReportBean().setBillDateSql(null);
+					bean.getCurrentOpportunitiesReportBean().setBillDate(null);
 					bean.getCurrentOpportunitiesReportBean().setBillAmountString("Resource Name: "+resultSet.getString("resource_name"));
 					bean.getCurrentOpportunitiesReportBean().setPaid(null);
 					bean.getCurrentOpportunitiesReportBean().setChqDetails(null);
@@ -241,10 +251,21 @@ public class BillingReportDashBoardDao {
 								subBean.getRequirementGenerationBean().setRequirementId(null);
 								subBean.getCurrentOpportunitiesReportBean().setBillNoString(resultSet2.getString("bill_no"));
 								subBean.getCurrentOpportunitiesReportBean().setBillAmountString(Main.convert(resultSet2.getDouble("bill_amount")));
-								subBean.getCurrentOpportunitiesReportBean().setChqDetails(resultSet2.getString("chq_details"));
 								
 								subBean.getSkillsetMasterbean().setSkillset(null);
 								subBean.getCurrentOpportunitiesReportBean().setBillDateSql(resultSet2.getDate("bill_date"));
+								
+								 
+								subBean.getCurrentOpportunitiesReportBean().setBillDateString(resultSet2.getString("bill_date"));
+								subBean.getCurrentOpportunitiesReportBean().setBillDate(Dateformatter.toStringDate(subBean.getCurrentOpportunitiesReportBean().getBillDateString()));
+								
+								subBean.getCurrentOpportunitiesReportBean().setChqDate(resultSet2.getString("chq_date"));
+								
+								if(subBean.getCurrentOpportunitiesReportBean().getChqDate()!=null){
+									subBean.getCurrentOpportunitiesReportBean().setChqDateString(Dateformatter.toStringDate(subBean.getCurrentOpportunitiesReportBean().getChqDate()));
+									subBean.getCurrentOpportunitiesReportBean().setChqDetails(resultSet2.getString("chq_details")+"/"+subBean.getCurrentOpportunitiesReportBean().getChqDateString());
+								}
+								
 								subBean.getResourceMasterBean().setFullName(null);
 								
 								subBean.getCurrentOpportunitiesReportBean().setPaid(resultSet2.getString("paid"));
@@ -302,6 +323,7 @@ public class BillingReportDashBoardDao {
 					bean.getCurrentOpportunitiesReportBean().setMonth("RequirementID: "+resultSet.getInt("r_id"));
 					bean.getCurrentOpportunitiesReportBean().setBillNoString("Skill Set: "+resultSet.getString("master_skill_set_name"));
 					bean.getCurrentOpportunitiesReportBean().setBillDateSql(null);
+					bean.getCurrentOpportunitiesReportBean().setBillDate(null);
 					bean.getCurrentOpportunitiesReportBean().setBillAmountString("Resource Name: "+resultSet.getString("resource_name"));
 					bean.getCurrentOpportunitiesReportBean().setPaid(null);
 					bean.getCurrentOpportunitiesReportBean().setChqDetails(null);
@@ -330,10 +352,20 @@ public class BillingReportDashBoardDao {
 								subBean.getRequirementGenerationBean().setRequirementId(null);
 								subBean.getCurrentOpportunitiesReportBean().setBillNoString(resultSet2.getString("bill_no"));
 								subBean.getCurrentOpportunitiesReportBean().setBillAmountString(Main.convert(resultSet2.getDouble("bill_amount")));
-								subBean.getCurrentOpportunitiesReportBean().setChqDetails(resultSet2.getString("chq_details"));
 								
 								subBean.getSkillsetMasterbean().setSkillset(null);
 								subBean.getCurrentOpportunitiesReportBean().setBillDateSql(resultSet2.getDate("bill_date"));
+								
+								subBean.getCurrentOpportunitiesReportBean().setBillDateString(resultSet2.getString("bill_date"));
+								subBean.getCurrentOpportunitiesReportBean().setBillDate(Dateformatter.toStringDate(subBean.getCurrentOpportunitiesReportBean().getBillDateString()));
+								
+								subBean.getCurrentOpportunitiesReportBean().setChqDate(resultSet2.getString("chq_date"));
+								
+								if(subBean.getCurrentOpportunitiesReportBean().getChqDate()!=null){
+									subBean.getCurrentOpportunitiesReportBean().setChqDateString(Dateformatter.toStringDate(subBean.getCurrentOpportunitiesReportBean().getChqDate()));
+									subBean.getCurrentOpportunitiesReportBean().setChqDetails(resultSet2.getString("chq_details")+"/"+subBean.getCurrentOpportunitiesReportBean().getChqDateString());
+								}
+								
 								subBean.getResourceMasterBean().setFullName(null);
 								
 								subBean.getCurrentOpportunitiesReportBean().setPaid(resultSet2.getString("paid"));
@@ -390,6 +422,8 @@ public class BillingReportDashBoardDao {
 					bean.getCurrentOpportunitiesReportBean().setMonth("RequirementID: "+resultSet.getInt("r_id"));
 					bean.getCurrentOpportunitiesReportBean().setBillNoString("Skill Set: "+resultSet.getString("master_skill_set_name"));
 					bean.getCurrentOpportunitiesReportBean().setBillDateSql(null);
+					bean.getCurrentOpportunitiesReportBean().setBillDate(null);
+					bean.getCurrentOpportunitiesReportBean().setBillDate(null);
 					bean.getCurrentOpportunitiesReportBean().setBillAmountString("Resource Name: "+resultSet.getString("resource_name"));
 					bean.getCurrentOpportunitiesReportBean().setPaid(null);
 					bean.getCurrentOpportunitiesReportBean().setChqDetails(null);
@@ -418,14 +452,22 @@ public class BillingReportDashBoardDao {
 								subBean.getRequirementGenerationBean().setRequirementId(null);
 								subBean.getCurrentOpportunitiesReportBean().setBillNoString(resultSet2.getString("bill_no"));
 								subBean.getCurrentOpportunitiesReportBean().setBillAmountString(Main.convert(resultSet2.getDouble("bill_amount")));
-								subBean.getCurrentOpportunitiesReportBean().setChqDetails(resultSet2.getString("chq_details"));
 								
 								subBean.getSkillsetMasterbean().setSkillset(null);
 								subBean.getCurrentOpportunitiesReportBean().setBillDateSql(resultSet2.getDate("bill_date"));
+								subBean.getCurrentOpportunitiesReportBean().setBillDateString(resultSet2.getString("bill_date"));
+								subBean.getCurrentOpportunitiesReportBean().setBillDate(Dateformatter.toStringDate(subBean.getCurrentOpportunitiesReportBean().getBillDateString()));
+								
+							    subBean.getCurrentOpportunitiesReportBean().setChqDate(resultSet2.getString("chq_date"));
+								
+								if(subBean.getCurrentOpportunitiesReportBean().getChqDate()!=null){
+									subBean.getCurrentOpportunitiesReportBean().setChqDateString(Dateformatter.toStringDate(subBean.getCurrentOpportunitiesReportBean().getChqDate()));
+									subBean.getCurrentOpportunitiesReportBean().setChqDetails(resultSet2.getString("chq_details")+"/"+subBean.getCurrentOpportunitiesReportBean().getChqDateString());
+								}
+								
+								
 								subBean.getResourceMasterBean().setFullName(null);
-								
 								subBean.getCurrentOpportunitiesReportBean().setPaid(resultSet2.getString("paid"));
-								
 								subBean.setStyle(subBean.getLighterStyle());
 								
                                 list.add(subBean);
@@ -479,6 +521,7 @@ public class BillingReportDashBoardDao {
 					bean.getCurrentOpportunitiesReportBean().setMonth("RequirementID: "+resultSet.getInt("r_id"));
 					bean.getCurrentOpportunitiesReportBean().setBillNoString("Skill Set: "+resultSet.getString("master_skill_set_name"));
 					bean.getCurrentOpportunitiesReportBean().setBillDateSql(null);
+					bean.getCurrentOpportunitiesReportBean().setBillDate(null);
 					bean.getCurrentOpportunitiesReportBean().setBillAmountString("Resource Name: "+resultSet.getString("resource_name"));
 					bean.getCurrentOpportunitiesReportBean().setPaid(null);
 					bean.getCurrentOpportunitiesReportBean().setChqDetails(null);
@@ -507,14 +550,22 @@ public class BillingReportDashBoardDao {
 								subBean.getRequirementGenerationBean().setRequirementId(null);
 								subBean.getCurrentOpportunitiesReportBean().setBillNoString(resultSet2.getString("bill_no"));
 								subBean.getCurrentOpportunitiesReportBean().setBillAmountString(Main.convert(resultSet2.getDouble("bill_amount")));
-								subBean.getCurrentOpportunitiesReportBean().setChqDetails(resultSet2.getString("chq_details"));
 								
 								subBean.getSkillsetMasterbean().setSkillset(null);
 								subBean.getCurrentOpportunitiesReportBean().setBillDateSql(resultSet2.getDate("bill_date"));
+								
+								subBean.getCurrentOpportunitiesReportBean().setBillDateString(resultSet2.getString("bill_date"));
+								subBean.getCurrentOpportunitiesReportBean().setBillDate(Dateformatter.toStringDate(subBean.getCurrentOpportunitiesReportBean().getBillDateString()));
+								
+								subBean.getCurrentOpportunitiesReportBean().setChqDate(resultSet2.getString("chq_date"));
+								
+								if(subBean.getCurrentOpportunitiesReportBean().getChqDate()!=null){
+									subBean.getCurrentOpportunitiesReportBean().setChqDateString(Dateformatter.toStringDate(subBean.getCurrentOpportunitiesReportBean().getChqDate()));
+									subBean.getCurrentOpportunitiesReportBean().setChqDetails(resultSet2.getString("chq_details")+"/"+subBean.getCurrentOpportunitiesReportBean().getChqDateString());
+								}
+								
 								subBean.getResourceMasterBean().setFullName(null);
-								
 								subBean.getCurrentOpportunitiesReportBean().setPaid(resultSet2.getString("paid"));
-								
 								subBean.setStyle(subBean.getLighterStyle());
 								
                                 list.add(subBean);
@@ -568,6 +619,7 @@ public class BillingReportDashBoardDao {
 					bean.getCurrentOpportunitiesReportBean().setMonth("RequirementID: "+resultSet.getInt("r_id"));
 					bean.getCurrentOpportunitiesReportBean().setBillNoString("Skill Set: "+resultSet.getString("master_skill_set_name"));
 					bean.getCurrentOpportunitiesReportBean().setBillDateSql(null);
+					bean.getCurrentOpportunitiesReportBean().setBillDateSql(null);
 					bean.getCurrentOpportunitiesReportBean().setBillAmountString("Resource Name: "+resultSet.getString("resource_name"));
 					bean.getCurrentOpportunitiesReportBean().setPaid(null);
 					bean.getCurrentOpportunitiesReportBean().setChqDetails(null);
@@ -596,14 +648,22 @@ public class BillingReportDashBoardDao {
 								subBean.getRequirementGenerationBean().setRequirementId(null);
 								subBean.getCurrentOpportunitiesReportBean().setBillNoString(resultSet2.getString("bill_no"));
 								subBean.getCurrentOpportunitiesReportBean().setBillAmountString(Main.convert(resultSet2.getDouble("bill_amount")));
-								subBean.getCurrentOpportunitiesReportBean().setChqDetails(resultSet2.getString("chq_details"));
 								
 								subBean.getSkillsetMasterbean().setSkillset(null);
 								subBean.getCurrentOpportunitiesReportBean().setBillDateSql(resultSet2.getDate("bill_date"));
+								
+								subBean.getCurrentOpportunitiesReportBean().setBillDateString(resultSet2.getString("bill_date"));
+								subBean.getCurrentOpportunitiesReportBean().setBillDate(Dateformatter.toStringDate(subBean.getCurrentOpportunitiesReportBean().getBillDateString()));
+								
+								subBean.getCurrentOpportunitiesReportBean().setChqDate(resultSet2.getString("chq_date"));
+								
+								if(subBean.getCurrentOpportunitiesReportBean().getChqDate()!=null){
+									subBean.getCurrentOpportunitiesReportBean().setChqDateString(Dateformatter.toStringDate(subBean.getCurrentOpportunitiesReportBean().getChqDate()));
+									subBean.getCurrentOpportunitiesReportBean().setChqDetails(resultSet2.getString("chq_details")+"/"+subBean.getCurrentOpportunitiesReportBean().getChqDateString());
+								}
+								
 								subBean.getResourceMasterBean().setFullName(null);
-								
 								subBean.getCurrentOpportunitiesReportBean().setPaid(resultSet2.getString("paid"));
-								
 								subBean.setStyle(subBean.getLighterStyle());
 								
                                 list.add(subBean);
@@ -657,6 +717,7 @@ public class BillingReportDashBoardDao {
 					bean.getCurrentOpportunitiesReportBean().setMonth("RequirementID: "+resultSet.getInt("r_id"));
 					bean.getCurrentOpportunitiesReportBean().setBillNoString("Skill Set: "+resultSet.getString("master_skill_set_name"));
 					bean.getCurrentOpportunitiesReportBean().setBillDateSql(null);
+					bean.getCurrentOpportunitiesReportBean().setBillDate(null);
 					bean.getCurrentOpportunitiesReportBean().setBillAmountString("Resource Name: "+resultSet.getString("resource_name"));
 					bean.getCurrentOpportunitiesReportBean().setPaid(null);
 					bean.getCurrentOpportunitiesReportBean().setChqDetails(null);
@@ -685,10 +746,20 @@ public class BillingReportDashBoardDao {
 								subBean.getRequirementGenerationBean().setRequirementId(null);
 								subBean.getCurrentOpportunitiesReportBean().setBillNoString(resultSet2.getString("bill_no"));
 								subBean.getCurrentOpportunitiesReportBean().setBillAmountString(Main.convert(resultSet2.getDouble("bill_amount")));
-								subBean.getCurrentOpportunitiesReportBean().setChqDetails(resultSet2.getString("chq_details"));
 								
 								subBean.getSkillsetMasterbean().setSkillset(null);
 								subBean.getCurrentOpportunitiesReportBean().setBillDateSql(resultSet2.getDate("bill_date"));
+								
+								subBean.getCurrentOpportunitiesReportBean().setBillDateString(resultSet2.getString("bill_date"));
+								subBean.getCurrentOpportunitiesReportBean().setBillDate(Dateformatter.toStringDate(subBean.getCurrentOpportunitiesReportBean().getBillDateString()));
+								
+								subBean.getCurrentOpportunitiesReportBean().setChqDate(resultSet2.getString("chq_date"));
+								
+								if(subBean.getCurrentOpportunitiesReportBean().getChqDate()!=null){
+									subBean.getCurrentOpportunitiesReportBean().setChqDateString(Dateformatter.toStringDate(subBean.getCurrentOpportunitiesReportBean().getChqDate()));
+									subBean.getCurrentOpportunitiesReportBean().setChqDetails(resultSet2.getString("chq_details")+"/"+subBean.getCurrentOpportunitiesReportBean().getChqDateString());
+								}
+								
 								subBean.getResourceMasterBean().setFullName(null);
 								
 								subBean.getCurrentOpportunitiesReportBean().setPaid(resultSet2.getString("paid"));
@@ -746,6 +817,7 @@ public class BillingReportDashBoardDao {
 					bean.getCurrentOpportunitiesReportBean().setMonth("RequirementID: "+resultSet.getInt("r_id"));
 					bean.getCurrentOpportunitiesReportBean().setBillNoString("Skill Set: "+resultSet.getString("master_skill_set_name"));
 					bean.getCurrentOpportunitiesReportBean().setBillDateSql(null);
+					bean.getCurrentOpportunitiesReportBean().setBillDate(null);
 					bean.getCurrentOpportunitiesReportBean().setBillAmountString("Resource Name: "+resultSet.getString("resource_name"));
 					bean.getCurrentOpportunitiesReportBean().setPaid(null);
 					bean.getCurrentOpportunitiesReportBean().setChqDetails(null);
@@ -774,10 +846,20 @@ public class BillingReportDashBoardDao {
 								subBean.getRequirementGenerationBean().setRequirementId(null);
 								subBean.getCurrentOpportunitiesReportBean().setBillNoString(resultSet2.getString("bill_no"));
 								subBean.getCurrentOpportunitiesReportBean().setBillAmountString(Main.convert(resultSet2.getDouble("bill_amount")));
-								subBean.getCurrentOpportunitiesReportBean().setChqDetails(resultSet2.getString("chq_details"));
 								
 								subBean.getSkillsetMasterbean().setSkillset(null);
 								subBean.getCurrentOpportunitiesReportBean().setBillDateSql(resultSet2.getDate("bill_date"));
+								
+								subBean.getCurrentOpportunitiesReportBean().setBillDateString(resultSet2.getString("bill_date"));
+								subBean.getCurrentOpportunitiesReportBean().setBillDate(Dateformatter.toStringDate(subBean.getCurrentOpportunitiesReportBean().getBillDateString()));
+								
+								subBean.getCurrentOpportunitiesReportBean().setChqDate(resultSet2.getString("chq_date"));
+								
+								if(subBean.getCurrentOpportunitiesReportBean().getChqDate()!=null){
+									subBean.getCurrentOpportunitiesReportBean().setChqDateString(Dateformatter.toStringDate(subBean.getCurrentOpportunitiesReportBean().getChqDate()));
+									subBean.getCurrentOpportunitiesReportBean().setChqDetails(resultSet2.getString("chq_details")+"/"+subBean.getCurrentOpportunitiesReportBean().getChqDateString());
+								}
+								
 								subBean.getResourceMasterBean().setFullName(null);
 								
 								subBean.getCurrentOpportunitiesReportBean().setPaid(resultSet2.getString("paid"));

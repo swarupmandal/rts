@@ -176,8 +176,8 @@ public class CurrentOppurtunitiesReportPdf {
 	 		    
 	 		   cell_4: {
 	 	 			PdfPCell cell;
-	 	 				if(bean.getCurrentOpportunitiesReportBean().getBillDateSql()!=null){
-	 	 					Paragraph headerParagraph = new Paragraph(String.valueOf(bean.getCurrentOpportunitiesReportBean().getBillDateSql()));
+	 	 				if(bean.getCurrentOpportunitiesReportBean().getBillDate()!=null){
+	 	 					Paragraph headerParagraph = new Paragraph(String.valueOf(bean.getCurrentOpportunitiesReportBean().getBillDate()));
 	 	 					headerParagraph.getFont().setSize(5f);
 	 	 					headerParagraph.setAlignment(Element.ALIGN_CENTER);
 	 	 					headerParagraph.getFont().setStyle(Font.NORMAL);

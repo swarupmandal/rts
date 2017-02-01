@@ -78,7 +78,7 @@
                             <combobox width="90%" readonly="true" model="@bind(vm.billingStatusList)"
 								value="@bind(vm.currentOpportunitiesReportGenerationBean.billingStatus)" 
 								selectedItem="@bind(vm.currentOpportunitiesReportGenerationBean.billingStatus)"
-								placeholder="Billing Status">
+								placeholder="Billing Status" onSelect="@command('statusChange')">
 								<template name="model" var="v">
 									<comboitem label="@bind(v)" value="@bind(v)"/>
 								</template>
@@ -142,7 +142,7 @@
  											width="98%" style="@bind(v.style)">
  										</label>
  										<label
- 											value="@bind(v.currentOpportunitiesReportBean.billDateSql)"
+ 											value="@bind(v.currentOpportunitiesReportBean.billDate)"
  											width="98%" style="@bind(v.style)">
  										</label>
  										<label

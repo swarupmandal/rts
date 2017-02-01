@@ -437,7 +437,17 @@ public class CurrentOpportunitiesReportGenerationViewModel {
     @Command
     @NotifyChange("*")
     public void onSelctFirstClientName(){
+    	firstBandBox.close();
+        divVisibility = false;
+        pdfDivVisibility = false;
     	System.out.println(currentOpportunitiesReportGenerationBean.getClientBean().getFullName()+"----"+currentOpportunitiesReportGenerationBean.getClientBean().getClientId());
+    }
+    
+    @Command
+    @NotifyChange("*")
+    public void statusChange(){
+    	divVisibility = false;
+    	pdfDivVisibility = false;
     }
     
     @Command
