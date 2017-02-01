@@ -310,11 +310,11 @@
  													label="@bind(v.currentOpportunitiesReportGenerationBean.chargeOutString)"
  													style="font-weight:bold; color: black" align="center">
  												</column>
- 												<column width="160px"
+ 												<column width="120px"
  													label="@bind(v.currentOpportunitiesReportGenerationBean.percentage)"
  													style="font-weight:bold; color: black" align="center">
  												</column>
- 												<column width="160px"
+ 												<column width="200px"
  													label="@bind(v.currentOpportunitiesReportGenerationBean.marginString)"
  													style="font-weight:bold; color: black" align="center">
  												</column>
@@ -343,7 +343,7 @@
  														</label>
  														<label
  															value="@bind(v1.currentOpportunitiesBean.marginString)"
- 															width="98%" style="@bind(v1.style)">
+ 															width="99%" style="@bind(v1.style)">
  														</label>
  														
  													</row>
@@ -390,11 +390,11 @@
  													label="@bind(v.currentOpportunitiesReportGenerationBean.chargeOutString)"
  													style="font-weight:bold; color: black" align="center">
  												</column>
- 												<column width="160px"
+ 												<column width="120px"
  													label="@bind(v.currentOpportunitiesReportGenerationBean.percentage)"
  													style="font-weight:bold; color: black" align="center">
  												</column>
- 												<column width="160px"
+ 												<column width="200px"
  													label="@bind(v.currentOpportunitiesReportGenerationBean.marginString)"
  													style="font-weight:bold; color: black" align="center">
  												</column>
@@ -422,7 +422,7 @@
  														</label>
  														<label
  															value="@bind(v1.currentOpportunitiesBean.marginString)"
- 															width="98%" style="@bind(v1.style)">
+ 															width="99%" style="@bind(v1.style)">
  														</label>
  													</row>
  												</template>

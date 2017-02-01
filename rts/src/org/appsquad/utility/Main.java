@@ -106,6 +106,13 @@ public class Main {
         DecimalFormat decim = new DecimalFormat("0.00");
         Double price2 = Double.parseDouble(decim.format(price));
         String s = decim.format(price);
+        return s;
+    }
+    
+    public static String convertCase(Long price){
+        DecimalFormat decim = new DecimalFormat("0.00");
+        Long price2 = Long.parseLong(decim.format(price));
+        String s = decim.format(price);
         System.out.println("Converted output is :"+s);
         return s;
     }
