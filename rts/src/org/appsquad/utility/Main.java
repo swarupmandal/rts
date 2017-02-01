@@ -97,16 +97,17 @@ public class Main {
 	}
 	
     public static void main(String[] args) {
-        //convert();
-    	encryption("somnath");
+        convert(120000.0);
+    	//encryption("somnath");
     }
     
-    public static void convert(){
-    	Double price = 32.0;
+    public static String convert(Double price){
+    	//Double price = 32.0;
         DecimalFormat decim = new DecimalFormat("0.00");
         Double price2 = Double.parseDouble(decim.format(price));
         String s = decim.format(price);
         System.out.println("Converted output is :"+s);
+        return s;
     }
     
     public static String encryption(String password)

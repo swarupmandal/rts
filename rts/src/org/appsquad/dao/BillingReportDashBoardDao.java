@@ -6,9 +6,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Arrays;
+
 import org.appsquad.bean.CurrentOpportunitiesReportGenerationBean;
 import org.appsquad.database.DbConnection;
 import org.appsquad.sql.CurrentOpportunitiesReportGenerationSql;
+import org.appsquad.utility.Main;
 import org.appsquad.utility.Pstm;
 
 public class BillingReportDashBoardDao {
@@ -148,8 +150,9 @@ public class BillingReportDashBoardDao {
 								subBean.getCurrentOpportunitiesReportBean().setMonth(resultSet2.getString("month"));
 								subBean.getRequirementGenerationBean().setRequirementId(null);
 								subBean.getCurrentOpportunitiesReportBean().setBillNoString(resultSet2.getString("bill_no"));
-								subBean.getCurrentOpportunitiesReportBean().setBillAmountString(resultSet2.getString("bill_amount"));
-								subBean.getCurrentOpportunitiesReportBean().setChqDetails(resultSet2.getString("chq_details"));
+								subBean.getCurrentOpportunitiesReportBean().setBillAmountString(Main.convert(resultSet2.getDouble("bill_amount")));
+								String chqDeatils = resultSet2.getString("chq_details")+"/"+resultSet2.getDate("bill_date");
+								subBean.getCurrentOpportunitiesReportBean().setChqDetails(chqDeatils);
 								
 								subBean.getSkillsetMasterbean().setSkillset(null);
 								subBean.getCurrentOpportunitiesReportBean().setBillDateSql(resultSet2.getDate("bill_date"));
@@ -237,7 +240,7 @@ public class BillingReportDashBoardDao {
 								subBean.getCurrentOpportunitiesReportBean().setMonth(resultSet2.getString("month"));
 								subBean.getRequirementGenerationBean().setRequirementId(null);
 								subBean.getCurrentOpportunitiesReportBean().setBillNoString(resultSet2.getString("bill_no"));
-								subBean.getCurrentOpportunitiesReportBean().setBillAmountString(resultSet2.getString("bill_amount"));
+								subBean.getCurrentOpportunitiesReportBean().setBillAmountString(Main.convert(resultSet2.getDouble("bill_amount")));
 								subBean.getCurrentOpportunitiesReportBean().setChqDetails(resultSet2.getString("chq_details"));
 								
 								subBean.getSkillsetMasterbean().setSkillset(null);
@@ -326,7 +329,7 @@ public class BillingReportDashBoardDao {
 								subBean.getCurrentOpportunitiesReportBean().setMonth(resultSet2.getString("month"));
 								subBean.getRequirementGenerationBean().setRequirementId(null);
 								subBean.getCurrentOpportunitiesReportBean().setBillNoString(resultSet2.getString("bill_no"));
-								subBean.getCurrentOpportunitiesReportBean().setBillAmountString(resultSet2.getString("bill_amount"));
+								subBean.getCurrentOpportunitiesReportBean().setBillAmountString(Main.convert(resultSet2.getDouble("bill_amount")));
 								subBean.getCurrentOpportunitiesReportBean().setChqDetails(resultSet2.getString("chq_details"));
 								
 								subBean.getSkillsetMasterbean().setSkillset(null);
@@ -414,7 +417,7 @@ public class BillingReportDashBoardDao {
 								subBean.getCurrentOpportunitiesReportBean().setMonth(resultSet2.getString("month"));
 								subBean.getRequirementGenerationBean().setRequirementId(null);
 								subBean.getCurrentOpportunitiesReportBean().setBillNoString(resultSet2.getString("bill_no"));
-								subBean.getCurrentOpportunitiesReportBean().setBillAmountString(resultSet2.getString("bill_amount"));
+								subBean.getCurrentOpportunitiesReportBean().setBillAmountString(Main.convert(resultSet2.getDouble("bill_amount")));
 								subBean.getCurrentOpportunitiesReportBean().setChqDetails(resultSet2.getString("chq_details"));
 								
 								subBean.getSkillsetMasterbean().setSkillset(null);
@@ -503,7 +506,7 @@ public class BillingReportDashBoardDao {
 								subBean.getCurrentOpportunitiesReportBean().setMonth(resultSet2.getString("month"));
 								subBean.getRequirementGenerationBean().setRequirementId(null);
 								subBean.getCurrentOpportunitiesReportBean().setBillNoString(resultSet2.getString("bill_no"));
-								subBean.getCurrentOpportunitiesReportBean().setBillAmountString(resultSet2.getString("bill_amount"));
+								subBean.getCurrentOpportunitiesReportBean().setBillAmountString(Main.convert(resultSet2.getDouble("bill_amount")));
 								subBean.getCurrentOpportunitiesReportBean().setChqDetails(resultSet2.getString("chq_details"));
 								
 								subBean.getSkillsetMasterbean().setSkillset(null);
@@ -592,7 +595,7 @@ public class BillingReportDashBoardDao {
 								subBean.getCurrentOpportunitiesReportBean().setMonth(resultSet2.getString("month"));
 								subBean.getRequirementGenerationBean().setRequirementId(null);
 								subBean.getCurrentOpportunitiesReportBean().setBillNoString(resultSet2.getString("bill_no"));
-								subBean.getCurrentOpportunitiesReportBean().setBillAmountString(resultSet2.getString("bill_amount"));
+								subBean.getCurrentOpportunitiesReportBean().setBillAmountString(Main.convert(resultSet2.getDouble("bill_amount")));
 								subBean.getCurrentOpportunitiesReportBean().setChqDetails(resultSet2.getString("chq_details"));
 								
 								subBean.getSkillsetMasterbean().setSkillset(null);
@@ -681,7 +684,7 @@ public class BillingReportDashBoardDao {
 								subBean.getCurrentOpportunitiesReportBean().setMonth(resultSet2.getString("month"));
 								subBean.getRequirementGenerationBean().setRequirementId(null);
 								subBean.getCurrentOpportunitiesReportBean().setBillNoString(resultSet2.getString("bill_no"));
-								subBean.getCurrentOpportunitiesReportBean().setBillAmountString(resultSet2.getString("bill_amount"));
+								subBean.getCurrentOpportunitiesReportBean().setBillAmountString(Main.convert(resultSet2.getDouble("bill_amount")));
 								subBean.getCurrentOpportunitiesReportBean().setChqDetails(resultSet2.getString("chq_details"));
 								
 								subBean.getSkillsetMasterbean().setSkillset(null);
@@ -770,7 +773,7 @@ public class BillingReportDashBoardDao {
 								subBean.getCurrentOpportunitiesReportBean().setMonth(resultSet2.getString("month"));
 								subBean.getRequirementGenerationBean().setRequirementId(null);
 								subBean.getCurrentOpportunitiesReportBean().setBillNoString(resultSet2.getString("bill_no"));
-								subBean.getCurrentOpportunitiesReportBean().setBillAmountString(resultSet2.getString("bill_amount"));
+								subBean.getCurrentOpportunitiesReportBean().setBillAmountString(Main.convert(resultSet2.getDouble("bill_amount")));
 								subBean.getCurrentOpportunitiesReportBean().setChqDetails(resultSet2.getString("chq_details"));
 								
 								subBean.getSkillsetMasterbean().setSkillset(null);
@@ -809,6 +812,5 @@ public class BillingReportDashBoardDao {
 		}
 		return list;
 	}
-	
 	
 }
