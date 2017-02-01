@@ -76,7 +76,7 @@ public class UserprofileViewModel {
 			}else{
 				flagInsert = UserProfileService.insertUserMasterData(userprofileBean);
 				if(flagInsert){
-					String emailBody = "Hello "+userprofileBean.getUsername()+". \nYou are "
+					String emailBody = " Hello "+userprofileBean.getUsername()+". \n You are "
 							+ "registered with Resource Augmentation Tracking System.\n"
 							+ " Your userid is: "+userprofileBean.getUserid()
 							+"\n And password is: "+userprofileBean.getPassword()
