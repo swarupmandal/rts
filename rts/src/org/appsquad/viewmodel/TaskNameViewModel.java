@@ -2,6 +2,7 @@ package org.appsquad.viewmodel;
 
 import java.io.FileNotFoundException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
@@ -54,7 +55,7 @@ public class TaskNameViewModel {
 		long millis=System.currentTimeMillis();  
 	    java.sql.Date date=new java.sql.Date(millis);
 	    taskBean.setCreatedDateStr(sdf.format(date));
-	    
+	    taskBean.setCreatedDateSql(new java.sql.Date(new java.util.Date().getTime()));
 	    taskDetailsList = TaskNameDao.fetchTaskDeatils();
 	    if(taskDetailsList.size()>0){
 	    	taskBean.setDivVisibility(true);

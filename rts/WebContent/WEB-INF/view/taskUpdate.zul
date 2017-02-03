@@ -25,13 +25,13 @@
 							value="@bind(v.assignedTo)" />
 						<textbox readonly="true" width="100%"
 							value="@bind(v.assignedByUserId)" />
-						<datebox format="dd/MM/yyyy" width="100%"
+						<datebox format="dd-MM-yyyy" width="100%"
 							value="@bind(v.createdDate)" readonly="true"
 							buttonVisible="false" />
-						<datebox format="dd/MM/yyyy" width="100%"
+						<datebox format="dd-MM-yyyy" width="100%"
 							value="@bind(v.scheduledDate)" readonly="true"
 							buttonVisible="false" />
-						<datebox format="dd/MM/yyyy" width="100%"
+						<datebox format="dd-MM-yyyy" width="100%"
 							value="@bind(v.actualCompletionDate)" readonly="true"
 							buttonVisible="false" />	
 						<button image="images/update.png" label="Update" width="100%" onClick="@command('onClickUpdate',bean= v)"/>

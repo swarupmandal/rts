@@ -72,11 +72,11 @@
 							</bandpopup>
 						</bandbox>
 						<label value="Task Assign Date" style="font-weight:bold"></label>
-						<textbox width="100%"
-							value="@bind(vm.taskBean.createdDateStr)" readonly="true">
-						</textbox>
+						<datebox width="100%" format="dd-MM-yyyy" buttonVisible="false"
+							value="@bind(vm.taskBean.createdDateSql)" readonly="true"/>
+						
 						<label value="Scheduled Date" style="font-weight:bold"></label>
-						<datebox width="100%" format="yyyy-MM-dd"
+						<datebox width="100%" format="dd-MM-yyyy"
 							value="@bind(vm.taskBean.scheduledDateSql)" readonly="true">
 						</datebox>
 						<label value="Remarks" style="font-weight:bold"></label>
@@ -116,10 +116,10 @@
 							value="@bind(v.taskStatusBean.taskStatusName)" />
 						<textbox readonly="true" width="100%"
 							value="@bind(v.assignedTo)" />
-						<datebox format="dd/MM/yyyy" width="100%"
+						<datebox format="dd-MM-yyyy" width="100%"
 							value="@bind(v.createdDate)" readonly="true"
 							buttonVisible="false" />
-						<datebox format="dd/MM/yyyy" width="100%"
+						<datebox format="dd-MM-yyyy" width="100%"
 							value="@bind(v.scheduledDate)" readonly="true"
 							buttonVisible="false" />
 						<textbox multiline="true" rows="2"

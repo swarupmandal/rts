@@ -85,11 +85,11 @@
 						</row>
 					   <row>
 						  <label value="Current CTC" style="font-weight:bold"></label>		
-						  <doublebox width="75%" value="@bind(vm.masterBean.ctc)" maxlength="6"></doublebox>	
+						  <doublebox width="75%" value="@bind(vm.masterBean.ctc)" maxlength="10"></doublebox>	
 					   </row>
 					    <row>
 						  <label value="Expected CTC" style="font-weight:bold"></label>		
-						  <doublebox width="75%" value="@bind(vm.masterBean.expectedCtc)" maxlength="6"></doublebox>	
+						  <doublebox width="75%" value="@bind(vm.masterBean.expectedCtc)" maxlength="10"></doublebox>	
 					   </row>
 					    <row visible="false">
 						  <label value="Profit(%)" style="font-weight:bold"></label>		
