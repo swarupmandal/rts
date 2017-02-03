@@ -211,7 +211,7 @@ public class PdfTestingViewModel {
 	 		
 	 		cell_3:{
 		 		    	PdfPCell cell;
-		 		    	if(bean.getCurrentOpportunitiesReportBean().getChargeOutRate()!=null){
+		 		    	if(bean.getCurrentOpportunitiesReportBean().getChargeOutRateString()!=null){
 		 		    		Paragraph headerParagraph = new Paragraph(bean.getCurrentOpportunitiesReportBean().getChargeOutRateString());
 				 			headerParagraph.getFont().setSize(5f);
 				 			headerParagraph.setAlignment(Element.ALIGN_CENTER);
@@ -420,7 +420,7 @@ public class PdfTestingViewModel {
  		 
  		 cell_3:{
 	 		    	PdfPCell cell;
-	 		    	if(bean.getCurrentOpportunitiesReportBean().getChargeOutRate()!=null){
+	 		    	if(bean.getCurrentOpportunitiesReportBean().getChargeOutRateString()!=null){
 	 		    		Paragraph headerParagraph = new Paragraph(bean.getCurrentOpportunitiesReportBean().getChargeOutRateString());
 			 			headerParagraph.getFont().setSize(5f);
 			 			headerParagraph.setAlignment(Element.ALIGN_CENTER);

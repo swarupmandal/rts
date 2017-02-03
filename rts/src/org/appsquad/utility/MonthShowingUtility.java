@@ -199,4 +199,12 @@ public class MonthShowingUtility {
 		  return total;
 	  }
 	  
+	  public static Double calculateTotalChargeRate(ArrayList<CurrentOpportunitiesReportGenerationBean> list){
+		  Double total = 0d;
+		  for(CurrentOpportunitiesReportGenerationBean bean: list){
+			   total+=bean.getCurrentOpportunitiesReportBean().getChargeOutRate();
+		  }	 
+		  return total;
+	  }
+	  
 }
