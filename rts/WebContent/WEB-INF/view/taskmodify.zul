@@ -40,13 +40,13 @@
 					<label value="Task Assign Date-"
 						style="font-weight:bold">
 					</label>
-					<datebox format="dd/MM/yyyy" width="160px" buttonVisible="false"
+					<datebox format="dd-MM-yyyy" width="160px" buttonVisible="false"
 						value="@bind(vm.taskBean.createdDate)" readonly="true">
 					</datebox>
 					<label value="Scheduled Date-"
 						style="font-weight:bold">
 					</label>
-					<datebox  format="dd/MM/yyyy" width="160px" buttonVisible="false"
+					<datebox  format="dd-MM-yyyy" width="160px" buttonVisible="false"
 						value="@bind(vm.taskBean.scheduledDate)" readonly="true">
 					</datebox>
 				</row>
@@ -61,7 +61,7 @@
 							</template>	
 					</combobox>
 					<label value="Actual Completion Date-" style="font-weight:bold"></label>
-					<datebox width="160px" format="dd/MM/yyyy" 
+					<datebox width="160px" format="dd-MM-yyyy" 
 						value="@bind(vm.taskBean.actualCompletionDate)"
 						readonly="true">
 					</datebox>
