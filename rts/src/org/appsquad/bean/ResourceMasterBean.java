@@ -12,7 +12,7 @@ public class ResourceMasterBean {
 	private String emailId;
 	private int resourceId;
 	private String userId;
-	private Double ctc;
+	private Double ctc,expectedCtc;
 	private Integer yearOfExperience;
 	private String fullName;
 	private boolean chkSelect = false;
@@ -248,5 +248,11 @@ public class ResourceMasterBean {
 	}
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
+	}
+	public Double getExpectedCtc() {
+		return expectedCtc;
+	}
+	public void setExpectedCtc(Double expectedCtc) {
+		this.expectedCtc = expectedCtc;
 	}
 }
