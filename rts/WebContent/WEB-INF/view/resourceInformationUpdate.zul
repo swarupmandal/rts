@@ -1,7 +1,7 @@
 
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="Resource Information Update" border="none" height="530px" width="600px" apply="org.zkoss.bind.BindComposer"
+<window title="Resource Information Update" border="none" height="80%" width="600px" apply="org.zkoss.bind.BindComposer"
 		    	viewModel="@id('vm') @init('org.appsquad.viewmodel.ResourceInformationUpdateViewModel')" id="winResourceUpdate" closable="true"
 		      		onClose="@command('onCloseOperation')"> 
      		    <div>
@@ -77,18 +77,21 @@
 						</row>
 						
 						<row>
-						  <label value="Upload CV"></label>
+						  <label value="Upload CV" style="font-weight:bold"></label>
 							<hlayout spacing="5px">
 							<button image="images/upload.png"  label="Upload" upload="true" onUpload="@command('onUploadFileUpload', upEvent=event)"/>
  							<label value="@bind(vm.masterBean.fileName)"></label>
  							</hlayout>
 						</row>
 					   <row>
-						  <label value="CTC(annual)" style="font-weight:bold"></label>		
+						  <label value="Current CTC" style="font-weight:bold"></label>		
 						  <doublebox width="75%" value="@bind(vm.masterBean.ctc)" maxlength="6"></doublebox>	
 					   </row>
-					    
 					    <row>
+						  <label value="Expected CTC" style="font-weight:bold"></label>		
+						  <doublebox width="75%" value="@bind(vm.masterBean.expectedCtc)" maxlength="6"></doublebox>	
+					   </row>
+					    <row visible="false">
 						  <label value="Profit(%)" style="font-weight:bold"></label>		
 						  <doublebox width="75%" value="@bind(vm.masterBean.profit)" maxlength="3"></doublebox>	
 					   </row>

@@ -145,10 +145,14 @@
  							</hlayout>
 						</row>
 					   <row>
-						  <label value="CTC(annual)" style="font-weight:bold"></label>		
+						  <label value="Current CTC" style="font-weight:bold"></label>		
 						  <doublebox width="35%" value="@bind(vm.resourceMasterBean.ctc)" maxlength="6"></doublebox>	
 					   </row> 
 					   <row>
+						  <label value="Expected CTC" style="font-weight:bold"></label>		
+						  <doublebox width="35%" value="@bind(vm.resourceMasterBean.expectedCtc)" maxlength="6"></doublebox>	
+					   </row> 
+					   <row visible="false">
 						  <label value="Profit(%)" style="font-weight:bold"></label>		
 						  <doublebox width="35%" value="@bind(vm.resourceMasterBean.profit)" maxlength="3"></doublebox>	
 					   </row> 
@@ -165,7 +169,8 @@
 					   </row> 
 					   <row>
 					       <label></label>
-					       <button image="images/save.png" label="Submit" style="font-weight: bold" onClick="@command('onClickSubmitButton')"></button>
+					       <button image="images/save.png" label="Submit" 
+					       style="font-weight: bold" onClick="@command('onClickSubmitButton')"></button>
 					   </row>
 					</rows>
 				</grid>
@@ -181,7 +186,8 @@
 								<column label="Address" align="center" style="font-weight:bold;" width="120px"/>
 								<column label="Country" align="center" style="font-weight:bold;" width="140px"/>
 								<column label="State" align="center" style="font-weight:bold;" width="140px"/>
-								<column label="Ctc" align="center" style="font-weight:bold;" width="90px"/>
+								<column label="Current CTC" align="center" style="font-weight:bold;" width="90px"/>
+								<column label="Expected CTC" align="center" style="font-weight:bold;" width="90px"/>
 								<column label="Update" align="center" style="font-weight:bold;" width="110px"/>
 								<column label="Delete" align="center" style="font-weight:bold;" width="110px"/>
 						</columns>	
@@ -196,6 +202,7 @@
 									<textbox value="@bind(v.country)" readonly="true" width="90%" tooltiptext="@bind(v.country)"/>
 									<textbox value="@bind(v.state)" readonly="true" width="90%" tooltiptext="@bind(v.state)"/>
 									<textbox value="@bind(v.ctc)" readonly="true" width="90%" tooltiptext="@bind(v.ctc)"/>
+									<textbox value="@bind(v.expectedCtc)" readonly="true" width="90%" tooltiptext="@bind(v.ctc)"/>
 								    <button image="images/update.png" label="Update" width="90%" onClick="@command('onClickUpdate', bean = v)"></button>
 								    <button image="images/delete.png" label="Delete" width="90%" onClick="@command('onClickDelete', bean = v)"></button>
 								</row>

@@ -126,16 +126,13 @@ public class ResourceMasterViewModel {
 	@Command
 	@NotifyChange("*")
 	public void onClickSubmitButton(){
-		boolean isInsert = false;
-		boolean flagLogInsert = false;
-		isInsert = ResourceMasterService.insertClientMasterData(resourceMasterBean);
-		if(isInsert){
+		if(ResourceMasterService.insertClientMasterData(resourceMasterBean)){
 			resourceMasterBean.setOperation("INSERT");
 			resourceMasterBean.setSessionUserId(userId);
 			resourceMasterBean.setOperationId(1);
 			Calendar calendar = Calendar.getInstance();
 		    java.sql.Date currentDate = new java.sql.Date(calendar.getTime().getTime());
-			flagLogInsert = LogAuditServiceClass.insertIntoLogTable(resourceMasterBean.getMainScreenName(), resourceMasterBean.getChileScreenName(), 
+			LogAuditServiceClass.insertIntoLogTable(resourceMasterBean.getMainScreenName(), resourceMasterBean.getChileScreenName(), 
 																	resourceMasterBean.getSessionUserId(), resourceMasterBean.getOperation(),currentDate,
 																	resourceMasterBean.getOperationId());
 			ResourceMasterService.clearAllField(resourceMasterBean);

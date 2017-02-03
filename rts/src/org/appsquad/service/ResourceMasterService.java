@@ -72,20 +72,18 @@ public class ResourceMasterService {
 	}
 	
 
-	public static boolean insertClientMasterData(ResourceMasterBean resourceMasterBean){
-		boolean flag = false;
+	public static boolean insertClientMasterData(ResourceMasterBean resourceMasterBean){	
 		if(isValid(resourceMasterBean)){
-			flag = ResourceMasterDao.insertClientData(resourceMasterBean);
+			return ResourceMasterDao.insertClientData(resourceMasterBean);
 		}
-		return flag;
+		return false;
 	}
 	
 	public static boolean updateResourceMasterData(ResourceMasterBean resourceMasterBean){
-		boolean flagUpdate = false;
 		if(isValid(resourceMasterBean)){
-			flagUpdate = ResourceMasterDao.updateResourceData(resourceMasterBean);
+			return ResourceMasterDao.updateResourceData(resourceMasterBean);
 		}
-		return flagUpdate;
+		return false;
 	}
 	
 	public static void clearAllField(ResourceMasterBean bean){
@@ -100,6 +98,7 @@ public class ResourceMasterService {
 		bean.setContactNumber(null);
 		bean.setEmailId(null);
 		bean.setCtc(null);
+		bean.setExpectedCtc(null);
 		bean.setFilePath(null);
 		bean.setProfit(null);
 		bean.setOtherInfo(null);
