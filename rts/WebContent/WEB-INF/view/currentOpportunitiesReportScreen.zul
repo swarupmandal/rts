@@ -280,12 +280,12 @@
 
  					<div visible="@bind(vm.secondDivVisibility)">
  						<grid model="@bind(vm.monthSetList)"
- 							mold="paging" pageSize="7" height="350px">
+ 							mold="paging" pageSize="7" height="340px">
  							<columns sizable="true">
  								<column width="90px" label="Month"
  									style="font-weight:bold; color: black" align="center">
  								</column>
- 								<column width="990px"
+ 								<column width="920px"
  									label="Next 12 Months Visibility Details"
  									style="font-weight:bold; color: black" align="center">
  								</column>
@@ -294,27 +294,27 @@
  								<template name="model" var="v">
  									<row>
  										<label
- 											value="@bind(v.monthName)" width="98%" style="@bind(v.style)">
+ 											value="@bind(v.monthName)" width="100%" style="@bind(v.style)">
  										</label>
  										<grid model="@bind(v.currentOpportunitiesReportGenerationBeanList)">
  											<columns>
- 												<column width="250px"
+ 												<column width="210px"
  													label="@bind(v.currentOpportunitiesReportGenerationBean.clientNameString)"
  													style="font-weight:bold; color: black" align="center">
  												</column>
- 												<column width="250px"
+ 												<column width="210px"
  													label="@bind(v.currentOpportunitiesReportGenerationBean.resourcenameString)"
  													style="font-weight:bold; color: black" align="center">
  												</column>
- 												<column width="160px"
+ 												<column width="210px"
  													label="@bind(v.currentOpportunitiesReportGenerationBean.chargeOutString)"
  													style="font-weight:bold; color: black" align="center">
  												</column>
- 												<column width="100px"
+ 												<column width="80px"
  													label="@bind(v.currentOpportunitiesReportGenerationBean.percentage)"
  													style="font-weight:bold; color: black" align="center">
  												</column>
- 												<column width="200px"
+ 												<column width="210px"
  													label="@bind(v.currentOpportunitiesReportGenerationBean.marginString)"
  													style="font-weight:bold; color: black" align="center">
  												</column>
@@ -327,23 +327,23 @@
  														style="@bind(v1.backGround)">
  														<label
  															value="@bind(v1.clientInformationBean.fullName)"
- 															width="98%" style="@bind(v1.style)">
+ 															width="100%" style="@bind(v1.style)">
  														</label>
  														<label
  															value="@bind(v1.resourceMasterBean.fullName)"
- 															width="98%" style="@bind(v1.style)">
+ 															width="100%" style="@bind(v1.style)">
  														</label>
  														<label
  															value="@bind(v1.currentOpportunitiesReportBean.chargeOutRateString)"
- 															width="98%" style="@bind(v1.style)">
+ 															width="100%" style="@bind(v1.style)">
  														</label>
  														<label
  															value="@bind(v1.currentOpportunitiesBean.percentage)"
- 															width="98%" style="@bind(v1.style)">
+ 															width="100%" style="@bind(v1.style)">
  														</label>
  														<label
  															value="@bind(v1.currentOpportunitiesBean.marginString)"
- 															width="99%" style="@bind(v1.style)">
+ 															width="100%" style="@bind(v1.style)">
  														</label>
  														
  													</row>
@@ -363,7 +363,7 @@
  								<column width="90px" label="Month"
  									style="font-weight:bold; color: black" align="center">
  								</column>
- 								<column width="990px"
+ 								<column width="920px"
  									label="Next 12 Months Visibility Details"
  									style="font-weight:bold; color: black" align="center">
  								</column>
@@ -372,29 +372,29 @@
  								<template name="model" var="v">
  									<row>
  										<label
- 											value="@bind(v.monthName)" width="98%"
+ 											value="@bind(v.monthName)" width="100%"
  											style="@bind(v.style)">
  										</label>
  										<grid
  											model="@bind(v.currentOpportunitiesReportGenerationBeanList)">
  											<columns>
- 												<column width="250px"
+ 												<column width="210px"
  													label="@bind(v.currentOpportunitiesReportGenerationBean.resourcenameString)"
  													style="font-weight:bold; color: black" align="center">
  												</column>
- 												<column width="250px"
+ 												<column width="210px"
  													label="@bind(v.currentOpportunitiesReportGenerationBean.clientNameString)"
  													style="font-weight:bold; color: black" align="center">
  												</column>
- 												<column width="160px"
+ 												<column width="210px"
  													label="@bind(v.currentOpportunitiesReportGenerationBean.chargeOutString)"
  													style="font-weight:bold; color: black" align="center">
  												</column>
- 												<column width="100px"
+ 												<column width="80px"
  													label="@bind(v.currentOpportunitiesReportGenerationBean.percentage)"
  													style="font-weight:bold; color: black" align="center">
  												</column>
- 												<column width="200px"
+ 												<column width="210px"
  													label="@bind(v.currentOpportunitiesReportGenerationBean.marginString)"
  													style="font-weight:bold; color: black" align="center">
  												</column>
@@ -406,23 +406,23 @@
  														style="@bind(v1.backGround)">
  														<label
  															value="@bind(v1.resourceMasterBean.fullName)"
- 															width="98%" style="@bind(v1.style)">
+ 															width="100%" style="@bind(v1.style)">
  														</label>
  														<label
  															value="@bind(v1.clientInformationBean.fullName)"
- 															width="98%" style="@bind(v1.style)">
+ 															width="100%" style="@bind(v1.style)">
  														</label>
  														<label
  															value="@bind(v1.currentOpportunitiesReportBean.chargeOutRateString)"
- 															width="98%" style="@bind(v1.style)">
+ 															width="100%" style="@bind(v1.style)">
  														</label>
  														<label
  															value="@bind(v1.currentOpportunitiesBean.percentage)"
- 															width="98%" style="@bind(v1.style)">
+ 															width="100%" style="@bind(v1.style)">
  														</label>
  														<label
  															value="@bind(v1.currentOpportunitiesBean.marginString)"
- 															width="99%" style="@bind(v1.style)">
+ 															width="100%" style="@bind(v1.style)">
  														</label>
  													</row>
  												</template>

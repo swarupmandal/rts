@@ -552,7 +552,23 @@ public class CurrentOpportunitiesReportGenerationDao {
 	   			for(CurrentOpportunitiesReportGenerationBean generationBean: reportBean.getCurrentOpportunitiesReportGenerationBeanList()){
 	   				if(generationBean.getResourceMasterBean().getFullName()!=null && 
 	   						generationBean.getResourceMasterBean().getFullName().trim().length()>0){
-	   							total+=generationBean.getCurrentOpportunitiesBean().getMargin().longValue();
+	   							total+=generationBean.getCurrentOpportunitiesBean().getMargin();
+	   				}
+	   			}
+	   		}
+	   	}
+	   	return total;
+	}
+	
+	public static Double calculateGrandTotalChargeOutRate(LinkedHashSet<MonthReportBean> list)
+	{
+	   	Double total = 0d;
+	   	for(MonthReportBean reportBean: list){
+	   		if(!reportBean.getMonthName().equalsIgnoreCase("")){
+	   			for(CurrentOpportunitiesReportGenerationBean generationBean: reportBean.getCurrentOpportunitiesReportGenerationBeanList()){
+	   				if(generationBean.getResourceMasterBean().getFullName()!=null && 
+	   						generationBean.getResourceMasterBean().getFullName().trim().length()>0){
+	   							total+=generationBean.getCurrentOpportunitiesReportBean().getChargeOutRate();
 	   				}
 	   			}
 	   		}

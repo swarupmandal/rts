@@ -459,6 +459,7 @@ public class CurrentOpportunitiesReportGenerationViewModel {
     	currentOpportunitiesReportGenerationBean.setClientFlag("Y");
     	currentOpportunitiesReportGenerationBean.setResourceFlag("N");
     	Double grandTotalClient = 0d;
+    	Double grandTotalChargeOurRate = 0d;
     	ArrayList<CurrentOpportunitiesReportGenerationBean> list = null;
     	
     	if(currentOpportunitiesReportGenerationBean.getClientInformationBean().getFullName().equalsIgnoreCase("-ALL-")){
@@ -519,7 +520,7 @@ public class CurrentOpportunitiesReportGenerationViewModel {
     		reportBean.getCurrentOpportunitiesReportGenerationBean().setClientNameString("Client Name");
     		reportBean.getCurrentOpportunitiesReportGenerationBean().setChargeOutString("Charge Out Rate(Monthly)");
     		reportBean.getCurrentOpportunitiesReportGenerationBean().setMarginString("Margin");
-    		reportBean.getCurrentOpportunitiesReportGenerationBean().setPercentage("Percentage(%)");
+    		reportBean.getCurrentOpportunitiesReportGenerationBean().setPercentage("Margin(%)");
     		
     		int counter = 0;
     		int finalCounter = 0;
@@ -577,11 +578,13 @@ public class CurrentOpportunitiesReportGenerationViewModel {
     		monthReportBean.getCurrentOpportunitiesReportGenerationBean().setPercentage("");
     		
     		grandTotalClient = CurrentOpportunitiesReportGenerationDao.calculateGrandTotal(monthSetList);
+    		grandTotalChargeOurRate = CurrentOpportunitiesReportGenerationDao.calculateGrandTotalChargeOutRate(monthSetList);
     		
     		
     		ArrayList<CurrentOpportunitiesReportGenerationBean> list2 = new ArrayList<CurrentOpportunitiesReportGenerationBean>();
     		CurrentOpportunitiesReportGenerationBean opportunitiesReportGenerationBean = new CurrentOpportunitiesReportGenerationBean();
     		opportunitiesReportGenerationBean.getCurrentOpportunitiesBean().setMarginString("GRAND TOTAL: "+Main.convert(grandTotalClient));
+    		opportunitiesReportGenerationBean.getCurrentOpportunitiesReportBean().setChargeOutRateString("GRAND TOTAL: "+Main.convert(grandTotalChargeOurRate));
     		opportunitiesReportGenerationBean.setStyle(opportunitiesReportGenerationBean.getBoldStyle());
     		list2.add(opportunitiesReportGenerationBean);
     		
@@ -599,6 +602,7 @@ public class CurrentOpportunitiesReportGenerationViewModel {
     	currentOpportunitiesReportGenerationBean.setResourceFlag("Y");
     	
     	Double grandTotal = 0d;
+    	Double grandTotalChargeOurRate = 0d;
     	
 		resourceBandBox.close();
 		if(secondTabList.size()>0){
@@ -656,7 +660,7 @@ public class CurrentOpportunitiesReportGenerationViewModel {
     		reportBean.getCurrentOpportunitiesReportGenerationBean().setClientNameString("Client Name");
     		reportBean.getCurrentOpportunitiesReportGenerationBean().setChargeOutString("Charge Out Rate(Monthly)");
     		reportBean.getCurrentOpportunitiesReportGenerationBean().setMarginString("Margin");
-    		reportBean.getCurrentOpportunitiesReportGenerationBean().setPercentage("Percentage(%)");
+    		reportBean.getCurrentOpportunitiesReportGenerationBean().setPercentage("Margin(%)");
     	
     		int resourceCounter = 0;
     		int resourceFinalCounter = 0;
@@ -695,8 +699,6 @@ public class CurrentOpportunitiesReportGenerationViewModel {
         			bean.getCurrentOpportunitiesBean().setMarginString("TOTAL: "+Main.convert(MonthShowingUtility.calculateTotalMonthWiseDouble(monthClienBeanList)));
         			bean.getCurrentOpportunitiesBean().setMarginTotal(MonthShowingUtility.calculateTotalMonthWiseDouble(monthClienBeanList));
         			
-        			//bean.getCurrentOpportunitiesBean().setMarginString("TOTAL: "+MonthShowingUtility.calculateTotalMonthWise(monthClienBeanList));
-        			//bean.getCurrentOpportunitiesBean().setMarginTotal(MonthShowingUtility.calculateTotalMonthWise(monthClienBeanList));
         			bean.setStyle(bean.getLighterStyle());
         			monthClienBeanList.add(bean);
         			reportBean.setCurrentOpportunitiesReportGenerationBeanList(monthClienBeanList);
@@ -721,8 +723,11 @@ public class CurrentOpportunitiesReportGenerationViewModel {
     		CurrentOpportunitiesReportGenerationBean opportunitiesReportGenerationBean = new CurrentOpportunitiesReportGenerationBean();
 		
     		grandTotal = CurrentOpportunitiesReportGenerationDao.calculateGrandTotal(monthSetList);
+    		grandTotalChargeOurRate = CurrentOpportunitiesReportGenerationDao.calculateGrandTotalChargeOutRate(monthSetList);
     		
     		opportunitiesReportGenerationBean.getCurrentOpportunitiesBean().setMarginString("GRAND TOTAL: "+Main.convert(grandTotal));
+    		opportunitiesReportGenerationBean.getCurrentOpportunitiesReportBean().setChargeOutRateString("GRAND TOTAL: "+Main.convert(grandTotalChargeOurRate));
+    		
     		opportunitiesReportGenerationBean.setStyle(opportunitiesReportGenerationBean.getBoldStyle());
     		list2.add(opportunitiesReportGenerationBean);
 		

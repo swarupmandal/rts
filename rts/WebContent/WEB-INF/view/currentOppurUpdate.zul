@@ -51,7 +51,7 @@
 						</row>
 						
 						<row>
-						  <label value="Percentage(%):" style="font-weight:bold"></label>		
+						  <label value="Margin(%):" style="font-weight:bold"></label>		
 						 <doublebox value="@bind(vm.currentOpportunitiesBean.percentage)" width="60%" maxlength="6" readonly="true">
 						 </doublebox>
 						</row>
