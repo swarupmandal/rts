@@ -197,13 +197,15 @@ public class BillingReportDashBoardDao {
 				}
 			}
 			
-			CurrentOpportunitiesReportGenerationBean reportGenerationBean = new CurrentOpportunitiesReportGenerationBean();
-			reportGenerationBean.getCurrentOpportunitiesReportBean().setPaid("");
-			reportGenerationBean.getCurrentOpportunitiesReportBean().setChqDetails("Grand Total :"+Main.convert(grandTotalBillingAmount(list)));
-			reportGenerationBean.setBackGround(reportGenerationBean.getAnotherStyle());
-			reportGenerationBean.setStyle(reportGenerationBean.getBoldStyle());
-			
-			list.add(reportGenerationBean);
+			if(list.size()>0){
+				CurrentOpportunitiesReportGenerationBean reportGenerationBean = new CurrentOpportunitiesReportGenerationBean();
+				reportGenerationBean.getCurrentOpportunitiesReportBean().setPaid("");
+				reportGenerationBean.getCurrentOpportunitiesReportBean().setChqDetails("Grand Total :"+Main.convert(grandTotalBillingAmount(list)));
+				reportGenerationBean.setBackGround(reportGenerationBean.getAnotherStyle());
+				reportGenerationBean.setStyle(reportGenerationBean.getBoldStyle());
+				
+				list.add(reportGenerationBean);	
+			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -309,13 +311,15 @@ public class BillingReportDashBoardDao {
 				}
 			}
 			
-			CurrentOpportunitiesReportGenerationBean reportGenerationBean = new CurrentOpportunitiesReportGenerationBean();
-			reportGenerationBean.getCurrentOpportunitiesReportBean().setPaid("");
-			reportGenerationBean.getCurrentOpportunitiesReportBean().setChqDetails("Grand Total :"+Main.convert(grandTotalBillingAmount(list)));
-			reportGenerationBean.setBackGround(reportGenerationBean.getAnotherStyle());
-			reportGenerationBean.setStyle(reportGenerationBean.getBoldStyle());
-			
-			list.add(reportGenerationBean);
+			if(list.size()>0){
+				CurrentOpportunitiesReportGenerationBean reportGenerationBean = new CurrentOpportunitiesReportGenerationBean();
+				reportGenerationBean.getCurrentOpportunitiesReportBean().setPaid("");
+				reportGenerationBean.getCurrentOpportunitiesReportBean().setChqDetails("Grand Total :"+Main.convert(grandTotalBillingAmount(list)));
+				reportGenerationBean.setBackGround(reportGenerationBean.getAnotherStyle());
+				reportGenerationBean.setStyle(reportGenerationBean.getBoldStyle());
+				
+				list.add(reportGenerationBean);	
+			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -420,13 +424,15 @@ public class BillingReportDashBoardDao {
 				}
 			}
 			
-			CurrentOpportunitiesReportGenerationBean reportGenerationBean = new CurrentOpportunitiesReportGenerationBean();
-			reportGenerationBean.getCurrentOpportunitiesReportBean().setPaid("");
-			reportGenerationBean.getCurrentOpportunitiesReportBean().setChqDetails("Grand Total :"+Main.convert(grandTotalBillingAmount(list)));
-			reportGenerationBean.setBackGround(reportGenerationBean.getAnotherStyle());
-			reportGenerationBean.setStyle(reportGenerationBean.getBoldStyle());
-			
-			list.add(reportGenerationBean);
+			if(list.size()>0){
+				CurrentOpportunitiesReportGenerationBean reportGenerationBean = new CurrentOpportunitiesReportGenerationBean();
+				reportGenerationBean.getCurrentOpportunitiesReportBean().setPaid("");
+				reportGenerationBean.getCurrentOpportunitiesReportBean().setChqDetails("Grand Total :"+Main.convert(grandTotalBillingAmount(list)));
+				reportGenerationBean.setBackGround(reportGenerationBean.getAnotherStyle());
+				reportGenerationBean.setStyle(reportGenerationBean.getBoldStyle());
+				
+				list.add(reportGenerationBean);	
+			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -529,13 +535,17 @@ public class BillingReportDashBoardDao {
 				}
 			}
 			
-			CurrentOpportunitiesReportGenerationBean reportGenerationBean = new CurrentOpportunitiesReportGenerationBean();
-			reportGenerationBean.getCurrentOpportunitiesReportBean().setPaid("");
-			reportGenerationBean.getCurrentOpportunitiesReportBean().setChqDetails("Grand Total :"+Main.convert(grandTotalBillingAmount(list)));
-			reportGenerationBean.setBackGround(reportGenerationBean.getAnotherStyle());
-			reportGenerationBean.setStyle(reportGenerationBean.getBoldStyle());
 			
-			list.add(reportGenerationBean);
+			if(list.size()>0){
+				CurrentOpportunitiesReportGenerationBean reportGenerationBean = new CurrentOpportunitiesReportGenerationBean();
+				reportGenerationBean.getCurrentOpportunitiesReportBean().setPaid("");
+				reportGenerationBean.getCurrentOpportunitiesReportBean().setChqDetails("Grand Total :"+Main.convert(grandTotalBillingAmount(list)));
+				reportGenerationBean.setBackGround(reportGenerationBean.getAnotherStyle());
+				reportGenerationBean.setStyle(reportGenerationBean.getBoldStyle());
+				
+				list.add(reportGenerationBean);	
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -649,13 +659,15 @@ public class BillingReportDashBoardDao {
 				}
 			}
 			
-			CurrentOpportunitiesReportGenerationBean reportGenerationBean = new CurrentOpportunitiesReportGenerationBean();
-			reportGenerationBean.getCurrentOpportunitiesReportBean().setPaid("");
-			reportGenerationBean.getCurrentOpportunitiesReportBean().setChqDetails("Grand Total :"+Main.convert(grandTotalBillingAmount(list)));
-			reportGenerationBean.setBackGround(reportGenerationBean.getAnotherStyle());
-			reportGenerationBean.setStyle(reportGenerationBean.getBoldStyle());
-			
-			list.add(reportGenerationBean);
+			if(list.size()>0){
+				CurrentOpportunitiesReportGenerationBean reportGenerationBean = new CurrentOpportunitiesReportGenerationBean();
+				reportGenerationBean.getCurrentOpportunitiesReportBean().setPaid("");
+				reportGenerationBean.getCurrentOpportunitiesReportBean().setChqDetails("Grand Total :"+Main.convert(grandTotalBillingAmount(list)));
+				reportGenerationBean.setBackGround(reportGenerationBean.getAnotherStyle());
+				reportGenerationBean.setStyle(reportGenerationBean.getBoldStyle());
+				
+				list.add(reportGenerationBean);	
+			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -758,13 +770,15 @@ public class BillingReportDashBoardDao {
 				}
 			}
 			
-			CurrentOpportunitiesReportGenerationBean reportGenerationBean = new CurrentOpportunitiesReportGenerationBean();
-			reportGenerationBean.getCurrentOpportunitiesReportBean().setPaid("");
-			reportGenerationBean.getCurrentOpportunitiesReportBean().setChqDetails("Grand Total :"+Main.convert(grandTotalBillingAmount(list)));
-			reportGenerationBean.setBackGround(reportGenerationBean.getAnotherStyle());
-			reportGenerationBean.setStyle(reportGenerationBean.getBoldStyle());
-			
-			list.add(reportGenerationBean);
+			if(list.size()>0){
+				CurrentOpportunitiesReportGenerationBean reportGenerationBean = new CurrentOpportunitiesReportGenerationBean();
+				reportGenerationBean.getCurrentOpportunitiesReportBean().setPaid("");
+				reportGenerationBean.getCurrentOpportunitiesReportBean().setChqDetails("Grand Total :"+Main.convert(grandTotalBillingAmount(list)));
+				reportGenerationBean.setBackGround(reportGenerationBean.getAnotherStyle());
+				reportGenerationBean.setStyle(reportGenerationBean.getBoldStyle());
+				
+				list.add(reportGenerationBean);	
+			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -869,13 +883,15 @@ public class BillingReportDashBoardDao {
 				}
 			}
 			
-			CurrentOpportunitiesReportGenerationBean reportGenerationBean = new CurrentOpportunitiesReportGenerationBean();
-			reportGenerationBean.getCurrentOpportunitiesReportBean().setPaid("");
-			reportGenerationBean.getCurrentOpportunitiesReportBean().setChqDetails("Grand Total :"+Main.convert(grandTotalBillingAmount(list)));
-			reportGenerationBean.setBackGround(reportGenerationBean.getAnotherStyle());
-			reportGenerationBean.setStyle(reportGenerationBean.getBoldStyle());
-			
-			list.add(reportGenerationBean);
+			if(list.size()>0){
+				CurrentOpportunitiesReportGenerationBean reportGenerationBean = new CurrentOpportunitiesReportGenerationBean();
+				reportGenerationBean.getCurrentOpportunitiesReportBean().setPaid("");
+				reportGenerationBean.getCurrentOpportunitiesReportBean().setChqDetails("Grand Total :"+Main.convert(grandTotalBillingAmount(list)));
+				reportGenerationBean.setBackGround(reportGenerationBean.getAnotherStyle());
+				reportGenerationBean.setStyle(reportGenerationBean.getBoldStyle());
+				
+				list.add(reportGenerationBean);	
+			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -980,13 +996,15 @@ public class BillingReportDashBoardDao {
 				}
 			}
 			
-			CurrentOpportunitiesReportGenerationBean reportGenerationBean = new CurrentOpportunitiesReportGenerationBean();
-			reportGenerationBean.getCurrentOpportunitiesReportBean().setPaid("");
-			reportGenerationBean.getCurrentOpportunitiesReportBean().setChqDetails("Grand Total :"+Main.convert(grandTotalBillingAmount(list)));
-			reportGenerationBean.setBackGround(reportGenerationBean.getAnotherStyle());
-			reportGenerationBean.setStyle(reportGenerationBean.getBoldStyle());
-			
-			list.add(reportGenerationBean);
+			if(list.size()>0){
+				CurrentOpportunitiesReportGenerationBean reportGenerationBean = new CurrentOpportunitiesReportGenerationBean();
+				reportGenerationBean.getCurrentOpportunitiesReportBean().setPaid("");
+				reportGenerationBean.getCurrentOpportunitiesReportBean().setChqDetails("Grand Total :"+Main.convert(grandTotalBillingAmount(list)));
+				reportGenerationBean.setBackGround(reportGenerationBean.getAnotherStyle());
+				reportGenerationBean.setStyle(reportGenerationBean.getBoldStyle());
+				
+				list.add(reportGenerationBean);	
+			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
