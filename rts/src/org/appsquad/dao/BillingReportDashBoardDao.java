@@ -125,6 +125,7 @@ public class BillingReportDashBoardDao {
 					bean.getCurrentOpportunitiesReportBean().setBillDateSql(null);
 					bean.getCurrentOpportunitiesReportBean().setBillDate(null);
 					bean.getCurrentOpportunitiesReportBean().setBillAmountString("Resource Name: "+resultSet.getString("resource_name"));
+					bean.getCurrentOpportunitiesReportBean().setBillAmount(null);
 					bean.getCurrentOpportunitiesReportBean().setPaid(null);
 					bean.getCurrentOpportunitiesReportBean().setChqDetails(null);
 					bean.setBackGround(bean.getBackGroundpaParent());
@@ -151,6 +152,7 @@ public class BillingReportDashBoardDao {
 								subBean.getCurrentOpportunitiesReportBean().setMonth(resultSet2.getString("month"));
 								subBean.getRequirementGenerationBean().setRequirementId(null);
 								subBean.getCurrentOpportunitiesReportBean().setBillNoString(resultSet2.getString("bill_no"));
+								subBean.getCurrentOpportunitiesReportBean().setBillAmount(resultSet2.getDouble("bill_amount"));
 								subBean.getCurrentOpportunitiesReportBean().setBillAmountString(Main.convert(resultSet2.getDouble("bill_amount")));
 								
 								subBean.getSkillsetMasterbean().setSkillset(null);
@@ -194,6 +196,15 @@ public class BillingReportDashBoardDao {
 					connection.close();
 				}
 			}
+			
+			CurrentOpportunitiesReportGenerationBean reportGenerationBean = new CurrentOpportunitiesReportGenerationBean();
+			reportGenerationBean.getCurrentOpportunitiesReportBean().setPaid("");
+			reportGenerationBean.getCurrentOpportunitiesReportBean().setChqDetails("Grand Total :"+Main.convert(grandTotalBillingAmount(list)));
+			reportGenerationBean.setBackGround(reportGenerationBean.getAnotherStyle());
+			reportGenerationBean.setStyle(reportGenerationBean.getBoldStyle());
+			
+			list.add(reportGenerationBean);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -223,6 +234,7 @@ public class BillingReportDashBoardDao {
 					bean.getCurrentOpportunitiesReportBean().setBillNoString("Skill Set: "+resultSet.getString("master_skill_set_name"));
 					bean.getCurrentOpportunitiesReportBean().setBillDateSql(null);
 					bean.getCurrentOpportunitiesReportBean().setBillDate(null);
+					bean.getCurrentOpportunitiesReportBean().setBillAmount(null);
 					bean.getCurrentOpportunitiesReportBean().setBillAmountString("Resource Name: "+resultSet.getString("resource_name"));
 					bean.getCurrentOpportunitiesReportBean().setPaid(null);
 					bean.getCurrentOpportunitiesReportBean().setChqDetails(null);
@@ -250,6 +262,7 @@ public class BillingReportDashBoardDao {
 								subBean.getCurrentOpportunitiesReportBean().setMonth(resultSet2.getString("month"));
 								subBean.getRequirementGenerationBean().setRequirementId(null);
 								subBean.getCurrentOpportunitiesReportBean().setBillNoString(resultSet2.getString("bill_no"));
+								subBean.getCurrentOpportunitiesReportBean().setBillAmount(resultSet2.getDouble("bill_amount"));
 								subBean.getCurrentOpportunitiesReportBean().setBillAmountString(Main.convert(resultSet2.getDouble("bill_amount")));
 								
 								subBean.getSkillsetMasterbean().setSkillset(null);
@@ -295,6 +308,15 @@ public class BillingReportDashBoardDao {
 					connection.close();
 				}
 			}
+			
+			CurrentOpportunitiesReportGenerationBean reportGenerationBean = new CurrentOpportunitiesReportGenerationBean();
+			reportGenerationBean.getCurrentOpportunitiesReportBean().setPaid("");
+			reportGenerationBean.getCurrentOpportunitiesReportBean().setChqDetails("Grand Total :"+Main.convert(grandTotalBillingAmount(list)));
+			reportGenerationBean.setBackGround(reportGenerationBean.getAnotherStyle());
+			reportGenerationBean.setStyle(reportGenerationBean.getBoldStyle());
+			
+			list.add(reportGenerationBean);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -324,6 +346,7 @@ public class BillingReportDashBoardDao {
 					bean.getCurrentOpportunitiesReportBean().setBillNoString("Skill Set: "+resultSet.getString("master_skill_set_name"));
 					bean.getCurrentOpportunitiesReportBean().setBillDateSql(null);
 					bean.getCurrentOpportunitiesReportBean().setBillDate(null);
+					bean.getCurrentOpportunitiesReportBean().setBillAmount(null);
 					bean.getCurrentOpportunitiesReportBean().setBillAmountString("Resource Name: "+resultSet.getString("resource_name"));
 					bean.getCurrentOpportunitiesReportBean().setPaid(null);
 					bean.getCurrentOpportunitiesReportBean().setChqDetails(null);
@@ -351,6 +374,7 @@ public class BillingReportDashBoardDao {
 								subBean.getCurrentOpportunitiesReportBean().setMonth(resultSet2.getString("month"));
 								subBean.getRequirementGenerationBean().setRequirementId(null);
 								subBean.getCurrentOpportunitiesReportBean().setBillNoString(resultSet2.getString("bill_no"));
+								subBean.getCurrentOpportunitiesReportBean().setBillAmount(resultSet2.getDouble("bill_amount"));
 								subBean.getCurrentOpportunitiesReportBean().setBillAmountString(Main.convert(resultSet2.getDouble("bill_amount")));
 								
 								subBean.getSkillsetMasterbean().setSkillset(null);
@@ -395,6 +419,15 @@ public class BillingReportDashBoardDao {
 					connection.close();
 				}
 			}
+			
+			CurrentOpportunitiesReportGenerationBean reportGenerationBean = new CurrentOpportunitiesReportGenerationBean();
+			reportGenerationBean.getCurrentOpportunitiesReportBean().setPaid("");
+			reportGenerationBean.getCurrentOpportunitiesReportBean().setChqDetails("Grand Total :"+Main.convert(grandTotalBillingAmount(list)));
+			reportGenerationBean.setBackGround(reportGenerationBean.getAnotherStyle());
+			reportGenerationBean.setStyle(reportGenerationBean.getBoldStyle());
+			
+			list.add(reportGenerationBean);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -425,6 +458,7 @@ public class BillingReportDashBoardDao {
 					bean.getCurrentOpportunitiesReportBean().setBillDate(null);
 					bean.getCurrentOpportunitiesReportBean().setBillDate(null);
 					bean.getCurrentOpportunitiesReportBean().setBillAmountString("Resource Name: "+resultSet.getString("resource_name"));
+					bean.getCurrentOpportunitiesReportBean().setBillAmount(null);
 					bean.getCurrentOpportunitiesReportBean().setPaid(null);
 					bean.getCurrentOpportunitiesReportBean().setChqDetails(null);
 					bean.setBackGround(bean.getBackGroundpaParent());
@@ -451,6 +485,7 @@ public class BillingReportDashBoardDao {
 								subBean.getCurrentOpportunitiesReportBean().setMonth(resultSet2.getString("month"));
 								subBean.getRequirementGenerationBean().setRequirementId(null);
 								subBean.getCurrentOpportunitiesReportBean().setBillNoString(resultSet2.getString("bill_no"));
+								subBean.getCurrentOpportunitiesReportBean().setBillAmount(resultSet2.getDouble("bill_amount"));
 								subBean.getCurrentOpportunitiesReportBean().setBillAmountString(Main.convert(resultSet2.getDouble("bill_amount")));
 								
 								subBean.getSkillsetMasterbean().setSkillset(null);
@@ -493,10 +528,30 @@ public class BillingReportDashBoardDao {
 					connection.close();
 				}
 			}
+			
+			CurrentOpportunitiesReportGenerationBean reportGenerationBean = new CurrentOpportunitiesReportGenerationBean();
+			reportGenerationBean.getCurrentOpportunitiesReportBean().setPaid("");
+			reportGenerationBean.getCurrentOpportunitiesReportBean().setChqDetails("Grand Total :"+Main.convert(grandTotalBillingAmount(list)));
+			reportGenerationBean.setBackGround(reportGenerationBean.getAnotherStyle());
+			reportGenerationBean.setStyle(reportGenerationBean.getBoldStyle());
+			
+			list.add(reportGenerationBean);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return list;
+	}
+	
+	
+	public static Double grandTotalBillingAmount(ArrayList<CurrentOpportunitiesReportGenerationBean> list){
+		Double total = 0d;
+		
+		for(CurrentOpportunitiesReportGenerationBean bean: list){
+			if(bean.getCurrentOpportunitiesReportBean().getBillAmount()!=null){
+				total+=bean.getCurrentOpportunitiesReportBean().getBillAmount();
+			}
+		}
+		return total;
 	}
 	
 	
@@ -522,6 +577,7 @@ public class BillingReportDashBoardDao {
 					bean.getCurrentOpportunitiesReportBean().setBillNoString("Skill Set: "+resultSet.getString("master_skill_set_name"));
 					bean.getCurrentOpportunitiesReportBean().setBillDateSql(null);
 					bean.getCurrentOpportunitiesReportBean().setBillDate(null);
+					bean.getCurrentOpportunitiesReportBean().setBillAmount(null);
 					bean.getCurrentOpportunitiesReportBean().setBillAmountString("Resource Name: "+resultSet.getString("resource_name"));
 					bean.getCurrentOpportunitiesReportBean().setPaid(null);
 					bean.getCurrentOpportunitiesReportBean().setChqDetails(null);
@@ -549,6 +605,7 @@ public class BillingReportDashBoardDao {
 								subBean.getCurrentOpportunitiesReportBean().setMonth(resultSet2.getString("month"));
 								subBean.getRequirementGenerationBean().setRequirementId(null);
 								subBean.getCurrentOpportunitiesReportBean().setBillNoString(resultSet2.getString("bill_no"));
+								subBean.getCurrentOpportunitiesReportBean().setBillAmount(resultSet2.getDouble("bill_amount"));
 								subBean.getCurrentOpportunitiesReportBean().setBillAmountString(Main.convert(resultSet2.getDouble("bill_amount")));
 								
 								subBean.getSkillsetMasterbean().setSkillset(null);
@@ -591,6 +648,15 @@ public class BillingReportDashBoardDao {
 					connection.close();
 				}
 			}
+			
+			CurrentOpportunitiesReportGenerationBean reportGenerationBean = new CurrentOpportunitiesReportGenerationBean();
+			reportGenerationBean.getCurrentOpportunitiesReportBean().setPaid("");
+			reportGenerationBean.getCurrentOpportunitiesReportBean().setChqDetails("Grand Total :"+Main.convert(grandTotalBillingAmount(list)));
+			reportGenerationBean.setBackGround(reportGenerationBean.getAnotherStyle());
+			reportGenerationBean.setStyle(reportGenerationBean.getBoldStyle());
+			
+			list.add(reportGenerationBean);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -620,6 +686,7 @@ public class BillingReportDashBoardDao {
 					bean.getCurrentOpportunitiesReportBean().setBillNoString("Skill Set: "+resultSet.getString("master_skill_set_name"));
 					bean.getCurrentOpportunitiesReportBean().setBillDateSql(null);
 					bean.getCurrentOpportunitiesReportBean().setBillDateSql(null);
+					bean.getCurrentOpportunitiesReportBean().setBillAmount(null);
 					bean.getCurrentOpportunitiesReportBean().setBillAmountString("Resource Name: "+resultSet.getString("resource_name"));
 					bean.getCurrentOpportunitiesReportBean().setPaid(null);
 					bean.getCurrentOpportunitiesReportBean().setChqDetails(null);
@@ -647,6 +714,7 @@ public class BillingReportDashBoardDao {
 								subBean.getCurrentOpportunitiesReportBean().setMonth(resultSet2.getString("month"));
 								subBean.getRequirementGenerationBean().setRequirementId(null);
 								subBean.getCurrentOpportunitiesReportBean().setBillNoString(resultSet2.getString("bill_no"));
+								subBean.getCurrentOpportunitiesReportBean().setBillAmount(resultSet2.getDouble("bill_amount"));
 								subBean.getCurrentOpportunitiesReportBean().setBillAmountString(Main.convert(resultSet2.getDouble("bill_amount")));
 								
 								subBean.getSkillsetMasterbean().setSkillset(null);
@@ -689,6 +757,15 @@ public class BillingReportDashBoardDao {
 					connection.close();
 				}
 			}
+			
+			CurrentOpportunitiesReportGenerationBean reportGenerationBean = new CurrentOpportunitiesReportGenerationBean();
+			reportGenerationBean.getCurrentOpportunitiesReportBean().setPaid("");
+			reportGenerationBean.getCurrentOpportunitiesReportBean().setChqDetails("Grand Total :"+Main.convert(grandTotalBillingAmount(list)));
+			reportGenerationBean.setBackGround(reportGenerationBean.getAnotherStyle());
+			reportGenerationBean.setStyle(reportGenerationBean.getBoldStyle());
+			
+			list.add(reportGenerationBean);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -718,6 +795,7 @@ public class BillingReportDashBoardDao {
 					bean.getCurrentOpportunitiesReportBean().setBillNoString("Skill Set: "+resultSet.getString("master_skill_set_name"));
 					bean.getCurrentOpportunitiesReportBean().setBillDateSql(null);
 					bean.getCurrentOpportunitiesReportBean().setBillDate(null);
+					bean.getCurrentOpportunitiesReportBean().setBillAmount(null);
 					bean.getCurrentOpportunitiesReportBean().setBillAmountString("Resource Name: "+resultSet.getString("resource_name"));
 					bean.getCurrentOpportunitiesReportBean().setPaid(null);
 					bean.getCurrentOpportunitiesReportBean().setChqDetails(null);
@@ -745,6 +823,7 @@ public class BillingReportDashBoardDao {
 								subBean.getCurrentOpportunitiesReportBean().setMonth(resultSet2.getString("month"));
 								subBean.getRequirementGenerationBean().setRequirementId(null);
 								subBean.getCurrentOpportunitiesReportBean().setBillNoString(resultSet2.getString("bill_no"));
+								subBean.getCurrentOpportunitiesReportBean().setBillAmount(resultSet2.getDouble("bill_amount"));
 								subBean.getCurrentOpportunitiesReportBean().setBillAmountString(Main.convert(resultSet2.getDouble("bill_amount")));
 								
 								subBean.getSkillsetMasterbean().setSkillset(null);
@@ -789,6 +868,15 @@ public class BillingReportDashBoardDao {
 					connection.close();
 				}
 			}
+			
+			CurrentOpportunitiesReportGenerationBean reportGenerationBean = new CurrentOpportunitiesReportGenerationBean();
+			reportGenerationBean.getCurrentOpportunitiesReportBean().setPaid("");
+			reportGenerationBean.getCurrentOpportunitiesReportBean().setChqDetails("Grand Total :"+Main.convert(grandTotalBillingAmount(list)));
+			reportGenerationBean.setBackGround(reportGenerationBean.getAnotherStyle());
+			reportGenerationBean.setStyle(reportGenerationBean.getBoldStyle());
+			
+			list.add(reportGenerationBean);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -818,6 +906,7 @@ public class BillingReportDashBoardDao {
 					bean.getCurrentOpportunitiesReportBean().setBillNoString("Skill Set: "+resultSet.getString("master_skill_set_name"));
 					bean.getCurrentOpportunitiesReportBean().setBillDateSql(null);
 					bean.getCurrentOpportunitiesReportBean().setBillDate(null);
+					bean.getCurrentOpportunitiesReportBean().setBillAmount(null);
 					bean.getCurrentOpportunitiesReportBean().setBillAmountString("Resource Name: "+resultSet.getString("resource_name"));
 					bean.getCurrentOpportunitiesReportBean().setPaid(null);
 					bean.getCurrentOpportunitiesReportBean().setChqDetails(null);
@@ -845,6 +934,7 @@ public class BillingReportDashBoardDao {
 								subBean.getCurrentOpportunitiesReportBean().setMonth(resultSet2.getString("month"));
 								subBean.getRequirementGenerationBean().setRequirementId(null);
 								subBean.getCurrentOpportunitiesReportBean().setBillNoString(resultSet2.getString("bill_no"));
+								subBean.getCurrentOpportunitiesReportBean().setBillAmount(resultSet2.getDouble("bill_amount"));
 								subBean.getCurrentOpportunitiesReportBean().setBillAmountString(Main.convert(resultSet2.getDouble("bill_amount")));
 								
 								subBean.getSkillsetMasterbean().setSkillset(null);
@@ -889,6 +979,15 @@ public class BillingReportDashBoardDao {
 					connection.close();
 				}
 			}
+			
+			CurrentOpportunitiesReportGenerationBean reportGenerationBean = new CurrentOpportunitiesReportGenerationBean();
+			reportGenerationBean.getCurrentOpportunitiesReportBean().setPaid("");
+			reportGenerationBean.getCurrentOpportunitiesReportBean().setChqDetails("Grand Total :"+Main.convert(grandTotalBillingAmount(list)));
+			reportGenerationBean.setBackGround(reportGenerationBean.getAnotherStyle());
+			reportGenerationBean.setStyle(reportGenerationBean.getBoldStyle());
+			
+			list.add(reportGenerationBean);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

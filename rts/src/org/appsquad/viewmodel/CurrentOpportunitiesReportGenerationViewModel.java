@@ -520,7 +520,7 @@ public class CurrentOpportunitiesReportGenerationViewModel {
     		reportBean.getCurrentOpportunitiesReportGenerationBean().setClientNameString("Client Name");
     		reportBean.getCurrentOpportunitiesReportGenerationBean().setChargeOutString("Charge Out Rate(Monthly)");
     		reportBean.getCurrentOpportunitiesReportGenerationBean().setMarginString("Margin");
-    		reportBean.getCurrentOpportunitiesReportGenerationBean().setPercentage("Margin(%)");
+    		reportBean.getCurrentOpportunitiesReportGenerationBean().setPercentage("Profit(%)");
     		
     		int counter = 0;
     		int finalCounter = 0;
@@ -660,7 +660,7 @@ public class CurrentOpportunitiesReportGenerationViewModel {
     		reportBean.getCurrentOpportunitiesReportGenerationBean().setClientNameString("Client Name");
     		reportBean.getCurrentOpportunitiesReportGenerationBean().setChargeOutString("Charge Out Rate(Monthly)");
     		reportBean.getCurrentOpportunitiesReportGenerationBean().setMarginString("Margin");
-    		reportBean.getCurrentOpportunitiesReportGenerationBean().setPercentage("Margin(%)");
+    		reportBean.getCurrentOpportunitiesReportGenerationBean().setPercentage("Profit(%)");
     	
     		int resourceCounter = 0;
     		int resourceFinalCounter = 0;

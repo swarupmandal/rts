@@ -163,7 +163,7 @@ public class PdfTestingViewModel {
 	 }
 	 
 	 public static PdfPTable createtable(ArrayList<CurrentOpportunitiesReportGenerationBean> monthWiseDataList) throws Exception{
-			String[] headerLabes = {"Client Name","Resource Name","Charge Out Rate(Monthly)","Margin(%)","Margin"};
+			String[] headerLabes = {"Client Name","Resource Name","Charge Out Rate(Monthly)","Profit(%)","Margin"};
 			float[]	widths = {30F,20F,20F,13F,20F};
 	 		PdfPTable headerTable = new PdfPTable(widths);
 	 		headerTable.setWidthPercentage(96);
@@ -372,7 +372,7 @@ public class PdfTestingViewModel {
 		} 
 	 
 	public static PdfPTable createtableForResource(ArrayList<CurrentOpportunitiesReportGenerationBean> monthWiseDataList) throws Exception{
-		String[] headerLabes = {"Resource Name","Client Name","Charge Out Rate(Monthly)","Margin(%)","Margin"};
+		String[] headerLabes = {"Resource Name","Client Name","Charge Out Rate(Monthly)","Profit(%)","Margin"};
 		float[]	widths = {20F,30F,20F,13F,20F};
  		PdfPTable headerTable = new PdfPTable(widths);
  		headerTable.setWidthPercentage(96);

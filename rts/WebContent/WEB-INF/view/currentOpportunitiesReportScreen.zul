@@ -105,7 +105,7 @@
  								<column width="300px" label="Year"
  									style="font-weight:bold; color: black" align="center">
  								</column>
- 								<column width="200px" label="Month"
+ 								<column width="170px" label="Month"
  									style="font-weight:bold; color: black" align="center">
  								</column>
  								<column width="140px" label="Bill No"
@@ -118,10 +118,10 @@
  									label="Bill Amount" style="font-weight:bold; color: black"
  									align="center">
  								</column>
- 								<column width="100px" label="Paid"
+ 								<column width="80px" label="Paid"
  									style="font-weight:bold; color: black" align="center">
  								</column>
- 								<column width="130px"
+ 								<column width="180px"
  									label="Chq Details" style="font-weight:bold; color: black"
  									align="center">
  								</column>

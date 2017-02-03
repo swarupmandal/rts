@@ -22,6 +22,7 @@ public class CurrentOpportunitiesReportGenerationBean {
 	private String backGroundChild = "background-color: #D5D1D3";
 	private String boldStyle = "font-weight: bold; color: black";
 	private String lighterStyle = "font-weight: lighter; color: black";
+	private String anotherStyle = "background-color: #FFFFCB";
 	private String backGround;
 	private String style;
 	private Integer trackingDetailsId;
@@ -323,6 +324,12 @@ public class CurrentOpportunitiesReportGenerationBean {
 	}
 	public String getFirstClientNameSearch() {
 		return firstClientNameSearch;
+	}
+	public String getAnotherStyle() {
+		return anotherStyle;
+	}
+	public void setAnotherStyle(String anotherStyle) {
+		this.anotherStyle = anotherStyle;
 	}
 	public void setFirstClientNameSearch(String firstClientNameSearch) {
 		this.firstClientNameSearch = firstClientNameSearch;

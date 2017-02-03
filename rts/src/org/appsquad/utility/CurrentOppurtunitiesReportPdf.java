@@ -99,7 +99,7 @@ public class CurrentOppurtunitiesReportPdf {
 	 
 	 public void printDetails(ArrayList<CurrentOpportunitiesReportGenerationBean> list) throws DocumentException{
 	 		String[] headerLabes = {"Year","Month", "Bill Number", "Bill Date", "Bill Amount", "Paid", "Cheque Details"};
-	 		float[]	widths = {30f,15f,12f,12f,25f,12f,12f};
+	 		float[]	widths = {30f,15f,12f,12f,25f,12f,20f};
 	 		PdfPTable headerTable = new PdfPTable(widths);
 	 		headerTable.setWidthPercentage(96);
 	 		
@@ -131,14 +131,37 @@ public class CurrentOppurtunitiesReportPdf {
 		 					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 
 		 					headerTable.addCell(cell);
+		 				}else{
+		 					String year = "";
+		 					Paragraph headerParagraph = new Paragraph(year);
+		 					headerParagraph.getFont().setSize(5f);
+		 					headerParagraph.setAlignment(Element.ALIGN_CENTER);
+		 					headerParagraph.getFont().setStyle(Font.NORMAL);
+
+		 					cell = new PdfPCell(headerParagraph);
+		 					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+
+		 					headerTable.addCell(cell);
 		 				}
 		 		 } 
 	        	 
 	        	 
-	            cell_2: {
+	            
+	         cell_2: {
 	 			PdfPCell cell;
 	 				if(bean.getCurrentOpportunitiesReportBean().getMonth()!=null && bean.getCurrentOpportunitiesReportBean().getMonth().trim().length()>0){
 	 					Paragraph headerParagraph = new Paragraph(bean.getCurrentOpportunitiesReportBean().getMonth());
+	 					headerParagraph.getFont().setSize(5f);
+	 					headerParagraph.setAlignment(Element.ALIGN_CENTER);
+	 					headerParagraph.getFont().setStyle(Font.NORMAL);
+
+	 					cell = new PdfPCell(headerParagraph);
+	 					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+
+	 					headerTable.addCell(cell);
+	 				}else{
+	 					String month = "";
+	 					Paragraph headerParagraph = new Paragraph(month);
 	 					headerParagraph.getFont().setSize(5f);
 	 					headerParagraph.setAlignment(Element.ALIGN_CENTER);
 	 					headerParagraph.getFont().setStyle(Font.NORMAL);
@@ -260,15 +283,15 @@ public class CurrentOppurtunitiesReportPdf {
 	 	 	 	 	 					Paragraph headerParagraph = new Paragraph(chqDeatils);
 	 	 	 	 	 					headerParagraph.getFont().setSize(5f);
 	 	 	 	 	 					headerParagraph.setAlignment(Element.ALIGN_CENTER);
-	 	 	 	 	 					headerParagraph.getFont().setStyle(Font.NORMAL);
+	 	 	 	 	 					headerParagraph.getFont().setStyle(Font.BOLD);
 	 	 	 	 	 					cell = new PdfPCell(headerParagraph);
 	 	 	 	 	 					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 	 	 	 	 	 					headerTable.addCell(cell);
 	 	 	 	 	 				}
-	 	 	 	 	 			}
+	 	 	 	 	 		 }
 	 	 	 			
 	 			
-	         }
+	            }
 	         document.add(headerTable);
 	 		
 	 	}
