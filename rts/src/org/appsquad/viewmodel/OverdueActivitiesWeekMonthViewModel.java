@@ -84,9 +84,12 @@ public class OverdueActivitiesWeekMonthViewModel {
 							 taskNameBean.setAssignedByUserId(bean.getAssignedByUserId());
 							 taskNameBean.getUserprofileBean().setUserid(bean.getUserprofileBean().getUserid());
 							 taskNameBean.setCreatedDateStr(bean.getCreatedDateStr());
+							 taskNameBean.setCreatedDateSql(bean.getCreatedDateSql());
 							 taskNameBean.setScheduledDateStr(bean.getScheduledDateStr());
+							 taskNameBean.setScheduledDateSql(bean.getScheduledDateSql());
 							 taskNameBean.setStatus(bean.getStatus());
 							 taskNameBean.setActualCompletionDateStr(bean.getActualCompletionDateStr());
+							 taskNameBean.setActualCompletionDateSql(bean.getActualCompletionDateSql());
 							 taskNameBean.setTaskDescription(bean.getTaskDescription());
 							
 							 weekInnerList.add(taskNameBean);
@@ -124,11 +127,13 @@ public class OverdueActivitiesWeekMonthViewModel {
 							 taskNameBean.setAssignedByUserId(bean.getAssignedByUserId());
 							 taskNameBean.getUserprofileBean().setUserid(bean.getUserprofileBean().getUserid());
 							 taskNameBean.setCreatedDateStr(bean.getCreatedDateStr());
+							 taskNameBean.setCreatedDateSql(bean.getCreatedDateSql());
 							 taskNameBean.setScheduledDateStr(bean.getScheduledDateStr());
+							 taskNameBean.setScheduledDateSql(bean.getScheduledDateSql());
 							 taskNameBean.setStatus(bean.getStatus());
 							 taskNameBean.setTaskDescription(bean.getTaskDescription());
 							 taskNameBean.setActualCompletionDateStr(bean.getActualCompletionDateStr());
-							
+							 taskNameBean.setActualCompletionDateSql(bean.getActualCompletionDateSql());
 							 monthInnerList.add(taskNameBean);
 						 }
 					 }

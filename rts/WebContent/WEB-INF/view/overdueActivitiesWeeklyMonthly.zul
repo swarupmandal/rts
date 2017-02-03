@@ -40,12 +40,12 @@
 						    				  		</label>
 						    				  		<label width="98%" value="@bind(v1.userprofileBean.userid)" tooltiptext="@bind(v1.userprofileBean.userid)">
 						    				  		</label>
-						    				  		<label value="@bind(v1.createdDateStr)" width="98%" tooltiptext="@bind(v1.createdDateStr)">
-						    				  		</label>
-						    				  		<label value="@bind(v1.scheduledDateStr)" width="98%" tooltiptext="@bind(v1.scheduledDateStr)">
-						    				  		</label>
-						    				  		<label value="@bind(v1.actualCompletionDateStr)" width="98%" tooltiptext="@bind(v1.actualCompletionDateStr)">
-						    				  		</label>
+						    				  		<datebox format="dd-MM-yyyy" buttonVisible="false" readonly="true"  value="@bind(v1.createdDateSql)" 
+						    				  		width="98%" tooltiptext="@bind(v1.createdDateStr)"/>
+						    				  		<datebox format="dd-MM-yyyy" buttonVisible="false" readonly="true"  value="@bind(v1.scheduledDateSql)" 
+						    				  		width="98%" tooltiptext="@bind(v1.scheduledDateStr)"/>
+						    				  		<datebox format="dd-MM-yyyy" buttonVisible="false" readonly="true"  value="@bind(v1.actualCompletionDateSql)" 
+						    				  		width="98%" tooltiptext="@bind(v1.actualCompletionDateStr)"/>
 			    				  				</row>
 			    				  				</template>
 			    				  			</rows>

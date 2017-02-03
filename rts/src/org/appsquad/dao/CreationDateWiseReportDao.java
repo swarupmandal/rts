@@ -32,11 +32,14 @@ public class CreationDateWiseReportDao {
 						    	    taskNameBean.setAssignedByUserId(resultSet.getString("assigned_by"));
 						    	    taskNameBean.userprofileBean.setUserid(resultSet.getString("assigned_to"));
 						    	    taskNameBean.setCreatedDateStr(resultSet.getString("creation_date"));
+						    	    taskNameBean.setCreatedDateSql(resultSet.getDate("creation_date"));
 						    	    taskNameBean.setVenue(resultSet.getString("venue"));
 						    	    taskNameBean.setStatus(resultSet.getString("task_status_name"));
 						    	    taskNameBean.setRemarksOrResults(resultSet.getString("remarks_or_results"));
 						    	    taskNameBean.setScheduledDateStr(resultSet.getString("schedl_date"));
+						    	    taskNameBean.setScheduledDateSql(resultSet.getDate("schedl_date"));
 						    	    taskNameBean.setActualCompletionDateStr(resultSet.getString("completion_date"));
+						    	    taskNameBean.setActualCompletionDateSql(resultSet.getDate("completion_date"));
 						    	    taskNameBean.setTaskDescription(resultSet.getString("task_details"));
 						    	    
 						    	    detailsList.add(taskNameBean);

@@ -199,7 +199,7 @@ public class OverdueWeekPdf {
 		 		    
 		 	    cell_5: {
 				 		 PdfPCell cell;
-	                     	Paragraph headerParagraph = new Paragraph(String.valueOf(bean.getCreatedDateStr()));
+	                     	Paragraph headerParagraph = new Paragraph(Dateformatter.toStringDate(bean.getCreatedDateStr()));
 	 			 			headerParagraph.getFont().setSize(5f);
 	 			 			headerParagraph.setAlignment(Element.ALIGN_CENTER);
 	 			 			headerParagraph.getFont().setStyle(Font.NORMAL);
@@ -211,7 +211,7 @@ public class OverdueWeekPdf {
 		 		    
 		 		cell_6: {
 				 		 PdfPCell cell;
-	                     	Paragraph headerParagraph = new Paragraph(String.valueOf(bean.getScheduledDateStr()));
+	                     	Paragraph headerParagraph = new Paragraph(Dateformatter.toStringDate(bean.getScheduledDateStr()));
 	 			 			headerParagraph.getFont().setSize(5f);
 	 			 			headerParagraph.setAlignment(Element.ALIGN_CENTER);
 	 			 			headerParagraph.getFont().setStyle(Font.NORMAL);
@@ -224,7 +224,7 @@ public class OverdueWeekPdf {
 			    cell_7: {
 					 		 PdfPCell cell;
 					 		  if(bean.getActualCompletionDateStr()!=null){
-					 			    Paragraph headerParagraph = new Paragraph(String.valueOf(bean.getActualCompletionDateStr()));
+					 			    Paragraph headerParagraph = new Paragraph(Dateformatter.toStringDate(bean.getActualCompletionDateStr()));
 			 			 			headerParagraph.getFont().setSize(5f);
 			 			 			headerParagraph.setAlignment(Element.ALIGN_CENTER);
 			 			 			headerParagraph.getFont().setStyle(Font.NORMAL);

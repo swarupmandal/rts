@@ -215,7 +215,7 @@ public class TaskDescriptionReportPdf {
  			cell_5: {
  	 	 			PdfPCell cell;
  	 	 				if(bean.getCreatedDateStr()!=null){
- 	 	 					Paragraph headerParagraph = new Paragraph(bean.getCreatedDateStr());
+ 	 	 					Paragraph headerParagraph = new Paragraph(Dateformatter.toStringDate(bean.getCreatedDateStr()) );
  	 	 					headerParagraph.getFont().setSize(5f);
  	 	 					headerParagraph.setAlignment(Element.ALIGN_CENTER);
  	 	 					headerParagraph.getFont().setStyle(Font.NORMAL);
@@ -229,7 +229,7 @@ public class TaskDescriptionReportPdf {
  	 	 			cell_6: {
  	 	 	 	 			PdfPCell cell;
  	 	 	 	 				if(bean.getScheduledDateStr()!=null){
- 	 	 	 	 					Paragraph headerParagraph = new Paragraph(bean.getScheduledDateStr());
+ 	 	 	 	 					Paragraph headerParagraph = new Paragraph(Dateformatter.toStringDate(bean.getScheduledDateStr()));
  	 	 	 	 					headerParagraph.getFont().setSize(5f);
  	 	 	 	 					headerParagraph.setAlignment(Element.ALIGN_CENTER);
  	 	 	 	 					headerParagraph.getFont().setStyle(Font.NORMAL);
@@ -243,7 +243,7 @@ public class TaskDescriptionReportPdf {
  	 	 			cell_7: {
  	 	 	 	 	 			PdfPCell cell;
  	 	 	 	 	 				if(bean.getActualCompletionDateStr()!=null){
- 	 	 	 	 	 					Paragraph headerParagraph = new Paragraph(bean.getActualCompletionDateStr());
+ 	 	 	 	 	 					Paragraph headerParagraph = new Paragraph(Dateformatter.toStringDate(bean.getActualCompletionDateStr()));
  	 	 	 	 	 					headerParagraph.getFont().setSize(5f);
  	 	 	 	 	 					headerParagraph.setAlignment(Element.ALIGN_CENTER);
  	 	 	 	 	 					headerParagraph.getFont().setStyle(Font.NORMAL);
@@ -346,7 +346,7 @@ public class TaskDescriptionReportPdf {
  			cell_4: {
  	 	 			PdfPCell cell;
  	 	 				if(bean.getCreatedDateStr()!=null){
- 	 	 					Paragraph headerParagraph = new Paragraph(bean.getCreatedDateStr());
+ 	 	 					Paragraph headerParagraph = new Paragraph(Dateformatter.toStringDate(bean.getCreatedDateStr()));
  	 	 					headerParagraph.getFont().setSize(5f);
  	 	 					headerParagraph.setAlignment(Element.ALIGN_CENTER);
  	 	 					headerParagraph.getFont().setStyle(Font.NORMAL);
@@ -359,7 +359,7 @@ public class TaskDescriptionReportPdf {
  	 	 			cell_5: {
  	 	 	 	 			PdfPCell cell;
  	 	 	 	 				if(bean.getScheduledDateStr()!=null){
- 	 	 	 	 					Paragraph headerParagraph = new Paragraph(bean.getScheduledDateStr());
+ 	 	 	 	 					Paragraph headerParagraph = new Paragraph(Dateformatter.toStringDate(bean.getScheduledDateStr()));
  	 	 	 	 					headerParagraph.getFont().setSize(5f);
  	 	 	 	 					headerParagraph.setAlignment(Element.ALIGN_CENTER);
  	 	 	 	 					headerParagraph.getFont().setStyle(Font.NORMAL);
@@ -466,7 +466,7 @@ public class TaskDescriptionReportPdf {
   			cell_4: {
   	 	 			PdfPCell cell;
   	 	 				if(bean.getCreatedDateStr()!=null){
-  	 	 					Paragraph headerParagraph = new Paragraph(bean.getCreatedDateStr());
+  	 	 					Paragraph headerParagraph = new Paragraph(Dateformatter.toStringDate(bean.getCreatedDateStr()));
   	 	 					headerParagraph.getFont().setSize(5f);
   	 	 					headerParagraph.setAlignment(Element.ALIGN_CENTER);
   	 	 					headerParagraph.getFont().setStyle(Font.NORMAL);
@@ -479,7 +479,7 @@ public class TaskDescriptionReportPdf {
   	 	 			cell_5: {
   	 	 	 	 			PdfPCell cell;
   	 	 	 	 				if(bean.getScheduledDateStr()!=null){
-  	 	 	 	 					Paragraph headerParagraph = new Paragraph(bean.getScheduledDateStr());
+  	 	 	 	 					Paragraph headerParagraph = new Paragraph(Dateformatter.toStringDate(bean.getScheduledDateStr()));
   	 	 	 	 					headerParagraph.getFont().setSize(5f);
   	 	 	 	 					headerParagraph.setAlignment(Element.ALIGN_CENTER);
   	 	 	 	 					headerParagraph.getFont().setStyle(Font.NORMAL);

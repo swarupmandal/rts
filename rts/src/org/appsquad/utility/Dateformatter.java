@@ -6,7 +6,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Dateformatter {
-	String date1;
 	public static String formatdate(Date date) {
 		if (date != null) {
 			/*return new SimpleDateFormat("dd-MMM-yyyy").format(date);*/

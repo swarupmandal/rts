@@ -49,6 +49,8 @@ public class ActivityScheduledTodayTomorrowViewModel {
 		if(todayTomorrowList.size()>0){
 			divVisibility = true;
 			buttonVisibility = true;
+		}else{
+			Messagebox.show("Sorry no data found!","Alert Information",Messagebox.OK,Messagebox.EXCLAMATION);
 		}
 	}
 
