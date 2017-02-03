@@ -129,7 +129,8 @@ public class CurrentOpportunitiesReportGenerationViewModel {
 	   pdfDivVisibility = false;
 	  
  	   if(currentOpportunitiesReportGenerationBean.getFromDate() != null){
- 		   if(currentOpportunitiesReportGenerationBean.getToDate().after(currentOpportunitiesReportGenerationBean.getFromDate())){
+ 		   if(currentOpportunitiesReportGenerationBean.getToDate().after(currentOpportunitiesReportGenerationBean.getFromDate()) || 
+ 				   currentOpportunitiesReportGenerationBean.getToDate().compareTo(currentOpportunitiesReportGenerationBean.getFromDate())==0){
  		     }else {
  		    	currentOpportunitiesReportGenerationBean.setToDate(null);
  			    Messagebox.show("To Date Should be Grater Than From Date", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION);
