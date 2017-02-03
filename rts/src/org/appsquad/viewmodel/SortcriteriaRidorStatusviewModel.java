@@ -91,7 +91,8 @@ public class SortcriteriaRidorStatusviewModel {
 	   summaryBeanList.clear();
 	   
 	   if(rIdWiseReportBean.getFromDate() != null){
-		   if(rIdWiseReportBean.getToDate().after(rIdWiseReportBean.getFromDate())){
+		   if(rIdWiseReportBean.getToDate().after(rIdWiseReportBean.getFromDate()) ||
+				   rIdWiseReportBean.getToDate().compareTo(rIdWiseReportBean.getFromDate())==0){
 		     }else {
 		    	 rIdWiseReportBean.setToDate(null);
 			    Messagebox.show("To Date Should be Grater Than From Date", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION);

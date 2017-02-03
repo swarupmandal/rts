@@ -98,7 +98,8 @@ public class IndividualClientReportViewModel {
 		   reportBeanList.clear();
 		  
 		   if(individualClientReportBean.getFromDate() != null){
-			   if(individualClientReportBean.getToDate().after(individualClientReportBean.getFromDate())){
+			   if(individualClientReportBean.getToDate().after(individualClientReportBean.getFromDate()) ||
+					   individualClientReportBean.getToDate().compareTo(individualClientReportBean.getFromDate()) == 0){
 				   System.out.println("FROM DATE AND TO DATE ARE OK TO PROCEED.");
 			     }else {
 				    individualClientReportBean.setToDate(null);

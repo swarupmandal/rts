@@ -82,7 +82,8 @@ public class ScheduleDateWiseReportViewModel {
 	 @NotifyChange("*")
 	 public void onChangeToDate(){
 	 	   if(taskBean.getFromDate() != null){
-	 		   if(taskBean.getToDate().after(taskBean.getFromDate())){
+	 		   if(taskBean.getToDate().after(taskBean.getFromDate()) ||
+	 				  taskBean.getToDate().compareTo(taskBean.getFromDate()) ==0){
 	 		     }else {
 	 		    	taskBean.setToDate(null);
 	 			    Messagebox.show("To Date Should be Grater Than From Date", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION);

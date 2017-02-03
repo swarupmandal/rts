@@ -44,7 +44,8 @@ public class LogAuditViewModel {
 		   logAuditBean.setLogAuditDivVisibility(false);   
 	   }
  	   if(logAuditBean.getFromDate() != null){
- 		   if(logAuditBean.getToDate().after(logAuditBean.getFromDate())){
+ 		   if(logAuditBean.getToDate().after(logAuditBean.getFromDate()) ||
+ 				  logAuditBean.getToDate().compareTo(logAuditBean.getFromDate()) ==0){
  		     }else {
  		    	logAuditBean.setToDate(null);
  			    Messagebox.show("To Date Should be Grater Than From Date", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION);

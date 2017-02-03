@@ -74,7 +74,8 @@ public class SkillSetWiseReportViewModel {
 		   reportBeanList.clear();
 		   
 		   if(skilWiseReportBean.getFromDate() != null){
-			   if(skilWiseReportBean.getToDate().after(skilWiseReportBean.getFromDate())){
+			   if(skilWiseReportBean.getToDate().after(skilWiseReportBean.getFromDate()) ||
+					   skilWiseReportBean.getToDate().compareTo(skilWiseReportBean.getFromDate()) == 0){
 			     }else {
 			    	 skilWiseReportBean.setToDate(null);
 				     Messagebox.show("To Date Should be Grater Than From Date", "ALERT", Messagebox.OK, Messagebox.EXCLAMATION);
