@@ -52,12 +52,13 @@
 						
 						<row>
 						  <label value="Requirement Raise Date:" style="font-weight:bold"></label>		
-						  <datebox value="@bind(vm.reqEditGenBean.raiseDate)" disabled="@bind(vm.reqEditGenBean.reqOpenDate)" width="40%"></datebox>
+						  <datebox format="dd-MM-yyyy" value="@bind(vm.reqEditGenBean.raiseDate)" buttonVisible="false"
+						   readonly="true" width="40%"></datebox>
 						</row>
 						
 						<row>
 						  <label value="Requirement Close Date:" style="font-weight:bold"></label>		
-						  <datebox value="@bind(vm.reqEditGenBean.closeDate)" readonly="true"
+						  <datebox format="dd-MM-yyyy" value="@bind(vm.reqEditGenBean.closeDate)" readonly="true"
 						    onChange="@command('onChangeCloseDate')" width="40%"></datebox>	
 						</row>
 						
