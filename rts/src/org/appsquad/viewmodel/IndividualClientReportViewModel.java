@@ -371,6 +371,14 @@ public class IndividualClientReportViewModel {
 							Messagebox.show("Select Client ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
 		}
 		
+		if(individualClientReportBean.clientInformationBean.getClientId() == null && 
+				 individualClientReportBean.getFromDate() != null && 
+				   individualClientReportBean.getToDate() != null && 
+				    individualClientReportBean.skillsetMasterbean.getId() == null && 
+				     individualClientReportBean.statusMasterBean.getStatusId() == null){
+							Messagebox.show("Select Client ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+		}
+		
 	 }
 	
 	 @Command
