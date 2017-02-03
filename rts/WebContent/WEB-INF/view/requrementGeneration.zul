@@ -70,18 +70,18 @@
 						
 						<row>
 						  <label value="Requirement Raise Date:" style="font-weight:bold"></label>		
-						  <datebox value="@bind(vm.reqGenBean.raiseDatesql)" width="35%"></datebox>
+						  <datebox format="dd-MM-yyyy" value="@bind(vm.reqGenBean.raiseDatesql)" width="35%"></datebox>
 						</row>
 						
 						<row>
 						  <label value="Requirement Close Date:" style="font-weight:bold"></label>		
-						  <datebox value="@bind(vm.reqGenBean.closeDatesql)" width="35%"
+						  <datebox format="dd-MM-yyyy" value="@bind(vm.reqGenBean.closeDatesql)" width="35%"
 						     onChange="@command('onChangeCloseDate')"></datebox>	
 						</row>
 						
 						<row>
 						  <label value="Requirement Target Date:" style="font-weight:bold"></label>		
-						  <datebox value="@bind(vm.reqGenBean.targetDatesql)" width="35%"></datebox>	
+						  <datebox format="dd-MM-yyyy" value="@bind(vm.reqGenBean.targetDatesql)" width="35%"></datebox>	
 						</row>
 						
 						<row>

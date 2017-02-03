@@ -135,7 +135,7 @@
 						<row>
 						<hbox>
 						<label value="* " style="font-weight:bold; color:red"/>
-						<label value="Upload CV"></label>
+						<label value="Upload CV" style="font-weight:bold;"></label>
 						</hbox>
 						
 							<hlayout spacing="5px">

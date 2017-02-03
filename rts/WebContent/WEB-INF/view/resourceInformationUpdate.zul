@@ -96,7 +96,7 @@
 						  <doublebox width="75%" value="@bind(vm.masterBean.profit)" maxlength="3"></doublebox>	
 					   </row>
 					   
-					   <row>
+					   <row visible="false">
 						  <label value="Other Info" style="font-weight:bold"></label>		
 						   <textbox width="75%" value="@bind(vm.masterBean.otherInfo)" maxlength="20" placeholder="WITHIN 20 WORDS" xmlns:w="client">
 						        <attribute w:name="doKeyPress_">
