@@ -70,9 +70,9 @@
 								   <row>
 					  					<label value="User Name" style="font-weight:bold"></label>		
 					  					<combobox model="@bind(vm.userList)"  selectedItem="@bind(vm.roleMasterBean.userprofileBean)" readonly="true"
-		             						value="@bind(vm.roleMasterBean.userprofileBean.username)" width="120px" onSelect="@command('onSelectUserName')">
+		             						value="@bind(vm.roleMasterBean.userprofileBean.userid)" width="120px" onSelect="@command('onSelectUserName')">
 		             					<template name="model" var="q">
-		             					<comboitem value="@bind(q.username)" label="@bind(q.username)"/>
+		             					<comboitem value="@bind(q.userid)" label="@bind(q.userid)"/>
 		             					</template>
 		             					</combobox>	
 								  

@@ -31,10 +31,9 @@ import org.zkoss.zul.Window;
 public class RolemasterViewModel {
 	RoleMasterBean roleMasterBean= new RoleMasterBean();
 	private ArrayList<RoleMasterBean> rolebeanlist= new ArrayList<RoleMasterBean>();
-	private ArrayList<UserprofileBean> userList = new ArrayList<UserprofileBean>();
-	private ArrayList<RollDropDownBean> roleList = new ArrayList<RollDropDownBean>();
-	private ArrayList<RoleMasterBean> mappingList = new ArrayList<RoleMasterBean>();
-	
+	private ArrayList<UserprofileBean> userList = null;
+	private ArrayList<RollDropDownBean> roleList = null;
+	private ArrayList<RoleMasterBean> mappingList = null;
 	private Connection connection = null;
 	private Session sessions = null;
 	private String userName ;
@@ -57,9 +56,6 @@ public class RolemasterViewModel {
 	@Command
 	@NotifyChange("*")
 	public void onClickRoleSave(){
-		//boolean flagLogInsert = false;
-		//countRole = RoleMasterDao.onLoadRoleNameCountDeatils(roleMasterBean);
-	//	if(countRole>0){
 		if(RoleMasterService.isRoleNameExists(roleMasterBean.getRoll(), rolebeanlist)){
 			roleMasterBean.setRoll(null);
 			Messagebox.show("This role name already exists. Please enter a new role name!","Role Name exixts",Messagebox.OK,Messagebox.EXCLAMATION);
@@ -176,8 +172,9 @@ public class RolemasterViewModel {
 	@NotifyChange("*")
 	public void onClickAssign(){
 		boolean flagAssignLogInsert = false;
-		count = RoleMasterDao.onLoadCountDeatils(roleMasterBean);
-		if(count>0){
+		int countNumber = 0;
+		countNumber = RoleMasterDao.onLoadCountDeatils(roleMasterBean);
+		if(countNumber>0){
 			Messagebox.show("Please Enter New User Name!","Exclamation",Messagebox.OK,Messagebox.EXCLAMATION);
 		}else {
 			RoleMasterService.insertAssignData(roleMasterBean);
@@ -258,23 +255,11 @@ public class RolemasterViewModel {
 	public static void setFlag(boolean flag) {
 		RolemasterViewModel.flag = flag;
 	}
-	public ArrayList<UserprofileBean> getUserList() {
-		return userList;
-	}
 	public boolean isFlagLogDelete() {
 		return flagLogDelete;
 	}
 	public void setFlagLogDelete(boolean flagLogDelete) {
 		this.flagLogDelete = flagLogDelete;
-	}
-	public ArrayList<RoleMasterBean> getMappingList() {
-		return mappingList;
-	}
-	public void setMappingList(ArrayList<RoleMasterBean> mappingList) {
-		this.mappingList = mappingList;
-	}
-	public void setUserList(ArrayList<UserprofileBean> userList) {
-		this.userList = userList;
 	}
 	public static Integer getCountRole() {
 		return countRole;
@@ -288,10 +273,22 @@ public class RolemasterViewModel {
 	public static void setCount(Integer count) {
 		RolemasterViewModel.count = count;
 	}
+	public ArrayList<UserprofileBean> getUserList() {
+		return userList;
+	}
+	public void setUserList(ArrayList<UserprofileBean> userList) {
+		this.userList = userList;
+	}
 	public ArrayList<RollDropDownBean> getRoleList() {
 		return roleList;
 	}
 	public void setRoleList(ArrayList<RollDropDownBean> roleList) {
 		this.roleList = roleList;
-	}	
+	}
+	public ArrayList<RoleMasterBean> getMappingList() {
+		return mappingList;
+	}
+	public void setMappingList(ArrayList<RoleMasterBean> mappingList) {
+		this.mappingList = mappingList;
+	}
 }

@@ -2,10 +2,8 @@ package org.appsquad.viewmodel;
 
 import java.io.FileNotFoundException;
 import java.sql.Connection;
-import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-
 import org.appsquad.bean.TaskNameBean;
 import org.appsquad.bean.UserprofileBean;
 import org.appsquad.dao.CurrentOpportunitiesDao;
@@ -26,7 +24,6 @@ import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Bandbox;
 import org.zkoss.zul.Messagebox;
-
 import com.itextpdf.text.DocumentException;
 
 public class TaskNameViewModel {
@@ -40,7 +37,7 @@ public class TaskNameViewModel {
 	private Bandbox userBandBox;
 	
 	private TaskNameBean taskBean = new TaskNameBean();
-	private ArrayList<UserprofileBean> userList = new ArrayList<UserprofileBean>();
+	private ArrayList<UserprofileBean> userList = null;
 	private ArrayList<TaskNameBean> taskDetailsList = null;
 	private ArrayList<TaskNameBean> newlyCreatedTaskDetailsList = null;
 	private ArrayList<TaskNameBean> reportDetailsList = null;
@@ -56,18 +53,17 @@ public class TaskNameViewModel {
 	    java.sql.Date date=new java.sql.Date(millis);
 	    taskBean.setCreatedDateStr(sdf.format(date));
 	    taskBean.setCreatedDateSql(new java.sql.Date(new java.util.Date().getTime()));
-	    taskDetailsList = TaskNameDao.fetchTaskDeatils();
-	    if(taskDetailsList.size()>0){
-	    	taskBean.setDivVisibility(true);
-	    }else{
-	    	taskBean.setDivVisibility(true);
-	    }
 	    loadUserIdList();
 	    onLoad();
 	}
 
 	public void onLoad(){
 		newlyCreatedTaskDetailsList = TaskNameDao.fetchNewlyCreatedTaskDeatils(userId);
+		if(newlyCreatedTaskDetailsList.size()>0){
+			taskBean.setDivVisibility(true);
+		}else{
+			taskBean.setDivVisibility(false);
+		}
 	}
 	
 	public void loadUserIdList(){
@@ -78,7 +74,6 @@ public class TaskNameViewModel {
 	 @NotifyChange("*")
 	 public void onChangeUserId(){
 		 if(taskBean.getUserIdSearch()!=null){
-			 //userList = RoleMasterDao.onLoadUserDeatilsWithSearch(taskBean.getUserIdSearch());
 			 userList = TaskNameService.loadSearchedUserId(taskBean.getUserIdSearch(), userList);
 		 }
 	 }
@@ -112,7 +107,6 @@ public class TaskNameViewModel {
 				   				 	if(flagInsert){
 				   				 	 onLoad();
 				   					 String emailId = CurrentOpportunitiesDao.fetchEmailId(taskBean.userprofileBean.getUserid());
-				   					
 				   					 flagEmailSend = SendEmail.validator(emailId);
 				   					
 				   					 if(flagEmailSend){
@@ -120,7 +114,6 @@ public class TaskNameViewModel {
 				   					 }else{
 				   						System.out.println("APPROVER'S EMAIL ID IS NOT CORRECT. ");
 				   					 }
-				   					 
 				   					 
 				   					 if(flagEmailSend){
 				   						 taskBean.setTaskDescription(null);
@@ -264,12 +257,6 @@ public class TaskNameViewModel {
 	public void setUserBandBox(Bandbox userBandBox) {
 		this.userBandBox = userBandBox;
 	}
-	public ArrayList<UserprofileBean> getUserList() {
-		return userList;
-	}
-	public void setUserList(ArrayList<UserprofileBean> userList) {
-		this.userList = userList;
-	}
 	public ArrayList<TaskNameBean> getTaskDetailsList() {
 		return taskDetailsList;
 	}
@@ -294,5 +281,11 @@ public class TaskNameViewModel {
 	public void setNewlyCreatedTaskDetailsList(
 			ArrayList<TaskNameBean> newlyCreatedTaskDetailsList) {
 		this.newlyCreatedTaskDetailsList = newlyCreatedTaskDetailsList;
+	}
+	public ArrayList<UserprofileBean> getUserList() {
+		return userList;
+	}
+	public void setUserList(ArrayList<UserprofileBean> userList) {
+		this.userList = userList;
 	}
 }
