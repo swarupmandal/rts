@@ -455,7 +455,7 @@ public class CurrentOpportunitiesReportGenerationViewModel {
     @Command
 	@NotifyChange("*")
 	public void onSelctClientName(){
-    	
+    	clnBandBox.close();
     	currentOpportunitiesReportGenerationBean.setClientFlag("Y");
     	currentOpportunitiesReportGenerationBean.setResourceFlag("N");
     	Double grandTotalClient = 0d;
@@ -468,7 +468,6 @@ public class CurrentOpportunitiesReportGenerationViewModel {
     		list = CurrentOpportunitiesReportGenerationDao.loadOppurtunityWiseReportForClientDao(currentOpportunitiesReportGenerationBean);
     	}
     	
-		clnBandBox.close();
 		if(secondTabList.size()>0){
 			secondTabList.clear();	
 		}
@@ -597,14 +596,13 @@ public class CurrentOpportunitiesReportGenerationViewModel {
     @Command
 	@NotifyChange("*")
 	public void onSelctResourceName(){
-    	
+    	resourceBandBox.close();
     	currentOpportunitiesReportGenerationBean.setClientFlag("N");
     	currentOpportunitiesReportGenerationBean.setResourceFlag("Y");
     	
     	Double grandTotal = 0d;
     	Double grandTotalChargeOurRate = 0d;
     	
-		resourceBandBox.close();
 		if(secondTabList.size()>0){
 			secondTabList.clear();	
 		}

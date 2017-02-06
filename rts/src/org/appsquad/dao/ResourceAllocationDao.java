@@ -362,7 +362,7 @@ public class ResourceAllocationDao {
 					sql_fetch:{
 					   PreparedStatement preparedStatement = null;
 					   try {
-						    preparedStatement = Pstm.createQuery(connection, ResourceAllocationSql.fetchResourceDetails, Arrays.asList(resourceAllocationBean.getMasterbean().getSkillset().toUpperCase()));
+						    preparedStatement = Pstm.createQuery(connection, ResourceAllocationSql.fetchResourceDetails, Arrays.asList(resourceAllocationBean.getMasterbean().getSkillset()));
 						    System.out.println("RESOURCE DETAILS QUERY :"+preparedStatement);
 							ResultSet resultSet = preparedStatement.executeQuery();
 							while (resultSet.next()) {
