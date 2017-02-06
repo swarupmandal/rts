@@ -74,7 +74,7 @@ public class TaskNameViewModel {
 	 @NotifyChange("*")
 	 public void onChangeUserId(){
 		 if(taskBean.getUserIdSearch()!=null){
-			 userList = TaskNameService.loadSearchedUserId(taskBean.getUserIdSearch(), userList);
+			userList = TaskNameService.loadSearchedUserId(taskBean.getUserIdSearch(), userList);
 		 }
 	 }
 	
