@@ -57,18 +57,19 @@ public class RolemasterViewModel {
 	@Command
 	@NotifyChange("*")
 	public void onClickRoleSave(){
-		boolean flagLogInsert = false;
-		countRole = RoleMasterDao.onLoadRoleNameCountDeatils(roleMasterBean);
-		if(countRole>0){
+		//boolean flagLogInsert = false;
+		//countRole = RoleMasterDao.onLoadRoleNameCountDeatils(roleMasterBean);
+	//	if(countRole>0){
+		if(RoleMasterService.isRoleNameExists(roleMasterBean.getRoll(), rolebeanlist)){
 			roleMasterBean.setRoll(null);
-			Messagebox.show(" Enter New Role Name!","Exclamation",Messagebox.OK,Messagebox.EXCLAMATION);
+			Messagebox.show("This role name already exists. Please enter a new role name!","Role Name exixts",Messagebox.OK,Messagebox.EXCLAMATION);
 		}else{
 			RoleMasterService.insertClientMasterData(roleMasterBean);
 			roleMasterBean.setOperation("INSERT");
 			roleMasterBean.setOperationId(1);
 			Calendar calendar = Calendar.getInstance();
 		    java.sql.Date currentDate = new java.sql.Date(calendar.getTime().getTime());
-			flagLogInsert = LogAuditServiceClass.insertIntoLogTable(roleMasterBean.getMainScreenName(), roleMasterBean.getChileScreenName(), 
+			LogAuditServiceClass.insertIntoLogTable(roleMasterBean.getMainScreenName(), roleMasterBean.getChileScreenName(), 
 																			roleMasterBean.getSessionUserId(), roleMasterBean.getOperation(),currentDate,
 																			   roleMasterBean.getOperationId());
 			RoleMasterService.clearAllField(roleMasterBean);

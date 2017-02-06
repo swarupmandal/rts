@@ -1,5 +1,7 @@
 package org.appsquad.service;
 
+import java.util.ArrayList;
+
 import org.appsquad.bean.RoleMasterBean;
 import org.appsquad.dao.RoleMasterDao;
 import org.zkoss.zul.Messagebox;
@@ -13,6 +15,15 @@ public class RoleMasterService {
 			Messagebox.show("Enter Roll","Informtion", Messagebox.OK, Messagebox.EXCLAMATION);
 			return false;
 		}
+	}
+	
+	public static boolean isRoleNameExists(String roleName,ArrayList<RoleMasterBean> existingRoleList){
+		for(RoleMasterBean role : existingRoleList){
+			if(role.getRoll().toUpperCase().trim().equalsIgnoreCase(roleName.toUpperCase().trim())){
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public static boolean isValidAssignTab(RoleMasterBean bean){
