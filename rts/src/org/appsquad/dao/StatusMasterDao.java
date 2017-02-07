@@ -366,7 +366,7 @@ public class StatusMasterDao {
 					sql_fetch:{
 					   PreparedStatement preparedStatement = null;
 					   try {
-						    preparedStatement = Pstm.createQuery(connection, StatusMasterSql.countStatusSql, Arrays.asList(statusMasterBean.getStatus().toUpperCase()));
+						    preparedStatement = Pstm.createQuery(connection, StatusMasterSql.countStatusSql, Arrays.asList(statusMasterBean.getStatus().toLowerCase()));
 							
 							logger.info(" count Status Number- " + preparedStatement.unwrap(PreparedStatement.class));
 							ResultSet resultSet = preparedStatement.executeQuery();

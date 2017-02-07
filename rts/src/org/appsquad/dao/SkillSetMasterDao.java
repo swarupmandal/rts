@@ -228,7 +228,7 @@ public class SkillSetMasterDao {
 					    PreparedStatement preparedStatementCount = null;
 					    try {
 					    	preparedStatementCount = Pstm.createQuery(connection,SkillSetMasterSql.countSkillNameSql, 
-					    			                                                                       Arrays.asList(masterbean.getSkillset().toUpperCase()));
+					    			                                                                       Arrays.asList(masterbean.getSkillset().toLowerCase()));
 					    	ResultSet resultSet = preparedStatementCount.executeQuery();
 							while (resultSet.next()) {
 								count = resultSet.getInt(1);
