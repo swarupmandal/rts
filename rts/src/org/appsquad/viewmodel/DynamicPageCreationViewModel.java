@@ -28,7 +28,7 @@ public class DynamicPageCreationViewModel {
 	private String userId;
 	@Wire("#winDynamicPage")
 	private Window winDynamicPage;
-	private ArrayList<RoleMasterBean> pagelist = new ArrayList<RoleMasterBean>();
+	private ArrayList<RoleMasterBean> pagelist = null;
 	private boolean allChecked = false;
 	private RoleMasterBean roleMasterBean = new RoleMasterBean();
 	
@@ -116,12 +116,6 @@ public class DynamicPageCreationViewModel {
 	public void setWinDynamicPage(Window winDynamicPage) {
 		this.winDynamicPage = winDynamicPage;
 	}
-	public ArrayList<RoleMasterBean> getPagelist() {
-		return pagelist;
-	}
-	public void setPagelist(ArrayList<RoleMasterBean> pagelist) {
-		this.pagelist = pagelist;
-	}
 	public RoleMasterBean getRoleMasterBean() {
 		return roleMasterBean;
 	}
@@ -133,5 +127,13 @@ public class DynamicPageCreationViewModel {
 	}
 	public void setAllChecked(boolean allChecked) {
 		this.allChecked = allChecked;
+	}
+
+	public ArrayList<RoleMasterBean> getPagelist() {
+		return pagelist;
+	}
+
+	public void setPagelist(ArrayList<RoleMasterBean> pagelist) {
+		this.pagelist = pagelist;
 	}
 }

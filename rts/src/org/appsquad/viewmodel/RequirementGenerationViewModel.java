@@ -255,11 +255,9 @@ public class RequirementGenerationViewModel {
 			ArrayList<RequirementGenerationBean> reqGenBeanList) {
 		this.reqGenBeanList = reqGenBeanList;
 	}
-
 	public boolean isSaveBtnDisabled() {
 		return saveBtnDisabled;
 	}
-
 	public void setSaveBtnDisabled(boolean saveBtnDisabled) {
 		this.saveBtnDisabled = saveBtnDisabled;
 	}
