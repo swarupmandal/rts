@@ -128,11 +128,9 @@ public class DynamicPageCreationViewModel {
 	public void setAllChecked(boolean allChecked) {
 		this.allChecked = allChecked;
 	}
-
 	public ArrayList<RoleMasterBean> getPagelist() {
 		return pagelist;
 	}
-
 	public void setPagelist(ArrayList<RoleMasterBean> pagelist) {
 		this.pagelist = pagelist;
 	}
