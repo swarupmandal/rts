@@ -26,6 +26,7 @@ public class ResourceMasterBean {
 	private String country;
 	private String state;
 	private String fileName;
+	private String resourceNameStyle = "text-align:center;";
 	
 	CountryBean countryBean = new CountryBean();
 	StateBean stateBean = new StateBean();	
@@ -254,5 +255,11 @@ public class ResourceMasterBean {
 	}
 	public void setExpectedCtc(Double expectedCtc) {
 		this.expectedCtc = expectedCtc;
+	}
+	public String getResourceNameStyle() {
+		return resourceNameStyle;
+	}
+	public void setResourceNameStyle(String resourceNameStyle) {
+		this.resourceNameStyle = resourceNameStyle;
 	}
 }

@@ -175,7 +175,7 @@ public class RolemasterViewModel {
 		int countNumber = 0;
 		countNumber = RoleMasterDao.onLoadCountDeatils(roleMasterBean);
 		if(countNumber>0){
-			Messagebox.show("Please Enter New User Name!","Exclamation",Messagebox.OK,Messagebox.EXCLAMATION);
+			Messagebox.show("This userId and role name combination already exists. Please select a new userId ","User Id & Role Name combination exixts",Messagebox.OK,Messagebox.EXCLAMATION);
 		}else {
 			RoleMasterService.insertAssignData(roleMasterBean);
 			roleMasterBean.setOperation("INSERT");

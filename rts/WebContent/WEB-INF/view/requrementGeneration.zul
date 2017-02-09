@@ -129,15 +129,14 @@
 					  <template name="model" var = "v">
 						<row>
 						    <label value="@bind(v.req_id)" width="99%"></label>
-							<textbox width="99%" value="@bind(v.clientOriginalName)" readonly="true" ></textbox>
+							<textbox width="99%" value="@bind(v.clientOriginalName)" readonly="true" style="text-align:center;"></textbox>
 							<textbox width="99%" value="@bind(v.resourceTypeBean.resourceTypeName)" readonly="true"></textbox>
 							<textbox width="99%" readonly="true" value="@bind(v.reqSkill)"></textbox>
 							<textbox width="99%" readonly="true" value="@bind(v.requiredResourceNumber)"></textbox>
 							<textbox readonly="true" value="@bind(v.raiseDateStr)" width="99%"></textbox>
 							<textbox readonly="true" value="@bind(v.targetDateStr)" width="99%"></textbox>
 							<textbox readonly="true" width="99%" value="@bind(v.ocStatus)"></textbox>
-							<button image="images/update.png" label="Update"
-							onClick="@command('onClickUpdate', bean = v)"/>
+							<button image="images/update.png" label="Update" width="100%" onClick="@command('onClickUpdate', bean = v)"/>
 						</row>
 					  </template>	
 					</rows>

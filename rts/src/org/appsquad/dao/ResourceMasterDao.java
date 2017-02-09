@@ -469,6 +469,7 @@ public class ResourceMasterDao {
 								bean.setProfit(resultSet.getDouble("profit"));
 								bean.setOtherInfo(resultSet.getString("other_info"));
 								bean.setFileName(resultSet.getString("file_name"));
+								bean.setFullName(bean.getName()+" "+bean.getSurName());
 								
 								resourceList.add(bean);
 							}  

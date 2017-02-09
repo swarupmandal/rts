@@ -16,8 +16,8 @@
                                 <rows>
                                 
 								   <row>
-					  					<label value="User Name" style="font-weight:bold"></label>		
-					  					<textbox value="@bind(vm.masterBean.userprofileBean.username)" readonly="true"></textbox>
+					  					<label value="User ID" style="font-weight:bold"></label>		
+					  					<textbox value="@bind(vm.masterBean.userprofileBean.userid)" readonly="true"></textbox>
 								  
 					  					<label value="Role Name" style="font-weight:bold"></label>		
 					  					<combobox model="@bind(vm.roleList)" selectedItem="@bind(vm.masterBean.downBean)" readonly="true"

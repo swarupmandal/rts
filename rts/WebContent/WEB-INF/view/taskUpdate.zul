@@ -18,22 +18,22 @@
 				<template name="model" var="v">
 					<row>
 						<textbox multiline="true" rows="3" readonly="true" width="100%"
-							value="@bind(v.taskDescription)" />
+							value="@bind(v.taskDescription)" style="text-align:center;"/>
 						<textbox readonly="true" width="100%"
-							value="@bind(v.taskStatusBean.taskStatusName)" />
+							value="@bind(v.taskStatusBean.taskStatusName)" style="text-align:center;"/>
 						<textbox readonly="true" width="100%"
-							value="@bind(v.assignedTo)" />
+							value="@bind(v.assignedTo)" style="text-align:center;"/>
 						<textbox readonly="true" width="100%"
-							value="@bind(v.assignedByUserId)" />
+							value="@bind(v.assignedByUserId)" style="text-align:center;"/>
 						<datebox format="dd-MM-yyyy" width="100%"
 							value="@bind(v.createdDate)" readonly="true"
-							buttonVisible="false" />
+							buttonVisible="false" style="text-align:center;"/>
 						<datebox format="dd-MM-yyyy" width="100%"
 							value="@bind(v.scheduledDate)" readonly="true"
-							buttonVisible="false" />
+							buttonVisible="false" style="text-align:center;"/>
 						<datebox format="dd-MM-yyyy" width="100%"
 							value="@bind(v.actualCompletionDate)" readonly="true"
-							buttonVisible="false" />	
+							buttonVisible="false" style="text-align:center;"/>	
 						<button image="images/update.png" label="Update" width="100%" onClick="@command('onClickUpdate',bean= v)"/>
 					</row>
 				</template>

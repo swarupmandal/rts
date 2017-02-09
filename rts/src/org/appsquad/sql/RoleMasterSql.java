@@ -22,7 +22,7 @@ public class RoleMasterSql {
 	public static final String fetchUserQuerySearch = "select * from rts_user_master where is_delete = 'N' and user_id like ? order by id ";
 	/*public static final String fetchUserQuerySearchsql = "select * from rts_user_role_mapping where master_role_name = 'APPROVER' and user_id like ? order by id ";*/
 	public static final String insertMappingQuery = "insert into rts_user_role_mapper (user_id,role_id) values(?,?) ";
-	public static final String fetchMappingQuery =   "select rurm.user_role_mapper_id,rurm.user_id,rurm.role_id,rum.user_name,rrm.master_role_name,rum.id "
+	public static final String fetchMappingQuery =   "select rurm.user_role_mapper_id,rum.user_id,rurm.role_id,rum.user_name,rrm.master_role_name,rum.id "
 													+"from rts_user_role_mapper rurm,rts_user_master rum,rts_role_master rrm "
 													+"where rurm.user_id = rum.id "
 													+"and rurm.role_id = rrm.id "

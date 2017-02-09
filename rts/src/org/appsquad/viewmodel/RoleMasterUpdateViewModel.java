@@ -64,15 +64,16 @@ public class RoleMasterUpdateViewModel {
 	@NotifyChange("*")
 	public void onClickUpdateButton(){
 		boolean flagLogUpdate = false;
-		flag = RoleMasterService.updateAssignRoleData(masterBean);
-		if(flag){
+		boolean insertFlag = false;
+		insertFlag = RoleMasterService.updateAssignRoleData(masterBean);
+		if(insertFlag){
 			masterBean.setOperation("UPDATE");
 			masterBean.setOperationId(2);
 			Calendar calendar = Calendar.getInstance();
 		    java.sql.Date currentDate = new java.sql.Date(calendar.getTime().getTime());
 			flagLogUpdate = LogAuditServiceClass.insertIntoLogTable(masterBean.getMainScreenName(), masterBean.getChileScreenName(), 
-																		masterBean.getSessionUserId(), masterBean.getOperation(),currentDate,
-																		  masterBean.getOperationId());
+																	masterBean.getSessionUserId(), masterBean.getOperation(),currentDate,
+																	masterBean.getOperationId());
 			winRoleUpdate.detach();
 			BindUtils.postGlobalCommand(null, null, "globalRoleDetailsUpdate", null);
 		}
@@ -85,7 +86,7 @@ public class RoleMasterUpdateViewModel {
 		BindUtils.postGlobalCommand(null, null, "globalMapingData", null);
 	}
 	
-	/***************************************************Getter And Setter Method ****************************************************************/
+	/*************************************************** Getter And Setter Method ****************************************************************/
 	
 	public RoleMasterBean getRoleMasterBean() {
 		return roleMasterBean;

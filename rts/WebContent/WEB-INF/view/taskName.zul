@@ -111,19 +111,19 @@
 				<template name="model" var="v">
 					<row>
 						<textbox multiline="true" rows="2" readonly="true" width="100%"
-							value="@bind(v.taskDescription)" />
+							value="@bind(v.taskDescription)" style="text-align:center;"/>
 						<textbox readonly="true" width="100%"
-							value="@bind(v.taskStatusBean.taskStatusName)" />
+							value="@bind(v.taskStatusBean.taskStatusName)" style="text-align:center;"/>
 						<textbox readonly="true" width="100%"
-							value="@bind(v.assignedTo)" />
+							value="@bind(v.assignedTo)" style="text-align:center;"/>
 						<datebox format="dd-MM-yyyy" width="100%"
 							value="@bind(v.createdDate)" readonly="true"
-							buttonVisible="false" />
+							buttonVisible="false" style="text-align:center;"/>
 						<datebox format="dd-MM-yyyy" width="100%"
 							value="@bind(v.scheduledDate)" readonly="true"
-							buttonVisible="false" />
+							buttonVisible="false" style="text-align:center;"/>
 						<textbox multiline="true" rows="2"
-						 width="100%" value="@bind(v.remarksOrResults)" readonly="true"/>	
+						 width="100%" value="@bind(v.remarksOrResults)" readonly="true" style="text-align:center;"/>	
 					</row>
 				</template>
 

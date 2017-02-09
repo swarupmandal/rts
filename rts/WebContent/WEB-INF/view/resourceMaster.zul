@@ -179,8 +179,7 @@
 		 <tabpanel>
 	             <grid height="450px" sclass="fgrid" model="@bind(vm.resourceList)" mold="paging" autopaging="true" pageSize="12">
 						<columns sizable="true">
-								<column label="Name" align="center" style="font-weight:bold;" width="280px"/>
-							    <column label="SurName" align="center" style="font-weight:bold;" width="280px"/>
+								<column label="Resource Name" align="center" style="font-weight:bold;" width="260px"/>
 								<column label="Experience" align="center" style="font-weight:bold;" width="80px"/>
 								<column label="Skill-Set" align="center" style="font-weight:bold;" width="120px"/>
 								<column label="Address" align="center" style="font-weight:bold;" width="120px"/>
@@ -194,15 +193,16 @@
 						
 						<template name="model" var="v">
 								<row style="border: 0.01px solid #C0C0C0;">
-									<textbox value="@bind(v.name)" readonly="true" width="100%" tooltiptext="@bind(v.name)"/>
-									<textbox value="@bind(v.surName)" readonly="true" width="100%" tooltiptext="@bind(v.surName)"/> 
-									<textbox value="@bind(v.yearOfExperience)" readonly="true" width="100%" tooltiptext="@bind(v.yearOfExperience)"/>
-									<textbox value="@bind(v.skillsetMasterbean.skillset)" readonly="true" width="100%" tooltiptext="@bind(v.skillsetMasterbean.skillset)"/>
-									<textbox value="@bind(v.address)" readonly="true" width="100%" tooltiptext="@bind(v.address)"/>
-									<textbox value="@bind(v.country)" readonly="true" width="100%" tooltiptext="@bind(v.country)"/>
-									<textbox value="@bind(v.state)" readonly="true" width="100%" tooltiptext="@bind(v.state)"/>
-									<doublebox value="@bind(v.ctc)" readonly="true" width="100%" tooltiptext="@bind(v.ctc)"/>
-									<doublebox value="@bind(v.expectedCtc)" readonly="true" width="100%" tooltiptext="@bind(v.expectedCtc)"/>
+									<textbox value="@bind(v.fullName)" readonly="true" width="100%" tooltiptext="@bind(v.fullName)" style="@bind(v.resourceNameStyle)"/>
+									<textbox value="@bind(v.yearOfExperience)" readonly="true" width="100%" tooltiptext="@bind(v.yearOfExperience)"
+									  style="text-align:center;"/>
+									<textbox value="@bind(v.skillsetMasterbean.skillset)" readonly="true" width="100%" tooltiptext="@bind(v.skillsetMasterbean.skillset)"
+									  style="text-align:center;"/>
+									<textbox value="@bind(v.address)" readonly="true" width="100%" tooltiptext="@bind(v.address)" style="text-align:center;"/>
+									<textbox value="@bind(v.country)" readonly="true" width="100%" tooltiptext="@bind(v.country)" style="text-align:center;"/>
+									<textbox value="@bind(v.state)" readonly="true" width="100%" tooltiptext="@bind(v.state)" style="text-align:center;"/>
+									<doublebox value="@bind(v.ctc)" readonly="true" width="100%" tooltiptext="@bind(v.ctc)" style="text-align:center;"/>
+									<doublebox value="@bind(v.expectedCtc)" readonly="true" width="100%" tooltiptext="@bind(v.expectedCtc)" style="text-align:center;"/>
 								    <button image="images/update.png" label="Update" width="100%" onClick="@command('onClickUpdate', bean = v)"></button>
 								    <button image="images/delete.png" label="Delete" width="100%" onClick="@command('onClickDelete', bean = v)"></button>
 								</row>

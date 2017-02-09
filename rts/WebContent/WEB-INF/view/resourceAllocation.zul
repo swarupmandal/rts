@@ -84,10 +84,10 @@
                                    <template name="model" var="v">
                                    <row>
                                        <checkbox checked="@bind(v.chkSelect)" onCheck="@command('onCheck', bean = v)"></checkbox>
-                                       <textbox value="@bind(v.fullName)" readonly="true" tooltiptext="@bind(v.fullName)" width="98%"></textbox>
-                                       <textbox value="@bind(v.yearOfExperience)" readonly="true" tooltiptext="@bind(v.yearOfExperience)"></textbox>
-                                       <textbox value="@bind(v.skillsetMasterbean.skillset)" readonly="true" tooltiptext="@bind(v.address)"></textbox>
-                                       <textbox value="@bind(v.emailId)" readonly="true" tooltiptext="@bind(v.emailId)" width="98%"></textbox>
+                                       <textbox value="@bind(v.fullName)" readonly="true" tooltiptext="@bind(v.fullName)" width="98%" style="text-align:center;"></textbox>
+                                       <textbox value="@bind(v.yearOfExperience)" readonly="true" tooltiptext="@bind(v.yearOfExperience)" style="text-align:center;"></textbox>
+                                       <textbox value="@bind(v.skillsetMasterbean.skillset)" readonly="true" tooltiptext="@bind(v.address)" style="text-align:center;"></textbox>
+                                       <textbox value="@bind(v.emailId)" readonly="true" tooltiptext="@bind(v.emailId)" width="98%" style="text-align:center;"></textbox>
                                    </row>
                                    </template>
                                </rows>

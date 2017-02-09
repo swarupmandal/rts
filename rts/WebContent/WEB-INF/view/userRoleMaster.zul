@@ -70,7 +70,7 @@
 								   <row>
 					  					<label value="User Name" style="font-weight:bold"></label>		
 					  					<combobox model="@bind(vm.userList)"  selectedItem="@bind(vm.roleMasterBean.userprofileBean)" readonly="true"
-		             						value="@bind(vm.roleMasterBean.userprofileBean.userid)" width="120px" onSelect="@command('onSelectUserName')">
+		             						value="@bind(vm.roleMasterBean.userprofileBean.userid)" width="180px" onSelect="@command('onSelectUserName')">
 		             					<template name="model" var="q">
 		             					<comboitem value="@bind(q.userid)" label="@bind(q.userid)"/>
 		             					</template>
@@ -78,7 +78,7 @@
 								  
 					  					<label value="Role Name" style="font-weight:bold"></label>		
 					  					<combobox model="@bind(vm.roleList)" selectedItem="@bind(vm.roleMasterBean.downBean)" readonly="true"
-		             						value="@bind(vm.roleMasterBean.downBean.roll)" width="120px" onSelect="@command('onSelectRollName')">
+		             						value="@bind(vm.roleMasterBean.downBean.roll)" width="185px" onSelect="@command('onSelectRollName')">
 		             					<template name="model" var="p">
 		             					<comboitem value="@bind(p.roll)" label="@bind(p.roll)"/>
 		             					</template>
@@ -95,14 +95,14 @@
                         <div>
                            <grid model="@bind(vm.mappingList)" mold="paging" pageSize="10" sclass="fgrid">
                                <columns>
-                                    <column label="User-Name" align="center"/>
+                                    <column label="User-ID" align="center"/>
                                     <column label="Role-Name" align="center"/>
                                     <column label="Update" align="center"/>
                                </columns>
                                <rows>
                                    <template name="model" var="v">
                                    <row>
-                                       <textbox value="@bind(v.userprofileBean.username)" readonly="true"></textbox>
+                                       <textbox value="@bind(v.userprofileBean.userid)" readonly="true" width="200px"></textbox>
                                        <textbox value="@bind(v.downBean.roll)" readonly="true" width="300px" tooltiptext="@bind(v.downBean.roll)"></textbox>
                                        <button image="images/update.png" label="Update" onClick="@command('onClickUpdate', bean = v)"/>
                                    </row>

@@ -77,16 +77,16 @@
 			   <template name="model" var = "v">	
 				<row>
 				  <checkbox value="@bind(v.check)"></checkbox>
-				  <textbox width="98%"  readonly="true" value="@bind(v.resourceMasterBean.fullName)"></textbox>
-				  <textbox width="98%"  readonly="true" value="@bind(v.status)"></textbox>
+				  <textbox width="98%"  readonly="true" value="@bind(v.resourceMasterBean.fullName)" style="text-align:center;"></textbox>
+				  <textbox width="98%"  readonly="true" value="@bind(v.status)" style="text-align:center;"></textbox>
 				 <!--  <doublebox width="98%" readonly="true" value="@bind(v.resourceMasterBean.yearOfExperience)"></doublebox> -->
 				  <textbox width="98%"  readonly="true" value="@bind(v.resourceType)"></textbox>
 				 <!--  <textbox width="98%"  readonly="true" value="@bind(v.resourceMasterBean.contactNumber)"></textbox>
 				  <textbox width="98%"  readonly="true" value="@bind(v.resourceMasterBean.emailId)"></textbox>
 				  <textbox width="98%"  readonly="true" value="@bind(v.resourceMasterBean.address)"></textbox> -->
-				  <textbox width="98%"  readonly="true" value="@bind(v.internalInterviewDateStr)"></textbox>
-				  <textbox width="98%"  readonly="true" value="@bind(v.clientInterviewDateStr)"></textbox>
-				  <textbox width="98%"  readonly="true" value="@bind(v.onboardDateStr)"></textbox>
+				  <textbox width="98%"  readonly="true" value="@bind(v.internalInterviewDateStr)" style="text-align:center;"></textbox>
+				  <textbox width="98%"  readonly="true" value="@bind(v.clientInterviewDateStr)" style="text-align:center;"></textbox>
+				  <textbox width="98%"  readonly="true" value="@bind(v.onboardDateStr)" style="text-align:center;"></textbox>
 				 <!--  <button width="90%" label="Update" onClick="@command('onClickUpdate', bean =v)"></button>	 -->
 				 <button image="images/edit.png" label="Update" style="cursor:pointer" onClick="@command('onClickUpdate', bean =v)"/>
 				</row>

@@ -152,16 +152,15 @@
 	       
 	       <tabpanel>
 	             <grid sclass="fgrid" height="400px" model="@bind(vm.clientDetailsList)" mold="paging" 
-	             vflex="true" autopaging="true" pageSize="10"
-	            >
+	             	vflex="true" autopaging="true" pageSize="10">
 						<columns sizable="true">
-						        <column label="Client-Name" align="center" style="font-weight:bold;" width="300px"/>
-								<column label="Name" align="center" style="font-weight:bold;" width="300px"/>
-								<column label="Comapny-Address" align="center" style="font-weight:bold;" width="300px"/>
+						        <column label="Client-Name" align="center" style="font-weight:bold;" width="250px"/>
+								<column label="Name" align="center" style="font-weight:bold;" width="250px"/>
+								<column label="Comapny-Address" align="center" style="font-weight:bold;" width="250px"/>
 								<column label="Country" align="center" style="font-weight:bold;" width="120px"/>
-								<column label="Pincode" align="center" style="font-weight:bold;" width="120px"/>
+								<column label="Pincode" align="center" style="font-weight:bold;" width="100px"/>
 								<column label="Conatact-Number" align="center" style="font-weight:bold;" width="120px"/>
-								<column label="Email-Id" align="center" style="font-weight:bold;" width="300px"/>
+								<column label="Email-Id" align="center" style="font-weight:bold;" width="200px"/>
 								<column label="" align="center" style="font-weight:bold;" width="100px" />
 								<column label="" align="center" style="font-weight:bold;" width="100px" />
 						</columns>	
