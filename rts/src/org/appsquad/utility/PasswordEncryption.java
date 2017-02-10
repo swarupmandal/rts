@@ -22,6 +22,7 @@ public class PasswordEncryption {
     	for (int i = 0; i < reverse.length(); i++) {
     		tmp.append(reverse.charAt(i) + OFFSET);
     	}
+    	System.out.println(tmp.toString());
     	return tmp.toString();
     }
 
