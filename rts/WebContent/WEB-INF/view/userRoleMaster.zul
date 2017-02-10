@@ -1,8 +1,7 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
-  <window title="User Role" apply="org.zkoss.bind.BindComposer" 
-  viewModel="@id('vm') @init('org.appsquad.viewmodel.RolemasterViewModel')"
-  action="show: slideDown;hide: slideUp"  position="center,center">
+  <window title="User Role" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('org.appsquad.viewmodel.RolemasterViewModel')"
+  		action="show: slideDown;hide: slideUp"  position="center,center">
    <div>
        <tabbox>
             <tabs>

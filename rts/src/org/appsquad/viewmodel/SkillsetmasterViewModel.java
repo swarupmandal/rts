@@ -64,7 +64,7 @@ public class SkillsetmasterViewModel {
 		boolean flagLogInsert = false;
 		countNumber = SkillSetMasterService.countNumberPresentSkillName(skillsetMasterbean);
 		if(countNumber>0){
-			 Messagebox.show("Please Enter New Skill Name!", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
+			Messagebox.show("This skill already exists. Please enter a new skill. ","Skill exixts",Messagebox.OK,Messagebox.EXCLAMATION);
 		}else{
 			flagInsert = SkillSetMasterService.insertClientMasterData(skillsetMasterbean);
 			if(flagInsert){

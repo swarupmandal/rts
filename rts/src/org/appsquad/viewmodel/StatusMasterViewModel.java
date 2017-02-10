@@ -100,10 +100,9 @@ public class StatusMasterViewModel {
 		boolean flagInsert = false;
 		boolean flagLogInsert = false;
 		int count = 0;
-		
 		count = StatusMasterDao.countStatusNumber(statusMasterBean);
 		if(count>0){
-			Messagebox.show("Please Enter New Status Name!", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
+			Messagebox.show("This status already exists. Please enter a new status. ","Status exixts",Messagebox.OK,Messagebox.EXCLAMATION);
 			statusMasterBean.setStatus(null);
 		}else{
 			flagInsert = StatusMasterService.insertClientMasterData(statusMasterBean);

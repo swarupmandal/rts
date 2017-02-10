@@ -72,7 +72,7 @@ public class UserprofileViewModel {
 			countNumber = UserProfileService.countUserIdPresentInTable(userprofileBean);
 			System.out.println(countNumber);
 			if(countNumber>0){
-				Messagebox.show("Please Enter New User ID. ", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
+				Messagebox.show("This UserId already exists. Please enter a new UserId. ","User ID exixts",Messagebox.OK,Messagebox.EXCLAMATION);
 			}else{
 				flagInsert = UserProfileService.insertUserMasterData(userprofileBean);
 				if(flagInsert){

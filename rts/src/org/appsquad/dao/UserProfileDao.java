@@ -135,7 +135,7 @@ public class UserProfileDao {
 					sql_fetch:{
 					   PreparedStatement preparedStatementCount = null;
 					   try {
-						    preparedStatementCount = Pstm.createQuery(connection, UserProfileSql.countNumberSql, Arrays.asList(userprofileBean.getUserid()));
+						    preparedStatementCount = Pstm.createQuery(connection, UserProfileSql.countNumberSql, Arrays.asList(userprofileBean.getUserid().toLowerCase()));
 							ResultSet resultSet = preparedStatementCount.executeQuery();
 							while (resultSet.next()) {
 								count = resultSet.getInt(1);
