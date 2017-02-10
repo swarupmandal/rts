@@ -11,6 +11,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import org.appsquad.bean.TaskNameBean;
+import org.appsquad.bean.UserprofileBean;
 import org.appsquad.utility.Dateformatter;
 
 public class SendEmail{
@@ -154,7 +155,7 @@ public class SendEmail{
 		return false;
 	}
 
-	public static Boolean sendPasswordInEmail(String emailId,String emailBody) {
+	public static Boolean sendPasswordInEmail(UserprofileBean user,String emailBody) {
 		Properties mailServerProperties;
 		Session getMailSession;
 		MimeMessage generateMailMessage;
@@ -173,7 +174,7 @@ public class SendEmail{
 		generateMailMessage = new MimeMessage(getMailSession);
 		try {
 			generateMailMessage.setFrom(new InternetAddress("sentmail95@gmail.com"));
-			generateMailMessage.addRecipient(Message.RecipientType.TO,new InternetAddress(emailId));
+			generateMailMessage.addRecipient(Message.RecipientType.TO,new InternetAddress(user.getEmail()));
 			generateMailMessage.setSubject("Forgot Password From Resource Augmentation Tracking System");
 
 			generateMailMessage.setContent(emailBody, "text/html");
@@ -252,6 +253,28 @@ public class SendEmail{
 				+ "</span><br><br>"
 				+ "<strong>Assigned By: </strong><span> "+taskNameBean.getAssignedByUserId().toUpperCase()+"</span><br><br>"
 				+ "<strong>Schedule Date: </strong><span> "+Dateformatter.toStringDate(taskNameBean.getScheduledDateSql().toString()) +"</span><br><br>"
+				+ "</p>"
+				+ "<h4>Thanks.</h4>"
+				+ "</div>"
+				+ "</div>"
+				+ "</body>"
+				+ "</html>");
+		return sb.toString();
+	}
+	
+	public static String forgotPasswordBodyMessage(UserprofileBean user){
+		StringBuilder sb = new StringBuilder();
+		sb.append("<html>"
+				+ "<body>"
+				+ "<div style=\"border: 1px solid green;box-shadow: 10px 10px 5px #888888;background-color: #ffffcc;\">"
+				+ "<h2 style=\"text-align: center;font:bold;color: green; \">FORGOT PASSWORD</h2>"
+				+ "<hr>"
+				+ "<div style=\"margin-left: 30px;margin-right: 30px;\">"
+				+ "<strong style=\"font-size: 24px;\">Hello "+user.getUsername()+",</strong>"
+				+ "<p style=\"font-size: 17px;\">A system generated temporary password is asssigned for you. Kindly login with the password given below.</p>"
+				+ "<strong style=\"font-size: 18px;\"><u>Your temporary password</u>:</strong><br>"
+				+ "<p>"
+				+ "<strong>Password: </strong><span>"+user.getSystemPassword()+"</span><br><br>"
 				+ "</p>"
 				+ "<h4>Thanks.</h4>"
 				+ "</div>"

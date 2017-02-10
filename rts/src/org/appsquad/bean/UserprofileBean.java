@@ -5,7 +5,7 @@ import java.sql.Date;
 public class UserprofileBean {
 
 	private String username;
-	private String password,textType = "password";
+	private String password,textType = "password",systemPassword;
 	private String userid;
 	private String anotherUserId;
 	private String email;
@@ -133,5 +133,11 @@ public class UserprofileBean {
 	}
 	public void setTextType(String textType) {
 		this.textType = textType;
+	}
+	public String getSystemPassword() {
+		return systemPassword;
+	}
+	public void setSystemPassword(String systemPassword) {
+		this.systemPassword = systemPassword;
 	}
 }

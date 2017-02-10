@@ -38,9 +38,11 @@ public class ForgotPasswordViewModel {
 	public void onClickSend(){
 		btnDisabled = true;
 		String systemPassword = PasswordGenerator.generate();
-		String emailBody = "Please login with this password and set password as per your choice.\n"
-				+ " Your temporary password is: "+systemPassword;
-		if(ForgotPasswordService.isMailSend(user.getEmail(), emailBody)){
+		//String emailBody = "Please login with this password and set password as per your choice.\n"
+		//		+ " Your temporary password is: "+systemPassword;
+		
+		user.setSystemPassword(systemPassword);
+		if(ForgotPasswordService.isMailSend(user, SendEmail.forgotPasswordBodyMessage(user))){
 			ForgotPasswordService.upDatePassword(user.getUserid(), systemPassword);
 			Messagebox.show("A dummy password is sent to your mail,kindly check your mail.","Information",
 					Messagebox.OK,Messagebox.INFORMATION);

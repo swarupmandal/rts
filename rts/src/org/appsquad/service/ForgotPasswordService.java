@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.Arrays;
 
+import org.appsquad.bean.UserprofileBean;
 import org.appsquad.database.DbConnection;
 import org.appsquad.sql.LoginSql;
 import org.appsquad.utility.PasswordEncryption;
@@ -12,8 +13,8 @@ import org.appsquad.viewmodel.SendEmail;
 
 public class ForgotPasswordService {
 
-	public static boolean isMailSend(String toMail,String emailBody){
-		return SendEmail.sendPasswordInEmail(toMail, emailBody);
+	public static boolean isMailSend(UserprofileBean user,String emailBody){
+		return SendEmail.sendPasswordInEmail(user, emailBody);
 	}
 	
 	public static void upDatePassword(String userId, String password){

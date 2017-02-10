@@ -89,11 +89,11 @@ public class LogingViewModel {
 	@NotifyChange("*")
 	public void onClickForgotPassword(){
 		if(loginBean.getUserId()!=null){
-			String emailId = LoginService.getEmailIdOfUser(loginBean.getUserId());
-			if( emailId!= null){
-				UserprofileBean userBean = new UserprofileBean();
-				userBean.setUserid(loginBean.getUserId());
-				userBean.setEmail(emailId);
+			UserprofileBean userBean =LoginService.getEmailIdOfUser(loginBean.getUserId());
+			if( userBean != null){
+				 
+				//userBean.setUserid(loginBean.getUserId());
+				//userBean.setEmail(emailId);
 				HashMap<String, Object> map = new HashMap<String, Object>();
 				map.put("userDetails", userBean);
 				Window window = (Window) Executions.createComponents("/WEB-INF/view/forgotPassword.zul", null, map);

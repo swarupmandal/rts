@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.util.Arrays;
 
 import org.apache.log4j.Logger;
+import org.appsquad.bean.UserprofileBean;
 import org.appsquad.database.DbConnection;
 import org.appsquad.sql.LoginSql;
 import org.appsquad.utility.Pstm;
@@ -13,8 +14,8 @@ import org.appsquad.utility.Pstm;
 public class LoginService {
 
 	final static Logger logger = Logger.getLogger(LoginService.class);
-	public static String getEmailIdOfUser(String userID){
-		String emailID = null;
+	public static UserprofileBean getEmailIdOfUser(String userID){
+		UserprofileBean user = null;
 		try {
 			SQL:{
 					Connection connection = DbConnection.createConnection();
@@ -25,7 +26,10 @@ public class LoginService {
 								Arrays.asList(userID));
 						resultSet = preparedStatement.executeQuery();
 						while (resultSet.next()) {
-							emailID = resultSet.getString("email");
+							user = new UserprofileBean();
+							user.setEmail(resultSet.getString("email"));
+							user.setUsername(resultSet.getString("user_name"));
+							user.setUserid(userID);
 						}
 					} catch (Exception e) {
 						logger.fatal("--------------------- " + e);
@@ -39,6 +43,6 @@ public class LoginService {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		return emailID;
+		return user;
 	}
 }
