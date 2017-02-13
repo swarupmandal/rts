@@ -1,6 +1,7 @@
 package org.appsquad.viewmodel;
 
 import java.io.File;
+import java.net.URL;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -181,6 +182,13 @@ public class ResourceMasterViewModel {
 	@Command
 	@NotifyChange("*")
 	public void onUploadFile(@ContextParam(ContextType.BIND_CONTEXT) BindContext bindContext) throws Exception{
+		
+		/*URL resourceUrl = this.getClass().getResource("/");
+		String filePath = resourceUrl.getFile();
+		String serverRootDir = new File(new File(filePath).getParent()).getParent();
+		
+		System.out.println("SERVERROOTDIR ::::"+serverRootDir);*/
+		
 		UploadEvent uploadEvent = null;
 		Object objUpEvent = bindContext.getTriggerEvent();
 		if (objUpEvent != null && (objUpEvent instanceof UploadEvent)) {
