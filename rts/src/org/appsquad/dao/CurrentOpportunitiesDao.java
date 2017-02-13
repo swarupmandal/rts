@@ -126,7 +126,9 @@ public class CurrentOpportunitiesDao {
 		       currentOpportunitiesBean.setApproval(resultSet.getString("approval_status"));
 		       currentOpportunitiesBean.getBean().setUserID(resultSet.getString("approvar_person"));
 		       currentOpportunitiesBean.setPercentage(resultSet.getDouble("percentage"));
-		       
+		       currentOpportunitiesBean.setUserPerson(resultSet.getString("user_id"));
+		       currentOpportunitiesBean.setApproverPersonEmail(resultSet.getString("approver_person_email_id"));
+		       currentOpportunitiesBean.setUserPersonEmail(resultSet.getString("user_id_email"));
 			}
 		} finally {
 			if(preparedStatement !=null){

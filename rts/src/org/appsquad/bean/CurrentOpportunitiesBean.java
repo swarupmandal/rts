@@ -41,6 +41,11 @@ public class CurrentOpportunitiesBean {
 	private String percentageData; 
 	private String modalTitle;
 	
+	private String approverPerson;
+	private String userPerson;
+	private String approverPersonEmail;
+	private String userPersonEmail;
+	
 	private UserClientMappingBean bean = new UserClientMappingBean();
 	private ArrayList<UserClientMappingBean> userClBeanList = new ArrayList<UserClientMappingBean>();
 
@@ -311,5 +316,29 @@ public class CurrentOpportunitiesBean {
 	}
 	public void setMarginTotal(Double marginTotal) {
 		this.marginTotal = marginTotal;
+	}
+	public String getApproverPerson() {
+		return approverPerson;
+	}
+	public void setApproverPerson(String approverPerson) {
+		this.approverPerson = approverPerson;
+	}
+	public String getUserPerson() {
+		return userPerson;
+	}
+	public void setUserPerson(String userPerson) {
+		this.userPerson = userPerson;
+	}
+	public String getApproverPersonEmail() {
+		return approverPersonEmail;
+	}
+	public void setApproverPersonEmail(String approverPersonEmail) {
+		this.approverPersonEmail = approverPersonEmail;
+	}
+	public String getUserPersonEmail() {
+		return userPersonEmail;
+	}
+	public void setUserPersonEmail(String userPersonEmail) {
+		this.userPersonEmail = userPersonEmail;
 	}
 }

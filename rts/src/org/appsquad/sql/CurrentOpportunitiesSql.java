@@ -24,7 +24,15 @@ public class CurrentOpportunitiesSql {
                                                    +"tenure_to, charge_out_rate, resource_salary, margin, approval_status,approvar_person,user_id,percentage) "
                                                    +"VALUES (?,?,?,?,?,?,?,?,?,?) ";
 
-	public static final String fetchTrackingDetailsWrtTrackingIdSql = "select * from rts_tracking_details where rts_req_res_status_tracking_id = ? ";
+	//public static final String fetchTrackingDetailsWrtTrackingIdSql = "select * from rts_tracking_details where rts_req_res_status_tracking_id = ? ";
+	
+	public static final String fetchTrackingDetailsWrtTrackingIdSql = "select a.rts_tracking_details_id,a.rts_req_res_status_tracking_id,a.tenure_from,a.tenure_to,a.charge_out_rate, "
+								+ "a.resource_salary,a.margin,a.approval_status,a.approvar_person, "
+								+ "a.final_processed,a.user_id,a.percentage,b.email as user_id_email,(select email from rts_user_master where user_id = a.approvar_person) as approver_person_email_id "
+								+ "from rts_req_res_status_tracking_details a,rts_user_master b "
+								+ "where a.user_id = b.user_id "
+								+ "and rts_req_res_status_tracking_id = ? "
+								+ "order by rts_tracking_details_id ";
 	
 	public static final String fetchCountTrackingIdSql = "select count(*) from rts_tracking_details where rts_req_res_status_tracking_id = ? ";
 	

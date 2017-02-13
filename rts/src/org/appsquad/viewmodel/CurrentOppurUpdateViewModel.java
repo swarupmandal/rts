@@ -1,8 +1,6 @@
 package org.appsquad.viewmodel;
 
 import java.sql.Connection;
-import java.sql.SQLException;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -292,7 +290,6 @@ public class CurrentOppurUpdateViewModel {
 																	currentOpportunitiesBean.getSessionUserId(), currentOpportunitiesBean.getOperation(),currentDate,
 																	currentOpportunitiesBean.getOperationId());
 			
-			//fetchDataWrtDataEntryOrApprover();
 			winCurrOppurUpdatePage.detach();
 		}
 	}
@@ -316,9 +313,7 @@ public class CurrentOppurUpdateViewModel {
 			System.out.println(approverName);
 			if(approverName.equalsIgnoreCase(userId)){
 				if(CurrentOpportunitiesService.validateForApprover(currentOpportunitiesBean)){
-					/*System.out.println("before name :"+currentOpportunitiesBean.getReqResStatusTrackingId());*/
 					name = CurrentOpportunitiesDao.getDataEntryOperatorName(currentOpportunitiesBean.getReqResStatusTrackingId());
-					/*System.out.println("IN ON CREATE METHOD NAME :"+name);*/
 					flag1stDelete = CurrentOpportunitiesDao.deleteRoleData(currentOpportunitiesBean);
 					if(flag1stDelete){
 						currentOpportunitiesBean.setLoginID(name);
@@ -326,26 +321,25 @@ public class CurrentOppurUpdateViewModel {
 						flag1stInsert = CurrentOpportunitiesService.insertTrackingDetails(currentOpportunitiesBean);
 					}
 					
-					//System.out.println("FLAG INSERT FOR APPROVER IS :"+flag1stInsert);
-					
 					if(flag1stInsert){
 						flagCreateInsert = CurrentOpportunitiesService.updateTrackingDetailsService(currentOpportunitiesBean);	
 					}
-					//System.out.println(flagCreateInsert);
+					
 					if(flagCreateInsert){
 						flagCreateUpdate = CurrentOpportunitiesService.updateTrackingService(currentOpportunitiesBean);
-						//System.out.println(flagCreateUpdate);
+						
 						if(flagCreateUpdate){
 							
 							String emailId = CurrentOpportunitiesDao.fetchEmailId(name);
-							//System.out.println(emailId);
+							
 							emailSend = SendEmail.validator(emailId);
 							System.out.println("flag email send is :"+emailSend);
 							if(emailSend){
-								SendEmail.generateAndSendEmailForApproveOrReject(emailId, currentOpportunitiesBean.getApproval(), currentOpportunitiesBean.getReqResStatusTrackingId())	;
+								//SendEmail.generateAndSendEmailForApproveOrReject(emailId, currentOpportunitiesBean.getApproval(), currentOpportunitiesBean.getReqResStatusTrackingId())	;
+								SendEmail.generateAndSendEmailForApproveOrReject(currentOpportunitiesBean.getApproval(),currentOpportunitiesBean);
 							}
 							
-							//System.out.println(currentOpportunitiesBean.getApproval());
+							
 							if(currentOpportunitiesBean.getApproval().equalsIgnoreCase("Approve")){
 								Messagebox.show(" Approved Successfully ","Information",Messagebox.OK,Messagebox.INFORMATION);
 							}else{
@@ -357,11 +351,11 @@ public class CurrentOppurUpdateViewModel {
 							currentOpportunitiesBean.setSessionUserId(userId);
 							Calendar calendar = Calendar.getInstance();
 						    java.sql.Date currentDate = new java.sql.Date(calendar.getTime().getTime());
-							//System.out.println("CREATION DATE :"+currentDate);
+							
 							flagCreateLogInsert = LogAuditServiceClass.insertIntoLogTable(currentOpportunitiesBean.getMainScreenName(), currentOpportunitiesBean.getChileScreenName(), 
 																						  currentOpportunitiesBean.getSessionUserId(), currentOpportunitiesBean.getOperation(),currentDate,
 																					      currentOpportunitiesBean.getOperationId());
-							//System.out.println("flagLogInsert Is:"+flagCreateLogInsert);
+							
 							winCurrOppurUpdatePage.detach();
 							BindUtils.postGlobalCommand(null, null, "reLoadPreBillingMainPage", null);
 						}
@@ -413,7 +407,8 @@ public class CurrentOppurUpdateViewModel {
 								emailSend = SendEmail.validator(emailId);
 								System.out.println("flag email send is :"+email);
 								if(emailSend){
-									SendEmail.generateAndSendEmailForApproveOrReject(emailId, currentOpportunitiesBean.getApproval(), currentOpportunitiesBean.getReqResStatusTrackingId())	;
+									SendEmail.generateAndSendEmailForApproveOrReject(currentOpportunitiesBean.getApproval(),currentOpportunitiesBean);
+									//SendEmail.generateAndSendEmailForApproveOrReject(emailId, currentOpportunitiesBean.getApproval(), currentOpportunitiesBean.getReqResStatusTrackingId())	;
 								}else{
 									System.out.println("APPROVER'S EMAIL ID IS NOT CORRECT. ");
 								}
@@ -459,7 +454,8 @@ public class CurrentOppurUpdateViewModel {
 					email = SendEmail.validator(emailId);
 					System.out.println("flag email send is :"+email);
 					if(emailSend){
-						SendEmail.generateAndSendEmailForApproveOrReject(emailId, currentOpportunitiesBean.getApproval(), currentOpportunitiesBean.getReqResStatusTrackingId())	;
+						SendEmail.generateAndSendEmailForApproveOrReject(currentOpportunitiesBean.getApproval(),currentOpportunitiesBean);
+						//SendEmail.generateAndSendEmailForApproveOrReject(emailId, currentOpportunitiesBean.getApproval(), currentOpportunitiesBean.getReqResStatusTrackingId())	;
 					}else{
 						System.out.println("APPROVER'S EMAIL ID IS NOT CORRECT. ");
 					}
@@ -569,7 +565,6 @@ public class CurrentOppurUpdateViewModel {
 	public void setCreateOfferVisibility(boolean createOfferVisibility) {
 		this.createOfferVisibility = createOfferVisibility;
 	}
-
 	public boolean isSaveButtonVisibility() {
 		return saveButtonVisibility;
 	}

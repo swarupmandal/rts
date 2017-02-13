@@ -28,7 +28,7 @@ public class SendEmail{
 		return isValid;
 	}
 
-	public static Boolean generateAndSendEmailForApproveOrReject(String emailId,String status,Integer trackingID) {
+	public static Boolean generateAndSendEmailForApproveOrReject(String status,CurrentOpportunitiesBean opportunitiesBean) {
 		Properties mailServerProperties;
 		Session getMailSession;
 		MimeMessage generateMailMessage;
@@ -48,13 +48,14 @@ public class SendEmail{
 		generateMailMessage = new MimeMessage(getMailSession);
 		try {
 			generateMailMessage.setFrom(new InternetAddress("sentmail95@gmail.com"));
-			generateMailMessage.addRecipient(Message.RecipientType.TO,new InternetAddress(emailId));
+			generateMailMessage.addRecipient(Message.RecipientType.TO,new InternetAddress(opportunitiesBean.getUserPersonEmail()));
+			generateMailMessage.addRecipient(Message.RecipientType.CC,new InternetAddress(opportunitiesBean.getApproverPersonEmail()));
 			generateMailMessage.setSubject("Approval Request Status From Resource Augmentation Tracking System");
 
 			if(status.equalsIgnoreCase("Approve")){
-				emailBody =""+trackingID+" Number Approval Request Approved.";
+				emailBody = messegeForApproveOrReject(opportunitiesBean, "Approved");
 			}else{
-				emailBody =""+trackingID+" Number Approval Request Rejected."; 
+				emailBody = messegeForApproveOrReject(opportunitiesBean, "Rejected");
 			}
 			generateMailMessage.setContent(emailBody, "text/html");
 			System.out.println("Mail Session has been created successfully..");
@@ -283,6 +284,32 @@ public class SendEmail{
 				+ "</span><br><br>"
 				+ "</p>"
 				+ "<p style=\"font-size: 17px;\">Kindly approve/reject as per your requirement.</p>"
+				+ "<h4>Thanks.</h4>"
+				+ "</div>"
+				+ "</div>"
+				+ "</body>"
+				+ "</html>");
+		return sb.toString();
+	}
+	
+	public static String messegeForApproveOrReject(CurrentOpportunitiesBean opportunitiesBean,String approveOrReject){
+		StringBuilder sb = new StringBuilder();
+		sb.append("<html>"
+				+ "<body>"
+				+ "<div style=\"border: 1px solid green;box-shadow: 10px 10px 5px #888888;background-color: #ffffcc;\">"
+				+ "<h2 style=\"text-align: center;font:bold;color: green; \">BILLING APPROVAL REQUEST STATUS</h2>"
+				+ "<hr>"
+				+ "<div style=\"margin-left: 30px;\">"
+				+ "<strong style=\"font-size: 24px;\">Hello "+opportunitiesBean.getUserPerson()+",</strong>"
+				+ "<p style=\"font-size: 17px;\">Your billing approval request is "+approveOrReject+" by "+opportunitiesBean.getBean().getUserID()+".</p>"
+				+ "<strong style=\"font-size: 18px;\"><u>The approved details are given below</u>:-</strong><br>"
+				+ "<p>"
+				+ "<strong>Requirement ID: </strong><span>"+opportunitiesBean.getRid()+"</span><br><br>"
+				+ "<strong>Client-Name: </strong><span>"+opportunitiesBean.getClientName()+"</span><br><br>"
+				+ "<strong>Resource Name: </strong><span> "
+				+ opportunitiesBean.getResourceName()
+				+ "</span><br><br>"
+				+ "</p>"
 				+ "<h4>Thanks.</h4>"
 				+ "</div>"
 				+ "</div>"
