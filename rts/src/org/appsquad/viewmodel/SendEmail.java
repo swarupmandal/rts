@@ -10,6 +10,7 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import org.appsquad.bean.CurrentOpportunitiesBean;
 import org.appsquad.bean.TaskNameBean;
 import org.appsquad.bean.UserprofileBean;
 import org.appsquad.utility.Dateformatter;
@@ -72,7 +73,7 @@ public class SendEmail{
 		return false;
 	}
 
-	public static Boolean generateAndSendEmail(String emailId) {
+	public static Boolean generateAndSendEmail(String emailId,String ccEmailId,CurrentOpportunitiesBean opportunitiesBean) {
 		Properties mailServerProperties;
 		Session getMailSession;
 		MimeMessage generateMailMessage;
@@ -92,9 +93,9 @@ public class SendEmail{
 		try {
 			generateMailMessage.setFrom(new InternetAddress("sentmail95@gmail.com"));
 			generateMailMessage.addRecipient(Message.RecipientType.TO,new InternetAddress(emailId));
-			//generateMailMessage.addRecipient(Message.RecipientType.CC,new InternetAddress("prolayjit.dutta@appsquad.in"));
-			generateMailMessage.setSubject("Approval Request Sent From Resource Augmentation Tracking System");
-			String emailBody ="Approval Request Sent To You.";
+			generateMailMessage.addRecipient(Message.RecipientType.CC,new InternetAddress(ccEmailId));
+			generateMailMessage.setSubject("Approval Request From Resource Augmentation Tracking System");
+			String emailBody = messegeForApprover(opportunitiesBean);
 			generateMailMessage.setContent(emailBody, "text/html");
 			System.out.println("Mail Session has been created successfully..");
 
@@ -261,6 +262,35 @@ public class SendEmail{
 				+ "</html>");
 		return sb.toString();
 	}
+	
+	
+	public static String messegeForApprover(CurrentOpportunitiesBean opportunitiesBean){
+		StringBuilder sb = new StringBuilder();
+		sb.append("<html>"
+				+ "<body>"
+				+ "<div style=\"border: 1px solid green;box-shadow: 10px 10px 5px #888888;background-color: #ffffcc;\">"
+				+ "<h2 style=\"text-align: center;font:bold;color: green; \">BILLING APPROVAL REQUEST</h2>"
+				+ "<hr>"
+				+ "<div style=\"margin-left: 30px;\">"
+				+ "<strong style=\"font-size: 24px;\">Hello "+opportunitiesBean.getBean().getUserID()+",</strong>"
+				+ "<p style=\"font-size: 17px;\">One billing confirmation for approval is requested for you.</p>"
+				+ "<strong style=\"font-size: 18px;\"><u>The details description is given below</u>:-</strong><br>"
+				+ "<p>"
+				+ "<strong>Requirement ID: </strong><span>"+opportunitiesBean.getRid()+"</span><br><br>"
+				+ "<strong>Client-Name: </strong><span>"+opportunitiesBean.getClientName()+"</span><br><br>"
+				+ "<strong>Resource Name: </strong><span> "
+				+ opportunitiesBean.getResourceName()
+				+ "</span><br><br>"
+				+ "</p>"
+				+ "<p style=\"font-size: 17px;\">Kindly approve/reject as per your requirement.</p>"
+				+ "<h4>Thanks.</h4>"
+				+ "</div>"
+				+ "</div>"
+				+ "</body>"
+				+ "</html>");
+		return sb.toString();
+	}
+	
 	
 	public static String forgotPasswordBodyMessage(UserprofileBean user){
 		StringBuilder sb = new StringBuilder();

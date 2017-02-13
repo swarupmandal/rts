@@ -275,11 +275,12 @@ public class CurrentOppurUpdateViewModel {
 		}
 		System.out.println("FLAG INSERT FOR DATA ENTRY OPERATOR IS :"+flagInsert);
 		if(flagInsert){
-			String emailId = CurrentOpportunitiesDao.fetchEmailId(currentOpportunitiesBean.getBean().getUserID());
-			System.out.println(emailId);
-			flagEmailSend = SendEmail.validator(emailId);
+			String toEmailId = CurrentOpportunitiesDao.fetchEmailId(currentOpportunitiesBean.getBean().getUserID());
+			String ccEmailId = CurrentOpportunitiesDao.fetchEmailId(currentOpportunitiesBean.getLoginID());
+			System.out.println(toEmailId);
+			flagEmailSend = SendEmail.validator(toEmailId);
 			if(flagEmailSend){
-				SendEmail.generateAndSendEmail(emailId);	
+				SendEmail.generateAndSendEmail(toEmailId,ccEmailId,currentOpportunitiesBean);	
 			}
 			currentOpportunitiesBean.setOperation("INSERT");
 			currentOpportunitiesBean.setOperationId(1);

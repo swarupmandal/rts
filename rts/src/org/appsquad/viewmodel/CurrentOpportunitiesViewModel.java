@@ -28,7 +28,7 @@ public class CurrentOpportunitiesViewModel {
 	CurrentOpportunitiesBean currentOpportunitiesBean = new CurrentOpportunitiesBean(); 
 	UserprofileBean userprofileBean = new UserprofileBean();
 	
-	private ArrayList<CurrentOpportunitiesBean> currentOpportunitiesBeanList = new ArrayList<CurrentOpportunitiesBean>();
+	private ArrayList<CurrentOpportunitiesBean> currentOpportunitiesBeanList = null;
 	private ArrayList<UserprofileBean> userprofileBeanList = new ArrayList<UserprofileBean>();
 	private ArrayList<Integer> idList = null;
 	
@@ -65,49 +65,18 @@ public class CurrentOpportunitiesViewModel {
 	}
 	
 	public void fetchDataWrtDataEntryOrApprover(){
-		//roleName = CurrentOpportunitiesService.fetchRoleNameWrtUserId(userId);
 		roleName = RuntimePopulateRoleBasedOnUserId.populateRoleBasedOnUserId(userId);
 		System.out.println("IN MAIN SCREEN ROLE NAME :"+roleName);
 		if(roleName.equalsIgnoreCase("DATA ENTRY OPERATOR")){
-			comboBoxDisable = true;
-			sendToApproverVisibility = true;
-			approverNameDisable = false;
-			tenureFromDisable = false;
-			tenureToDisable = false;
-			chargeoutRateDisable = false;
-			resourceSalaryDisable = false;
-			marginDisable = false;
-			currentOpportunitiesBeanList = CurrentOpportunitiesService.loadCurrentOpportunityDetails();
+			setCurrentOpportunitiesBeanList(CurrentOpportunitiesService.loadCurrentOpportunityDetails());
 		}else if(roleName.equalsIgnoreCase("APPROVER")){
-			comboBoxDisable = false;
-			createOfferVisibility = true;
-			tenureFromDisable = true;
-			approverNameDisable = true;
-			tenureToDisable = true;
-			chargeoutRateDisable = true;
-			resourceSalaryDisable = true;
-			marginDisable = true;
 			idList = CurrentOpportunitiesService.fetchClientIdList(userId);
 			System.out.println("ID LIST SIZE IS :"+idList.size()+"------"+Arrays.toString(idList.toArray()));
 			if(idList.size()>0){
-			   currentOpportunitiesBeanList = CurrentOpportunitiesService.loadCurrentOpportunityDetailsForApprover(idList);	
+			   setCurrentOpportunitiesBeanList(CurrentOpportunitiesService.loadCurrentOpportunityDetailsForApprover(idList));	
 			}
 		}else if(roleName.equalsIgnoreCase("APPROVER AND DATA ENTRY OPERATOR")){
-			/*comboBoxDisable = false;
-			createOfferVisibility = true;
-			tenureFromDisable = true;
-			approverNameDisable = true;
-			tenureToDisable = true;
-			chargeoutRateDisable = true;
-			resourceSalaryDisable = true;
-			marginDisable = true;
-			idList = CurrentOpportunitiesService.fetchClientIdList(userId);
-			if(idList.size()>0){
-				System.out.println("ID LIST SIZE IS :"+idList.size()+"------"+Arrays.toString(idList.toArray()));
-				currentOpportunitiesBeanList = CurrentOpportunitiesService.loadCurrentOpportunityDetailsForApprover(idList);	
-			}*/
-			
-			currentOpportunitiesBeanList = CurrentOpportunitiesService.loadCurrentOpportunityDetails();
+			setCurrentOpportunitiesBeanList(CurrentOpportunitiesService.loadCurrentOpportunityDetails());
 		}
 	}
 	
@@ -135,13 +104,6 @@ public class CurrentOpportunitiesViewModel {
 	}
 	public void setUserprofileBean(UserprofileBean userprofileBean) {
 		this.userprofileBean = userprofileBean;
-	}
-	public ArrayList<CurrentOpportunitiesBean> getCurrentOpportunitiesBeanList() {
-		return currentOpportunitiesBeanList;
-	}
-	public void setCurrentOpportunitiesBeanList(
-			ArrayList<CurrentOpportunitiesBean> currentOpportunitiesBeanList) {
-		this.currentOpportunitiesBeanList = currentOpportunitiesBeanList;
 	}
 	public ArrayList<UserprofileBean> getUserprofileBeanList() {
 		return userprofileBeanList;
@@ -245,5 +207,12 @@ public class CurrentOpportunitiesViewModel {
 	}
 	public void setCreateOfferDisable(boolean createOfferDisable) {
 		this.createOfferDisable = createOfferDisable;
+	}
+	public ArrayList<CurrentOpportunitiesBean> getCurrentOpportunitiesBeanList() {
+		return currentOpportunitiesBeanList;
+	}
+	public void setCurrentOpportunitiesBeanList(
+			ArrayList<CurrentOpportunitiesBean> currentOpportunitiesBeanList) {
+		this.currentOpportunitiesBeanList = currentOpportunitiesBeanList;
 	}
 }
