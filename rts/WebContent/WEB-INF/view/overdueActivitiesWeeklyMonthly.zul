@@ -15,21 +15,21 @@
     <div visible="@bind(vm.divVisibility)">
 			    			<grid model="@bind(vm.weekFinalList)" mold="paging" pageSize="8" height="410px">	
 			    				<columns sizable="true">
-			    					<column width="160px" label="Delay No Of Week" style="font-weight:bold; color: black" align="center"></column>
-			    					<column width="900px" label="Task Details" style="font-weight:bold; color: black" align="center"></column>
+			    					<column width="140px" label="Delay No Of Week" style="font-weight:bold; color: black" align="center"></column>
+			    					<column width="903px" label="Task Details" style="font-weight:bold; color: black" align="center"></column>
 			    				</columns>
 			    				<rows>
 			    				  <template name="model" var = "v">
 			    					<row>
 			    				  		<label value="@bind(v.week)" width="98%" ></label>
-			    				  		<grid model="@bind(v.weekList)" width="98%">
+			    				  		<grid model="@bind(v.weekList)" width="99%">
 			    				  			<columns>
 			    				  				<column width="200px" label="Task Name" style="font-weight:bold; color: black" align="center"></column> 
 			    								<column width="150px" label="Assigned By" style="font-weight:bold; color: black" align="center"></column>
 			    								<column width="150px" label="Assigned To" style="font-weight:bold; color: black" align="center"></column>
 			    								<column width="120px" label="Creation Date" style="font-weight:bold; color: black" align="center"></column>
 			    								<column width="120px" label="Schedule Date" style="font-weight:bold; color: black" align="center"></column>
-			    								<column width="110px" label="Completion Date" style="font-weight:bold; color: black" align="center"></column>
+			    								<column width="130px" label="Completion Date" style="font-weight:bold; color: black" align="center"></column>
 			    				  				</columns>
 			    				  			<rows>
 			    				  				<template name="model" var="v1">
@@ -41,11 +41,11 @@
 						    				  		<label width="98%" value="@bind(v1.userprofileBean.userid)" tooltiptext="@bind(v1.userprofileBean.userid)">
 						    				  		</label>
 						    				  		<datebox format="dd-MM-yyyy" buttonVisible="false" readonly="true"  value="@bind(v1.createdDateSql)" 
-						    				  		width="98%" tooltiptext="@bind(v1.createdDateStr)"/>
+						    				  		width="98%" tooltiptext="@bind(v1.createdDateStr)" style="text-align:center;"/>
 						    				  		<datebox format="dd-MM-yyyy" buttonVisible="false" readonly="true"  value="@bind(v1.scheduledDateSql)" 
-						    				  		width="98%" tooltiptext="@bind(v1.scheduledDateStr)"/>
+						    				  		width="98%" tooltiptext="@bind(v1.scheduledDateStr)" style="text-align:center;"/>
 						    				  		<datebox format="dd-MM-yyyy" buttonVisible="false" readonly="true"  value="@bind(v1.actualCompletionDateSql)" 
-						    				  		width="98%" tooltiptext="@bind(v1.actualCompletionDateStr)"/>
+						    				  		width="100%" tooltiptext="@bind(v1.actualCompletionDateStr)" style="text-align:center;"/>
 			    				  				</row>
 			    				  				</template>
 			    				  			</rows>
@@ -65,21 +65,21 @@
   					 <div visible="@bind(vm.secondDivVisibility)">
 			    			<grid model="@bind(vm.monthFinalList)" mold="paging" pageSize="8" height="410px">	
 			    				<columns sizable="true">
-			    					<column width="160px" label="Delay No Of Month" style="font-weight:bold; color: black" align="center"></column>
-			    					<column width="900px" label="Task Details" style="font-weight:bold; color: black" align="center"></column>
+			    					<column width="140px" label="Delay No Of Month" style="font-weight:bold; color: black" align="center"></column>
+			    					<column width="903px" label="Task Details" style="font-weight:bold; color: black" align="center"></column>
 			    				</columns>
 			    				<rows>
 			    				  <template name="model" var = "v">
 			    					<row>
 			    				  		<label value="@bind(v.month)" width="98%" ></label>
-			    				  		<grid model="@bind(v.yearList)" width="98%">
+			    				  		<grid model="@bind(v.yearList)" width="99%">
 			    				  			<columns>
 			    				  				<column width="200px" label="Task Name" style="font-weight:bold; color: black" align="center"></column> 
 			    								<column width="150px" label="Assigned By" style="font-weight:bold; color: black" align="center"></column>
 			    								<column width="150px" label="Assigned To" style="font-weight:bold; color: black" align="center"></column>
 			    								<column width="120px" label="Creation Date" style="font-weight:bold; color: black" align="center"></column>
 			    								<column width="120px" label="Schedule Date" style="font-weight:bold; color: black" align="center"></column>
-			    								<column width="110px" label="Completion Date" style="font-weight:bold; color: black" align="center"></column>
+			    								<column width="130px" label="Completion Date" style="font-weight:bold; color: black" align="center"></column>
 			    				  				</columns>
 			    				  			<rows>
 			    				  				<template name="model" var="v1">
@@ -90,11 +90,11 @@
 						    				  		</label>
 						    				  		<label width="98%" value="@bind(v1.userprofileBean.userid)" tooltiptext="@bind(v1.userprofileBean.userid)">
 						    				  		</label>
-						    				  		<label value="@bind(v1.createdDateStr)" width="98%" tooltiptext="@bind(v1.createdDateStr)">
+						    				  		<label value="@bind(v1.createdDateStr)" width="98%" tooltiptext="@bind(v1.createdDateStr)" style="text-align:center;">
 						    				  		</label>
-						    				  		<label value="@bind(v1.scheduledDateStr)" width="98%" tooltiptext="@bind(v1.scheduledDateStr)">
+						    				  		<label value="@bind(v1.scheduledDateStr)" width="98%" tooltiptext="@bind(v1.scheduledDateStr)" style="text-align:center;">
 						    				  		</label>
-						    				  		<label value="@bind(v1.actualCompletionDateStr)" width="98%" tooltiptext="@bind(v1.actualCompletionDateStr)">
+						    				  		<label value="@bind(v1.actualCompletionDateStr)" width="100%" tooltiptext="@bind(v1.actualCompletionDateStr)" style="text-align:center;">
 						    				  		</label>
 			    				  				</row>
 			    				  				</template>

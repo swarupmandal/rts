@@ -1,6 +1,6 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="Creation Datewise Detail Report" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('org.appsquad.viewmodel.CreationDateWiseReportViewModel')">
+<window title="Creation Datewise Detail Report" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('org.appsquad.viewmodel.CreationDateWiseReportViewModel')" height="585px">
  					<div>
                           <hlayout>
                             <grid>
@@ -89,11 +89,11 @@
                         </div>
  					<space></space>
  					 <div visible="@bind(vm.divVisibility)">
-                           <grid model="@bind(vm.scheduleDateWiseReportList)" mold="paging" pageSize="5" sclass="fgrid" height="400px">
+                           <grid model="@bind(vm.scheduleDateWiseReportList)" mold="paging" pageSize="7" sclass="fgrid" height="390px">
                                <columns>
                                     <column label="Task Name" align="center" width="180px"/>
                                     <column label="Assigned By" align="center"/>
-                                    <column label="Person Responsible" align="center"/>
+                                    <column label="Assigned To" align="center"/>
                                     <column label="Creation Date" align="center"/>
                                     <column label="Schedule Date" align="center"/>
                                     <column label="Completion Date" align="center"/>
@@ -118,7 +118,8 @@
                        </div>
                        <space></space>
                        <div align="center">
-                          <button label="Generate PDF" image="images/pdf.png" style="font-weight:bold" onClick="@command('onClickPdf')" visible="@bind(vm.buttonVisibility)">
+                          <button label="Generate PDF" image="images/pdf.png" style="font-weight:bold" onClick="@command('onClickPdf')" visible="@bind(vm.buttonVisibility)"
+                            width="160px" height="39px">
  						  </button>
                        </div>
 		</window>
